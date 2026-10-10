@@ -105,6 +105,10 @@ if(RRR3D_ENABLE_PHYSICS AND NOT WIN32 AND RRR3D_BUILD_ORIGINAL_MENU)
         -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_suspension_stop_patch.cmake"
         COMMAND_ERROR_IS_FATAL ANY)
     set(RRR3D_JOLT_TARGET Jolt)
+    execute_process(COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE_DIR=${rrr3d_jolt_SOURCE_DIR}"
+        -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_contact_limits_patch.cmake"
+        COMMAND_ERROR_IS_FATAL ANY)
 endif()
 
 if(RRR3D_BUILD_SDL_SHELL OR RRR3D_BUILD_DXVK_MOLTENVK_TEST OR

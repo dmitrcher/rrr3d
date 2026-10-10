@@ -1,0 +1,120 @@
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -43,6 +43,8 @@
+ 	float					mCombinedFriction;					///< Combined friction for the body pair (see: PhysicsSystem::SetCombineFriction)
+ 	float					mCombinedFriction2 = -1.0f;			///< Optional friction along the second tangent; negative uses mCombinedFriction
+ 	Vec3					mFrictionDirection1 = Vec3::sZero(); ///< Optional world-space first friction tangent; zero selects Jolt's default
++	bool					mUseIndependentFriction = false; ///< Nx two independent tangential impulse limits
++	bool					mUseBoxContactOrder = false; ///< Nx box face winding inferred from reference impulse probes
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -470,6 +470,8 @@
+ 		Float3					mWorldSpaceTangent1;
+ 		float					mCombinedFriction;
+ 		float					mCombinedFriction2;
++		bool					mUseIndependentFriction;
++		bool					mUseBoxContactOrder;
+ 		float					mInvMass1;
+ 		float					mInvInertiaScale1;
+ 		float					mInvMass2;
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -952,6 +952,8 @@
+ 			constraint.mSortKey = input_hash;
+ 			world_space_normal.StoreFloat3(&constraint.mWorldSpaceNormal);
+ 			constraint.mCombinedFriction = settings.mCombinedFriction;
++			constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
++			constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
+ 			constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+ 			Vec3 friction_direction1 = settings.mFrictionDirection1 - world_space_normal * settings.mFrictionDirection1.Dot(world_space_normal);
+ 			if (friction_direction1.LengthSq() < Square(1.0e-6f))
+@@ -1141,6 +1143,8 @@
+ 		constraint.mSortKey = key_hash;
+ 		inManifold.mWorldSpaceNormal.StoreFloat3(&constraint.mWorldSpaceNormal);
+ 		constraint.mCombinedFriction = settings.mCombinedFriction;
++		constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
++		constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
+ 		constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+ 		Vec3 friction_direction1 = settings.mFrictionDirection1 - inManifold.mWorldSpaceNormal * settings.mFrictionDirection1.Dot(inManifold.mWorldSpaceNormal);
+ 		if (friction_direction1.LengthSq() < Square(1.0e-6f))
+@@ -1609,6 +1613,33 @@
+ 	Vec3 t1, t2;
+ 	ioConstraint.GetTangents(t1, t2);
+ 
++	// Nx box face winding. Keep mesh contact reduction and legacy pairs intact.
++	if (ioConstraint.mUseBoxContactOrder && ioConstraint.mContactPoints.size() == 4)
++	{
++		Quat rotation = ioConstraint.mBody1->GetRotation();
++		auto position = [&](const WorldContactPoint &p) { return rotation * Vec3::sLoadFloat3Unsafe(p.mContactPoint->mPosition1); };
++		Vec3 center = Vec3::sZero();
++		for (const WorldContactPoint &p : ioConstraint.mContactPoints) center += position(p);
++		center *= 0.25f;
++		std::sort(ioConstraint.mContactPoints.begin(), ioConstraint.mContactPoints.end(), [&](const WorldContactPoint &a, const WorldContactPoint &b) {
++			Vec3 pa = position(a) - center, pb = position(b) - center;
++			return std::atan2(pa.Dot(t2), pa.Dot(t1)) > std::atan2(pb.Dot(t2), pb.Dot(t1));
++		});
++		float lowest = FLT_MAX;
++		for (const WorldContactPoint &p : ioConstraint.mContactPoints) lowest = min(lowest, position(p).Dot(t2));
++		// Group vertices on the same box edge at float contact precision.
++		float tie = 1.0e-5f * max(1.0f, std::abs(lowest));
++		auto anchor = ioConstraint.mContactPoints.begin();
++		float primary = -FLT_MAX;
++		for (auto p = ioConstraint.mContactPoints.begin(); p != ioConstraint.mContactPoints.end(); ++p)
++			if (position(*p).Dot(t2) <= lowest + tie && position(*p).Dot(t1) > primary)
++			{
++				primary = position(*p).Dot(t1);
++				anchor = p;
++			}
++		std::rotate(ioConstraint.mContactPoints.begin(), anchor, ioConstraint.mContactPoints.end());
++	}
++
+ 	// First apply all friction constraints (non-penetration is more important than friction)
+ 	for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 	{
+@@ -1626,20 +1657,30 @@
+ 			float max_lambda_f1 = ioConstraint.mCombinedFriction * normal_lambda;
+ 			float max_lambda_f2 = ioConstraint.mCombinedFriction2 * normal_lambda;
+ 
+-			// Clamp to the anisotropic Coulomb ellipse. Equal coefficients
+-			// reduce to Jolt's original circular cone.
+-			if (max_lambda_f1 <= 0.0f)
+-				lambda1 = 0.0f;
+-			if (max_lambda_f2 <= 0.0f)
+-				lambda2 = 0.0f;
+-			float normalized_lambda_sq =
+-				(max_lambda_f1 > 0.0f? Square(lambda1 / max_lambda_f1) : 0.0f)
+-				+ (max_lambda_f2 > 0.0f? Square(lambda2 / max_lambda_f2) : 0.0f);
+-			if (normalized_lambda_sq > 1.0f)
++			if (ioConstraint.mUseIndependentFriction)
+ 			{
+-				float scale = 1.0f / sqrt(normalized_lambda_sq);
+-				lambda1 *= scale;
+-				lambda2 *= scale;
++				// Nx diagonal frozen-body probe: each axis decelerates at mu*g,
++				// rather than sharing the ellipse budget (mu*g/sqrt(2)).
++				lambda1 = Clamp(lambda1, -max_lambda_f1, max_lambda_f1);
++				lambda2 = Clamp(lambda2, -max_lambda_f2, max_lambda_f2);
++			}
++			else
++			{
++				// Clamp to the anisotropic Coulomb ellipse. Equal coefficients
++				// reduce to Jolt's original circular cone.
++				if (max_lambda_f1 <= 0.0f)
++					lambda1 = 0.0f;
++				if (max_lambda_f2 <= 0.0f)
++					lambda2 = 0.0f;
++				float normalized_lambda_sq =
++					(max_lambda_f1 > 0.0f? Square(lambda1 / max_lambda_f1) : 0.0f)
++					+ (max_lambda_f2 > 0.0f? Square(lambda2 / max_lambda_f2) : 0.0f);
++				if (normalized_lambda_sq > 1.0f)
++				{
++					float scale = 1.0f / sqrt(normalized_lambda_sq);
++					lambda1 *= scale;
++					lambda2 *= scale;
++				}
+ 			}
+ 
+ 			// Apply the friction impulse

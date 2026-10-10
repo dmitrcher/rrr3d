@@ -128,6 +128,8 @@ struct VehicleDescription
     Vec3 angularDamping{1.0F, 1.0F, 1.0F};
     float bodySkinWidth = 0.025F;
     float bodySleepEnergyThreshold = 0.05F;
+    // Nx frozen-rotation control, also used to isolate translation in probes.
+    bool freezeRotation = false;
     float bodyFriction = 0.08F;
     float brakeTorque = 0.0F;
     float differentialRatio = 0.0F;

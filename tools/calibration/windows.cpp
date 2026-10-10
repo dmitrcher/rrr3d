@@ -29,6 +29,7 @@ static void execute(const cal::Case& c) {
 
  NxBoxShapeDesc box;box.dimensions=v3(c.halfExtents);box.localPose.t=v3(c.shapePosition);box.skinWidth=.025f;box.materialIndex=carMaterial->getMaterialIndex();
  NxBodyDesc body;body.mass=(float)c.mass;body.linearDamping=0;body.angularDamping=.05f;body.sleepEnergyThreshold=(float)c.sleepThreshold;body.massLocalPose.t=v3(c.centerOfMass);body.solverIterationCount=4;
+ if(c.fixedOrientation)body.flags|=NX_BF_FROZEN_ROT;
  WheelContact callback(c);NxWheelShapeDesc wheelDescriptions[4];NxWheelShape* wheels[4];
  NxActorDesc actor;actor.body=&body;actor.flags=NX_AF_LOCK_COM|NX_AF_CONTACT_MODIFICATION;actor.shapes.pushBack(&box);actor.globalPose.t=NxVec3(0,0,(float)c.height);
  for(int i=0;i<4;++i){NxWheelShapeDesc& w=wheelDescriptions[i];w.materialIndex=wheelMaterial->getMaterialIndex();w.group=4;const cal::Wheel& source=c.wheels[i];w.localPose.t=v3(source.position);w.localPose.M.setColumn(0,NxVec3(0,1,0));w.localPose.M.setColumn(1,NxVec3(0,0,1));w.localPose.M.setColumn(2,NxVec3(1,0,0));w.radius=(float)source.radius;w.suspensionTravel=(float)source.travel;w.suspension.spring=(float)source.spring;w.suspension.damper=(float)source.damper;w.suspension.targetValue=(float)source.target;w.inverseWheelMass=(float)source.inverseMass;w.wheelFlags=source.flags;w.longitudalTireForceFunction=tire(source.longitudinal);w.lateralTireForceFunction=tire(source.lateral);w.skinWidth=.025f;w.wheelContactModify=&callback;
@@ -36,7 +37,9 @@ static void execute(const cal::Case& c) {
  NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");
  car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
  for(int i=0;i<4;++i){wheels[i]=car->getShapes()[i+1]->isWheel();if(!wheels[i])throw std::runtime_error("Wheel shape order changed");}
- if(c.obstacle){NxBoxShapeDesc o;o.dimensions=c.obstacle<=2?NxVec3(.25f,10,3):c.obstacle==3?NxVec3(.5f,10,.15f):NxVec3(20,.25f,.3f);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=c.obstacle<=2?NxVec3(8,0,13):c.obstacle==3?NxVec3(8,0,10.15f):NxVec3(8,.9f,10.3f);if(!scene->createActor(a))throw std::runtime_error("Obstacle creation failed");}
+ if(c.obstacle==5){NxBoxShapeDesc o;o.dimensions=NxVec3(20,20,.25f);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=NxVec3(0,0,9.75f);if(!scene->createActor(a))throw std::runtime_error("Friction floor creation failed");}
+ else if(c.obstacle==6){NxBoxShapeDesc o;o.dimensions=NxVec3(10,.25f,3);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=NxVec3(0,8,13);if(!scene->createActor(a))throw std::runtime_error("Lateral wall creation failed");}
+ else if(c.obstacle){NxBoxShapeDesc o;o.dimensions=c.obstacle<=2?NxVec3(.25f,10,3):c.obstacle==3?NxVec3(.5f,10,.15f):NxVec3(20,.25f,.3f);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=c.obstacle<=2?NxVec3(8,0,13):c.obstacle==3?NxVec3(8,0,10.15f):NxVec3(8,.9f,10.3f);if(!scene->createActor(a))throw std::runtime_error("Obstacle creation failed");}
  car->setCMassOffsetLocalPose(body.massLocalPose);
  std::ostringstream actual;actual<<"{\"mass\":"<<car->getMass()<<",\"inertia\":"<<cal::vector(cal::V(car->getMassSpaceInertiaTensor().x,car->getMassSpaceInertiaTensor().y,car->getMassSpaceInertiaTensor().z))<<",\"com\":"<<cal::vector(cal::V(car->getCMassLocalPosition().x,car->getCMassLocalPosition().y,car->getCMassLocalPosition().z))<<'}';motorrock::parity::event("calibration.engine-description",c.name,actual.str());
  car->setLinearVelocity(NxVec3((float)c.velocity.x,(float)c.velocity.y,(float)c.velocity.z));car->setAngularVelocity(NxVec3((float)c.angular.x,(float)c.angular.y,(float)c.angular.z));

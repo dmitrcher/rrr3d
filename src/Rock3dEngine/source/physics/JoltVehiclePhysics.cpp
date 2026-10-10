@@ -594,6 +594,9 @@ class OriginalContactListener final : public JPH::ContactListener
 {
 public:
     void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
+    void sourceContactOptions(bool independent, bool boxOrder) {
+        independentFriction_ = independent; boxContactOrder_ = boxOrder;
+    }
 
     void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
                          JPH::Vec3Arg normalImpulse,
@@ -629,6 +632,7 @@ public:
 
     void beginStep()
     {
+        ++traceStep_;
         std::scoped_lock lock(mutex_);
         for (auto& contacts : pending_)
             contacts.clear();
@@ -657,6 +661,7 @@ public:
                         JPH::ContactSettings& settings) override
     {
         configureMaterial(first, second, manifold, settings);
+        traceManifold(first, second, manifold, settings);
         record(first, second, manifold, settings);
     }
 
@@ -666,10 +671,48 @@ public:
                             JPH::ContactSettings& settings) override
     {
         configureMaterial(first, second, manifold, settings);
+        traceManifold(first, second, manifold, settings);
         record(first, second, manifold, settings);
     }
 
 private:
+    void traceManifold(const JPH::Body& first, const JPH::Body& second,
+                       const JPH::ContactManifold& manifold,
+                       const JPH::ContactSettings& settings) const
+    {
+        if (!tracePoints_) return;
+        std::ostringstream out;
+        out.imbue(std::locale::classic());
+        out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
+            << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
+            << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
+            << ",\"depth\":" << manifold.mPenetrationDepth
+            << ",\"friction0\":" << settings.mCombinedFriction
+            << ",\"friction1\":" << settings.mCombinedFriction2
+            << ",\"independent_friction\":" << (settings.mUseIndependentFriction?"true":"false")
+            << ",\"box_contact_order\":" << (settings.mUseBoxContactOrder?"true":"false");
+        const auto vector = [&](const char* name, JPH::RVec3 value) {
+            const Vec3 v = fromJolt(JPH::Vec3(value));
+            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
+        };
+        vector("normal", JPH::RVec3(manifold.mWorldSpaceNormal));
+        vector("axis1", JPH::RVec3(settings.mFrictionDirection1));
+        vector("center0", first.GetCenterOfMassPosition());
+        vector("center1", second.GetCenterOfMassPosition());
+        out << ",\"points\":[";
+        for (JPH::uint i=0; i<manifold.mRelativeContactPointsOn1.size(); ++i) {
+            if (i) out << ',';
+            out << '{';
+            // vector() prefixes fields with a comma; start with the point index.
+            out << "\"index\":" << i;
+            vector("on0", manifold.GetWorldSpaceContactPointOn1(i));
+            vector("on1", manifold.GetWorldSpaceContactPointOn2(i));
+            out << '}';
+        }
+        out << "]}";
+        motorrock::parity::event("physics.contact-manifold", "Jolt input manifold", out.str());
+    }
+
     void recordSolved(const JPH::Body& body, const JPH::Body& other,
                       JPH::Vec3Arg normalImpulse, JPH::Vec3Arg frictionImpulse)
     {
@@ -692,7 +735,7 @@ private:
         accumulateSourceContactForces(*found, std::move(solved));
     }
 
-    static void configureMaterial(
+    void configureMaterial(
         const JPH::Body& first, const JPH::Body& second,
         const JPH::ContactManifold& manifold,
         JPH::ContactSettings& settings) noexcept
@@ -705,6 +748,14 @@ private:
             vehicleIndex(second.GetUserData(), secondVehicle);
         if (!firstIsVehicle && !secondIsVehicle)
             return;
+        settings.mUseIndependentFriction = independentFriction_;
+        const auto isBox = [](const JPH::Body& body) {
+            const JPH::Shape* shape = body.GetShape();
+            while (shape->GetType() == JPH::EShapeType::Decorated)
+                shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+            return shape->GetSubType() == JPH::EShapeSubType::Box;
+        };
+        settings.mUseBoxContactOrder = boxContactOrder_ && isBox(first) && isBox(second);
         const JPH::Body& car = firstIsVehicle ? first : second;
         const JPH::Body& other = firstIsVehicle ? second : first;
         const auto surface = collisionSurface(other.GetUserData());
@@ -963,6 +1014,10 @@ private:
     }
 
     bool solvedImpulses_ = false;
+    bool independentFriction_ = false;
+    bool boxContactOrder_ = false;
+    bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
+    std::uint64_t traceStep_ = 0;
     std::mutex mutex_;
     std::vector<std::vector<BodyContact>> pending_;
     std::vector<std::vector<BodyContact>> projectilePending_;
@@ -1292,6 +1347,9 @@ public:
         physicsSettings.mTimeBeforeSleep = sourceTimeBeforeSleep;
         system_.SetPhysicsSettings(physicsSettings);
         contactListener_.useSolvedImpulses(tuning_.physxWheelCompat);
+        contactListener_.sourceContactOptions(
+            tuning_.physxWheelCompat && tuning_.physxIndependentFriction,
+            tuning_.physxWheelCompat && tuning_.physxBoxContactOrder);
         contactListener_.resize(description_.spawns.size());
         system_.SetContactListener(&contactListener_);
         system_.SetGravity(
@@ -2247,6 +2305,9 @@ private:
         const std::array<float, 3U>& angularDamping,
         float clampRollAngle, float clampPitchAngle) noexcept
     {
+        // Frozen axes have zero inverse inertia; inverting that matrix would
+        // produce NaNs even for a zero angular velocity.
+        if (vehicle.spawn.vehicle.freezeRotation) return;
         auto& bodies = system_.GetBodyInterface();
         JPH::BodyLockRead lock(
             system_.GetBodyLockInterface(), vehicle.body);
@@ -3154,6 +3215,9 @@ private:
         // and much larger angular speed ceiling.
         bodySettings.mLinearDamping = 0.0F;
         bodySettings.mAngularDamping = 0.05F;
+        if (source.freezeRotation)
+            bodySettings.mAllowedDOFs = JPH::EAllowedDOFs::TranslationX |
+                JPH::EAllowedDOFs::TranslationY | JPH::EAllowedDOFs::TranslationZ;
         bodySettings.mMaxAngularVelocity =
             sourceMaximumAngularVelocity;
         bodySettings.mAllowSleeping =
@@ -3513,8 +3577,8 @@ private:
         state.body.scale = {1.0F, 1.0F, 1.0F};
         state.linearVelocity = fromJolt(body.GetLinearVelocity());
         const JPH::Vec3 angularVelocity = body.GetAngularVelocity();
-        const JPH::Vec3 angularMomentum =
-            body.GetInverseInertia()
+        const JPH::Vec3 angularMomentum = vehicle.spawn.vehicle.freezeRotation
+            ? JPH::Vec3::sZero() : body.GetInverseInertia()
                 .Inversed3x3()
                 .Multiply3x3(angularVelocity);
         state.angularMomentum = fromJoltAngular(angularMomentum);

@@ -1,0 +1,35 @@
+--- a/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -74,7 +74,7 @@
+ 	JPH_ASSERT(inSettings.mSuspensionMinLength >= 0.0f);
+ 	JPH_ASSERT(inSettings.mSuspensionMaxLength >= inSettings.mSuspensionMinLength);
+ 	JPH_ASSERT(inSettings.mSuspensionMaxLength + inSettings.mSuspensionPreloadLength >= inSettings.mSuspensionMinLength); // signed-rest-length support
+-	JPH_ASSERT(inSettings.mSuspensionSpring.mFrequency > 0.0f);
++	JPH_ASSERT(inSettings.mSuspensionSpring.mMode == ESpringMode::FrequencyAndDamping? inSettings.mSuspensionSpring.mFrequency > 0.0f : inSettings.mSuspensionSpring.mStiffness >= 0.0f); // source zero-stiffness suspension support
+ 	JPH_ASSERT(inSettings.mSuspensionSpring.mDamping >= 0.0f);
+ 	JPH_ASSERT(inSettings.mRadius > 0.0f);
+ 	JPH_ASSERT(inSettings.mWidth >= 0.0f);
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -434,7 +434,9 @@
+ 			CalculateSuspensionForcePoint(*w, r1_plus_u, r2);
+ 
+ 			// Suspension spring
+-			if (settings->mSuspensionMaxLength > settings->mSuspensionMinLength)
++			if (settings->mSuspensionMaxLength > settings->mSuspensionMinLength
++				&& (settings->mSuspensionSpring.mMode == ESpringMode::FrequencyAndDamping
++					|| settings->mSuspensionSpring.mStiffness > 0.0f || settings->mSuspensionSpring.mDamping > 0.0f))
+ 			{
+ 				float stiffness, damping;
+ 				if (settings->mSuspensionSpring.mMode == ESpringMode::FrequencyAndDamping)
+--- a/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
+@@ -115,7 +115,7 @@
+ 	/// @param outEffectiveMass On return, this contains the new effective mass K^-1
+ 	inline void					CalculateSpringPropertiesWithStiffnessAndDamping(float inDeltaTime, float inInvEffectiveMass, float inBias, float inC, float inStiffness, float inDamping, float &outEffectiveMass)
+ 	{
+-		if (inStiffness > 0.0f)
++		if (inStiffness > 0.0f || inDamping > 0.0f) // source damper-only suspension support
+ 		{
+ 			CalculateSpringPropertiesHelper(inDeltaTime, inInvEffectiveMass, inBias, inC, inStiffness, inDamping, outEffectiveMass);
+ 		}

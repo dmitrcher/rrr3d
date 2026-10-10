@@ -21,6 +21,17 @@ class CompareTest(unittest.TestCase):
         for n,rows in [('a',self.a),('b',self.b)]: (self.root/n).write_text('\n'.join(json.dumps(r) for r in rows))
         return compare(self.root/'a',self.root/'b',self.root/'report')
     def test_equal(self):self.assertEqual(self.run_compare()['cases']['force']['rms']['position_error'],0)
+    def test_exact_parity_gate_equal(self):
+        self.assertTrue(self.run_compare()['exact_parity']['complete'])
+    def test_exact_parity_gate_detects_wheel_height(self):
+        for rows in [self.a,self.b]:
+            for row in rows[1:3]:
+                for wheel in row['sample']['wheels']:wheel['contact']=True
+        self.b[1]['sample']['wheels'][0]['height']=1
+        report=self.run_compare()
+        self.assertFalse(report['exact_parity']['complete'])
+        self.assertEqual(report['exact_parity']['cases_remaining'],['force'])
+        self.assertEqual(report['cases']['force']['maximum']['wheel_height_error'],.5)
     def test_quaternion_sign(self):
         self.b[1]['sample']['rotation']=[0,0,0,-1];self.assertEqual(self.run_compare()['cases']['force']['rms']['rotation_error_radians'],0)
     def test_real_divergence(self):

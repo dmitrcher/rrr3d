@@ -402,32 +402,33 @@ SourceBodyFriction sourceVehicleBodyFriction(
     float carPrimaryFriction, float otherFriction,
     SourceCombineMode otherMode, bool sourceTrackContact) noexcept
 {
-    // DataBase.cpp gives the car material an anisotropy direction of local
-    // game +Z (Jolt +Y). GameCar::OnContactModify projects it onto the
-    // contacted triangle. When that direction is almost the triangle normal,
-    // it falls back to local game +Y (Jolt +Z).
-    const JPH::Vec3 carUp =
-        carRotation * JPH::Vec3::sAxisY();
+    // Nx first projects and normalizes the anisotropy direction in the
+    // contact plane, before GameCar::OnContactModify reads the SDK frame.
+    // Crossing raw car-up here incorrectly selected the isotropic fallback
+    // for every roll below 30 degrees (the source tests a unit SDK tangent).
+    const JPH::Vec3 carUp = carRotation * JPH::Vec3::sAxisY();
     JPH::Vec3 first = carUp.Cross(contactNormal);
-    JPH::Vec3 second = carUp;
-    if (first.Length() < 0.5F)
+    // Nx suppresses projected directions shorter than 0.01. Independent
+    // polar probes select the world basis at 0.0100 rad and anisotropy at
+    // 0.0101 rad. Keep tiny solver tilt from rotating the friction patch.
+    const bool isotropic = first.LengthSq() <= 1.0e-4F;
+    if (isotropic)
     {
-        first = carRotation * JPH::Vec3::sAxisZ();
-        second = contactNormal.Cross(first);
+        // Coincident anisotropy/normal: Nx uses its world contact basis,
+        // independent of car yaw. The flat +Z source plane has primary +/-Y.
+        first = JPH::Vec3::sAxisX().Cross(contactNormal);
+        if (first.LengthSq() <= 1.0e-8F)
+            first = JPH::Vec3::sAxisZ().Cross(contactNormal);
     }
-    if (second.Length() <= 0.1F || first.LengthSq() <= 1.0e-8F)
-        first = contactNormal.GetNormalizedPerpendicular();
-    else
-        first = first.Normalized();
-    return {
-        first,
-        sourceTrackContact
-            ? 0.0F
-            : sourceCombineCoefficient(
-                  carPrimaryFriction, SourceCombineMode::Minimum,
-                  otherFriction, otherMode),
-        sourceCombineCoefficient(2.0F, SourceCombineMode::Minimum,
-                                 otherFriction, otherMode)};
+    first = first.Normalized();
+    float primary = sourceCombineCoefficient(
+        carPrimaryFriction, SourceCombineMode::Minimum, otherFriction, otherMode);
+    float secondary = sourceCombineCoefficient(
+        2.0F, SourceCombineMode::Minimum, otherFriction, otherMode);
+    // Nx averages the already combined U/V coefficients at the pole:
+    // the source 0.08/0.1 pair becomes isotropic 0.09, not 0.1.
+    if (isotropic) primary = secondary = 0.5F * (primary + secondary);
+    return {first, sourceTrackContact ? 0.0F : primary, secondary};
 }
 
 SourceBodyFriction sourceTrackBodyFriction(
@@ -1227,9 +1228,29 @@ JPH::MassProperties sourceVehicleMassProperties(const VehicleDescription& source
     JPH::Vec3 principal;
     if (!combined.DecomposePrincipalMomentsOfInertia(axes, principal))
         throw std::runtime_error("Cannot diagonalize original vehicle inertia");
-    // Nx orders the source X/Y/Z moments small/middle/large and the game
-    // resets their principal frame to identity. Source Z maps to Jolt Y.
-    combined.mInertia = JPH::Mat44::sScale(JPH::Vec3(principal.GetZ(), principal.GetX(), principal.GetY()));
+    // Nx preserves the actor-axis association while diagonalizing; the game
+    // then restores an identity mass frame. Jolt sorts eigenvalues. Reassociate
+    // them with the original axes instead of assuming X is always the smallest.
+    // That assumption happened to hold for the 17 shipped chassis, but fails
+    // when the wheel mass proxies are raised above the body.
+    constexpr int permutations[6][3] = {
+        {0,1,2}, {0,2,1}, {1,0,2}, {1,2,0}, {2,0,1}, {2,1,0}};
+    int best = 0;
+    float bestScore = -1.0F;
+    for (int candidate = 0; candidate < 6; ++candidate)
+    {
+        float score = 0.0F;
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            const float component = axes.GetColumn3(
+                permutations[candidate][axis])[axis];
+            score += component * component;
+        }
+        if (score > bestScore) { bestScore = score; best = candidate; }
+    }
+    combined.mInertia = JPH::Mat44::sScale(JPH::Vec3(
+        principal[permutations[best][0]], principal[permutations[best][1]],
+        principal[permutations[best][2]]));
     return combined;
 }
 
@@ -3151,11 +3172,15 @@ private:
             wheel->mSuspensionMaxLength = sourceWheel.suspensionTravel;
             if (tuning_.physxWheelCompat)
             {
-                // PhysX contactPosition includes radius and permits negative
-                // axle travel down to -radius. Raise the Jolt ray origin
-                // by radius without moving its endpoint or spring rest point.
+                // Nx permits signed axle travel, but its compression hard stop
+                // is -sceneSlop, not -radius (verified with zero springs).
+                // Raising the ray origin by radius keeps the endpoint and
+                // spring rest point while making that signed stop legal.
                 wheel->mPosition += sourceWheel.radius * JPH::Vec3::sAxisY();
                 wheel->mSuspensionMaxLength += sourceWheel.radius;
+                if (tuning_.physxSuspensionStop)
+                    wheel->mSuspensionMinLength = std::max(
+                        0.0F, sourceWheel.radius - sourcePenetrationSlop);
             }
             // Shipped wheels use targetValue zero. The Nx probe also verifies
             // the SDK target offset, whose actual effect is in world units.
@@ -3792,19 +3817,41 @@ bool runOriginalVehiclePhysicsSmokeTest(const WorldDescription& description,
     const auto borderBodyFriction = sourceTrackBodyFriction(
         JPH::Quat::sIdentity(), JPH::Vec3::sAxisZ(),
         CollisionSurface::TrackBorder);
+    const auto rolledBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.1F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto nearPoleBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.01F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto offPoleBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.0101F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto yawedBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisY(), 0.4F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
     const auto decorationBodyFriction = sourceVehicleBodyFriction(
         JPH::Quat::sIdentity(), JPH::Vec3::sAxisY(), 0.08F, 0.5F,
         SourceCombineMode::Average, false);
     if (std::abs(flatBodyFriction.first) > 0.0001F ||
-        std::abs(flatBodyFriction.second - 0.1F) > 0.0001F ||
+        std::abs(flatBodyFriction.second - 0.09F) > 0.0001F ||
         std::abs(flatBodyFriction.firstDirection.Dot(
             JPH::Vec3::sAxisZ())) < 0.999F ||
         std::abs(borderBodyFriction.first) > 0.0001F ||
         std::abs(borderBodyFriction.second - 4.0F) > 0.0001F ||
         std::abs(borderBodyFriction.firstDirection.Dot(
             JPH::Vec3::sAxisX())) < 0.999F ||
-        std::abs(decorationBodyFriction.first - 0.08F) > 0.0001F ||
-        std::abs(decorationBodyFriction.second - 0.5F) > 0.0001F)
+        std::abs(rolledBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisX())) < 0.999F ||
+        std::abs(nearPoleBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisZ())) < 0.999F ||
+        std::abs(nearPoleBodyFriction.second - 0.09F) > 0.0001F ||
+        std::abs(offPoleBodyFriction.second - 0.1F) > 0.0001F ||
+        std::abs(offPoleBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisX())) < 0.999F ||
+        std::abs(yawedBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisZ())) < 0.999F ||
+        std::abs(decorationBodyFriction.first - 0.29F) > 0.0001F ||
+        std::abs(decorationBodyFriction.second - 0.29F) > 0.0001F)
     {
         error = "GameCar::OnContactModify anisotropic friction failed";
         return false;

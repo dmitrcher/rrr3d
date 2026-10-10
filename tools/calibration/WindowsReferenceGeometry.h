@@ -26,12 +26,16 @@ public:
 // GameCar::OnContactModify makes the primary friction axis free on track
 // triangles. Preserve the SDK friction frame and the original triangle-normal fallback.
 class CalibrationTrackContact : public NxUserContactModify {
+ std::string caseName;
 public:
+ int tick;
+ explicit CalibrationTrackContact(const std::string& name):caseName(name),tick(0){}
  virtual bool onContactConstraint(NxU32& flags,const NxShape* s0,const NxShape* s1,NxU32 feature0,NxU32 feature1,NxContactCallbackData& data){
   const NxShape* car=s0->getActor().isDynamic()?s0:s1;
   if(!car->getActor().isDynamic() || !(s0->isTriangleMesh() || s1->isTriangleMesh()))return true;
   NxMat33 rotation(data.localorientation0);
   if(s0->getActor().isDynamic())rotation=s0->getActor().getCMassGlobalPose().M*rotation;
+  const NxMat33 originalFrame=rotation;
   const NxTriangleMeshShape* mesh=s0->isTriangleMesh()?s0->isTriangleMesh():s1->isTriangleMesh();
   NxTriangle triangle;mesh->getTriangle(triangle,0,0,s0->isTriangleMesh()?feature0:feature1,true,true);
   NxVec3 normal;triangle.normal(normal);// Physx.cpp actorIndex denotes the OTHER actor: car at shape 1 receives index 0.
@@ -43,6 +47,13 @@ public:
   if(second.magnitude()<=.1f)return true;
   first.normalize();second.normalize();normal=first.cross(second);normal.normalize();
   NxMat33 frame;frame.setColumn(0,normal);frame.setColumn(1,first);frame.setColumn(2,second);
+  std::ostringstream diagnostic;
+  diagnostic<<"{\"tick\":"<<tick<<",\"car_shape\":"<<(car==s0?0:1);
+  for(int axis=0;axis<3;++axis){NxVec3 before=originalFrame.getColumn(axis),after=frame.getColumn(axis);
+   diagnostic<<",\"before_axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(before.x,before.y,before.z))
+             <<",\"after_axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(after.x,after.y,after.z));}
+  diagnostic<<",\"friction0\":"<<data.dynamicFriction0<<",\"friction1\":"<<data.dynamicFriction1<<'}';
+  motorrock::parity::event("calibration.body-contact",caseName,diagnostic.str());
   NxMat33 inverse,local;
   if(s0->getActor().isDynamic()){s0->getActor().getCMassGlobalPose().M.getInverse(inverse);local=inverse*frame;}else local=frame;
   local.toQuat(data.localorientation0);
@@ -51,6 +62,19 @@ public:
   data.staticFriction0=data.dynamicFriction0=0;
   flags|=NX_CCC_LOCALORIENTATION0|NX_CCC_LOCALORIENTATION1|NX_CCC_STATICFRICTION0|NX_CCC_DYNAMICFRICTION0;
   return true;
+ }
+};
+class CalibrationBodyReport : public NxUserContactReport {
+ std::string caseName;
+public:
+ int tick;
+ explicit CalibrationBodyReport(const std::string& name):caseName(name),tick(0){}
+ virtual void onContactNotify(NxContactPair& pair,NxU32 events){
+  std::ostringstream s;
+  s<<"{\"tick\":"<<tick<<",\"events\":"<<events
+   <<",\"normal_force\":"<<motorrock::calibration::vector(motorrock::calibration::V(pair.sumNormalForce.x,pair.sumNormalForce.y,pair.sumNormalForce.z))
+   <<",\"friction_force\":"<<motorrock::calibration::vector(motorrock::calibration::V(pair.sumFrictionForce.x,pair.sumFrictionForce.y,pair.sumFrictionForce.z))<<'}';
+  motorrock::parity::event("calibration.body-impulse",caseName,s.str());
  }
 };
 #endif

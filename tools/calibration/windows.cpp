@@ -17,8 +17,8 @@ struct WheelContact : NxUserWheelContactModify {
  }
 };
 static void execute(const cal::Case& c) {
- CalibrationTrackContact bodyContacts;
- NxSceneDesc desc;desc.userContactModify=&bodyContacts;desc.gravity=NxVec3(0,0,(float)c.gravity);desc.upAxis=2;desc.timeStepMethod=NX_TIMESTEP_VARIABLE;desc.simType=NX_SIMULATION_SW;
+ CalibrationTrackContact bodyContacts(c.name);CalibrationBodyReport bodyReport(c.name);
+ NxSceneDesc desc;desc.userContactModify=&bodyContacts;desc.userContactReport=&bodyReport;desc.gravity=NxVec3(0,0,(float)c.gravity);desc.upAxis=2;desc.timeStepMethod=NX_TIMESTEP_VARIABLE;desc.simType=NX_SIMULATION_SW;
  NxScene* scene=sdk->createScene(desc);if(!scene)throw std::runtime_error("PhysX scene creation failed");
  NxMaterial* material=scene->getMaterialFromIndex(0);material->setStaticFriction(.5f);material->setDynamicFriction(.5f);material->setRestitution(.5f);
  NxMaterialDesc carMat;carMat.staticFriction=carMat.dynamicFriction=(float)c.bodyFriction;carMat.restitution=0;carMat.staticFrictionV=3.2f;carMat.dynamicFrictionV=2;carMat.dirOfAnisotropy=NxVec3(0,0,1);carMat.flags=NX_MF_ANISOTROPIC|NX_MF_DISABLE_STRONG_FRICTION;carMat.frictionCombineMode=NX_CM_MIN;
@@ -34,12 +34,13 @@ static void execute(const cal::Case& c) {
  for(int i=0;i<4;++i){NxWheelShapeDesc& w=wheelDescriptions[i];w.materialIndex=wheelMaterial->getMaterialIndex();w.group=4;const cal::Wheel& source=c.wheels[i];w.localPose.t=v3(source.position);w.localPose.M.setColumn(0,NxVec3(0,1,0));w.localPose.M.setColumn(1,NxVec3(0,0,1));w.localPose.M.setColumn(2,NxVec3(1,0,0));w.radius=(float)source.radius;w.suspensionTravel=(float)source.travel;w.suspension.spring=(float)source.spring;w.suspension.damper=(float)source.damper;w.suspension.targetValue=(float)source.target;w.inverseWheelMass=(float)source.inverseMass;w.wheelFlags=source.flags;w.longitudalTireForceFunction=tire(source.longitudinal);w.lateralTireForceFunction=tire(source.lateral);w.skinWidth=.025f;w.wheelContactModify=&callback;
  actor.shapes.pushBack(&w);}
  NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");
+ car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
  for(int i=0;i<4;++i){wheels[i]=car->getShapes()[i+1]->isWheel();if(!wheels[i])throw std::runtime_error("Wheel shape order changed");}
  if(c.obstacle){NxBoxShapeDesc o;o.dimensions=c.obstacle<=2?NxVec3(.25f,10,3):c.obstacle==3?NxVec3(.5f,10,.15f):NxVec3(20,.25f,.3f);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=c.obstacle<=2?NxVec3(8,0,13):c.obstacle==3?NxVec3(8,0,10.15f):NxVec3(8,.9f,10.3f);if(!scene->createActor(a))throw std::runtime_error("Obstacle creation failed");}
  car->setCMassOffsetLocalPose(body.massLocalPose);
  std::ostringstream actual;actual<<"{\"mass\":"<<car->getMass()<<",\"inertia\":"<<cal::vector(cal::V(car->getMassSpaceInertiaTensor().x,car->getMassSpaceInertiaTensor().y,car->getMassSpaceInertiaTensor().z))<<",\"com\":"<<cal::vector(cal::V(car->getCMassLocalPosition().x,car->getCMassLocalPosition().y,car->getCMassLocalPosition().z))<<'}';motorrock::parity::event("calibration.engine-description",c.name,actual.str());
  car->setLinearVelocity(NxVec3((float)c.velocity.x,(float)c.velocity.y,(float)c.velocity.z));car->setAngularVelocity(NxVec3((float)c.angular.x,(float)c.angular.y,(float)c.angular.z));
- for(int tick=0;tick<c.steps;++tick){const cal::Command x=cal::command(c,tick);
+ for(int tick=0;tick<c.steps;++tick){bodyContacts.tick=bodyReport.tick=tick;const cal::Command x=cal::command(c,tick);
  if(c.extraGravity)car->addForce(NxVec3(0,0,(float)c.gravity),NX_ACCELERATION);
  if(c.airPitch)car->addLocalTorque(NxVec3(0,(float)c.airPitch,0),NX_ACCELERATION);
  if(c.angularDamping.x!=1 || c.angularDamping.y!=1 || c.angularDamping.z!=1 || c.clampRoll>0 || c.clampPitch>0){

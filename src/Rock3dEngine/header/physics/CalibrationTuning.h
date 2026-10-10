@@ -17,6 +17,7 @@ struct CalibrationTuning {
  int solverSubsteps=1;
  bool physxWheelCompat=true;
  bool physxContactSkin=true;
+ bool physxSuspensionStop=true;
  std::string path;
  static CalibrationTuning load() {
   CalibrationTuning t; const char* p=std::getenv("RRR3D_CALIBRATION_PROFILE");
@@ -30,6 +31,7 @@ struct CalibrationTuning {
    if(!(row>>key>>value) || (row>>extra) || !std::isfinite(value) || seen[key])throw std::runtime_error("Malformed/duplicate calibration profile entry: "+line);
    seen[key]=true;
    if(key=="physx_contact_skin") {if(value!=0 && value!=1)throw std::runtime_error("physx_contact_skin must be 0 or 1");t.physxContactSkin=value==1;}
+   else if(key=="physx_suspension_stop") {if(value!=0 && value!=1)throw std::runtime_error("physx_suspension_stop must be 0 or 1");t.physxSuspensionStop=value==1;}
    else if(key=="physx_wheel_compat") {if(value!=0 && value!=1)throw std::runtime_error("physx_wheel_compat must be 0 or 1");t.physxWheelCompat=value==1;}
    else if(key=="solver_substeps") { if(value!=1 && value!=2 && value!=4)throw std::runtime_error("solver_substeps must be 1, 2 or 4");t.solverSubsteps=static_cast<int>(value); }
    else {auto k=keys.find(key);if(k==keys.end() || value<0.1 || value>10)throw std::runtime_error("Unknown or out-of-range calibration setting: "+key);*k->second=static_cast<float>(value);}
@@ -39,9 +41,10 @@ struct CalibrationTuning {
   std::ostringstream sample; sample << "{\"solver_substeps\":" << t.solverSubsteps;
   sample << ",\"physx_contact_skin\":" << (t.physxContactSkin ? 1 : 0);
   sample << ",\"physx_wheel_compat\":" << (t.physxWheelCompat ? 1 : 0);
+  sample << ",\"physx_suspension_stop\":" << (t.physxSuspensionStop ? 1 : 0);
   for (const auto& key : keys) sample << "," << motorrock::parity::quote(key.first) << ":" << *key.second;
   sample << "}";
-  motorrock::parity::event("calibration.profile", t.path.empty() ? "source-v6-default" : t.path, sample.str());
+  motorrock::parity::event("calibration.profile", t.path.empty() ? "source-v7-default" : t.path, sample.str());
   return t;
  }
  WorldDescription apply(WorldDescription d) const {

@@ -25,6 +25,10 @@ static void execute(const cal::Case& c) {
  s.position=cal::V(a.body.position.x,a.body.position.y,a.body.position.z);s.velocity=cal::V(a.linearVelocity.x,a.linearVelocity.y,a.linearVelocity.z);s.momentum=cal::V(a.angularMomentum.x,a.angularMomentum.y,a.angularMomentum.z);
  s.q[0]=a.body.rotation.x;s.q[1]=a.body.rotation.y;s.q[2]=a.body.rotation.z;s.q[3]=a.body.rotation.w;
  for(std::size_t i=0;i<a.wheelAngularSpeeds.size();++i){s.wheelSpeed.push_back(a.wheelAngularSpeeds[i]);s.contacts.push_back(a.wheelContacts[i].hasContact?1:0);s.wheelHeight.push_back(a.wheelContacts[i].hasContact?a.wheelContacts[i].position.z:0);const auto& w=a.wheelContacts[i];s.longSlip.push_back(w.longitudinalSlip);s.latSlip.push_back(w.lateralSlip);s.suspension.push_back(w.hasContact?w.suspensionLength:0);s.normalForce.push_back(w.suspensionForce);s.longImpulse.push_back(w.longitudinalImpulse);s.latImpulse.push_back(w.lateralImpulse);}
+ for(const auto& contact:a.bodyContacts){std::ostringstream body;
+ body<<"{\"tick\":"<<tick<<",\"normal_force_magnitude\":"<<contact.force
+     <<",\"friction_force\":"<<cal::vector(cal::V(contact.frictionForceVector.x,contact.frictionForceVector.y,contact.frictionForceVector.z))<<'}';
+ motorrock::parity::event("calibration.body-impulse",c.name,body.str());}
  cal::sample(c,tick,x,s);
  }
 }

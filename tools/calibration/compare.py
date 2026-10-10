@@ -99,10 +99,16 @@ def compare(reference, candidate, out=None):
                 for field in ('position','velocity'):
                     for axis,value in zip('xyz',s[field]): r[f'{platform}_{field}_{axis}'] = value
             errors.append(r)
-        fields = ('position_error','velocity_error','rotation_error_radians','wheel_speed_error','angular_momentum_error','suspension_length_error')
+        fields = ('position_error','velocity_error','rotation_error_radians','wheel_speed_error','angular_momentum_error','suspension_length_error','wheel_height_error')
         result[name] = {'samples':len(errors),'rms':{f:rms([e[f] for e in errors]) for f in fields},'maximum':{f:max(e[f] for e in errors) for f in fields},'wheel_contact_mismatch_fraction':sum(e['wheel_contact_mismatch'] for e in errors)/(len(errors)*4),'windows_final':left['rows'][-1],'mac_final':right['rows'][-1]}
         details.extend(errors)
     report = {'schema':1, 'reference':'Windows PhysX 2.8.4', 'candidate':'Mac production Jolt vehicle adapter', 'reference_sha256':hashlib.sha256(Path(reference).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(Path(candidate).read_bytes()).hexdigest(),'candidate_profiles': sorted({c['meta']['profile'] for c in b.values()}),'comparable_scenario':True,'cases':result,'limitations':['Controlled tests include all 17 original chassis and each positive workshop tire function. Equal Nm/wheel bypasses gearing/AI; individual presets do not certify every combined loadout or complete map.','Fixed solver steps remove frame-rate dependence; repeat captures are still required to measure solver variance.','Raw engine slip/normal-force fields use backend conventions and must not be compared as identical observables. Remaining contact/transient differences are recorded, not hidden by the aggregate score.']}
+    remaining = [name for name,c in result.items()
+                 if any(value != 0 for value in c['maximum'].values())
+                 or c['wheel_contact_mismatch_fraction'] != 0]
+    report['exact_parity'] = {'complete': not remaining,
+                              'cases_remaining': remaining,
+                              'cases_checked': len(result)}
     if out:
         out = Path(out); out.mkdir(parents=True,exist_ok=True)
         (out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
@@ -116,9 +122,11 @@ def compare(reference, candidate, out=None):
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('windows');p.add_argument('mac');p.add_argument('--out',required=True);args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('windows');p.add_argument('mac');p.add_argument('--out',required=True);p.add_argument('--require-exact',action='store_true',help='Exit 1 if any comparable physical observable still differs');args=p.parse_args()
     try:
         r=compare(args.windows,args.mac,args.out)
         print(json.dumps({name:c['rms'] for name,c in r['cases'].items()},indent=2))
+        if args.require_exact and not r['exact_parity']['complete']:
+            p.exit(1, 'Physical differences remain in '+str(len(r['exact_parity']['cases_remaining']))+' cases\n')
     except (OSError,ValueError) as e:p.exit(2,str(e)+'\n')
 if __name__=='__main__':main()

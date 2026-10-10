@@ -716,6 +716,38 @@ private:
         };
         vector("normal", JPH::RVec3(manifold.mWorldSpaceNormal));
         vector("axis1", JPH::RVec3(settings.mFrictionDirection1));
+        // Nx exposes constraint error separately from attachment positions.
+        // Log Jolt's geometric separation and the source triangle frame before
+        // changing solver behavior; both are required to diagnose edge contacts.
+        std::size_t firstVehicle = 0, secondVehicle = 0;
+        const bool carAtFirst = vehicleIndex(first.GetUserData(), firstVehicle);
+        const bool carAtSecond = vehicleIndex(second.GetUserData(), secondVehicle);
+        if (carAtFirst != carAtSecond) {
+            const JPH::Body& surfaceBody = carAtFirst ? second : first;
+            const auto surface = collisionSurface(surfaceBody.GetUserData());
+            if ((surfaceBody.GetUserData() & bodyKindMask) == surfaceBodyKind &&
+                (surface == CollisionSurface::TrackPlane || surface == CollisionSurface::TrackBorder)) {
+                const auto subShape = carAtFirst ? manifold.mSubShapeID2 : manifold.mSubShapeID1;
+                const auto point = carAtFirst ? manifold.GetWorldSpaceContactPointOn2(0) : manifold.GetWorldSpaceContactPointOn1(0);
+                JPH::Vec3 triangleNormal = surfaceBody.GetWorldSpaceSurfaceNormal(subShape, point);
+                vector("triangle_normal", JPH::RVec3(triangleNormal));
+                if (carAtFirst) triangleNormal = -triangleNormal;
+                JPH::Vec3 secondAxis = manifold.mWorldSpaceNormal.Cross(settings.mFrictionDirection1);
+                JPH::Vec3 firstAxis = secondAxis.Cross(triangleNormal);
+                const bool fallback = firstAxis.Length() < 0.5F;
+                if (fallback) {
+                    firstAxis = settings.mFrictionDirection1;
+                    secondAxis = triangleNormal.Cross(firstAxis);
+                }
+                out << ",\"source_frame_fallback\":" << (fallback ? "true" : "false");
+                if (secondAxis.Length() > 0.1F) {
+                    firstAxis = firstAxis.Normalized(); secondAxis = secondAxis.Normalized();
+                    vector("source_frame_normal", JPH::RVec3(firstAxis.Cross(secondAxis).Normalized()));
+                    vector("source_frame_axis1", JPH::RVec3(firstAxis));
+                    vector("source_frame_axis2", JPH::RVec3(secondAxis));
+                }
+            }
+        }
         vector("center0", first.GetCenterOfMassPosition());
         vector("center1", second.GetCenterOfMassPosition());
         out << ",\"points\":[";
@@ -724,6 +756,8 @@ private:
             out << '{';
             // vector() prefixes fields with a comma; start with the point index.
             out << "\"index\":" << i;
+            out << ",\"geometric_separation\":"
+                << JPH::Vec3(manifold.GetWorldSpaceContactPointOn2(i) - manifold.GetWorldSpaceContactPointOn1(i)).Dot(manifold.mWorldSpaceNormal);
             vector("on0", manifold.GetWorldSpaceContactPointOn1(i));
             vector("on1", manifold.GetWorldSpaceContactPointOn2(i));
             out << '}';

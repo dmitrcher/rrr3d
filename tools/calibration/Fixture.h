@@ -127,6 +127,8 @@ inline std::vector<Case> cases() {
  }
  const char* borderNames[]={"border-air-straight","border-air-oblique","border-grounded","border-pole"};
  for(int i=0;i<4;++i){c=Case(borderNames[i],i>=2?-20:0,1200,i>=2?12:13,i>=2);c.steps=600;c.obstacle=i==3?8:7;c.velocity=V(8,i==0?0:2,0);if(i==3){c.ground=false;c.height=10.25;c.fixedOrientation=true;for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;}s.push_back(c);}
+ const char* frontBorderNames[]={"border-front-air-straight","border-front-air-oblique","border-front-grounded"};
+ for(int i=0;i<3;++i){c=Case(frontBorderNames[i],i==2?-20:0,1200,i==2?12:13,i==2);c.obstacle=9;c.velocity=V(8,i==0?0:2,0);s.push_back(c);}
  appendCatalogCases(s);return s;
 }
 inline int run(int argc,char**argv, void (*execute)(const Case&), const std::string& profile) {

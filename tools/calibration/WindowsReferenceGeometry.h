@@ -36,9 +36,12 @@ public:
    const NxVec3 point0=s0->getActor().isDynamic()?s0->getActor().getCMassGlobalPose()*data.localpos0:data.localpos0;
    const NxVec3 point1=s1->getActor().isDynamic()?s1->getActor().getCMassGlobalPose()*data.localpos1:data.localpos1;
    std::ostringstream points;points<<"{\"tick\":"<<tick<<",\"car_shape\":"<<(car==s0?0:1)
+    <<",\"constraint_error\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.error.x,data.error.y,data.error.z))
+    <<",\"constraint_target\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.target.x,data.target.y,data.target.z))
     <<",\"point0\":"<<motorrock::calibration::vector(motorrock::calibration::V(point0.x,point0.y,point0.z))
     <<",\"point1\":"<<motorrock::calibration::vector(motorrock::calibration::V(point1.x,point1.y,point1.z))
     <<",\"triangle\":"<<((s0->isTriangleMesh()||s1->isTriangleMesh())?"true":"false")
+    <<",\"static_friction0\":"<<data.staticFriction0<<",\"static_friction1\":"<<data.staticFriction1
     <<",\"friction0\":"<<data.dynamicFriction0<<",\"friction1\":"<<data.dynamicFriction1;
    NxMat33 rawFrame(data.localorientation0);
    if(s0->getActor().isDynamic())rawFrame=s0->getActor().getCMassGlobalPose().M*rawFrame;

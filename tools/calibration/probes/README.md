@@ -23,3 +23,5 @@ PowerShell 5 перенаправляет stdout в UTF-16; перед срав�
 Опубликованный reference-material-pairs-v10.jsonl уже преобразован в UTF-8.
 Getter-события сохраняют значения материала, callback-события — фактические контактные
 коэффициенты и оси. Они могут различаться. Эти данные подтверждают модель v10.
+
+Static SDK coefficients are also present in the raw reference JSONL. The v10 coefficient cap and numeric material oracles cover dynamic friction; static limits and their solver transition remain under investigation in the v11 audit.

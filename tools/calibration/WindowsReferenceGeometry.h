@@ -32,6 +32,20 @@ public:
  explicit CalibrationTrackContact(const std::string& name):caseName(name),tick(0){}
  virtual bool onContactConstraint(NxU32& flags,const NxShape* s0,const NxShape* s1,NxU32 feature0,NxU32 feature1,NxContactCallbackData& data){
   const NxShape* car=s0->getActor().isDynamic()?s0:s1;
+  if(car->getActor().isDynamic()){
+   const NxVec3 point0=s0->getActor().isDynamic()?s0->getActor().getCMassGlobalPose()*data.localpos0:data.localpos0;
+   const NxVec3 point1=s1->getActor().isDynamic()?s1->getActor().getCMassGlobalPose()*data.localpos1:data.localpos1;
+   std::ostringstream points;points<<"{\"tick\":"<<tick<<",\"car_shape\":"<<(car==s0?0:1)
+    <<",\"point0\":"<<motorrock::calibration::vector(motorrock::calibration::V(point0.x,point0.y,point0.z))
+    <<",\"point1\":"<<motorrock::calibration::vector(motorrock::calibration::V(point1.x,point1.y,point1.z))
+    <<",\"triangle\":"<<((s0->isTriangleMesh()||s1->isTriangleMesh())?"true":"false")
+    <<",\"friction0\":"<<data.dynamicFriction0<<",\"friction1\":"<<data.dynamicFriction1;
+   NxMat33 rawFrame(data.localorientation0);
+   if(s0->getActor().isDynamic())rawFrame=s0->getActor().getCMassGlobalPose().M*rawFrame;
+   for(int axis=0;axis<3;++axis){NxVec3 direction=rawFrame.getColumn(axis);points<<",\"axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(direction.x,direction.y,direction.z));}
+   points<<'}';
+   motorrock::parity::event("calibration.body-points",caseName,points.str());
+  }
   if(!car->getActor().isDynamic() || !(s0->isTriangleMesh() || s1->isTriangleMesh()))return true;
   NxMat33 rotation(data.localorientation0);
   if(s0->getActor().isDynamic())rotation=s0->getActor().getCMassGlobalPose().M*rotation;

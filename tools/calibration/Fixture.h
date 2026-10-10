@@ -105,6 +105,8 @@ inline std::vector<Case> cases() {
  const char* bodyNames[]={"body-slide-x","body-slide-y","body-slide-diagonal","body-tilt-pitch","body-tilt-roll"};
  for(int i=0;i<5;++i){c=Case(bodyNames[i],-20,1200,11);c.steps=180;c.velocity=V(i==1?0:5,i==1||i==2?5:0,-3);if(i==3)c.angular=V(0,1,0);if(i==4)c.angular=V(1,0,0);for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);}
  for(int i=0;i<3;++i){c=Case(i==0?"body-wheel-contact-x":i==1?"body-wheel-contact-pitch":"body-wheel-contact-roll",-20,1200,11);c.steps=180;c.velocity=V(5,0,-3);if(i==1)c.angular=V(0,1,0);if(i==2)c.angular=V(1,0,0);for(size_t w=0;w<c.wheels.size();++w){c.wheels[w].spring=c.wheels[w].damper=0;c.wheels[w].travel=5;c.wheels[w].longitudinal.stiffness=c.wheels[w].lateral.stiffness=0;}s.push_back(c);}
+ const double wallSpeeds[]={1,2,4,8,12,24,4,12};
+ for(int i=0;i<8;++i){std::ostringstream name;name<<"wall-air-"<<(i>=6?"oblique-":"straight-")<<wallSpeeds[i];c=Case(name.str(),0,1200,13,false);c.obstacle=1;c.velocity=V(wallSpeeds[i],i>=6?2:0,0);s.push_back(c);}
  appendCatalogCases(s);return s;
 }
 inline int run(int argc,char**argv, void (*execute)(const Case&), const std::string& profile) {

@@ -1276,6 +1276,12 @@ public:
         system_.SetCombineRestitution(sourceCombineRestitution);
         auto physicsSettings = system_.GetPhysicsSettings();
         physicsSettings.mPenetrationSlop = sourcePenetrationSlop;
+        if (tuning_.physxContactSkin && tuning_.physxSpeculativeSkin)
+        {
+            // Recover the combined skin distance removed from the two hulls.
+            // The Nx wall oracle otherwise detects the first impact a step earlier.
+            physicsSettings.mSpeculativeContactDistance = sourcePenetrationSlop;
+        }
         physicsSettings.mNumVelocitySteps = sourceSolverIterations;
         // PhysX 2.8 suppresses restitution below NX_BOUNCE_THRESHOLD (-2).
         // Jolt expresses the same threshold as a positive speed magnitude.
@@ -1917,7 +1923,9 @@ public:
         {
             const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
                 description.halfExtents, description.skinWidth, tuning_.physxContactSkin);
-            const auto box = new JPH::BoxShape(halfExtents);
+            const auto box = new JPH::BoxShape(
+                halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
+                                 ? 0.0F : JPH::cDefaultConvexRadius);
             const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                      toJolt(description.shapePosition),
                                      toJolt(description.shapeRotation), box)
@@ -3025,7 +3033,10 @@ private:
                                      bool dynamic, float mass,
                                      bool collisionResponse) {
                 const auto box = new JPH::BoxShape(
-                    sourceBoxHalfExtents(halfExtents, skinWidth, tuning_.physxContactSkin));
+                    sourceBoxHalfExtents(halfExtents, skinWidth,
+                                         tuning_.physxContactSkin),
+                    tuning_.physxContactSkin && tuning_.physxBoxCorners
+                        ? 0.0F : JPH::cDefaultConvexRadius);
                 const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                          toJolt(shapePosition),
                                          toJolt(shapeRotation), box)
@@ -3103,7 +3114,11 @@ private:
         const auto& source = spawn.vehicle;
         const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
             source.halfExtents, source.bodySkinWidth, tuning_.physxContactSkin);
-        const auto box = new JPH::BoxShape(halfExtents);
+        // NxBoxShape contacts use the sharp box vertices. Jolt's default
+        // rounded corners change their lever arms, especially against triangles.
+        const auto box = new JPH::BoxShape(
+            halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
+                             ? 0.0F : JPH::cDefaultConvexRadius);
         const auto translated = JPH::RotatedTranslatedShapeSettings(
                                     toJolt(source.shapePosition),
                                     JPH::Quat::sIdentity(), box)

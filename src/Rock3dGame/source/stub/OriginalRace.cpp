@@ -5592,8 +5592,17 @@ r3d::physics::WorldDescription makePhysicsDescription(
         float rowWidth = 0.0F;
         for (std::size_t index = rowBegin; index < rowEnd; ++index)
             rowWidth += racerWidths[index];
+        // Trace width describes the driveable corridor, but its extreme
+        // edge may lie just beyond the triangulated road on curved/seamed
+        // start pieces. World6/map8's unusually wide 19.97-unit trace
+        // exposed that mismatch: the fourth car's centre was placed over
+        // empty space. Keep one source unit of road margin on each side of
+        // those extra-wide grids while never compressing car bodies together.
+        const float edgeMargin = first.width > 19.0F ? 2.0F : 0.0F;
+        const float gridWidth =
+            std::max(rowWidth, first.width - edgeMargin);
         const float lateralSpace = std::max(
-            (first.width - rowWidth) /
+            (gridWidth - rowWidth) /
                 (static_cast<float>(rowEnd - rowBegin) + 1.0F),
             0.0F);
         float lateralStep = 0.0F;
@@ -5609,7 +5618,7 @@ r3d::physics::WorldDescription makePhysicsDescription(
                            static_cast<float>(index / rowLength) *
                                rowSpace);
             const float lateral =
-                -first.width * 0.5F + lateralSpace +
+                -gridWidth * 0.5F + lateralSpace +
                 racerWidths[index] * 0.5F + lateralStep;
             position.x += lineDirection.x * lateral;
             position.y += lineDirection.y * lateral;

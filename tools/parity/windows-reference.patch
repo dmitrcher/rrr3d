@@ -1,0 +1,364 @@
+--- /dev/null
++++ b/LexStd/header/ParityTrace.h
+@@ -0,0 +1,98 @@
++#ifndef MOTORROCK_PARITY_TRACE_H
++#define MOTORROCK_PARITY_TRACE_H
++#pragma push_macro("new")
++#pragma push_macro("malloc")
++#pragma push_macro("free")
++#undef new
++#undef malloc
++#undef free
++// C++98 compatible: shared by the VC2008 reference and the native Mac port.
++#include <cstdio>
++#include <cstdlib>
++#include <ctime>
++#include <iomanip>
++#include <locale>
++#include <sstream>
++#include <streambuf>
++#include <string>
++#ifdef _WIN32
++#include <windows.h>
++#else
++#include <time.h>
++#include <unistd.h>
++#endif
++
++namespace motorrock { namespace parity {
++inline bool enabled() { const char* p = std::getenv("RRR3D_TRACE_FILE"); return p && *p; }
++inline double monotonicMs() {
++#ifdef _WIN32
++    LARGE_INTEGER now, frequency;
++    QueryPerformanceCounter(&now); QueryPerformanceFrequency(&frequency);
++    return double(now.QuadPart) * 1000.0 / double(frequency.QuadPart);
++#else
++    timespec t; clock_gettime(CLOCK_MONOTONIC, &t);
++    return double(t.tv_sec) * 1000.0 + double(t.tv_nsec) / 1000000.0;
++#endif
++}
++inline std::string quote(const std::string& s) {
++    std::ostringstream o; o << '"';
++    for (size_t i = 0; i < s.size(); ++i) {
++        const unsigned char c = (unsigned char)s[i];
++        if (c == '"' || c == '\\') o << '\\' << c;
++        else if (c < 32 || c >= 127) o << "\\u00" << std::hex << std::setw(2) << std::setfill('0') << (unsigned)c << std::dec;
++        else o << c;
++    }
++    o << '"'; return o.str();
++}
++inline void event(const char* name, const std::string& detail, const std::string& sample = "") {
++    if (!enabled()) return;
++    const std::time_t now = std::time(0);
++    std::tm utc;
++#ifdef _WIN32
++    gmtime_s(&utc, &now);
++    const unsigned long pid = GetCurrentProcessId();
++    const char* platform = "windows-physx-d3d9";
++#else
++    gmtime_r(&now, &utc);
++    const unsigned long pid = (unsigned long)getpid();
++    const char* platform = "mac-jolt-metal";
++#endif
++    char stamp[32]; std::strftime(stamp, sizeof(stamp), "%Y-%m-%dT%H:%M:%SZ", &utc);
++    std::ostringstream row; row.imbue(std::locale::classic());
++    row << "{\"utc\":" << quote(stamp) << ",\"monotonic_ms\":" << std::fixed << std::setprecision(3) << monotonicMs()
++        << ",\"pid\":" << pid << ",\"platform\":" << quote(platform)
++        << ",\"event\":" << quote(name) << ",\"detail\":" << quote(detail);
++    if (!sample.empty()) row << ",\"sample\":" << sample;
++    row << "}\n";
++    // One append per complete JSON record; never redirect or consume game input.
++    FILE* file = std::fopen(std::getenv("RRR3D_TRACE_FILE"), "ab");
++    if (file) { const std::string value = row.str(); std::fwrite(value.data(), 1, value.size(), file); std::fclose(file); }
++}
++inline unsigned seedFromEnvironment(unsigned fallback) {
++    const char* text = std::getenv("RRR3D_SEED");
++    if (!text || !*text) return fallback;
++    char* end = 0; const unsigned long seed = std::strtoul(text, &end, 10);
++    return end && !*end ? (unsigned)seed : fallback;
++}
++// Preserve the existing console while recording complete load/progress lines.
++class ConsoleTrace : public std::streambuf {
++    std::ostream& stream_; std::streambuf* original_; std::string line_;
++    ConsoleTrace(const ConsoleTrace&); ConsoleTrace& operator=(const ConsoleTrace&);
++    void flushLine() { if (!line_.empty()) { event("log", line_); line_.clear(); } }
++protected:
++    virtual int_type overflow(int_type c) {
++        if (traits_type::eq_int_type(c, traits_type::eof())) return traits_type::not_eof(c);
++        const char value = traits_type::to_char_type(c);
++        if (value == '\n') flushLine(); else if (value != '\r') line_ += value;
++        return original_->sputc(value);
++    }
++    virtual int sync() { flushLine(); return original_->pubsync(); }
++public:
++    explicit ConsoleTrace(std::ostream& stream) : stream_(stream), original_(stream.rdbuf(this)) {}
++    ~ConsoleTrace() { flushLine(); stream_.rdbuf(original_); }
++};
++} }
++#pragma pop_macro("free")
++#pragma pop_macro("malloc")
++#pragma pop_macro("new")
++#endif
+--- a/LexStd/header/lslException.h
++++ b/LexStd/header/lslException.h
+@@ -2,6 +2,7 @@
+ #define LSL_EXCEPTION
+ 
+ #include "lslCommon.h"
++#include "ParityTrace.h"
+ 
+ namespace lsl
+ {
+@@ -84,6 +85,7 @@
+ 
+ template<class _Value> void AppLog::Append(const _Value& value)
+ {
++	if (motorrock::parity::enabled()) { std::ostringstream text; text << value; motorrock::parity::event("log", text.str()); }
+ 	if (_destroy)
+ 		return;
+ 
+--- a/LexStd/source/lslResource.cpp
++++ b/LexStd/source/lslResource.cpp
+@@ -1,4 +1,5 @@
+ #include "stdafx.h"
++#include "ParityTrace.h"
+ 
+ #include "lslResource.h"
+ #include "lslUtility.h"
+@@ -32,6 +33,7 @@
+ 
+ template<class _T> std::basic_istream<_T, std::char_traits<_T>>* FileSystem::NewInStream(const std::string& fileName, OpenMode openMode, DWORD flags)
+ {
++	motorrock::parity::event("asset.begin", fileName);
+ 	std::ios_base::open_mode ioOpMode = std::ios_base::in;
+ 	switch (openMode)
+ 	{
+@@ -58,6 +60,7 @@
+ 		}		
+ 	}
+ 
++	motorrock::parity::event("asset.ready", fileName);
+ 	return fs;
+ }
+ 
+--- a/MapEditor/MapEditor.vcproj
++++ b/MapEditor/MapEditor.vcproj
+@@ -68,7 +68,7 @@
+ 			/>
+ 			<Tool
+ 				Name="VCLinkerTool"
+-				AdditionalDependencies="LexStd.lib d3dx9d.lib Rock3dGame.lib"
++				AdditionalDependencies="LexStd.lib d3dx9.lib Rock3dGame.lib"
+ 				LinkIncremental="2"
+ 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;;&quot;$(SolutionDir)Third Party\bin\dx&quot;"
+ 				GenerateDebugInformation="true"
+--- a/RRR3d/RRR3d.vcproj
++++ b/RRR3d/RRR3d.vcproj
+@@ -62,7 +62,7 @@
+ 			/>
+ 			<Tool
+ 				Name="VCLinkerTool"
+-				AdditionalDependencies="LexStd.lib Rock3dGame.lib d3dx9d.lib"
++				AdditionalDependencies="LexStd.lib Rock3dGame.lib d3dx9.lib"
+ 				LinkIncremental="2"
+ 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;;&quot;$(SolutionDir)Third Party\bin\dx&quot;"
+ 				GenerateDebugInformation="true"
+--- a/Rock3dGame/Rock3dGame.vcproj
++++ b/Rock3dGame/Rock3dGame.vcproj
+@@ -62,7 +62,7 @@
+ 			/>
+ 			<Tool
+ 				Name="VCLinkerTool"
+-				AdditionalDependencies="LexStd.lib Rock3dEngine.lib dxerr.lib dxguid.lib d3dx9d.lib d3d9.lib PhysXLoader.lib PhysXCooking.lib NxCharacter.lib ..\tinyxml\Debug_STL\tinyxmld_STL.lib libvorbis_static.lib libvorbisfile_static.lib libogg_static.lib X3daudio.lib winmm.lib NetLib.lib strmiids.lib xinput.lib"
++				AdditionalDependencies="LexStd.lib Rock3dEngine.lib dxerr.lib dxguid.lib d3dx9.lib d3d9.lib PhysXLoader.lib PhysXCooking.lib NxCharacter.lib ..\tinyxml\Debug_STL\tinyxmld_STL.lib libvorbis_static.lib libvorbisfile_static.lib libogg_static.lib X3daudio.lib winmm.lib NetLib.lib strmiids.lib xinput.lib"
+ 				LinkIncremental="2"
+ 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;;&quot;$(SolutionDir)\libvorbis\win32\VS2008\Win32\Debug\&quot;;&quot;$(SolutionDir)\libogg\win32\VS2008\Win32\Debug\&quot;;&quot;$(SolutionDir)Third Party\bin\px&quot;;&quot;$(SolutionDir)Third Party\bin\dx&quot;;&quot;$(SolutionDir)Third Party\bin\steam&quot;"
+ 				GenerateDebugInformation="true"
+--- a/Rock3dGame/header/game/Race.h
++++ b/Rock3dGame/header/game/Race.h
+@@ -732,6 +732,7 @@
+ 	Mode _mode;
+ 
+ 	bool _startRace;
++	unsigned _parityTick;
+ 	bool _goRace;	
+ 	Results _results;
+ 	bool _planetChampion;
+--- a/Rock3dGame/source/Rock3dGame.cpp
++++ b/Rock3dGame/source/Rock3dGame.cpp
+@@ -11,7 +11,9 @@
+ {
+ 	CoInitializeEx(NULL, COINIT_MULTITHREADED | COINIT_DISABLE_OLE1DDE);
+ 
+-	srand(_time32(NULL));
++	const unsigned paritySeed = motorrock::parity::seedFromEnvironment((unsigned)_time32(NULL));
++	srand(paritySeed);
++	motorrock::parity::event("rng.seed", lsl::StrFmt("%u", paritySeed));
+ 
+ 	// restrict this main game thread to the first processor, so query performance counter won't jump on crappy AMD cpus
+ 	DWORD dwThreadAffinityMask = 0x01;
+--- a/Rock3dGame/source/game/AICar.cpp
++++ b/Rock3dGame/source/game/AICar.cpp
+@@ -597,6 +597,7 @@
+ 
+ void AICar::OnProgress(float deltaTime)
+ {
++	if (motorrock::parity::enabled()) motorrock::parity::event("ai.control", lsl::StrFmt("player=%d enabled=%d steer=%g blocked=%d reverse=%d", _player->GetId(), (int)_enbAI, _control.steerAngle, (int)_control.blocking, (int)_control.backMoving));
+ 	if (GetCar().mapObj)
+ 	{
+ 		UpdateAI(deltaTime, GetCar());
+--- a/Rock3dGame/source/game/AIPlayer.cpp
++++ b/Rock3dGame/source/game/AIPlayer.cpp
+@@ -352,7 +352,8 @@
+ 	GetWorld()->GetControl()->InsertEvent(_control);	
+ 
+ 	if (aiPlayer->_car)
+-		aiPlayer->_car->_enbAI = false;
++		aiPlayer->_car->_enbAI = getenv("RRR3D_AI_DRIVER") && std::string(getenv("RRR3D_AI_DRIVER")) == "1";
++	motorrock::parity::event("ai.player", aiPlayer->_car && aiPlayer->_car->_enbAI ? "enabled" : "disabled");
+ 	_traceGfx->SetVisible(false);
+ }
+ 
+@@ -830,6 +831,7 @@
+ 	if (msg.action == gaDebug7 && msg.state == ksDown && !msg.repeat)
+ 	{
+ 		_debug->_aiPlayer->_car->_enbAI = !_debug->_aiPlayer->_car->_enbAI;
++		motorrock::parity::event("ai.player", _debug->_aiPlayer->_car->_enbAI ? "enabled" : "disabled");
+ 		return true;
+ 	}
+ #endif
+--- a/Rock3dGame/source/game/GameMode.cpp
++++ b/Rock3dGame/source/game/GameMode.cpp
+@@ -1699,6 +1699,7 @@
+ 
+ void GameMode::PlayMovie(const std::string& name)
+ {
++	motorrock::parity::event("video.request", name);
+ 	_movieFileName = name;
+ 	_movieTime = 0.0f;
+ }
+@@ -1898,7 +1899,9 @@
+ 		}
+ 		else if (_movieTime == 6)
+ 		{
++			motorrock::parity::event("video.begin", _movieFileName);
+ 			_world->GetVideo()->Open(_movieFileName);
++			motorrock::parity::event("video.ready", _movieFileName);
+ 			_world->GetVideo()->Play();
+ 			_world->ResetInput();
+ 			_movieTime = 7;
+@@ -1919,6 +1922,7 @@
+ 			_menuMusic->Pause(false);
+ 			_movieTime = -1;
+ 
++			motorrock::parity::event("video.complete", _movieFileName);
+ 			SendEvent(cVideoStopped);
+ 		}
+ 	}
+--- a/Rock3dGame/source/game/MainMenu2.cpp
++++ b/Rock3dGame/source/game/MainMenu2.cpp
+@@ -2097,6 +2097,8 @@
+ 
+ void MainMenu::ApplyState(State state)
+ {
++	static const char* parityNames[] = {"Main", "GameMode", "Network", "NetBrowser", "Profile", "Tournament", "Credits", "Difficulty", "NetIPAdress", "Matchmaking", "ServerType", "ClientType", "Lobby", "SteamBrowser"};
++	motorrock::parity::event("menu.state", (unsigned)state < sizeof(parityNames)/sizeof(parityNames[0]) ? parityNames[state] : "Unknown");
+ 	if (state == msMain || state == msNetwork)
+ 		_serverType = cServerTypeEnd;
+ 
+--- a/Rock3dGame/source/game/Race.cpp
++++ b/Rock3dGame/source/game/Race.cpp
+@@ -6926,6 +6926,22 @@
+ 
+ void Race::OnFixedStep(float deltaTime)
+ {
++    ++_parityTick;
++    if (motorrock::parity::enabled() && _parityTick % 10 == 0) {
++        for (unsigned i = 0; i < _playerList.size(); ++i) {
++            const Player::CarState& car = _playerList[i]->GetCar();
++            if (!car.nxActor) continue;
++            const NxVec3 p = car.nxActor->getGlobalPosition();
++            const NxVec3 v = car.nxActor->getLinearVelocity();
++            const NxQuat q = car.nxActor->getGlobalOrientationQuat();
++            std::ostringstream s; s.imbue(std::locale::classic()); s << std::setprecision(9);
++            s << "{\"tick\":" << (_parityTick - 1) << ",\"dt\":" << deltaTime << ",\"racer\":" << i
++              << ",\"position\":[" << p.x << ',' << p.y << ',' << p.z << "],\"rotation\":[" << q.x << ',' << q.y << ',' << q.z << ',' << q.w
++              << "],\"velocity\":[" << v.x << ',' << v.y << ',' << v.z << "],\"speed\":" << car.speed << ",\"lap\":" << car.GetLap() << '}';
++            motorrock::parity::event("physics.sample", "", s.str());
++        }
++    }
++
+ 	for (unsigned i = 0; i < _playerList.size(); ++i)
+ 		_playerList[i]->OnProgress(deltaTime);
+ 
+@@ -7575,6 +7591,8 @@
+ 	if (!_startRace)
+ 	{
+ 		_startRace = true;
++		_parityTick = 0;
++		motorrock::parity::event("race.begin", _tournament->GetCurTrack().level);
+ 
+ 		_goRace = false;		
+ 
+--- a/Rock3dGame/source/game/RaceMenu2.cpp
++++ b/Rock3dGame/source/game/RaceMenu2.cpp
+@@ -3704,6 +3704,8 @@
+ 
+ void RaceMenu::ApplyState(State state)
+ {
++	static const char* parityNames[] = {"RaceMain", "Garage", "Workshop", "Gamers", "Angar", "Achievments"};
++	motorrock::parity::event("menu.state", (unsigned)state < sizeof(parityNames)/sizeof(parityNames[0]) ? parityNames[state] : "Unknown");
+ 	bool carVisible = state == msMain || state == msGarage || state == msWorkshop;
+ 	bool spaceshipVisible = state == msAngar;
+ 	
+--- a/Rock3dGame/source/game/World.cpp
++++ b/Rock3dGame/source/game/World.cpp
+@@ -590,6 +590,24 @@
+ 
+ #ifdef DEBUG_FRAME_SYNC
+ 	Profiler::I().Begin("presentTime");
++#endif
++
++
++#ifdef _DEBUG
++    static bool parityShotHeld = false;
++    const bool parityShotDown = GetForegroundWindow() == _view->GetDesc().handle && (GetAsyncKeyState(VK_F8) & 0x8000) != 0;
++    if (parityShotDown && !parityShotHeld) {
++        const char* requestedDirectory = getenv("RRR3D_CAPTURE_DIR");
++        const std::string directory = requestedDirectory && *requestedDirectory ? requestedDirectory : "Screenshots";
++        CreateDirectoryA(directory.c_str(), NULL);
++        const std::string path = directory + "\\MotorRock-" + lsl::StrFmt("%u-%u.png", GetCurrentProcessId(), GetTickCount());
++        IDirect3DSurface9* surface = NULL;
++        IDirect3DDevice9* device = _graph->GetEngine().GetDriver().GetDevice();
++        HRESULT result = device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface);
++        if (SUCCEEDED(result)) { result = D3DXSaveSurfaceToFileA(path.c_str(), D3DXIFF_PNG, surface, NULL, NULL); surface->Release(); }
++        motorrock::parity::event(SUCCEEDED(result) ? "screenshot.saved" : "screenshot.failed", path);
++    }
++    parityShotHeld = parityShotDown;
+ #endif
+ 
+ 	_graph->Present();
+@@ -1057,6 +1075,7 @@
+ 	_game = new GameMode(this);
+ 
+ #if _DEBUG | DEBUG_PX
++	motorrock::parity::event("session.begin", "legacy-windows-debug");
+ 	_game->Run(false);
+ #else
+ 	_game->Run(true);
+@@ -1112,6 +1131,7 @@
+ 
+ void World::LoadLevel(const std::string& level)
+ {
++	motorrock::parity::event("map.begin", level);
+ 	LSL_LOG("world LoadLevel");
+ 
+ 	lsl::RootNode rootNode("root", this);
+@@ -1124,6 +1144,7 @@
+ 	rootNode.EndLoad();
+ 
+ 	UpdateLevel();
++	motorrock::parity::event("map.ready", level);
+ }
+ 
+ void World::RegFixedStepEvent(IFixedStepEvent* user)

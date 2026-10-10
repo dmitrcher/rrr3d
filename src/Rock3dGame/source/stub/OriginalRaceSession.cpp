@@ -1,4 +1,5 @@
 #include "OriginalRaceSession.h"
+#include "ParityTrace.h"
 
 #include <algorithm>
 #include <array>
@@ -82,6 +83,27 @@ Vec3 add(Vec3 first, Vec3 second)
 Vec3 multiply(Vec3 value, float scale)
 {
     return {value.x * scale, value.y * scale, value.z * scale};
+}
+
+void mergePhysicsContacts(
+    std::vector<r3d::physics::BodyContact>& destination,
+    const std::vector<r3d::physics::BodyContact>& source)
+{
+    for (const auto& contact : source)
+    {
+        const auto existing = std::find_if(
+            destination.begin(), destination.end(),
+            [&](const r3d::physics::BodyContact& value) {
+                return value.surface == contact.surface &&
+                       value.otherVehicle == contact.otherVehicle &&
+                       value.otherDecoration == contact.otherDecoration &&
+                       value.otherActor == contact.otherActor;
+            });
+        if (existing == destination.end())
+            destination.push_back(contact);
+        else if (contact.normalSpeed > existing->normalSpeed)
+            *existing = contact;
+    }
 }
 
 source::Proj::Vec3 sourceVec(Vec3 value)
@@ -2898,7 +2920,7 @@ physics::VehicleDriveCommand OriginalRaceSession::racerFixedStepDrive(
          state.horizontalSpeed, state.drivenWheelAngularSpeed,
          state.anyWheelContact,
          state.drivenWheelContact, state.allWheelContact,
-         state.bodyContact});
+         state.bodyContact, state.firstDrivenWheelContact});
     return {command.motorTorque, command.brakeTorque,
             command.rpm, command.gear, command.steeringAngle,
             command.steeringYaw, command.rearWheelX,
@@ -3423,6 +3445,14 @@ OriginalRaceSession::vehicleDeathDebrisFrameTransform(
     return result;
 }
 
+void OriginalRaceSession::beginProjectilePhysicsFrame() noexcept
+{
+    for (auto& projectile : projectiles_)
+        projectile.physicsContacts.clear();
+    for (auto& mine : mines_)
+        mine.physicsContacts.clear();
+}
+
 void OriginalRaceSession::synchronizeProjectilePhysics(
     const std::vector<r3d::physics::ProjectileBodyState>& states)
 {
@@ -3462,7 +3492,8 @@ void OriginalRaceSession::synchronizeProjectilePhysics(
             projectile->position = state.body.position;
             projectile->rotation = state.body.rotation;
             projectile->velocity = state.linearVelocity;
-            projectile->physicsContacts = state.contacts;
+            mergePhysicsContacts(
+                projectile->physicsContacts, state.contacts);
             projectile->physicsAwake = state.bodyAwake;
             if (projectile->sourceObject != nullptr)
             {
@@ -3519,7 +3550,7 @@ void OriginalRaceSession::synchronizeProjectilePhysics(
             mine->position = state.body.position;
             mine->rotation = state.body.rotation;
             mine->velocity = state.linearVelocity;
-            mine->physicsContacts = state.contacts;
+            mergePhysicsContacts(mine->physicsContacts, state.contacts);
             mine->physicsAwake = state.bodyAwake;
             if (mine->sourceObject != nullptr)
             {
@@ -5031,12 +5062,12 @@ void OriginalRaceSession::progressRaceFixedStep(
             ? playerProgress[racer].cheat.torqueScale : 1.0F;
         const float steeringScale = playerProgress[racer].cheat.faster
             ? playerProgress[racer].cheat.steeringScale : 1.0F;
-        racers_[racer].gameCar.SetMotorTorqueK(torqueScale);
-        racers_[racer].gameCar.SetWheelSteerK(steeringScale);
+        auto& gameCar = racers_[racer].gameCar;
+        gameCar.ApplyCheatMultipliers(torqueScale, steeringScale);
         vehicleInputs_[racer].motorTorqueScale =
-            racers_[racer].gameCar.GetMotorTorqueK();
+            gameCar.GetMotorTorqueK();
         vehicleInputs_[racer].lateralGripScale =
-            racers_[racer].gameCar.GetWheelSteerK();
+            gameCar.GetWheelSteerK();
     }
     inputs = vehicleInputs_;
 
@@ -9703,6 +9734,7 @@ void OriginalRaceSession::lateProgress(
 
 void OriginalRaceSession::setDebugHumanAiControl(bool enabled) noexcept
 {
+    if (debugHumanAiControl_ != enabled) motorrock::parity::event("ai.player", enabled ? "enabled" : "disabled");
     debugHumanAiControl_ = enabled;
     if (humanRacer_ < aiPlayers_.size())
         aiPlayers_[humanRacer_].SetEnabled(enabled);
@@ -11537,6 +11569,7 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
                     projectileVehicleContact);
                 projectileBodyState.active = true;
                 projectileBodyState.bodyAwake = true;
+                queuedAttackSession.beginProjectilePhysicsFrame();
                 queuedAttackSession.synchronizeProjectilePhysics(
                     {projectileBodyState});
                 const auto& synchronizedProjectile =
@@ -11564,6 +11597,24 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
                     throw std::runtime_error(
                         "Jolt projectile pose/contact was not synchronized "
                         "back into the source Proj owner");
+                }
+                auto noContactProjectileBodyState = projectileBodyState;
+                noContactProjectileBodyState.contacts.clear();
+                queuedAttackSession.synchronizeProjectilePhysics(
+                    {noContactProjectileBodyState});
+                if (queuedAttackSession.projectiles().front()
+                        .physicsContacts.size() != 1U)
+                {
+                    throw std::runtime_error(
+                        "projectile contact from an intermediate fixed step "
+                        "was overwritten before gameplay consumed it");
+                }
+                queuedAttackSession.beginProjectilePhysicsFrame();
+                if (!queuedAttackSession.projectiles().front()
+                         .physicsContacts.empty())
+                {
+                    throw std::runtime_error(
+                        "projectile contacts survived the frame boundary");
                 }
                 projectileBodyState.active = false;
                 queuedAttackSession.synchronizeProjectilePhysics(
@@ -13713,13 +13764,17 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
         for (int frame = 0; frame < 250; ++frame)
             lapSession.update(
                 1.0F / 60.0F, lapVehicles, input);
-        auto placeOnMainSegment = [&](std::size_t segment) {
+        auto placeOnMainSegment = [&](std::size_t segment,
+                                      float coordinate = 0.5F) {
             const auto& start = point(segment);
             const auto& end = point(segment + 1U);
-            lapVehicles[0].body.position = multiply(
-                add(start.position, end.position), 0.5F);
+            lapVehicles[0].body.position = add(
+                start.position,
+                multiply(subtract(end.position, start.position),
+                         coordinate));
             lapVehicles[0].body.position.z =
-                (start.position.z + end.position.z) * 0.5F + 2.0F;
+                start.position.z +
+                (end.position.z - start.position.z) * coordinate + 2.0F;
             lapVehicles[0].body.rotation = shortestArcFromX(
                 normalized2(subtract(end.position, start.position)));
             lapSession.update(
@@ -13728,14 +13783,10 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
         for (std::size_t segment = 0U;
              segment + 1U < race.tracePath.size(); ++segment)
             placeOnMainSegment(segment);
-        // The source WayPath can retain its final tile at the shared finish
-        // point for one update.  Losing curTile and reacquiring the linked
-        // first node is the exact CarState lap transition.
-        lapVehicles[0].body.position.x += 1000.0F;
-        lapVehicles[0].body.position.y += 1000.0F;
-        lapSession.update(
-            1.0F / 60.0F, lapVehicles, input);
-        placeOnMainSegment(0U);
+        // A closed source path repeats its first WayPoint as the last node.
+        // Count the crossing while the car is still resolved on the final
+        // segment; map16 can otherwise miss the event at the outside edge.
+        placeOnMainSegment(race.tracePath.size() - 2U, 0.9995F);
         if (lapSession.racers().front().car.numLaps != 1)
             throw std::runtime_error("source CarState lap transition failed");
         lapSession.update(

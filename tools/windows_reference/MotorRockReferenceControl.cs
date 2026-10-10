@@ -10,7 +10,7 @@ using System.Threading;
 
 internal static class MotorRockReferenceControl
 {
-    private const string DefaultGamePath = @"\\Mac\Home\Downloads\Motor Rock\MR.exe";
+    private const string DefaultGamePath = @"C:\MotorRock\game-debug\MR.exe";
     private const int SwRestore = 9;
     private const uint SwpNoMove = 0x0002;
     private const uint SwpNoSize = 0x0001;
@@ -390,7 +390,9 @@ internal static class MotorRockReferenceControl
 
         Input down = CreateMouseInput(0, 0, MouseLeftDown);
         Input up = CreateMouseInput(0, 0, MouseLeftUp);
-        uint sent = SendInput(2, new[] { down, up }, Marshal.SizeOf(typeof(Input)));
+        uint sent = SendInput(1, new[] { down }, Marshal.SizeOf(typeof(Input)));
+        Thread.Sleep(150);
+        sent += SendInput(1, new[] { up }, Marshal.SizeOf(typeof(Input)));
         Thread.Sleep(120);
         Console.WriteLine("click x={0} y={1} sent={2}", x, y, sent == 2);
         return sent == 2;
@@ -408,10 +410,9 @@ internal static class MotorRockReferenceControl
         {
             Input down = CreateKeyboardInput(scanCode, baseFlags);
             Input up = CreateKeyboardInput(scanCode, baseFlags | KeyUp);
-            if (SendInput(2, new[] { down, up }, Marshal.SizeOf(typeof(Input))) != 2)
-            {
-                return false;
-            }
+            if (SendInput(1, new[] { down }, Marshal.SizeOf(typeof(Input))) != 1) return false;
+            Thread.Sleep(150);
+            if (SendInput(1, new[] { up }, Marshal.SizeOf(typeof(Input))) != 1) return false;
             Thread.Sleep(90);
         }
 

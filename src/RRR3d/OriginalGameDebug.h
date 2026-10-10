@@ -18,11 +18,13 @@ enum class Command
     None,
     ResetVehicles,
     ToggleFullscreen,
+    CaptureScreenshot,
 };
 
-// Portable counterpart of the source AIDebug/DEBUG_PX controls. It can be
-// enabled alone by --game-debug, while --legacy-windows-debug composes it
-// with the separate Windows-wide scenario changes in the application flow.
+// Portable counterpart of the source AIDebug/DEBUG_PX controls. It is enabled
+// by default in the developer build and can also be requested explicitly with
+// --game-debug. --legacy-windows-debug additionally composes the separate
+// Windows-wide scenario changes in the application flow.
 class OriginalGameDebug
 {
 public:
@@ -41,6 +43,7 @@ public:
     void resetRaceState() noexcept;
     void updateFrame(float seconds) noexcept;
     bool takeOverlayRefresh() noexcept;
+    void setStatusLine(std::string line);
 
     std::vector<std::string> lines(
         const r3d::game::originalrace::Race& race,
@@ -60,6 +63,7 @@ private:
     float smoothedFrameSeconds_ = 0.0F;
     float refreshSeconds_ = 0.0F;
     bool refreshRequested_ = true;
+    std::string statusLine_;
 };
 
 bool runOriginalGameDebugSmokeTest(std::string& error);

@@ -3,9 +3,10 @@
 set -euo pipefail
 
 reference_vm="${MOTORROCK_REFERENCE_VM:-Windows 11}"
-reference_game='\\Mac\Home\Downloads\Motor Rock\MR.exe'
+reference_game="${MOTORROCK_REFERENCE_GAME:-}"
+[[ -n "${reference_game}" ]] || reference_game='C:\MotorRock\game-debug\MR.exe'
 reference_helper='C:\Users\Public\Documents\MotorRockReferenceControl.exe'
-reference_csc='C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe'
+reference_csc='C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe'
 
 script_dir="${0:A:h}"
 host_home="/Users/${USER}"
@@ -40,6 +41,7 @@ build_helper() {
   prlctl exec "${reference_vm}" --current-user "${reference_csc}" \
     /nologo \
     /target:exe \
+    /platform:x86 \
     "/out:${reference_helper}" \
     /reference:System.Drawing.dll \
     "${source_windows}"

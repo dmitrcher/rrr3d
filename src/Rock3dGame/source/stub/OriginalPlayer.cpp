@@ -382,6 +382,23 @@ Player::CarState::UpdateResult Player::CarState::Update(
     if (curTile_ != nullptr)
         track_ = curTile_->GetTile().ComputeTrackInd(xy(position_));
 
+    // Shipped closed traces repeat the first WayPoint as the final node.
+    // On World1/map16 the wide finish approach can therefore still resolve
+    // to the final segment while curNode already identifies that repeated
+    // finish point.  Waiting for curTile to reacquire the first segment can
+    // lose the lap event when the car stays near the outer edge of the road.
+    auto* mainPath = trace.GetPath(0U);
+    auto* mainFirst = mainPath != nullptr ? mainPath->GetFirst() : nullptr;
+    auto* mainLast = mainPath != nullptr ? mainPath->GetLast() : nullptr;
+    auto* finishApproach =
+        mainLast != nullptr ? mainLast->GetPrev() : nullptr;
+    const bool reachedRepeatedFinish =
+        mainFirst != nullptr && finishApproach != nullptr &&
+        lastNode_ == finishApproach && curNode_ != nullptr &&
+        curNode_->GetPoint() == mainFirst->GetPoint() &&
+        finishApproach->GetTile().ComputeCoordX(xy(position_)) >=
+            0.999F;
+
     const bool changed = curTile_ != nullptr && lastNode_ != curTile_;
     const bool firstNode = changed && lastNode_ == nullptr;
     const bool linkedNode =
@@ -392,9 +409,14 @@ Player::CarState::UpdateResult Player::CarState::Update(
          (lastNode_->GetPath()->GetFirst() != nullptr &&
           lastNode_->GetPath()->GetFirst()->GetPoint()->IsFind(
               curTile_, lastNode_->GetPath()->GetFirst())));
-    if (firstNode || linkedNode)
+    if (reachedRepeatedFinish)
     {
-        const auto* mainPath = trace.GetPath(0U);
+        result.lapPassed = true;
+        SetLastNode(mainFirst);
+        result.lastNodeChanged = true;
+    }
+    else if (firstNode || linkedNode)
+    {
         result.lapPassed =
             lastNode_ != nullptr && mainPath != nullptr &&
             curTile_ == mainPath->GetFirst();

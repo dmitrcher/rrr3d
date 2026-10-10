@@ -244,7 +244,8 @@ void AICar::PathState::ComputeMovDir(
 
     std::uint32_t newTrack =
         std::min(car.GetTrack(), trackCount_ - 1U);
-    const bool onLeft =
+    bool turnLaneBias = false;
+    const bool turnsLeft =
         cross(curTile->GetTile().GetDir(),
               nextTile->GetTile().GetDir()) > 0.0F;
     WayNode* movementNode = curTile;
@@ -279,7 +280,18 @@ void AICar::PathState::ComputeMovDir(
             else
             {
                 dirArea = projection;
-                newTrack = onLeft ? 0U : trackCount_ - 1U;
+                // The Windows build immediately targets the innermost lane.
+                // That gives fast/wide cars enough lead-in to make the turn,
+                // but sending a whole pack to one lane creates the map16
+                // pile-up. Move one lane toward the source apex per turn:
+                // cars retain their separation while still setting up early
+                // enough for tight map1 corners.
+                const auto currentTrack =
+                    std::min(car.GetTrack(), trackCount_ - 1U);
+                newTrack = turnsLeft
+                    ? (currentTrack > 0U ? currentTrack - 1U : 0U)
+                    : std::min(currentTrack + 1U, trackCount_ - 1U);
+                turnLaneBias = newTrack != currentTrack;
             }
         }
     }
@@ -325,10 +337,27 @@ void AICar::PathState::ComputeMovDir(
     const TraceVec2 direction = movementNode->GetTile().GetDir();
     TraceVec2 target = add(
         xy(vehicle.position), multiply(direction, dirArea));
-    target = add(
-        target,
-        movementNode->GetTile().ComputeTrackNormOff(
-            target, selectedTrack));
+    auto trackOffset = movementNode->GetTile().ComputeTrackNormOff(
+        target, selectedTrack);
+    if (turnLaneBias && selectedTrack == newTrack)
+    {
+        // A discrete jump to the neighbouring lane makes two adjacent cars
+        // aim at exactly the same line.  It is especially visible when a
+        // sharp corner follows the starting grid (World2/map14): the whole
+        // pack converges before it has room to spread out.  Preserve the
+        // source's early apex setup, but approach the lane boundary instead
+        // of its centre.  Collision-selected escape lanes remain exact.
+        const auto currentTrack =
+            std::min(car.GetTrack(), trackCount_ - 1U);
+        const auto currentOffset =
+            movementNode->GetTile().ComputeTrackNormOff(
+                target, currentTrack);
+        constexpr float apexLaneBlend = 0.5F;
+        trackOffset = add(
+            multiply(currentOffset, 1.0F - apexLaneBlend),
+            multiply(trackOffset, apexLaneBlend));
+    }
+    target = add(target, trackOffset);
     moveDir = normalized(subtract(target, xy(vehicle.position)));
 }
 

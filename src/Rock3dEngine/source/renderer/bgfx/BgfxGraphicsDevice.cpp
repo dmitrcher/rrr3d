@@ -811,6 +811,15 @@ public:
         bgfx::frame();
     }
 
+    bool requestScreenshot(std::string_view path) override
+    {
+        if (!initialized_ || path.empty())
+            return false;
+        const std::string ownedPath(path);
+        bgfx::requestScreenShot(BGFX_INVALID_HANDLE, ownedPath.c_str());
+        return true;
+    }
+
     std::string_view backendName() const noexcept override
     {
         return initialized_ ? bgfx::getRendererName(bgfx::getRendererType())

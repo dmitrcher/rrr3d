@@ -429,6 +429,9 @@ public:
         const PipelineState& pipeline,
         const MaterialState& material = {}) = 0;
     virtual void endFrame() = 0;
+    // Captures the next main-window back buffer. The bgfx callback appends
+    // the native .tga extension to the supplied path.
+    virtual bool requestScreenshot(std::string_view) { return false; }
 
     virtual std::string_view backendName() const noexcept = 0;
     virtual bool usesHomogeneousDepth() const noexcept = 0;

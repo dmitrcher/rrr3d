@@ -82,6 +82,26 @@ int main()
         command.move != source::AICar::MoveCarState::Brake)
         return 5;
 
+    // Cars move only one lane toward the apex while preparing for a sharp
+    // turn. This gives wide/fast cars a usable lead-in on map1 without
+    // collapsing the whole map16 pack onto one shared point.
+    source::Player outsideLanePlayer;
+    outsideLanePlayer.Reset(100.0F, 1U, &trace);
+    source::AICar outsideLaneAi(4U);
+    vehicle.position = {80.0F, -15.0F, 0.0F};
+    vehicle.direction = {1.0F, 0.0F, 0.0F};
+    vehicle.speed = 20.0F;
+    outsideLanePlayer.car.Update(
+        trace, vehicle.position, vehicle.direction, vehicle.speed,
+        1.0F / 60.0F);
+    outsideLaneAi.Update(
+        1.0F / 60.0F, outsideLanePlayer.car, vehicle);
+    if (outsideLanePlayer.car.GetTrack() != 3U ||
+        outsideLaneAi.path.moveDir.x < 0.4F ||
+        outsideLaneAi.path.moveDir.y < 0.2F ||
+        outsideLaneAi.path.moveDir.y > 0.95F)
+        return 31;
+
     vehicle.position = {1000.0F, 1000.0F, 0.0F};
     vehicle.speed = 10.0F;
     player.car.Update(

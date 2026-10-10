@@ -2057,6 +2057,8 @@ MainMenu::~MainMenu()
 
 void MainMenu::ApplyState(State state)
 {
+	static const char* parityNames[] = {"Main", "GameMode", "Network", "NetBrowser", "Profile", "Tournament", "Credits", "Difficulty", "NetIPAdress", "Matchmaking", "ServerType", "ClientType", "Lobby", "SteamBrowser"};
+	motorrock::parity::event("menu.state", (unsigned)state < sizeof(parityNames)/sizeof(parityNames[0]) ? parityNames[state] : "Unknown");
 	if (state == msMain || state == msNetwork)
 		_serverType = cServerTypeEnd;
 

@@ -589,6 +589,24 @@ void World::MainProgress()
 	Profiler::I().Begin("presentTime");
 #endif
 
+
+#ifdef _DEBUG
+    static bool parityShotHeld = false;
+    const bool parityShotDown = GetForegroundWindow() == _view->GetDesc().handle && (GetAsyncKeyState(VK_F8) & 0x8000) != 0;
+    if (parityShotDown && !parityShotHeld) {
+        const char* requestedDirectory = getenv("RRR3D_CAPTURE_DIR");
+        const std::string directory = requestedDirectory && *requestedDirectory ? requestedDirectory : "Screenshots";
+        CreateDirectoryA(directory.c_str(), NULL);
+        const std::string path = directory + "\\MotorRock-" + lsl::StrFmt("%u-%u.png", GetCurrentProcessId(), GetTickCount());
+        IDirect3DSurface9* surface = NULL;
+        IDirect3DDevice9* device = _graph->GetEngine().GetDriver().GetDevice();
+        HRESULT result = device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface);
+        if (SUCCEEDED(result)) { result = D3DXSaveSurfaceToFileA(path.c_str(), D3DXIFF_PNG, surface, NULL, NULL); surface->Release(); }
+        motorrock::parity::event(SUCCEEDED(result) ? "screenshot.saved" : "screenshot.failed", path);
+    }
+    parityShotHeld = parityShotDown;
+#endif
+
 	_graph->Present();
 
 #ifdef DEBUG_FRAME_SYNC
@@ -1054,6 +1072,7 @@ void World::RunGame()
 	_game = new GameMode(this);
 
 #if _DEBUG | DEBUG_PX
+	motorrock::parity::event("session.begin", "legacy-windows-debug");
 	_game->Run(false);
 #else
 	_game->Run(true);
@@ -1109,6 +1128,7 @@ void World::SaveLevel(const std::string& level)
 
 void World::LoadLevel(const std::string& level)
 {
+	motorrock::parity::event("map.begin", level);
 	LSL_LOG("world LoadLevel");
 
 	lsl::RootNode rootNode("root", this);
@@ -1121,6 +1141,7 @@ void World::LoadLevel(const std::string& level)
 	rootNode.EndLoad();
 
 	UpdateLevel();
+	motorrock::parity::event("map.ready", level);
 }
 
 void World::RegFixedStepEvent(IFixedStepEvent* user)

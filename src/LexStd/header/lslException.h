@@ -2,6 +2,7 @@
 #define LSL_EXCEPTION
 
 #include "lslCommon.h"
+#include "ParityTrace.h"
 
 namespace lsl
 {
@@ -81,6 +82,7 @@ template<class _Value> void AppLog::Write(const _Value& value)
 
 template<class _Value> void AppLog::Append(const _Value& value)
 {
+	if (motorrock::parity::enabled()) { std::ostringstream text; text << value; motorrock::parity::event("log", text.str()); }
 	if (_destroy)
 		return;
 

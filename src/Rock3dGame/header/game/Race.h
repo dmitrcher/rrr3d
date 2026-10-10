@@ -732,6 +732,7 @@ private:
 	Mode _mode;
 
 	bool _startRace;
+	unsigned _parityTick;
 	bool _goRace;
 	Results _results;
 	bool _planetChampion;

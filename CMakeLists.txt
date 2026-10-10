@@ -9,6 +9,9 @@ endif()
 
 option(RRR3D_BUILD_GAME "Build RRR3D game" ON)
 option(RRR3D_BUILD_MAP_EDITOR "Build map editor" OFF)
+if(RRR3D_BUILD_MAP_EDITOR AND NOT WIN32)
+    message(FATAL_ERROR "The original MapEditor requires Windows MFC and Direct3D 9. Its native macOS UI has not been ported.")
+endif()
 option(RRR3D_BUILD_SDL_SHELL "Build the SDL3 window and input shell" OFF)
 option(RRR3D_BUILD_DXVK_MOLTENVK_TEST
     "Build the isolated D3D9 -> DXVK Native -> MoltenVK feasibility test" OFF)

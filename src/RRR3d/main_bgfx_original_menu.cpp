@@ -14,6 +14,7 @@
 #ifdef RRR3D_PHYSICS
 #include "OriginalEnvironment.h"
 #include "OriginalGameDebug.h"
+#include "ParityTrace.h"
 #include "OriginalJungleAudit.h"
 #include "OriginalGameMode.h"
 #include "OriginalGarage.h"
@@ -63,9 +64,11 @@
 #include <algorithm>
 #include <array>
 #include <charconv>
+#include <chrono>
 #include <cctype>
 #include <cmath>
 #include <cstdint>
+#include <ctime>
 #include <cstdlib>
 #include <filesystem>
 #include <functional>
@@ -88,6 +91,12 @@ namespace
 using namespace r3d::renderer;
 namespace menu = r3d::game::mainmenu2;
 namespace originalaudio = r3d::game::originalaudio;
+
+#if defined(RRR3D_DEV_GAME_DEBUG)
+constexpr bool devBuildGameDebug = true;
+#else
+constexpr bool devBuildGameDebug = false;
+#endif
 namespace originalgamedata = r3d::game::originalgamedata;
 namespace originalmenu = r3d::game::originalmenu;
 namespace originalview = r3d::game::originalview;
@@ -431,6 +440,7 @@ struct Options
     bool smokeFullscreen = false;
     bool variableFrameSmoke = false;
     bool aiTelemetrySmoke = false;
+    bool screenshotSmoke = false;
     std::filesystem::path dataDirectory;
     std::string language;
     bool languageSelected = false;
@@ -446,6 +456,7 @@ struct Options
 #ifdef RRR3D_PHYSICS
     bool physicsSmokeTest = false;
     bool jungleStartAudit = false;
+    bool allMapAiAudit = false;
     bool gameDebug = false;
     bool legacyWindowsDebug = false;
     bool raceRenderSmokeTest = false;
@@ -672,6 +683,11 @@ std::optional<Options> parseOptions(int argc, char** argv)
             options.aiTelemetrySmoke = true;
             continue;
         }
+        if (argument == "--smoke-screenshot")
+        {
+            options.screenshotSmoke = true;
+            continue;
+        }
         if (argument == "--verify-resources")
         {
             options.verifyResources = true;
@@ -762,6 +778,11 @@ std::optional<Options> parseOptions(int argc, char** argv)
         if (argument == "--jungle-start-audit")
         {
             options.jungleStartAudit = true;
+            continue;
+        }
+        if (argument == "--all-map-ai-audit")
+        {
+            options.allMapAiAudit = true;
             continue;
         }
         if (argument == "--race-render-smoke-test")
@@ -1330,7 +1351,8 @@ int main(int argc, char** argv)
                      " [--game-debug] [--legacy-windows-debug] "
                      "[--track=0..89] [--car=garage-record] "
                      "[--weather=fair|night|cloudy|rainy|sahara|hell|snow] "
-                     "[--physics-smoke-test] [--jungle-start-audit] [--race-render-smoke-test] "
+                     "[--physics-smoke-test] [--jungle-start-audit] "
+                     "[--all-map-ai-audit] [--race-render-smoke-test] "
                      "[--finish-menu-smoke-test] "
                      "[--gamers-frame-smoke-test] "
                      "[--single-race-smoke-test] "
@@ -1340,6 +1362,7 @@ int main(int argc, char** argv)
                      " [--smoke-size=WIDTHxHEIGHT] [--smoke-fullscreen]"
                      " [--smoke-variable-frames]"
                      " [--smoke-ai-telemetry]"
+                     " [--smoke-screenshot]"
                      "\n";
         return EXIT_FAILURE;
     }
@@ -1364,6 +1387,19 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
 
+#ifdef RRR3D_PHYSICS
+    if ((devBuildGameDebug || options->gameDebug || options->legacyWindowsDebug) && !motorrock::parity::enabled())
+    {
+        const auto trace = rrr3d::platform::log_directory() / "parity-trace.jsonl";
+        setenv("RRR3D_TRACE_FILE", trace.c_str(), 0);
+    }
+#endif
+    motorrock::parity::ConsoleTrace traceOut(std::cout);
+    motorrock::parity::ConsoleTrace traceError(std::cerr);
+    const unsigned paritySeed = motorrock::parity::seedFromEnvironment(static_cast<unsigned>(std::time(nullptr)));
+    std::srand(paritySeed);
+    motorrock::parity::event("rng.seed", std::to_string(paritySeed));
+    motorrock::parity::event("session.begin", "native macOS source runtime");
     const auto dataDirectory =
         options->dataDirectory.empty()
             ? r3d::resource::defaultGameDataDirectory()
@@ -1788,6 +1824,14 @@ int main(int argc, char** argv)
 #ifdef RRR3D_PHYSICS
     if (options->jungleStartAudit)
         return rrr3d::diagnostics::auditJungleStarts(*resources) ? EXIT_SUCCESS : EXIT_FAILURE;
+    if (options->allMapAiAudit)
+        return rrr3d::diagnostics::auditAllMapAi(
+                   *resources,
+                   options->trackSelected
+                       ? std::optional<std::size_t>(selectedTrack)
+                       : std::nullopt)
+                   ? EXIT_SUCCESS
+                   : EXIT_FAILURE;
     if (options->physicsSmokeTest)
     {
         std::string physicsError;
@@ -3916,7 +3960,11 @@ int main(int argc, char** argv)
                     projectiles,
                 std::vector<r3d::physics::ProjectileBodyCommand>&
                     projectileCommands) {
-                raceSession.synchronizeProjectilePhysics(projectiles);
+                // Projectile contacts are published after each completed
+                // solver step below. Replaying the preceding state here
+                // would reinsert contacts already consumed by this frame's
+                // updateGameplay pass.
+                (void)projectiles;
                 raceSession.raceFixedStep(
                     deltaTime, vehicles, inputs, resets);
                 for (const auto& request :
@@ -3941,9 +3989,20 @@ int main(int argc, char** argv)
             });
     };
     bindSourceVehicleFixedStep();
+    const bool gameDebugEnabled =
+        devBuildGameDebug || options->gameDebug || options->legacyWindowsDebug;
     rrr3d::debug::OriginalGameDebug gameDebug(
-        options->gameDebug || options->legacyWindowsDebug,
+        gameDebugEnabled,
         profileState.config.quality.postEffect);
+    if (gameDebugEnabled)
+    {
+        std::cout
+            << "Game debug: enabled"
+            << (devBuildGameDebug ? " by Debug build" : " by command line")
+            << "; F1 reset, F2 post effects, F3 fullscreen, F6 AI trace, "
+               "F7 human AI control, F8 screenshot, F10 overlay, "
+               "PageUp/PageDown pages\n";
+    }
     auto raceCameraStyle =
         profileState.config.preferredCamera ==
                 r3d::game::originalrace::PreferredCamera::ThirdPerson
@@ -5487,6 +5546,7 @@ int main(int argc, char** argv)
         if (!originalMovieActive)
             return;
         const auto completion = originalMovieCompletion;
+        motorrock::parity::event("video.complete", originalMovieSource);
         originalMovieActive = false;
         originalMovieBackendStarted = false;
         originalMovieCompletion = OriginalMovieCompletion::None;
@@ -5541,6 +5601,7 @@ int main(int argc, char** argv)
             originalMovieCache =
                 movieCachePath(resources->root(), sourceMovie);
             originalMovieSource = sourceMovie;
+            motorrock::parity::event("video.request", std::string(sourceMovie));
             sourceMovieState.Play();
             originalMovieActive = true;
             originalMovieBackendStarted = false;
@@ -5648,6 +5709,7 @@ int main(int argc, char** argv)
     std::vector<r3d::physics::VehicleState> raceRenderVehicles =
         raceVehicles;
     float raceElapsedSeconds = 0.0F;
+    std::uint64_t parityTick = 0;
     bool integratedRaceStartObserved = !options->raceRenderSmokeTest;
     bool raceLoadingFrameObserved = !options->raceRenderSmokeTest;
     bool raceLoadingDeferredObserved = !options->raceRenderSmokeTest;
@@ -5681,12 +5743,16 @@ int main(int argc, char** argv)
     bool raceChatInputObserved = !options->raceRenderSmokeTest;
     bool raceChatLineObserved = !options->raceRenderSmokeTest;
     bool racePlayerDestroyedObserved = false;
+    bool screenshotSmokeQueued = false;
+    bool screenshotSmokeMenuQueued = false;
     float minimumRacePlayerLife =
         std::numeric_limits<float>::max();
     std::uint32_t racePauseSmokeStep = 0U;
     float racePauseElapsedSnapshot = -1.0F;
     r3d::physics::Vec3 racePausePositionSnapshot;
     float maximumRaceSmokeSpeed = 0.0F;
+    float maximumRacePlayerProgress = 0.0F;
+    std::uint32_t maximumRacePlayerResets = 0U;
     float maximumRaceWheelReaction = 0.0F;
     std::uint64_t raceWheelContactSamples = 0U;
     std::uint64_t raceWheelReleaseSamples = 0U;
@@ -6954,17 +7020,26 @@ int main(int argc, char** argv)
         gameDebug.resetRaceState();
         if (gameDebug.enabled() && options->raceRenderSmokeTest)
         {
-            // Exercise the F6 TraceGfx submission in the automated Metal
-            // race path. Ordinary --game-debug launches still start hidden,
-            // matching AIDebug's constructor.
+            // Exercise both non-retail AI diagnostics in the automated Metal
+            // race path. F7 lets the same source AI drive the player car, so
+            // the smoke catches route/spawn failures that previously affected
+            // only interactive play.
             gameDebug.handle(
                 rrr3d::input::Action::Debug6, true, false);
+            gameDebug.handle(
+                rrr3d::input::Action::Debug7, true, false);
         }
-        raceSession.setDebugHumanAiControl(false);
+        if (const char* ai = std::getenv("RRR3D_AI_DRIVER"); ai && std::string(ai) == "1" && !gameDebug.humanAiControl())
+            gameDebug.handle(rrr3d::input::Action::Debug7, true, false);
+        raceSession.setDebugHumanAiControl(gameDebug.humanAiControl());
         exitRaceDialogVisible = false;
         exitRaceYesFocused = true;
         racePauseElapsedSnapshot = -1.0F;
         raceElapsedSeconds = 0.0F;
+        parityTick = 0;
+        motorrock::parity::event("race.begin", originalRace->levelPath);
+        maximumRacePlayerProgress = 0.0F;
+        maximumRacePlayerResets = 0U;
         raceExitLifecycleApplied = false;
         sourceFinishFrame.hide();
         raceVehicles.resize(physicsWorld->vehicleCount());
@@ -10324,8 +10399,24 @@ int main(int argc, char** argv)
     bool singleRaceSmokeReady = false;
     const auto singleRaceSmokeDeadline = SDL_GetTicks() + 15000U;
 #endif
+    int parityMenu = -1;
+    auto captureParityScreenshot = [&]() {
+        const char* custom = std::getenv("RRR3D_CAPTURE_DIR");
+        const auto directory = custom && *custom ? std::filesystem::path(custom)
+            : rrr3d::platform::save_directory() / "Screenshots";
+        std::error_code error; std::filesystem::create_directories(directory, error);
+        const auto path = directory / ("RRR3d-" + std::to_string(SDL_GetTicksNS()));
+        const bool queued = !error && device->requestScreenshot(path.string());
+        motorrock::parity::event(queued ? "screenshot.request" : "screenshot.failed", path.string() + ".tga");
+    };
     while (running)
     {
+        if (!menuStack.empty() && parityMenu != static_cast<int>(menuStack.back())) {
+            parityMenu = static_cast<int>(menuStack.back());
+            static const char* names[] = {"Main", "GameMode", "Tournament", "Difficulty", "Profiles", "Network", "NetworkServerType", "NetworkClientType", "NetworkBrowser", "NetworkIpAddress", "Options", "Credits", "Gamers", "RaceMenu", "Garage", "Workshop", "Planets", "Achievements", "GameOptions", "GraphicsOptions", "SoundOptions", "ControlsOptions", "Finish"};
+            motorrock::parity::event("menu.state", names[parityMenu]);
+        }
+
 #if defined(RRR3D_PHYSICS) && defined(RRR3D_AUDIO)
         // Exercise the same NewProfile/reload boundary as Single Race only
         // after menu decoding has finished; otherwise a silent source would
@@ -10556,6 +10647,28 @@ int main(int argc, char** argv)
         }
 #endif
 #if defined(RRR3D_PHYSICS) && defined(RRR3D_GAMEPAD_INPUT)
+        if (options->screenshotSmoke && !inRace && !screenshotSmokeMenuQueued && renderedFrames >= 25U) {
+            captureParityScreenshot();
+            screenshotSmokeMenuQueued = true;
+        }
+        if (options->screenshotSmoke && inRace &&
+            !screenshotSmokeQueued && raceElapsedSeconds >= 1.0F)
+        {
+            SDL_Event press{};
+            press.key.type = SDL_EVENT_KEY_DOWN;
+            press.key.down = true;
+            press.key.scancode = SDL_SCANCODE_F8;
+            SDL_Event release = press;
+            release.key.type = SDL_EVENT_KEY_UP;
+            release.key.down = false;
+            if (!SDL_PushEvent(&press) || !SDL_PushEvent(&release))
+            {
+                std::cerr << "Unable to queue debug screenshot smoke: "
+                          << SDL_GetError() << '\n';
+                runtimeSmokeFailed = true;
+            }
+            screenshotSmokeQueued = true;
+        }
         if (options->startOptionsSmokeTest &&
             sourceStartOptionsActive &&
             startOptionsSmokeStep < 6U &&
@@ -11074,6 +11187,11 @@ int main(int argc, char** argv)
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
+            if (event.type == SDL_EVENT_KEY_DOWN && event.key.scancode == SDL_SCANCODE_F8 && !event.key.repeat) {
+                captureParityScreenshot();
+                continue;
+            }
+
 #ifdef RRR3D_PHYSICS
             // This fixture drives a deterministic keyboard/menu sequence.
             // Native pointer motion (including fullscreen repositioning)
@@ -12990,6 +13108,7 @@ int main(int argc, char** argv)
                     case rrr3d::input::Action::Debug5:
                     case rrr3d::input::Action::Debug6:
                     case rrr3d::input::Action::Debug7:
+                    case rrr3d::input::Action::DebugScreenshot:
                     case rrr3d::input::Action::DebugOverlay:
                     case rrr3d::input::Action::DebugPagePrevious:
                     case rrr3d::input::Action::DebugPageNext: {
@@ -13040,6 +13159,52 @@ int main(int argc, char** argv)
                                             ? SDL_GetError()
                                             : windowError)
                                     << '\n';
+                            }
+                        }
+                        else if (
+                            command ==
+                            rrr3d::debug::Command::CaptureScreenshot)
+                        {
+                            const auto directory =
+                                rrr3d::platform::save_directory() /
+                                "Screenshots";
+                            std::error_code directoryError;
+                            std::filesystem::create_directories(
+                                directory, directoryError);
+                            const auto now =
+                                std::chrono::system_clock::now();
+                            const std::time_t time =
+                                std::chrono::system_clock::to_time_t(now);
+                            std::tm localTime{};
+                            localtime_r(&time, &localTime);
+                            std::ostringstream name;
+                            name << "RRR3d-"
+                                 << std::filesystem::path(
+                                        originalRace->levelPath)
+                                        .stem()
+                                        .string()
+                                 << '-' << std::put_time(
+                                        &localTime, "%Y%m%d-%H%M%S");
+                            const auto requestPath =
+                                directory / name.str();
+                            auto savedPath = requestPath;
+                            savedPath += ".tga";
+                            if (!directoryError &&
+                                device->requestScreenshot(
+                                    requestPath.string()))
+                            {
+                                const auto status =
+                                    "Screenshot: " + savedPath.string();
+                                gameDebug.setStatusLine(status);
+                                std::cout << status << '\n';
+                            }
+                            else
+                            {
+                                gameDebug.setStatusLine(
+                                    "Screenshot failed: " +
+                                    (directoryError
+                                         ? directoryError.message()
+                                         : std::string("renderer rejected request")));
                             }
                         }
                         raceSession.setDebugHumanAiControl(
@@ -16277,6 +16442,7 @@ int main(int argc, char** argv)
                 // across every missed step, leaving a visible second/blurred
                 // car.  Keep Jolt's internal 1/120 solver substeps, but expose
                 // every completed source step to the original pose history.
+                raceSession.beginProjectilePhysicsFrame();
                 const auto publishCompletedPhysicsPoses = [&]() {
                     for (std::size_t index = 0;
                          index < physicsWorld->vehicleCount(); ++index)
@@ -16342,6 +16508,23 @@ int main(int argc, char** argv)
                     for (std::size_t step = 0U;
                          step < sourceFramePlan.fixedSteps; ++step)
                     {
+                        ++parityTick;
+                        if (motorrock::parity::enabled() && parityTick % 10U == 0U) {
+                            for (std::size_t racer = 0; racer < physicsWorld->vehicleCount(); ++racer) {
+                                const auto state = physicsWorld->vehicle(racer);
+                                const auto& pos = state.body.position; const auto& rot = state.body.rotation;
+                                const auto& v = state.linearVelocity;
+                                const auto input = racer < vehicleInputs.size() ? vehicleInputs[racer] : r3d::physics::VehicleInput{};
+                                std::ostringstream s; s.imbue(std::locale::classic()); s << std::setprecision(9);
+                                s << "{\"tick\":" << (parityTick - 1U) << ",\"dt\":" << r3d::game::originalrace::source::WorldFrameClock::fixedStep << ",\"racer\":" << racer
+                                  << ",\"position\":[" << pos.x << ',' << pos.y << ',' << pos.z << "],\"rotation\":[" << rot.x << ',' << rot.y << ',' << rot.z << ',' << rot.w
+                                  << "],\"velocity\":[" << v.x << ',' << v.y << ',' << v.z << "],\"speed\":" << state.speed
+                                  << ",\"lap\":" << raceSession.racers()[racer].car.GetLap() << ",\"throttle\":" << input.throttle
+                                  << ",\"brake\":" << input.brake << ",\"steering\":" << input.steering << ",\"contacts\":" << state.contactCount
+                                  << ",\"rpm\":" << state.engineRpm << ",\"gear\":" << state.gear << '}';
+                                motorrock::parity::event("physics.sample", "", s.str());
+                            }
+                        }
                         physicsWorld->step(
                             r3d::game::originalrace::source::
                                 WorldFrameClock::fixedStep,
@@ -16577,6 +16760,12 @@ int main(int argc, char** argv)
             maximumRaceSmokeContacts = std::max(
                 maximumRaceSmokeContacts,
                 physicsWorld->vehicle(humanRacer).contactCount);
+            maximumRacePlayerProgress = std::max(
+                maximumRacePlayerProgress,
+                raceSession.racers()[humanRacer].car.GetLap());
+            maximumRacePlayerResets = std::max(
+                maximumRacePlayerResets,
+                physicsWorld->vehicle(humanRacer).resetCount);
             for (const auto& vehicle : raceVehicles)
             {
                 for (const auto& contact : vehicle.wheelContacts)
@@ -21226,6 +21415,14 @@ int main(int argc, char** argv)
                               }));
                 const std::size_t expectedAheadAi =
                     expectedCompetitiveAi > 0U ? 1U : 0U;
+                const bool expectsMap1PlayerAiRoute =
+                    options->smokeFrames >= 900U &&
+                    originalRace->levelPath ==
+                        "Data/Map/World1/map1.r3dMap";
+                const bool playerAiRouteHealthy =
+                    !expectsMap1PlayerAiRoute ||
+                    (maximumRacePlayerProgress >= 0.35F &&
+                     maximumRacePlayerResets <= 1U);
                 const auto expectedHeadlightCount =
                     static_cast<std::uint32_t>(
                         std::accumulate(
@@ -21298,6 +21495,7 @@ int main(int argc, char** argv)
                     competitiveAiCount < expectedCompetitiveAi ||
                     progressingAiCount < expectedCompetitiveAi ||
                     aheadAiCount < expectedAheadAi ||
+                    !playerAiRouteHealthy ||
                     raceVehicles.size() < 2U ||
                     !raceCameraStylesObserved[0] ||
                     !raceCameraStylesObserved[1] ||
@@ -21382,6 +21580,9 @@ int main(int argc, char** argv)
                         << expectedCompetitiveAi
                         << ", AI ahead=" << aheadAiCount << '/'
                         << expectedAheadAi
+                        << ", playerAI progress/resets="
+                        << maximumRacePlayerProgress << '/'
+                        << maximumRacePlayerResets
                         << ", renderGraph="
                         << renderGraphComplete
                         << ", envMapped="
@@ -21432,6 +21633,9 @@ int main(int argc, char** argv)
                     }
                     std::cout
                         << ", ahead=" << aheadAiCount
+                        << ", playerAI="
+                        << maximumRacePlayerProgress << "/"
+                        << maximumRacePlayerResets
                         << (options->legacyWindowsDebug
                                 ? ", Windows _DEBUG cameras=5"
                                 : "")

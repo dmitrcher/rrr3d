@@ -2282,6 +2282,7 @@ private:
         const auto& source = vehicle.spawn.vehicle;
         bool anyContact = false;
         bool drivenContact = false;
+        bool firstDrivenContact = false;
         bool allContact = !vehicle.constraint->GetWheels().empty();
         float drivenWheelSpeed = 0.0F;
         bool foundDrivenWheel = false;
@@ -2296,6 +2297,7 @@ private:
             drivenContact = drivenContact || wheel->HasContact();
             if (!foundDrivenWheel)
             {
+                firstDrivenContact = wheel->HasContact();
                 drivenWheelSpeed = wheel->GetAngularVelocity();
                 foundDrivenWheel = true;
             }
@@ -2309,10 +2311,10 @@ private:
             velocity.GetX(), 0.0F, velocity.GetZ()};
         const float signedSpeed =
             velocity.Dot(rotation * JPH::Vec3::sAxisX());
-        // PhysX settles a braked wheel to exact zero. Jolt keeps tiny solver
-        // residuals, so use a narrow dead zone at the mcAccel/mcBack
-        // direction transition to preserve the source state change.
-        constexpr float directionDeadZone = 0.1F;
+        // GameCar::GetSpeed in the source quantizes the longitudinal speed
+        // before MotorProgress chooses between drive and braking.
+        const float sourceSignedSpeed = std::abs(signedSpeed) < 1.0F
+            ? 0.0F : signedSpeed;
 
         float brakeTorque = source.restBrakeTorque;
         float motorTorque = 0.0F;
@@ -2330,7 +2332,8 @@ private:
                     {signedSpeed, velocity.Length(),
                      horizontalVelocity.Length(), drivenWheelSpeed,
                      anyContact, drivenContact, allContact,
-                     !vehicle.state.bodyContacts.empty()});
+                     !vehicle.state.bodyContacts.empty(),
+                     firstDrivenContact});
             }
             gameCarCommand = vehicle.sourceDriveCommand;
             motorTorque = gameCarCommand.motorTorque;
@@ -2353,7 +2356,7 @@ private:
             }
             else if (input.reverse > 0.0001F)
             {
-                if (signedSpeed > directionDeadZone)
+                if (sourceSignedSpeed > 0.0F)
                 {
                     rpm = sourceRpm(
                         source, vehicle.currentGear, drivenWheelSpeed);
@@ -2370,7 +2373,7 @@ private:
             }
             else if (input.throttle > 0.0001F)
             {
-                if (signedSpeed < -directionDeadZone)
+                if (sourceSignedSpeed < 0.0F)
                 {
                     vehicle.currentGear = -1;
                     rpm = source.idlingRpm;
@@ -2388,7 +2391,7 @@ private:
                 }
             }
 
-            if (drivenContact && source.automaticGears &&
+            if (firstDrivenContact && source.automaticGears &&
                 vehicle.currentGear > 0)
             {
                 if (rpm < source.maximumRpm / 1.8F &&

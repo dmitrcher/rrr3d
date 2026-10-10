@@ -19,7 +19,7 @@ void appendDigital(std::vector<ActionEvent> &events, Action action, bool active,
 	events.push_back({action, active ? 1.0F : 0.0F, active, repeated, source, device_id});
 }
 
-constexpr std::array<Action, 32> allActions = {
+constexpr std::array<Action, 33> allActions = {
 	Action::Accelerate, Action::Brake, Action::TurnLeft, Action::TurnRight,
 	Action::UseWeapon, Action::UseAllWeapons, Action::UseMine,
 	Action::UseHyper, Action::ChangeWeapon, Action::PreviousWeapon,
@@ -28,7 +28,8 @@ constexpr std::array<Action, 32> allActions = {
 	Action::ToggleCamera, Action::ResetVehicle, Action::Pause, Action::MenuUp,
 	Action::MenuDown, Action::MenuConfirm, Action::MenuBack,
 	Action::Debug1, Action::Debug2, Action::Debug3, Action::Debug4,
-	Action::Debug5, Action::Debug6, Action::Debug7, Action::DebugOverlay,
+	Action::Debug5, Action::Debug6, Action::Debug7, Action::DebugScreenshot,
+	Action::DebugOverlay,
 	Action::DebugPagePrevious, Action::DebugPageNext};
 } // namespace
 
@@ -297,6 +298,10 @@ std::vector<ActionEvent> SdlInputManager::processEvent(const SDL_Event &event)
 			break;
 		case SDL_SCANCODE_F10:
 			appendDigital(events, Action::DebugOverlay, down, repeat,
+			              Source::Keyboard);
+			break;
+		case SDL_SCANCODE_F8:
+			appendDigital(events, Action::DebugScreenshot, down, repeat,
 			              Source::Keyboard);
 			break;
 		case SDL_SCANCODE_PAGEUP:

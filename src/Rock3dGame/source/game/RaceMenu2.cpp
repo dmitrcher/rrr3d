@@ -3680,6 +3680,8 @@ RaceMenu::~RaceMenu()
 
 void RaceMenu::ApplyState(State state)
 {
+	static const char* parityNames[] = {"RaceMain", "Garage", "Workshop", "Gamers", "Angar", "Achievments"};
+	motorrock::parity::event("menu.state", (unsigned)state < sizeof(parityNames)/sizeof(parityNames[0]) ? parityNames[state] : "Unknown");
 	bool carVisible = state == msMain || state == msGarage || state == msWorkshop;
 	bool spaceshipVisible = state == msAngar;
 

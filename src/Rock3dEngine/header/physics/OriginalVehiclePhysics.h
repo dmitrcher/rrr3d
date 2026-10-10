@@ -207,6 +207,9 @@ struct VehicleFixedStepState
     // separately by GameCar::OnContact in the same fixed-step lifetime.
     bool allWheelContact = false;
     bool bodyContact = false;
+    // TransmissionProgress in the source queries only
+    // GetLeadGroup().front(), while steering uses any driven wheel.
+    bool firstDrivenWheelContact = false;
 };
 
 struct VehicleDriveCommand

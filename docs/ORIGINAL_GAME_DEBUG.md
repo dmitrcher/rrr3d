@@ -1,8 +1,9 @@
 # Original game debug mode on macOS
 
 The macOS port exposes the original Windows debug code through two explicit
-runtime modes. Both are disabled during an ordinary launch, regardless of
-whether the macOS application itself is a Debug or Release build.
+runtime modes. Debug builds enable `--game-debug` instrumentation by default. Release builds
+keep it disabled unless explicitly requested. The scenario-changing
+`--legacy-windows-debug` mode always requires an explicit switch.
 
 - `--game-debug` enables instrumentation without changing the campaign.
 - `--legacy-windows-debug` reproduces the platform-independent global
@@ -31,6 +32,9 @@ performance problem.
   like the original `TraceGfx` debug actor.
 - `F7`: let the ported source AI controller drive the player's existing car.
   No racer or physics actor is added.
+- `F8`: save the current game frame, including menus, as a TGA screenshot.
+  The directory is `RRR3D_CAPTURE_DIR` or the application save directory’s
+  `Screenshots` subdirectory.
 - `F10`: show or hide the diagnostic overlay.
 - `Page Up`, `Page Down`: switch between race/engine, live wheel/contact and
   serialized vehicle/suspension pages.
@@ -131,3 +135,12 @@ build/macos-arm64-m10/Debug/RRR3d.app/Contents/MacOS/RRR3d \
   --legacy-windows-debug --race-render-smoke-test \
   --smoke-test-frames=240
 ```
+
+## Windows reference and timestamped captures
+
+A real VC2008 `Debug|Win32` reference is now installed separately from Release
+in `C:\MotorRock\game-debug`. Its F7 human-car AI and F8 PNG screenshot
+controls are enabled. See [CROSS_PLATFORM_PARITY.md](CROSS_PLATFORM_PARITY.md)
+for the launchers, JSONL format, Windows SDK patch, Parallels bridge and tested
+repeatability results. Microsoft Debug CRT files are local development
+prerequisites and are not included in downloadable archives.

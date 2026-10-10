@@ -38,7 +38,7 @@ int main()
         bridgeWorld, 1.0F / 120.0F,
         {1.0F, 0.0F, 0.0F, 0.0F, false},
         {0.0F, 0.0F, 0.0F, 0.0F,
-         true, true, true, false});
+         true, true, true, false, true});
     if (bridgeDrive.motorTorque <= 0.0F || bridgeDrive.gear != 1)
         return 72;
     const source::GameObjectFrameSync::Pose bridgePose{
@@ -216,7 +216,8 @@ int main()
         return 59;
     const auto shifted = car.OnFixedStepDrive(
         1.0F / 120.0F, {1.0F, 0.0F, 0.0F, 0.0F},
-        {5.0F, 5.0F, 5.0F, 10000.0F, true, true});
+        {5.0F, 5.0F, 5.0F, 10000.0F, true, true,
+         false, false, true});
     if (shifted.rpm != 7000.0F || shifted.gear != 2 ||
         shifted.motorTorque != expectedFirstGearTorque ||
         car.GetSoundMotorMix().currentRpm <= 0.0F)
@@ -235,9 +236,19 @@ int main()
         return 53;
     car.SetMotorTorqueK(1.0F);
     car.SetWheelSteerK(1.0F);
+    car.ApplyCheatMultipliers(1.005F, 0.995F);
+    if (car.GetMotorTorqueK() != 1.0F ||
+        car.GetWheelSteerK() != 1.0F)
+        return 90;
+    car.ApplyCheatMultipliers(1.02F, 0.98F);
+    if (car.GetMotorTorqueK() != 1.02F ||
+        car.GetWheelSteerK() != 0.98F)
+        return 91;
+    car.ApplyCheatMultipliers(1.0F, 1.0F);
     const auto reverseBrake = car.OnFixedStepDrive(
         1.0F / 120.0F, {0.0F, 1.0F, 0.0F, 0.0F},
-        {2.0F, 2.0F, 2.0F, 10.0F, true, true});
+        {2.0F, 2.0F, 2.0F, 10.0F, true, true,
+         false, false, true});
     if (reverseBrake.motorTorque != 0.0F ||
         reverseBrake.brakeTorque != 7500.0F ||
         // TransmissionProgress still runs while mcBack is braking forward
@@ -250,6 +261,33 @@ int main()
     if (reverseDrive.gear != 0 ||
         reverseDrive.motorTorque >= 0.0F)
         return 41;
+    const auto lowSpeedReverse = car.OnFixedStepDrive(
+        1.0F / 120.0F, {0.0F, 1.0F, 0.0F, 0.0F},
+        {0.5F, 0.5F, 0.5F, 0.0F, true, true});
+    if (lowSpeedReverse.gear != 0 ||
+        lowSpeedReverse.motorTorque >= 0.0F ||
+        lowSpeedReverse.brakeTorque != 400.0F)
+        return 86;
+    const auto lowSpeedForward = car.OnFixedStepDrive(
+        1.0F / 120.0F, {1.0F, 0.0F, 0.0F, 0.0F},
+        {-0.5F, 0.5F, 0.5F, 0.0F, true, true});
+    if (lowSpeedForward.gear != 1 ||
+        lowSpeedForward.motorTorque <= 0.0F ||
+        lowSpeedForward.brakeTorque != 400.0F)
+        return 87;
+    car.SetCurGear(1);
+    const auto firstLeadAirborne = car.OnFixedStepDrive(
+        1.0F / 120.0F, {},
+        {5.0F, 5.0F, 5.0F, 10000.0F, true, true,
+         false, false, false});
+    if (firstLeadAirborne.gear != 1)
+        return 88;
+    const auto firstLeadGrounded = car.OnFixedStepDrive(
+        1.0F / 120.0F, {},
+        {5.0F, 5.0F, 5.0F, 10000.0F, true, true,
+         false, false, true});
+    if (firstLeadGrounded.gear != 2)
+        return 89;
     const auto braking = car.OnFixedStepDrive(
         1.0F / 120.0F, {0.0F, 0.0F, 1.0F, 0.0F},
         {-2.0F, 2.0F, 2.0F, 10.0F, true, true});
@@ -259,7 +297,8 @@ int main()
     car.SetWheelSteerK(2.5F);
     const auto speedLimited = car.OnFixedStepDrive(
         1.0F / 120.0F, {1.0F, 0.0F, 0.0F, 0.0F},
-        {12.0F, 12.0F, 12.0F, 100.0F, true, true});
+        {12.0F, 12.0F, 12.0F, 100.0F, true, true,
+         false, false, true});
     if (speedLimited.gear != 2 ||
         speedLimited.motorTorque != speedLimited.brakeTorque ||
         speedLimited.motorTorque != 400.0F ||

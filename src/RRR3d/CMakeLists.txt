@@ -314,6 +314,12 @@ elseif(RRR3D_BUILD_PORTABLE_MENU OR RRR3D_BUILD_ORIGINAL_MENU OR
         ${_rrr3d_race_post_shaders}
     )
 
+    # Match the original Windows non-retail build: developer controls are
+    # available by default in Debug, while release binaries stay unchanged.
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:RRR3D_DEV_GAME_DEBUG=1>
+    )
+
     if(RRR3D_BUILD_ORIGINAL_MENU)
         if(NOT APPLE)
             message(FATAL_ERROR

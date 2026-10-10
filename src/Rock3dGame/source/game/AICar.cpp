@@ -594,6 +594,7 @@ void AICar::OnProcessEvent(unsigned id, EventData* data)
 
 void AICar::OnProgress(float deltaTime)
 {
+	if (motorrock::parity::enabled()) motorrock::parity::event("ai.control", lsl::StrFmt("player=%d enabled=%d steer=%g blocked=%d reverse=%d", _player->GetId(), (int)_enbAI, _control.steerAngle, (int)_control.blocking, (int)_control.backMoving));
 	if (GetCar().mapObj)
 	{
 		UpdateAI(deltaTime, GetCar());

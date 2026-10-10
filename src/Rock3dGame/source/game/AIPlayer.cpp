@@ -345,7 +345,8 @@ AIDebug::AIDebug(AISystem* ai, AIPlayer* aiPlayer): _ai(ai), _aiPlayer(aiPlayer)
 	GetWorld()->GetControl()->InsertEvent(_control);
 
 	if (aiPlayer->_car)
-		aiPlayer->_car->_enbAI = false;
+		aiPlayer->_car->_enbAI = getenv("RRR3D_AI_DRIVER") && std::string(getenv("RRR3D_AI_DRIVER")) == "1";
+	motorrock::parity::event("ai.player", aiPlayer->_car && aiPlayer->_car->_enbAI ? "enabled" : "disabled");
 	_traceGfx->SetVisible(false);
 }
 
@@ -808,6 +809,7 @@ bool AIDebug::Control::OnHandleInput(const InputMessage& msg)
 	if (msg.action == gaDebug7 && msg.state == ksDown && !msg.repeat)
 	{
 		_debug->_aiPlayer->_car->_enbAI = !_debug->_aiPlayer->_car->_enbAI;
+		motorrock::parity::event("ai.player", _debug->_aiPlayer->_car->_enbAI ? "enabled" : "disabled");
 		return true;
 	}
 #endif

@@ -1,4 +1,5 @@
 #include "resource/ResourceFileSystem.h"
+#include "ParityTrace.h"
 
 #include "xplatform.h"
 
@@ -168,6 +169,7 @@ std::filesystem::path ResourceFileSystem::resolve(
 std::vector<std::uint8_t> ResourceFileSystem::readBinary(
     std::string_view virtualPath) const
 {
+    motorrock::parity::event("asset.begin", std::string(virtualPath));
     const auto path = resolve(virtualPath);
     std::error_code size_error;
     const auto size = std::filesystem::file_size(path, size_error);
@@ -190,6 +192,7 @@ std::vector<std::uint8_t> ResourceFileSystem::readBinary(
     }
     if (!stream && !bytes.empty())
         throw ResourceError("Unable to read resource: " + path.string());
+    motorrock::parity::event("asset.ready", std::string(virtualPath));
     return bytes;
 }
 

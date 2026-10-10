@@ -11,7 +11,9 @@ ROCK3DGAME_API IWorld* CreateWorld(const IView::Desc& viewDesc, bool steamInit)
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED | COINIT_DISABLE_OLE1DDE);
 
-	srand(_time32(NULL));
+	const unsigned paritySeed = motorrock::parity::seedFromEnvironment((unsigned)_time32(NULL));
+	srand(paritySeed);
+	motorrock::parity::event("rng.seed", lsl::StrFmt("%u", paritySeed));
 
 	// restrict this main game thread to the first processor, so query performance counter won't jump on crappy AMD cpus
 	DWORD dwThreadAffinityMask = 0x01;

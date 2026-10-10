@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <numeric>
 #include <sstream>
+#include <utility>
 
 namespace rrr3d::debug
 {
@@ -118,6 +119,8 @@ Command OriginalGameDebug::handle(
         humanAiControl_ = !humanAiControl_;
         refreshRequested_ = true;
         return Command::None;
+    case Action::DebugScreenshot:
+        return Command::CaptureScreenshot;
     case Action::DebugOverlay:
         overlayVisible_ = !overlayVisible_;
         refreshRequested_ = true;
@@ -169,6 +172,12 @@ bool OriginalGameDebug::takeOverlayRefresh() noexcept
     return true;
 }
 
+void OriginalGameDebug::setStatusLine(std::string line)
+{
+    statusLine_ = std::move(line);
+    refreshRequested_ = true;
+}
+
 std::vector<std::string> OriginalGameDebug::lines(
     const r3d::game::originalrace::Race& race,
     const r3d::game::originalrace::OriginalRaceSession& session,
@@ -184,13 +193,17 @@ std::vector<std::string> OriginalGameDebug::lines(
         "RRR3D GAME DEBUG  page " + std::to_string(page_ + 1U) +
         "/" + std::to_string(pageCount) +
         "  [F10 hide, PgUp/PgDn pages]");
+    result.push_back("Map " + race.levelPath);
     result.push_back(
         "F1 reset cars | F2 post FX " +
         std::string(postEffectsEnabled_ ? "ON" : "OFF") +
         " | F3 fullscreen | F6 trace " +
         std::string(traceVisible_ ? "ON" : "OFF") +
         " | F7 player AI " +
-        std::string(humanAiControl_ ? "ON" : "OFF"));
+        std::string(humanAiControl_ ? "ON" : "OFF") +
+        " | F8 screenshot");
+    if (!statusLine_.empty())
+        result.push_back(statusLine_);
     result.push_back(
         "FPS " + floatText(fps, 1) + "  frame " +
         floatText(smoothedFrameSeconds_ * 1000.0F, 2) + " ms");
@@ -360,7 +373,10 @@ bool runOriginalGameDebugSmokeTest(std::string& error)
         enabled.handle(rrr3d::input::Action::Debug1, true, false) !=
             Command::ResetVehicles ||
         enabled.handle(rrr3d::input::Action::Debug3, true, false) !=
-            Command::ToggleFullscreen)
+            Command::ToggleFullscreen ||
+        enabled.handle(
+            rrr3d::input::Action::DebugScreenshot, true, false) !=
+            Command::CaptureScreenshot)
     {
         error = "original F-key debug control state failed";
         return false;

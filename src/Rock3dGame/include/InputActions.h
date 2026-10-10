@@ -37,6 +37,7 @@ enum class Action : std::uint8_t
     Debug5,
     Debug6,
     Debug7,
+    DebugScreenshot,
     DebugOverlay,
     DebugPagePrevious,
     DebugPageNext
@@ -123,6 +124,8 @@ constexpr std::string_view actionName(Action action) noexcept
         return "Debug6";
     case Action::Debug7:
         return "Debug7";
+    case Action::DebugScreenshot:
+        return "DebugScreenshot";
     case Action::DebugOverlay:
         return "DebugOverlay";
     case Action::DebugPagePrevious:

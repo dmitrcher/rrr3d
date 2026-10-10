@@ -1696,6 +1696,7 @@ snd::Sound* GameMode::GetSound(const lsl::string& name, bool assertFind)
 
 void GameMode::PlayMovie(const std::string& name)
 {
+	motorrock::parity::event("video.request", name);
 	_movieFileName = name;
 	_movieTime = 0.0f;
 }
@@ -1895,7 +1896,9 @@ void GameMode::OnFrame(float deltaTime, float pxAlpha)
 		}
 		else if (_movieTime == 6)
 		{
+			motorrock::parity::event("video.begin", _movieFileName);
 			_world->GetVideo()->Open(_movieFileName);
+			motorrock::parity::event("video.ready", _movieFileName);
 			_world->GetVideo()->Play();
 			_world->ResetInput();
 			_movieTime = 7;
@@ -1916,6 +1919,7 @@ void GameMode::OnFrame(float deltaTime, float pxAlpha)
 			_menuMusic->Pause(false);
 			_movieTime = -1;
 
+			motorrock::parity::event("video.complete", _movieFileName);
 			SendEvent(cVideoStopped);
 		}
 	}

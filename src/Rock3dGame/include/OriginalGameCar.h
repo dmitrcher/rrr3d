@@ -124,6 +124,7 @@ public:
         bool drivenWheelContact = false;
         bool allWheelContact = false;
         bool bodyContact = false;
+        bool firstDrivenWheelContact = false;
     };
 
     struct DynamicsDescription
@@ -322,6 +323,7 @@ public:
     void SetMotorTorqueK(float value) noexcept;
     float GetWheelSteerK() const noexcept;
     void SetWheelSteerK(float value) noexcept;
+    void ApplyCheatMultipliers(float torque, float steering) noexcept;
     // The Windows getters read the live PhysX actor/wheel shapes. The
     // portable backend synchronizes that same physical state into GameCar,
     // which remains the gameplay-facing telemetry authority.

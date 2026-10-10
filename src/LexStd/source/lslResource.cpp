@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ParityTrace.h"
 
 #include "lslResource.h"
 #include "lslUtility.h"
@@ -29,6 +30,7 @@ void FileSystem::Release()
 
 template<class _T> std::basic_istream<_T, std::char_traits<_T>>* FileSystem::NewInStream(const std::string& fileName, OpenMode openMode, DWORD flags)
 {
+	motorrock::parity::event("asset.begin", fileName);
 	std::ios_base::openmode ioOpMode = std::ios_base::in;
 	switch (openMode)
 	{
@@ -57,6 +59,7 @@ template<class _T> std::basic_istream<_T, std::char_traits<_T>>* FileSystem::New
 		}
 	}
 
+	motorrock::parity::event("asset.ready", fileName);
 	return fs;
 }
 

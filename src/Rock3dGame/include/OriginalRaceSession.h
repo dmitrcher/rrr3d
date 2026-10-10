@@ -605,6 +605,10 @@ public:
     std::vector<AngularMomentumRequest> takeAngularMomentumRequests();
     std::vector<r3d::physics::ProjectileBodyCommand>
         takeProjectileBodyCommands();
+    // updateGameplay consumes the preceding frame's callbacks before the
+    // next group of fixed steps starts. Clear once at that boundary, then
+    // preserve contacts produced by every fixed step in the render frame.
+    void beginProjectilePhysicsFrame() noexcept;
     void synchronizeProjectilePhysics(
         const std::vector<r3d::physics::ProjectileBodyState>& states);
     // Scene::UserNotify and GameObject::OnPxSync apply to movable map

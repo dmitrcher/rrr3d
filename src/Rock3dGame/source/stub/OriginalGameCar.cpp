@@ -588,7 +588,6 @@ GameCar::DriveCommand GameCar::OnFixedStepDrive(
         1.5F, 2.66F, 1.78F, 1.30F, 1.00F, 0.74F};
     constexpr float radiansPerRevolution =
         6.28318530717958647692F;
-    constexpr float directionDeadZone = 0.1F;
     deltaTime = std::max(deltaTime, 0.0F);
     SynchronizeSpeed(state.signedSpeed);
     // GameCar::OnFixedStep resets these flags before WheelsProgress and
@@ -658,7 +657,7 @@ GameCar::DriveCommand GameCar::OnFixedStepDrive(
         command.brakeTorque = motor_.brakeTorque * input.brake;
         break;
     case MoveCarState::Back:
-        if (state.signedSpeed > directionDeadZone)
+        if (signedSpeed_ > 0.0F)
         {
             command.rpm = calcRpm(currentGear_);
             command.brakeTorque = motor_.brakeTorque;
@@ -675,7 +674,7 @@ GameCar::DriveCommand GameCar::OnFixedStepDrive(
         }
         break;
     case MoveCarState::Accel:
-        if (state.signedSpeed < -directionDeadZone)
+        if (signedSpeed_ < 0.0F)
         {
             SetCurGear(-1);
             command.rpm = calcRpm(currentGear_);
@@ -694,7 +693,7 @@ GameCar::DriveCommand GameCar::OnFixedStepDrive(
 
     // Source TransmissionProgress runs after MotorProgress, so the torque
     // and RPM above still belong to the gear used for this fixed step.
-    if (state.drivenWheelContact && motor_.automaticGears &&
+    if (state.firstDrivenWheelContact && motor_.automaticGears &&
         currentGear_ > 0)
     {
         if (command.rpm < motor_.maximumRpm / 1.8F &&
@@ -981,6 +980,18 @@ void GameCar::SetWheelSteerK(float value) noexcept
     // live PhysX descriptor. Keeping an absolute scale here reproduces that
     // behavior without compounding the multiplier between frames.
     wheelSteerK_ = value;
+}
+
+void GameCar::ApplyCheatMultipliers(
+    float torque, float steering) noexcept
+{
+    // Player::SetCheatK in the Windows source deliberately ignores tiny
+    // changes so AI catch-up does not rewrite both live coefficients on
+    // every progress callback.
+    if (std::abs(motorTorqueK_ - torque) > 0.01F)
+        SetMotorTorqueK(torque);
+    if (std::abs(wheelSteerK_ - steering) > 0.01F)
+        SetWheelSteerK(steering);
 }
 
 void GameCar::SynchronizeSpeed(float signedSpeed) noexcept

@@ -253,6 +253,13 @@ bool runSdlInputSmokeTest(SdlInputManager &input, std::string &error)
 		error = "portable debug overlay/F10 mapping failed";
 		return false;
 	}
+	event.key.scancode = SDL_SCANCODE_F8;
+	actions = input.processEvent(event);
+	if (!contains(actions, Action::DebugScreenshot, Source::Keyboard, true))
+	{
+		error = "portable debug screenshot/F8 mapping failed";
+		return false;
+	}
 
 	event = {};
 	event.wheel.type = SDL_EVENT_MOUSE_WHEEL;

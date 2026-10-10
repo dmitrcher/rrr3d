@@ -6900,6 +6900,22 @@ void Race::LoadLib()
 
 void Race::OnFixedStep(float deltaTime)
 {
+    ++_parityTick;
+    if (motorrock::parity::enabled() && _parityTick % 10 == 0) {
+        for (unsigned i = 0; i < _playerList.size(); ++i) {
+            const Player::CarState& car = _playerList[i]->GetCar();
+            if (!car.nxActor) continue;
+            const NxVec3 p = car.nxActor->getGlobalPosition();
+            const NxVec3 v = car.nxActor->getLinearVelocity();
+            const NxQuat q = car.nxActor->getGlobalOrientationQuat();
+            std::ostringstream s; s.imbue(std::locale::classic()); s << std::setprecision(9);
+            s << "{\"tick\":" << (_parityTick - 1) << ",\"dt\":" << deltaTime << ",\"racer\":" << i
+              << ",\"position\":[" << p.x << ',' << p.y << ',' << p.z << "],\"rotation\":[" << q.x << ',' << q.y << ',' << q.z << ',' << q.w
+              << "],\"velocity\":[" << v.x << ',' << v.y << ',' << v.z << "],\"speed\":" << car.speed << ",\"lap\":" << car.GetLap() << '}';
+            motorrock::parity::event("physics.sample", "", s.str());
+        }
+    }
+
 	for (unsigned i = 0; i < _playerList.size(); ++i)
 		_playerList[i]->OnProgress(deltaTime);
 
@@ -7558,6 +7574,8 @@ void Race::StartRace()
 	if (!_startRace)
 	{
 		_startRace = true;
+		_parityTick = 0;
+		motorrock::parity::event("race.begin", _tournament->GetCurTrack().level);
 
 		_goRace = false;
 

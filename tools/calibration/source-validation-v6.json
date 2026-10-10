@@ -1,0 +1,89 @@
+{
+  "protocol": "source-vehicle-matrix-v6-sdk",
+  "windows": "PhysX 2.8.4, VC2008 SP1 Win32, Windows 11 ARM64/Parallels",
+  "mac": "Jolt pinned SDK, arm64 Debug, production defaults 1 substep/source wheels/contact skin",
+  "reference_source": "eff933868c1fbdfd266738a403fac80084f2b51e",
+  "ctest": 37,
+  "python_tests": 12,
+  "captures": {
+    "calibration-v6-source-windows.jsonl": {
+      "bytes": 364257929,
+      "sha256": "d2e1d36337726a75d550b0897bd3b42c8e2dfe92127c9b8d728cded5f835aa7e"
+    },
+    "calibration-v6-final-mac.jsonl": {
+      "bytes": 356048342,
+      "sha256": "08127a799245d96e36ad4027187657f9528ae7f958c7a2fd9875aea7ee5e00fc"
+    },
+    "calibration-v6-baseline-mac.jsonl": {
+      "bytes": 358394166,
+      "sha256": "db223cde2ee1f0aa62dc847e1e6250b6ca8d69761a8087d30b2e28053f789d1e"
+    },
+    "calibration-v6-final-report/report.json": {
+      "bytes": 2296153,
+      "sha256": "8a1955cf843ad9ab5e938184d8ab7a699a9bc49b6475e48af8bc27612fcd3c59"
+    },
+    "calibration-v6-baseline-report/report.json": {
+      "bytes": 2299316,
+      "sha256": "7cd2f30f3c7cae6bc4e00d44184a9ebb3b5a93e4ee28ca7d399c89fb6f52edb8"
+    }
+  },
+  "limitations": [
+    "Transient hard chassis collisions still differ between solvers.",
+    "Matrix bypasses gearbox and AI, tests individual workshop records, not every loadout.",
+    "Renderer smoke is not a Windows/Mac pixel comparison.",
+    "Signed suspension rest length and Nx impulse models are mapped into Jolt; exact solver equality is not established."
+  ],
+  "runtime_checks": {
+    "physics_smoke": "passed",
+    "track_0_600": "passed",
+    "track_16_600": "passed",
+    "track_48_600": "passed",
+    "track_64_600": "failed survival assertion: player killed by weapon/mine damage 40+18+27; rendering/contact checks intact"
+  },
+  "repeatability": {
+    "windows": {
+      "cases": 13,
+      "samples": 5400,
+      "repeat_variance": {
+        "position": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "velocity": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "rotation": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "angular_momentum": {
+          "maximum": 0.0,
+          "rms": 0.0
+        }
+      }
+    },
+    "mac": {
+      "cases": 13,
+      "samples": 5400,
+      "repeat_variance": {
+        "position": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "velocity": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "rotation": {
+          "maximum": 0.0,
+          "rms": 0.0
+        },
+        "angular_momentum": {
+          "maximum": 0.0,
+          "rms": 0.0
+        }
+      }
+    }
+  }
+}

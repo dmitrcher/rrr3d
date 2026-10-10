@@ -26,6 +26,13 @@ class CompareTest(unittest.TestCase):
     def test_real_divergence(self):
         self.b[1]['sample']['velocity'][0]+=1
         self.assertGreater(self.run_compare()['cases']['force']['rms']['velocity_error'],.7)
+    def test_suspension_divergence(self):
+        for rows in [self.a,self.b]:
+            for row in rows[1:3]:
+                for wheel in row['sample']['wheels']:
+                    wheel['contact']=True;wheel['suspension_length']=.2
+        self.b[1]['sample']['wheels'][0]['suspension_length']=.6
+        self.assertGreater(self.run_compare()['cases']['force']['rms']['suspension_length_error'],.14)
     def test_truncated(self):
         self.b.pop()
         with self.assertRaises(ValueError):self.run_compare()

@@ -83,6 +83,23 @@ if(RRR3D_ENABLE_PHYSICS AND NOT WIN32 AND RRR3D_BUILD_ORIGINAL_MENU)
             -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_anisotropic_patch.cmake"
     )
     FetchContent_MakeAvailable(rrr3d_jolt)
+    # Also update existing populated build trees; FetchContent PATCH_COMMAND
+    # only runs on initial population.
+    execute_process(COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE_DIR=${rrr3d_jolt_SOURCE_DIR}"
+        -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_prescribed_tire_patch.cmake"
+        COMMAND_ERROR_IS_FATAL ANY)
+    execute_process(COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE_DIR=${rrr3d_jolt_SOURCE_DIR}"
+        -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_suspension_patch.cmake"
+        RESULT_VARIABLE _rrr3d_suspension_patch_result)
+    if(NOT _rrr3d_suspension_patch_result EQUAL 0)
+        message(FATAL_ERROR "Pinned Jolt suspension patch failed")
+    endif()
+    execute_process(COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE_DIR=${rrr3d_jolt_SOURCE_DIR}"
+        -P "${CMAKE_CURRENT_LIST_DIR}/apply_jolt_contact_impulses_patch.cmake"
+        COMMAND_ERROR_IS_FATAL ANY)
     set(RRR3D_JOLT_TARGET Jolt)
 endif()
 

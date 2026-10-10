@@ -12,7 +12,7 @@ game-rule differences in the adapter; it does not retune the car by eye.
 | Motor torque | `CarMotorDesc::CalcTorque` is written in full to every `lead` wheel | Jolt engine propagation is disengaged and the same full torque is applied to every driven `WheelWV` |
 | Transmission | Source gears are `-1` neutral, `0` reverse and `1..5` forward; RPM is calculated from the first driven wheel before shifting | The adapter owns the same gear state, ratios, RPM cap and `maxRPM / 1.8` / `maxRPM` automatic thresholds |
 | Reverse | `mcBack` brakes forward motion, then selects gear 0 and applies negative torque | Player brake input has a distinct `reverse` command; AI `brake` remains brake-only |
-| Brakes | `brakeTorque` and `restTorque` are per-wheel values | Full braking is preserved; only powered low-speed `restTorque` is omitted at the Jolt boundary because Jolt interprets it as a wheel lock |
+| Brakes | `brakeTorque` and `restTorque` are per-wheel values | Full braking and powered `restTorque` are preserved by the source-compatible axle/tire-impulse path |
 | Workshop tires | `tireSpring` is an overload cutoff in `MyContactModify`, not suspension stiffness | Workshop values no longer alter the coil spring; tire impulse is capped at 1.5g or released above the source cutoff |
 | Tire curves | `NxTireFunctionDesc::hermiteEval` supplies two cubic zero-tangent pieces; within `NX_SKIN_WIDTH=0.025` of the preceding contact point clamped wheels instead use static `mu=extremumValue` | The max-impulse callback evaluates the exact source cubic outside the threshold and preserves source-step contact history for the static branch; ground friction and stiffness are not multiplied in |
 | Wheel inertia | `inverseWheelMass` is inverse axle rotational inertia | Jolt `mInertia` is `1 / inverseWheelMass`, without a synthetic cylinder/radius conversion |
@@ -36,6 +36,29 @@ Additional serialized fields now loaded from every original `ctCar` record are
 index. Body `sleepEnergyThreshold` is also preserved through cars, movable
 decorations and detached pieces. `tireSpring` supplied by the workshop is accumulated separately from
 the suspension spring.
+
+## Numerical source calibration (October 2026)
+
+The production adapter now defaults to the source-compatible 60 Hz path.
+The initial body shape list includes wheel mass proxies when computing the
+inertia tensor; the resulting source X/Y/Z principal moments were checked
+against the original x86 Nx SDK for all 17 chassis. Grounded axle velocity
+is recalculated from contact-point velocity each step, and the tire callback
+applies the original clamped force without Jolt's axle reaction. Airborne
+axles continue to accumulate torque. Rest braking is no longer omitted.
+
+The lateral input includes normal velocity and predicted gravity; the dynamic
+curve remains active for small nonzero slips. Wheel radius offsets the ray
+origin to allow negative axle travel without changing its endpoint, and
+source skin is represented in contact geometry. Spring stiffness conversion
+is measured on the full chassis/mass/radius/travel matrix. The angular speed
+setter preserves Nx's damping-before-cap behavior.
+
+The 412-case, 230,400-step-per-platform protocol, commands, profiles,
+reproducible catalog and remaining numerical limits are described in
+[`tools/calibration/README.md`](../tools/calibration/README.md).
+The original 13-case v3 fit is historical and is superseded by this protocol.
+Source compatibility does not imply identical transient contact solvers.
 
 ## Validation
 
@@ -122,3 +145,9 @@ state owner.
 Physical vehicle DeathEffects use the same rule. Their source `GameObject`
 keeps behavior and effect lifetime, Jolt keeps the dynamic body, and the
 renderer consumes only the source owner's post-frame pose.
+
+The source compatibility path reports solved chassis impulses after the final
+velocity iteration (including warm start), rather than a pre-solve collision
+estimate. Damage/contact forces use impulse / source 1/60 report interval.
+The `solved_contact_impulse` test checks reported momentum changes at three
+impact speeds with suspension rays kept away from the floor.

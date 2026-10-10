@@ -143,3 +143,18 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
     add_test(NAME calibration_tuning COMMAND rrr3d_calibration_tuning_test
         "${CMAKE_CURRENT_BINARY_DIR}/calibration-test.cfg")
 endif()
+
+if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
+    add_executable(rrr3d_source_inertia_test ../../tools/calibration/test_inertia.cpp)
+    target_link_libraries(rrr3d_source_inertia_test PRIVATE Rock3dEngine)
+    rrr3d_set_common_target_options(rrr3d_source_inertia_test)
+    add_test(NAME source_inertia COMMAND rrr3d_source_inertia_test
+        "${CMAKE_SOURCE_DIR}/tools/calibration/reference-inertia.txt")
+endif()
+
+if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
+    add_executable(rrr3d_contact_impulse_test ../../tools/calibration/test_contact_impulse.cpp)
+    target_link_libraries(rrr3d_contact_impulse_test PRIVATE Rock3dEngine)
+    rrr3d_set_common_target_options(rrr3d_contact_impulse_test)
+    add_test(NAME solved_contact_impulse COMMAND rrr3d_contact_impulse_test)
+endif()

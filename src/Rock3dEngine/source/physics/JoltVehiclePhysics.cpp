@@ -155,19 +155,18 @@ constexpr float sourceMinimumBounceVelocity = 2.0F;
 // still consumes one NxContactPair::sumNormalForce/sumFrictionForce value.
 constexpr float sourceContactReportStep = 1.0F / 60.0F;
 
-JPH::Vec3 sourceBoxHalfExtents(Vec3 halfExtents, float skinWidth) noexcept
+JPH::Vec3 sourceBoxHalfExtents(Vec3 halfExtents, float skinWidth, bool contactSkin = false) noexcept
 {
-    // Jolt's convex radius rounds the inside of a box without moving its
-    // outer planes, so it cannot represent PhysX skin width. The global
-    // penetration slop accounts for two default 0.025 skins. Inset only the
-    // excess carried by shapes for which the source explicitly saved a
-    // larger value (the crush pieces use 0.1).
+    // A Jolt convex radius does not move the outer planes. Contact skins
+    // therefore need a geometric inset to avoid an early corner impulse.
+    // The historical adapter represented only the excess above 0.025.
+    // Inertia still uses the full source geometry, as the Nx SDK does.
     constexpr float minimumHalfExtent = 0.005F;
     const float effectiveSkin =
         std::isfinite(skinWidth) && skinWidth >= 0.0F
             ? skinWidth : sourceSkinWidth;
     const float inset =
-        std::max(effectiveSkin - sourceSkinWidth, 0.0F);
+        contactSkin ? effectiveSkin : std::max(effectiveSkin - sourceSkinWidth, 0.0F);
     return {
         std::max(std::abs(halfExtents.x) - inset, minimumHalfExtent),
         std::max(std::abs(halfExtents.z) - inset, minimumHalfExtent),
@@ -593,6 +592,17 @@ float sourceCombineRestitution(const JPH::Body& first,
 class OriginalContactListener final : public JPH::ContactListener
 {
 public:
+    void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
+
+    void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
+                         JPH::Vec3Arg normalImpulse,
+                         JPH::Vec3Arg frictionImpulse) override
+    {
+        if (!solvedImpulses_) return;
+        recordSolved(first, second, normalImpulse, frictionImpulse);
+        recordSolved(second, first, -normalImpulse, -frictionImpulse);
+    }
+
     void resize(std::size_t count)
     {
         std::scoped_lock lock(mutex_);
@@ -659,6 +669,28 @@ public:
     }
 
 private:
+    void recordSolved(const JPH::Body& body, const JPH::Body& other,
+                      JPH::Vec3Arg normalImpulse, JPH::Vec3Arg frictionImpulse)
+    {
+        std::size_t vehicle = 0;
+        if (!vehicleIndex(body.GetUserData(), vehicle)) return;
+        std::scoped_lock lock(mutex_);
+        if (vehicle >= pending_.size()) return;
+        auto& contacts = pending_[vehicle];
+        const auto found = std::find_if(contacts.begin(), contacts.end(),
+            [&](const BodyContact& c) {
+                return c.otherActor == other.GetID().GetIndexAndSequenceNumber();
+            });
+        if (found == contacts.end()) return;
+        BodyContact solved;
+        const float magnitude = normalImpulse.Length();
+        if (magnitude > 1.0e-8F) solved.normal = fromJolt(normalImpulse / magnitude);
+        solved.force = sourceContactForceFromImpulse(magnitude);
+        solved.frictionForceVector = fromJolt(frictionImpulse / sourceContactReportStep);
+        solved.frictionForce = (frictionImpulse / sourceContactReportStep).Length();
+        accumulateSourceContactForces(*found, std::move(solved));
+    }
+
     static void configureMaterial(
         const JPH::Body& first, const JPH::Body& second,
         const JPH::ContactManifold& manifold,
@@ -722,7 +754,7 @@ private:
                 ? normalSpeed / inverseMass
                 : 0.0F;
         const float normalImpulse =
-            std::max(effectiveMassImpulse, estimatedNormalImpulse);
+            solvedImpulses_ ? 0.0F : std::max(effectiveMassImpulse, estimatedNormalImpulse);
 
         BodyContact contact;
         contact.surface =
@@ -783,7 +815,7 @@ private:
                 const JPH::ContactSettings& settings)
     {
         JPH::CollisionEstimationResult estimation;
-        JPH::EstimateCollisionResponse(
+        if (!solvedImpulses_) JPH::EstimateCollisionResponse(
             first, second, manifold, estimation,
             std::max(
                 settings.mCombinedFriction,
@@ -805,8 +837,9 @@ private:
         // sumFrictionForce and GameCar consumes its Z sign at borders. Keep
         // this as an impulse until all Jolt callbacks for the source 1/60
         // contact-report interval have been accumulated.
-        const JPH::Vec3 estimatedFrictionImpulseVector =
-            -(frictionImpulse1 * estimation.mTangent1 +
+        const JPH::Vec3 estimatedFrictionImpulseVector = solvedImpulses_
+            ? JPH::Vec3::sZero()
+            : -(frictionImpulse1 * estimation.mTangent1 +
               frictionImpulse2 * estimation.mTangent2);
         std::size_t firstVehicle = 0;
         std::size_t secondVehicle = 0;
@@ -928,6 +961,7 @@ private:
             *found = std::move(contact);
     }
 
+    bool solvedImpulses_ = false;
     std::mutex mutex_;
     std::vector<std::vector<BodyContact>> pending_;
     std::vector<std::vector<BodyContact>> projectilePending_;
@@ -1104,7 +1138,7 @@ float sourceTireFunction(
     }
 
     // NxTireFunctionDesc::hermiteEval is part of the PhysX 2.8 contract
-    // used by the original game. Preserve the two zero-tangent cubic pieces
+    // used by the original game. Preserve the source cubic pieces (initial tangent 1, extrema tangent 0)
     // instead of feeding Jolt a three-point linear approximation.
     const float magnitude = std::abs(slip);
     const float sign = slip >= 0.0F ? 1.0F : -1.0F;
@@ -1166,6 +1200,39 @@ float sourceWheelInertia(float inverseWheelMass) noexcept
                : 1.0F;
 }
 
+JPH::MassProperties sourceVehicleMassProperties(const VehicleDescription& source)
+{
+    // NxActor's initial shape list includes the raycast wheels. Their mass
+    // proxy is a radius-high cylinder about the suspension axis (not the
+    // rolling axle); density is 1, independently of inverseWheelMass. The
+    // root actor subsequently restores massLocalPose, keeping the SDK's
+    // diagonalized tensor. This formula was checked against all 17 original
+    // car records: maximum relative discrepancy < 3e-7.
+    JPH::MassProperties combined;
+    combined.SetMassAndInertiaOfSolidBox(2.0F * toJolt(source.halfExtents), 1.0F);
+    combined.Translate(toJolt(source.shapePosition));
+    for (const auto& wheel : source.wheels)
+    {
+        JPH::MassProperties proxy;
+        const float r2 = wheel.radius * wheel.radius;
+        proxy.mMass = JPH::JPH_PI * r2 * wheel.radius;
+        proxy.mInertia = JPH::Mat44::sScale(proxy.mMass * r2 * JPH::Vec3(1.0F / 3.0F, 0.5F, 1.0F / 3.0F));
+        proxy.Translate(toJolt(wheel.position));
+        combined.mMass += proxy.mMass;
+        for (int axis = 0; axis < 3; ++axis)
+            combined.mInertia.SetColumn4(axis, combined.mInertia.GetColumn4(axis) + proxy.mInertia.GetColumn4(axis));
+    }
+    combined.ScaleToMass(source.mass);
+    JPH::Mat44 axes;
+    JPH::Vec3 principal;
+    if (!combined.DecomposePrincipalMomentsOfInertia(axes, principal))
+        throw std::runtime_error("Cannot diagonalize original vehicle inertia");
+    // Nx orders the source X/Y/Z moments small/middle/large and the game
+    // resets their principal frame to identity. Source Z maps to Jolt Y.
+    combined.mInertia = JPH::Mat44::sScale(JPH::Vec3(principal.GetZ(), principal.GetX(), principal.GetY()));
+    return combined;
+}
+
 class JoltVehicleWorld final : public OriginalVehicleWorld
 {
 public:
@@ -1197,6 +1264,7 @@ public:
             sourcePointVelocitySleepThreshold;
         physicsSettings.mTimeBeforeSleep = sourceTimeBeforeSleep;
         system_.SetPhysicsSettings(physicsSettings);
+        contactListener_.useSolvedImpulses(tuning_.physxWheelCompat);
         contactListener_.resize(description_.spawns.size());
         system_.SetContactListener(&contactListener_);
         system_.SetGravity(
@@ -1415,9 +1483,8 @@ public:
         if (index >= vehicles_.size() || !vehicles_[index].enabled)
             return;
         auto& bodies = system_.GetBodyInterface();
-        bodies.AddLinearAndAngularVelocity(
-            vehicles_[index].body, JPH::Vec3::sZero(),
-            toJoltAngular(delta));
+        setSourceAngularVelocity(vehicles_[index].body,
+            bodies.GetAngularVelocity(vehicles_[index].body) + toJoltAngular(delta));
         bodies.ActivateBody(vehicles_[index].body);
     }
 
@@ -1436,7 +1503,7 @@ public:
                 toJoltAngular(momentum));
         lock.ReleaseLock();
         auto& bodies = system_.GetBodyInterface();
-        bodies.SetAngularVelocity(vehicle.body, angularVelocity);
+        setSourceAngularVelocity(vehicle.body, angularVelocity);
         bodies.ActivateBody(vehicle.body);
         updateState(vehicle);
     }
@@ -1698,6 +1765,12 @@ public:
                                     a.z * vehicle.spawn.vehicle.mass}));
             }
             system_.Update(delta, 1, &tempAllocator_, &jobs_);
+            lastSolverDelta_ = delta;
+            if (tuning_.physxWheelCompat)
+                for (auto& vehicle : vehicles_)
+                    for (JPH::uint i = 0; i < vehicle.constraint->GetWheels().size(); ++i)
+                        if (vehicle.constraint->GetWheel(i)->HasContact())
+                            vehicle.constraint->GetWheel(i)->SetAngularVelocity(vehicle.sourceWheelAxleSpeeds[i]);
             remaining -= delta;
             simulatedSeconds += delta;
         }
@@ -1822,7 +1895,7 @@ public:
         else
         {
             const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
-                description.halfExtents, description.skinWidth);
+                description.halfExtents, description.skinWidth, tuning_.physxContactSkin);
             const auto box = new JPH::BoxShape(halfExtents);
             const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                      toJolt(description.shapePosition),
@@ -2051,6 +2124,10 @@ private:
         JPH::WheeledVehicleController* controller = nullptr;
         VehicleState state;
         Vec3 diagnosticAcceleration{};
+        std::vector<float> sourceWheelAxleSpeeds;
+        std::vector<float> sourceLongitudinalSlips, sourceLateralSlips;
+        float sourceBrakeTorque = 0;
+        bool sourceExtraGravity = false;
         float steeringAngle = 0.0F;
         float motorTorque = 0.0F;
         float engineRpm = 1000.0F;
@@ -2116,6 +2193,24 @@ private:
     {
         return source.maximumTorque * sourceGearRatio(gear) *
                source.differentialRatio * source.torqueEfficiency;
+    }
+
+    void setSourceAngularVelocity(JPH::BodyID id, JPH::Vec3Arg value) noexcept
+    {
+        if (!tuning_.physxWheelCompat)
+        {
+            system_.GetBodyInterface().SetAngularVelocity(id, value);
+            return;
+        }
+        // Nx setters accept an above-limit value; the next solve applies
+        // damping and then the 7 rad/s cap. Jolt's interface caps eagerly.
+        JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), id);
+        if (!lock.Succeeded()) return;
+        auto* motion = lock.GetBody().GetMotionProperties();
+        const float limit = motion->GetMaxAngularVelocity();
+        motion->SetMaxAngularVelocity(std::max(limit, value.Length() + 0.001F));
+        motion->SetAngularVelocity(value);
+        motion->SetMaxAngularVelocity(limit);
     }
 
     void stabilizeVehicle(
@@ -2194,7 +2289,7 @@ private:
         // PhysX setAngularMomentum runs after the optional orientation clamp.
         // Recalculate velocity with the body's final world-space inertia so
         // the clamp cannot manufacture or discard angular impulse.
-        bodies.SetAngularVelocity(
+        setSourceAngularVelocity(
             vehicle.body,
             bodies.GetInverseInertia(vehicle.body)
                 .Multiply3x3(worldAngularMomentum));
@@ -2456,7 +2551,7 @@ private:
         // the same value as a wheel lock at low speed, which previously held
         // the free rear axle stationary. Keep full braking commands exact,
         // but omit only this incompatible rest brake while power is applied.
-        if (std::abs(motorTorque) > 0.0001F &&
+        if (!tuning_.physxWheelCompat && std::abs(motorTorque) > 0.0001F &&
             brakeTorque <= source.restBrakeTorque + 0.0001F)
             brakeTorque = 0.0F;
         const float brakeInput =
@@ -2475,18 +2570,15 @@ private:
         // driven NxWheelShape rather than splitting it across an axle.
         vehicle.controller->SetDriverInput(
             0.0F, steeringInput, brakeInput, 0.0F);
-        for (JPH::uint index = 0;
-             index < vehicle.constraint->GetWheels().size(); ++index)
-        {
-            if (!source.wheels[index].driven)
-                continue;
-            static_cast<JPH::WheelWV*>(
-                vehicle.constraint->GetWheel(index))
-                ->ApplyTorque(motorTorque, delta);
-        }
+        vehicle.sourceBrakeTorque = brakeTorque;
+        if (!tuning_.physxWheelCompat)
+            for (JPH::uint index = 0; index < vehicle.constraint->GetWheels().size(); ++index)
+                if (source.wheels[index].driven)
+                    static_cast<JPH::WheelWV*>(vehicle.constraint->GetWheel(index))->ApplyTorque(motorTorque, delta);
 
         const bool applyExtraGravity = gameCarControlled
             ? gameCarCommand.applyExtraGravity : !anyContact;
+        vehicle.sourceExtraGravity = applyExtraGravity;
         if (applyExtraGravity)
         {
             bodies.AddForce(
@@ -2502,12 +2594,9 @@ private:
             {
                 const JPH::Quat currentRotation =
                     bodies.GetRotation(vehicle.body);
-                bodies.AddLinearAndAngularVelocity(
-                    vehicle.body, JPH::Vec3::sZero(),
-                    currentRotation *
-                        JPH::Vec3{
-                            0.0F, 0.0F,
-                            -pitchAcceleration * delta});
+                setSourceAngularVelocity(vehicle.body,
+                    bodies.GetAngularVelocity(vehicle.body) + currentRotation *
+                        JPH::Vec3{0.0F, 0.0F, -pitchAcceleration * delta});
             }
         }
 
@@ -2915,7 +3004,7 @@ private:
                                      bool dynamic, float mass,
                                      bool collisionResponse) {
                 const auto box = new JPH::BoxShape(
-                    sourceBoxHalfExtents(halfExtents, skinWidth));
+                    sourceBoxHalfExtents(halfExtents, skinWidth, tuning_.physxContactSkin));
                 const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                          toJolt(shapePosition),
                                          toJolt(shapeRotation), box)
@@ -2992,7 +3081,7 @@ private:
     {
         const auto& source = spawn.vehicle;
         const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
-            source.halfExtents, source.bodySkinWidth);
+            source.halfExtents, source.bodySkinWidth, tuning_.physxContactSkin);
         const auto box = new JPH::BoxShape(halfExtents);
         const auto translated = JPH::RotatedTranslatedShapeSettings(
                                     toJolt(source.shapePosition),
@@ -3019,6 +3108,11 @@ private:
         bodySettings.mOverrideMassProperties =
             JPH::EOverrideMassProperties::CalculateInertia;
         bodySettings.mMassPropertiesOverride.mMass = source.mass;
+        if (tuning_.physxWheelCompat)
+        {
+            bodySettings.mOverrideMassProperties = JPH::EOverrideMassProperties::MassAndInertiaProvided;
+            bodySettings.mMassPropertiesOverride = sourceVehicleMassProperties(source);
+        }
         // DataBase::AddPxBody uses an otherwise-default NxBodyDesc. Preserve
         // those SDK defaults instead of inheriting Jolt's 0.05 linear drag
         // and much larger angular speed ceiling.
@@ -3055,13 +3149,27 @@ private:
             wheel->mWheelForward = JPH::Vec3::sAxisX();
             wheel->mSuspensionMinLength = 0.0F;
             wheel->mSuspensionMaxLength = sourceWheel.suspensionTravel;
-            // PhysX targetValue == 0 places the spring rest point at the tip
-            // of the suspension ray. Every serialized Motor Rock wheel uses
-            // that value, which is Jolt's zero-preload natural length.
+            if (tuning_.physxWheelCompat)
+            {
+                // PhysX contactPosition includes radius and permits negative
+                // axle travel down to -radius. Raise the Jolt ray origin
+                // by radius without moving its endpoint or spring rest point.
+                wheel->mPosition += sourceWheel.radius * JPH::Vec3::sAxisY();
+                wheel->mSuspensionMaxLength += sourceWheel.radius;
+            }
+            // Shipped wheels use targetValue zero. The Nx probe also verifies
+            // the SDK target offset, whose actual effect is in world units.
             wheel->mSuspensionPreloadLength = 0.0F;
+            if (tuning_.physxWheelCompat)
+                wheel->mSuspensionPreloadLength = -sourcePenetrationSlop + sourceWheel.suspensionTarget;
             wheel->mSuspensionSpring = JPH::SpringSettings(
                 JPH::ESpringMode::StiffnessAndDamping,
                 sourceWheel.spring, sourceWheel.damper);
+            if (tuning_.physxWheelCompat)
+                // Conversion measured from Nx equilibrium across mass, spring,
+                // radius, travel and the 17 original chassis; not a claim
+                // that transient contact solvers are identical.
+                wheel->mSuspensionSpring.mStiffness *= 0.7F;
             wheel->mRadius = sourceWheel.radius;
             wheel->mWidth = sourceWheel.width;
             wheel->mInertia = sourceWheelInertia(sourceWheel.inverseMass);
@@ -3175,6 +3283,44 @@ private:
         runtime.wheelLowSpeedFrictionActive.assign(wheelCount, false);
         vehicles_.push_back(std::move(runtime));
         const std::size_t vehicleIndexValue = vehicles_.size() - 1U;
+        vehicles_.back().sourceWheelAxleSpeeds.assign(wheelCount, 0.0F);
+        vehicles_.back().sourceLongitudinalSlips.assign(wheelCount, 0.0F);
+        vehicles_.back().sourceLateralSlips.assign(wheelCount, 0.0F);
+        vehicles_.back().constraint->SetPostCollideCallback(
+            [this, vehicleIndexValue](JPH::VehicleConstraint& constraint,
+                                      const JPH::PhysicsStepListenerContext& context) {
+                if (!tuning_.physxWheelCompat) return;
+                auto& vehicle = vehicles_[vehicleIndexValue];
+                const auto& source = vehicle.spawn.vehicle;
+                const float delta = context.mDeltaTime;
+                const JPH::Vec3 acceleration = system_.GetGravity() * (vehicle.sourceExtraGravity ? 2.0F : 1.0F)
+                    + toJolt(vehicle.diagnosticAcceleration);
+                for (JPH::uint i = 0; i < constraint.GetWheels().size(); ++i)
+                {
+                    auto* wheel = static_cast<JPH::WheelWV*>(constraint.GetWheel(i));
+                    float forward = 0.0F;
+                    JPH::Vec3 relative = JPH::Vec3::sZero();
+                    if (wheel->HasContact())
+                    {
+                        relative = constraint.GetVehicleBody()->GetPointVelocity(wheel->GetContactPosition())
+                            - wheel->GetContactPointVelocity() + acceleration * delta;
+                        forward = relative.Dot(wheel->GetContactLongitudinal());
+                        wheel->SetAngularVelocity(forward / source.wheels[i].radius);
+                    }
+                    if (source.wheels[i].driven) wheel->ApplyTorque(vehicle.motorTorque, delta);
+                    const float axle = wheel->GetAngularVelocity();
+                    const float braking = vehicle.sourceBrakeTorque * source.wheels[i].inverseMass * delta;
+                    vehicle.sourceWheelAxleSpeeds[i] = std::copysign(std::max(std::abs(axle) - braking, 0.0F), axle);
+                    const float rolling = vehicle.sourceWheelAxleSpeeds[i] * source.wheels[i].radius;
+                    vehicle.sourceLongitudinalSlips[i] = (rolling - forward) / std::max(std::abs(rolling), 1.0F);
+                    wheel->mUsePrescribedLongitudinalImpulse = true;
+                    wheel->mPrescribedLongitudinalSlip = vehicle.sourceLongitudinalSlips[i];
+                    wheel->mPrescribedBraking = vehicle.sourceBrakeTorque > std::abs(source.wheels[i].driven ? vehicle.motorTorque : 0.0F);
+                    const float sideways = wheel->HasContact() ? relative.Dot(wheel->GetContactLateral()) : 0.0F;
+                    const float normal = wheel->HasContact() ? relative.Dot(wheel->GetContactNormal()) : 0.0F;
+                    vehicle.sourceLateralSlips[i] = std::atan2(std::abs(sideways), std::sqrt(forward * forward + normal * normal));
+                }
+            });
         vehicles_.back().constraint->SetCombineFriction(
             [this, vehicleIndexValue](JPH::uint, float& longitudinal,
                                       float& lateral, const JPH::Body&,
@@ -3220,7 +3366,7 @@ private:
                     if (normalReactionImpulse > 1.0e-6F)
                     {
                         const auto force = sourceWheelNormalForce(
-                            suspensionImpulse, normalReactionImpulse,
+                            allowedSuspensionImpulse, normalReactionImpulse,
                             vehicle.wheelTractionEnabled,
                             source.tireSpring);
                         allowedSuspensionImpulse = force.impulse;
@@ -3255,7 +3401,14 @@ private:
                 else if (wheelIndex < source.wheels.size() &&
                     (source.wheels[wheelIndex].flags & clampedFriction) != 0U)
                 {
+                    if (tuning_.physxWheelCompat && wheel->HasContact())
+                    {
+                        longitudinalSlip = vehicle.sourceLongitudinalSlips[wheelIndex];
+                        lateralSlip = vehicle.sourceLateralSlips[wheelIndex];
+                    }
                     const bool lowSpeedFriction =
+                        (!tuning_.physxWheelCompat ||
+                         (std::abs(longitudinalSlip) < 1.0e-6F && std::abs(lateralSlip) < 1.0e-4F)) &&
                         wheel->HasContact() &&
                         wheelIndex <
                             vehicle.previousWheelContactPositions.size() &&
@@ -3398,6 +3551,10 @@ private:
                     static_cast<const JPH::WheelWV*>(joltWheel);
                 contact.longitudinalSlip = wheeled->mLongitudinalSlip;
                 contact.lateralSlip = wheeled->mLateralSlip;
+                contact.suspensionLength = joltWheel->GetSuspensionLength() - (tuning_.physxWheelCompat ? vehicle.spawn.vehicle.wheels[index].radius : 0.0F);
+                contact.suspensionForce = joltWheel->GetSuspensionLambda() / lastSolverDelta_;
+                contact.longitudinalImpulse = joltWheel->GetLongitudinalLambda();
+                contact.lateralImpulse = joltWheel->GetLateralLambda();
                 if (index < vehicle.wheelNormalReactions.size())
                 {
                     contact.normalReaction =
@@ -3486,6 +3643,7 @@ private:
     std::vector<ProjectileBodyState> fixedStepProjectileStates_;
     std::vector<ProjectileBodyCommand> fixedStepProjectileCommands_;
     float sourceFixedStepAccumulator_ = 0.0F;
+    float lastSolverDelta_ = 1.0F / 120.0F;
 };
 
 } // namespace
@@ -4121,7 +4279,7 @@ bool runOriginalVehiclePhysicsSmokeTest(const WorldDescription& description,
     if (settled.contactCount == 0 ||
         settled.wheelContacts.size() != settled.wheels.size() ||
         settledWheelContacts != settled.contactCount ||
-        settledStaticWheelContacts == 0U)
+        (!CalibrationTuning::load().physxWheelCompat && settledStaticWheelContacts == 0U))
     {
         error = "original per-wheel contact state did not match map1 "
                 "collision; "

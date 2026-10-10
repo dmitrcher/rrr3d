@@ -1,0 +1,41 @@
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -124,6 +124,11 @@
+ 	/// callbacks are triggered) and resolving the sub shape ID against both the old and new shape to see if they still refer to the same child shape.
+ 	virtual void			OnContactPersisted([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] const ContactManifold &inManifold, [[maybe_unused]] ContactSettings &ioSettings) { /* Do nothing */ }
+ 
++	/// source-solved-contact support: called once per constraint after the velocity solve.
++	/// Vectors are the total solved impulses (including warm start), applied to body 1; body 2 receives their negatives.
++	/// Called concurrently for different islands. Do not modify or lock bodies here.
++	virtual void			OnContactSolved([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] Vec3Arg inNormalImpulse, [[maybe_unused]] Vec3Arg inFrictionImpulse) { }
++
+ 	/// Called whenever a contact was detected last update but is not detected anymore.
+ 	///
+ 	/// You cannot access the bodies at the time of this callback because:
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -1732,12 +1732,23 @@
+ 	{
+ 		const ContactConstraint &constraint = mConstraints[*constraint_idx];
+ 
++		Vec3 normal_impulse = Vec3::sZero(), friction_impulse = Vec3::sZero();
+ 		for (const WorldContactPoint &wcp : constraint.mContactPoints)
+ 		{
+ 			wcp.mContactPoint->mNonPenetrationLambda = wcp.mNonPenetrationConstraint.GetTotalLambda();
+ 			wcp.mContactPoint->mFrictionLambda[0] = wcp.mFrictionConstraint1.GetTotalLambda();
+ 			wcp.mContactPoint->mFrictionLambda[1] = wcp.mFrictionConstraint2.GetTotalLambda();
+-		}
++			normal_impulse -= constraint.GetWorldSpaceNormal() * wcp.mNonPenetrationConstraint.GetTotalLambda();
++			// Frictionless constraints have no initialized tangent frame (NaN in debug).
++			if (wcp.mFrictionConstraint1.GetTotalLambda() != 0.0f || wcp.mFrictionConstraint2.GetTotalLambda() != 0.0f)
++			{
++				Vec3 tangent1, tangent2;
++				constraint.GetTangents(tangent1, tangent2);
++				friction_impulse -= tangent1 * wcp.mFrictionConstraint1.GetTotalLambda() + tangent2 * wcp.mFrictionConstraint2.GetTotalLambda();
++			}
++		}
++		if (mContactListener != nullptr)
++			mContactListener->OnContactSolved(*constraint.mBody1, *constraint.mBody2, normal_impulse, friction_impulse);
+ 	}
+ }
+ 

@@ -1,0 +1,22 @@
+--- a/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -73,7 +73,7 @@
+ 	JPH_ASSERT(inSettings.mWheelUp.IsNormalized());
+ 	JPH_ASSERT(inSettings.mSuspensionMinLength >= 0.0f);
+ 	JPH_ASSERT(inSettings.mSuspensionMaxLength >= inSettings.mSuspensionMinLength);
+-	JPH_ASSERT(inSettings.mSuspensionPreloadLength >= 0.0f);
++	JPH_ASSERT(inSettings.mSuspensionMaxLength + inSettings.mSuspensionPreloadLength >= inSettings.mSuspensionMinLength); // signed-rest-length support
+ 	JPH_ASSERT(inSettings.mSuspensionSpring.mFrequency > 0.0f);
+ 	JPH_ASSERT(inSettings.mSuspensionSpring.mDamping >= 0.0f);
+ 	JPH_ASSERT(inSettings.mRadius > 0.0f);
+--- a/Jolt/Physics/Vehicle/Wheel.h
++++ b/Jolt/Physics/Vehicle/Wheel.h
+@@ -34,7 +34,7 @@
+ 	Vec3					mWheelForward { 0, 0, 1 };					///< Forward direction when the wheel is in the neutral steering position (usually VehicleConstraintSettings::mForward but can be used to give the wheel toe, does not need to be perpendicular to mWheelUp)
+ 	float					mSuspensionMinLength = 0.3f;				///< How long the suspension is in max raised position relative to the attachment point (m)
+ 	float					mSuspensionMaxLength = 0.5f;				///< How long the suspension is in max droop position relative to the attachment point (m)
+-	float					mSuspensionPreloadLength = 0.0f;			///< The natural length (m) of the suspension spring is defined as mSuspensionMaxLength + mSuspensionPreloadLength. Can be used to preload the suspension as the spring is compressed by mSuspensionPreloadLength when the suspension is in max droop position. Note that this means when the vehicle touches the ground there is a discontinuity so it will also make the vehicle more bouncy as we're updating with discrete time steps.
++	float					mSuspensionPreloadLength = 0.0f;			///< Natural length = max length + signed offset, constrained to be >= min length. A negative offset shortens the spring rest length without shortening the collision ray (PhysX compatibility).
+ 	SpringSettings			mSuspensionSpring { ESpringMode::FrequencyAndDamping, 1.5f, 0.5f }; ///< Settings for the suspension spring
+ 	float					mRadius = 0.3f;								///< Radius of the wheel (m)
+ 	float					mWidth = 0.1f;								///< Width of the wheel (m)

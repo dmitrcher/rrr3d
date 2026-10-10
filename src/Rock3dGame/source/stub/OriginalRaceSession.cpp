@@ -2401,12 +2401,25 @@ bool OriginalRaceSession::applyRacerDamageInternal(
     }
 
     auto& runtime = racers_[target];
+    const float diagnosticLifeBefore = runtime.GetLife();
     const auto damageResult = synchronizeState
         ? source::Logic::Damage(
               runtime.gameCar, attacker, incoming, targetLife, death,
               damageType)
         : source::Logic::Damage(
               runtime.gameCar, attacker, incoming, damageType);
+    if (motorrock::parity::enabled())
+    {
+        std::ostringstream sample; sample.imbue(std::locale::classic());
+        sample << "{\"race_seconds\":" << elapsedSeconds_
+               << ",\"racer\":" << target << ",\"attacker\":" << attacker
+               << ",\"damage_type\":" << static_cast<unsigned>(damageType)
+               << ",\"source_damage\":" << sourceDamage
+               << ",\"life_before\":" << diagnosticLifeBefore
+               << ",\"life_after\":" << runtime.GetLife()
+               << ",\"position\":[" << position.x << ',' << position.y << ',' << position.z << "]}";
+        motorrock::parity::event("race.damage", "source GameObject damage", sample.str());
+    }
     // Listener dispatch belongs after GameObject::Damage. In particular, a
     // non-authoritative Windows client waits for the host packet and must not
     // start local shield/damage effects for its outbound request.

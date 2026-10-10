@@ -33,7 +33,7 @@ def fit(reference_path, binary, destination):
         profile=out/'trial-profile.cfg';profile.write_text(''.join(f'{k} {v}\n' for k,v in params.items()))
         trace=out/'trial.jsonl'
         env=dict(os.environ,RRR3D_CALIBRATION_PROFILE=str(profile))
-        subprocess.run([str(Path(binary).resolve()),str(trace),'all'],env=env,check=True,timeout=90)
+        subprocess.run([str(Path(binary).resolve()),str(trace),'core'],env=env,check=True,timeout=90)
         r=compare(reference_path,trace)
         train=score(r,reference,TRAIN);validation=score(r,reference,HOLDOUT)
         history.append({'label':label,'settings':params.copy(),'training_score':train,'holdout_score':validation})

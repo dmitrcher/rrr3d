@@ -269,6 +269,12 @@ struct WheelContactState
     Vec3 normal{0.0F, 0.0F, 1.0F};
     float longitudinalSlip = 0.0F;
     float lateralSlip = 0.0F;
+    // Raw solver diagnostics, sampled after the completed step. Tire budgets
+    // above are distinct from the impulses actually applied by the solver.
+    float suspensionLength = 0.0F;
+    float suspensionForce = 0.0F;
+    float longitudinalImpulse = 0.0F;
+    float lateralImpulse = 0.0F;
     // NxUserWheelContactModify receives the preceding wheel normal force in
     // units of one static wheel load, then caps the force available to the
     // tire constraints at 1.5g (or zero for clutch/tireSpring release). It

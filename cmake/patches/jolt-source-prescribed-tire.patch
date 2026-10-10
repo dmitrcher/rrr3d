@@ -1,0 +1,35 @@
+--- a/Jolt/Physics/Vehicle/WheeledVehicleController.h
++++ b/Jolt/Physics/Vehicle/WheeledVehicleController.h
+@@ -62,6 +62,11 @@
+ 	float						mLateralSlip = 0.0f;						///< Angular difference (in radians) between ground and wheel relative to ground velocity
+ 	float						mCombinedLongitudinalFriction = 0.0f;		///< Combined friction coefficient in longitudinal direction (combines terrain and tires)
+ 	float						mCombinedLateralFriction = 0.0f;			///< Combined friction coefficient in lateral direction (combines terrain and tires)
++	// Source wheel-contact callback supplies a tire force without axle reaction.
++	// Configured by the embedding adapter; like callbacks, not serialized state.
++	bool mUsePrescribedLongitudinalImpulse = false;
++	bool mPrescribedBraking = false;
++	float mPrescribedLongitudinalSlip = 0.0f;
+ 	float						mBrakeImpulse = 0.0f;						///< Amount of impulse that the brakes can apply to the floor (excluding friction)
+ };
+ 
+--- a/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
++++ b/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
+@@ -681,7 +681,17 @@
+ 
+ 			// Calculate brake force to apply
+ 			float min_longitudinal_impulse, max_longitudinal_impulse;
+-			if (w->mBrakeImpulse != 0.0f)
++			if (w->mUsePrescribedLongitudinalImpulse) // source-prescribed-tire support
++			{
++				if (w->mPrescribedBraking)
++					impulse |= w->SolveLongitudinalConstraintPart(mConstraint, -max_longitudinal_friction_impulse, max_longitudinal_friction_impulse);
++				else
++				{
++					float prescribed = (w->mPrescribedLongitudinalSlip > 1.0e-6f? 1.0f : w->mPrescribedLongitudinalSlip < -1.0e-6f? -1.0f : 0.0f) * max_longitudinal_friction_impulse;
++					impulse |= w->SolveLongitudinalConstraintPart(mConstraint, prescribed, prescribed);
++				}
++			}
++			else if (w->mBrakeImpulse != 0.0f)
+ 			{
+ 				// Limit brake force by max tire friction
+ 				float brake_impulse = min(w->mBrakeImpulse, max_longitudinal_friction_impulse);

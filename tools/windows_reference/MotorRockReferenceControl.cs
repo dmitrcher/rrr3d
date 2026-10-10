@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Text;
 
 internal static class MotorRockReferenceControl
 {
@@ -446,9 +447,25 @@ internal static class MotorRockReferenceControl
         return File.Exists(fullPath);
     }
 
+    private delegate bool AssertChildVisitor(IntPtr hwnd, IntPtr parameter);
+    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+    private static extern int GetWindowText(IntPtr hwnd, StringBuilder text, int maxCount);
+    [DllImport("user32.dll")]
+    private static extern bool EnumChildWindows(IntPtr parent, AssertChildVisitor visitor, IntPtr parameter);
+
     private static int PrintStatus()
     {
         Process process = FindMotorRock();
+        if (process.MainWindowTitle == "ASSERT ERROR")
+        {
+            // Report only this game's own assertion dialog for reference diagnostics.
+            EnumChildWindows(process.MainWindowHandle, delegate(IntPtr hwnd, IntPtr parameter) {
+                StringBuilder text = new StringBuilder(4096);
+                GetWindowText(hwnd, text, text.Capacity);
+                if (text.Length > 0) Console.WriteLine("assert: " + text);
+                return true;
+            }, IntPtr.Zero);
+        }
         Rect rect;
         bool hasRect = GetWindowRect(process.MainWindowHandle, out rect);
         Console.WriteLine(

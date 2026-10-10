@@ -44,6 +44,15 @@ class CompareTest(unittest.TestCase):
                     wheel['contact']=True;wheel['suspension_length']=.2
         self.b[1]['sample']['wheels'][0]['suspension_length']=.6
         self.assertGreater(self.run_compare()['cases']['force']['rms']['suspension_length_error'],.14)
+    def test_opposite_axis_errors_do_not_cancel(self):
+        self.b[1]['sample']['position'][0]+=1
+        self.b[2]['sample']['position'][0]-=1
+        self.b[2]['sample']['velocity'][2]+=2
+        report=self.run_compare()['cases']['force']
+        self.assertEqual(report['rms']['position_x_error'],1)
+        self.assertEqual(report['rms']['position_y_error'],0)
+        self.assertAlmostEqual(report['rms']['velocity_z_error'],2**.5)
+        self.assertEqual(report['maximum']['velocity_z_error'],2)
     def test_truncated(self):
         self.b.pop()
         with self.assertRaises(ValueError):self.run_compare()

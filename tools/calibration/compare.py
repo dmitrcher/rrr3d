@@ -89,6 +89,8 @@ def compare(reference, candidate, out=None):
             r = {'case': name, 'tick': x['tick'], 'time': x['time']}
             for field in ('position', 'velocity', 'angular_momentum'):
                 r[field+'_error'] = norm(x[field], y[field])
+                for axis,u,v in zip('xyz',x[field],y[field]):
+                    r[field+'_'+axis+'_error'] = abs(u-v)
             dot = abs(sum(u*v for u,v in zip(x['rotation'], y['rotation'])))
             r['rotation_error_radians'] = 2*math.acos(min(1.0, dot / math.sqrt(sum(u*u for u in x['rotation'])*sum(v*v for v in y['rotation']))))
             r['wheel_speed_error'] = rms([u['angular_speed']-v['angular_speed'] for u,v in zip(x['wheels'],y['wheels'])])
@@ -99,7 +101,7 @@ def compare(reference, candidate, out=None):
                 for field in ('position','velocity'):
                     for axis,value in zip('xyz',s[field]): r[f'{platform}_{field}_{axis}'] = value
             errors.append(r)
-        fields = ('position_error','velocity_error','rotation_error_radians','wheel_speed_error','angular_momentum_error','suspension_length_error','wheel_height_error')
+        fields = ('position_error','velocity_error','rotation_error_radians','wheel_speed_error','angular_momentum_error','suspension_length_error','wheel_height_error') + tuple(field+'_'+axis+'_error' for field in ('position','velocity','angular_momentum') for axis in 'xyz')
         result[name] = {'samples':len(errors),'rms':{f:rms([e[f] for e in errors]) for f in fields},'maximum':{f:max(e[f] for e in errors) for f in fields},'wheel_contact_mismatch_fraction':sum(e['wheel_contact_mismatch'] for e in errors)/(len(errors)*4),'windows_final':left['rows'][-1],'mac_final':right['rows'][-1]}
         details.extend(errors)
     report = {'schema':1, 'reference':'Windows PhysX 2.8.4', 'candidate':'Mac production Jolt vehicle adapter', 'reference_sha256':hashlib.sha256(Path(reference).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(Path(candidate).read_bytes()).hexdigest(),'candidate_profiles': sorted({c['meta']['profile'] for c in b.values()}),'comparable_scenario':True,'cases':result,'limitations':['Controlled tests include all 17 original chassis and each positive workshop tire function. Equal Nm/wheel bypasses gearing/AI; individual presets do not certify every combined loadout or complete map.','Fixed solver steps remove frame-rate dependence; repeat captures are still required to measure solver variance.','Raw engine slip/normal-force fields use backend conventions and must not be compared as identical observables. Remaining contact/transient differences are recorded, not hidden by the aggregate score.']}

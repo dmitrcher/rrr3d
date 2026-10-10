@@ -6,6 +6,7 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
+#include <set>
 #include "ParityTrace.h"
 namespace motorrock { namespace calibration {
 struct V { double x,y,z; V(double a=0,double b=0,double c=0):x(a),y(b),z(c){} };
@@ -18,9 +19,10 @@ struct Case {
  std::string name, action, catalog; double gravity,mass,height,bodyFriction,sleepThreshold,restBrake,tireSpring,torqueFactor,brakeFactor,steerFactor,brakeLimit;
  V velocity,angular,halfExtents,shapePosition,centerOfMass,angularDamping;
  double clampRoll,clampPitch,airPitch; bool extraGravity; int steps,obstacle; bool ground,traction; double slopeX,slopeY; bool fixedOrientation;
+ bool pair;int watched;double peerFriction,peerMass,primaryRoll,peerRoll;V peerPosition,peerVelocity;
  std::vector<Wheel> wheels;
  Case(const std::string& n,double g=-20,double m=1200,double h=12,bool floor=true):name(n),action(n),catalog("synthetic"),gravity(g),mass(m),height(h),bodyFriction(.08),sleepThreshold(0),restBrake(0),tireSpring(0),torqueFactor(1),brakeFactor(1),steerFactor(1),brakeLimit(4000),halfExtents(1.5,.8,.3),angularDamping(1,1,1),clampRoll(0),clampPitch(0),airPitch(0),extraGravity(false),steps(600),obstacle(0),ground(floor),traction(true),slopeX(0),slopeY(0){
-  fixedOrientation=false;for(int i=0;i<4;++i){Wheel w;w.position=V(i<2?1.1:-1.1,i%2==0?.75:-.75,0);w.driven=w.steering=i<2;wheels.push_back(w);}
+  pair=false;watched=0;peerFriction=.08;peerMass=1200;primaryRoll=peerRoll=0;fixedOrientation=false;for(int i=0;i<4;++i){Wheel w;w.position=V(i<2?1.1:-1.1,i%2==0?.75:-.75,0);w.driven=w.steering=i<2;wheels.push_back(w);}
  }
 };
 inline std::vector<Case> coreCases() {
@@ -82,6 +84,7 @@ inline void begin(const Case& c,const std::string& profile) {
  for(size_t i=0;i<c.wheels.size();++i){const Wheel& w=c.wheels[i];if(i)s<<',';s<<"{\"position\":"<<vector(w.position)<<",\"radius\":"<<w.radius<<",\"travel\":"<<w.travel<<",\"spring\":"<<w.spring<<",\"damper\":"<<w.damper<<",\"target\":"<<w.target<<",\"inverse_mass\":"<<w.inverseMass<<",\"flags\":"<<w.flags<<",\"driven\":"<<(w.driven?"true":"false")<<",\"steering\":"<<(w.steering?"true":"false")<<",\"longitudinal_tire\":"<<tireJson(w.longitudinal)<<",\"lateral_tire\":"<<tireJson(w.lateral)<<'}';}
  s<<"],\"extra_gravity\":"<<(c.extraGravity?"true":"false")<<",\"air_pitch\":"<<c.airPitch<<",\"clamp_roll\":"<<c.clampRoll<<",\"clamp_pitch\":"<<c.clampPitch<<",\"game_angular_damping\":"<<vector(c.angularDamping)<<"},\"units\":\"source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v\"}";
  std::string metadata=s.str();if(c.fixedOrientation)metadata.insert(metadata.size()-1,",\"fixed_orientation\":true");
+ if(c.pair){std::ostringstream pair;pair.imbue(std::locale::classic());pair<<std::setprecision(9)<<",\"pair\":{\"watched\":"<<c.watched<<",\"peer_friction\":"<<c.peerFriction<<",\"peer_mass\":"<<c.peerMass<<",\"peer_position\":"<<vector(c.peerPosition)<<",\"peer_velocity\":"<<vector(c.peerVelocity)<<",\"primary_roll\":"<<c.primaryRoll<<",\"peer_roll\":"<<c.peerRoll<<'}';metadata.insert(metadata.size()-1,pair.str());}
  parity::event("calibration.begin",c.name,metadata);
 }
 inline void sample(const Case& c,int tick,const Command& command,const Sample& a) {
@@ -112,19 +115,39 @@ inline std::vector<Case> cases() {
  for(int i=0;i<2;++i){c=Case(i==0?"wall-air-y-straight-8":"wall-air-y-oblique-8",0,1200,13,false);c.obstacle=6;c.velocity=V(i==0?0:2,8,0);s.push_back(c);}
  const char* lockedNames[]={"body-friction-locked-x","body-friction-locked-y","body-friction-locked-diagonal","body-friction-locked-skew"};
  for(int i=0;i<4;++i){c=Case(lockedNames[i],-20,1200,10.25,false);c.steps=180;c.obstacle=5;c.fixedOrientation=true;c.velocity=V(i==1?0:5,i==0?0:i==3?2:5,0);for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);}
+ const char* pairNames[]={"same-head","same-oblique","head-on","heavy-peer","weak-first","weak-second","tilted-first","tilted-second","pole","pole-oblique","free-oblique","stock-head","stock-oblique","stock-weak-second","stock-pole","vertical-locked","vertical-weak-peer"};
+ for(int i=0;i<17;++i)for(int watched=0;watched<2;++watched){
+  std::ostringstream n;n<<"pair-"<<pairNames[i]<<"-"<<watched;c=Case(n.str(),0,1200,13,false);c.steps=300;c.pair=true;c.watched=watched;c.fixedOrientation=i<10||i>=15;c.velocity=V(8,i==0||i==2?0:2,0);c.peerPosition=V(8,0,13);
+  if(i==2){c.velocity=V(4,0,0);c.peerVelocity=V(-4,0,0);}if(i==3)c.peerMass=2400;
+  if(i==4){c.bodyFriction=.02;c.primaryRoll=.35;}if(i==5||i==13||i==16){c.peerFriction=.02;c.peerRoll=.35;}
+  if(i==6)c.primaryRoll=.35;if(i==7)c.peerRoll=.35;
+  if(i==8||i==9||i==14){c.peerPosition=V(0,0,16);c.velocity=V(i==9?2:0,0,4);}
+  if(i>=15){c.velocity=V(8,0,2);c.peerPosition=V(8,0,14.25);}
+  if(i==11)c.velocity=V(8,0,0);if(i<11||i>=15)for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);
+ }
+ const char* borderNames[]={"border-air-straight","border-air-oblique","border-grounded","border-pole"};
+ for(int i=0;i<4;++i){c=Case(borderNames[i],i>=2?-20:0,1200,i>=2?12:13,i>=2);c.steps=600;c.obstacle=i==3?8:7;c.velocity=V(8,i==0?0:2,0);if(i==3){c.ground=false;c.height=10.25;c.fixedOrientation=true;for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;}s.push_back(c);}
  appendCatalogCases(s);return s;
 }
 inline int run(int argc,char**argv, void (*execute)(const Case&), const std::string& profile) {
  static_cast<void>(inputs());
  if(argc!=2 && argc!=3) throw std::runtime_error("Usage: physics-calibration OUTPUT.jsonl [CASE|all]");
+ const std::string selected=argc==3?argv[2]:"all";bool found=false;
+ const std::vector<Case> suite=cases();
+ if(selected.find("list:")==0){
+  std::set<std::string> requested;std::string name;std::istringstream names(selected.substr(5));
+  if(selected.size()==5||selected[selected.size()-1]==',')throw std::runtime_error("Empty calibration list item");
+  while(std::getline(names,name,',')){
+   bool exists=false;for(size_t i=0;i<suite.size();++i)if(suite[i].name==name)exists=true;
+   if(name.empty()||!exists||!requested.insert(name).second)throw std::runtime_error("Unknown/duplicate calibration list item: "+name);
+  }
+ }
  std::ofstream clear(argv[1],std::ios::binary|std::ios::trunc); if(!clear)throw std::runtime_error("Cannot create output trace"); clear.close();
 #ifdef _WIN32
  _putenv_s("RRR3D_TRACE_FILE",argv[1]);
 #else
  setenv("RRR3D_TRACE_FILE",argv[1],1);
 #endif
- const std::string selected=argc==3?argv[2]:"all";bool found=false;
- const std::vector<Case> suite=cases();
  for(size_t i=0;i<suite.size();++i)if(selected=="all" || (selected=="core" && i<13) || (selected=="catalog" && suite[i].name.find("/")!=std::string::npos && suite[i].name.find("mobility/")!=0) || (selected=="mobility" && suite[i].name.find("mobility/")==0) || (selected=="synthetic" && suite[i].name.find("/")==std::string::npos) || (selected.find("list:")==0 && (std::string(",")+selected.substr(5)+",").find(std::string(",")+suite[i].name+",")!=std::string::npos) || selected==suite[i].name){ found=true;begin(suite[i],profile);execute(suite[i]);parity::event("calibration.end",suite[i].name);}
  if(!found)throw std::runtime_error("Unknown calibration case");
  return 0;

@@ -400,7 +400,8 @@ float sourceCombineCoefficient(float first, SourceCombineMode firstMode,
 SourceBodyFriction sourceVehicleBodyFriction(
     JPH::QuatArg carRotation, JPH::Vec3Arg contactNormal,
     float carPrimaryFriction, float otherFriction,
-    SourceCombineMode otherMode, bool sourceTrackContact) noexcept
+    SourceCombineMode otherMode, bool sourceTrackContact,
+    bool sourcePairLimits = false) noexcept
 {
     // Nx first projects and normalizes the anisotropy direction in the
     // contact plane, before GameCar::OnContactModify reads the SDK frame.
@@ -425,10 +426,27 @@ SourceBodyFriction sourceVehicleBodyFriction(
         carPrimaryFriction, SourceCombineMode::Minimum, otherFriction, otherMode);
     float secondary = sourceCombineCoefficient(
         2.0F, SourceCombineMode::Minimum, otherFriction, otherMode);
+    // Independent SDK material-pair probes cap the secondary coefficient
+    // before the polar fallback; the primary coefficient can exceed one.
+    if (sourcePairLimits) secondary = std::min(1.0F, secondary);
     // Nx averages the already combined U/V coefficients at the pole:
     // the source 0.08/0.1 pair becomes isotropic 0.09, not 0.1.
     if (isotropic) primary = secondary = 0.5F * (primary + secondary);
     return {first, sourceTrackContact ? 0.0F : primary, secondary};
+}
+
+SourceBodyFriction sourceCarPairBodyFriction(
+    JPH::QuatArg firstRotation, float firstPrimary,
+    JPH::QuatArg secondRotation, float secondPrimary,
+    JPH::Vec3Arg normal) noexcept
+{
+    const bool second = std::abs(2.0F - secondPrimary) >
+                        std::abs(2.0F - firstPrimary);
+    return sourceVehicleBodyFriction(
+        second ? secondRotation : firstRotation, normal,
+        second ? secondPrimary : firstPrimary,
+        0.5F * ((second ? firstPrimary : secondPrimary) + 2.0F),
+        SourceCombineMode::Minimum, false, true);
 }
 
 SourceBodyFriction sourceTrackBodyFriction(
@@ -440,7 +458,7 @@ SourceBodyFriction sourceTrackBodyFriction(
         carRotation, contactNormal, 0.08F, border ? 4.0F : 0.1F,
         border ? SourceCombineMode::Maximum
                : SourceCombineMode::Average,
-        true);
+        true, true);
 }
 
 constexpr JPH::uint64 bodyKindMask = 0xf000000000000000ULL;
@@ -594,8 +612,9 @@ class OriginalContactListener final : public JPH::ContactListener
 {
 public:
     void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
-    void sourceContactOptions(bool independent, bool boxOrder) {
+    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs) {
         independentFriction_ = independent; boxContactOrder_ = boxOrder;
+        materialPairs_ = materialPairs;
     }
 
     void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
@@ -765,10 +784,14 @@ private:
             sourceTrackActor &&
             (surface == CollisionSurface::TrackPlane ||
              surface == CollisionSurface::TrackBorder);
-        const auto source = sourceVehicleBodyFriction(
-            car.GetRotation(), manifold.mWorldSpaceNormal,
-            car.GetFriction(), other.GetFriction(),
-            sourceFrictionCombineMode(other), sourceTrackContact);
+        // Nx selects the more anisotropic actor frame; tied materials keep
+        // the sorted body order. The other car contributes mean U/V friction.
+        const auto source = materialPairs_ && firstIsVehicle && secondIsVehicle
+            ? sourceCarPairBodyFriction(car.GetRotation(), car.GetFriction(),
+                other.GetRotation(), other.GetFriction(), manifold.mWorldSpaceNormal)
+            : sourceVehicleBodyFriction(car.GetRotation(), manifold.mWorldSpaceNormal,
+                car.GetFriction(), other.GetFriction(), sourceFrictionCombineMode(other),
+                sourceTrackContact, materialPairs_);
         settings.mCombinedFriction = source.first;
         settings.mCombinedFriction2 = source.second;
         settings.mFrictionDirection1 = source.firstDirection;
@@ -1016,6 +1039,7 @@ private:
     bool solvedImpulses_ = false;
     bool independentFriction_ = false;
     bool boxContactOrder_ = false;
+    bool materialPairs_ = false;
     bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
     std::uint64_t traceStep_ = 0;
     std::mutex mutex_;
@@ -1349,7 +1373,8 @@ public:
         contactListener_.useSolvedImpulses(tuning_.physxWheelCompat);
         contactListener_.sourceContactOptions(
             tuning_.physxWheelCompat && tuning_.physxIndependentFriction,
-            tuning_.physxWheelCompat && tuning_.physxBoxContactOrder);
+            tuning_.physxWheelCompat && tuning_.physxBoxContactOrder,
+            tuning_.physxWheelCompat && tuning_.physxMaterialPairs);
         contactListener_.resize(description_.spawns.size());
         system_.SetContactListener(&contactListener_);
         system_.SetGravity(
@@ -3911,12 +3936,23 @@ bool runOriginalVehiclePhysicsSmokeTest(const WorldDescription& description,
     const auto decorationBodyFriction = sourceVehicleBodyFriction(
         JPH::Quat::sIdentity(), JPH::Vec3::sAxisY(), 0.08F, 0.5F,
         SourceCombineMode::Average, false);
+    // Independent Nx wheeled-pair probes: side [.08,1], pole [.54,.54].
+    const auto pairSide = sourceCarPairBodyFriction(JPH::Quat::sIdentity(), .08F,
+        JPH::Quat::sIdentity(), .08F, JPH::Vec3::sAxisX());
+    const auto pairPole = sourceCarPairBodyFriction(JPH::Quat::sIdentity(), .08F,
+        JPH::Quat::sIdentity(), .08F, JPH::Vec3::sAxisY());
+    if (std::abs(pairSide.first-.08F)>.0001F || std::abs(pairSide.second-1)>.0001F ||
+        std::abs(pairPole.first-.54F)>.0001F || std::abs(pairPole.second-.54F)>.0001F)
+    {
+        error = "Independent Nx vehicle-pair friction oracle failed";
+        return false;
+    }
     if (std::abs(flatBodyFriction.first) > 0.0001F ||
         std::abs(flatBodyFriction.second - 0.09F) > 0.0001F ||
         std::abs(flatBodyFriction.firstDirection.Dot(
             JPH::Vec3::sAxisZ())) < 0.999F ||
         std::abs(borderBodyFriction.first) > 0.0001F ||
-        std::abs(borderBodyFriction.second - 4.0F) > 0.0001F ||
+        std::abs(borderBodyFriction.second - 1.0F) > 0.0001F ||
         std::abs(borderBodyFriction.firstDirection.Dot(
             JPH::Vec3::sAxisX())) < 0.999F ||
         std::abs(rolledBodyFriction.firstDirection.Dot(

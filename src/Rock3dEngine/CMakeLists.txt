@@ -129,3 +129,17 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 rrr3d_set_common_target_options(${PROJECT_NAME})
+
+# Headless diagnostic uses the very same Jolt vehicle adapter as the game.
+if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
+    add_executable(rrr3d_physics_calibration ../../tools/calibration/mac.cpp)
+    target_link_libraries(rrr3d_physics_calibration PRIVATE Rock3dEngine)
+    rrr3d_set_common_target_options(rrr3d_physics_calibration)
+endif()
+if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
+    add_executable(rrr3d_calibration_tuning_test ../../tools/calibration/test_tuning.cpp)
+    target_link_libraries(rrr3d_calibration_tuning_test PRIVATE Rock3dEngine)
+    rrr3d_set_common_target_options(rrr3d_calibration_tuning_test)
+    add_test(NAME calibration_tuning COMMAND rrr3d_calibration_tuning_test
+        "${CMAKE_CURRENT_BINARY_DIR}/calibration-test.cfg")
+endif()

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -491,6 +492,9 @@ public:
                                    bool enabled) noexcept = 0;
     virtual void addLinearVelocity(std::size_t index,
                                    Vec3 delta) noexcept = 0;
+    // Diagnostic force input in source world/s^2, held through every solver
+    // substep until explicitly cleared. Neutral in ordinary gameplay.
+    virtual void setDiagnosticAcceleration(std::size_t index, Vec3 value) noexcept = 0;
     virtual void addAngularVelocity(std::size_t index,
                                     Vec3 delta) noexcept = 0;
     // GameCar::StabilizeForce installs a complete PhysX angular momentum

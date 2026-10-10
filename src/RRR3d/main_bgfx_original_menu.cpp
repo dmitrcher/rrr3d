@@ -1324,8 +1324,15 @@ std::string_view weatherToken(
 
 } // namespace
 
+#ifdef RRR3D_PHYSICS
+int runMacPhysicsCalibration(int argc, char** argv);
+#endif
 int main(int argc, char** argv)
 {
+#ifdef RRR3D_PHYSICS
+    if (argc > 1 && std::string(argv[1]) == "--physics-calibration")
+        return runMacPhysicsCalibration(argc - 1, argv + 1);
+#endif
     const auto options = parseOptions(argc, argv);
     if (!options)
     {

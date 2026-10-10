@@ -314,6 +314,12 @@ elseif(RRR3D_BUILD_PORTABLE_MENU OR RRR3D_BUILD_ORIGINAL_MENU OR
         ${_rrr3d_race_post_shaders}
     )
 
+    if(RRR3D_BUILD_ORIGINAL_MENU AND RRR3D_ENABLE_PHYSICS)
+        target_sources(${PROJECT_NAME} PRIVATE ../../tools/calibration/mac.cpp)
+        set_source_files_properties(../../tools/calibration/mac.cpp PROPERTIES
+            COMPILE_DEFINITIONS MOTORROCK_CALIBRATION_EMBEDDED=1)
+    endif()
+
     # Match the original Windows non-retail build: developer controls are
     # available by default in Debug, while release binaries stay unchanged.
     target_compile_definitions(${PROJECT_NAME} PRIVATE

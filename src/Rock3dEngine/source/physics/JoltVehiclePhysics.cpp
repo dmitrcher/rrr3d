@@ -1,4 +1,5 @@
 #include "physics/OriginalVehiclePhysics.h"
+#include "physics/CalibrationTuning.h"
 
 #include <Jolt/Jolt.h>
 #include <Jolt/Core/Factory.h>
@@ -1169,7 +1170,7 @@ class JoltVehicleWorld final : public OriginalVehicleWorld
 {
 public:
     explicit JoltVehicleWorld(const WorldDescription& description)
-        : description_(description), tempAllocator_(32U * 1024U * 1024U),
+        : tuning_(CalibrationTuning::load()), description_(tuning_.apply(description)), tempAllocator_(32U * 1024U * 1024U),
           jobs_(JPH::cMaxPhysicsJobs, JPH::cMaxPhysicsBarriers,
                 std::max(1, static_cast<int>(std::thread::hardware_concurrency()) -
                                 1))
@@ -1403,6 +1404,11 @@ public:
         bodies.ActivateBody(vehicles_[index].body);
     }
 
+    void setDiagnosticAcceleration(std::size_t index, Vec3 value) noexcept override
+    {
+        if (index < vehicles_.size()) vehicles_[index].diagnosticAcceleration = value;
+    }
+
     void addAngularVelocity(std::size_t index,
                             Vec3 delta) noexcept override
     {
@@ -1560,7 +1566,7 @@ public:
         const float simulationSeconds =
             std::clamp(seconds, 0.0F, 0.25F);
         float remaining = simulationSeconds;
-        constexpr float joltStep = 1.0F / 120.0F;
+        const float joltStep = (1.0F / 60.0F) / tuning_.solverSubsteps;
         // Windows gameplay has a separate fixed clock. World::cMaxSimStep
         // is 1/60 even though the replacement backend uses two smaller Jolt
         // solver steps for stability. Never advance Race/GameCar timers at
@@ -1681,6 +1687,15 @@ public:
                 prepareVehicleStep(
                     index, vehicles_[index], fixedStepInputs_[index], delta,
                     dispatchSourceFixedStep, sourceStep);
+            }
+            for (const auto& vehicle : vehicles_)
+            {
+                const auto& a = vehicle.diagnosticAcceleration;
+                if (vehicle.enabled && (a.x != 0 || a.y != 0 || a.z != 0))
+                    system_.GetBodyInterface().AddForce(vehicle.body,
+                        toJolt(Vec3{a.x * vehicle.spawn.vehicle.mass,
+                                    a.y * vehicle.spawn.vehicle.mass,
+                                    a.z * vehicle.spawn.vehicle.mass}));
             }
             system_.Update(delta, 1, &tempAllocator_, &jobs_);
             remaining -= delta;
@@ -2035,6 +2050,7 @@ private:
         JPH::Ref<JPH::VehicleConstraint> constraint;
         JPH::WheeledVehicleController* controller = nullptr;
         VehicleState state;
+        Vec3 diagnosticAcceleration{};
         float steeringAngle = 0.0F;
         float motorTorque = 0.0F;
         float engineRpm = 1000.0F;
@@ -2407,6 +2423,8 @@ private:
             else
                 motorTorque *= input.motorTorqueScale;
         }
+        motorTorque *= tuning_.torque;
+        brakeTorque *= tuning_.brake;
         vehicle.motorTorque = motorTorque;
         vehicle.engineRpm = rpm;
 
@@ -3440,6 +3458,7 @@ private:
         decoration.state.linearVelocity = fromJolt(body.GetLinearVelocity());
     }
 
+    CalibrationTuning tuning_;
     WorldDescription description_;
     BroadPhaseLayerInterface broadPhaseInterface_;
     ObjectVsBroadPhaseFilter objectVsBroadPhase_;

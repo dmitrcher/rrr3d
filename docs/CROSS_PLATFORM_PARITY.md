@@ -196,14 +196,15 @@ tools\parity\build-windows.cmd C:\MotorRock\source\prog Debug
 
 ## Редактор трасс
 
-Редактор существует: `src/MapEditor` / оригинальный `prog/MapEditor`.
-Это Windows MFC-приложение с Direct3D 9. Реальная попытка Windows Release
-завершилась `fatal error C1083: afxwin.h: No such file or directory`:
-установленный VC++ 2008 Express не содержит MFC. Для сборки требуется
-совместимый полный Visual Studio/MFC toolchain и библиотеки исходного SDK.
+Оригинальный Windows MFC-редактор собран как Release / Win32 и установлен
+в Parallels: `C:\MotorRock\editor\MapEditor.exe`. На рабочем столе Windows —
+ярлык **MotorRock Track Editor**. Установлена совместимая Visual C++ 2008 SP1
+с MFC: пять проектов собраны без ошибок. Проверены открытие, 3D-отображение,
+сохранение и повторная загрузка тестовой копии карты.
+
+Архив `MotorRock-Windows-MapEditor.zip` доступен в общем GitHub-релизе.
+[Установка, ограничения и пересборка](WINDOWS_MAP_EDITOR.md).
 
 Нативный интерфейс редактора под Mac не портирован. Запрос
-`RRR3D_BUILD_MAP_EDITOR=ON` теперь явно сообщает об этом, вместо того чтобы
-тихо пропускать редактор. Готовых сборок редактора для обеих платформ нет.
-Дальнейшая работа — подготовка MFC-среды Windows и отдельный перенос интерфейса
-редактора с сохранением формата карт.
+`RRR3D_BUILD_MAP_EDITOR=ON` явно сообщает об этом. Дальнейшая работа —
+перенос интерфейса редактора с сохранением формата карт.

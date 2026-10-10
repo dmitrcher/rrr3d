@@ -9,3 +9,7 @@ cmake/patches/*.patch -text -diff -whitespace
 
 # Third-party license text is preserved verbatim.
 resources/macos/Licenses/** -text -diff -whitespace
+
+# VCBuild 2008 solution parser requires the original CRLF layout.
+tools/editor/*.sln -text whitespace=cr-at-eol
+tools/editor/*.cmd -text whitespace=cr-at-eol

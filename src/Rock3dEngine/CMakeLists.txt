@@ -193,6 +193,24 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
             $<TARGET_FILE:rrr3d_mesh_geometry_probe>
             "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-mesh-first-v15.json")
     endif()
+    # Short isolated probes share the production adapter. The bias patch is
+    # experimental and must be applied separately before enabling its env switch.
+    add_executable(rrr3d_physics_spring_probe ../../tools/calibration/mac.cpp)
+    target_compile_definitions(rrr3d_physics_spring_probe PRIVATE MOTORROCK_EXPERIMENT_SPRING_PROBES=1)
+    target_link_libraries(rrr3d_physics_spring_probe PRIVATE Rock3dEngine)
+    rrr3d_set_common_target_options(rrr3d_physics_spring_probe)
+    if(Python3_Interpreter_FOUND)
+        add_test(NAME source_spring_reference COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_spring_reference.py"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-spring-first-v16.json")
+    endif()
+    option(RRR3D_BUILD_EXPERIMENTAL_SPRING_ABI_TEST "Test manually applied experimental Jolt bias patch" OFF)
+    if(RRR3D_BUILD_EXPERIMENTAL_SPRING_ABI_TEST)
+        add_executable(rrr3d_spring_serialization_test ../../tools/calibration/experimental/test_spring_serialization.cpp)
+        target_link_libraries(rrr3d_spring_serialization_test PRIVATE Jolt)
+        rrr3d_set_common_target_options(rrr3d_spring_serialization_test)
+        add_test(NAME experimental_spring_serialization COMMAND rrr3d_spring_serialization_test)
+    endif()
     add_executable(rrr3d_body_friction_test ../../tools/calibration/test_body_friction.cpp)
     target_link_libraries(rrr3d_body_friction_test PRIVATE Rock3dEngine)
     rrr3d_set_common_target_options(rrr3d_body_friction_test)

@@ -93,6 +93,9 @@ inline void sample(const Case& c,int tick,const Command& command,const Sample& a
  s<<"]}";parity::event("calibration.sample",c.name,s.str());
 }
 #include "Catalog.h"
+#ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
+#include "experimental/SpringProbeCases.h"
+#endif
 inline std::vector<Case> cases() {
  std::vector<Case> s=coreCases();Case c("probe");
  const char* groundNames[]={"diagonal-slide","low-speed-slide","fast-slide","brake-moving","coast-moving","reverse-drive"};
@@ -144,6 +147,9 @@ inline std::vector<Case> cases() {
   c.startOffset.x=(shape?7.75:8)-support+.25;for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);
  }
 
+#ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
+ appendSpringProbes(s);
+#endif
  appendCatalogCases(s);return s;
 }
 inline int run(int argc,char**argv, void (*execute)(const Case&), const std::string& profile) {

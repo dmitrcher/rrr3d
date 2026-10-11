@@ -1,0 +1,67 @@
+{
+  "patch_base_commit": "bbfb335b9c522a6a2bd9e806bf13597e57e98e84",
+  "adapter_base_sha256": "3308b178ef6c7b212c7049e0e0f505a5daff49bdda5c6f09e25fa0f50dba647f",
+  "sdk_base_sha256": {
+    "Jolt/Physics/Vehicle/Wheel.h": "00e48a19239d759d5b496d1518edadd5f39d677a6980c29cd10de98c63f2085a",
+    "Jolt/Physics/Vehicle/Wheel.cpp": "8b1307fb23fa10193eedbd24383fc9117961302e855b4f33dca173a7ab8e4102",
+    "Jolt/Physics/Vehicle/VehicleConstraint.cpp": "f330c4a9bd1dc899ab16dcf73f6deaf830b04e54c44a70a569ae58c3a427103a"
+  },
+  "sdk_patched_sha256": {
+    "Jolt/Physics/Vehicle/Wheel.h": "15cddb3c31f638d15dbf0c5dbec5b20c106ce1d37a699ec1d6362ed20154bb42",
+    "Jolt/Physics/Vehicle/Wheel.cpp": "02cb5393796d30002f048297c17caf559c863c43d6b9f8552fde03eafc70f5c0",
+    "Jolt/Physics/Vehicle/VehicleConstraint.cpp": "0b1bf04d0943366859803365d1f52a6e00339e4847700c44c938dab6898e7536"
+  },
+  "production_default": false,
+  "experimental_enable": "RRR3D_EXPERIMENT_SPRING_BIAS=1 (presence activates; unset to disable)",
+  "jolt_serialization_note": "WheelSettings binary layout gains one float; rebuild all consumers. New-format round trip tested. Older Jolt wheel-setting binary snapshots are not claimed compatible. MotorRock source assets do not use that Jolt serialization.",
+  "windows_repeat": {
+    "cases": 36,
+    "samples": 432,
+    "all_identical": true,
+    "physical_case_sha256": {
+      "spring-probe-0-0-0": "ac430c59f65b69f7b6c2002050e898db04ad9a2636d343fd58f6b6c48917ca56",
+      "spring-probe-0-0-1": "803b780a1f094b1b215db77ceb36a652c35e3842a6e3adc32240aed721eaa06d",
+      "spring-probe-0-1-0": "95cb3dcdbf09ab78d69699b211137ccd870379ba3a52a21522f4960155c2eefd",
+      "spring-probe-0-1-1": "8a8edc0083249db1414e438e171b7f7fde725cde984b4acd83ab6fc5a5a72b49",
+      "spring-probe-0-2-0": "a4ed15ca033d692cb601cdce8ac202e074fb78f44bdd70cfbcb8b25c56ecd254",
+      "spring-probe-0-2-1": "38ebd5371b12f3d6886ea62a31d5dbc7e61fbd70b20bfe5ba79e77fc7c77737e",
+      "spring-probe-1-0-0": "11511e08c0f6100ff23a0e1ddb4dd4e93c75b2d84e6f4135bccc731b5681546c",
+      "spring-probe-1-0-1": "3d122fac4ed3195520c88747ca2ae6eb8072c7490ddb4b6059c6693b44e65c6d",
+      "spring-probe-1-1-0": "75de3d72d00a620b961211a092f41d34869fac41a2aa45424d6e04d21102a25c",
+      "spring-probe-1-1-1": "f518e7315d8588ce828112654c375baf4cc13a83aaadf5df9f482cc115e79ca1",
+      "spring-probe-1-2-0": "2f1d2ca220c3d49785badaa6913ec68999fee7ef93d563c8bdf20c3df37e23ee",
+      "spring-probe-1-2-1": "395883160605d0316c0cc7edaaedda24120ec311805381d58af4455476737097",
+      "spring-probe-2-0-0": "faa5d6a4e756f8b2e85dfe5b9177b94671ead9ac0ce6194c0782627f748d89bc",
+      "spring-probe-2-0-1": "56c1f4b209557204be0cf161f7179b9a10eaba6debd2cd8e60b3497385e493e6",
+      "spring-probe-2-1-0": "b2a937dd78ab44071777138f2cf8c0fbc2fe84bd4e2b8ca6ca9bf99db9d33139",
+      "spring-probe-2-1-1": "d56757b06be157a60d1af69bf9aff8c427d73fb7ba92514776fbe30724cf5057",
+      "spring-probe-2-2-0": "3349ac80c8a6bb6b18e42ff907d3eaab8875654bd22f70178b1d417cb7b66035",
+      "spring-probe-2-2-1": "30f79ef794a77edf86c971f67148d2eb8c8bc050bcca7e40f1c8db90a1b3404a",
+      "spring-probe-3-0-0": "084f2625e408c53dfa37164029eb8c7cd3872afc099340f6d06ecc92f8d45114",
+      "spring-probe-3-0-1": "96ec0c1703b1fc2e683ecddcdd84fc85e125d597814a68f8514167b5bb80b509",
+      "spring-probe-3-1-0": "5b8c0cc772cb058ae7922ddae445ad5cc63d18a518ee849f7cd61718c96f75bd",
+      "spring-probe-3-1-1": "5c32024210b114ad3cedb192ace64a47bebbcffd81724344398e867cdadecd01",
+      "spring-probe-3-2-0": "9301dd50c7843e323c4bbf1b54a8342eb802eac77bb6a506889bb80a088cc80a",
+      "spring-probe-3-2-1": "11990e0e403aa2da6d1e310af3d794297a6d9f75221cd795bbdcd1c38d7fcb58",
+      "spring-probe-4-0-0": "a21ad3f94d8c86d8a4903d599c779acab50f25ccbbda18cf0a298538d26f7e7a",
+      "spring-probe-4-0-1": "95a1fc3eb6ae80f0efc068b2ed2c49a3d64e9a58fc4917f6b8151d5a5a00a70e",
+      "spring-probe-4-1-0": "194fd5101a6e9805864ed3be9d5adc245136be1f8929bb14a0867b76ab5e72d0",
+      "spring-probe-4-1-1": "d5893626866609d50614d5aa7079601333ef8c84dc203a64ccd7366a3a34fa0d",
+      "spring-probe-4-2-0": "f7aa025144af14ed20f4f2e87ca99cebc9f74fd859aa9aeedc809cf8d6535573",
+      "spring-probe-4-2-1": "efcbc1e03bc25347c8b28162435d827b39ddffca5630ec98e94124c4a14319e7",
+      "spring-probe-5-0-0": "a773d07a093f7a157827316a83767787bb4bdaecc53927bb12c41a60668c7691",
+      "spring-probe-5-0-1": "59a0038453ca24684c0c8c2fdb37867bad47b48874ad7216f5da7f60382696d5",
+      "spring-probe-5-1-0": "7793c4af61202c130a557229fd385e4d1756f0e4390e8042cbb743eb8d177f3d",
+      "spring-probe-5-1-1": "8d5174a5ad0845091979e8e07c605a1557a1648d3242506cdd9824e8b008376a",
+      "spring-probe-5-2-0": "2a62d899f272eef69a6ae8b74a36936713aa9f104033b616b1e854d9e58e05e6",
+      "spring-probe-5-2-1": "73d61437999b73f37b2b35a3488c6bb2ecff7e8a35d78e4c73fcb4e5cc370332"
+    }
+  },
+  "published_windows_source_validation": {
+    "cases": 36,
+    "samples": 432,
+    "all_identical": true,
+    "build_script": "build-spring-probe.cmd",
+    "raw_sha256": "ac435758b0fa2450fc6b45b1ec359053430c916cb872d41e8665fb6f906035a5"
+  }
+}

@@ -1,0 +1,67 @@
+--- a/Jolt/Physics/Vehicle/Wheel.h
++++ b/Jolt/Physics/Vehicle/Wheel.h
+@@ -35,6 +35,7 @@
+ 	float					mSuspensionMinLength = 0.3f;				///< How long the suspension is in max raised position relative to the attachment point (m)
+ 	float					mSuspensionMaxLength = 0.5f;				///< How long the suspension is in max droop position relative to the attachment point (m)
+ 	float					mSuspensionPreloadLength = 0.0f;			///< Natural length = max length + signed offset, constrained to be >= min length. A negative offset shortens the spring rest length without shortening the collision ray (PhysX compatibility).
++	float mSuspensionSpringBiasFactor = 1.0f; ///< Scale displacement correction independently of implicit spring stiffness.
+ 	SpringSettings			mSuspensionSpring { ESpringMode::FrequencyAndDamping, 1.5f, 0.5f }; ///< Settings for the suspension spring
+ 	float					mRadius = 0.3f;								///< Radius of the wheel (m)
+ 	float					mWidth = 0.1f;								///< Width of the wheel (m)
+--- a/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -21,6 +21,7 @@
+ 	JPH_ADD_ATTRIBUTE(WheelSettings, mSuspensionMinLength)
+ 	JPH_ADD_ATTRIBUTE(WheelSettings, mSuspensionMaxLength)
+ 	JPH_ADD_ATTRIBUTE(WheelSettings, mSuspensionPreloadLength)
++	JPH_ADD_ATTRIBUTE(WheelSettings, mSuspensionSpringBiasFactor)
+ 	JPH_ADD_ENUM_ATTRIBUTE_WITH_ALIAS(WheelSettings, mSuspensionSpring.mMode, "mSuspensionSpringMode")
+ 	JPH_ADD_ATTRIBUTE_WITH_ALIAS(WheelSettings, mSuspensionSpring.mFrequency, "mSuspensionFrequency") // Renaming attributes to stay compatible with old versions of the library
+ 	JPH_ADD_ATTRIBUTE_WITH_ALIAS(WheelSettings, mSuspensionSpring.mDamping, "mSuspensionDamping")
+@@ -40,6 +41,7 @@
+ 	inStream.Write(mSuspensionMinLength);
+ 	inStream.Write(mSuspensionMaxLength);
+ 	inStream.Write(mSuspensionPreloadLength);
++	inStream.Write(mSuspensionSpringBiasFactor);
+ 	mSuspensionSpring.SaveBinaryState(inStream);
+ 	inStream.Write(mRadius);
+ 	inStream.Write(mWidth);
+@@ -57,6 +59,7 @@
+ 	inStream.Read(mSuspensionMinLength);
+ 	inStream.Read(mSuspensionMaxLength);
+ 	inStream.Read(mSuspensionPreloadLength);
++	inStream.Read(mSuspensionSpringBiasFactor);
+ 	mSuspensionSpring.RestoreBinaryState(inStream);
+ 	inStream.Read(mRadius);
+ 	inStream.Read(mWidth);
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -492,7 +492,7 @@
+ 				damping /= cos_angle;
+ 
+ 				// Get the value of the constraint equation
+-				float c = w->mSuspensionLength - settings->mSuspensionMaxLength - settings->mSuspensionPreloadLength;
++				float c = (w->mSuspensionLength - settings->mSuspensionMaxLength - settings->mSuspensionPreloadLength) * settings->mSuspensionSpringBiasFactor;
+ 
+ 				w->mSuspensionPart.CalculateConstraintPropertiesWithStiffnessAndDamping(inDeltaTime, *mBody, r1_plus_u, *w->mContactBody, r2, neg_contact_normal, w->mAntiRollBarImpulse, c, stiffness, damping);
+ 			}
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3663,11 +3663,12 @@
+             wheel->mSuspensionSpring = JPH::SpringSettings(
+                 JPH::ESpringMode::StiffnessAndDamping,
+                 sourceWheel.spring, sourceWheel.damper);
+-            if (tuning_.physxWheelCompat)
+-                // Conversion measured from Nx equilibrium across mass, spring,
+-                // radius, travel and the 17 original chassis; not a claim
+-                // that transient contact solvers are identical.
+-                wheel->mSuspensionSpring.mStiffness *= 0.7F;
++            if (tuning_.physxWheelCompat) {
++                if (std::getenv("RRR3D_EXPERIMENT_SPRING_BIAS"))
++                    wheel->mSuspensionSpringBiasFactor = 0.7F;
++                else
++                    wheel->mSuspensionSpring.mStiffness *= 0.7F;
++            }
+             wheel->mRadius = sourceWheel.radius;
+             wheel->mWidth = sourceWheel.width;
+             wheel->mInertia = sourceWheelInertia(sourceWheel.inverseMass);

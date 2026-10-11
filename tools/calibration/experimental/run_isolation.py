@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Capture the native no-AI isolation ladder; stop Mac at its first failing stage."""
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -40,11 +41,15 @@ def main():
                    help='Include raw contact-normal length squared in translational effective mass')
     p.add_argument('--normal-row-trace', action='store_true',
                    help='Record source normal-row diagnostics with the v29 experimental SDK/adapter')
+    p.add_argument('--contact-v34', action='store_true',
+                   help='Enable all independently calculated v34 contact candidates on Mac; requires the v34 patched probe')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
     if args.platform == 'mac' and args.reference_dir is None:
         p.error('Mac gates require two native Windows captures per stage')
+    if args.contact_v34 and (args.platform != 'mac' or args.raw_contact_mass):
+        p.error('--contact-v34 is Mac-only and cannot be combined with --raw-contact-mass')
     args.out.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
            if not k.startswith(('RRR3D_EXPERIMENT', 'RRR3D_CONTACT')) and k not in
@@ -73,6 +78,28 @@ def main():
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',
                      'TIRE_FORCE_HISTORY', 'SUSPENSION_RAW'):
             env['RRR3D_EXPERIMENT_' + flag] = '1'
+        if args.contact_v34:
+            for flag in ('UPPER_FACE_WINDING', 'NEGATIVE_X_FACE_ORDER',
+                         'PRINCIPAL_MOMENTUM', 'FROZEN_INITIAL_NORMALIZE',
+                         'MATERIAL_FRAME_CANDIDATE', 'NATIVE_CONTACT_MASS',
+                         'NATIVE_CONTACT_BIAS', 'NATIVE_CONTACT_POINT_VELOCITY',
+                         'NATIVE_CONTACT_ORIGINAL_DELTA', 'NATIVE_CONTACT_FORCE_FIRST',
+                         'NATIVE_CONTACT_ERROR_FRAME', 'NATIVE_MESH_EDGE'):
+                env['RRR3D_EXPERIMENT_' + flag] = '1'
+    manifest_path = args.out / 'isolation-run.json'
+    if manifest_path.exists():
+        p.error('Run manifest already exists; use a fresh output directory')
+    manifest = {
+        'platform': args.platform,
+        'probe_sha256': hashlib.sha256(args.probe.read_bytes()).hexdigest(),
+        'profile_sha256': (hashlib.sha256(args.profile.read_bytes()).hexdigest()
+                           if args.platform == 'mac' else None),
+        'contact_v34': args.contact_v34,
+        'environment': {k: v for k, v in env.items()
+                        if k.startswith(('RRR3D_', 'NX_SPRING_ITERATIONS'))},
+        'stages': {}, 'status': 'capturing',
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
     for stage, names in stages().items():
         files = []
         for repeat in range(2):
@@ -107,7 +134,21 @@ def main():
             report = verify(*refs, *files)
             (args.out / f'isolation-stage{stage}-report.json').write_text(json.dumps(report, indent=2) + '\n')
             print(stage, report['exact_parity'], flush=True)
-            if not report['exact_parity']['complete']: return 1
+            manifest['stages'][stage] = {
+                'cases': len(names), 'repeatable': report['repeatable'],
+                'complete': report['exact_parity']['complete'],
+                'remaining': len(report['exact_parity']['cases_remaining']),
+                'capture_sha256': [c['sha256'] for c in report['captures']],
+            }
+            if not report['exact_parity']['complete']:
+                manifest['status'] = 'parity_failed'
+                manifest['first_failing_stage'] = stage
+                manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
+                return 1
+            manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
+    manifest['status'] = ('implemented_stages_passed' if args.platform == 'mac'
+                          else 'reference_captured')
+    manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
     return 0
 
 

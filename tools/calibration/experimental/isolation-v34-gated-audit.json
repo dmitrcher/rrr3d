@@ -1,0 +1,120 @@
+{
+  "fresh_native_mac_capture": true,
+  "windows_reference": "two immutable native Parallels captures per stage (v22)",
+  "both_platform_repeat_and_isolation_contracts_verified": true,
+  "exit_code": 1,
+  "first_failing_stage": "03",
+  "later_stages_not_started": true,
+  "physics_state_changes_from_published_v34": 0,
+  "stages": {
+    "00": {
+      "cases": 9,
+      "samples": 1080,
+      "both_fresh_repeats_exact_vs_published_v34": true
+    },
+    "01": {
+      "cases": 108,
+      "samples": 12960,
+      "both_fresh_repeats_exact_vs_published_v34": true
+    },
+    "02": {
+      "cases": 48,
+      "samples": 5760,
+      "both_fresh_repeats_exact_vs_published_v34": true
+    },
+    "03": {
+      "cases": 24,
+      "samples": 2880,
+      "both_fresh_repeats_exact_vs_published_v34": true
+    }
+  },
+  "manifest": {
+    "platform": "mac",
+    "probe_sha256": "fe4440ba7b4438978504d940f3c3b3cc08c2d9a9d7e1228e7a9d0f1b77ef7ab5",
+    "profile_sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21",
+    "contact_v34": true,
+    "environment": {
+      "RRR3D_SEED": "42",
+      "NX_SPRING_ITERATIONS": "4",
+      "RRR3D_CONTACT_POINTS": "1",
+      "RRR3D_CALIBRATION_PROFILE": "tools/calibration/profiles/windows-source-v14.cfg",
+      "RRR3D_EXPERIMENT_SPRING_BIAS": "1",
+      "RRR3D_EXPERIMENT_SPRING_FINAL": "1",
+      "RRR3D_EXPERIMENT_SPRING_LOST": "1",
+      "RRR3D_EXPERIMENT_SPRING_COLD": "1",
+      "RRR3D_EXPERIMENT_FRICTION_ZERO": "1",
+      "RRR3D_EXPERIMENT_SUSPENSION_STOP": "1",
+      "RRR3D_EXPERIMENT_MESH_CONTACTS": "1",
+      "RRR3D_EXPERIMENT_TIRE_FORCE_HISTORY": "1",
+      "RRR3D_EXPERIMENT_SUSPENSION_RAW": "1",
+      "RRR3D_EXPERIMENT_UPPER_FACE_WINDING": "1",
+      "RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER": "1",
+      "RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM": "1",
+      "RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE": "1",
+      "RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_MASS": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_BIAS": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_POINT_VELOCITY": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_ORIGINAL_DELTA": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_FORCE_FIRST": "1",
+      "RRR3D_EXPERIMENT_NATIVE_CONTACT_ERROR_FRAME": "1",
+      "RRR3D_EXPERIMENT_NATIVE_MESH_EDGE": "1"
+    },
+    "stages": {
+      "00": {
+        "cases": 9,
+        "repeatable": true,
+        "complete": true,
+        "remaining": 0,
+        "capture_sha256": [
+          "484582f79d7f8f7ff8302d246a067880f54d4afb5deea472bfdff26f04426fe8",
+          "b0e5b6722699f012976a6d5e6375a4a7e2133e75f0995deab29edf3e6420e5c8",
+          "96a9bf211cd40c60d0afbcc25cb9fc17c2d5cfeef37416567c6303e9ea950447",
+          "a0c40beb1c0603a1faafb0b80a256655dead343e3489b897c97dd9f2dec35b65"
+        ]
+      },
+      "01": {
+        "cases": 108,
+        "repeatable": true,
+        "complete": true,
+        "remaining": 0,
+        "capture_sha256": [
+          "70ba92b10b0d8d0de7cdb9094efc1ac1e0cb66aa4e594ae98cc57afea495eaaf",
+          "9c9720e3baa1a16555a19e758629a7504c8ba287d7ad9a6bcf5e30a8e522d577",
+          "d3db3b2f66a1862859b31d6c6c564266c0d8e8f50e4002155b14feeda6ec71c4",
+          "aff7256d87717f29f51341a62ab4c585f69582587c47b3d648e9258916983c5d"
+        ]
+      },
+      "02": {
+        "cases": 48,
+        "repeatable": true,
+        "complete": true,
+        "remaining": 0,
+        "capture_sha256": [
+          "ace87ba5ae43839219d78390e11a6b940f3c28b66a04792eb48ef80d54e9029d",
+          "f5de9135ab32dc11e8c46724c0e4808b5f04c15c9a03a83419d084995cd35318",
+          "940f075fc77076721efd0f45f5614ff80a8d6375f439e76ec982135d19741c87",
+          "2f68e5de0626996c148eddfada531e11db36977decec302b0d611bf50038ba05"
+        ]
+      },
+      "03": {
+        "cases": 24,
+        "repeatable": true,
+        "complete": false,
+        "remaining": 12,
+        "capture_sha256": [
+          "88fd7a6af56400ae27e3c8cf6495dd46f8bd01bb7dba782dc7793d0e11d283fb",
+          "10421310c6767cf3061a238eb44f8ef2d863c0ee8b674b71128563564faf22c1",
+          "58aacb921d2d219da0d13932bc720b4932f2c5ab4272ce82c2efbeb592128489",
+          "205916e48acf81d013ca0fd289cfcfbb33120fb30b1474a6829b0ca57061905e"
+        ]
+      }
+    },
+    "status": "parity_failed",
+    "first_failing_stage": "03"
+  },
+  "runner_sha256": "b7c17a01f93cef7792241ea285a12bcf1d7205b84bf62057d5f5fb141f21ce68",
+  "invalid_option_combinations_rejected_before_any_capture": true,
+  "fresh_raw_capture_directory": "outputs/isolation-v34-gated-current (local workspace)",
+  "published_baseline_release": "https://github.com/dmitrcher/rrr3d/releases/tag/physics-contact-v34-2026-10-11"
+}

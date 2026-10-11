@@ -25,6 +25,8 @@ struct CalibrationTuning {
  bool physxMaterialPairs=true;
  bool physxContactOffsets=true;
  bool physxMeshEdges=true;
+ // Opt-in while oblique contact/friction differences are still unresolved.
+ bool physxFrozenPose=false;
  std::string path;
  static CalibrationTuning load() {
   CalibrationTuning t; const char* p=std::getenv("RRR3D_CALIBRATION_PROFILE");
@@ -44,6 +46,7 @@ struct CalibrationTuning {
    else if(key=="physx_material_pairs") {if(value!=0 && value!=1)throw std::runtime_error("physx_material_pairs must be 0 or 1");t.physxMaterialPairs=value==1;}
    else if(key=="physx_contact_offsets") {if(value!=0 && value!=1)throw std::runtime_error("physx_contact_offsets must be 0 or 1");t.physxContactOffsets=value==1;}
    else if(key=="physx_mesh_edges") {if(value!=0 && value!=1)throw std::runtime_error("physx_mesh_edges must be 0 or 1");t.physxMeshEdges=value==1;}
+   else if(key=="physx_frozen_pose") {if(value!=0 && value!=1)throw std::runtime_error("physx_frozen_pose must be 0 or 1");t.physxFrozenPose=value==1;}
    else if(key=="physx_box_contact_order") {if(value!=0 && value!=1)throw std::runtime_error("physx_box_contact_order must be 0 or 1");t.physxBoxContactOrder=value==1;}
    else if(key=="physx_suspension_stop") {if(value!=0 && value!=1)throw std::runtime_error("physx_suspension_stop must be 0 or 1");t.physxSuspensionStop=value==1;}
    else if(key=="physx_wheel_compat") {if(value!=0 && value!=1)throw std::runtime_error("physx_wheel_compat must be 0 or 1");t.physxWheelCompat=value==1;}
@@ -63,6 +66,7 @@ struct CalibrationTuning {
   sample << ",\"physx_material_pairs\":" << (t.physxMaterialPairs ? 1 : 0);
   sample << ",\"physx_contact_offsets\":" << (t.physxContactOffsets ? 1 : 0);
   sample << ",\"physx_mesh_edges\":" << (t.physxMeshEdges ? 1 : 0);
+  sample << ",\"physx_frozen_pose\":" << (t.physxFrozenPose ? 1 : 0);
   for (const auto& key : keys) sample << "," << motorrock::parity::quote(key.first) << ":" << *key.second;
   sample << "}";
   motorrock::parity::event("calibration.profile", t.path.empty() ? "source-v12-default" : t.path, sample.str());

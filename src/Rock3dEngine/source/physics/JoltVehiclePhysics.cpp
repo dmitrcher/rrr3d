@@ -2013,7 +2013,27 @@ public:
                                     a.y * vehicle.spawn.vehicle.mass,
                                     a.z * vehicle.spawn.vehicle.mass}));
             }
+            if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+                for (auto& vehicle : vehicles_)
+                    if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+                        vehicle.sourceFrozenRotation = system_.GetBodyInterface()
+                            .GetRotation(vehicle.body);
             system_.Update(delta, 1, &tempAllocator_, &jobs_);
+            // Nxp.h describes frozen actors as dynamic during simulation,
+            // followed by pose restoration. Independent Nx captures confirm
+            // equal first-step translation/velocity for free and frozen bodies.
+            // Removing rotational DOFs instead changes the contact effective
+            // mass. SetRotation preserves the actor origin (including its COM
+            // offset); clearing angular velocity also matches the Nx captures.
+            if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+                for (const auto& vehicle : vehicles_)
+                    if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+                    {
+                        auto& bodies = system_.GetBodyInterface();
+                        bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
+                            JPH::EActivation::DontActivate);
+                        bodies.SetAngularVelocity(vehicle.body, JPH::Vec3::sZero());
+                    }
             lastSolverDelta_ = delta;
             if (tuning_.physxWheelCompat)
                 for (auto& vehicle : vehicles_)
@@ -2376,6 +2396,7 @@ private:
         JPH::WheeledVehicleController* controller = nullptr;
         VehicleState state;
         Vec3 diagnosticAcceleration{};
+        JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
         std::vector<float> sourceWheelAxleSpeeds;
         std::vector<float> sourceLongitudinalSlips, sourceLateralSlips;
         float sourceBrakeTorque = 0;
@@ -3382,7 +3403,8 @@ private:
         // and much larger angular speed ceiling.
         bodySettings.mLinearDamping = 0.0F;
         bodySettings.mAngularDamping = 0.05F;
-        if (source.freezeRotation)
+        if (source.freezeRotation &&
+            !(tuning_.physxWheelCompat && tuning_.physxFrozenPose))
             bodySettings.mAllowedDOFs = JPH::EAllowedDOFs::TranslationX |
                 JPH::EAllowedDOFs::TranslationY | JPH::EAllowedDOFs::TranslationZ;
         bodySettings.mMaxAngularVelocity =

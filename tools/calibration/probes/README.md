@@ -25,3 +25,16 @@ Getter-события сохраняют значения материала, ca
 коэффициенты и оси. Они могут различаться. Эти данные подтверждают модель v10.
 
 Static SDK coefficients are also present in the raw reference JSONL. The v10 coefficient cap and numeric material oracles cover dynamic friction; static limits and their solver transition remain under investigation in the v11 audit.
+
+## Замороженное вращение v13
+
+`reference-frozen-pose-v13.json` содержит первые samples 36 frozen/free пар
+из неизменённого основного Windows-стенда с исходным трением. После первого
+шага координаты и линейная скорость пары равны, frozen orientation остаётся
+исходной и momentum равен нулю. В файле записаны SHA-256 бинарного эталона,
+полного capture и SDK-заголовка `Nxp.h`, описывающего восстановление позы.
+Эталон повторно проверен на 72 контактных сценариях в Parallels.
+
+Это инварианты режима блокировки; абсолютные отклики Mac/Windows ещё
+различаются. Опциональный `physx_frozen_pose=1` проверяется CTest
+`source_frozen_pose`, включая отрицательный контроль старой DOF-политики.

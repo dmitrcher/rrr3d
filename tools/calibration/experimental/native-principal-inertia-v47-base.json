@@ -1,0 +1,14 @@
+{
+  "base_commit": "91ff1c106295ad98b24621bf3e1db52206a350c4",
+  "requires": "published v45 full adapter/SDK chain; v46 read-only diagnostic does not alter runtime",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before": "46c27e4b66f81f649c2e5a6285a89de3677859970ca733c5f7d14fbf4ae14365",
+      "after": "ebc6aed31e01a359fee4e0ed542e36597e5ab39503b2aed8529f2b53d3cc703b"
+    },
+    "src/Rock3dEngine/header/physics/NativePrincipalInertia.h": {
+      "before": null,
+      "after": "6749d3d90cda7e598b70b308b54a27bdc68aa26cb16a694e7b0c4fcf87e7b04b"
+    }
+  }
+}

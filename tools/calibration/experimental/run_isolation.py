@@ -45,6 +45,8 @@ def main():
                    help='Enable the v34 contact chain plus independent cached points/errors; requires the v35 patched probe')
     p.add_argument('--contact-v38-plane-normal', action='store_true',
                    help='Enable the v37 chain plus native triangle plane and contact normal decode; requires the v38 patched probe')
+    p.add_argument('--contact-v47-principal-inertia', action='store_true',
+                   help='Enable v45 plus original PC53 principal inertia; experimental, requires the v47 probe')
     p.add_argument('--contact-v45-positive-z-face-order', action='store_true',
                    help='Enable v44 plus the original upper local-Z polygon order; requires the v45 patched probe')
     p.add_argument('--contact-v44-callback-triangle-normal', action='store_true',
@@ -68,6 +70,8 @@ def main():
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
+    if args.contact_v47_principal_inertia:
+        args.contact_v45_positive_z_face_order = True
     if args.contact_v45_positive_z_face_order:
         args.contact_v44_callback_triangle_normal = True
     if args.contact_v44_callback_triangle_normal:
@@ -148,6 +152,8 @@ def main():
         env['RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL'] = '1'
     if args.contact_v45_positive_z_face_order:
         env['RRR3D_EXPERIMENT_NATIVE_POSITIVE_Z_FACE_ORDER'] = '1'
+    if args.contact_v47_principal_inertia:
+        env['RRR3D_EXPERIMENT_NATIVE_PRINCIPAL_INERTIA'] = '1'
     manifest_path = args.out / 'isolation-run.json'
     if manifest_path.exists():
         p.error('Run manifest already exists; use a fresh output directory')
@@ -165,6 +171,7 @@ def main():
         'contact_v40_cache_frame': args.contact_v40_cache_frame,
         'contact_v41_solver_inertia': args.contact_v41_solver_inertia,
         'contact_v42_physical_pose': args.contact_v42_physical_pose,
+        'contact_v47_principal_inertia': args.contact_v47_principal_inertia,
         'contact_v45_positive_z_face_order': args.contact_v45_positive_z_face_order,
         'contact_v44_callback_triangle_normal': args.contact_v44_callback_triangle_normal,
         'contact_v43_quaternion_pose': args.contact_v43_quaternion_pose,

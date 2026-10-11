@@ -1,0 +1,175 @@
+{
+  "scope": "Original upper local-Z polygon traversal; old long contact suite closed, one new offset-inverted residual and broader physics remain",
+  "probe_sha256": "5f38d27139f06339bb8318586a36a6fe136f58a186b6c91e19193e1b74e8183c",
+  "long_summary": {
+    "exact": 72,
+    "remaining": 0,
+    "new_exact": [
+      "frame-v25-long-p11-x0-y0",
+      "frame-v25-long-p11-x0-y1",
+      "frame-v25-long-p11-x1-y0",
+      "frame-v25-long-p11-x1-y1",
+      "frame-v25-long-p11-x2-y1"
+    ],
+    "lost_exact": [],
+    "residuals": {},
+    "position_improved": 4,
+    "velocity_improved": 5,
+    "position_or_velocity_worsened": 0
+  },
+  "expanded": {
+    "exact": 6,
+    "disabled_control_equals_v44": true,
+    "repeatable": true
+  },
+  "new_p11_solver_step0": {
+    "frame-v25-long-p11-x1-y0": {
+      "points": 8,
+      "rows": 40,
+      "exact_fields": {
+        "effective_mass": 40,
+        "scaled_bias": 40,
+        "constraint_error": 40,
+        "lambda": 40,
+        "lever_arm": 40,
+        "velocity": 40,
+        "angular": 40,
+        "inverse_inertia": 40
+      },
+      "differences": []
+    }
+  },
+  "edge_stages": {
+    "scope": "Actual independent upper local-Z face traversal and accepted edge inputs/intermediates against original private Windows calls; first simulation pass",
+    "accepted_edges": 4,
+    "repeats": 2,
+    "edges": [
+      {
+        "index": 0,
+        "fields_checked": 15,
+        "differences": []
+      },
+      {
+        "index": 1,
+        "fields_checked": 15,
+        "differences": []
+      },
+      {
+        "index": 2,
+        "fields_checked": 15,
+        "differences": []
+      },
+      {
+        "index": 3,
+        "fields_checked": 15,
+        "differences": []
+      }
+    ]
+  },
+  "inverted": {
+    "exact": 5,
+    "remaining": 1,
+    "captures": {
+      "ordinary": {
+        "pose-v45-inverted-0": {
+          "first_difference": null,
+          "max_position": 0.0,
+          "max_velocity": 0.0
+        },
+        "pose-v45-inverted-1": {
+          "first_difference": null,
+          "max_position": 0.0,
+          "max_velocity": 0.0
+        },
+        "pose-v45-inverted-2": {
+          "first_difference": null,
+          "max_position": 0.0,
+          "max_velocity": 0.0
+        },
+        "pose-v45-inverted-3": {
+          "first_difference": null,
+          "max_position": 0.0,
+          "max_velocity": 0.0
+        },
+        "pose-v45-inverted-4": {
+          "first_difference": null,
+          "max_position": 0.0,
+          "max_velocity": 0.0
+        },
+        "pose-v45-inverted-5": {
+          "first_difference": 50,
+          "max_position": 7.212835780869999e-06,
+          "max_velocity": 6.287544035638493e-05
+        }
+      },
+      "control": {
+        "pose-v45-inverted-0": {
+          "first_difference": 4,
+          "max_position": 0.0022348796830243055,
+          "max_velocity": 0.04756044447137011
+        },
+        "pose-v45-inverted-1": {
+          "first_difference": 1,
+          "max_position": 0.0019849171314954422,
+          "max_velocity": 0.03975912688942541
+        },
+        "pose-v45-inverted-2": {
+          "first_difference": 1,
+          "max_position": 0.0011913791101481664,
+          "max_velocity": 0.027472221594907986
+        },
+        "pose-v45-inverted-3": {
+          "first_difference": 0,
+          "max_position": 0.0016159105482665926,
+          "max_velocity": 0.03726828612829124
+        },
+        "pose-v45-inverted-4": {
+          "first_difference": 1,
+          "max_position": 0.000982494464920207,
+          "max_velocity": 0.022216734735655892
+        },
+        "pose-v45-inverted-5": {
+          "first_difference": 1,
+          "max_position": 0.012295778056372362,
+          "max_velocity": 0.16053391413224116
+        }
+      }
+    },
+    "repeatable": true,
+    "original_windows72_states_unchanged": true
+  },
+  "isolation": {
+    "00": {
+      "cases": 9,
+      "complete": true,
+      "repeatable": true
+    },
+    "01": {
+      "cases": 108,
+      "complete": true,
+      "repeatable": true
+    },
+    "02": {
+      "cases": 48,
+      "complete": true,
+      "repeatable": true
+    },
+    "03": {
+      "cases": 24,
+      "complete": true,
+      "repeatable": true
+    }
+  },
+  "old_solver_rows": 475,
+  "ctest": {
+    "passed": 53,
+    "failed": 0,
+    "seconds": 16.36
+  },
+  "full_debug_app": {
+    "assets": 1200,
+    "movies": 14,
+    "signed": true
+  },
+  "goal_complete": false
+}

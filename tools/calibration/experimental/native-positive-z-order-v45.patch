@@ -1,0 +1,93 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1078,6 +1078,11 @@
+             bool overlap=true;for(int a=0;a<3;++a)overlap &= min[a]<=hi[a]+.05f && max[a]>=lo[a]-.05f;
+             if(!overlap)continue;
+             const unsigned before=contacts.count;
++            const char* edgeStageFlag=std::getenv("RRR3D_CONTACT_EDGE_STAGE_TRACE");
++            const char* edgeStageStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
++            const bool edgeStageTrace=edgeStageFlag && std::strcmp(edgeStageFlag,"1")==0 && (!edgeStageStep || std::strtoull(edgeStageStep,nullptr,10)==traceStep_-1);
++            sourcemesh::nativeedge::stageTraceEnabled=edgeStageTrace;
++            sourcemesh::nativeedge::stageTraceRecords.clear();
+             const char* geometryTrace=std::getenv("RRR3D_CONTACT_GEOMETRY_INPUT_TRACE");
+             const char* geometryStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+             const bool selectedGeometryStep=geometryStep && *geometryStep? std::strtoull(geometryStep,nullptr,10)==traceStep_-1:traceStep_==1;
+@@ -1092,6 +1097,14 @@
+                 motorrock::parity::event("physics.source-mesh-input","independent geometry inputs",sample.str());
+             }
+             sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge);
++            if(edgeStageTrace)for(const auto& e:sourcemesh::nativeedge::stageTraceRecords) {
++                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex;
++                const auto v=[&](const char* name,sourcemesh::PxVec3 p){sample<<",\""<<name<<"\":["<<p.x<<','<<p.y<<','<<p.z<<']';};
++                v("delta",e.v1);v("p1",e.p1);v("p2",e.p2);v("direction",e.dir);v("p3",e.p3);v("p4",e.p4);v("plane_normal",e.planeNormal);v("normalized_direction",e.normalizedDirection);v("before",e.before);v("after",e.after);
++                sample<<",\"plane_constant\":"<<e.planeConstant<<",\"coefficient\":"<<e.coefficient<<",\"d3\":"<<e.d3<<",\"denominator\":"<<e.denominator<<",\"ratio\":"<<e.ratio<<",\"distance\":"<<e.distance<<",\"i\":"<<e.i<<",\"j\":"<<e.j<<",\"accepted\":"<<(e.accepted?"true":"false")<<'}';
++                motorrock::parity::event("physics.native-edge-stages","independent edge crossing stages",sample.str());
++            }
++            sourcemesh::nativeedge::stageTraceEnabled=false;
+             if(contacts.count==before)continue;
+             const auto normal=contacts.contacts[before].normal;
+             if(before && normal.dot(commonNormal)<.999999f)return false;
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -30,6 +30,7 @@
+ 
+ #pragma once
+ #include <array>
++#include <vector>
+ #include <cmath>
+ #include <cstdint>
+ #include <cstdlib>
+@@ -596,6 +597,9 @@
+ // reciprocal sqrt uses an extended intermediate as in the x87 source path.
+ // No recorded coordinates or case identifiers are used. Tilted parity pending.
+ namespace nativeedge {
++struct StageTrace {PxVec3 v1,p1,p2,dir,p3,p4,planeNormal,normalizedDirection,before,after;float planeConstant,coefficient,d3,denominator,ratio,distance;unsigned i,j;bool accepted;};
++inline thread_local bool stageTraceEnabled=false;
++inline thread_local std::vector<StageTrace> stageTraceRecords;
+ inline float store(double a){volatile float r=static_cast<float>(a);return r;}
+ inline float add(float a,float b){return store(double(a)+b);}
+ inline float sub(float a,float b){return store(double(a)-b);}
+@@ -616,11 +620,14 @@
+  if(denominator==0)return false;
+  const float ratio=divide(d3,denominator);
+  for(int a=0;a<3;++a)point[a]=sub(p3[a],mul(v2[a],ratio));
++ const auto before=point;
+  distance=mul(sub(mul(v1[i],sub(point[j],p1[j])),mul(v1[j],sub(point[i],p1[i]))),coefficient);
+  if(distance<0)return false;
+  for(int a=0;a<3;++a)point[a]=sub(point[a],mul(distance,dir[a]));
+  const float x=mul(sub(p1.x,point.x),sub(p2.x,point.x)),z=mul(sub(p1.z,point.z),sub(p2.z,point.z)),y=mul(sub(p1.y,point.y),sub(p2.y,point.y));
+- return add(add(x,z),y)<0;
++ const bool accepted=add(add(x,z),y)<0;
++ if(stageTraceEnabled)stageTraceRecords.push_back({v1,p1,p2,dir,p3,p4,plane.n,v2,before,point,plane.d,coefficient,d3,denominator,ratio,distance,i,j,accepted});
++ return accepted;
+ }
+ }
+ 
+@@ -1019,8 +1026,10 @@
+  const char* negativeXFlag=std::getenv("RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER");
+  const bool negativeXOrder=negativeXFlag && std::strcmp(negativeXFlag,"1")==0 && axis==0 && sign<0;
+  if(negativeXOrder)reverseWinding=!reverseWinding;
++ const char* positiveZFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_POSITIVE_Z_FACE_ORDER");
++ const bool positiveZOrder=positiveZFlag && std::strcmp(positiveZFlag,"1")==0 && axis==2 && sign>0;
+  std::array<PxVec3,4> verts;
+- for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=negativeXOrder?(3+i)%4:(reverseWinding?(4-i)%4:i);verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
++ for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=positiveZOrder?(5-i)%4:negativeXOrder?(3+i)%4:(reverseWinding?(4-i)%4:i);verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
+  PxVec3 faceNormal(0);faceNormal[axis]=sign;const PxPlane face(faceNormal,-half[axis]);
+  float minimum=FLT_MAX;
+  for(PxVec3 v:verts)minimum=std::min(minimum,plane.distance(box.transform(v)));
+--- a/tools/calibration/experimental/IsolationProbeCases.h
++++ b/tools/calibration/experimental/IsolationProbeCases.h
+@@ -87,6 +87,13 @@
+   // Offset the actor so the geometric box has the same initial floor penetration.
+   c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
+   suite.push_back(c);
++  // v45: exercise the opposite local-Z face with the same independent
++  // center-of-mass and shape offsets; no AI or wheel/body friction forces.
++  std::ostringstream inverted;inverted<<"pose-v45-inverted-"<<type;
++  c.name=c.action=inverted.str();c.initialPitch=3.14;
++  c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
++  c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
++  suite.push_back(c);
+  }
+ 
+ }

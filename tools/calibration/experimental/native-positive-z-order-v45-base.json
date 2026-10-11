@@ -1,0 +1,20 @@
+{
+  "baseline_commit": "85283fd3d40586e3a69567943e5ef6f2aff0a782",
+  "prerequisite": "Full v44 experimental adapter and v43 source/SDK chain",
+  "candidate": "native-positive-z-order-v45",
+  "default_off_flag": "RRR3D_EXPERIMENT_NATIVE_POSITIVE_Z_FACE_ORDER",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "72b9dccd2804d86862ac60f92854388f363745ef864468f75be2fbf29ee65620",
+      "after_sha256": "46c27e4b66f81f649c2e5a6285a89de3677859970ca733c5f7d14fbf4ae14365"
+    },
+    "src/Rock3dEngine/header/physics/SourceMeshManifold.h": {
+      "before_sha256": "19eed6f4ce5c69618c2dc452adf9f118364a021e30da5dc7d2b9e928d96e44b9",
+      "after_sha256": "db37277d602b9ef0ec3df3c92f18566ddc5a4a7cdc48bc6f869c0f717efbed69"
+    },
+    "tools/calibration/experimental/IsolationProbeCases.h": {
+      "before_sha256": "1a61fe024793d59c20524584f916221b5f2b90c41b4dc14a7d22e5b2e2d4562a",
+      "after_sha256": "53c6e499f14efcad893a90ed7f2f39011ec0ddc6cca0bc28bf05b1e3c679fdb6"
+    }
+  }
+}

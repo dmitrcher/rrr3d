@@ -87,6 +87,13 @@ inline void appendIsolationProbes(std::vector<Case>& suite) {
   // Offset the actor so the geometric box has the same initial floor penetration.
   c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
   suite.push_back(c);
+  // v45: exercise the opposite local-Z face with the same independent
+  // center-of-mass and shape offsets; no AI or wheel/body friction forces.
+  std::ostringstream inverted;inverted<<"pose-v45-inverted-"<<type;
+  c.name=c.action=inverted.str();c.initialPitch=3.14;
+  c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
+  c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
+  suite.push_back(c);
  }
 
 }

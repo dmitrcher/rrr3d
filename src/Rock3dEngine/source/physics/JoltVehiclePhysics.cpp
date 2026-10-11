@@ -864,6 +864,8 @@ private:
         out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
             << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
             << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
+            << ",\"sensor0\":" << (first.IsSensor()?"true":"false")
+            << ",\"sensor1\":" << (second.IsSensor()?"true":"false")
             << ",\"depth\":" << manifold.mPenetrationDepth
             << ",\"additional_separation\":" << settings.mAdditionalSeparation
             << ",\"position_penetration_slop\":" << settings.mPositionPenetrationSlop

@@ -1,0 +1,54 @@
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -73,7 +73,7 @@
+ 
+ 	/// Internal helper function to calculate the inverse effective mass
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE float			TemplatedCalculateInverseEffectiveMass(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis)
++	JPH_INLINE float			TemplatedCalculateInverseEffectiveMass(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, bool inRawAxisMass = false)
+ 	{
+ 		JPH_ASSERT(inWorldSpaceAxis.IsNormalized(1.0e-5f));
+ 
+@@ -111,7 +111,7 @@
+ 		{
+ 			Vec3 invi1_r1_plus_u_x_axis = inInvI1.Multiply3x3(r1_plus_u_x_axis);
+ 			invi1_r1_plus_u_x_axis.StoreFloat3(&mInvI1_R1PlusUxAxis);
+-			inv_effective_mass = inInvMass1 + invi1_r1_plus_u_x_axis.Dot(r1_plus_u_x_axis);
++			inv_effective_mass = (inRawAxisMass? inInvMass1 * inWorldSpaceAxis.LengthSq() : inInvMass1) + invi1_r1_plus_u_x_axis.Dot(r1_plus_u_x_axis);
+ 		}
+ 		else
+ 		{
+@@ -124,7 +124,7 @@
+ 		{
+ 			Vec3 invi2_r2_x_axis = inInvI2.Multiply3x3(r2_x_axis);
+ 			invi2_r2_x_axis.StoreFloat3(&mInvI2_R2xAxis);
+-			inv_effective_mass += inInvMass2 + invi2_r2_x_axis.Dot(r2_x_axis);
++			inv_effective_mass += (inRawAxisMass? inInvMass2 * inWorldSpaceAxis.LengthSq() : inInvMass2) + invi2_r2_x_axis.Dot(r2_x_axis);
+ 		}
+ 		else
+ 		{
+@@ -227,9 +227,9 @@
+ 
+ 	/// Templated form of CalculateConstraintProperties with the motion types baked in
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE void				TemplatedCalculateConstraintProperties(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, float inBias = 0.0f)
++	JPH_INLINE void				TemplatedCalculateConstraintProperties(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, float inBias = 0.0f, bool inRawAxisMass = false)
+ 	{
+-		float inv_effective_mass = TemplatedCalculateInverseEffectiveMass<Type1, Type2>(inInvMass1, inInvI1, inR1PlusU, inInvMass2, inInvI2, inR2, inWorldSpaceAxis);
++		float inv_effective_mass = TemplatedCalculateInverseEffectiveMass<Type1, Type2>(inInvMass1, inInvI1, inR1PlusU, inInvMass2, inInvI2, inR2, inWorldSpaceAxis, inRawAxisMass);
+ 
+ 		if (inv_effective_mass == 0.0f)
+ 			Deactivate();
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -133,7 +133,9 @@
+ 		mSourceUnbiasedVelocityBias = bounce? normal_velocity_bias : 0.8f * speculative_contact_velocity_bias;
+ 		normal_velocity_bias = bounce? normal_velocity_bias : -0.8f * penetration / inDeltaTime;
+ 	}
+-	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias);
++	const char *raw_axis_flag = std::getenv("RRR3D_EXPERIMENT_RAW_CONTACT_MASS");
++	const bool raw_axis_mass = inSettings.mUseSourceBlockPGS && raw_axis_flag != nullptr && std::strcmp(raw_axis_flag, "1") == 0;
++	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias, raw_axis_mass);
+ 
+ 	// Calculate friction part
+ 	if (inSettings.mCombinedFriction > 0.0f || inSettings.mCombinedFriction2 > 0.0f)

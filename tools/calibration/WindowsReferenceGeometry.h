@@ -145,7 +145,7 @@ public:
   NxContactStreamIterator contacts(pair.stream); int pointIndex=0;
   while(contacts.goNextPair()) while(contacts.goNextPatch()) while(contacts.goNextPoint()) {
    const NxVec3 point=contacts.getPoint(),normal=contacts.getPatchNormal();
-   std::ostringstream p;p<<"{\"tick\":"<<tick<<",\"index\":"<<pointIndex++
+   std::ostringstream p;p<<std::setprecision(9)<<"{\"tick\":"<<tick<<",\"index\":"<<pointIndex++
     <<",\"point\":"<<motorrock::calibration::vector(motorrock::calibration::V(point.x,point.y,point.z))
     <<",\"normal\":"<<motorrock::calibration::vector(motorrock::calibration::V(normal.x,normal.y,normal.z))
     <<",\"separation\":"<<contacts.getSeparation()<<",\"normal_force\":"<<contacts.getPointNormalForce()<<'}';

@@ -36,6 +36,8 @@ def main():
                    help='Normalize the saved frozen orientation once after its first step')
     p.add_argument('--material-frame-candidate', action='store_true',
                    help='Enable the unverified v27 material-frame arithmetic candidate')
+    p.add_argument('--raw-contact-mass', action='store_true',
+                   help='Include raw contact-normal length squared in translational effective mass')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
@@ -59,6 +61,9 @@ def main():
             env['RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE'] = '1'
         if args.material_frame_candidate:
             env['RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE'] = '1'
+        if args.raw_contact_mass:
+            env['RRR3D_EXPERIMENT_RAW_CONTACT_MASS'] = '1'
+        env['RRR3D_CONTACT_POINTS'] = '1'
         env['RRR3D_CALIBRATION_PROFILE'] = str(args.profile.resolve())
         for flag in ('SPRING_BIAS', 'SPRING_FINAL', 'SPRING_LOST', 'SPRING_COLD',
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',

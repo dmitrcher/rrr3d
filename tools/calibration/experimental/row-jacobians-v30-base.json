@@ -1,0 +1,21 @@
+{
+  "scope": "Read-only actual prepared row Jacobians and inverse-inertia response. Source angular diagnostics use axial handedness correction; no changed physical solve. Applies after all v29 prototype patches.",
+  "files": {
+    "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h": {
+      "before_sha256": "b80aa0a8b636c3016abece392e184ca50b85049651bb0d2398564d0ea05731e5",
+      "after_sha256": "8b008a2d29ffdf62f2ce77ad8906a655a7ee0d39d7c08fe7fb15e41a7627b6cb"
+    },
+    "Jolt/Physics/Collision/ContactListener.h": {
+      "before_sha256": "4ef9fd42234ae50ee9ff118996299ca481c07310f9804b3415d2e62de9bc3b21",
+      "after_sha256": "5a40ff37f99fd09d9d878fd559b665ad65426814ee7092082dac0663773cb45f"
+    },
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": {
+      "before_sha256": "acef9f2abb801fce34facfdc16be8f187f7ae418918e61807d6e6ebb105d2889",
+      "after_sha256": "ac3d03513a33f30ab0d69c60bab7030af1d9861681e0c03c687346d3a8f9e30c"
+    },
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "ce42c7b1ff6b650ae9bd50703ed061929e4d85455f087ef0b6d6adf1c4cd1e16",
+      "after_sha256": "4a8d0eb3454f93da7b1d784638802a1a98eacb3821ecab30362b698e291f2d87"
+    }
+  }
+}

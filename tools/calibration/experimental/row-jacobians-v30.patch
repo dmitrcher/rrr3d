@@ -1,0 +1,76 @@
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -668,6 +668,10 @@
+ 	/// Read-only diagnostics of the normal row; does not prepare or solve it.
+ 	float GetDiagnosticEffectiveMass() const { return mEffectiveMass; }
+ 	float GetDiagnosticVelocityBias() const { return mSpringPart.GetBias(mTotalLambda); }
++	Vec3 GetDiagnosticR1CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mR1PlusUxAxis); }
++	Vec3 GetDiagnosticR2CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mR2xAxis); }
++	Vec3 GetDiagnosticInvI1R1CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mInvI1_R1PlusUxAxis); }
++	Vec3 GetDiagnosticInvI2R2CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mInvI2_R2xAxis); }
+ 
+ 	/// Save state of this constraint part
+ 	void						SaveState(StateRecorder &inStream) const
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -108,7 +108,7 @@
+ 	/// The collision result (inCollisionResult) is reported relative to inBaseOffset.
+ 	virtual void OnSourceMotionSolved([[maybe_unused]] const Body &inBody, [[maybe_unused]] Vec3Arg inVelocity, [[maybe_unused]] Vec3Arg inAngularVelocity) { }
+ 	/// Optional read-only source normal-row diagnostics, before and after the final unbiased sweep.
+-	virtual void OnSourceNormalRow([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] uint inIndex, [[maybe_unused]] const char *inPhase, [[maybe_unused]] float inEffectiveMass, [[maybe_unused]] float inVelocityBias, [[maybe_unused]] float inUnbiasedBias, [[maybe_unused]] float inSourceSeparation, [[maybe_unused]] float inLambda, [[maybe_unused]] float inDeltaTime) { }
++	virtual void OnSourceNormalRow([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] uint inIndex, [[maybe_unused]] const char *inPhase, [[maybe_unused]] float inEffectiveMass, [[maybe_unused]] float inVelocityBias, [[maybe_unused]] float inUnbiasedBias, [[maybe_unused]] float inSourceSeparation, [[maybe_unused]] float inLambda, [[maybe_unused]] float inDeltaTime, [[maybe_unused]] Vec3Arg inR1CrossNormal, [[maybe_unused]] Vec3Arg inR2CrossNormal, [[maybe_unused]] Vec3Arg inInvI1R1CrossNormal, [[maybe_unused]] Vec3Arg inInvI2R2CrossNormal) { }
+ 	virtual bool WantsContactManifoldRefresh([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2) const { return false; }
+ 	virtual bool OverrideContactManifold([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] const ContactManifold &inManifold, [[maybe_unused]] ContactManifold &outManifold) { return false; }
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -1850,10 +1850,16 @@
+ 	const auto trace_normal_rows = [&](const ContactConstraint &constraint, const char *phase) {
+ 		if (!trace_rows) return;
+ 		uint point_index = 0;
+-		for (const WorldContactPoint &wcp : constraint.mContactPoints)
++		for (const WorldContactPoint &wcp : constraint.mContactPoints) {
++			const auto &row = wcp.mNonPenetrationConstraint;
+ 			mContactListener->OnSourceNormalRow(*constraint.mBody1, *constraint.mBody2, point_index++, phase,
+-				wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(), wcp.mNonPenetrationConstraint.GetDiagnosticVelocityBias(),
+-				wcp.mSourceUnbiasedVelocityBias, wcp.mSourceSeparation, wcp.mNonPenetrationConstraint.GetTotalLambda(), inDeltaTime);
++				row.GetDiagnosticEffectiveMass(), row.GetDiagnosticVelocityBias(),
++				wcp.mSourceUnbiasedVelocityBias, wcp.mSourceSeparation, row.GetTotalLambda(), inDeltaTime,
++				constraint.mBody1->IsStatic()? Vec3::sZero() : row.GetDiagnosticR1CrossAxis(),
++				constraint.mBody2->IsStatic()? Vec3::sZero() : row.GetDiagnosticR2CrossAxis(),
++				constraint.mBody1->IsDynamic()? row.GetDiagnosticInvI1R1CrossAxis() : Vec3::sZero(),
++				constraint.mBody2->IsDynamic()? row.GetDiagnosticInvI2R2CrossAxis() : Vec3::sZero());
++		}
+ 	};
+ 	struct SourceMotion { Body *body; Vec3 velocity; Vec3 angular; };
+ 	Array<SourceMotion> source_motion;
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -754,7 +754,9 @@
+ 
+     void OnSourceNormalRow(const JPH::Body& first, const JPH::Body& second, JPH::uint index,
+                            const char* phase, float effectiveMass, float velocityBias,
+-                           float unbiasedBias, float separation, float lambda, float dt) override
++                           float unbiasedBias, float separation, float lambda, float dt,
++                           JPH::Vec3Arg r0CrossNormal, JPH::Vec3Arg r1CrossNormal,
++                           JPH::Vec3Arg invI0R0CrossNormal, JPH::Vec3Arg invI1R1CrossNormal) override
+     {
+         std::ostringstream out;
+         out.imbue(std::locale::classic());
+@@ -769,8 +771,15 @@
+             const Vec3 v = fromJolt(value);
+             out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
+         };
++        const auto axial = [&](const char* name, JPH::Vec3 value) {
++            const Vec3 v = fromJoltAngular(value);
++            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
++        };
+         vector("velocity0", first.GetLinearVelocity()); vector("velocity1", second.GetLinearVelocity());
+-        vector("angular0", first.GetAngularVelocity()); vector("angular1", second.GetAngularVelocity());
++        axial("angular0", first.GetAngularVelocity()); axial("angular1", second.GetAngularVelocity());
++        axial("r_cross_normal0", r0CrossNormal); axial("r_cross_normal1", r1CrossNormal);
++        axial("inverse_inertia_r_cross_normal0", invI0R0CrossNormal);
++        axial("inverse_inertia_r_cross_normal1", invI1R1CrossNormal);
+         const auto inertia = [&](const char* prefix, const JPH::Body& body) {
+             const float inverseMass = body.IsDynamic()? body.GetMotionPropertiesUnchecked()->GetInverseMass() : 0.0F;
+             out << ",\"" << prefix << "_inverse_mass\":" << inverseMass;

@@ -1,0 +1,2051 @@
+{
+  "schema": 1,
+  "status": "progress",
+  "goal_complete": false,
+  "standalone_physical_fix_accepted": false,
+  "accepted_diagnostics": [
+    "Raw Native callback local points and point frames, with strict optional literal1 flag.",
+    "Actual Native solver iteration getter, optional diagnostics.",
+    "Actual Mac prepared normal-row Jacobians and inertia response; static/kinematic uninitialized row fields never read.",
+    "Correct axial handedness for Mac angular diagnostic fields. No changed physical state.",
+    "Read-only observed Native contact callback caller and verified-layout parent call site."
+  ],
+  "ladder": [
+    {
+      "stage": "00",
+      "complete": true,
+      "cases_remaining": [],
+      "cases_checked": 9,
+      "all_event_semantic_repeats_exact": true,
+      "physical_states_exact_v29": true,
+      "semantic_sha256": "1de4c00c65896f3371f4bf7bccf41c0328c7bf9511e861f9e567e255e594f3e7"
+    },
+    {
+      "stage": "01",
+      "complete": true,
+      "cases_remaining": [],
+      "cases_checked": 108,
+      "all_event_semantic_repeats_exact": true,
+      "physical_states_exact_v29": true,
+      "semantic_sha256": "bc1b5242ee12ecefd2fec1f8dca3f8d8f7b3e5d15f845604705f33665f961eba"
+    },
+    {
+      "stage": "02",
+      "complete": true,
+      "cases_remaining": [],
+      "cases_checked": 48,
+      "all_event_semantic_repeats_exact": true,
+      "physical_states_exact_v29": true,
+      "semantic_sha256": "145883bf6123ce19556e6aca22fd59217fa9e89d4dcbdd06b0bf01a21e706175"
+    },
+    {
+      "stage": "03",
+      "complete": false,
+      "cases_remaining": [
+        "isolate-03-contact-m0-h0-v0-f1",
+        "isolate-03-contact-m0-h0-v1-f1",
+        "isolate-03-contact-m0-h1-v0-f1",
+        "isolate-03-contact-m0-h1-v1-f1",
+        "isolate-03-contact-m1-h0-v0-f1",
+        "isolate-03-contact-m1-h0-v1-f1",
+        "isolate-03-contact-m1-h1-v0-f1",
+        "isolate-03-contact-m1-h1-v1-f1",
+        "isolate-03-contact-m2-h0-v0-f1",
+        "isolate-03-contact-m2-h0-v1-f1",
+        "isolate-03-contact-m2-h1-v0-f1",
+        "isolate-03-contact-m2-h1-v1-f1"
+      ],
+      "cases_checked": 24,
+      "all_event_semantic_repeats_exact": true,
+      "physical_states_exact_v29": true,
+      "semantic_sha256": "4599f02c1b913b9d485b35cbb64212aadfaa3f601e83811973ef2b0580383110"
+    }
+  ],
+  "input_evidence": {
+    "schema": 1,
+    "scope": "Raw Native callback local points and actual Mac prepared Jacobians. The expected Native Jacobians are reconstructed by a scalar float32 model, not directly read from the private SDK solver.",
+    "native": {
+      "files": [
+        "reference-inverse-mass-flat-run0-v30-windows.jsonl",
+        "reference-inverse-mass-flat-run1-v30-windows.jsonl"
+      ],
+      "records": 97173,
+      "semantic_sha256": "1f48da81ebeb8c608a52bfb8f9d3d827a688454d0a4d04c42ee120e9b97be7f0",
+      "repeat_identical": true
+    },
+    "ordinary_mac": {
+      "files": [
+        "calibration-inverse-normal-rows-flat-run0-v30-mac.jsonl",
+        "calibration-inverse-normal-rows-flat-run1-v30-mac.jsonl"
+      ],
+      "records": 27588,
+      "semantic_sha256": "698899c10fb82214bbf9164f6a3009f4ffc599a7c0227c7e47281c899762e0fd",
+      "repeat_identical": true
+    },
+    "native_added_diagnostics_preserve_all_prior_events_except_module_path": true,
+    "mac_legacy_row_projection_exact": true,
+    "angular_diagnostic_correction": "v29 row angular fields used polar axis permutation. v30 uses axial det(P)*P; physical angular state and solve unchanged.",
+    "local_arms": {
+      "isolate-03-contact-m0-h0-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m0-h0-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m0-h1-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m0-h1-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m1-h0-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m1-h0-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m1-h1-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m1-h1-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m2-h0-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m2-h0-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m2-h1-v0-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      },
+      "isolate-03-contact-m2-h1-v1-f1": {
+        "raw_local_arm_exactly_recovered_from_world": true,
+        "local_points_first_contact": 16,
+        "actor_frame_identity": true,
+        "first_local_arm": [
+          1.5,
+          -0.800000012,
+          -0.300000191
+        ]
+      }
+    },
+    "physical_states_unchanged": true,
+    "goal_complete": false
+  },
+  "prepared_jacobian_model": {
+    "captures": 4,
+    "cases_per_capture": 12,
+    "first_rows_per_case": 16,
+    "matches": {
+      "points-mask0": {
+        "cross": 192,
+        "inverse_response": 192
+      },
+      "points-mask2": {
+        "cross": 192,
+        "inverse_response": 192
+      },
+      "both-mask0": {
+        "cross": 192,
+        "inverse_response": 192
+      },
+      "both-mask2": {
+        "cross": 192,
+        "inverse_response": 192
+      }
+    },
+    "scope": "Reconstructed scalar float32 Native-input model; private Native kernel Jacobians not directly observed."
+  },
+  "iteration_captures": {
+    "schema": 1,
+    "native": {
+      "1": {
+        "files": [
+          "reference-row-iterations1-run0-v30-windows.jsonl",
+          "reference-row-iterations1-run1-v30-windows.jsonl"
+        ],
+        "records": 95685,
+        "semantic_sha256": "209d01af07ac01eea468e8fcffda0fe7a831cbf5167a2d8288f65b120fd471f2",
+        "repeat_identical": true,
+        "actual_sdk_iterations_verified": true,
+        "pre_contact_states_exact_all12": true,
+        "first_raw_local_points_and_callback_geometry_identical_across_counts": true
+      },
+      "2": {
+        "files": [
+          "reference-row-iterations2-run0-v30-windows.jsonl",
+          "reference-row-iterations2-run1-v30-windows.jsonl"
+        ],
+        "records": 95685,
+        "semantic_sha256": "635b73b7b58fd504ce85e67e50b37dc79bd0d9d313f7447e7f7d9353e7a60f41",
+        "repeat_identical": true,
+        "actual_sdk_iterations_verified": true,
+        "pre_contact_states_exact_all12": true,
+        "first_raw_local_points_and_callback_geometry_identical_across_counts": true
+      },
+      "4": {
+        "files": [
+          "reference-row-iterations4-run0-v30-windows.jsonl",
+          "reference-row-iterations4-run1-v30-windows.jsonl"
+        ],
+        "records": 95685,
+        "semantic_sha256": "92eb50cbc278b81c31c379719bada8dfddb4c2d1f6cd351dd86721f928521406",
+        "repeat_identical": true,
+        "actual_sdk_iterations_verified": true,
+        "pre_contact_states_exact_all12": true,
+        "first_raw_local_points_and_callback_geometry_identical_across_counts": true
+      },
+      "8": {
+        "files": [
+          "reference-row-iterations8-run0-v30-windows.jsonl",
+          "reference-row-iterations8-run1-v30-windows.jsonl"
+        ],
+        "records": 95685,
+        "semantic_sha256": "59ddf85ca1b4d2a5dceb3f6058f2053b43876ed5f9cdefe42cebbc73037d83ef",
+        "repeat_identical": true,
+        "actual_sdk_iterations_verified": true,
+        "pre_contact_states_exact_all12": true,
+        "first_raw_local_points_and_callback_geometry_identical_across_counts": true
+      }
+    },
+    "mac_interventions": {
+      "1-mask0": {
+        "files": [
+          "calibration-row-iterations1-both-mask0-run0-v30-mac.jsonl",
+          "calibration-row-iterations1-both-mask0-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "6ab1396d327bc6887dbc23f8fceb00f5b4f7f5b55ea01aabfc365541d1624d5c",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.0060000000394753e-07
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 2.610000000254109e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.330000000091105e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.490000000048506e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.0060000000394753e-07
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 2.610000000254109e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.330000000091105e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.490000000048506e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.0060000000394753e-07
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 2.610000000254109e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.330000000091105e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.490000000048506e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "1-mask2": {
+        "files": [
+          "calibration-row-iterations1-both-mask2-run0-v30-mac.jsonl",
+          "calibration-row-iterations1-both-mask2-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "f6ca40faed972db9d37d94419b4ccc3d4b8c2ac352e8f1ceb570d5c66512ddc1",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.10000000722636e-15,
+            "first_velocity_error": 1.0060000000495399e-07
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.86000000020059e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.049999999670977e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.789999999890581e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.10000000722636e-15,
+            "first_velocity_error": 1.0060000000495399e-07
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.86000000020059e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.049999999670977e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.789999999890581e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.10000000722636e-15,
+            "first_velocity_error": 1.0060000000495399e-07
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.86000000020059e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.049999999670977e-16,
+            "first_velocity_error": 2.399999998736746e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.789999999890581e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "2-mask0": {
+        "files": [
+          "calibration-row-iterations2-both-mask0-run0-v30-mac.jsonl",
+          "calibration-row-iterations2-both-mask0-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "3027f1b43f4fc2bbbd7257b651485e5937d85cf15ed1677491c2f5f2d4e5525e",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 1.420000000121783e-14,
+            "first_velocity_error": 3.7000001127334447e-09
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.5400000000315155e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.799999999031403e-17,
+            "first_velocity_error": 2.400000000957194e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.899999987947813e-16,
+            "first_velocity_error": 1.1899999996513287e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 1.420000000121783e-14,
+            "first_velocity_error": 3.7000001127334447e-09
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.5400000000315155e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.799999999031403e-17,
+            "first_velocity_error": 2.400000000957194e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.899999987947813e-16,
+            "first_velocity_error": 1.1899999996513287e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 1.420000000121783e-14,
+            "first_velocity_error": 3.7000001127334447e-09
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.5400000000315155e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.799999999031403e-17,
+            "first_velocity_error": 2.400000000957194e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.899999987947813e-16,
+            "first_velocity_error": 1.1899999996513287e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "2-mask2": {
+        "files": [
+          "calibration-row-iterations2-both-mask2-run0-v30-mac.jsonl",
+          "calibration-row-iterations2-both-mask2-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "113c6272561ab291099e4747adb6cfefae39c799c986b8d9f653a95f3b72bdb2",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 7.820000000629201e-08
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.539999999732646e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 2.4000000009571936e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.4899999994932855e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 7.820000000629201e-08
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.539999999732646e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 2.4000000009571936e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.4899999994932855e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.09999999399147e-15,
+            "first_velocity_error": 7.820000000629201e-08
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.539999999732646e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 2.4000000009571936e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.4899999994932855e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "4-mask0": {
+        "files": [
+          "calibration-row-arithmetic-both-mask0-run0-v30-mac.jsonl",
+          "calibration-row-arithmetic-both-mask0-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "8b3b2dd4f1771d20ca9c10718158d441bf4144486fb17e65949773771e9c32bb",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 2.2300000040835347e-08
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.360000000793041e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736787e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 2.2300000040835347e-08
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.360000000793041e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736787e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 2.2300000040835347e-08
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 3.360000000793041e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736787e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "4-mask2": {
+        "files": [
+          "calibration-row-arithmetic-both-mask2-run0-v30-mac.jsonl",
+          "calibration-row-arithmetic-both-mask2-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "5b1c3d045f13708adff7b3d12ec7c1080994a44a9e3bebd282c2aa38be06868f",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 1.1300000000756614e-12
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.360000000183666e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987367904e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 1.1300000000756614e-12
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.360000000183666e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987367904e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 1.1300000000756614e-12
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 3.360000000183666e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987367904e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "8-mask0": {
+        "files": [
+          "calibration-row-iterations8-both-mask0-run0-v30-mac.jsonl",
+          "calibration-row-iterations8-both-mask0-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "398478cf991ea2707b51ef3781ab2428fc222d5fca3a1ab003fb6e007b613095",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 1.4900000041319152e-08
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 9.300000024128442e-09
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736805e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 1.4900000041319152e-08
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 9.300000024128442e-09
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736805e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.840000000243566e-14,
+            "first_velocity_error": 1.4900000041319152e-08
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 7.100000000608915e-15,
+            "first_velocity_error": 9.300000024128442e-09
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.879999999956236e-16,
+            "first_velocity_error": 2.399999998736805e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 8.900000004491426e-16,
+            "first_velocity_error": 1.1900000002064403e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      },
+      "8-mask2": {
+        "files": [
+          "calibration-row-iterations8-both-mask2-run0-v30-mac.jsonl",
+          "calibration-row-iterations8-both-mask2-run1-v30-mac.jsonl"
+        ],
+        "records": 24708,
+        "semantic_sha256": "9e8dd42db62716243c1e151ef8a9f9e4259e99c1198202dc9aafde80d4ed65e7",
+        "repeat_identical": true,
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 7.4000000576087846e-09
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 4.470000000232923e-08
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987368095e-07
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 7.4000000576087846e-09
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 4.470000000232923e-08
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987368095e-07
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 2.130000000844419e-14,
+            "first_velocity_error": 7.4000000576087846e-09
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 4.470000000232923e-08
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 9.159999999859377e-16,
+            "first_velocity_error": 2.3999999987368095e-07
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "pre_contact_states_exact": true,
+            "first_contact_state_exact": false,
+            "first_position_error": 0.0,
+            "first_velocity_error": 1.1900000002063038e-07
+          }
+        },
+        "scope": "One-step recorded geometry intervention; not standalone parity."
+      }
+    },
+    "actual_native_solver_iterations_verified": true,
+    "all_semantic_repeats_exact": true,
+    "goal_complete": false
+  },
+  "standalone_mac_model": {
+    "cases": 96,
+    "biased_and_unbiased_lambdas_velocities_and_angular_exact": true,
+    "first_position_reconstruction_exact": true
+  },
+  "bias_model_study": {
+    "models": {
+      "first-mul-div-observed": {
+        "exact_cases": 9,
+        "velocity_improved": 75,
+        "velocity_regressed": 21,
+        "position_improved": 27,
+        "position_regressed": 27,
+        "max_velocity": 1.4156103134228314e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-mul-div-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 63,
+        "velocity_regressed": 33,
+        "position_improved": 30,
+        "position_regressed": 42,
+        "max_velocity": 1.5273690223693848e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-mul-div-double_product": {
+        "exact_cases": 9,
+        "velocity_improved": 69,
+        "velocity_regressed": 27,
+        "position_improved": 39,
+        "position_regressed": 39,
+        "max_velocity": 1.2665987014770508e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-pre-scale-observed": {
+        "exact_cases": 3,
+        "velocity_improved": 72,
+        "velocity_regressed": 24,
+        "position_improved": 30,
+        "position_regressed": 15,
+        "max_velocity": 1.4156103134228314e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-pre-scale-double_sum": {
+        "exact_cases": 24,
+        "velocity_improved": 63,
+        "velocity_regressed": 33,
+        "position_improved": 48,
+        "position_regressed": 27,
+        "max_velocity": 1.5273690223693848e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-pre-scale-double_product": {
+        "exact_cases": 6,
+        "velocity_improved": 66,
+        "velocity_regressed": 30,
+        "position_improved": 42,
+        "position_regressed": 30,
+        "max_velocity": 1.2665987014770508e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-mul-invdt-observed": {
+        "exact_cases": 9,
+        "velocity_improved": 75,
+        "velocity_regressed": 21,
+        "position_improved": 27,
+        "position_regressed": 27,
+        "max_velocity": 1.4156103134228314e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-mul-invdt-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 63,
+        "velocity_regressed": 33,
+        "position_improved": 30,
+        "position_regressed": 42,
+        "max_velocity": 1.5273690223693848e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-mul-invdt-double_product": {
+        "exact_cases": 9,
+        "velocity_improved": 69,
+        "velocity_regressed": 27,
+        "position_improved": 39,
+        "position_regressed": 39,
+        "max_velocity": 1.2665987014770508e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-double-observed": {
+        "exact_cases": 3,
+        "velocity_improved": 72,
+        "velocity_regressed": 24,
+        "position_improved": 30,
+        "position_regressed": 15,
+        "max_velocity": 1.4156103134228314e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-double-double_sum": {
+        "exact_cases": 24,
+        "velocity_improved": 63,
+        "velocity_regressed": 33,
+        "position_improved": 48,
+        "position_regressed": 27,
+        "max_velocity": 1.5273690223693848e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "first-double-double_product": {
+        "exact_cases": 6,
+        "velocity_improved": 66,
+        "velocity_regressed": 30,
+        "position_improved": 42,
+        "position_regressed": 30,
+        "max_velocity": 1.2665987014770508e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "last-mul-div-observed": {
+        "exact_cases": 0,
+        "velocity_improved": 33,
+        "velocity_regressed": 15,
+        "position_improved": 12,
+        "position_regressed": 3,
+        "max_velocity": 2.3841857910156885e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "last-mul-div-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 60,
+        "velocity_regressed": 33,
+        "position_improved": 24,
+        "position_regressed": 24,
+        "max_velocity": 2.38418579101564e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-mul-div-double_product": {
+        "exact_cases": 0,
+        "velocity_improved": 51,
+        "velocity_regressed": 42,
+        "position_improved": 30,
+        "position_regressed": 27,
+        "max_velocity": 2.384185791015629e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-pre-scale-observed": {
+        "exact_cases": 0,
+        "velocity_improved": 24,
+        "velocity_regressed": 0,
+        "position_improved": 0,
+        "position_regressed": 9,
+        "max_velocity": 2.3841857910156885e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "last-pre-scale-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 63,
+        "velocity_regressed": 30,
+        "position_improved": 33,
+        "position_regressed": 15,
+        "max_velocity": 2.38418579101564e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-pre-scale-double_product": {
+        "exact_cases": 0,
+        "velocity_improved": 60,
+        "velocity_regressed": 30,
+        "position_improved": 30,
+        "position_regressed": 27,
+        "max_velocity": 2.384185791015629e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-mul-invdt-observed": {
+        "exact_cases": 0,
+        "velocity_improved": 33,
+        "velocity_regressed": 15,
+        "position_improved": 12,
+        "position_regressed": 3,
+        "max_velocity": 2.3841857910156885e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "last-mul-invdt-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 60,
+        "velocity_regressed": 33,
+        "position_improved": 24,
+        "position_regressed": 24,
+        "max_velocity": 2.38418579101564e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-mul-invdt-double_product": {
+        "exact_cases": 0,
+        "velocity_improved": 51,
+        "velocity_regressed": 42,
+        "position_improved": 30,
+        "position_regressed": 27,
+        "max_velocity": 2.384185791015629e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-double-observed": {
+        "exact_cases": 0,
+        "velocity_improved": 33,
+        "velocity_regressed": 15,
+        "position_improved": 12,
+        "position_regressed": 3,
+        "max_velocity": 2.3841857910156885e-07,
+        "max_position": 2.842170943040401e-14,
+        "cases": 96
+      },
+      "last-double-double_sum": {
+        "exact_cases": 0,
+        "velocity_improved": 60,
+        "velocity_regressed": 33,
+        "position_improved": 24,
+        "position_regressed": 24,
+        "max_velocity": 2.38418579101564e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      },
+      "last-double-double_product": {
+        "exact_cases": 0,
+        "velocity_improved": 51,
+        "velocity_regressed": 42,
+        "position_improved": 30,
+        "position_regressed": 27,
+        "max_velocity": 2.384185791015629e-07,
+        "max_position": 2.1316282072803006e-14,
+        "cases": 96
+      }
+    },
+    "scope": "Diagnostic model with recorded Native raw callback error. Not independently generated geometry or production parity."
+  },
+  "operator_search": {
+    "model_count": 1620,
+    "cases_per_model": 48,
+    "complete_matches": 0,
+    "best_models": [
+      {
+        "modes": [
+          "jacobian-rounded",
+          "mul-div",
+          "xzy",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "jacobian-rounded",
+          "mul-div",
+          "xyz",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "jacobian-extended",
+          "mul-div",
+          "xzy",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "jacobian-extended",
+          "mul-div",
+          "xyz",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "raw-extended",
+          "mul-div",
+          "xzy",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "raw-extended",
+          "mul-div",
+          "xyz",
+          "full-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 6.705522537269995e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "pre-scale",
+          "double",
+          "accumulate-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 8.568167686462402e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "double",
+          "double",
+          "accumulate-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 8.568167686462402e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "pre-scale",
+          "double",
+          "accumulate-extended",
+          "premultiplied",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 9.313225746154785e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "double",
+          "double",
+          "accumulate-extended",
+          "premultiplied",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 9.313225746154785e-08,
+        "max_position_error": 1.4210854715202004e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "pre-scale",
+          "xzy",
+          "delta-rounded",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 1.1175870895385742e-07,
+        "max_position_error": 2.1316282072803006e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      },
+      {
+        "modes": [
+          "unit-rounded",
+          "pre-scale",
+          "xzy",
+          "accumulate-extended",
+          "scalar",
+          "rounded"
+        ],
+        "exact_cases": 12,
+        "max_velocity_error": 1.1175870895385742e-07,
+        "max_position_error": 2.1316282072803006e-14,
+        "exact_case_names": [
+          [
+            1,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            1,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            2,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            4,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m0-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m1-h1-v1-f1"
+          ],
+          [
+            8,
+            "isolate-03-contact-m2-h1-v1-f1"
+          ]
+        ]
+      }
+    ],
+    "scope": "Diagnostic operator search using actual Native geometry and pre-modify errors. The predictor never receives expected outputs. No accepted production or standalone physics fix."
+  },
+  "native_callback_path": {
+    "captures": [
+      "reference-contact-parent-run0-v30-windows.jsonl",
+      "reference-contact-parent-run1-v30-windows.jsonl"
+    ],
+    "events_per_capture": 1520,
+    "semantic_repeats_exact": true,
+    "legacy_events_and_physics_preserved": true,
+    "caller_rva": "0x207775",
+    "parent_rva": "0x20478d",
+    "dispatcher_start_rva": "0x207440",
+    "core_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+    "scope": "Observed callback dispatcher and parent call site only. Not proof of a narrow-phase or numerical solver routine. Parent stack offset applies only to the verified x86 DLL layout."
+  },
+  "windows_binary": {
+    "exe": "PhysicsSpringProbe-v30-Windows.exe",
+    "exe_bytes": 211456,
+    "exe_sha256": "8c331b7ea35ed6181c0f8dd52cddca451f60c817d381d360cb53852e8c49ed9d",
+    "guest_exe_sha256_verified": true,
+    "loaded_modules": [
+      {
+        "module": "PhysXLoader.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\contact-parent-v30\\PhysXLoader.dll",
+        "sha256": "29b2183cbd9b4b43f247d7e47e7a636ed3898d8e79afb109b5ef0e02c5493768",
+        "same_as_v23": true
+      },
+      {
+        "module": "PhysXCore.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\contact-parent-v30\\PhysXCore.dll",
+        "sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+        "same_as_v23": true
+      },
+      {
+        "module": "PhysXCooking.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\contact-parent-v30\\PhysXCooking.dll",
+        "sha256": "2e5657ae13de0a0c79c56453b8c73ba3978069d55440134873c6534bbada522b",
+        "same_as_v23": true
+      }
+    ]
+  },
+  "clean_patch_application": {
+    "patch": "row-jacobians-v30.patch",
+    "clean_application_verified": true,
+    "before_and_after_sha256_verified": true,
+    "active_files_identical": true
+  },
+  "build": {
+    "full_debug_exit": 0,
+    "ctest_passed": 53,
+    "ctest_failed": 0,
+    "app_bundle_resources_and_signature_verified": true,
+    "installed_apps_updated": false
+  },
+  "last_full_matrix": {
+    "version": 27,
+    "rerun_for_v30": false,
+    "cases_per_profile": 608,
+    "remaining_per_profile": 572
+  },
+  "next_required": [
+    "Follow the observed Core callback parent RVA20478d and dispatcher RVA207440, identify the actual prepared-row data and observe its bias/effective mass before more arithmetic hypotheses.",
+    "Recover general Native edge-intersection generation without recorded geometry injection.",
+    "Complete tilted material frame; only after contact parity enable suspension, friction and other effects, rechecking earlier gates."
+  ],
+  "limitations": [
+    "All replay/model inputs from Native are diagnostic interventions; no standalone physical fix is certified.",
+    "First-callback bias improves selected cases but all tested generic operator models retain differences. No candidate is promoted.",
+    "Windows force report values and private solver impulses remain distinct observables; exact numerical force conversion is unproved.",
+    "Axial angular diagnostics in v29 used a polar coordinate permutation; v30 corrects serialization only and verifies the legacy projection explicitly."
+  ]
+}

@@ -4,6 +4,7 @@
 #include <NxStream.h>
 #include <cstring>
 #include <float.h>
+#include <intrin.h>
 // Memory-only cooking stream; no assets or renderer are needed for this probe.
 class CalibrationStream : public NxStream {
  std::vector<NxU8> bytes; mutable size_t cursor;
@@ -30,10 +31,30 @@ class CalibrationTrackContact : public NxUserContactModify {
  std::string caseName;
  bool frictionEnabled;
  bool floatingEnvironmentReported;
+ int localPointTick;
+ unsigned localPointIndex;
+ bool callerReported;
 public:
  int tick;
- explicit CalibrationTrackContact(const std::string& name,bool friction=true):caseName(name),frictionEnabled(friction),floatingEnvironmentReported(false),tick(0){}
+ explicit CalibrationTrackContact(const std::string& name,bool friction=true):caseName(name),frictionEnabled(friction),floatingEnvironmentReported(false),localPointTick(-1),localPointIndex(0),callerReported(false),tick(0){}
  virtual bool onContactConstraint(NxU32& flags,const NxShape* s0,const NxShape* s1,NxU32 feature0,NxU32 feature1,NxContactCallbackData& data){
+  const char* callerTrace=std::getenv("NX_CONTACT_CALLER_TRACE");
+  const char* callerAll=std::getenv("NX_CONTACT_CALLER_ALL");
+  if((!callerReported || (callerAll && std::strcmp(callerAll,"1")==0)) && callerTrace && std::strcmp(callerTrace,"1")==0) {
+   callerReported=true;
+   const size_t address=reinterpret_cast<size_t>(_ReturnAddress());
+   const HMODULE core=GetModuleHandleA("PhysXCore.dll");
+   const size_t base=reinterpret_cast<size_t>(core);
+   bool inCore=false;size_t offset=0;
+   if(core){const IMAGE_DOS_HEADER* dos=reinterpret_cast<const IMAGE_DOS_HEADER*>(core);const IMAGE_NT_HEADERS* nt=reinterpret_cast<const IMAGE_NT_HEADERS*>(base+dos->e_lfanew);inCore=address>=base && address<base+nt->OptionalHeader.SizeOfImage;if(inCore)offset=address-base;}
+   // Version-specific read-only stack diagnostic, never part of the solver.
+   // In the verified 32-bit Core DLL the dispatcher at RVA207440 allocates
+   // C8 bytes, saves four registers and pushes six callback arguments.
+   size_t parentOffset=0;bool parentKnown=false;
+   if(inCore && offset==0x207775 && sizeof(size_t)==4){const unsigned char* slot=reinterpret_cast<const unsigned char*>(_AddressOfReturnAddress());const size_t parent=*reinterpret_cast<const size_t*>(slot+0xf4);parentKnown=parent>=base && parent<base+reinterpret_cast<const IMAGE_NT_HEADERS*>(base+reinterpret_cast<const IMAGE_DOS_HEADER*>(core)->e_lfanew)->OptionalHeader.SizeOfImage;if(parentKnown)parentOffset=parent-base;}
+   std::ostringstream caller;caller<<"{\"tick\":"<<tick<<",\"in_physx_core\":"<<(inCore?"true":"false")<<",\"caller_rva\":"<<offset<<",\"parent_known\":"<<(parentKnown?"true":"false")<<",\"parent_rva\":"<<parentOffset<<'}';
+   motorrock::parity::event("calibration.contact-caller",caseName,caller.str());
+  }
   if(!floatingEnvironmentReported && std::getenv("NX_FLOAT_ENV_TRACE")) {
    floatingEnvironmentReported=true;
    std::ostringstream environment;environment<<"{\"tick\":"<<tick<<",\"phase\":\"contact-callback\",\"control\":"<<_controlfp(0,0)<<'}';
@@ -45,6 +66,23 @@ public:
   }
   const NxShape* car=s0->getActor().isDynamic()?s0:s1;
   if(car->getActor().isDynamic()){
+   const char* localTrace=std::getenv("NX_LOCAL_POINT_TRACE");
+   if(localTrace && std::strcmp(localTrace,"1")==0) {
+    if(localPointTick!=tick){localPointTick=tick;localPointIndex=0;}
+    std::ostringstream localPoints;localPoints<<std::setprecision(9)
+     <<"{\"tick\":"<<tick<<",\"index\":"<<localPointIndex++<<",\"phase\":\"pre-modify\""
+     <<",\"local_position0\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.localpos0.x,data.localpos0.y,data.localpos0.z))
+     <<",\"local_position1\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.localpos1.x,data.localpos1.y,data.localpos1.z));
+    for(int ai=0;ai<2;++ai) {
+     const NxActor& a=(ai==0?s0:s1)->getActor();
+     NxMat34 pose;pose.id();if(a.isDynamic())pose=a.getCMassGlobalPose();
+     localPoints<<",\"actor"<<ai<<"_id\":"<<reinterpret_cast<size_t>(a.userData)
+      <<",\"actor"<<ai<<"_dynamic\":"<<(a.isDynamic()?"true":"false")
+      <<",\"point_frame"<<ai<<"_position\":"<<motorrock::calibration::vector(motorrock::calibration::V(pose.t.x,pose.t.y,pose.t.z));
+     for(int axis=0;axis<3;++axis){const NxVec3 v=pose.M.getColumn(axis);localPoints<<",\"point_frame"<<ai<<"_axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(v.x,v.y,v.z));}
+    }
+    localPoints<<'}';motorrock::parity::event("calibration.local-points",caseName,localPoints.str());
+   }
    const NxVec3 point0=s0->getActor().isDynamic()?s0->getActor().getCMassGlobalPose()*data.localpos0:data.localpos0;
    const NxVec3 point1=s1->getActor().isDynamic()?s1->getActor().getCMassGlobalPose()*data.localpos1:data.localpos1;
    std::ostringstream points;points<<"{\"tick\":"<<tick<<",\"car_shape\":"<<(car==s0?0:1)

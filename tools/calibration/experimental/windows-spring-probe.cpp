@@ -63,6 +63,10 @@ static void execute(const cal::Case& c) {
  if(c.initialPitch!=0){NxQuat q;q.fromAngleAxisFast((float)c.initialPitch,NxVec3(0,1,0));actor.globalPose.M.fromQuat(q);}
  NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");car->userData=reinterpret_cast<void*>(1);
  car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
+ if(std::getenv("NX_SOLVER_ITERATION_TRACE")) {
+  std::ostringstream iterations;iterations<<"{\"actual_iterations\":"<<car->getSolverIterationCount()<<'}';
+  motorrock::parity::event("calibration.solver-iterations",c.name,iterations.str());
+ }
  if(std::getenv("NX_INVERSE_MASS_TRACE")) {
   const NxMat33 inverseInertia=car->getGlobalInertiaTensorInverse();
   std::ostringstream diag;diag<<std::setprecision(9)<<"{\"mass\":"<<car->getMass();

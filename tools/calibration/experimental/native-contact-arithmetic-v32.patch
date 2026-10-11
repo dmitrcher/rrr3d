@@ -1,0 +1,400 @@
+--- /dev/null
++++ b/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h
+@@ -0,0 +1,85 @@
++// Experimental MotorRock contact arithmetic recovered from the observed x86 Native kernel.
++// SPDX-License-Identifier: MIT
++#pragma once
++#include <Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h>
++#include <cstdlib>
++#include <cstring>
++#include <string>
++JPH_NAMESPACE_BEGIN
++class NativeContactArithmetic
++{
++public:
++    enum : uint { Mass = 1, Bias = 2, PointVelocity = 4, OriginalDelta = 8, ForceFirst = 16 };
++    uint mMask = 0, mIteration = 0;
++    bool mDynamicFirst = false, mDiagnosticError = false;
++    Vec3 mR = Vec3::sZero(), mNormal = Vec3::sZero(); // Native Z-up polar coordinates
++    float mInvI[9]{}; // Native column-major inverse inertia
++    float mInvMass = 0, mError = 0, mRawBias = 0, mScaledBias = 0;
++    static float Add(float a, float b) { volatile float r = a + b; return r; }
++    static float Sub(float a, float b) { volatile float r = a - b; return r; }
++    static float Mul(float a, float b) { volatile float r = a * b; return r; }
++    static float Div(float a, float b) { volatile float r = a / b; return r; }
++    static Vec3 Polar(Vec3Arg a) { return Vec3(a.GetX(), a.GetZ(), a.GetY()); }
++    static Vec3 Axial(Vec3Arg a) { return -Polar(a); }
++    static Vec3 Cross(Vec3Arg a, Vec3Arg b) {
++        return Vec3(Sub(Mul(a.GetY(), b.GetZ()), Mul(a.GetZ(), b.GetY())),
++                    Sub(Mul(a.GetZ(), b.GetX()), Mul(a.GetX(), b.GetZ())),
++                    Sub(Mul(a.GetX(), b.GetY()), Mul(a.GetY(), b.GetX())));
++    }
++    static float DotXYZ(Vec3Arg a, Vec3Arg b) { return Add(Add(Mul(a.GetX(), b.GetX()), Mul(a.GetY(), b.GetY())), Mul(a.GetZ(), b.GetZ())); }
++    static float DotXZY(Vec3Arg a, Vec3Arg b) { return Add(Add(Mul(a.GetX(), b.GetX()), Mul(a.GetZ(), b.GetZ())), Mul(a.GetY(), b.GetY())); }
++    Vec3 Tensor(Vec3Arg a) const {
++        float r[3]; for (uint j = 0; j < 3; ++j)
++            r[j] = Add(Add(Mul(mInvI[j], a.GetX()), Mul(mInvI[3+j], a.GetY())), Mul(mInvI[6+j], a.GetZ()));
++        return Vec3(r[0],r[1],r[2]);
++    }
++    static uint Flags() {
++        const char *names[] = {"MASS", "BIAS", "POINT_VELOCITY", "ORIGINAL_DELTA", "FORCE_FIRST"};
++        uint mask = 0; for (uint i = 0; i < 5; ++i) {
++            std::string name = std::string("RRR3D_EXPERIMENT_NATIVE_CONTACT_") + names[i];
++            const char *v = std::getenv(name.c_str()); if (v && std::strcmp(v,"1") == 0) mask |= 1u << i;
++        }
++        return mask;
++    }
++    void Prepare(uint inMask, bool inDynamicFirst, Vec3Arg inR, Mat44Arg inInvI, float inInvMass,
++                 Vec3Arg inAxis, float inError, float inDeltaTime, bool inDiagnosticError, AxisConstraintPart &ioRow) {
++        mMask=inMask; mIteration=0; mDynamicFirst=inDynamicFirst; mDiagnosticError=inDiagnosticError;
++        mR=Polar(inR); mNormal=Polar(inDynamicFirst? -inAxis : inAxis); mInvMass=inInvMass; mError=inError;
++        const uint p[] = {0,2,1}; for (uint c=0;c<3;++c) {
++            Vec3 column=inInvI.GetColumn3(p[c]); for (uint r=0;r<3;++r) mInvI[c*3+r]=column[p[r]];
++        }
++        if (mMask & Mass) {
++            Vec3 response=Tensor(Cross(mR,mNormal));
++            float k=Div(1.0f,Add(mInvMass,DotXYZ(mNormal,Cross(response,mR))));
++            ioRow.SetSourceContactEffectiveMass(k);
++        }
++        mRawBias=Mul(mError,Div(1.0f,inDeltaTime));
++        mScaledBias=Mul(Mul(mRawBias,ioRow.GetDiagnosticEffectiveMass()),0.8f);
++    }
++    void MakeUnbiased() { mScaledBias=max(0.0f,mScaledBias); }
++    float Delta(const MotionProperties *inMotion, Vec3Arg inAxis, const AxisConstraintPart &inRow, bool inSplitBias) const {
++        float jv;
++        if (mMask & PointVelocity) {
++            Vec3 linear=Polar(inMotion->GetLinearVelocity()), angular=Axial(inMotion->GetAngularVelocity());
++            Vec3 spin=Cross(angular,mR);
++            Vec3 point(Add(linear.GetX(),spin.GetX()),Add(linear.GetY(),spin.GetY()),Add(linear.GetZ(),spin.GetZ()));
++            jv=-DotXZY(mNormal,point);
++        } else {
++            if (mDynamicFirst) jv=inAxis.Dot(inMotion->GetLinearVelocity())+inRow.GetDiagnosticR1CrossAxis().Dot(inMotion->GetAngularVelocity());
++            else jv=inAxis.Dot(-inMotion->GetLinearVelocity())-inRow.GetDiagnosticR2CrossAxis().Dot(inMotion->GetAngularVelocity());
++        }
++        const float k=inRow.GetDiagnosticEffectiveMass();
++        if (mMask & Bias) return Sub(Mul(k,jv),mScaledBias);
++        if (inSplitBias) return Sub(Mul(k,jv),Mul(k,inRow.GetDiagnosticVelocityBias()));
++        return Mul(k,Sub(jv,inRow.GetDiagnosticVelocityBias()));
++    }
++    bool Apply(MotionProperties *ioMotion, float inDelta) const {
++        if (inDelta==0.0f) return false;
++        Vec3 force(Mul(mNormal.GetX(),inDelta),Mul(mNormal.GetY(),inDelta),Mul(mNormal.GetZ(),inDelta));
++        Vec3 linear(Mul(force.GetX(),mInvMass),Mul(force.GetY(),mInvMass),Mul(force.GetZ(),mInvMass));
++        ioMotion->AddLinearVelocityStep(Polar(linear));
++        ioMotion->AddAngularVelocityStep(Axial(Tensor(Cross(mR,force))));
++        return true;
++    }
++};
++JPH_NAMESPACE_END
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -666,6 +666,11 @@
+ 	}
+ 
+ 	/// Read-only diagnostics of the normal row; does not prepare or solve it.
++	// Experimental normal-contact caller only; ordinary constraints never use these setters.
++	void SetSourceContactEffectiveMass(float inMass) { mEffectiveMass = inMass; }
++	void SetSourceContactLambda(float inLambda) { mTotalLambda = inLambda; }
++	template <EMotionType Type1, EMotionType Type2>
++	bool ApplySourceContactDelta(MotionProperties *inMotion1, float inInvMass1, MotionProperties *inMotion2, float inInvMass2, Vec3Arg inAxis, float inDelta, bool inPremultipliedLinear) const { return ApplyVelocityStep<Type1,Type2>(inMotion1,inInvMass1,inMotion2,inInvMass2,inAxis,inDelta,inPremultipliedLinear); }
+ 	float GetDiagnosticEffectiveMass() const { return mEffectiveMass; }
+ 	float GetDiagnosticVelocityBias() const { return mSpringPart.GetBias(mTotalLambda); }
+ 	Vec3 GetDiagnosticR1CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mR1PlusUxAxis); }
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -11,6 +11,7 @@
+ #include <Jolt/Physics/Collision/Shape/SubShapeIDPair.h>
+ #include <Jolt/Physics/Collision/ManifoldBetweenTwoFaces.h>
+ #include <Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h>
++#include <Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h>
+ #include <Jolt/Physics/Constraints/ConstraintPart/DualAxisConstraintPart.h>
+ #include <Jolt/Core/HashCombine.h>
+ #include <Jolt/Core/NonCopyable.h>
+@@ -439,6 +440,9 @@
+ 		/// Contact cache
+ 		float mSourceSeparation = 0.0f;
+ 		float mSourceUnbiasedVelocityBias = 0.0f;
++		NativeContactArithmetic mNativeContact;
++		bool mDiagnosticNativeError = false;
++		float mDiagnosticNativeConstraintError = 0.0f;
+ 		CachedContactPoint *	mContactPoint;
+ 	};
+ 
+@@ -511,7 +515,7 @@
+ 
+ 	/// Internal helper function to solve a single contact constraint. Templated to the motion type to reduce the amount of branches and calculations.
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE static bool		sSolveVelocityConstraint(ContactConstraint &ioConstraint, MotionProperties *ioMotionProperties1, MotionProperties *ioMotionProperties2);
++	JPH_INLINE static bool		sSolveVelocityConstraint(ContactConstraint &ioConstraint, MotionProperties *ioMotionProperties1, MotionProperties *ioMotionProperties2, ContactListener *inListener);
+ 
+ 	/// The main physics settings instance
+ 	const PhysicsSettings &		mPhysicsSettings;
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -21,7 +21,7 @@
+ {
+ public:
+ 	/// Swaps shape 1 and 2
+-	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS }; }
++	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors }; }
+ 
+ 	/// Access to the world space contact positions
+ 	inline RVec3			GetWorldSpaceContactPointOn1(uint inIndex) const { return mBaseOffset + mRelativeContactPointsOn1[inIndex]; }
+@@ -37,6 +37,9 @@
+ 	bool mUseSourceSeparation = false;
+ 	std::array<float, 64> mSourceSeparations{};
+ 	bool mUseSourceBlockPGS = false;
++	// Recorded Native constraint errors: explicit diagnostic intervention only.
++	bool mUseDiagnosticNativeErrors = false;
++	std::array<float,64> mDiagnosticNativeErrors{};
+ };
+ 
+ /// When a contact point is added or persisted, the callback gets a chance to override certain properties of the contact constraint.
+@@ -54,6 +57,9 @@
+ 	bool mUseSourceSeparation = false;
+ 	std::array<float, 64> mSourceSeparations{};
+ 	bool mUseSourceBlockPGS = false;
++	// Recorded Native constraint errors: explicit diagnostic intervention only.
++	bool mUseDiagnosticNativeErrors = false;
++	std::array<float,64> mDiagnosticNativeErrors{};
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+@@ -88,6 +94,7 @@
+ /// For EMotionQuality::Discrete bodies, during every 'collision step' in a PhysicsSystem::Update, you will receive at most one OnContactAdded/Persisted/Removed call per body/sub shape pair.
+ /// For EMotionQuality::LinearCast bodies, you may get an OnContactAdded followed by an OnContactPersisted for the same body/sub shape pair.
+ /// This happens when a body collides both in the discrete and the continuous collision detection stage.
++class NativeContactArithmetic;
+ class ContactListener
+ {
+ public:
+@@ -109,6 +116,7 @@
+ 	virtual void OnSourceMotionSolved([[maybe_unused]] const Body &inBody, [[maybe_unused]] Vec3Arg inVelocity, [[maybe_unused]] Vec3Arg inAngularVelocity) { }
+ 	/// Optional read-only source normal-row diagnostics, before and after the final unbiased sweep.
+ 	virtual void OnSourceNormalRow([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] uint inIndex, [[maybe_unused]] const char *inPhase, [[maybe_unused]] float inEffectiveMass, [[maybe_unused]] float inVelocityBias, [[maybe_unused]] float inUnbiasedBias, [[maybe_unused]] float inSourceSeparation, [[maybe_unused]] float inLambda, [[maybe_unused]] float inDeltaTime, [[maybe_unused]] Vec3Arg inR1CrossNormal, [[maybe_unused]] Vec3Arg inR2CrossNormal, [[maybe_unused]] Vec3Arg inInvI1R1CrossNormal, [[maybe_unused]] Vec3Arg inInvI2R2CrossNormal) { }
++	virtual void OnNativeContactIteration([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] uint inIndex, [[maybe_unused]] const NativeContactArithmetic &inArithmetic, [[maybe_unused]] float inEffectiveMass, [[maybe_unused]] float inLambda) { }
+ 	virtual bool WantsContactManifoldRefresh([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2) const { return false; }
+ 	virtual bool OverrideContactManifold([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] const ContactManifold &inManifold, [[maybe_unused]] ContactManifold &outManifold) { return false; }
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -138,6 +138,16 @@
+ 	const char *jacobian_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_JACOBIAN_MASS");
+ 	const bool jacobian_mass = inSettings.mUseSourceBlockPGS && jacobian_flag != nullptr && std::strcmp(jacobian_flag, "1") == 0;
+ 	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias, raw_axis_mass, jacobian_mass);
++    mNativeContact.mMask = 0;
++    if constexpr ((Type1 == EMotionType::Dynamic && Type2 == EMotionType::Static) || (Type1 == EMotionType::Static && Type2 == EMotionType::Dynamic)) {
++        const uint native_mask = NativeContactArithmetic::Flags();
++        if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) {
++            constexpr bool first = Type1 == EMotionType::Dynamic;
++            mNativeContact.Prepare(native_mask,first,first?r1:r2,first?inInvI1:inInvI2,first?inInvM1:inInvM2,
++                inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:-penetration,inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
++        }
++    }
++
+ 
+ 	// Calculate friction part
+ 	if (inSettings.mCombinedFriction > 0.0f || inSettings.mCombinedFriction2 > 0.0f)
+@@ -757,6 +767,8 @@
+ 	for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 	{
+ 		wcp.mSourceSeparation = inSettings.mUseSourceSeparation? inSettings.mSourceSeparations[source_point_index] : 0.0f;
++		wcp.mDiagnosticNativeError = inSettings.mUseDiagnosticNativeErrors;
++		wcp.mDiagnosticNativeConstraintError = inSettings.mDiagnosticNativeErrors[source_point_index];
+ 		++source_point_index;
+ 		RVec3 p1 = inTransformBody1 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition1);
+ 		RVec3 p2 = inTransformBody2 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition2);
+@@ -991,6 +1003,8 @@
+ 				CachedContactPoint &ccp = output_cm->mContactPoints[i];
+ 				WorldContactPoint &wcp = constraint.mContactPoints[i];
+ 			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
++		wcp.mDiagnosticNativeError = settings.mUseDiagnosticNativeErrors;
++		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
+ 				wcp.mNonPenetrationConstraint.SetTotalLambda(ccp.mNonPenetrationLambda);
+ 				wcp.mFrictionConstraint1.SetTotalLambda(ccp.mFrictionLambda[0]);
+ 				wcp.mFrictionConstraint2.SetTotalLambda(ccp.mFrictionLambda[1]);
+@@ -1231,6 +1245,8 @@
+ 			// Convert to world space and set positions
+ 			WorldContactPoint &wcp = constraint.mContactPoints[i];
+ 			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
++		wcp.mDiagnosticNativeError = settings.mUseDiagnosticNativeErrors;
++		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
+ 			RVec3 p1_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn1[i];
+ 			RVec3 p2_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn2[i];
+ 
+@@ -1648,7 +1664,7 @@
+ template void ContactConstraintManager::WarmStartVelocityConstraints<DummyCalculateSolverSteps>(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd, float inWarmStartImpulseRatio, DummyCalculateSolverSteps &ioCallback);
+ 
+ template <EMotionType Type1, EMotionType Type2>
+-JPH_INLINE bool ContactConstraintManager::sSolveVelocityConstraint(ContactConstraint &ioConstraint, MotionProperties *ioMotionProperties1, MotionProperties *ioMotionProperties2)
++JPH_INLINE bool ContactConstraintManager::sSolveVelocityConstraint(ContactConstraint &ioConstraint, MotionProperties *ioMotionProperties1, MotionProperties *ioMotionProperties2, ContactListener *inListener)
+ {
+ 	bool any_impulse_applied = false;
+ 
+@@ -1663,8 +1679,30 @@
+ 		const bool split_bias = split_flag != nullptr && std::strcmp(split_flag, "1") == 0;
+ 		const char *linear_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_PREMULTIPLIED_LINEAR");
+ 		const bool premultiplied_linear = linear_flag != nullptr && std::strcmp(linear_flag, "1") == 0;
++        uint native_index = 0;
++        const char *trace_flag = std::getenv("RRR3D_CONTACT_ROWS");
++        const bool trace_native = inListener && trace_flag && std::strcmp(trace_flag,"1") == 0;
+ 		for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 		{
++            auto &native = wcp.mNativeContact;
++            if (native.mMask) {
++                if (trace_native) inListener->OnNativeContactIteration(*ioConstraint.mBody1,*ioConstraint.mBody2,native_index,native,wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(),wcp.mNonPenetrationConstraint.GetTotalLambda());
++                ++native.mIteration; ++native_index;
++                MotionProperties *motion = native.mDynamicFirst?ioMotionProperties1:ioMotionProperties2;
++                const float old = wcp.mNonPenetrationConstraint.GetTotalLambda();
++                float delta = native.Delta(motion,normal,wcp.mNonPenetrationConstraint,split_bias);
++                float total = NativeContactArithmetic::Add(old,delta);
++                if (total < 0.0f) { total = 0.0f; delta = -old; }
++                else if (total > FLT_MAX) { total = FLT_MAX; delta = NativeContactArithmetic::Sub(total,old); }
++                else if (!(native.mMask & NativeContactArithmetic::OriginalDelta)) delta = NativeContactArithmetic::Sub(total,old);
++                if (native.mMask & NativeContactArithmetic::ForceFirst) any_impulse_applied |= native.Apply(motion,delta);
++                else {
++                    any_impulse_applied |= wcp.mNonPenetrationConstraint.ApplySourceContactDelta<Type1,Type2>(ioMotionProperties1,ioConstraint.mInvMass1,ioMotionProperties2,ioConstraint.mInvMass2,normal,delta,premultiplied_linear);
++                }
++                wcp.mNonPenetrationConstraint.SetSourceContactLambda(total);
++                continue; // Native prototype is restricted to friction-free normal rows.
++            }
++            ++native_index;
+ 			float normal_lambda = max(0.0f, wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, normal, split_bias));
+ 			float lambda1 = 0.0f, lambda2 = 0.0f;
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
+@@ -1807,15 +1845,15 @@
+ 			switch (motion_type2)
+ 			{
+ 			case EMotionType::Dynamic:
+-				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2);
++				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2, mContactListener);
+ 				break;
+ 
+ 			case EMotionType::Kinematic:
+-				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Kinematic>(constraint, motion_properties1, motion_properties2);
++				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Kinematic>(constraint, motion_properties1, motion_properties2, mContactListener);
+ 				break;
+ 
+ 			case EMotionType::Static:
+-				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Static>(constraint, motion_properties1, motion_properties2);
++				any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Dynamic, EMotionType::Static>(constraint, motion_properties1, motion_properties2, mContactListener);
+ 				break;
+ 
+ 			default:
+@@ -1826,12 +1864,12 @@
+ 
+ 		case EMotionType::Kinematic:
+ 			JPH_ASSERT(motion_type2 == EMotionType::Dynamic);
+-			any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Kinematic, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2);
++			any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Kinematic, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2, mContactListener);
+ 			break;
+ 
+ 		case EMotionType::Static:
+ 			JPH_ASSERT(motion_type2 == EMotionType::Dynamic);
+-			any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Static, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2);
++			any_impulse_applied |= sSolveVelocityConstraint<EMotionType::Static, EMotionType::Dynamic>(constraint, motion_properties1, motion_properties2, mContactListener);
+ 			break;
+ 
+ 		default:
+@@ -1871,8 +1909,10 @@
+ 			if (body->IsDynamic() && std::none_of(source_motion.begin(), source_motion.end(), [&](const SourceMotion &s) { return s.body == body; }))
+ 				source_motion.push_back({ body, body->GetLinearVelocity(), body->GetAngularVelocity() });
+ 		trace_normal_rows(constraint, "biased-final");
+-		for (WorldContactPoint &wcp : constraint.mContactPoints)
++		for (WorldContactPoint &wcp : constraint.mContactPoints) {
+ 			wcp.mNonPenetrationConstraint.SetHardVelocityBias(wcp.mSourceUnbiasedVelocityBias);
++			if (wcp.mNativeContact.mMask) wcp.mNativeContact.MakeUnbiased();
++		}
+ 	}
+ 	Array<VehicleConstraint *> source_vehicles;
+ 	if (inActiveConstraints != nullptr)
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -16,6 +16,7 @@
+ #include <Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h>
+ #include <Jolt/Physics/Body/BodyFilter.h>
+ #include <Jolt/Physics/Collision/ContactListener.h>
++#include <Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h>
+ #include <Jolt/Physics/Collision/CollideShape.h>
+ #include <Jolt/Physics/Collision/CollisionDispatch.h>
+ #include <Jolt/Physics/Collision/EstimateCollisionResponse.h>
+@@ -796,6 +797,36 @@
+         motorrock::parity::event("physics.source-normal-row", "source normal row diagnostics", out.str());
+     }
+ 
++    void OnNativeContactIteration(const JPH::Body& first, const JPH::Body& second, JPH::uint index,
++                                  const JPH::NativeContactArithmetic& row, float mass, float lambda) override
++    {
++        const char* target=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
++        if (target && *target) {
++            char* end=nullptr;const auto step=std::strtoull(target,&end,10);
++            if (!end || *end) throw std::runtime_error("Invalid Native contact trace step");
++            if (step!=traceStep_-1) return; // Telemetry filter only: never changes solver inputs.
++        }
++        const char* flag=std::getenv("RRR3D_CONTACT_NATIVE_FIRST_ONLY");
++        if (flag && std::strcmp(flag,"1")==0) {
++            if (nativeFirstTraceStep_==UINT64_MAX) nativeFirstTraceStep_=traceStep_-1;
++            if (nativeFirstTraceStep_!=traceStep_-1) return;
++        }
++        const JPH::Body& dynamic=row.mDynamicFirst?first:second;
++        std::ostringstream out;out.imbue(std::locale::classic());out<<std::setprecision(9)
++            << "{\"step\":" << traceStep_-1 << ",\"index\":" << index << ",\"iteration\":" << row.mIteration
++            << ",\"mask\":" << row.mMask << ",\"dynamic_first\":" << (row.mDynamicFirst?"true":"false")
++            << ",\"diagnostic_error\":" << (row.mDiagnosticError?"true":"false")
++            << ",\"effective_mass\":" << mass << ",\"scaled_bias\":" << row.mScaledBias
++            << ",\"raw_bias\":" << row.mRawBias << ",\"constraint_error\":" << row.mError
++            << ",\"lambda\":" << lambda << ",\"inverse_mass\":" << row.mInvMass;
++        const auto vector=[&](const char* name,JPH::Vec3 v) {out<<",\""<<name<<"\":["<<v.GetX()<<','<<v.GetY()<<','<<v.GetZ()<<']';};
++        vector("lever_arm",row.mR);vector("normal",row.mNormal);
++        vector("velocity",JPH::NativeContactArithmetic::Polar(dynamic.GetLinearVelocity()));
++        vector("angular",JPH::NativeContactArithmetic::Axial(dynamic.GetAngularVelocity()));
++        out<<",\"inverse_inertia\":[";for(unsigned i=0;i<9;++i){if(i)out<<',';out<<row.mInvI[i];}out<<"]}";
++        motorrock::parity::event("physics.native-contact-row","experimental Native arithmetic row",out.str());
++    }
++
+     void OnSourceMotionSolved(const JPH::Body& body, JPH::Vec3Arg velocity, JPH::Vec3Arg angular) override
+     {
+         std::scoped_lock lock(mutex_);
+@@ -1032,10 +1063,14 @@
+             throw std::runtime_error("Contact replay normal differs; geometry-only intervention is invalid");
+         const bool positions = enabled("RRR3D_CONTACT_REPLAY_POSITIONS");
+         const bool separations = enabled("RRR3D_CONTACT_REPLAY_SEPARATIONS");
++        const bool nativeErrors = enabled("RRR3D_CONTACT_REPLAY_NATIVE_ERROR");
++        output.mUseDiagnosticNativeErrors=nativeErrors;
+         for (unsigned i=0; i<count; ++i) {
+             Vec3 point; float separation;
+             if (!(input >> point.x >> point.y >> point.z >> separation))
+                 throw std::runtime_error("Invalid contact replay point");
++            if (nativeErrors && !(input >> output.mDiagnosticNativeErrors[i]))
++                throw std::runtime_error("Missing diagnostic Native constraint error");
+             if (positions) {
+                 const JPH::Vec3 relative(toJolt(point) - output.mBaseOffset);
+                 output.mRelativeContactPointsOn1[i] = relative;
+@@ -1050,7 +1085,9 @@
+         std::ostringstream record;
+         record << "{\"step\":" << tick << ",\"points\":" << count
+                << ",\"positions_replayed\":" << (positions?"true":"false")
+-               << ",\"separations_replayed\":" << (separations?"true":"false") << '}';
++               << ",\"separations_replayed\":" << (separations?"true":"false");
++        if (nativeErrors) record << ",\"native_errors_replayed\":true";
++        record << '}';
+         motorrock::parity::event("physics.diagnostic-contact-replay", "Native first-contact geometry intervention", record.str());
+     }
+ 
+@@ -1236,6 +1273,8 @@
+             else if (sourceBox(second,b)) settings.mAdditionalSeparation = b.skin + 0.025F;
+             settings.mUseSourceSeparation = true;
+             settings.mSourceSeparations = manifold.mSourceSeparations;
++            settings.mUseDiagnosticNativeErrors=manifold.mUseDiagnosticNativeErrors;
++            settings.mDiagnosticNativeErrors=manifold.mDiagnosticNativeErrors;
+             settings.mUseBoxContactOrder = false;
+         }
+         const JPH::Body& car = firstIsVehicle ? first : second;
+@@ -1516,6 +1555,7 @@
+     bool materialPairs_ = false;
+     bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
+     std::uint64_t traceStep_ = 0;
++    std::uint64_t nativeFirstTraceStep_ = UINT64_MAX;
+     mutable std::mutex mutex_;
+     std::vector<std::vector<BodyContact>> pending_;
+     std::vector<std::vector<BodyContact>> projectilePending_;

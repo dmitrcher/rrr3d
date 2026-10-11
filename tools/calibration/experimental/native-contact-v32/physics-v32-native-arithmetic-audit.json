@@ -1,0 +1,448 @@
+{
+  "scope": "Actual ARM64 Mac contact prototype. Fullmask31 under recorded Native positions/separation and explicit Native constraint errors reproduces actual Native first-contact40-entry v/angular/lambda sequence. Diagnostic intervention is not standalone parity.",
+  "goal_complete": false,
+  "standalone_physical_fix_accepted": false,
+  "native_forward_states_exact": 480,
+  "reports": [
+    {
+      "mode": "ordinary",
+      "mask": 0,
+      "semantic_repeats_exact": true,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-ordinary-mask0-run0-v32-mac.jsonl",
+          "sha256": "4d163c025f8e42e56868526119ea115a926d0363eb4eddc22d34e9a1d5a43a9f"
+        },
+        {
+          "name": "calibration-native-arithmetic-ordinary-mask0-run1-v32-mac.jsonl",
+          "sha256": "934b772eaa5e2b1d1aa0430e11cedcf4d6bd3cb0bc4b99e19b9bf8036ca6bc53"
+        }
+      ]
+    },
+    {
+      "mode": "errors",
+      "mask": 31,
+      "semantic_repeats_exact": true,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true,
+          "native_forward_states_exact": 40,
+          "native_constants_exact": 40,
+          "issues": []
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask31-run0-v32-mac.jsonl",
+          "sha256": "cb13f8cebfa94e10008dfa35807bad0e9fcd5a365ca299cab1985151ca8b1f8b"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask31-run1-v32-mac.jsonl",
+          "sha256": "683b72854d2a5c0f0b8f23468b6abf6cd8d1ae47e4f7dbe5b4f8326fa6a505ee"
+        }
+      ]
+    },
+    {
+      "mode": "ordinary",
+      "mask": 31,
+      "semantic_repeats_exact": true,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-ordinary-mask31-run0-v32-mac.jsonl",
+          "sha256": "5eccef3a24468e23ba148c4b3a4e8e436bbf15d200a875d4d1c305a7d2bbc83d"
+        },
+        {
+          "name": "calibration-native-arithmetic-ordinary-mask31-run1-v32-mac.jsonl",
+          "sha256": "e373c82918a26077bba59afb02d97af93533a8d13051c5a4d7b06430ecd1a71b"
+        }
+      ]
+    },
+    {
+      "mode": "points",
+      "mask": 31,
+      "semantic_repeats_exact": true,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "first_tick": 25,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "first_tick": 22,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "first_tick": 2,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "first_tick": 1,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "initial_pre_contact_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-points-mask31-run0-v32-mac.jsonl",
+          "sha256": "03dfde69e7fa9d5d621c0409e04549cd2180adfea8c3b752613b54f18da28afa"
+        },
+        {
+          "name": "calibration-native-arithmetic-points-mask31-run1-v32-mac.jsonl",
+          "sha256": "bfd66f54d79532d76097ae0ff7ca0317e6750744eeffcf40ca5fc319f396bbfe"
+        }
+      ]
+    }
+  ]
+}

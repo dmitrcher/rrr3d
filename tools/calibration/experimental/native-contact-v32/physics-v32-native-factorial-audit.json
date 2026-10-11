@@ -1,0 +1,4153 @@
+{
+  "scope": "Actual Mac arithmetic factorial with recorded Native geometry and explicitly recorded Native constraint errors.32 masks,12 cases,2 repeats,120 physical steps each. Source scalar error only influences native bias when bit2 is enabled. The scaled_bias trace field is a Native candidate, not the applied bias when bit2 is off. Mask0 control follows the original solver and has no private iteration trace. Six first contacts are speculative and six penetrating. No standalone parity acceptance.",
+  "mask_bits": {
+    "mass": 1,
+    "bias": 2,
+    "point_velocity": 4,
+    "original_delta": 8,
+    "force_first": 16
+  },
+  "cases_per_mask": 12,
+  "masks": 32,
+  "repeats": 2,
+  "runs": 768,
+  "observed_private_states_per_repeat": 14880,
+  "all480_exact_masks": [
+    31
+  ],
+  "all12_first_velocity_and_position_exact_masks": [
+    31
+  ],
+  "goal_complete": false,
+  "standalone_physical_fix_accepted": false,
+  "results": [
+    {
+      "mask": 0,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": null,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": null,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask0-run0-v32-mac.jsonl",
+          "sha256": "7c36e67f3f92b8455e14853ade96032f3997271172c2d632740320957a4c3c28"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask0-run1-v32-mac.jsonl",
+          "sha256": "c7cce9046e9224612baea97d82e6806b14e2b96ec00bdd5a106f1a12dc0ed56a"
+        }
+      ]
+    },
+    {
+      "mask": 1,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask1-run0-v32-mac.jsonl",
+          "sha256": "691e78841d8c743a81fb308b6b34b878a5faeb527116806ef8052834e9b9c130"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask1-run1-v32-mac.jsonl",
+          "sha256": "deaa028e7f5f1284eeb7cb5a253c7246586fe47ff4ae3af8b21411c7b7311795"
+        }
+      ]
+    },
+    {
+      "mask": 2,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask2-run0-v32-mac.jsonl",
+          "sha256": "ba1b46a335b636f5ea15174aa0ea89d49cf249c3e5475e894d2dc386d78a0595"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask2-run1-v32-mac.jsonl",
+          "sha256": "2720f29ae0ad02adc4303bdb8ebdd4ac53c0badecfb55a6be04416df00c29663"
+        }
+      ]
+    },
+    {
+      "mask": 3,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask3-run0-v32-mac.jsonl",
+          "sha256": "283599c57819e63bbe4ab2ad11bbfbba29804ea550a83cb959d3f5c1dc129e93"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask3-run1-v32-mac.jsonl",
+          "sha256": "c93f8ab4f5f02cf2d9d54c063df718dbb8b55854c28dc1b24065fa54304f1175"
+        }
+      ]
+    },
+    {
+      "mask": 4,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask4-run0-v32-mac.jsonl",
+          "sha256": "91857d6bf214615511bf4144ab44857d2385fe9da725cd842ab14190a9d5f084"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask4-run1-v32-mac.jsonl",
+          "sha256": "d7bef067fabb07e9a04d55e46b690a5720b227b64b2c509987c5c90921c4b200"
+        }
+      ]
+    },
+    {
+      "mask": 5,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask5-run0-v32-mac.jsonl",
+          "sha256": "4894b39bbf0c795662a54a74a42e75a68e40c61d3c6f4f2567762b12df64418b"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask5-run1-v32-mac.jsonl",
+          "sha256": "69c5959bb4751e2e007021d09b46c8ea154cdf2d94c5564cef39dcc39c8aeda1"
+        }
+      ]
+    },
+    {
+      "mask": 6,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask6-run0-v32-mac.jsonl",
+          "sha256": "dce051399340aba88f4e4c29a5e55236645936d3326ca35a7600515be10fcd65"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask6-run1-v32-mac.jsonl",
+          "sha256": "aeefc3175f71757703773a84a9d25c6043d6ec0a32f96a73aa4bfe2e2fd4c14e"
+        }
+      ]
+    },
+    {
+      "mask": 7,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask7-run0-v32-mac.jsonl",
+          "sha256": "b65122fb2735bb2414e02f2cdd2cd598fb4f48ee688e89950c274e8db99f4fea"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask7-run1-v32-mac.jsonl",
+          "sha256": "08a5308ca87f4f2b2e9d4ed635da3132e0b21c9e0cd9150c03f7d6c9aa743c8d"
+        }
+      ]
+    },
+    {
+      "mask": 8,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask8-run0-v32-mac.jsonl",
+          "sha256": "72c6c047df1d0a84a7c3ac4d65a54c145886e935736140fb89e220c8818f7bdd"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask8-run1-v32-mac.jsonl",
+          "sha256": "aa884517c20d33fafefb62c462e2238f07dc602a365f061eb7522aa66cf57098"
+        }
+      ]
+    },
+    {
+      "mask": 9,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask9-run0-v32-mac.jsonl",
+          "sha256": "da936ba4c188f270ce498ad1893e35333497f5a2ed275c371999e8465aec17d2"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask9-run1-v32-mac.jsonl",
+          "sha256": "5b16cd8d7b58e7a30f1941f720d801c8a62af3dd22d0a522b944c6370a610347"
+        }
+      ]
+    },
+    {
+      "mask": 10,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask10-run0-v32-mac.jsonl",
+          "sha256": "e5197a9f8608d929fab1a8d762445c59945457076af1249db31ee47f6222dbf1"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask10-run1-v32-mac.jsonl",
+          "sha256": "5f8961564f3fb9a96179c75dc06b792ea3b54f0a3277ec9f97b8472e025d2920"
+        }
+      ]
+    },
+    {
+      "mask": 11,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask11-run0-v32-mac.jsonl",
+          "sha256": "528eea273535582a49cd1610dcab9f870d6f28dec63c8fbd9894fe426387cef5"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask11-run1-v32-mac.jsonl",
+          "sha256": "0ed511b37d45da322269a46d433bb6921a72e03cf000b131f652b233094664fb"
+        }
+      ]
+    },
+    {
+      "mask": 12,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask12-run0-v32-mac.jsonl",
+          "sha256": "0e44dee7d99f9f9e99c8af2da192f8145c27b6fc99d1ad0403f0c29b4c2e3735"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask12-run1-v32-mac.jsonl",
+          "sha256": "9f50715fcd513860240b22b46552c114e0f99554fa5554d6aa9da87f8264dc14"
+        }
+      ]
+    },
+    {
+      "mask": 13,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask13-run0-v32-mac.jsonl",
+          "sha256": "d053b55e69606d694e76c2d641b9eb47cde8a50f22dda60b92897b98ff4eab63"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask13-run1-v32-mac.jsonl",
+          "sha256": "856f4c1586c8324c15e0f85794ac96e8344011fd2cd569cb7154040e2cf3c3b5"
+        }
+      ]
+    },
+    {
+      "mask": 14,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask14-run0-v32-mac.jsonl",
+          "sha256": "762b6db4a541b87d262365490d20b2284b01d746d1d6cbd238d5c3ae618f5e88"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask14-run1-v32-mac.jsonl",
+          "sha256": "39b47472b2c7855e6bacadad1299ca8e3838bceb14df28b4c73e657e9164070a"
+        }
+      ]
+    },
+    {
+      "mask": 15,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 246,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask15-run0-v32-mac.jsonl",
+          "sha256": "df7eaef175a5d4b08dcf00554ec08b6a6f26ea5a8a4402d941d2ae6b0c104e2c"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask15-run1-v32-mac.jsonl",
+          "sha256": "2b278a87be2c0d0a62be224d8a43d4f12f46bcadcbdd99a9c84881940f30138b"
+        }
+      ]
+    },
+    {
+      "mask": 16,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 249,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask16-run0-v32-mac.jsonl",
+          "sha256": "9cdd769b38ace984b2af9b5140f27ddace988b6e7d8388ada8d15e21522036f4"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask16-run1-v32-mac.jsonl",
+          "sha256": "aa3a15594ceb93a9ee8c6d1f1aa4888e517e8d31931655d82ffc981c93883cd9"
+        }
+      ]
+    },
+    {
+      "mask": 17,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 249,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask17-run0-v32-mac.jsonl",
+          "sha256": "8776b532ce2a4b9ee957814738552d52c91043889aba48caa0be7c686474621e"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask17-run1-v32-mac.jsonl",
+          "sha256": "5b55d471bc36f00b7aee1b006992958223fec006b7eaca28b654bc4ec6c949e4"
+        }
+      ]
+    },
+    {
+      "mask": 18,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 255,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask18-run0-v32-mac.jsonl",
+          "sha256": "0ccef0f20bc5035db8251b252d209c9148d2295afdadafa86c5713babaf2a631"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask18-run1-v32-mac.jsonl",
+          "sha256": "d93a0f2b30c4515e0e7b384b414d8dfbc5e457f87fbb2f663ab6f9baca8d1a8e"
+        }
+      ]
+    },
+    {
+      "mask": 19,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask19-run0-v32-mac.jsonl",
+          "sha256": "8958a68c301e2b93f964208470b683f640000d962046be21889095495bb37877"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask19-run1-v32-mac.jsonl",
+          "sha256": "98a1428a99b61e3245d55aa376f08c7452d42bed3ae26be0c8a077645718a86f"
+        }
+      ]
+    },
+    {
+      "mask": 20,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask20-run0-v32-mac.jsonl",
+          "sha256": "eaa9e8c11341f4d34c89256e4a13fc395d8de9ebba702f63ed2a26d445c46684"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask20-run1-v32-mac.jsonl",
+          "sha256": "a67f7dde769c9fb0019199f19713853e6ceed4d260044abb119239191fe86a87"
+        }
+      ]
+    },
+    {
+      "mask": 21,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 252,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask21-run0-v32-mac.jsonl",
+          "sha256": "d35643b11b70998e4c013bc459c515cd6398d4bea09c71a18905aa745e3e7f19"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask21-run1-v32-mac.jsonl",
+          "sha256": "1b5ceb22b82e2a4e6f3a6e602abff4e0a29f82957a4f0f8fa4320487353de39c"
+        }
+      ]
+    },
+    {
+      "mask": 22,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask22-run0-v32-mac.jsonl",
+          "sha256": "47329582de5da5f0373b4fe6ffff8f713643b7a23196f63286dbf0f67b460311"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask22-run1-v32-mac.jsonl",
+          "sha256": "f414a94420c7c35cfe84400ae70231bf3020406d7fa85e0fe128bfbf1f2f3bc2"
+        }
+      ]
+    },
+    {
+      "mask": 23,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 297,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 10,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 9,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 10,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 9,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 10,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 9,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask23-run0-v32-mac.jsonl",
+          "sha256": "6138c87ee7d3874bf6076cf8aa85fe248807995b42349f277a7b667994e39a13"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask23-run1-v32-mac.jsonl",
+          "sha256": "eb624089516c3346fc6fa69139a74670f50d01d933fa40d7339271c7c869edb4"
+        }
+      ]
+    },
+    {
+      "mask": 24,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 249,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask24-run0-v32-mac.jsonl",
+          "sha256": "b42d294f4331b9e69c1b76a89be894e68b51132ffd5fbeff3ce474d7999a8118"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask24-run1-v32-mac.jsonl",
+          "sha256": "414cee7749f60d56360281d8b1e154df87d6cf88eb624b5423e80e2293fbd57d"
+        }
+      ]
+    },
+    {
+      "mask": 25,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 249,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask25-run0-v32-mac.jsonl",
+          "sha256": "fa3278bd68ffe556df726767cb7103f8f58889dba38938f10a01e6cb717890e8"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask25-run1-v32-mac.jsonl",
+          "sha256": "07470ab4ceb20e538184f104c294051ab533a10414b336984429d04feed256ed"
+        }
+      ]
+    },
+    {
+      "mask": 26,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 255,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask26-run0-v32-mac.jsonl",
+          "sha256": "ff2775aaa1776c9a0f590f1a445cd4b392380d37b553009f0322147bd3022774"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask26-run1-v32-mac.jsonl",
+          "sha256": "30064c3b5376716a656457f6b288a60fc7ba1b835d7c4b5af1dc63aa196c4865"
+        }
+      ]
+    },
+    {
+      "mask": 27,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 4,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 2,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask27-run0-v32-mac.jsonl",
+          "sha256": "9fc4c57d519c77855a582539dd0b30fdc743aa130224ad972aa2d139cfe85e16"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask27-run1-v32-mac.jsonl",
+          "sha256": "9976064b42db036d32256fea1b0db336d041c010b221089f4f6b8b2f7cc6a55b"
+        }
+      ]
+    },
+    {
+      "mask": 28,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 6,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 5,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask28-run0-v32-mac.jsonl",
+          "sha256": "8b800880fbd434ce4975162a5dbae297226788ff1063da446677d75d42fd0dee"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask28-run1-v32-mac.jsonl",
+          "sha256": "529fa41028834e6cd1adc771e6217a88073f57348bcf1520709dfe738b4b1678"
+        }
+      ]
+    },
+    {
+      "mask": 29,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": null,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 252,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 1,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": null,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask29-run0-v32-mac.jsonl",
+          "sha256": "3708dafb780e530fb678a921431097d3eadf9d55d92ce932b7b6ba15831be7e4"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask29-run1-v32-mac.jsonl",
+          "sha256": "c4c477e032dd918a952d13a666b1aa85d9646d9d97b3c662018f9897c037b7b2"
+        }
+      ]
+    },
+    {
+      "mask": 30,
+      "effective_masses_exact": 60,
+      "applied_native_scaled_biases_exact": 72,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 258,
+      "first_velocities_exact": 6,
+      "first_positions_exact": 9,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 3,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 7,
+          "first_velocity_exact": false,
+          "first_position_exact": false,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 5,
+          "applied_native_scaled_biases_exact": 5,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask30-run0-v32-mac.jsonl",
+          "sha256": "5a3f037f3e17d6ec432cb92f0a31a4d32f9f21a5c410ee17f4cef4e968443505"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask30-run1-v32-mac.jsonl",
+          "sha256": "b0f9ffb7d48bed1721eabdb297e791320107e83e951c0bdff724b4671847a51a"
+        }
+      ]
+    },
+    {
+      "mask": 31,
+      "effective_masses_exact": 96,
+      "applied_native_scaled_biases_exact": 96,
+      "semantic_repeat_exact": true,
+      "native_entry_states_exact": 480,
+      "first_velocities_exact": 12,
+      "first_positions_exact": 12,
+      "cases": [
+        {
+          "case": "isolate-03-contact-m0-h0-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h0-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m0-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h0-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m1-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h0-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v0-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        },
+        {
+          "case": "isolate-03-contact-m2-h1-v1-f1",
+          "native_entry_states_exact": 40,
+          "effective_masses_exact": 8,
+          "applied_native_scaled_biases_exact": 8,
+          "first_velocity_exact": true,
+          "first_position_exact": true,
+          "pre_contact_states_exact": true
+        }
+      ],
+      "files": [
+        {
+          "name": "calibration-native-arithmetic-errors-mask31-run0-v32-mac.jsonl",
+          "sha256": "cb13f8cebfa94e10008dfa35807bad0e9fcd5a365ca299cab1985151ca8b1f8b"
+        },
+        {
+          "name": "calibration-native-arithmetic-errors-mask31-run1-v32-mac.jsonl",
+          "sha256": "683b72854d2a5c0f0b8f23468b6abf6cd8d1ae47e4f7dbe5b4f8326fa6a505ee"
+        }
+      ]
+    }
+  ]
+}

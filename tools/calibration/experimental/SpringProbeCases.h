@@ -77,3 +77,45 @@ inline void appendCoupledFloorProbes(std::vector<Case>& suite) {
   suite.push_back(c);
  }
 }
+
+// Independently vary wheel friction with no drive/brake command; body is thin.
+inline void appendTireSlipProbes(std::vector<Case>& suite) {
+ const double speeds[]={.2,2,10};
+ for(int mass=0;mass<2;++mass) for(int layout=0;layout<2;++layout)
+ for(int active=0;active<2;++active) for(int locked=0;locked<2;++locked)
+ for(int axis=0;axis<3;++axis) for(int speed=0;speed<3;++speed)
+ for(int traction=0;traction<2;++traction) for(int spring=0;spring<2;++spring) {
+  std::ostringstream name;name<<"tire-slip-"<<mass<<"-"<<layout<<"-"<<active<<"-"<<locked<<"-"<<axis<<"-"<<speed<<"-"<<traction<<"-"<<spring;
+  Case c(name.str(),-20,mass?1200:300,10.75);c.steps=24;c.traction=traction!=0;c.halfExtents.z=.02;c.fixedOrientation=locked!=0;
+  c.velocity=V(axis==1?0:speeds[speed],axis==0?0:speeds[speed],0);
+  for(size_t index=0;index<c.wheels.size();++index) {
+   if(layout==0)c.wheels[index].position.x=c.wheels[index].position.y=0;
+   if(index>=(size_t)(active?4:1))c.wheels[index].position.z=100;
+   c.wheels[index].spring=spring?140000:35000;
+  }
+  suite.push_back(c);
+ }
+}
+
+inline void appendHardTireProbes(std::vector<Case>& suite) {
+ const double heights[]={10.34,10.39,10.4};
+ for(int mass=0;mass<2;++mass) for(int active=0;active<2;++active)
+ for(int height=0;height<3;++height) for(int spring=0;spring<3;++spring) {
+  std::ostringstream name;name<<"hard-tire-"<<mass<<"-"<<active<<"-"<<height<<"-"<<spring;
+  Case c(name.str(),-20,mass?1200:300,heights[height]);c.steps=6;c.traction=true;c.halfExtents.z=.02;c.fixedOrientation=true;c.velocity=V(0,2,0);
+  for(size_t index=0;index<c.wheels.size();++index) {
+   c.wheels[index].position=V(0,0,index<(size_t)(active?4:1)?0:100);
+   c.wheels[index].spring=spring==0?0:spring==1?35000:140000;c.wheels[index].damper=spring==0?0:4500;
+  }
+  suite.push_back(c);
+ }
+}
+
+inline void appendZeroLoadTireProbes(std::vector<Case>& suite) {
+ for(int mass=0;mass<2;++mass) for(int active=0;active<2;++active) for(int spring=0;spring<2;++spring) {
+  std::ostringstream name;name<<"zero-load-tire-"<<mass<<"-"<<active<<"-"<<spring;
+  Case c(name.str(),0,mass?1200:300,10.75);c.steps=12;c.traction=true;c.halfExtents.z=.02;c.fixedOrientation=true;c.velocity=V(0,2,0);
+  for(size_t index=0;index<c.wheels.size();++index) {c.wheels[index].position=V(0,0,index<(size_t)(active?4:1)?0:100);c.wheels[index].spring=spring?140000:35000;}
+  suite.push_back(c);
+ }
+}

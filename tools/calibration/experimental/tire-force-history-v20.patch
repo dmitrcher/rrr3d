@@ -1,0 +1,96 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1509,6 +1509,12 @@
+     }
+ };
+ 
++bool sourceTireForceHistoryEnabled() noexcept
++{
++    const char* flag = std::getenv("RRR3D_EXPERIMENT_TIRE_FORCE_HISTORY");
++    return flag != nullptr && std::strcmp(flag, "1") == 0;
++}
++
+ struct SourceWheelNormalForce
+ {
+     float reaction = 0.0F;
+@@ -1855,6 +1861,8 @@
+         vehicle.wheelNormalReactions.assign(
+             vehicle.constraint->GetWheels().size(), 0.0F);
+         vehicle.wheelNormalImpulses.assign(
++            vehicle.constraint->GetWheels().size(), 0.0F);
++        vehicle.previousSuspensionForces.assign(
+             vehicle.constraint->GetWheels().size(), 0.0F);
+         vehicle.wheelTireReleaseActive.assign(
+             vehicle.constraint->GetWheels().size(), false);
+@@ -2248,6 +2256,12 @@
+                             JPH::EActivation::DontActivate);
+                         bodies.SetAngularVelocity(vehicle.body, JPH::Vec3::sZero());
+                     }
++            // The Nx tire-force callback reads the previous solved wheel force.
++            for (auto& vehicle : vehicles_)
++                for (JPH::uint i = 0; i < vehicle.constraint->GetWheels().size(); ++i) {
++                    const auto* wheel = vehicle.constraint->GetWheel(i);
++                    vehicle.previousSuspensionForces[i] = wheel->HasContact()? wheel->GetSuspensionLambda() / delta : 0.0F;
++                }
+             lastSolverDelta_ = delta;
+             if (tuning_.physxWheelCompat)
+                 for (auto& vehicle : vehicles_)
+@@ -2622,6 +2636,7 @@
+         VehicleDriveCommand sourceDriveCommand;
+         std::vector<float> wheelNormalReactions;
+         std::vector<float> wheelNormalImpulses;
++        std::vector<float> previousSuspensionForces;
+         std::vector<bool> wheelTireReleaseActive;
+         std::vector<Vec3> previousWheelContactPositions;
+         std::vector<bool> previousWheelContactValid;
+@@ -3786,6 +3801,7 @@
+         const auto wheelCount = runtime.constraint->GetWheels().size();
+         runtime.wheelNormalReactions.assign(wheelCount, 0.0F);
+         runtime.wheelNormalImpulses.assign(wheelCount, 0.0F);
++        runtime.previousSuspensionForces.assign(wheelCount, 0.0F);
+         runtime.wheelTireReleaseActive.assign(wheelCount, false);
+         runtime.previousWheelContactPositions.assign(wheelCount, {});
+         runtime.previousWheelContactValid.assign(wheelCount, false);
+@@ -3864,6 +3880,9 @@
+                 const auto* wheel =
+                     vehicle.constraint->GetWheel(wheelIndex);
+                 float allowedSuspensionImpulse = suspensionImpulse;
++                if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled() &&
++                    wheelIndex < vehicle.previousSuspensionForces.size())
++                    allowedSuspensionImpulse = vehicle.previousSuspensionForces[wheelIndex] * deltaTime;
+                 if (wheel->HasContact() && !source.wheels.empty())
+                 {
+                     const float normalAcceleration = std::abs(
+@@ -3872,12 +3891,16 @@
+                     const float normalReactionImpulse =
+                         source.mass * normalAcceleration * deltaTime /
+                         static_cast<float>(source.wheels.size());
+-                    if (normalReactionImpulse > 1.0e-6F)
++                    if (normalReactionImpulse > 1.0e-6F ||
++                        (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled()))
+                     {
+-                        const auto force = sourceWheelNormalForce(
++                        auto force = sourceWheelNormalForce(
+                             allowedSuspensionImpulse, normalReactionImpulse,
+                             vehicle.wheelTractionEnabled,
+                             source.tireSpring);
++                        // The Nx callback caps to the gravity-projected load even when it is zero.
++                        if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled())
++                            force.impulse = std::min(force.impulse, normalReactionImpulse * 1.5F);
+                         allowedSuspensionImpulse = force.impulse;
+                         if (wheelIndex <
+                             vehicle.wheelNormalReactions.size())
+@@ -4062,6 +4085,13 @@
+                 contact.lateralSlip = wheeled->mLateralSlip;
+                 contact.suspensionLength = joltWheel->GetSuspensionLength() - (tuning_.physxWheelCompat ? vehicle.spawn.vehicle.wheels[index].radius : 0.0F);
+                 contact.suspensionForce = joltWheel->GetSuspensionLambda() / lastSolverDelta_;
++                if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled() &&
++                    index < vehicle.wheelNormalImpulses.size())
++                {
++                    contact.suspensionForce = vehicle.wheelNormalImpulses[index] / lastSolverDelta_;
++                    contact.longitudinalSlip = vehicle.sourceLongitudinalSlips[index];
++                    contact.lateralSlip = vehicle.sourceLateralSlips[index];
++                }
+                 contact.longitudinalImpulse = joltWheel->GetLongitudinalLambda();
+                 contact.lateralImpulse = joltWheel->GetLateralLambda();
+                 if (index < vehicle.wheelNormalReactions.size())

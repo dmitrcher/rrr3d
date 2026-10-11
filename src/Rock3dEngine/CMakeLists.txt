@@ -200,6 +200,9 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
     target_link_libraries(rrr3d_physics_spring_probe PRIVATE Rock3dEngine)
     rrr3d_set_common_target_options(rrr3d_physics_spring_probe)
     if(Python3_Interpreter_FOUND)
+        add_test(NAME source_tire_force_history_reference COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_tire_force_history.py"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-tire-force-history-v20.json")
         add_test(NAME source_contact_friction_reference COMMAND "${Python3_EXECUTABLE}"
             "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_contact_friction_reference.py"
             "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-coupled-floor-first-v19.json")

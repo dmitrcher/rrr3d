@@ -148,7 +148,7 @@ inline std::vector<Case> cases() {
  }
 
 #ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
- appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);
+ appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);appendTireSlipProbes(s);appendHardTireProbes(s);appendZeroLoadTireProbes(s);
 #endif
  appendCatalogCases(s);return s;
 }

@@ -1,7 +1,7 @@
 # Actual Mac Native contact arithmetic v32
 
 This is an **unaccepted experimental prototype**, layered after v30
-`row-jacobians.patch`. The six-file before/after SHA contract and patch are in
+`row-jacobians-v30.patch`. The six-file before/after SHA contract and patch are in
 `../native-contact-arithmetic-v32-base.json` and
 `../native-contact-arithmetic-v32.patch`. `NativeContactArithmetic.h` is an exact
 copy of the SDK helper used by the compiled ARM64 Mac probe.

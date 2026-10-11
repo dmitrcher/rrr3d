@@ -19,3 +19,6 @@ tools/editor/*.cmd -text whitespace=cr-at-eol
 
 # Keep VC2008 command scripts in CRLF form.
 tools/calibration/*.cmd -text whitespace=cr-at-eol
+
+# Keep the checksum-verified v38 vendor geometry snapshot byte-for-byte.
+tools/calibration/experimental/native-plane-normal-v38/src/Rock3dEngine/header/physics/SourceMeshManifold.h -text -whitespace

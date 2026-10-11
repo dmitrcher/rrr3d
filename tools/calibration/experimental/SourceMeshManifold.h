@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2018 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #pragma once
@@ -104,7 +104,7 @@ void gVisualizeLocalLine(const PxVec3& a, const PxVec3& b, const Cm::Matrix34& m
 
 #ifdef CONTACT_REDUCTION
 static PX_FORCE_INLINE PxReal dot2D(const PxVec3& v0, const PxVec3& v1)
-{	
+{
 	return v0.x * v1.x + v0.y * v1.y;
 }
 
@@ -284,7 +284,7 @@ static void ContactReductionAllIn(	ContactBuffer& contactBuffer, PxU32 nbExistin
 			indexMinV = 0xffffffff;
 		if(indexMaxV == indexMinU || indexMaxV == indexMaxU || indexMaxV == indexMinV)
 			indexMaxV = 0xffffffff;
-		
+
 		PxU32 newCount = 0;
 		for(PxU32 i=0;i<nbNewContacts;i++)
 		{
@@ -382,7 +382,7 @@ PX_FORCE_INLINE Cm::Matrix34 transformTranspose(const PxMat33& a, const Cm::Matr
 	return Cm::Matrix34(a.transformTranspose(b.m.column0), a.transformTranspose(b.m.column1), a.transformTranspose(b.m.column2), a.transformTranspose(b.p));
 }
 
-// Helper function to transform x/y coordinate of point. 
+// Helper function to transform x/y coordinate of point.
 PX_FORCE_INLINE void transform2D(float& x, float& y, const PxVec3& src, const Cm::Matrix34& mat)
 {
 	x = src.x * mat.m.column0.x + src.y * mat.m.column1.x + src.z * mat.m.column2.x + mat.p.x;
@@ -474,7 +474,7 @@ PX_FORCE_INLINE bool pointInTriangle2D(	float px, float pz,
 										float p0x, float p0z,
 										float e10x, float e10z,
 										float e20x, float e20z)
-{ 
+{
 	const float a = e10x*e10x + e10z*e10z;
 	const float b = e10x*e20x + e10z*e20z;
 	const float c = e20x*e20x + e20z*e20z;
@@ -571,7 +571,7 @@ bool PointInConvexPolygon2D_OutCodes(const float* PX_RESTRICT pgon2D, PxU32 numV
 }
 
 // Helper function to detect contact between two edges
-PX_FORCE_INLINE bool EdgeEdgeContactSpecial(const PxVec3& v1, const PxPlane& plane, 
+PX_FORCE_INLINE bool EdgeEdgeContactSpecial(const PxVec3& v1, const PxPlane& plane,
 	const PxVec3& p1, const PxVec3& p2, const PxVec3& dir, const PxVec3& p3, const PxVec3& p4,
 	PxReal& dist, PxVec3& ip, unsigned int i, unsigned int j, float coeff)
 {
@@ -599,7 +599,7 @@ PX_FORCE_INLINE bool EdgeEdgeContactSpecial(const PxVec3& v1, const PxPlane& pla
 
 	// check if intersection point (ip) is between edge (p1,p2) vertices
 	temp = (p1.x-ip.x)*(p2.x-ip.x)+(p1.y-ip.y)*(p2.y-ip.y)+(p1.z-ip.z)*(p2.z-ip.z);
-	if(temp<0.0f)	
+	if(temp<0.0f)
 		return true;	// collision found
 
 	return false; //no collision
@@ -696,11 +696,11 @@ inline bool contactPolygonPolygonExt(	PxU32 numVerts0, const PxVec3* vertices0, 
 				const PxReal dd = (p0_z - ld1) * dn;			//(p0_z + localPlane1.d) is the depth of the vertex behind the triangle measured along the triangle's normal.
 																	//we convert this to being measured along the 'contact normal' using the division.
 
-//				if(dd < 0.0f)										//if the penetrating vertex will have a penetration along the contact normal: 
+//				if(dd < 0.0f)										//if the penetrating vertex will have a penetration along the contact normal:
 //				PX_ASSERT(dd <= 0.0f);		// PT: dn is always positive, so dd is always negative
 				{
 					float px, py;
-					transform2DT(px, py, pIn1 - dd*localDir, rotT1);	//project vertex into poly1 plane along CONTACT NORMAL - not the polygon's normal. 
+					transform2DT(px, py, pIn1 - dd*localDir, rotT1);	//project vertex into poly1 plane along CONTACT NORMAL - not the polygon's normal.
 
 					const bool res = PointInConvexPolygon2D_OutCodes(verts2D, numVerts1, px-minX, py-minY, maxX, maxY, outCodes0[i]);
 					flags0[i] = res;

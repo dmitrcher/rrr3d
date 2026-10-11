@@ -1,0 +1,1995 @@
+{
+  "protocol": "source-vehicle-matrix-v7-sdk (v14 corrected peer descriptor and static-box solver)",
+  "goal_status": "active",
+  "cases": 608,
+  "steps_per_platform": 255864,
+  "mac_defaults": "windows-source-v14-default.cfg",
+  "optional_profile": "windows-source-v14.cfg",
+  "exact_parity": {
+    "complete": false,
+    "cases_remaining": [
+      "spin",
+      "settle",
+      "wheel-drive",
+      "coast",
+      "brake",
+      "steer-left",
+      "steer-right",
+      "lateral",
+      "suspension-drop",
+      "diagonal-slide",
+      "low-speed-slide",
+      "fast-slide",
+      "brake-moving",
+      "coast-moving",
+      "reverse-drive",
+      "spin-roll",
+      "spin-pitch",
+      "spin-limit",
+      "spin-mixed",
+      "spring-soft",
+      "spring-hard",
+      "damper-low",
+      "damper-high",
+      "travel-short",
+      "travel-long",
+      "radius-small",
+      "radius-large",
+      "mass-light",
+      "mass-heavy",
+      "target-half",
+      "com-forward",
+      "com-low",
+      "grip-low",
+      "grip-high",
+      "inertia-light",
+      "inertia-heavy",
+      "rest-brake-drive",
+      "all-wheel-drive",
+      "oil-slide",
+      "tire-overload",
+      "slope-longitudinal",
+      "slope-lateral",
+      "sleep-settle",
+      "wall-hit",
+      "wall-oblique",
+      "bump-crossing",
+      "curb-side",
+      "game-air-pitch",
+      "game-angular-damping",
+      "game-clamp-roll",
+      "game-clamp-pitch",
+      "game-clamp-mixed",
+      "body-slide-x",
+      "body-slide-y",
+      "body-slide-diagonal",
+      "body-tilt-pitch",
+      "body-tilt-roll",
+      "body-wheel-contact-x",
+      "body-wheel-contact-pitch",
+      "body-wheel-contact-roll",
+      "wall-air-straight-1",
+      "wall-air-straight-2",
+      "wall-air-straight-4",
+      "wall-air-straight-8",
+      "wall-air-straight-12",
+      "wall-air-straight-24",
+      "wall-air-oblique-4",
+      "wall-air-oblique-12",
+      "wall-air-oblique-negative-4",
+      "wall-air-y-straight-8",
+      "wall-air-y-oblique-8",
+      "body-friction-locked-x",
+      "body-friction-locked-y",
+      "body-friction-locked-diagonal",
+      "body-friction-locked-skew",
+      "pair-same-head-0",
+      "pair-same-head-1",
+      "pair-same-oblique-0",
+      "pair-same-oblique-1",
+      "pair-head-on-0",
+      "pair-head-on-1",
+      "pair-heavy-peer-0",
+      "pair-heavy-peer-1",
+      "pair-weak-first-0",
+      "pair-weak-first-1",
+      "pair-weak-second-0",
+      "pair-weak-second-1",
+      "pair-tilted-first-0",
+      "pair-tilted-first-1",
+      "pair-tilted-second-0",
+      "pair-tilted-second-1",
+      "pair-pole-0",
+      "pair-pole-1",
+      "pair-pole-oblique-0",
+      "pair-pole-oblique-1",
+      "pair-free-oblique-0",
+      "pair-free-oblique-1",
+      "pair-stock-head-0",
+      "pair-stock-head-1",
+      "pair-stock-oblique-0",
+      "pair-stock-oblique-1",
+      "pair-stock-weak-second-0",
+      "pair-stock-weak-second-1",
+      "pair-stock-pole-0",
+      "pair-stock-pole-1",
+      "pair-vertical-locked-0",
+      "pair-vertical-locked-1",
+      "pair-vertical-weak-peer-0",
+      "pair-vertical-weak-peer-1",
+      "border-air-straight",
+      "border-air-oblique",
+      "border-grounded",
+      "border-pole",
+      "border-front-air-straight",
+      "border-front-air-oblique",
+      "border-front-grounded",
+      "contact-locked-triangle-depth0-speed2",
+      "contact-locked-triangle-depth1-speed2",
+      "contact-locked-triangle-depth2-speed2",
+      "contact-locked-triangle-depth3-speed1",
+      "contact-locked-triangle-depth3-speed2",
+      "contact-locked-triangle-depth4-speed0",
+      "contact-locked-triangle-depth4-speed1",
+      "contact-locked-triangle-depth4-speed2",
+      "contact-locked-triangle-depth5-speed0",
+      "contact-locked-triangle-depth5-speed1",
+      "contact-locked-triangle-depth5-speed2",
+      "contact-locked-box-depth0-speed2",
+      "contact-locked-box-depth1-speed2",
+      "contact-locked-box-depth2-speed2",
+      "contact-locked-box-depth3-speed1",
+      "contact-locked-box-depth3-speed2",
+      "contact-locked-box-depth4-speed0",
+      "contact-locked-box-depth4-speed1",
+      "contact-locked-box-depth4-speed2",
+      "contact-locked-box-depth5-speed0",
+      "contact-locked-box-depth5-speed1",
+      "contact-locked-box-depth5-speed2",
+      "contact-free-triangle-depth0-speed2",
+      "contact-free-triangle-depth1-speed2",
+      "contact-free-triangle-depth2-speed2",
+      "contact-free-triangle-depth3-speed1",
+      "contact-free-triangle-depth3-speed2",
+      "contact-free-triangle-depth4-speed0",
+      "contact-free-triangle-depth4-speed1",
+      "contact-free-triangle-depth4-speed2",
+      "contact-free-triangle-depth5-speed0",
+      "contact-free-triangle-depth5-speed1",
+      "contact-free-triangle-depth5-speed2",
+      "contact-free-box-depth0-speed2",
+      "contact-free-box-depth1-speed2",
+      "contact-free-box-depth2-speed2",
+      "contact-free-box-depth3-speed1",
+      "contact-free-box-depth3-speed2",
+      "contact-free-box-depth4-speed0",
+      "contact-free-box-depth4-speed1",
+      "contact-free-box-depth4-speed2",
+      "contact-free-box-depth5-speed0",
+      "contact-free-box-depth5-speed1",
+      "contact-free-box-depth5-speed2",
+      "skin-tilted-triangle-angle0-skin0-thin0",
+      "skin-tilted-triangle-angle1-skin0-thin0",
+      "skin-tilted-triangle-angle2-skin0-thin0",
+      "skin-tilted-triangle-angle3-skin0-thin0",
+      "skin-tilted-triangle-angle4-skin0-thin0",
+      "skin-tilted-box-angle0-skin0-thin0",
+      "skin-tilted-box-angle1-skin0-thin0",
+      "skin-tilted-box-angle2-skin0-thin0",
+      "skin-tilted-box-angle3-skin0-thin0",
+      "skin-tilted-box-angle4-skin0-thin0",
+      "skin-tilted-triangle-angle0-skin1-thin0",
+      "skin-tilted-triangle-angle1-skin1-thin0",
+      "skin-tilted-triangle-angle2-skin1-thin0",
+      "skin-tilted-triangle-angle3-skin1-thin0",
+      "skin-tilted-triangle-angle4-skin1-thin0",
+      "skin-tilted-box-angle0-skin1-thin0",
+      "skin-tilted-box-angle1-skin1-thin0",
+      "skin-tilted-box-angle2-skin1-thin0",
+      "skin-tilted-box-angle3-skin1-thin0",
+      "skin-tilted-box-angle4-skin1-thin0",
+      "skin-tilted-triangle-angle0-skin2-thin0",
+      "skin-tilted-triangle-angle1-skin2-thin0",
+      "skin-tilted-triangle-angle2-skin2-thin0",
+      "skin-tilted-triangle-angle3-skin2-thin0",
+      "skin-tilted-triangle-angle4-skin2-thin0",
+      "skin-tilted-box-angle0-skin2-thin0",
+      "skin-tilted-box-angle1-skin2-thin0",
+      "skin-tilted-box-angle2-skin2-thin0",
+      "skin-tilted-box-angle3-skin2-thin0",
+      "skin-tilted-box-angle4-skin2-thin0",
+      "skin-tilted-triangle-angle0-skin0-thin1",
+      "skin-tilted-triangle-angle1-skin0-thin1",
+      "skin-tilted-triangle-angle2-skin0-thin1",
+      "skin-tilted-triangle-angle3-skin0-thin1",
+      "skin-tilted-triangle-angle4-skin0-thin1",
+      "skin-tilted-box-angle0-skin0-thin1",
+      "skin-tilted-box-angle1-skin0-thin1",
+      "skin-tilted-box-angle2-skin0-thin1",
+      "skin-tilted-box-angle3-skin0-thin1",
+      "skin-tilted-box-angle4-skin0-thin1",
+      "skin-tilted-triangle-angle0-skin1-thin1",
+      "skin-tilted-triangle-angle1-skin1-thin1",
+      "skin-tilted-triangle-angle2-skin1-thin1",
+      "skin-tilted-triangle-angle3-skin1-thin1",
+      "skin-tilted-triangle-angle4-skin1-thin1",
+      "skin-tilted-box-angle0-skin1-thin1",
+      "skin-tilted-box-angle1-skin1-thin1",
+      "skin-tilted-box-angle2-skin1-thin1",
+      "skin-tilted-box-angle3-skin1-thin1",
+      "skin-tilted-box-angle4-skin1-thin1",
+      "skin-tilted-triangle-angle0-skin2-thin1",
+      "skin-tilted-triangle-angle1-skin2-thin1",
+      "skin-tilted-triangle-angle2-skin2-thin1",
+      "skin-tilted-triangle-angle3-skin2-thin1",
+      "skin-tilted-triangle-angle4-skin2-thin1",
+      "skin-tilted-box-angle0-skin2-thin1",
+      "skin-tilted-box-angle1-skin2-thin1",
+      "skin-tilted-box-angle2-skin2-thin1",
+      "skin-tilted-box-angle3-skin2-thin1",
+      "skin-tilted-box-angle4-skin2-thin1",
+      "marauder/settle",
+      "marauder/wheel-drive",
+      "marauder/brake-moving",
+      "marauder/diagonal-slide",
+      "marauder/suspension-drop",
+      "marauder/spin-mixed",
+      "mobility/marauder/wheel1/wheel-drive",
+      "mobility/marauder/wheel1/brake-moving",
+      "mobility/marauder/wheel1/diagonal-slide",
+      "mobility/marauder/wheel1/lateral",
+      "mobility/marauder/wheel1/suspension-drop",
+      "mobility/marauder/wheel2/wheel-drive",
+      "mobility/marauder/wheel2/brake-moving",
+      "mobility/marauder/wheel2/diagonal-slide",
+      "mobility/marauder/wheel2/lateral",
+      "mobility/marauder/wheel2/suspension-drop",
+      "mobility/marauder/wheel3/wheel-drive",
+      "mobility/marauder/wheel3/brake-moving",
+      "mobility/marauder/wheel3/diagonal-slide",
+      "mobility/marauder/wheel3/lateral",
+      "mobility/marauder/wheel3/suspension-drop",
+      "dirtdevil/settle",
+      "dirtdevil/wheel-drive",
+      "dirtdevil/brake-moving",
+      "dirtdevil/diagonal-slide",
+      "dirtdevil/suspension-drop",
+      "dirtdevil/spin-mixed",
+      "mobility/dirtdevil/wheel1/wheel-drive",
+      "mobility/dirtdevil/wheel1/brake-moving",
+      "mobility/dirtdevil/wheel1/diagonal-slide",
+      "mobility/dirtdevil/wheel1/lateral",
+      "mobility/dirtdevil/wheel1/suspension-drop",
+      "mobility/dirtdevil/wheel2/wheel-drive",
+      "mobility/dirtdevil/wheel2/brake-moving",
+      "mobility/dirtdevil/wheel2/diagonal-slide",
+      "mobility/dirtdevil/wheel2/lateral",
+      "mobility/dirtdevil/wheel2/suspension-drop",
+      "mobility/dirtdevil/wheel3/wheel-drive",
+      "mobility/dirtdevil/wheel3/brake-moving",
+      "mobility/dirtdevil/wheel3/diagonal-slide",
+      "mobility/dirtdevil/wheel3/lateral",
+      "mobility/dirtdevil/wheel3/suspension-drop",
+      "manticora/settle",
+      "manticora/wheel-drive",
+      "manticora/brake-moving",
+      "manticora/diagonal-slide",
+      "manticora/suspension-drop",
+      "manticora/spin-mixed",
+      "mobility/manticora/wheel1/wheel-drive",
+      "mobility/manticora/wheel1/brake-moving",
+      "mobility/manticora/wheel1/diagonal-slide",
+      "mobility/manticora/wheel1/lateral",
+      "mobility/manticora/wheel1/suspension-drop",
+      "mobility/manticora/wheel2/wheel-drive",
+      "mobility/manticora/wheel2/brake-moving",
+      "mobility/manticora/wheel2/diagonal-slide",
+      "mobility/manticora/wheel2/lateral",
+      "mobility/manticora/wheel2/suspension-drop",
+      "mobility/manticora/wheel3/wheel-drive",
+      "mobility/manticora/wheel3/brake-moving",
+      "mobility/manticora/wheel3/diagonal-slide",
+      "mobility/manticora/wheel3/lateral",
+      "mobility/manticora/wheel3/suspension-drop",
+      "manticoraBoss/settle",
+      "manticoraBoss/wheel-drive",
+      "manticoraBoss/brake-moving",
+      "manticoraBoss/diagonal-slide",
+      "manticoraBoss/suspension-drop",
+      "manticoraBoss/spin-mixed",
+      "mobility/manticoraBoss/wheel1/wheel-drive",
+      "mobility/manticoraBoss/wheel1/brake-moving",
+      "mobility/manticoraBoss/wheel1/diagonal-slide",
+      "mobility/manticoraBoss/wheel1/lateral",
+      "mobility/manticoraBoss/wheel1/suspension-drop",
+      "mobility/manticoraBoss/wheel2/wheel-drive",
+      "mobility/manticoraBoss/wheel2/brake-moving",
+      "mobility/manticoraBoss/wheel2/diagonal-slide",
+      "mobility/manticoraBoss/wheel2/lateral",
+      "mobility/manticoraBoss/wheel2/suspension-drop",
+      "mobility/manticoraBoss/wheel3/wheel-drive",
+      "mobility/manticoraBoss/wheel3/brake-moving",
+      "mobility/manticoraBoss/wheel3/diagonal-slide",
+      "mobility/manticoraBoss/wheel3/lateral",
+      "mobility/manticoraBoss/wheel3/suspension-drop",
+      "airblade/settle",
+      "airblade/wheel-drive",
+      "airblade/brake-moving",
+      "airblade/diagonal-slide",
+      "airblade/suspension-drop",
+      "airblade/spin-mixed",
+      "mobility/airblade/wheel1/wheel-drive",
+      "mobility/airblade/wheel1/brake-moving",
+      "mobility/airblade/wheel1/diagonal-slide",
+      "mobility/airblade/wheel1/lateral",
+      "mobility/airblade/wheel1/suspension-drop",
+      "mobility/airblade/wheel2/wheel-drive",
+      "mobility/airblade/wheel2/brake-moving",
+      "mobility/airblade/wheel2/diagonal-slide",
+      "mobility/airblade/wheel2/lateral",
+      "mobility/airblade/wheel2/suspension-drop",
+      "mobility/airblade/wheel3/wheel-drive",
+      "mobility/airblade/wheel3/brake-moving",
+      "mobility/airblade/wheel3/diagonal-slide",
+      "mobility/airblade/wheel3/lateral",
+      "mobility/airblade/wheel3/suspension-drop",
+      "guseniza/settle",
+      "guseniza/wheel-drive",
+      "guseniza/brake-moving",
+      "guseniza/diagonal-slide",
+      "guseniza/suspension-drop",
+      "guseniza/spin-mixed",
+      "mobility/guseniza/gusWheel1/wheel-drive",
+      "mobility/guseniza/gusWheel1/brake-moving",
+      "mobility/guseniza/gusWheel1/diagonal-slide",
+      "mobility/guseniza/gusWheel1/lateral",
+      "mobility/guseniza/gusWheel1/suspension-drop",
+      "mobility/guseniza/gusWheel2/wheel-drive",
+      "mobility/guseniza/gusWheel2/brake-moving",
+      "mobility/guseniza/gusWheel2/diagonal-slide",
+      "mobility/guseniza/gusWheel2/lateral",
+      "mobility/guseniza/gusWheel2/suspension-drop",
+      "mobility/guseniza/gusWheel3/wheel-drive",
+      "mobility/guseniza/gusWheel3/brake-moving",
+      "mobility/guseniza/gusWheel3/diagonal-slide",
+      "mobility/guseniza/gusWheel3/lateral",
+      "mobility/guseniza/gusWheel3/suspension-drop",
+      "gusenizaBoss/settle",
+      "gusenizaBoss/wheel-drive",
+      "gusenizaBoss/brake-moving",
+      "gusenizaBoss/diagonal-slide",
+      "gusenizaBoss/suspension-drop",
+      "gusenizaBoss/spin-mixed",
+      "mobility/gusenizaBoss/gusWheel1/wheel-drive",
+      "mobility/gusenizaBoss/gusWheel1/brake-moving",
+      "mobility/gusenizaBoss/gusWheel1/diagonal-slide",
+      "mobility/gusenizaBoss/gusWheel1/lateral",
+      "mobility/gusenizaBoss/gusWheel1/suspension-drop",
+      "mobility/gusenizaBoss/gusWheel2/wheel-drive",
+      "mobility/gusenizaBoss/gusWheel2/brake-moving",
+      "mobility/gusenizaBoss/gusWheel2/diagonal-slide",
+      "mobility/gusenizaBoss/gusWheel2/lateral",
+      "mobility/gusenizaBoss/gusWheel2/suspension-drop",
+      "mobility/gusenizaBoss/gusWheel3/wheel-drive",
+      "mobility/gusenizaBoss/gusWheel3/brake-moving",
+      "mobility/gusenizaBoss/gusWheel3/diagonal-slide",
+      "mobility/gusenizaBoss/gusWheel3/lateral",
+      "mobility/gusenizaBoss/gusWheel3/suspension-drop",
+      "mobility/gusenizaBoss/gusWheel1_boss/wheel-drive",
+      "mobility/gusenizaBoss/gusWheel1_boss/brake-moving",
+      "mobility/gusenizaBoss/gusWheel1_boss/diagonal-slide",
+      "mobility/gusenizaBoss/gusWheel1_boss/lateral",
+      "mobility/gusenizaBoss/gusWheel1_boss/suspension-drop",
+      "podushka/settle",
+      "podushka/wheel-drive",
+      "podushka/brake-moving",
+      "podushka/diagonal-slide",
+      "podushka/suspension-drop",
+      "podushka/spin-mixed",
+      "mobility/podushka/engine1/wheel-drive",
+      "mobility/podushka/engine1/brake-moving",
+      "mobility/podushka/engine1/diagonal-slide",
+      "mobility/podushka/engine1/lateral",
+      "mobility/podushka/engine1/suspension-drop",
+      "mobility/podushka/engine2/wheel-drive",
+      "mobility/podushka/engine2/brake-moving",
+      "mobility/podushka/engine2/diagonal-slide",
+      "mobility/podushka/engine2/lateral",
+      "mobility/podushka/engine2/suspension-drop",
+      "mobility/podushka/engine3/wheel-drive",
+      "mobility/podushka/engine3/brake-moving",
+      "mobility/podushka/engine3/diagonal-slide",
+      "mobility/podushka/engine3/lateral",
+      "mobility/podushka/engine3/suspension-drop",
+      "podushkaBoss/settle",
+      "podushkaBoss/wheel-drive",
+      "podushkaBoss/brake-moving",
+      "podushkaBoss/diagonal-slide",
+      "podushkaBoss/suspension-drop",
+      "podushkaBoss/spin-mixed",
+      "mobility/podushkaBoss/engine1/wheel-drive",
+      "mobility/podushkaBoss/engine1/brake-moving",
+      "mobility/podushkaBoss/engine1/diagonal-slide",
+      "mobility/podushkaBoss/engine1/lateral",
+      "mobility/podushkaBoss/engine1/suspension-drop",
+      "mobility/podushkaBoss/engine2/wheel-drive",
+      "mobility/podushkaBoss/engine2/brake-moving",
+      "mobility/podushkaBoss/engine2/diagonal-slide",
+      "mobility/podushkaBoss/engine2/lateral",
+      "mobility/podushkaBoss/engine2/suspension-drop",
+      "mobility/podushkaBoss/engine3/wheel-drive",
+      "mobility/podushkaBoss/engine3/brake-moving",
+      "mobility/podushkaBoss/engine3/diagonal-slide",
+      "mobility/podushkaBoss/engine3/lateral",
+      "mobility/podushkaBoss/engine3/suspension-drop",
+      "monstertruck/settle",
+      "monstertruck/wheel-drive",
+      "monstertruck/brake-moving",
+      "monstertruck/diagonal-slide",
+      "monstertruck/suspension-drop",
+      "monstertruck/spin-mixed",
+      "mobility/monstertruck/wheel1/wheel-drive",
+      "mobility/monstertruck/wheel1/brake-moving",
+      "mobility/monstertruck/wheel1/diagonal-slide",
+      "mobility/monstertruck/wheel1/lateral",
+      "mobility/monstertruck/wheel1/suspension-drop",
+      "mobility/monstertruck/wheel2/wheel-drive",
+      "mobility/monstertruck/wheel2/brake-moving",
+      "mobility/monstertruck/wheel2/diagonal-slide",
+      "mobility/monstertruck/wheel2/lateral",
+      "mobility/monstertruck/wheel2/suspension-drop",
+      "mobility/monstertruck/wheel3/wheel-drive",
+      "mobility/monstertruck/wheel3/brake-moving",
+      "mobility/monstertruck/wheel3/diagonal-slide",
+      "mobility/monstertruck/wheel3/lateral",
+      "mobility/monstertruck/wheel3/suspension-drop",
+      "monstertruckBoss/settle",
+      "monstertruckBoss/wheel-drive",
+      "monstertruckBoss/brake-moving",
+      "monstertruckBoss/diagonal-slide",
+      "monstertruckBoss/suspension-drop",
+      "monstertruckBoss/spin-mixed",
+      "mobility/monstertruckBoss/wheel1/wheel-drive",
+      "mobility/monstertruckBoss/wheel1/brake-moving",
+      "mobility/monstertruckBoss/wheel1/diagonal-slide",
+      "mobility/monstertruckBoss/wheel1/lateral",
+      "mobility/monstertruckBoss/wheel1/suspension-drop",
+      "mobility/monstertruckBoss/wheel2/wheel-drive",
+      "mobility/monstertruckBoss/wheel2/brake-moving",
+      "mobility/monstertruckBoss/wheel2/diagonal-slide",
+      "mobility/monstertruckBoss/wheel2/lateral",
+      "mobility/monstertruckBoss/wheel2/suspension-drop",
+      "mobility/monstertruckBoss/wheel3/wheel-drive",
+      "mobility/monstertruckBoss/wheel3/brake-moving",
+      "mobility/monstertruckBoss/wheel3/diagonal-slide",
+      "mobility/monstertruckBoss/wheel3/lateral",
+      "mobility/monstertruckBoss/wheel3/suspension-drop",
+      "devildriver/settle",
+      "devildriver/wheel-drive",
+      "devildriver/brake-moving",
+      "devildriver/diagonal-slide",
+      "devildriver/suspension-drop",
+      "devildriver/spin-mixed",
+      "mobility/devildriver/engine1/wheel-drive",
+      "mobility/devildriver/engine1/brake-moving",
+      "mobility/devildriver/engine1/diagonal-slide",
+      "mobility/devildriver/engine1/lateral",
+      "mobility/devildriver/engine1/suspension-drop",
+      "mobility/devildriver/engine2/wheel-drive",
+      "mobility/devildriver/engine2/brake-moving",
+      "mobility/devildriver/engine2/diagonal-slide",
+      "mobility/devildriver/engine2/lateral",
+      "mobility/devildriver/engine2/suspension-drop",
+      "mobility/devildriver/engine3/wheel-drive",
+      "mobility/devildriver/engine3/brake-moving",
+      "mobility/devildriver/engine3/diagonal-slide",
+      "mobility/devildriver/engine3/lateral",
+      "mobility/devildriver/engine3/suspension-drop",
+      "devildriverBoss/settle",
+      "devildriverBoss/wheel-drive",
+      "devildriverBoss/brake-moving",
+      "devildriverBoss/diagonal-slide",
+      "devildriverBoss/suspension-drop",
+      "devildriverBoss/spin-mixed",
+      "mobility/devildriverBoss/engine1/wheel-drive",
+      "mobility/devildriverBoss/engine1/brake-moving",
+      "mobility/devildriverBoss/engine1/diagonal-slide",
+      "mobility/devildriverBoss/engine1/lateral",
+      "mobility/devildriverBoss/engine1/suspension-drop",
+      "mobility/devildriverBoss/engine2/wheel-drive",
+      "mobility/devildriverBoss/engine2/brake-moving",
+      "mobility/devildriverBoss/engine2/diagonal-slide",
+      "mobility/devildriverBoss/engine2/lateral",
+      "mobility/devildriverBoss/engine2/suspension-drop",
+      "mobility/devildriverBoss/engine3/wheel-drive",
+      "mobility/devildriverBoss/engine3/brake-moving",
+      "mobility/devildriverBoss/engine3/diagonal-slide",
+      "mobility/devildriverBoss/engine3/lateral",
+      "mobility/devildriverBoss/engine3/suspension-drop",
+      "buggi/settle",
+      "buggi/wheel-drive",
+      "buggi/brake-moving",
+      "buggi/diagonal-slide",
+      "buggi/suspension-drop",
+      "buggi/spin-mixed",
+      "mobility/buggi/wheel1/wheel-drive",
+      "mobility/buggi/wheel1/brake-moving",
+      "mobility/buggi/wheel1/diagonal-slide",
+      "mobility/buggi/wheel1/lateral",
+      "mobility/buggi/wheel1/suspension-drop",
+      "mobility/buggi/wheel2/wheel-drive",
+      "mobility/buggi/wheel2/brake-moving",
+      "mobility/buggi/wheel2/diagonal-slide",
+      "mobility/buggi/wheel2/lateral",
+      "mobility/buggi/wheel2/suspension-drop",
+      "mobility/buggi/wheel3/wheel-drive",
+      "mobility/buggi/wheel3/brake-moving",
+      "mobility/buggi/wheel3/diagonal-slide",
+      "mobility/buggi/wheel3/lateral",
+      "mobility/buggi/wheel3/suspension-drop",
+      "tankchetti/settle",
+      "tankchetti/wheel-drive",
+      "tankchetti/brake-moving",
+      "tankchetti/diagonal-slide",
+      "tankchetti/suspension-drop",
+      "tankchetti/spin-mixed",
+      "mobility/tankchetti/wheel1/wheel-drive",
+      "mobility/tankchetti/wheel1/brake-moving",
+      "mobility/tankchetti/wheel1/diagonal-slide",
+      "mobility/tankchetti/wheel1/lateral",
+      "mobility/tankchetti/wheel1/suspension-drop",
+      "mobility/tankchetti/wheel2/wheel-drive",
+      "mobility/tankchetti/wheel2/brake-moving",
+      "mobility/tankchetti/wheel2/diagonal-slide",
+      "mobility/tankchetti/wheel2/lateral",
+      "mobility/tankchetti/wheel2/suspension-drop",
+      "mobility/tankchetti/wheel3/wheel-drive",
+      "mobility/tankchetti/wheel3/brake-moving",
+      "mobility/tankchetti/wheel3/diagonal-slide",
+      "mobility/tankchetti/wheel3/lateral",
+      "mobility/tankchetti/wheel3/suspension-drop",
+      "mustang/settle",
+      "mustang/wheel-drive",
+      "mustang/brake-moving",
+      "mustang/diagonal-slide",
+      "mustang/suspension-drop",
+      "mustang/spin-mixed",
+      "mobility/mustang/wheel3/wheel-drive",
+      "mobility/mustang/wheel3/brake-moving",
+      "mobility/mustang/wheel3/diagonal-slide",
+      "mobility/mustang/wheel3/lateral",
+      "mobility/mustang/wheel3/suspension-drop",
+      "xCar/settle",
+      "xCar/wheel-drive",
+      "xCar/brake-moving",
+      "xCar/diagonal-slide",
+      "xCar/suspension-drop",
+      "xCar/spin-mixed",
+      "mobility/xCar/engine1/wheel-drive",
+      "mobility/xCar/engine1/brake-moving",
+      "mobility/xCar/engine1/diagonal-slide",
+      "mobility/xCar/engine1/lateral",
+      "mobility/xCar/engine1/suspension-drop",
+      "mobility/xCar/engine2/wheel-drive",
+      "mobility/xCar/engine2/brake-moving",
+      "mobility/xCar/engine2/diagonal-slide",
+      "mobility/xCar/engine2/lateral",
+      "mobility/xCar/engine2/suspension-drop",
+      "mobility/xCar/engine3/wheel-drive",
+      "mobility/xCar/engine3/brake-moving",
+      "mobility/xCar/engine3/diagonal-slide",
+      "mobility/xCar/engine3/lateral",
+      "mobility/xCar/engine3/suspension-drop"
+    ],
+    "cases_checked": 608
+  },
+  "original_windows_game_source": "eff933868c1fbdfd266738a403fac80084f2b51e",
+  "windows_reference_binary_sha256": "e6eb63497a6a0425275cb71e0cc6e12f03e21bd8aa04ecf60baf40c0776502d2",
+  "compiled_windows_source_package_sha256": "ff99aeb3c33c0cb4e38d11bb2e442b23ec0c0b047bba9815c36d1e03d2a7f3eb",
+  "ctest_passed": 44,
+  "python_tests_passed": 19,
+  "metrics": {
+    "v13-safe": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "weighted_rms": {
+        "position_error": 0.2809823160869295,
+        "velocity_error": 0.14885172108638361,
+        "rotation_error_radians": 0.1311881844346719,
+        "wheel_speed_error": 0.9391494433548122,
+        "angular_momentum_error": 7631.905086578349,
+        "suspension_length_error": 0.005721526673436263,
+        "wheel_height_error": 0.000670486209656433,
+        "position_x_error": 0.09732256681838947,
+        "position_y_error": 0.16601047375444594,
+        "position_z_error": 0.2047435042810386,
+        "velocity_x_error": 0.03659978816278175,
+        "velocity_y_error": 0.061477241987768466,
+        "velocity_z_error": 0.13052907375138842,
+        "angular_momentum_x_error": 7569.549538309863,
+        "angular_momentum_y_error": 470.4673852537922,
+        "angular_momentum_z_error": 852.3822364560864
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "a00cd86d7e719074eaea7604a1f1d912e1c5dd42f60684cef4348cab2c4bfee3",
+      "profiles": [
+        "default"
+      ]
+    },
+    "v13-frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "weighted_rms": {
+        "position_error": 0.2532835193920961,
+        "velocity_error": 0.14088686124659044,
+        "rotation_error_radians": 0.1311881844346719,
+        "wheel_speed_error": 0.9391494433548122,
+        "angular_momentum_error": 7631.905086578349,
+        "suspension_length_error": 0.005721526673436263,
+        "wheel_height_error": 0.000670486209656433,
+        "position_x_error": 0.09434662086905872,
+        "position_y_error": 0.11738086505343505,
+        "position_z_error": 0.20364918081235606,
+        "velocity_x_error": 0.034864201860267854,
+        "velocity_y_error": 0.040872715386762494,
+        "velocity_z_error": 0.1302421446286694,
+        "angular_momentum_x_error": 7569.549538309863,
+        "angular_momentum_y_error": 470.4673852537922,
+        "angular_momentum_z_error": 852.3822364560864
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "5a5666e5a6d2f8cddb193ef3524c16855416caeb56036c09f1d9b50b8df04128",
+      "profiles": [
+        "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/sync-rrr3d/tools/calibration/profiles/windows-source-v13-freeze.cfg\n# Experimental frozen-pose semantics; oblique impacts still regress.\n# Source actuator scales remain one; contact geometry follows the Nx probes.\nsolver_substeps 1\nphysx_wheel_compat 1\nphysx_contact_skin 1\nphysx_suspension_stop 1\nphysx_box_corners 1\nphysx_speculative_skin 1\n\nphysx_independent_friction 1\nphysx_box_contact_order 1\n\nphysx_material_pairs 1\n\nphysx_contact_offsets 1\nphysx_mesh_edges 1\n\nphysx_frozen_pose 1\n"
+      ]
+    },
+    "v14-unfrozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "weighted_rms": {
+        "position_error": 0.2618677906596757,
+        "velocity_error": 0.14747069303656765,
+        "rotation_error_radians": 0.11647447269103996,
+        "wheel_speed_error": 0.9391437151533667,
+        "angular_momentum_error": 7631.888445486888,
+        "suspension_length_error": 0.005721141714236015,
+        "wheel_height_error": 0.000670486209656433,
+        "position_x_error": 0.09676543763124,
+        "position_y_error": 0.15895402498388164,
+        "position_z_error": 0.1842411675126867,
+        "velocity_x_error": 0.036512743286120065,
+        "velocity_y_error": 0.060457735227079035,
+        "velocity_z_error": 0.12945766541082018,
+        "angular_momentum_x_error": 7569.539363422453,
+        "angular_momentum_y_error": 470.41407957800567,
+        "angular_momentum_z_error": 852.3530158854591
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "5ba3f30c3f08521c5fae0d1a510fb170ab45a3159dc1cb45d9f4390ace1e98d5",
+      "profiles": [
+        "default"
+      ]
+    },
+    "v14-frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "weighted_rms": {
+        "position_error": 0.23181422695451387,
+        "velocity_error": 0.13920152981921768,
+        "rotation_error_radians": 0.11647447269103996,
+        "wheel_speed_error": 0.9391437151533667,
+        "angular_momentum_error": 7631.888445486888,
+        "suspension_length_error": 0.005721141714236015,
+        "wheel_height_error": 0.000670486209656433,
+        "position_x_error": 0.09367590861257184,
+        "position_y_error": 0.10707366579525596,
+        "position_z_error": 0.18302428816223762,
+        "velocity_x_error": 0.03465423101681747,
+        "velocity_y_error": 0.038622349473813454,
+        "velocity_z_error": 0.12916835641040814,
+        "angular_momentum_x_error": 7569.539363422453,
+        "angular_momentum_y_error": 470.41407957800567,
+        "angular_momentum_z_error": 852.3530158854591
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "60be2dbffb7a9c5824196bbbbe5bd2b936ecfd44501cc40b81e4ab141da0bf8a",
+      "profiles": [
+        "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/sync-rrr3d/tools/calibration/profiles/windows-source-v14.cfg\n# Static-box parity with source frozen-pose semantics. Dynamic pairs and mesh\n# contacts still have residuals; use the numerical reports to assess them.\n# Source actuator scales remain one; contact geometry follows the Nx probes.\nsolver_substeps 1\nphysx_wheel_compat 1\nphysx_contact_skin 1\nphysx_suspension_stop 1\nphysx_box_corners 1\nphysx_speculative_skin 1\n\nphysx_independent_friction 1\nphysx_box_contact_order 1\n\nphysx_material_pairs 1\n\nphysx_contact_offsets 1\nphysx_mesh_edges 1\n\nphysx_frozen_pose 1\n\nphysx_box_manifolds 1\n"
+      ]
+    }
+  },
+  "reference_validation": {
+    "cases": 608,
+    "samples": 255864,
+    "unpaired_cases_unchanged": 574,
+    "changed_cases": [
+      "pair-same-head-0",
+      "pair-same-head-1",
+      "pair-same-oblique-0",
+      "pair-same-oblique-1",
+      "pair-head-on-0",
+      "pair-head-on-1",
+      "pair-heavy-peer-0",
+      "pair-heavy-peer-1",
+      "pair-weak-first-0",
+      "pair-weak-first-1",
+      "pair-weak-second-0",
+      "pair-weak-second-1",
+      "pair-tilted-first-0",
+      "pair-tilted-first-1",
+      "pair-tilted-second-0",
+      "pair-tilted-second-1",
+      "pair-pole-0",
+      "pair-pole-1",
+      "pair-pole-oblique-0",
+      "pair-pole-oblique-1",
+      "pair-free-oblique-0",
+      "pair-free-oblique-1",
+      "pair-stock-head-0",
+      "pair-stock-head-1",
+      "pair-stock-oblique-0",
+      "pair-stock-oblique-1",
+      "pair-stock-weak-second-0",
+      "pair-stock-weak-second-1",
+      "pair-stock-pole-0",
+      "pair-stock-pole-1",
+      "pair-vertical-locked-0",
+      "pair-vertical-locked-1",
+      "pair-vertical-weak-peer-0",
+      "pair-vertical-weak-peer-1"
+    ],
+    "corrected_peer_cases": {
+      "pair-same-head-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-same-head-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-same-oblique-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-same-oblique-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-head-on-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-head-on-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-heavy-peer-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 2400,
+          "inertia": [
+            5239825.5,
+            5241172,
+            2777.83862
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 2.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-heavy-peer-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 2400,
+          "inertia": [
+            5239825.5,
+            5241172,
+            2777.83862
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 2.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-weak-first-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-weak-first-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-weak-second-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-weak-second-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-tilted-first-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-tilted-first-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-tilted-second-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-tilted-second-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-pole-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-pole-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-pole-oblique-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-pole-oblique-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-free-oblique-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-free-oblique-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-head-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-head-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-oblique-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-oblique-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-weak-second-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-weak-second-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-pole-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-stock-pole-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            389.57724,
+            1062.61035,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-vertical-locked-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-vertical-locked-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-vertical-weak-peer-0": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      },
+      "pair-vertical-weak-peer-1": {
+        "primary": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "peer": {
+          "mass": 1200,
+          "inertia": [
+            2619912.75,
+            2620586,
+            1388.91931
+          ],
+          "com": [
+            0,
+            0,
+            0
+          ]
+        },
+        "mass_ratio": 1.0,
+        "inertia_error": 0.0,
+        "samples_changed": true
+      }
+    },
+    "independent_repeat_identical": {
+      "pair-same-head-0": true,
+      "pair-same-head-1": true,
+      "pair-same-oblique-0": true,
+      "pair-same-oblique-1": true,
+      "pair-heavy-peer-0": true,
+      "pair-heavy-peer-1": true,
+      "pair-tilted-first-0": true,
+      "pair-tilted-second-0": true,
+      "pair-pole-oblique-0": true,
+      "pair-pole-oblique-1": true,
+      "pair-stock-head-0": true,
+      "pair-stock-oblique-0": true
+    }
+  },
+  "repeat_validation": {
+    "repeat_cases": 18,
+    "repeat_samples_identical": true,
+    "default_changed_cases": [
+      "wall-hit",
+      "wall-oblique",
+      "wall-air-straight-1",
+      "wall-air-straight-2",
+      "wall-air-straight-4",
+      "wall-air-straight-8",
+      "wall-air-straight-12",
+      "wall-air-straight-24",
+      "wall-air-oblique-4",
+      "wall-air-oblique-12",
+      "wall-air-oblique-negative-4",
+      "wall-air-y-straight-8",
+      "wall-air-y-oblique-8",
+      "body-friction-locked-x",
+      "body-friction-locked-y",
+      "body-friction-locked-diagonal",
+      "body-friction-locked-skew",
+      "contact-locked-box-depth0-speed2",
+      "contact-locked-box-depth3-speed2",
+      "contact-locked-box-depth4-speed0",
+      "contact-locked-box-depth4-speed1",
+      "contact-locked-box-depth4-speed2",
+      "contact-locked-box-depth5-speed0",
+      "contact-locked-box-depth5-speed1",
+      "contact-locked-box-depth5-speed2",
+      "contact-free-box-depth0-speed2",
+      "contact-free-box-depth1-speed2",
+      "contact-free-box-depth2-speed2",
+      "contact-free-box-depth3-speed1",
+      "contact-free-box-depth3-speed2",
+      "contact-free-box-depth4-speed0",
+      "contact-free-box-depth4-speed1",
+      "contact-free-box-depth4-speed2",
+      "contact-free-box-depth5-speed0",
+      "contact-free-box-depth5-speed1",
+      "contact-free-box-depth5-speed2",
+      "skin-tilted-box-angle0-skin0-thin0",
+      "skin-tilted-box-angle1-skin0-thin0",
+      "skin-tilted-box-angle2-skin0-thin0",
+      "skin-tilted-box-angle3-skin0-thin0",
+      "skin-tilted-box-angle4-skin0-thin0",
+      "skin-tilted-box-angle0-skin1-thin0",
+      "skin-tilted-box-angle1-skin1-thin0",
+      "skin-tilted-box-angle2-skin1-thin0",
+      "skin-tilted-box-angle3-skin1-thin0",
+      "skin-tilted-box-angle4-skin1-thin0",
+      "skin-tilted-box-angle0-skin2-thin0",
+      "skin-tilted-box-angle1-skin2-thin0",
+      "skin-tilted-box-angle2-skin2-thin0",
+      "skin-tilted-box-angle3-skin2-thin0",
+      "skin-tilted-box-angle4-skin2-thin0",
+      "skin-tilted-box-angle0-skin0-thin1",
+      "skin-tilted-box-angle1-skin0-thin1",
+      "skin-tilted-box-angle2-skin0-thin1",
+      "skin-tilted-box-angle3-skin0-thin1",
+      "skin-tilted-box-angle4-skin0-thin1",
+      "skin-tilted-box-angle0-skin1-thin1",
+      "skin-tilted-box-angle1-skin1-thin1",
+      "skin-tilted-box-angle2-skin1-thin1",
+      "skin-tilted-box-angle3-skin1-thin1",
+      "skin-tilted-box-angle4-skin1-thin1",
+      "skin-tilted-box-angle0-skin2-thin1",
+      "skin-tilted-box-angle1-skin2-thin1",
+      "skin-tilted-box-angle2-skin2-thin1",
+      "skin-tilted-box-angle3-skin2-thin1",
+      "skin-tilted-box-angle4-skin2-thin1"
+    ],
+    "dynamic_pairs_unchanged": true,
+    "triangle_cases_unchanged": true,
+    "default_decision": "Enable independently verified static-box manifold/PGS path; retain frozen-pose opt-in until mesh contacts are corrected."
+  },
+  "installed_validation": {
+    "default-unfrozen": {
+      "cases": 18,
+      "changed": []
+    },
+    "frozen-profile": {
+      "cases": 18,
+      "changed": []
+    }
+  },
+  "launcher_validation": {
+    "cases": [
+      "wall-air-straight-8",
+      "body-friction-locked-x",
+      "pair-heavy-peer-0",
+      "force"
+    ],
+    "sample_hashes_match": true,
+    "source_box_enabled": true,
+    "frozen_pose_enabled": false,
+    "profile": "/Users/dmitrijcerednicenko/Applications/MotorRock-Calibration-Tools/profiles/windows-source-v14-default.cfg"
+  },
+  "runtime_checks": {
+    "default-unfrozen/physics": {
+      "exit": 0
+    },
+    "default-unfrozen/track0": {
+      "exit": 0
+    },
+    "default-unfrozen/track16": {
+      "exit": 0
+    },
+    "default-unfrozen/track48": {
+      "exit": 0
+    },
+    "default-unfrozen/track64": {
+      "exit": 0
+    },
+    "frozen-profile/physics": {
+      "exit": 0
+    },
+    "frozen-profile/track0": {
+      "exit": 0
+    },
+    "frozen-profile/track16": {
+      "exit": 0
+    },
+    "frozen-profile/track48": {
+      "exit": 0
+    },
+    "frozen-profile/track64": {
+      "exit": 0
+    }
+  },
+  "reference_gate_validation": {
+    "corrected_reference_cases": 608,
+    "verified_peer_descriptions": 34,
+    "legacy_reference_rejected": true,
+    "legacy_rejection_reason": "pair-same-head-0: legacy Windows pair reference lacks actual peer mass properties; recapture with the corrected v14 stand"
+  },
+  "patch_validation": {
+    "fresh_apply": true,
+    "idempotent": true,
+    "files": {
+      "Jolt/Physics/Collision/ContactListener.h": "6e892bbeb19441abfc322ce18053e17e14297b2aa290aa4ea74528d134a43eb0",
+      "Jolt/Physics/Constraints/ContactConstraintManager.h": "879acf7950b02234794b09fd46ecd90e339ad560dfefce97d2943fcb0b1c9d48",
+      "Jolt/Physics/Constraints/ContactConstraintManager.cpp": "d667340b89241fc6f2f9b0ac6691350e53bf3c11026cb5f04e4de9585ba2c2b4",
+      "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h": "d11e70d50f9b0e67973e834cdd4406be2be7ce2f662a5303ea44d5ed18647a47"
+    }
+  },
+  "captures": {
+    "calibration-v14-source-windows.jsonl": {
+      "bytes": 778212550,
+      "sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f"
+    },
+    "calibration-v14-default-unfrozen-mac.jsonl": {
+      "bytes": 392324902,
+      "sha256": "5ba3f30c3f08521c5fae0d1a510fb170ab45a3159dc1cb45d9f4390ace1e98d5"
+    },
+    "calibration-v14-frozen-profile-mac.jsonl": {
+      "bytes": 392997662,
+      "sha256": "60be2dbffb7a9c5824196bbbbe5bd2b936ecfd44501cc40b81e4ab141da0bf8a"
+    },
+    "calibration-v14-frozen-repeat-mac.jsonl": {
+      "bytes": 8929053,
+      "sha256": "17cadd42e998d1405d3a139f68542bc3d5d29467e13ba4beb136fef463b6ab8e"
+    },
+    "reference-peer-clone-v14-windows.jsonl": {
+      "bytes": 11437468,
+      "sha256": "62d03f32fdf0aac804d26a3d65a4699afff73114c15278cff0e5f0f5ed2dc166"
+    },
+    "reference-point-force-v14-windows.jsonl": {
+      "bytes": 10063042,
+      "sha256": "6baa5d43b77a72f0cd8f43f84f69c97e32eaefb69262b2ead732f43ec0669983"
+    },
+    "calibration-v14-unfrozen-corrected-report/report.json": {
+      "bytes": 3869607,
+      "sha256": "936eafff9061bdf912a550e2024ae0720e5b0c8864844e297e216b6fc16b09c7"
+    },
+    "calibration-v14-frozen-corrected-report/report.json": {
+      "bytes": 3874281,
+      "sha256": "0bc72a0c7cb90861f9c37d9fadcbb5b282d200699525d56cec6d051b3b9779ca"
+    }
+  }
+}

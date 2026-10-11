@@ -77,5 +77,29 @@ class CompareTest(unittest.TestCase):
     def test_duplicate_case(self):
         self.b+=copy.deepcopy(self.b)
         with self.assertRaises(ValueError):self.run_compare()
+    def sdk_pair(self):
+        for rows in (self.a, self.b):
+            rows[0]['sample'].update(fixture='source-vehicle-matrix-v7-sdk',
+                                    pair={'peer_mass':2400},
+                                    fixture_parameters={'center_of_mass':[0,0,0]})
+        for event,mass,inertia in [('calibration.engine-description',1200,[1,2,3]),
+                                   ('calibration.peer-description',2400,[2,4,6])]:
+            self.a.insert(1, dict(platform='windows-physx-d3d9',event=event,detail='force',
+                                 sample={'mass':mass,'inertia':inertia,'com':[0,0,0]}))
+    def test_correct_sdk_peer_description(self):
+        self.sdk_pair()
+        self.assertTrue(self.run_compare()['exact_parity']['complete'])
+    def test_legacy_sdk_peer_reference_rejected(self):
+        self.sdk_pair()
+        self.a=[r for r in self.a if r['event']!='calibration.peer-description']
+        with self.assertRaisesRegex(ValueError,'recapture with the corrected v14 stand'):self.run_compare()
+    def test_sdk_peer_assignment_inertia_rejected(self):
+        self.sdk_pair()
+        next(r for r in self.a if r['event']=='calibration.peer-description')['sample']['inertia']=[.2,.4,.6]
+        with self.assertRaisesRegex(ValueError,'wheel-description copy construction'):self.run_compare()
+    def test_sdk_actual_peer_mass_rejected(self):
+        self.sdk_pair()
+        next(r for r in self.a if r['event']=='calibration.peer-description')['sample']['mass']=1200
+        with self.assertRaisesRegex(ValueError,'actor mass differs'):self.run_compare()
 
 if __name__=='__main__':unittest.main()

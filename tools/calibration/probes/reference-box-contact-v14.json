@@ -1,0 +1,1668 @@
+{
+  "schema": 1,
+  "source": "Parallels Windows / original PhysX 2.8.4 SDK; point-report-only probe, 15 trajectories matched the unchanged v12 stand exactly",
+  "capture_sha256": "6baa5d43b77a72f0cd8f43f84f69c97e32eaefb69262b2ead732f43ec0669983",
+  "windows_source_package_sha256": "40164ed1ad838d8d01352f4c27a8a1def2939b1485cad3a0153aae18112f21dd",
+  "scope": "Static box contacts. Deep impact checks first solve only; later deep-penetration cache residuals are still tracked in full reports. Units are source-world coordinates, seconds, kg.",
+  "cases": {
+    "wall-air-straight-8": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 600,
+        "mass": 1200,
+        "gravity": 0,
+        "height": 13,
+        "ground": false,
+        "initial_velocity": [
+          8,
+          0,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 1,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v"
+      },
+      "samples": [
+        {
+          "tick": 47,
+          "position": [
+            6.23030138,
+            -0.00092917413,
+            13.0151911
+          ],
+          "velocity": [
+            -2.15868592,
+            -0.0707324073,
+            0.804263711
+          ],
+          "angular_momentum": [
+            -26.3949566,
+            480.697754,
+            -26.1625767
+          ],
+          "rotation": [
+            -0.000627838483,
+            0.00426778803,
+            -0.000184479781,
+            0.999990702
+          ]
+        },
+        {
+          "tick": 48,
+          "position": [
+            6.19432306,
+            -0.00210804772,
+            13.0285959
+          ],
+          "velocity": [
+            -2.15868592,
+            -0.0707324073,
+            0.804263711
+          ],
+          "angular_momentum": [
+            -26.422781,
+            480.275665,
+            -26.4828205
+          ],
+          "rotation": [
+            -0.0011909809,
+            0.00803454407,
+            -0.00033901009,
+            0.999966979
+          ]
+        },
+        {
+          "tick": 52,
+          "position": [
+            6.05040979,
+            -0.0068235416,
+            13.0822153
+          ],
+          "velocity": [
+            -2.15868592,
+            -0.0707324073,
+            0.804263711
+          ],
+          "angular_momentum": [
+            -26.5586281,
+            478.587646,
+            -27.7511768
+          ],
+          "rotation": [
+            -0.00343860802,
+            0.0230685007,
+            -0.000955773343,
+            0.999727607
+          ]
+        },
+        {
+          "tick": 599,
+          "position": [
+            -13.6296768,
+            -0.651663303,
+            20.4146652
+          ],
+          "velocity": [
+            -2.15868592,
+            -0.0707324073,
+            0.804263711
+          ],
+          "angular_momentum": [
+            -71.1647491,
+            295.860962,
+            -1.61964321
+          ],
+          "rotation": [
+            -0.146665752,
+            0.981011808,
+            -0.0402446203,
+            -0.120363563
+          ]
+        }
+      ]
+    },
+    "wall-air-y-straight-8": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 600,
+        "mass": 1200,
+        "gravity": 0,
+        "height": 13,
+        "ground": false,
+        "initial_velocity": [
+          0,
+          8,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 6,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                0
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v"
+      },
+      "samples": [
+        {
+          "tick": 53,
+          "position": [
+            0.000540482462,
+            7.0319581,
+            13.0113001
+          ],
+          "velocity": [
+            0.0135454917,
+            -2.06965637,
+            0.579792261
+          ],
+          "angular_momentum": [
+            -217.42511,
+            25.0464611,
+            -96.2948761
+          ],
+          "rotation": [
+            -0.00552696502,
+            0.000247836986,
+            -0.00067871582,
+            0.999984443
+          ]
+        },
+        {
+          "tick": 54,
+          "position": [
+            0.000766240642,
+            6.9974637,
+            13.0209637
+          ],
+          "velocity": [
+            0.0135454917,
+            -2.06965637,
+            0.579792261
+          ],
+          "angular_momentum": [
+            -217.254379,
+            24.3811035,
+            -96.3563232
+          ],
+          "rotation": [
+            -0.0101735406,
+            0.000450078805,
+            -0.00125489954,
+            0.999947369
+          ]
+        },
+        {
+          "tick": 58,
+          "position": [
+            0.00166927336,
+            6.8594861,
+            13.059618
+          ],
+          "velocity": [
+            0.0135454917,
+            -2.06965637,
+            0.579792261
+          ],
+          "angular_momentum": [
+            -216.58075,
+            21.7238102,
+            -96.5396652
+          ],
+          "rotation": [
+            -0.0287179183,
+            0.00125721947,
+            -0.00355443638,
+            0.999580443
+          ]
+        },
+        {
+          "tick": 599,
+          "position": [
+            0.12380521,
+            -11.8019428,
+            18.2873898
+          ],
+          "velocity": [
+            0.0135454917,
+            -2.06965637,
+            0.579792261
+          ],
+          "angular_momentum": [
+            -146.401657,
+            36.8270073,
+            14.6785774
+          ],
+          "rotation": [
+            -0.874190688,
+            0.0380456559,
+            -0.108404338,
+            -0.47179535
+          ]
+        }
+      ]
+    },
+    "body-friction-locked-x": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 180,
+        "mass": 1200,
+        "gravity": -20,
+        "height": 10.25,
+        "ground": false,
+        "initial_velocity": [
+          5,
+          0,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 5,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v",
+        "fixed_orientation": true
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "position": [
+            0.0817200094,
+            -0.000544000766,
+            10.2500076
+          ],
+          "velocity": [
+            4.90320063,
+            -0.0322492197,
+            0.000455531874
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 1,
+          "position": [
+            0.161830693,
+            -0.00144164904,
+            10.2500095
+          ],
+          "velocity": [
+            4.80664158,
+            -0.053470429,
+            8.75548285e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 5,
+          "position": [
+            0.466164112,
+            -0.00670454884,
+            10.2500095
+          ],
+          "velocity": [
+            4.42000151,
+            -0.0869816318,
+            -5.3641852e-06
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 179,
+          "position": [
+            2.1157155,
+            -0.0813842341,
+            10.2500095
+          ],
+          "velocity": [
+            6.6811328e-05,
+            3.66002896e-05,
+            -2.56298372e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "body-friction-locked-y": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 180,
+        "mass": 1200,
+        "gravity": -20,
+        "height": 10.25,
+        "ground": false,
+        "initial_velocity": [
+          0,
+          5,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 5,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v",
+        "fixed_orientation": true
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "position": [
+            -0.00105253758,
+            0.0817200169,
+            10.2500076
+          ],
+          "velocity": [
+            -0.0627537593,
+            4.90320158,
+            0.000455313799
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 1,
+          "position": [
+            -0.00247519836,
+            0.161830753,
+            10.2500086
+          ],
+          "velocity": [
+            -0.0849685743,
+            4.80664396,
+            8.03356379e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 5,
+          "position": [
+            -0.00888016261,
+            0.466164172,
+            10.2500095
+          ],
+          "velocity": [
+            -0.0971824154,
+            4.42000437,
+            -1.51412823e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 179,
+          "position": [
+            -0.0837113559,
+            2.11925244,
+            10.2500095
+          ],
+          "velocity": [
+            6.68113207e-05,
+            3.6600286e-05,
+            -2.56297499e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "body-friction-locked-diagonal": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 180,
+        "mass": 1200,
+        "gravity": -20,
+        "height": 10.25,
+        "ground": false,
+        "initial_velocity": [
+          5,
+          5,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 5,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v",
+        "fixed_orientation": true
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "position": [
+            0.0817199722,
+            0.0817199722,
+            10.2500076
+          ],
+          "velocity": [
+            4.90319872,
+            4.90319872,
+            0.000462431461
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 1,
+          "position": [
+            0.161830604,
+            0.161830604,
+            10.2500095
+          ],
+          "velocity": [
+            4.80663872,
+            4.80663872,
+            9.56031581e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 5,
+          "position": [
+            0.466163814,
+            0.466163814,
+            10.2500095
+          ],
+          "velocity": [
+            4.41999912,
+            4.41999912,
+            4.53516259e-06
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "tick": 179,
+          "position": [
+            2.11347437,
+            2.11463666,
+            10.2500095
+          ],
+          "velocity": [
+            6.68113207e-05,
+            3.6600286e-05,
+            -2.56298226e-05
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "contact-locked-box-depth4-speed2": {
+      "metadata": {
+        "schema": 1,
+        "fixture": "source-vehicle-matrix-v7-sdk",
+        "dt": 0.016666666666666666,
+        "sample_phase": "after_solve",
+        "steps": 12,
+        "mass": 1200,
+        "gravity": 0,
+        "height": 13,
+        "ground": false,
+        "initial_velocity": [
+          8,
+          0,
+          0
+        ],
+        "initial_angular_velocity": [
+          0,
+          0,
+          0
+        ],
+        "profile": "windows-reference",
+        "fixture_parameters": {
+          "catalog": "synthetic",
+          "half_extents": [
+            1.5,
+            0.8,
+            0.3
+          ],
+          "shape_position": [
+            0,
+            0,
+            0
+          ],
+          "center_of_mass": [
+            0,
+            0,
+            0
+          ],
+          "body_friction": 0.08,
+          "sleep_threshold": 0,
+          "tire_spring": 0,
+          "traction": true,
+          "obstacle": 1,
+          "slope_x": 0,
+          "slope_y": 0,
+          "angular_damping": 0.05,
+          "skin_width": 0.025,
+          "adaptive_force": false,
+          "actor_flags": 20,
+          "ground_friction": 0.1,
+          "ground_restitution": 0,
+          "brake_limit": 4000,
+          "ground_height": 10,
+          "wheels": [
+            {
+              "position": [
+                1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": true,
+              "steering": true,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            },
+            {
+              "position": [
+                -1.1,
+                -0.75,
+                100
+              ],
+              "radius": 0.4,
+              "travel": 0.5,
+              "spring": 35000,
+              "damper": 4500,
+              "target": 0,
+              "inverse_mass": 0.1,
+              "flags": 64,
+              "driven": false,
+              "steering": false,
+              "longitudinal_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ],
+              "lateral_tire": [
+                1,
+                0.02,
+                2,
+                0.01,
+                1000000
+              ]
+            }
+          ],
+          "extra_gravity": false,
+          "air_pitch": 0,
+          "clamp_roll": 0,
+          "clamp_pitch": 0,
+          "game_angular_damping": [
+            1,
+            1,
+            1
+          ]
+        },
+        "units": "source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v",
+        "initial_position": [
+          6.5,
+          0,
+          13
+        ],
+        "fixed_orientation": true
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "position": [
+            6.46605349,
+            0.00205509318,
+            13.0000324
+          ],
+          "velocity": [
+            -2.0252223,
+            0.0842593014,
+            0.00192490313
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    }
+  }
+}

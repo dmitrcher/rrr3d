@@ -27,7 +27,7 @@ static void execute(const cal::Case& c) {
  if(c.ground){NxVec3 points[4];const float xs[]={-500,500,500,-500},ys[]={-500,-500,500,500};for(int i=0;i<4;++i)points[i]=NxVec3(xs[i],ys[i],(float)(10+c.slopeX*xs[i]+c.slopeY*ys[i]));NxU32 indices[]={0,1,2,0,2,3};NxTriangleMeshDesc mesh;mesh.numVertices=4;mesh.pointStrideBytes=sizeof(NxVec3);mesh.points=points;mesh.numTriangles=2;mesh.triangleStrideBytes=3*sizeof(NxU32);mesh.triangles=indices;CalibrationStream stream;if(!cooking->NxCookTriangleMesh(mesh,stream))throw std::runtime_error("Ground mesh cooking failed");groundMesh=sdk->createTriangleMesh(stream);if(!groundMesh)throw std::runtime_error("Ground mesh creation failed");NxMaterialDesc mat;mat.staticFriction=mat.dynamicFriction=.1f;mat.restitution=0;NxMaterial* trackMat=scene->createMaterial(mat);NxTriangleMeshShapeDesc floor;floor.meshData=groundMesh;floor.materialIndex=trackMat->getMaterialIndex();NxActorDesc actor;actor.shapes.pushBack(&floor);if(!scene->createActor(actor))throw std::runtime_error("Floor creation failed");}
  NxMaterialDesc wheelMat;wheelMat.flags=NX_MF_DISABLE_FRICTION;wheelMat.restitution=0;NxMaterial* wheelMaterial=scene->createMaterial(wheelMat);
 
- NxBoxShapeDesc box;box.dimensions=v3(c.halfExtents);box.localPose.t=v3(c.shapePosition);box.skinWidth=(float)c.bodySkinWidth;box.materialIndex=carMaterial->getMaterialIndex();
+ NxBoxShapeDesc box;box.shapeFlags |= NX_SF_POINT_CONTACT_FORCE;box.dimensions=v3(c.halfExtents);box.localPose.t=v3(c.shapePosition);box.skinWidth=(float)c.bodySkinWidth;box.materialIndex=carMaterial->getMaterialIndex();
  NxBodyDesc body;body.mass=(float)c.mass;body.linearDamping=0;body.angularDamping=.05f;body.sleepEnergyThreshold=(float)c.sleepThreshold;body.massLocalPose.t=v3(c.centerOfMass);body.solverIterationCount=4;
  if(c.fixedOrientation)body.flags|=NX_BF_FROZEN_ROT;
  WheelContact callback(c);NxWheelShapeDesc wheelDescriptions[4];NxWheelShape* wheels[4];
@@ -36,15 +36,17 @@ static void execute(const cal::Case& c) {
  actor.shapes.pushBack(&w);}
  if(c.pair){NxQuat q;q.fromAngleAxisFast((float)c.primaryRoll,NxVec3(1,0,0));actor.globalPose.M.fromQuat(q);}
  if(c.initialPitch!=0){NxQuat q;q.fromAngleAxisFast((float)c.initialPitch,NxVec3(0,1,0));actor.globalPose.M.fromQuat(q);}
- NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");
+ NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");car->userData=reinterpret_cast<void*>(1);
  car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
  for(int i=0;i<4;++i){wheels[i]=car->getShapes()[i+1]->isWheel();if(!wheels[i])throw std::runtime_error("Wheel shape order changed");}
- NxActor* peer=0;NxWheelShapeDesc peerWheelDescriptions[4];NxWheelShape* peerWheels[4];
+ NxActor* peer=0;std::vector<NxWheelShapeDesc> peerWheelDescriptions;peerWheelDescriptions.reserve(4);NxWheelShape* peerWheels[4];
  if(c.pair){NxBodyDesc peerBody=body;peerBody.mass=(float)c.peerMass;NxBoxShapeDesc peerBox=box;
   if(c.peerFriction!=c.bodyFriction){NxMaterialDesc peerMat=carMat;peerMat.staticFriction=peerMat.dynamicFriction=(float)c.peerFriction;peerBox.materialIndex=scene->createMaterial(peerMat)->getMaterialIndex();}
   NxActorDesc peerActor=actor;peerActor.body=&peerBody;peerActor.shapes.clear();peerActor.shapes.pushBack(&peerBox);peerActor.globalPose.t=v3(c.peerPosition);NxQuat q;q.fromAngleAxisFast((float)c.peerRoll,NxVec3(1,0,0));peerActor.globalPose.M.fromQuat(q);
-  for(int i=0;i<4;++i){peerWheelDescriptions[i]=wheelDescriptions[i];peerActor.shapes.pushBack(&peerWheelDescriptions[i]);}
-  peer=scene->createActor(peerActor);if(!peer)throw std::runtime_error("Peer car creation failed");peer->setCMassOffsetLocalPose(peerBody.massLocalPose);peer->setLinearVelocity(v3(c.peerVelocity));
+  // NxShapeDesc::operator= is deliberately a no-op. Copy construction also
+  // preserves local pose, material, collision group and shape flags.
+  for(int i=0;i<4;++i){peerWheelDescriptions.push_back(wheelDescriptions[i]);peerActor.shapes.pushBack(&peerWheelDescriptions[i]);}
+  peer=scene->createActor(peerActor);if(!peer)throw std::runtime_error("Peer car creation failed");peer->userData=reinterpret_cast<void*>(2);peer->setCMassOffsetLocalPose(peerBody.massLocalPose);peer->setLinearVelocity(v3(c.peerVelocity));
   for(int i=0;i<4;++i){peerWheels[i]=peer->getShapes()[i+1]->isWheel();if(!peerWheels[i])throw std::runtime_error("Peer wheel shape order changed");}
  }
  if(c.obstacle==7||c.obstacle==8||c.obstacle==9){NxVec3 points[4];
@@ -57,6 +59,8 @@ static void execute(const cal::Case& c) {
  else if(c.obstacle){NxBoxShapeDesc o;o.dimensions=c.obstacle<=2?NxVec3(.25f,10,3):c.obstacle==3?NxVec3(.5f,10,.15f):NxVec3(20,.25f,.3f);NxActorDesc a;a.shapes.pushBack(&o);a.globalPose.t=c.obstacle<=2?NxVec3(8,0,13):c.obstacle==3?NxVec3(8,0,10.15f):NxVec3(8,.9f,10.3f);if(!scene->createActor(a))throw std::runtime_error("Obstacle creation failed");}
  car->setCMassOffsetLocalPose(body.massLocalPose);
  std::ostringstream actual;actual<<"{\"mass\":"<<car->getMass()<<",\"inertia\":"<<cal::vector(cal::V(car->getMassSpaceInertiaTensor().x,car->getMassSpaceInertiaTensor().y,car->getMassSpaceInertiaTensor().z))<<",\"com\":"<<cal::vector(cal::V(car->getCMassLocalPosition().x,car->getCMassLocalPosition().y,car->getCMassLocalPosition().z))<<'}';motorrock::parity::event("calibration.engine-description",c.name,actual.str());
+
+ if(peer){std::ostringstream p;p<<"{\"mass\":"<<peer->getMass()<<",\"inertia\":"<<cal::vector(cal::V(peer->getMassSpaceInertiaTensor().x,peer->getMassSpaceInertiaTensor().y,peer->getMassSpaceInertiaTensor().z))<<",\"com\":"<<cal::vector(cal::V(peer->getCMassLocalPosition().x,peer->getCMassLocalPosition().y,peer->getCMassLocalPosition().z))<<'}';motorrock::parity::event("calibration.peer-description",c.name,p.str());}
  car->setLinearVelocity(NxVec3((float)c.velocity.x,(float)c.velocity.y,(float)c.velocity.z));car->setAngularVelocity(NxVec3((float)c.angular.x,(float)c.angular.y,(float)c.angular.z));
  for(int tick=0;tick<c.steps;++tick){bodyContacts.tick=bodyReport.tick=tick;const cal::Command x=cal::command(c,tick);
  if(c.extraGravity)car->addForce(NxVec3(0,0,(float)c.gravity),NX_ACCELERATION);

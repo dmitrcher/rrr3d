@@ -173,6 +173,13 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
     rrr3d_set_common_target_options(rrr3d_frozen_pose_test)
     add_test(NAME source_frozen_pose COMMAND rrr3d_frozen_pose_test
         "${CMAKE_CURRENT_BINARY_DIR}/frozen-pose-test.cfg")
+    find_package(Python3 COMPONENTS Interpreter QUIET)
+    if(Python3_Interpreter_FOUND)
+        add_test(NAME source_box_contact_reference COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/test_box_manifolds.py"
+            $<TARGET_FILE:rrr3d_physics_calibration>
+            "${CMAKE_SOURCE_DIR}/tools/calibration/probes/reference-box-contact-v14.json")
+    endif()
     add_executable(rrr3d_body_friction_test ../../tools/calibration/test_body_friction.cpp)
     target_link_libraries(rrr3d_body_friction_test PRIVATE Rock3dEngine)
     rrr3d_set_common_target_options(rrr3d_body_friction_test)

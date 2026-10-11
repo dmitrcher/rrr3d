@@ -36,6 +36,8 @@ public:
    const NxVec3 point0=s0->getActor().isDynamic()?s0->getActor().getCMassGlobalPose()*data.localpos0:data.localpos0;
    const NxVec3 point1=s1->getActor().isDynamic()?s1->getActor().getCMassGlobalPose()*data.localpos1:data.localpos1;
    std::ostringstream points;points<<"{\"tick\":"<<tick<<",\"car_shape\":"<<(car==s0?0:1)
+    <<",\"actor0_id\":"<<reinterpret_cast<size_t>(s0->getActor().userData)
+    <<",\"actor1_id\":"<<reinterpret_cast<size_t>(s1->getActor().userData)
     <<",\"constraint_error\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.error.x,data.error.y,data.error.z))
     <<",\"constraint_target\":"<<motorrock::calibration::vector(motorrock::calibration::V(data.target.x,data.target.y,data.target.z))
     <<",\"point0\":"<<motorrock::calibration::vector(motorrock::calibration::V(point0.x,point0.y,point0.z))
@@ -92,6 +94,15 @@ public:
    <<",\"normal_force\":"<<motorrock::calibration::vector(motorrock::calibration::V(pair.sumNormalForce.x,pair.sumNormalForce.y,pair.sumNormalForce.z))
    <<",\"friction_force\":"<<motorrock::calibration::vector(motorrock::calibration::V(pair.sumFrictionForce.x,pair.sumFrictionForce.y,pair.sumFrictionForce.z))<<'}';
   motorrock::parity::event("calibration.body-impulse",caseName,s.str());
+  NxContactStreamIterator contacts(pair.stream); int pointIndex=0;
+  while(contacts.goNextPair()) while(contacts.goNextPatch()) while(contacts.goNextPoint()) {
+   const NxVec3 point=contacts.getPoint(),normal=contacts.getPatchNormal();
+   std::ostringstream p;p<<"{\"tick\":"<<tick<<",\"index\":"<<pointIndex++
+    <<",\"point\":"<<motorrock::calibration::vector(motorrock::calibration::V(point.x,point.y,point.z))
+    <<",\"normal\":"<<motorrock::calibration::vector(motorrock::calibration::V(normal.x,normal.y,normal.z))
+    <<",\"separation\":"<<contacts.getSeparation()<<",\"normal_force\":"<<contacts.getPointNormalForce()<<'}';
+   motorrock::parity::event("calibration.point-force",caseName,p.str());
+  }
  }
 };
 #endif

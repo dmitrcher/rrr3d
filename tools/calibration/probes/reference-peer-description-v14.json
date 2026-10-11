@@ -1,0 +1,1078 @@
+{
+  "schema": 1,
+  "source": "Independent PhysX 2.8.4 Windows SDK capture; corrected peer wheel copy construction",
+  "fixture": "source-vehicle-matrix-v7-sdk",
+  "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+  "all_unpaired_samples_unchanged": 574,
+  "corrected_peer_cases": {
+    "pair-same-head-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-same-head-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-same-oblique-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-same-oblique-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-head-on-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-head-on-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-heavy-peer-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 2400,
+        "inertia": [
+          5239825.5,
+          5241172,
+          2777.83862
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 2.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-heavy-peer-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 2400,
+        "inertia": [
+          5239825.5,
+          5241172,
+          2777.83862
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 2.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-weak-first-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-weak-first-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-weak-second-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-weak-second-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-tilted-first-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-tilted-first-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-tilted-second-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-tilted-second-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-pole-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-pole-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-pole-oblique-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-pole-oblique-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-free-oblique-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-free-oblique-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-head-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-head-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-oblique-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-oblique-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-weak-second-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-weak-second-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-pole-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-stock-pole-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          389.57724,
+          1062.61035,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-vertical-locked-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-vertical-locked-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-vertical-weak-peer-0": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    },
+    "pair-vertical-weak-peer-1": {
+      "primary": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "peer": {
+        "mass": 1200,
+        "inertia": [
+          2619912.75,
+          2620586,
+          1388.91931
+        ],
+        "com": [
+          0,
+          0,
+          0
+        ]
+      },
+      "mass_ratio": 1.0,
+      "inertia_error": 0.0,
+      "samples_changed": true
+    }
+  },
+  "independent_repeats": {
+    "pair-same-head-0": true,
+    "pair-same-head-1": true,
+    "pair-same-oblique-0": true,
+    "pair-same-oblique-1": true,
+    "pair-heavy-peer-0": true,
+    "pair-heavy-peer-1": true,
+    "pair-tilted-first-0": true,
+    "pair-tilted-second-0": true,
+    "pair-pole-oblique-0": true,
+    "pair-pole-oblique-1": true,
+    "pair-stock-head-0": true,
+    "pair-stock-oblique-0": true
+  },
+  "sdk_contract": "NxShapeDesc.h: NxShapeDesc::operator=(const NxShapeDesc&) returns *this without copying; NxWheelShapeDesc.h requires the copy constructor."
+}

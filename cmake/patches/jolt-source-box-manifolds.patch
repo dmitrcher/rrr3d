@@ -1,0 +1,279 @@
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -6,6 +6,7 @@
+ 
+ #include <Jolt/Physics/Collision/Shape/SubShapeIDPair.h>
+ #include <Jolt/Core/StaticArray.h>
++#include <array>
+ 
+ JPH_NAMESPACE_BEGIN
+ 
+@@ -20,7 +21,7 @@
+ {
+ public:
+ 	/// Swaps shape 1 and 2
+-	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1 }; }
++	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS }; }
+ 
+ 	/// Access to the world space contact positions
+ 	inline RVec3			GetWorldSpaceContactPointOn1(uint inIndex) const { return mBaseOffset + mRelativeContactPointsOn1[inIndex]; }
+@@ -33,6 +34,9 @@
+ 	SubShapeID				mSubShapeID2;
+ 	ContactPoints			mRelativeContactPointsOn1;			///< Contact points on the surface of shape 1 relative to mBaseOffset.
+ 	ContactPoints			mRelativeContactPointsOn2;			///< Contact points on the surface of shape 2 relative to mBaseOffset. If there's no penetration, this will be the same as mRelativeContactPointsOn1. If there is penetration they will be different.
++	bool mUseSourceSeparation = false;
++	std::array<float, 64> mSourceSeparations{};
++	bool mUseSourceBlockPGS = false;
+ };
+ 
+ /// When a contact point is added or persisted, the callback gets a chance to override certain properties of the contact constraint.
+@@ -47,6 +51,9 @@
+ 	bool					mUseBoxContactOrder = false; ///< Nx box face winding inferred from reference impulse probes
+ 	float					mAdditionalSeparation = 0.0f; ///< Source mesh skin not represented by convex geometry
+ 	float					mPositionPenetrationSlop = -1.0f; ///< Optional pair-specific position slop; negative uses global
++	bool mUseSourceSeparation = false;
++	std::array<float, 64> mSourceSeparations{};
++	bool mUseSourceBlockPGS = false;
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+@@ -99,6 +106,10 @@
+ 	/// Body 1 will have a motion type that is larger or equal than body 2's motion type (order from large to small: dynamic -> kinematic -> static). When motion types are equal, they are ordered by BodyID.
+ 	///
+ 	/// The collision result (inCollisionResult) is reported relative to inBaseOffset.
++	virtual void OnSourceMotionSolved([[maybe_unused]] const Body &inBody, [[maybe_unused]] Vec3Arg inVelocity, [[maybe_unused]] Vec3Arg inAngularVelocity) { }
++	virtual bool WantsContactManifoldRefresh([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2) const { return false; }
++	virtual bool OverrideContactManifold([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] const ContactManifold &inManifold, [[maybe_unused]] ContactManifold &outManifold) { return false; }
++
+ 	virtual ValidateResult	OnContactValidate([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] RVec3Arg inBaseOffset, [[maybe_unused]] const CollideShapeResult &inCollisionResult) { return ValidateResult::AcceptAllContactsForThisBodyPair; }
+ 
+ 	/// Called whenever a new contact point is detected.
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -208,7 +208,7 @@
+ 	bool						SolveVelocityConstraints(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd);
+ 
+ 	/// Save back the lambdas to the contact cache for the next warm start
+-	void						StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd) const;
++	void						StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd);
+ 
+ 	/// Solve position constraints.
+ 	/// This is using the approach described in 'Modeling and Solving Constraints' by Erin Catto presented at GDC 2007.
+@@ -435,6 +435,8 @@
+ 		AxisConstraintPart		mFrictionConstraint2;
+ 
+ 		/// Contact cache
++		float mSourceSeparation = 0.0f;
++		float mSourceUnbiasedVelocityBias = 0.0f;
+ 		CachedContactPoint *	mContactPoint;
+ 	};
+ 
+@@ -478,6 +480,7 @@
+ 		float					mInvInertiaScale1;
+ 		float					mInvMass2;
+ 		float					mInvInertiaScale2;
++		bool mUseSourceBlockPGS = false;
+ 		WorldContactPoints		mContactPoints;
+ 	};
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -94,7 +94,7 @@
+ 	float normal_velocity = relative_velocity.Dot(inWorldSpaceNormal);
+ 
+ 	// How much the shapes are penetrating (> 0 if penetrating, < 0 if separated)
+-	float penetration = Vec3(inWorldSpacePosition1 - inWorldSpacePosition2).Dot(inWorldSpaceNormal) - inSettings.mAdditionalSeparation;
++	float penetration = Vec3(inWorldSpacePosition1 - inWorldSpacePosition2).Dot(inWorldSpaceNormal) - inSettings.mAdditionalSeparation - mSourceSeparation;
+ 
+ 	// If there is no penetration, this is a speculative contact and we will apply a bias to the contact constraint
+ 	// so that the constraint becomes relative_velocity . contact normal > -penetration / delta_time
+@@ -126,6 +126,12 @@
+ 		normal_velocity_bias = speculative_contact_velocity_bias;
+ 	}
+ 
++	if (inSettings.mUseSourceBlockPGS)
++	{
++		const bool bounce = inSettings.mCombinedRestitution > 0.0f && normal_velocity < -inMinVelocityForRestitution && normal_velocity < -speculative_contact_velocity_bias;
++		mSourceUnbiasedVelocityBias = bounce? normal_velocity_bias : 0.8f * speculative_contact_velocity_bias;
++		normal_velocity_bias = bounce? normal_velocity_bias : -0.8f * penetration / inDeltaTime;
++	}
+ 	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias);
+ 
+ 	// Calculate friction part
+@@ -742,8 +748,11 @@
+ 
+ 	// Setup velocity constraint properties
+ 	float min_velocity_for_restitution = mPhysicsSettings.mMinVelocityForRestitution;
++	uint source_point_index = 0;
+ 	for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 	{
++		wcp.mSourceSeparation = inSettings.mUseSourceSeparation? inSettings.mSourceSeparations[source_point_index] : 0.0f;
++		++source_point_index;
+ 		RVec3 p1 = inTransformBody1 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition1);
+ 		RVec3 p2 = inTransformBody2 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition2);
+ 		wcp.TemplatedCalculateFrictionAndNonPenetrationConstraintProperties<Type1, Type2>(inDeltaTime, gravity_dt_dot_normal, inBody1, inBody2, ioConstraint.mInvMass1, ioConstraint.mInvMass2, inv_i1, inv_i2, p1, p2, ws_normal, t1, t2, inSettings, min_velocity_for_restitution);
+@@ -810,6 +819,9 @@
+ 		body1 = &inBody2;
+ 		body2 = &inBody1;
+ 	}
++
++	if (mContactListener != nullptr && mContactListener->WantsContactManifoldRefresh(*body1, *body2))
++		return;
+ 
+ 	// Find the cached body pair
+ 	BodyPair body_pair_key(body1->GetID(), body2->GetID());
+@@ -956,6 +968,7 @@
+ 		constraint.mPositionPenetrationSlop = settings.mPositionPenetrationSlop;
+ 			constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
+ 			constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
++		constraint.mUseSourceBlockPGS = settings.mUseSourceBlockPGS;
+ 			constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+ 			Vec3 friction_direction1 = settings.mFrictionDirection1 - world_space_normal * settings.mFrictionDirection1.Dot(world_space_normal);
+ 			if (friction_direction1.LengthSq() < Square(1.0e-6f))
+@@ -972,6 +985,7 @@
+ 			{
+ 				CachedContactPoint &ccp = output_cm->mContactPoints[i];
+ 				WorldContactPoint &wcp = constraint.mContactPoints[i];
++			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
+ 				wcp.mNonPenetrationConstraint.SetTotalLambda(ccp.mNonPenetrationLambda);
+ 				wcp.mFrictionConstraint1.SetTotalLambda(ccp.mFrictionLambda[0]);
+ 				wcp.mFrictionConstraint2.SetTotalLambda(ccp.mFrictionLambda[1]);
+@@ -1149,6 +1163,7 @@
+ 		constraint.mPositionPenetrationSlop = settings.mPositionPenetrationSlop;
+ 		constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
+ 		constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
++		constraint.mUseSourceBlockPGS = settings.mUseSourceBlockPGS;
+ 		constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+ 		Vec3 friction_direction1 = settings.mFrictionDirection1 - inManifold.mWorldSpaceNormal * settings.mFrictionDirection1.Dot(inManifold.mWorldSpaceNormal);
+ 		if (friction_direction1.LengthSq() < Square(1.0e-6f))
+@@ -1210,6 +1225,7 @@
+ 		{
+ 			// Convert to world space and set positions
+ 			WorldContactPoint &wcp = constraint.mContactPoints[i];
++			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
+ 			RVec3 p1_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn1[i];
+ 			RVec3 p2_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn2[i];
+ 
+@@ -1317,6 +1333,13 @@
+ 		body1 = &inBody1;
+ 		body2 = &inBody2;
+ 		manifold = &inManifold;
++	}
++
++	ContactManifold source_manifold;
++	if (mContactListener != nullptr && mContactListener->OverrideContactManifold(*body1, *body2, *manifold, source_manifold))
++	{
++		if (source_manifold.mRelativeContactPointsOn1.empty()) return false;
++		if (source_manifold.mRelativeContactPointsOn1.size() <= MaxContactPoints) manifold = &source_manifold;
+ 	}
+ 
+ 	// Dispatch to the correct templated form
+@@ -1542,6 +1565,17 @@
+ template <EMotionType Type1, EMotionType Type2>
+ JPH_INLINE void ContactConstraintManager::sWarmStartConstraint(ContactConstraint &ioConstraint, MotionProperties *ioMotionProperties1, MotionProperties *ioMotionProperties2, float inWarmStartImpulseRatio)
+ {
++	if (ioConstraint.mUseSourceBlockPGS)
++	{
++		for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
++		{
++			wcp.mNonPenetrationConstraint.SetTotalLambda(0.0f);
++			wcp.mFrictionConstraint1.SetTotalLambda(0.0f);
++			wcp.mFrictionConstraint2.SetTotalLambda(0.0f);
++		}
++		return;
++	}
++
+ 	// Calculate tangents
+ 	Vec3 t1, t2;
+ 	ioConstraint.GetTangents(t1, t2);
+@@ -1617,6 +1651,30 @@
+ 	Vec3 t1, t2;
+ 	ioConstraint.GetTangents(t1, t2);
+ 
++	if (ioConstraint.mUseSourceBlockPGS)
++	{
++		Vec3 normal = ioConstraint.GetWorldSpaceNormal();
++		for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
++		{
++			float normal_lambda = max(0.0f, wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, normal));
++			float lambda1 = 0.0f, lambda2 = 0.0f;
++			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
++			{
++				const float limit1 = ioConstraint.mCombinedFriction * normal_lambda;
++				const float limit2 = ioConstraint.mCombinedFriction2 * normal_lambda;
++				lambda1 = Clamp(wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t1), -limit1, limit1);
++				lambda2 = Clamp(wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t2), -limit2, limit2);
++			}
++			any_impulse_applied |= wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, normal, normal_lambda);
++			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
++			{
++				any_impulse_applied |= wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, t1, lambda1);
++				any_impulse_applied |= wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, t2, lambda2);
++			}
++		}
++		return any_impulse_applied;
++	}
++
+ 	// Nx box face winding. Keep mesh contact reduction and legacy pairs intact.
+ 	if (ioConstraint.mUseBoxContactOrder && ioConstraint.mContactPoints.size() == 4)
+ 	{
+@@ -1770,8 +1828,29 @@
+ 	return any_impulse_applied;
+ }
+ 
+-void ContactConstraintManager::StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd) const
++void ContactConstraintManager::StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd)
+ {
++	struct SourceMotion { Body *body; Vec3 velocity; Vec3 angular; };
++	Array<SourceMotion> source_motion;
++	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
++	{
++		ContactConstraint &constraint = mConstraints[*idx];
++		if (!constraint.mUseSourceBlockPGS) continue;
++		for (Body *body : { constraint.mBody1, constraint.mBody2 })
++			if (body->IsDynamic() && std::none_of(source_motion.begin(), source_motion.end(), [&](const SourceMotion &s) { return s.body == body; }))
++				source_motion.push_back({ body, body->GetLinearVelocity(), body->GetAngularVelocity() });
++		for (WorldContactPoint &wcp : constraint.mContactPoints)
++			wcp.mNonPenetrationConstraint.SetHardVelocityBias(wcp.mSourceUnbiasedVelocityBias);
++	}
++	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
++		if (mConstraints[*idx].mUseSourceBlockPGS) SolveVelocityConstraints(idx, idx + 1);
++	for (const SourceMotion &s : source_motion)
++	{
++		if (mContactListener != nullptr) mContactListener->OnSourceMotionSolved(*s.body, s.body->GetLinearVelocity(), s.body->GetAngularVelocity());
++		s.body->GetMotionProperties()->SetLinearVelocity(s.velocity);
++		s.body->GetMotionProperties()->SetAngularVelocity(s.angular);
++	}
++
+ 	// Copy back total applied impulse to cache for the next frame
+ 	for (const uint32 *constraint_idx = inConstraintIdxBegin; constraint_idx < inConstraintIdxEnd; ++constraint_idx)
+ 	{
+@@ -1807,6 +1886,8 @@
+ 	{
+ 		ContactConstraint &constraint = mConstraints[*constraint_idx];
+ 
++		if (constraint.mUseSourceBlockPGS) continue;
++
+ 		// Fetch bodies
+ 		Body &body1 = *constraint.mBody1;
+ 		Body &body2 = *constraint.mBody2;
+@@ -1826,7 +1907,7 @@
+ 			// Calculate separation along the normal (negative if interpenetrating)
+ 			// Allow a little penetration by default (PhysicsSettings::mPenetrationSlop) to avoid jittering between contact/no-contact which wipes out the contact cache and warm start impulses
+ 			// Clamp penetration to a max PhysicsSettings::mMaxPenetrationDistance so that we don't apply a huge impulse if we're penetrating a lot
+-			float separation = max(Vec3(p2 - p1).Dot(ws_normal) + constraint.mAdditionalSeparation + (constraint.mPositionPenetrationSlop >= 0.0f? constraint.mPositionPenetrationSlop : mPhysicsSettings.mPenetrationSlop), -mPhysicsSettings.mMaxPenetrationDistance);
++			float separation = max(Vec3(p2 - p1).Dot(ws_normal) + constraint.mAdditionalSeparation + wcp.mSourceSeparation + (constraint.mPositionPenetrationSlop >= 0.0f? constraint.mPositionPenetrationSlop : mPhysicsSettings.mPenetrationSlop), -mPhysicsSettings.mMaxPenetrationDistance);
+ 
+ 			// Only enforce constraint when separation < 0 (otherwise we're apart)
+ 			if (separation < 0.0f)
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -222,6 +222,8 @@
+ 	}
+ 
+ public:
++	void SetHardVelocityBias(float inBias) { mSpringPart.CalculateSpringPropertiesWithBias(inBias); }
++
+ 	/// Templated form of CalculateConstraintProperties with the motion types baked in
+ 	template <EMotionType Type1, EMotionType Type2>
+ 	JPH_INLINE void				TemplatedCalculateConstraintProperties(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, float inBias = 0.0f)

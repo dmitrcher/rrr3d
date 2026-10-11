@@ -1,5 +1,6 @@
 #include "physics/OriginalVehiclePhysics.h"
 #include "physics/CalibrationTuning.h"
+#include "physics/SourceBoxManifold.h"
 
 #include <Jolt/Jolt.h>
 #include <Jolt/Core/Factory.h>
@@ -653,9 +654,9 @@ class OriginalContactListener final : public JPH::ContactListener
 {
 public:
     void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
-    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs, bool contactOffsets) {
+    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs, bool contactOffsets, bool boxManifolds) {
         independentFriction_ = independent; boxContactOrder_ = boxOrder;
-        materialPairs_ = materialPairs; contactOffsets_ = contactOffsets;
+        materialPairs_ = materialPairs; contactOffsets_ = contactOffsets; sourceBoxManifolds_ = boxManifolds;
     }
 
     void registerContactBox(JPH::BoxShape& box, Vec3 fullHalfExtents, float skinWidth)
@@ -673,6 +674,73 @@ public:
         // These private box shapes have no other shape-user-data consumer.
         // Indexing deduplicated geometry avoids retaining destroyed debris shapes.
         box.SetUserData(contactGeometryMarker | static_cast<JPH::uint64>(index));
+    }
+
+    bool WantsContactManifoldRefresh(const JPH::Body& first, const JPH::Body& second) const override
+    {
+        if (!sourceBoxManifolds_) return false;
+        std::size_t index;
+        if (!vehicleIndex(first.GetUserData(), index) && !vehicleIndex(second.GetUserData(), index)) return false;
+        if (first.GetMotionType() != JPH::EMotionType::Static && second.GetMotionType() != JPH::EMotionType::Static) return false;
+        if (first.IsSensor() || second.IsSensor()) return false;
+        SourceBox a, b;
+        return sourceBox(first, a) && sourceBox(second, b);
+    }
+
+    bool OverrideContactManifold(const JPH::Body& first, const JPH::Body& second,
+                                 const JPH::ContactManifold& input, JPH::ContactManifold& output) override
+    {
+        if (!WantsContactManifoldRefresh(first, second)) return false;
+        SourceBox a, b;
+        if (!sourceBox(first, a) || !sourceBox(second, b)) return false;
+        // Preserve Nx static-first box geometry independently of body-ID order.
+        const bool swap = first.GetMotionType() != JPH::EMotionType::Static;
+        const auto& s0 = swap? b : a;
+        const auto& s1 = swap? a : b;
+        sourcebox::PxU32 axis = 0;
+        sourcebox::ContactBuffer contacts;
+        sourcebox::contacts(contacts, s0.half, s1.half, s0.transform, s1.transform, axis);
+        // Native Jolt supports four solver points. Preserve its reduced path
+        // for larger source patches until their reduction is independently verified.
+        if (contacts.count > 4) return false;
+        output = input;
+        output.mRelativeContactPointsOn1.clear();
+        output.mRelativeContactPointsOn2.clear();
+        output.mUseSourceSeparation = true;
+        output.mUseSourceBlockPGS = true;
+        output.mSourceSeparations.fill(0.0F);
+        output.mPenetrationDepth = 0.0F;
+        if (!contacts.count) return true;
+        const auto& n = contacts.contacts[0].normal;
+        output.mWorldSpaceNormal = toJolt(Vec3{n.x, n.y, n.z}) * (swap? 1.0F : -1.0F);
+        output.mWorldSpaceNormal = output.mWorldSpaceNormal.Normalized();
+        for (sourcebox::PxU32 i = 0; i < contacts.count; ++i) {
+            const auto& c = contacts.contacts[i];
+            const JPH::Vec3 relative(toJolt(Vec3{c.point.x, c.point.y, c.point.z}) - output.mBaseOffset);
+            output.mRelativeContactPointsOn1.push_back(relative);
+            output.mRelativeContactPointsOn2.push_back(relative);
+            output.mSourceSeparations[i] = c.separation;
+            output.mPenetrationDepth = std::max(output.mPenetrationDepth, -c.separation);
+        }
+        return true;
+    }
+
+    void OnSourceMotionSolved(const JPH::Body& body, JPH::Vec3Arg velocity, JPH::Vec3Arg angular) override
+    {
+        std::scoped_lock lock(mutex_);
+        sourceFinalMotion_.push_back({body.GetID(), velocity, angular});
+    }
+    void restoreSourceMotion(const JPH::BodyLockInterface& locks)
+    {
+        std::scoped_lock lock(mutex_);
+        for (const auto& state : sourceFinalMotion_) {
+            JPH::BodyLockWrite lock(locks, state.body);
+            if (lock.Succeeded()) {
+                lock.GetBody().SetLinearVelocity(state.velocity);
+                lock.GetBody().SetAngularVelocity(state.angular);
+            }
+        }
+        sourceFinalMotion_.clear();
     }
 
     void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
@@ -753,6 +821,36 @@ public:
     }
 
 private:
+    struct SourceBox { sourcebox::PxVec3 half; sourcebox::Cm::Matrix34 transform; float skin; };
+    bool sourceBox(const JPH::Body& body, SourceBox& box) const
+    {
+        const JPH::Shape* shape = body.GetShape();
+        JPH::RMat44 transform = body.GetWorldTransform();
+        while (shape->GetType() == JPH::EShapeType::Decorated) {
+            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
+                const auto* decorated = static_cast<const JPH::RotatedTranslatedShape*>(shape);
+                transform = transform * JPH::Mat44::sRotationTranslation(decorated->GetRotation(), decorated->GetPosition());
+            } else if (shape->GetSubType() != JPH::EShapeSubType::OffsetCenterOfMass) return false;
+            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+        }
+        if (shape->GetSubType() != JPH::EShapeSubType::Box) return false;
+        const auto data = shape->GetUserData();
+        if ((data & contactGeometryMarker) == 0) return false;
+        const auto index = static_cast<std::size_t>(data & ~contactGeometryMarker);
+        SourceContactGeometry geometry;
+        { std::scoped_lock lock(mutex_); if (index >= contactGeometry_.size()) return false; geometry = contactGeometry_[index]; }
+        const auto convert = [](JPH::Vec3 value) { const auto v = fromJolt(value); return sourcebox::PxVec3{v.x, v.y, v.z}; };
+        box.half = convert(static_cast<const JPH::BoxShape*>(shape)->GetHalfExtent() + geometry.inset);
+        box.transform = {{convert(transform.Multiply3x3(JPH::Vec3::sAxisX())),
+                          convert(transform.Multiply3x3(JPH::Vec3::sAxisZ())),
+                          convert(transform.Multiply3x3(JPH::Vec3::sAxisY()))}, convert(JPH::Vec3(transform.GetTranslation()))};
+        box.skin = geometry.skin;
+        return true;
+    }
+    struct SourceFinalMotion { JPH::BodyID body; JPH::Vec3 velocity, angular; };
+    std::vector<SourceFinalMotion> sourceFinalMotion_;
+    bool sourceBoxManifolds_ = false;
+
     void traceManifold(const JPH::Body& first, const JPH::Body& second,
                        const JPH::ContactManifold& manifold,
                        const JPH::ContactSettings& settings) const
@@ -816,6 +914,7 @@ private:
             out << '{';
             // vector() prefixes fields with a comma; start with the point index.
             out << "\"index\":" << i;
+            if (manifold.mUseSourceSeparation) out << ",\"source_separation\":" << manifold.mSourceSeparations[i];
             out << ",\"geometric_separation\":"
                 << JPH::Vec3(manifold.GetWorldSpaceContactPointOn2(i) - manifold.GetWorldSpaceContactPointOn1(i)).Dot(manifold.mWorldSpaceNormal);
             vector("on0", manifold.GetWorldSpaceContactPointOn1(i));
@@ -887,6 +986,7 @@ private:
         if (!firstIsVehicle && !secondIsVehicle)
             return;
         settings.mUseIndependentFriction = independentFriction_;
+        settings.mUseSourceBlockPGS = manifold.mUseSourceBlockPGS;
         if (contactOffsets_) {
             float firstOffset = 0.0F, secondOffset = 0.0F;
             if (sourceContactOffset(first, manifold.mWorldSpaceNormal, firstOffset) &&
@@ -905,6 +1005,13 @@ private:
             return shape->GetSubType() == JPH::EShapeSubType::Box;
         };
         settings.mUseBoxContactOrder = boxContactOrder_ && isBox(first) && isBox(second);
+        if (manifold.mUseSourceSeparation) {
+            SourceBox a, b;
+            if (sourceBox(first, a) && sourceBox(second, b)) settings.mAdditionalSeparation = a.skin + b.skin;
+            settings.mUseSourceSeparation = true;
+            settings.mSourceSeparations = manifold.mSourceSeparations;
+            settings.mUseBoxContactOrder = false;
+        }
         const JPH::Body& car = firstIsVehicle ? first : second;
         const JPH::Body& other = firstIsVehicle ? second : first;
         const auto surface = collisionSurface(other.GetUserData());
@@ -1176,7 +1283,7 @@ private:
     bool materialPairs_ = false;
     bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
     std::uint64_t traceStep_ = 0;
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     std::vector<std::vector<BodyContact>> pending_;
     std::vector<std::vector<BodyContact>> projectilePending_;
     std::vector<std::size_t> projectileIgnoredVehicles_;
@@ -1499,6 +1606,7 @@ public:
             physicsSettings.mSpeculativeContactDistance = sourcePenetrationSlop;
         }
         physicsSettings.mNumVelocitySteps = sourceSolverIterations;
+        if (tuning_.physxWheelCompat && tuning_.physxBoxManifolds) physicsSettings.mUseLargeIslandSplitter = false;
         // PhysX 2.8 suppresses restitution below NX_BOUNCE_THRESHOLD (-2).
         // Jolt expresses the same threshold as a positive speed magnitude.
         physicsSettings.mMinVelocityForRestitution =
@@ -1513,7 +1621,10 @@ public:
             tuning_.physxWheelCompat && tuning_.physxBoxContactOrder,
             tuning_.physxWheelCompat && tuning_.physxMaterialPairs,
             tuning_.physxWheelCompat && tuning_.physxContactSkin &&
-                tuning_.physxBoxCorners && tuning_.physxContactOffsets);
+                tuning_.physxBoxCorners && tuning_.physxContactOffsets,
+            tuning_.physxWheelCompat && tuning_.physxBoxManifolds &&
+                tuning_.physxContactSkin && tuning_.physxBoxCorners &&
+                tuning_.physxContactOffsets && tuning_.physxIndependentFriction);
         contactListener_.resize(description_.spawns.size());
         system_.SetContactListener(&contactListener_);
         system_.SetGravity(
@@ -2019,6 +2130,7 @@ public:
                         vehicle.sourceFrozenRotation = system_.GetBodyInterface()
                             .GetRotation(vehicle.body);
             system_.Update(delta, 1, &tempAllocator_, &jobs_);
+            contactListener_.restoreSourceMotion(system_.GetBodyLockInterface());
             // Nxp.h describes frozen actors as dynamic during simulation,
             // followed by pose restoration. Independent Nx captures confirm
             // equal first-step translation/velocity for free and frozen bodies.

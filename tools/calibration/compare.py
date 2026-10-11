@@ -61,12 +61,41 @@ def load(path, expected):
                     case = cases[name]
                     if case['end']: raise ValueError('Duplicate end')
                     case['end'] = True
+                elif event in ('calibration.engine-description', 'calibration.peer-description'):
+                    case = cases[name]
+                    if event in case: raise ValueError('Duplicate engine description')
+                    description = row['sample']
+                    if not isinstance(description, dict) or type(description.get('mass')) not in (int,float) or description['mass'] <= 0:
+                        raise ValueError('Invalid engine mass description')
+                    for field in ('inertia','com'):
+                        values = description.get(field)
+                        if not isinstance(values,list) or len(values) != 3 or any(type(v) not in (int,float) for v in values):
+                            raise ValueError('Invalid engine vector description')
+                    case[event] = description
             except (KeyError, TypeError, ValueError) as e:
                 raise ValueError(f'{path}:{number}: {e}') from e
     if not cases: raise ValueError('No calibration cases')
     for name, case in cases.items():
         if not case['end'] or len(case['rows']) != case['meta']['steps']:
             raise ValueError(f'{name}: incomplete capture')
+        meta = case['meta']
+        if expected == 'windows-physx-d3d9' and meta['fixture'] == 'source-vehicle-matrix-v7-sdk' and 'pair' in meta:
+            # NxShapeDesc::operator= did not copy the peer's base wheel fields
+            # in pre-v14 captures. Intended metadata alone cannot certify them.
+            primary = case.get('calibration.engine-description')
+            peer = case.get('calibration.peer-description')
+            if primary is None or peer is None:
+                raise ValueError(f'{name}: legacy Windows pair reference lacks actual peer mass properties; recapture with the corrected v14 stand')
+            for description, mass in [(primary, meta['mass']), (peer, meta['pair']['peer_mass'])]:
+                if not math.isclose(description['mass'], mass, rel_tol=1e-6, abs_tol=1e-5):
+                    raise ValueError(f'{name}: actual actor mass differs from fixture')
+                if len(description['inertia']) != 3 or any(v <= 0 for v in description['inertia']):
+                    raise ValueError(f'{name}: invalid actual actor inertia')
+                if len(description['com']) != 3 or norm(description['com'], meta['fixture_parameters']['center_of_mass']) > 1e-5:
+                    raise ValueError(f'{name}: actual actor COM differs from fixture')
+            ratio = peer['mass'] / primary['mass']
+            if any(not math.isclose(y, x*ratio, rel_tol=2e-6, abs_tol=1e-5) for x,y in zip(primary['inertia'],peer['inertia'])):
+                raise ValueError(f'{name}: peer inertia differs from the identical chassis scaled by mass; check wheel-description copy construction')
     return cases
 
 

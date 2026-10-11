@@ -17,11 +17,11 @@ struct Wheel { V position; double radius,travel,spring,damper,target,inverseMass
  Wheel():radius(.4),travel(.5),spring(35000),damper(4500),target(0),inverseMass(.1),flags(64),driven(false),steering(false){} };
 struct Case {
  std::string name, action, catalog; double gravity,mass,height,bodyFriction,sleepThreshold,restBrake,tireSpring,torqueFactor,brakeFactor,steerFactor,brakeLimit;
- V velocity,angular,halfExtents,shapePosition,centerOfMass,angularDamping;
- double clampRoll,clampPitch,airPitch; bool extraGravity; int steps,obstacle; bool ground,traction; double slopeX,slopeY; bool fixedOrientation;
+ V startOffset,velocity,angular,halfExtents,shapePosition,centerOfMass,angularDamping;
+ double initialPitch,bodySkinWidth,clampRoll,clampPitch,airPitch; bool extraGravity; int steps,obstacle; bool ground,traction; double slopeX,slopeY; bool fixedOrientation;
  bool pair;int watched;double peerFriction,peerMass,primaryRoll,peerRoll;V peerPosition,peerVelocity;
  std::vector<Wheel> wheels;
- Case(const std::string& n,double g=-20,double m=1200,double h=12,bool floor=true):name(n),action(n),catalog("synthetic"),gravity(g),mass(m),height(h),bodyFriction(.08),sleepThreshold(0),restBrake(0),tireSpring(0),torqueFactor(1),brakeFactor(1),steerFactor(1),brakeLimit(4000),halfExtents(1.5,.8,.3),angularDamping(1,1,1),clampRoll(0),clampPitch(0),airPitch(0),extraGravity(false),steps(600),obstacle(0),ground(floor),traction(true),slopeX(0),slopeY(0){
+ Case(const std::string& n,double g=-20,double m=1200,double h=12,bool floor=true):name(n),action(n),catalog("synthetic"),gravity(g),mass(m),height(h),bodyFriction(.08),sleepThreshold(0),restBrake(0),tireSpring(0),torqueFactor(1),brakeFactor(1),steerFactor(1),brakeLimit(4000),halfExtents(1.5,.8,.3),angularDamping(1,1,1),initialPitch(0),bodySkinWidth(.025),clampRoll(0),clampPitch(0),airPitch(0),extraGravity(false),steps(600),obstacle(0),ground(floor),traction(true),slopeX(0),slopeY(0){
   pair=false;watched=0;peerFriction=.08;peerMass=1200;primaryRoll=peerRoll=0;fixedOrientation=false;for(int i=0;i<4;++i){Wheel w;w.position=V(i<2?1.1:-1.1,i%2==0?.75:-.75,0);w.driven=w.steering=i<2;wheels.push_back(w);}
  }
 };
@@ -83,7 +83,7 @@ inline void begin(const Case& c,const std::string& profile) {
  std::ostringstream s;s.imbue(std::locale::classic());s<<std::setprecision(9)<<"{\"schema\":1,\"fixture\":\"source-vehicle-matrix-v7-sdk\",\"dt\":0.016666666666666666,\"sample_phase\":\"after_solve\",\"steps\":"<<c.steps<<",\"mass\":"<<c.mass<<",\"gravity\":"<<c.gravity<<",\"height\":"<<c.height<<",\"ground\":"<<(c.ground?"true":"false")<<",\"initial_velocity\":"<<vector(c.velocity)<<",\"initial_angular_velocity\":"<<vector(c.angular)<<",\"profile\":"<<parity::quote(profile)<<",\"fixture_parameters\":{\"catalog\":"<<parity::quote(c.catalog)<<",\"half_extents\":"<<vector(c.halfExtents)<<",\"shape_position\":"<<vector(c.shapePosition)<<",\"center_of_mass\":"<<vector(c.centerOfMass)<<",\"body_friction\":"<<c.bodyFriction<<",\"sleep_threshold\":"<<c.sleepThreshold<<",\"tire_spring\":"<<c.tireSpring<<",\"traction\":"<<(c.traction?"true":"false")<<",\"obstacle\":"<<c.obstacle<<",\"slope_x\":"<<c.slopeX<<",\"slope_y\":"<<c.slopeY<<",\"angular_damping\":0.05,\"skin_width\":0.025,\"adaptive_force\":false,\"actor_flags\":20,\"ground_friction\":0.1,\"ground_restitution\":0,\"brake_limit\":"<<c.brakeLimit<<",\"ground_height\":10,\"wheels\":[";
  for(size_t i=0;i<c.wheels.size();++i){const Wheel& w=c.wheels[i];if(i)s<<',';s<<"{\"position\":"<<vector(w.position)<<",\"radius\":"<<w.radius<<",\"travel\":"<<w.travel<<",\"spring\":"<<w.spring<<",\"damper\":"<<w.damper<<",\"target\":"<<w.target<<",\"inverse_mass\":"<<w.inverseMass<<",\"flags\":"<<w.flags<<",\"driven\":"<<(w.driven?"true":"false")<<",\"steering\":"<<(w.steering?"true":"false")<<",\"longitudinal_tire\":"<<tireJson(w.longitudinal)<<",\"lateral_tire\":"<<tireJson(w.lateral)<<'}';}
  s<<"],\"extra_gravity\":"<<(c.extraGravity?"true":"false")<<",\"air_pitch\":"<<c.airPitch<<",\"clamp_roll\":"<<c.clampRoll<<",\"clamp_pitch\":"<<c.clampPitch<<",\"game_angular_damping\":"<<vector(c.angularDamping)<<"},\"units\":\"source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v\"}";
- std::string metadata=s.str();if(c.fixedOrientation)metadata.insert(metadata.size()-1,",\"fixed_orientation\":true");
+ std::string metadata=s.str();if(c.initialPitch!=0){std::ostringstream x;x<<",\"initial_pitch\":"<<std::setprecision(9)<<c.initialPitch;metadata.insert(metadata.size()-1,x.str());}if(c.bodySkinWidth!=.025){std::ostringstream x;x<<",\"body_skin_width\":"<<std::setprecision(9)<<c.bodySkinWidth;metadata.insert(metadata.size()-1,x.str());}if(c.startOffset.x!=0||c.startOffset.y!=0||c.startOffset.z!=0)metadata.insert(metadata.size()-1,",\"initial_position\":"+vector(V(c.startOffset.x,c.startOffset.y,c.height+c.startOffset.z)));if(c.fixedOrientation)metadata.insert(metadata.size()-1,",\"fixed_orientation\":true");
  if(c.pair){std::ostringstream pair;pair.imbue(std::locale::classic());pair<<std::setprecision(9)<<",\"pair\":{\"watched\":"<<c.watched<<",\"peer_friction\":"<<c.peerFriction<<",\"peer_mass\":"<<c.peerMass<<",\"peer_position\":"<<vector(c.peerPosition)<<",\"peer_velocity\":"<<vector(c.peerVelocity)<<",\"primary_roll\":"<<c.primaryRoll<<",\"peer_roll\":"<<c.peerRoll<<'}';metadata.insert(metadata.size()-1,pair.str());}
  parity::event("calibration.begin",c.name,metadata);
 }
@@ -129,6 +129,21 @@ inline std::vector<Case> cases() {
  for(int i=0;i<4;++i){c=Case(borderNames[i],i>=2?-20:0,1200,i>=2?12:13,i>=2);c.steps=600;c.obstacle=i==3?8:7;c.velocity=V(8,i==0?0:2,0);if(i==3){c.ground=false;c.height=10.25;c.fixedOrientation=true;for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;}s.push_back(c);}
  const char* frontBorderNames[]={"border-front-air-straight","border-front-air-oblique","border-front-grounded"};
  for(int i=0;i<3;++i){c=Case(frontBorderNames[i],i==2?-20:0,1200,i==2?12:13,i==2);c.obstacle=9;c.velocity=V(8,i==0?0:2,0);s.push_back(c);}
+ const double contactDepths[]={-.02,0,.025,.05,.25,1};const double contactSpeeds[]={-8,0,8};
+ for(int locked=0;locked<2;++locked)for(int shape=0;shape<2;++shape)for(int depth=0;depth<6;++depth)for(int speed=0;speed<3;++speed){
+  std::ostringstream n;n<<"contact-"<<(locked?"free-":"locked-")<<(shape?"box":"triangle")<<"-depth"<<depth<<"-speed"<<speed;
+  c=Case(n.str(),0,1200,13,false);c.steps=12;c.obstacle=shape?1:9;c.fixedOrientation=locked==0;c.velocity=V(contactSpeeds[speed],0,0);
+  c.startOffset.x=(shape?7.75:8)-1.5+contactDepths[depth];for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);
+ }
+ // Independent Nx stationary skin probes include tilted and thin boxes.
+ const double skinAngles[]={0,.2,.5,.8,-.5};const double skinWidths[]={.01,.025,.1};
+ for(int thin=0;thin<2;++thin)for(int skin=0;skin<3;++skin)for(int shape=0;shape<2;++shape)for(int angle=0;angle<5;++angle){
+  std::ostringstream n;n<<"skin-tilted-"<<(shape?"box":"triangle")<<"-angle"<<angle<<"-skin"<<skin<<"-thin"<<thin;
+  c=Case(n.str(),0,1200,13,false);c.steps=24;c.obstacle=shape?1:9;c.fixedOrientation=true;c.initialPitch=skinAngles[angle];c.bodySkinWidth=skinWidths[skin];c.halfExtents.z=thin?.02:.3;
+  const double support=c.halfExtents.x*std::abs(std::cos(c.initialPitch))+c.halfExtents.z*std::abs(std::sin(c.initialPitch));
+  c.startOffset.x=(shape?7.75:8)-support+.25;for(size_t w=0;w<c.wheels.size();++w)c.wheels[w].position.z=100;s.push_back(c);
+ }
+
  appendCatalogCases(s);return s;
 }
 inline int run(int argc,char**argv, void (*execute)(const Case&), const std::string& profile) {

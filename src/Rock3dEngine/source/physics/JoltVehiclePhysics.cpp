@@ -13,6 +13,8 @@
 #include <Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h>
 #include <Jolt/Physics/Body/BodyFilter.h>
 #include <Jolt/Physics/Collision/ContactListener.h>
+#include <Jolt/Physics/Collision/CollideShape.h>
+#include <Jolt/Physics/Collision/CollisionDispatch.h>
 #include <Jolt/Physics/Collision/EstimateCollisionResponse.h>
 #include <Jolt/Physics/Collision/RayCast.h>
 #include <Jolt/Physics/Collision/CastResult.h>
@@ -608,13 +610,69 @@ float sourceCombineRestitution(const JPH::Body& first,
         second.GetRestitution(), SourceCombineMode::Average);
 }
 
+// A source vehicle box may contact the interior seam of a flat Nx mesh.
+// Jolt's velocity hint can keep the seam normal instead of the face normal.
+const JPH::Shape* sourceContactShape(const JPH::Body& body) noexcept
+{
+    const JPH::Shape* shape = body.GetShape();
+    while (shape->GetType() == JPH::EShapeType::Decorated)
+        shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+    return shape;
+}
+
+bool sourceVehicleBoxMeshPair(const JPH::Body& first, const JPH::Body& second) noexcept
+{
+    const auto pair = [](const JPH::Body& car, const JPH::Body& mesh) {
+        return (car.GetUserData() & bodyKindMask) == vehicleBodyKind &&
+            sourceContactShape(car)->GetSubType() == JPH::EShapeSubType::Box &&
+            sourceContactShape(mesh)->GetSubType() == JPH::EShapeSubType::Mesh;
+    };
+    return pair(first, second) || pair(second, first);
+}
+
+void sourceCollideVehicleBoxMesh(
+    const JPH::Body& first, const JPH::Body& second,
+    JPH::Mat44Arg firstTransform, JPH::Mat44Arg secondTransform,
+    JPH::CollideShapeSettings& settings, JPH::CollideShapeCollector& collector,
+    const JPH::ShapeFilter& filter)
+{
+    if (!sourceVehicleBoxMeshPair(first, second)) {
+        JPH::PhysicsSystem::sDefaultSimCollideBodyVsBody(
+            first, second, firstTransform, secondTransform, settings, collector, filter);
+        return;
+    }
+    settings.mActiveEdgeMode = JPH::EActiveEdgeMode::CollideOnlyWithActive;
+    settings.mActiveEdgeMovementDirection = JPH::Vec3::sZero();
+    JPH::SubShapeIDCreator firstPart, secondPart;
+    JPH::CollisionDispatch::sCollideShapeVsShape(
+        first.GetShape(), second.GetShape(), JPH::Vec3::sOne(), JPH::Vec3::sOne(),
+        firstTransform, secondTransform, firstPart, secondPart, settings, collector, filter);
+}
+
 class OriginalContactListener final : public JPH::ContactListener
 {
 public:
     void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
-    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs) {
+    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs, bool contactOffsets) {
         independentFriction_ = independent; boxContactOrder_ = boxOrder;
-        materialPairs_ = materialPairs;
+        materialPairs_ = materialPairs; contactOffsets_ = contactOffsets;
+    }
+
+    void registerContactBox(JPH::BoxShape& box, Vec3 fullHalfExtents, float skinWidth)
+    {
+        if (!contactOffsets_) return;
+        const float skin = std::isfinite(skinWidth) && skinWidth >= 0.0F
+            ? skinWidth : sourceSkinWidth;
+        const JPH::Vec3 inset = toJolt(fullHalfExtents).Abs() - box.GetHalfExtent();
+        std::scoped_lock lock(mutex_);
+        std::size_t index = 0;
+        for (; index < contactGeometry_.size(); ++index)
+            if (contactGeometry_[index].skin == skin && contactGeometry_[index].inset == inset)
+                break;
+        if (index == contactGeometry_.size()) contactGeometry_.push_back({skin, inset});
+        // These private box shapes have no other shape-user-data consumer.
+        // Indexing deduplicated geometry avoids retaining destroyed debris shapes.
+        box.SetUserData(contactGeometryMarker | static_cast<JPH::uint64>(index));
     }
 
     void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
@@ -706,6 +764,8 @@ private:
             << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
             << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
             << ",\"depth\":" << manifold.mPenetrationDepth
+            << ",\"additional_separation\":" << settings.mAdditionalSeparation
+            << ",\"position_penetration_slop\":" << settings.mPositionPenetrationSlop
             << ",\"friction0\":" << settings.mCombinedFriction
             << ",\"friction1\":" << settings.mCombinedFriction2
             << ",\"independent_friction\":" << (settings.mUseIndependentFriction?"true":"false")
@@ -788,6 +848,31 @@ private:
         accumulateSourceContactForces(*found, std::move(solved));
     }
 
+    bool sourceContactOffset(const JPH::Body& body, JPH::Vec3Arg normal, float& offset)
+    {
+        const JPH::Shape* shape = body.GetShape();
+        JPH::Vec3 localNormal = body.GetRotation().Conjugated() * normal;
+        while (shape->GetType() == JPH::EShapeType::Decorated) {
+            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated)
+                localNormal = static_cast<const JPH::RotatedTranslatedShape*>(shape)->GetRotation().Conjugated() * localNormal;
+            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+        }
+        if (shape->GetSubType() == JPH::EShapeSubType::Mesh ||
+            shape->GetSubType() == JPH::EShapeSubType::Plane) {
+            offset = sourceSkinWidth;
+            return true;
+        }
+        if (shape->GetSubType() != JPH::EShapeSubType::Box) return false;
+        const auto data = shape->GetUserData();
+        if ((data & contactGeometryMarker) == 0) return false;
+        const auto index = static_cast<std::size_t>(data & ~contactGeometryMarker);
+        std::scoped_lock lock(mutex_);
+        if (index >= contactGeometry_.size()) return false;
+        const auto& geometry = contactGeometry_[index];
+        offset = geometry.skin - localNormal.Abs().Dot(geometry.inset);
+        return true;
+    }
+
     void configureMaterial(
         const JPH::Body& first, const JPH::Body& second,
         const JPH::ContactManifold& manifold,
@@ -802,6 +887,17 @@ private:
         if (!firstIsVehicle && !secondIsVehicle)
             return;
         settings.mUseIndependentFriction = independentFriction_;
+        if (contactOffsets_) {
+            float firstOffset = 0.0F, secondOffset = 0.0F;
+            if (sourceContactOffset(first, manifold.mWorldSpaceNormal, firstOffset) &&
+                sourceContactOffset(second, manifold.mWorldSpaceNormal, secondOffset)) {
+                // Nx skin is scalar along the contact normal. An axis inset
+                // projects farther when the box is tilted, so subtract that
+                // projection instead of counting one constant inset per box.
+                settings.mAdditionalSeparation = firstOffset + secondOffset;
+                settings.mPositionPenetrationSlop = 0.0F;
+            }
+        }
         const auto isBox = [](const JPH::Body& body) {
             const JPH::Shape* shape = body.GetShape();
             while (shape->GetType() == JPH::EShapeType::Decorated)
@@ -1073,6 +1169,10 @@ private:
     bool solvedImpulses_ = false;
     bool independentFriction_ = false;
     bool boxContactOrder_ = false;
+    bool contactOffsets_ = false;
+    struct SourceContactGeometry { float skin; JPH::Vec3 inset; };
+    static constexpr JPH::uint64 contactGeometryMarker = JPH::uint64(1) << 63;
+    std::vector<SourceContactGeometry> contactGeometry_;
     bool materialPairs_ = false;
     bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
     std::uint64_t traceStep_ = 0;
@@ -1387,6 +1487,9 @@ public:
                      objectVsBroadPhase_, objectLayerPairs_);
         system_.SetCombineFriction(sourceCombineFriction);
         system_.SetCombineRestitution(sourceCombineRestitution);
+        if (tuning_.physxWheelCompat && tuning_.physxContactSkin &&
+            tuning_.physxBoxCorners && tuning_.physxMeshEdges)
+            system_.SetSimCollideBodyVsBody(sourceCollideVehicleBoxMesh);
         auto physicsSettings = system_.GetPhysicsSettings();
         physicsSettings.mPenetrationSlop = sourcePenetrationSlop;
         if (tuning_.physxContactSkin && tuning_.physxSpeculativeSkin)
@@ -1408,7 +1511,9 @@ public:
         contactListener_.sourceContactOptions(
             tuning_.physxWheelCompat && tuning_.physxIndependentFriction,
             tuning_.physxWheelCompat && tuning_.physxBoxContactOrder,
-            tuning_.physxWheelCompat && tuning_.physxMaterialPairs);
+            tuning_.physxWheelCompat && tuning_.physxMaterialPairs,
+            tuning_.physxWheelCompat && tuning_.physxContactSkin &&
+                tuning_.physxBoxCorners && tuning_.physxContactOffsets);
         contactListener_.resize(description_.spawns.size());
         system_.SetContactListener(&contactListener_);
         system_.SetGravity(
@@ -2043,6 +2148,7 @@ public:
             const auto box = new JPH::BoxShape(
                 halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
                                  ? 0.0F : JPH::cDefaultConvexRadius);
+            contactListener_.registerContactBox(*box, description.halfExtents, description.skinWidth);
             const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                      toJolt(description.shapePosition),
                                      toJolt(description.shapeRotation), box)
@@ -3157,6 +3263,7 @@ private:
                                          tuning_.physxContactSkin),
                     tuning_.physxContactSkin && tuning_.physxBoxCorners
                         ? 0.0F : JPH::cDefaultConvexRadius);
+                contactListener_.registerContactBox(*box, halfExtents, skinWidth);
                 const auto shifted = JPH::RotatedTranslatedShapeSettings(
                                          toJolt(shapePosition),
                                          toJolt(shapeRotation), box)
@@ -3239,6 +3346,7 @@ private:
         const auto box = new JPH::BoxShape(
             halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
                              ? 0.0F : JPH::cDefaultConvexRadius);
+        contactListener_.registerContactBox(*box, source.halfExtents, source.bodySkinWidth);
         const auto translated = JPH::RotatedTranslatedShapeSettings(
                                     toJolt(source.shapePosition),
                                     JPH::Quat::sIdentity(), box)

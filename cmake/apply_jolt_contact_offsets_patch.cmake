@@ -1,0 +1,13 @@
+if(NOT DEFINED SOURCE_DIR)
+    message(FATAL_ERROR "SOURCE_DIR is required")
+endif()
+file(READ "${SOURCE_DIR}/Jolt/Physics/Constraints/ContactConstraintManager.cpp" _source)
+string(FIND "${_source}" "constraint.mAdditionalSeparation = settings.mAdditionalSeparation" _patched)
+if(NOT _patched EQUAL -1)
+    return()
+endif()
+execute_process(COMMAND patch -p1 -i "${CMAKE_CURRENT_LIST_DIR}/patches/jolt-source-contact-offsets.patch"
+    WORKING_DIRECTORY "${SOURCE_DIR}" RESULT_VARIABLE _result)
+if(NOT _result EQUAL 0)
+    message(FATAL_ERROR "Could not apply pinned Jolt source contact-offsets patch")
+endif()

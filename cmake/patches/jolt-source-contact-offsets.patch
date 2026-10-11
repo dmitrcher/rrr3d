@@ -1,0 +1,60 @@
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -45,6 +45,8 @@
+ 	Vec3					mFrictionDirection1 = Vec3::sZero(); ///< Optional world-space first friction tangent; zero selects Jolt's default
+ 	bool					mUseIndependentFriction = false; ///< Nx two independent tangential impulse limits
+ 	bool					mUseBoxContactOrder = false; ///< Nx box face winding inferred from reference impulse probes
++	float					mAdditionalSeparation = 0.0f; ///< Source mesh skin not represented by convex geometry
++	float					mPositionPenetrationSlop = -1.0f; ///< Optional pair-specific position slop; negative uses global
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -470,6 +470,8 @@
+ 		Float3					mWorldSpaceTangent1;
+ 		float					mCombinedFriction;
+ 		float					mCombinedFriction2;
++		float					mAdditionalSeparation;
++		float					mPositionPenetrationSlop;
+ 		bool					mUseIndependentFriction;
+ 		bool					mUseBoxContactOrder;
+ 		float					mInvMass1;
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -94,7 +94,7 @@
+ 	float normal_velocity = relative_velocity.Dot(inWorldSpaceNormal);
+ 
+ 	// How much the shapes are penetrating (> 0 if penetrating, < 0 if separated)
+-	float penetration = Vec3(inWorldSpacePosition1 - inWorldSpacePosition2).Dot(inWorldSpaceNormal);
++	float penetration = Vec3(inWorldSpacePosition1 - inWorldSpacePosition2).Dot(inWorldSpaceNormal) - inSettings.mAdditionalSeparation;
+ 
+ 	// If there is no penetration, this is a speculative contact and we will apply a bias to the contact constraint
+ 	// so that the constraint becomes relative_velocity . contact normal > -penetration / delta_time
+@@ -952,6 +952,8 @@
+ 			constraint.mSortKey = input_hash;
+ 			world_space_normal.StoreFloat3(&constraint.mWorldSpaceNormal);
+ 			constraint.mCombinedFriction = settings.mCombinedFriction;
++		constraint.mAdditionalSeparation = settings.mAdditionalSeparation;
++		constraint.mPositionPenetrationSlop = settings.mPositionPenetrationSlop;
+ 			constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
+ 			constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
+ 			constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+@@ -1143,6 +1145,8 @@
+ 		constraint.mSortKey = key_hash;
+ 		inManifold.mWorldSpaceNormal.StoreFloat3(&constraint.mWorldSpaceNormal);
+ 		constraint.mCombinedFriction = settings.mCombinedFriction;
++		constraint.mAdditionalSeparation = settings.mAdditionalSeparation;
++		constraint.mPositionPenetrationSlop = settings.mPositionPenetrationSlop;
+ 		constraint.mUseIndependentFriction = settings.mUseIndependentFriction;
+ 		constraint.mUseBoxContactOrder = settings.mUseBoxContactOrder;
+ 		constraint.mCombinedFriction2 = settings.mCombinedFriction2 >= 0.0f? settings.mCombinedFriction2 : settings.mCombinedFriction;
+@@ -1822,7 +1826,7 @@
+ 			// Calculate separation along the normal (negative if interpenetrating)
+ 			// Allow a little penetration by default (PhysicsSettings::mPenetrationSlop) to avoid jittering between contact/no-contact which wipes out the contact cache and warm start impulses
+ 			// Clamp penetration to a max PhysicsSettings::mMaxPenetrationDistance so that we don't apply a huge impulse if we're penetrating a lot
+-			float separation = max(Vec3(p2 - p1).Dot(ws_normal) + mPhysicsSettings.mPenetrationSlop, -mPhysicsSettings.mMaxPenetrationDistance);
++			float separation = max(Vec3(p2 - p1).Dot(ws_normal) + constraint.mAdditionalSeparation + (constraint.mPositionPenetrationSlop >= 0.0f? constraint.mPositionPenetrationSlop : mPhysicsSettings.mPenetrationSlop), -mPhysicsSettings.mMaxPenetrationDistance);
+ 
+ 			// Only enforce constraint when separation < 0 (otherwise we're apart)
+ 			if (separation < 0.0f)

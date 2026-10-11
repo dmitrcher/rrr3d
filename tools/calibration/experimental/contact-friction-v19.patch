@@ -1,0 +1,15 @@
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -1665,6 +1665,12 @@
+ 				const float limit2 = ioConstraint.mCombinedFriction2 * normal_lambda;
+ 				lambda1 = Clamp(wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t1), -limit1, limit1);
+ 				lambda2 = Clamp(wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t2), -limit2, limit2);
++				// Nx retains previously applied friction when this row has no normal force.
++				const char *zero_flag = std::getenv("RRR3D_EXPERIMENT_FRICTION_ZERO");
++				if (zero_flag != nullptr && std::strcmp(zero_flag, "1") == 0 && normal_lambda == 0.0f) {
++					lambda1 = wcp.mFrictionConstraint1.GetTotalLambda();
++					lambda2 = wcp.mFrictionConstraint2.GetTotalLambda();
++				}
+ 			}
+ 			any_impulse_applied |= wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, normal, normal_lambda);
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())

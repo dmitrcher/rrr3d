@@ -60,3 +60,20 @@ inline void appendHardSpringProbes(std::vector<Case>& suite) {
   suite.push_back(c);
  }
 }
+
+// Coupled floor/body contacts and collinear wheel suspension; no tire friction.
+inline void appendCoupledFloorProbes(std::vector<Case>& suite) {
+ const double heights[]={10.6,10.59,10.55,10.4};
+ for(int mass=0;mass<2;++mass) for(int active=0;active<3;++active)
+ for(int height=0;height<4;++height) for(int spring=0;spring<3;++spring) for(int speed=0;speed<3;++speed) {
+  std::ostringstream name;name<<"coupled-floor-"<<mass<<"-"<<active<<"-"<<height<<"-"<<spring<<"-"<<speed;
+  Case c(name.str(),-20,mass?1200:300,heights[height]);c.steps=6;c.traction=false;c.halfExtents.z=.6;c.fixedOrientation=true;
+  c.velocity.z=speed==0?0:speed==1?-1:-5;
+  for(size_t index=0;index<c.wheels.size();++index) {
+   c.wheels[index].position=V(0,0,index<(size_t)(active==0?0:active==1?1:4)?0:100);
+   c.wheels[index].spring=spring==0?0:spring==1?35000:140000;
+   c.wheels[index].damper=spring==0?0:4500;
+  }
+  suite.push_back(c);
+ }
+}

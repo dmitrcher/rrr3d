@@ -55,6 +55,19 @@ static void execute(const cal::Case& c) {
  if(c.initialPitch!=0){NxQuat q;q.fromAngleAxisFast((float)c.initialPitch,NxVec3(0,1,0));actor.globalPose.M.fromQuat(q);}
  NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");car->userData=reinterpret_cast<void*>(1);
  car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
+ if(std::getenv("NX_INITIAL_ROTATION_TRACE")) {
+  const NxQuat actual=car->getGlobalOrientationQuat();const NxMat33 input=actor.globalPose.M,basis=car->getGlobalOrientation();
+  const NxVec3 position=car->getGlobalPosition();NxQuat inputQuaternion;input.toQuat(inputQuaternion);
+  NxQuat requested;requested.id();if(c.pair)requested.fromAngleAxisFast((float)c.primaryRoll,NxVec3(1,0,0));if(c.initialPitch!=0)requested.fromAngleAxisFast((float)c.initialPitch,NxVec3(0,1,0));
+  std::ostringstream diagnostic;diagnostic.imbue(std::locale::classic());diagnostic<<std::setprecision(9)
+   <<"{\"quaternion\":["<<actual.x<<','<<actual.y<<','<<actual.z<<','<<actual.w<<']'
+   <<",\"requested_quaternion\":["<<requested.x<<','<<requested.y<<','<<requested.z<<','<<requested.w<<']'
+   <<",\"input_matrix_quaternion\":["<<inputQuaternion.x<<','<<inputQuaternion.y<<','<<inputQuaternion.z<<','<<inputQuaternion.w<<']'
+   <<",\"position\":"<<cal::vector(cal::V(position.x,position.y,position.z));
+  const NxMat33 matrices[]={input,basis};const char* names[]={"input_axis","actual_axis"};
+  for(int a=0;a<2;++a)for(int column=0;column<3;++column){const NxVec3 axis=matrices[a].getColumn(column);diagnostic<<",\""<<names[a]<<column<<"\":"<<cal::vector(cal::V(axis.x,axis.y,axis.z));}
+  diagnostic<<'}';motorrock::parity::event("calibration.initial-rotation",c.name,diagnostic.str());
+ }
  for(int i=0;i<4;++i){wheels[i]=car->getShapes()[i+1]->isWheel();if(!wheels[i])throw std::runtime_error("Wheel shape order changed");}
  NxActor* peer=0;std::vector<NxWheelShapeDesc> peerWheelDescriptions;peerWheelDescriptions.reserve(4);NxWheelShape* peerWheels[4];
  if(c.pair){NxBodyDesc peerBody=body;peerBody.mass=(float)c.peerMass;NxBoxShapeDesc peerBox=box;

@@ -66,6 +66,10 @@ inline void appendIsolationProbes(std::vector<Case>& suite) {
   c.fixedOrientation=true;c.initialPitch=pitches[pitch];c.slopeX=slopes[slope];c.slopeY=y?.1:0;
   c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
   suite.push_back(c);
+  // Eight steps can stop before impact on a nearly parallel slope. Keep the
+  // diagnostic case, and independently certify impact/response over 120 steps.
+  std::ostringstream longName;longName<<"frame-v25-long-p"<<pitch<<"-x"<<slope<<"-y"<<y;
+  c.name=c.action=longName.str();c.steps=120;suite.push_back(c);
  }
 
 }

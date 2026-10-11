@@ -102,6 +102,17 @@ def load(path, expected):
 def norm(a, b): return math.sqrt(sum((x-y)**2 for x,y in zip(a,b)))
 def rms(values): return math.sqrt(sum(v*v for v in values)/len(values))
 
+def rotation_error(a, b):
+    # The vector part of conj(a)*b retains tiny rotations that acos(dot)
+    # rounds to zero. atan2 also handles q/-q and non-unit stored quaternions.
+    ax, ay, az, aw = a
+    bx, by, bz, bw = b
+    vector = (aw*bx-bw*ax-ay*bz+az*by,
+              aw*by-bw*ay-az*bx+ax*bz,
+              aw*bz-bw*az-ax*by+ay*bx)
+    dot = sum(u*v for u, v in zip(a, b))
+    return 2*math.atan2(math.hypot(*vector), abs(dot))
+
 def compare(reference, candidate, out=None):
     a = load(reference, 'windows-physx-d3d9')
     b = load(candidate, 'mac-jolt-metal')
@@ -120,8 +131,7 @@ def compare(reference, candidate, out=None):
                 r[field+'_error'] = norm(x[field], y[field])
                 for axis,u,v in zip('xyz',x[field],y[field]):
                     r[field+'_'+axis+'_error'] = abs(u-v)
-            dot = abs(sum(u*v for u,v in zip(x['rotation'], y['rotation'])))
-            r['rotation_error_radians'] = 2*math.acos(min(1.0, dot / math.sqrt(sum(u*u for u in x['rotation'])*sum(v*v for v in y['rotation']))))
+            r['rotation_error_radians'] = rotation_error(x['rotation'], y['rotation'])
             r['wheel_speed_error'] = rms([u['angular_speed']-v['angular_speed'] for u,v in zip(x['wheels'],y['wheels'])])
             r['wheel_contact_mismatch'] = sum(u['contact'] != v['contact'] for u,v in zip(x['wheels'],y['wheels']))
             r['wheel_height_error'] = rms([u['height']-v['height'] for u,v in zip(x['wheels'],y['wheels']) if u['contact'] and v['contact']]) if any(u['contact'] and v['contact'] for u,v in zip(x['wheels'],y['wheels'])) else 0
@@ -134,6 +144,7 @@ def compare(reference, candidate, out=None):
         result[name] = {'samples':len(errors),'rms':{f:rms([e[f] for e in errors]) for f in fields},'maximum':{f:max(e[f] for e in errors) for f in fields},'wheel_contact_mismatch_fraction':sum(e['wheel_contact_mismatch'] for e in errors)/(len(errors)*4),'windows_final':left['rows'][-1],'mac_final':right['rows'][-1]}
         details.extend(errors)
     report = {'schema':1, 'reference':'Windows PhysX 2.8.4', 'candidate':'Mac production Jolt vehicle adapter', 'reference_sha256':hashlib.sha256(Path(reference).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(Path(candidate).read_bytes()).hexdigest(),'candidate_profiles': sorted({c['meta']['profile'] for c in b.values()}),'comparable_scenario':True,'cases':result,'limitations':['Controlled tests include all 17 original chassis and each positive workshop tire function. Equal Nm/wheel bypasses gearing/AI; individual presets do not certify every combined loadout or complete map.','Fixed solver steps remove frame-rate dependence; repeat captures are still required to measure solver variance.','Raw engine slip/normal-force fields use backend conventions and must not be compared as identical observables. Remaining contact/transient differences are recorded, not hidden by the aggregate score.']}
+    report['rotation_metric'] = '2*atan2(norm(vector(conj(q_windows)*q_mac)), abs(dot(q_windows,q_mac)))'
     remaining = [name for name,c in result.items()
                  if any(value != 0 for value in c['maximum'].values())
                  or c['wheel_contact_mismatch_fraction'] != 0]

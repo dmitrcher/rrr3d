@@ -1,10 +1,22 @@
 #include "Fixture.h"
+#include "experimental/ContactFrameScalar.h"
+#include <cstdlib>
+#include <cstring>
 #include "physics/OriginalVehiclePhysics.h"
 #include <iostream>
 namespace cal=motorrock::calibration;
 namespace phys=r3d::physics;
 static phys::Vec3 v3(cal::V v){return {static_cast<float>(v.x),static_cast<float>(v.y),static_cast<float>(v.z)};}
 static phys::WheelDescription::TireFunction tire(const cal::Tire& t){return {static_cast<float>(t.extremumSlip),static_cast<float>(t.extremumValue),static_cast<float>(t.asymptoteSlip),static_cast<float>(t.asymptoteValue),static_cast<float>(t.stiffness)};}
+// NxActorDesc stores a matrix. Its createActor path converts that matrix back
+// to a quaternion; setting sin/cos directly gives a different initial pose.
+static phys::Quat actorMatrixPose(phys::Quat q) {
+ const char* legacy=std::getenv("RRR3D_CALIBRATION_LEGACY_DIRECT_ROTATION");
+ if(legacy && std::strcmp(legacy,"1")==0)return q;
+ motorrock::contactframe::Quaternion input={{q.x,q.y,q.z,q.w}};
+ const auto converted=motorrock::contactframe::encode(motorrock::contactframe::decode(input));
+ return {converted[0],converted[1],converted[2],converted[3]};
+}
 static void execute(const cal::Case& c) {
  phys::WorldDescription d;d.gravity=static_cast<float>(c.gravity);d.startPosition={static_cast<float>(c.startOffset.x),static_cast<float>(c.startOffset.y),static_cast<float>(c.height+c.startOffset.z)};
  phys::TriangleMesh floor;float z=c.ground?10.0F:-10000.0F;
@@ -21,8 +33,8 @@ static void execute(const cal::Case& c) {
  else if(c.obstacle==6){phys::DecorationDescription o;o.hasBodyShape=true;o.halfExtents={10,.25F,3};o.transform.position={0,8,13};d.decorations.push_back(o);}
  else if(c.obstacle){phys::DecorationDescription o;o.hasBodyShape=true;o.halfExtents=c.obstacle<=2?phys::Vec3{.25F,10,3}:c.obstacle==3?phys::Vec3{.5F,10,.15F}:phys::Vec3{20,.25F,.3F};o.transform.position=c.obstacle<=2?phys::Vec3{8,0,13}:c.obstacle==3?phys::Vec3{8,0,10.15F}:phys::Vec3{8,.9F,10.3F};d.decorations.push_back(o);}
  std::string error;auto world=phys::createOriginalVehicleWorld(d,error);if(!world)throw std::runtime_error(error);
- if(c.initialPitch!=0){phys::Quat q;q.y=std::sin(static_cast<float>(c.initialPitch)*.5F);q.w=std::cos(static_cast<float>(c.initialPitch)*.5F);world->synchronizeNetworkVehicle(0,d.startPosition,q,{}, {},true);}
- if(c.pair){for(std::size_t i=0;i<2;++i){const float angle=static_cast<float>(i?c.peerRoll:c.primaryRoll);phys::Quat q;q.x=std::sin(angle*.5F);q.w=std::cos(angle*.5F);world->synchronizeNetworkVehicle(i,i?v3(c.peerPosition):d.startPosition,q,{}, {},true);world->setWheelTractionEnabled(i,c.traction);}world->addLinearVelocity(1,v3(c.peerVelocity));}
+ if(c.initialPitch!=0){phys::Quat q;q.y=std::sin(static_cast<float>(c.initialPitch)*.5F);q.w=std::cos(static_cast<float>(c.initialPitch)*.5F);world->synchronizeNetworkVehicle(0,d.startPosition,actorMatrixPose(q),{}, {},true);}
+ if(c.pair){for(std::size_t i=0;i<2;++i){const float angle=static_cast<float>(i?c.peerRoll:c.primaryRoll);phys::Quat q;q.x=std::sin(angle*.5F);q.w=std::cos(angle*.5F);world->synchronizeNetworkVehicle(i,i?v3(c.peerPosition):d.startPosition,actorMatrixPose(q),{}, {},true);world->setWheelTractionEnabled(i,c.traction);}world->addLinearVelocity(1,v3(c.peerVelocity));}
  world->setWheelTractionEnabled(0,c.traction);
  cal::Command x;
  world->setVehicleFixedStepController([&x,&c](std::size_t,float,const phys::VehicleInput&,const phys::VehicleFixedStepState&){phys::VehicleDriveCommand cmd;cmd.motorTorque=static_cast<float>(x.torque);cmd.brakeTorque=static_cast<float>(x.brake);cmd.steeringAngle=static_cast<float>(x.steer);cmd.gear=1;cmd.applyExtraGravity=c.extraGravity;cmd.airbornePitchAcceleration=static_cast<float>(c.airPitch);cmd.angularDamping={static_cast<float>(c.angularDamping.x),static_cast<float>(c.angularDamping.y),static_cast<float>(c.angularDamping.z)};cmd.clampRollAngle=static_cast<float>(c.clampRoll);cmd.clampPitchAngle=static_cast<float>(c.clampPitch);return cmd;});

@@ -1,0 +1,24 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -965,6 +965,21 @@
+             << ",\"friction1\":" << settings.mCombinedFriction2
+             << ",\"independent_friction\":" << (settings.mUseIndependentFriction?"true":"false")
+             << ",\"box_contact_order\":" << (settings.mUseBoxContactOrder?"true":"false");
++        const JPH::Body& diagnosticCar = first.GetMotionType() != JPH::EMotionType::Static ? first : second;
++        SourceBox diagnosticBox;
++        if (sourceBox(diagnosticCar, diagnosticBox)) {
++            const auto sourceVector = [&](const char* name, sourcebox::PxVec3 value) {
++                out << ",\"" << name << "\":[" << value.x << ',' << value.y << ',' << value.z << ']';
++            };
++            sourceVector("source_box_position", diagnosticBox.transform.p);
++            sourceVector("source_box_half", diagnosticBox.half);
++            sourceVector("source_box_axis0", diagnosticBox.transform.m.column0);
++            sourceVector("source_box_axis1", diagnosticBox.transform.m.column1);
++            sourceVector("source_box_axis2", diagnosticBox.transform.m.column2);
++            const auto diagnosticRotation = fromJolt(diagnosticCar.GetRotation());
++            out << ",\"source_actor_quaternion\":[" << diagnosticRotation.x << ',' << diagnosticRotation.y << ','
++                << diagnosticRotation.z << ',' << diagnosticRotation.w << ']';
++        }
+         const auto vector = [&](const char* name, JPH::RVec3 value) {
+             const Vec3 v = fromJolt(JPH::Vec3(value));
+             out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';

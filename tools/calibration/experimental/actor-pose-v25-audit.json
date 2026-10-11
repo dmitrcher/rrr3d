@@ -1,0 +1,1922 @@
+{
+  "version": 25,
+  "goal_complete": false,
+  "reference": "Native Windows PhysX2.8.4; four solver iterations; no AI",
+  "scope": "Calibration fixture initial pose and diagnostic trace. No accepted clipping arithmetic change or installed game update.",
+  "full_matrix": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "rotation_metric": "2*atan2(norm(vector(conj(q_windows)*q_mac)), abs(dot(q_windows,q_mac)))",
+      "weighted_before": {
+        "position_error": 0.17622648608335034,
+        "velocity_error": 0.06561258751888714,
+        "rotation_error_radians": 0.06569188945608109,
+        "wheel_speed_error": 0.9643969256629605,
+        "angular_momentum_error": 87.69028162830885,
+        "suspension_length_error": 0.0019457942940404455,
+        "wheel_height_error": 0.0006652996905515384,
+        "position_x_error": 0.1212811371366821,
+        "position_y_error": 0.1182285796958576,
+        "position_z_error": 0.04866891323235847,
+        "velocity_x_error": 0.030800427469726437,
+        "velocity_y_error": 0.04687024720514624,
+        "velocity_z_error": 0.03405180223621397,
+        "angular_momentum_x_error": 22.091134215522676,
+        "angular_momentum_y_error": 83.0394294915259,
+        "angular_momentum_z_error": 17.493439651646046
+      },
+      "weighted_after": {
+        "position_error": 0.17622648608338656,
+        "velocity_error": 0.06561258751888736,
+        "rotation_error_radians": 0.065691889456081,
+        "wheel_speed_error": 0.9643969256629605,
+        "angular_momentum_error": 87.69028162830885,
+        "suspension_length_error": 0.0019457942940404455,
+        "wheel_height_error": 0.0006652996905515384,
+        "position_x_error": 0.12128113713673472,
+        "position_y_error": 0.1182285796958576,
+        "position_z_error": 0.04866891323235847,
+        "velocity_x_error": 0.030800427469726933,
+        "velocity_y_error": 0.04687024720514624,
+        "velocity_z_error": 0.03405180223621397,
+        "angular_momentum_x_error": 22.091134215522676,
+        "angular_momentum_y_error": 83.0394294915259,
+        "angular_momentum_z_error": 17.493439651646046
+      },
+      "changed": [
+        "skin-tilted-triangle-angle1-skin0-thin0",
+        "skin-tilted-triangle-angle2-skin0-thin0",
+        "skin-tilted-triangle-angle3-skin0-thin0",
+        "skin-tilted-triangle-angle4-skin0-thin0",
+        "skin-tilted-box-angle1-skin0-thin0",
+        "skin-tilted-box-angle2-skin0-thin0",
+        "skin-tilted-box-angle3-skin0-thin0",
+        "skin-tilted-box-angle4-skin0-thin0",
+        "skin-tilted-triangle-angle1-skin1-thin0",
+        "skin-tilted-triangle-angle2-skin1-thin0",
+        "skin-tilted-triangle-angle3-skin1-thin0",
+        "skin-tilted-triangle-angle4-skin1-thin0",
+        "skin-tilted-box-angle1-skin1-thin0",
+        "skin-tilted-box-angle2-skin1-thin0",
+        "skin-tilted-box-angle3-skin1-thin0",
+        "skin-tilted-box-angle4-skin1-thin0",
+        "skin-tilted-triangle-angle1-skin2-thin0",
+        "skin-tilted-triangle-angle2-skin2-thin0",
+        "skin-tilted-triangle-angle3-skin2-thin0",
+        "skin-tilted-triangle-angle4-skin2-thin0",
+        "skin-tilted-box-angle1-skin2-thin0",
+        "skin-tilted-box-angle2-skin2-thin0",
+        "skin-tilted-box-angle3-skin2-thin0",
+        "skin-tilted-box-angle4-skin2-thin0",
+        "skin-tilted-triangle-angle1-skin0-thin1",
+        "skin-tilted-triangle-angle2-skin0-thin1",
+        "skin-tilted-triangle-angle3-skin0-thin1",
+        "skin-tilted-triangle-angle4-skin0-thin1",
+        "skin-tilted-box-angle1-skin0-thin1",
+        "skin-tilted-box-angle2-skin0-thin1",
+        "skin-tilted-box-angle3-skin0-thin1",
+        "skin-tilted-box-angle4-skin0-thin1",
+        "skin-tilted-triangle-angle1-skin1-thin1",
+        "skin-tilted-triangle-angle2-skin1-thin1",
+        "skin-tilted-triangle-angle3-skin1-thin1",
+        "skin-tilted-triangle-angle4-skin1-thin1",
+        "skin-tilted-box-angle1-skin1-thin1",
+        "skin-tilted-box-angle2-skin1-thin1",
+        "skin-tilted-box-angle3-skin1-thin1",
+        "skin-tilted-box-angle4-skin1-thin1",
+        "skin-tilted-triangle-angle1-skin2-thin1",
+        "skin-tilted-triangle-angle2-skin2-thin1",
+        "skin-tilted-triangle-angle3-skin2-thin1",
+        "skin-tilted-triangle-angle4-skin2-thin1",
+        "skin-tilted-box-angle1-skin2-thin1",
+        "skin-tilted-box-angle2-skin2-thin1",
+        "skin-tilted-box-angle3-skin2-thin1",
+        "skin-tilted-box-angle4-skin2-thin1"
+      ],
+      "new_passes": [],
+      "new_failures": [],
+      "all_channel_regressions": {
+        "position_error": [
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin0",
+            "before": 0.03541255880874283,
+            "after": 0.03541256102861624
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin0-thin1",
+            "before": 2.4102441265651027e-05,
+            "after": 2.4103038708099175e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin1-thin1",
+            "before": 2.312116625823932e-05,
+            "after": 2.3121433237896043e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin1",
+            "before": 1.3618635975750872e-05,
+            "after": 1.3621088276638666e-05
+          }
+        ],
+        "velocity_error": [
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin1",
+            "before": 0.0454833758838175,
+            "after": 0.04548337588741167
+          }
+        ],
+        "rotation_error_radians": [],
+        "wheel_speed_error": [],
+        "angular_momentum_error": [],
+        "suspension_length_error": [],
+        "wheel_height_error": [],
+        "position_x_error": [
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin0",
+            "before": 0.011134656785414225,
+            "after": 0.011134663845476924
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin0-thin1",
+            "before": 4.963887085685178e-06,
+            "after": 4.966787190871154e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin1-thin1",
+            "before": 4.499443947126228e-06,
+            "after": 4.500815666817549e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin1",
+            "before": 2.823811696916516e-06,
+            "after": 2.8356150125872097e-06
+          }
+        ],
+        "position_y_error": [],
+        "position_z_error": [],
+        "velocity_x_error": [
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin1",
+            "before": 3.622774868644645e-07,
+            "after": 6.769008578842182e-07
+          }
+        ],
+        "velocity_y_error": [],
+        "velocity_z_error": [],
+        "angular_momentum_x_error": [],
+        "angular_momentum_y_error": [],
+        "angular_momentum_z_error": []
+      }
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "rotation_metric": "2*atan2(norm(vector(conj(q_windows)*q_mac)), abs(dot(q_windows,q_mac)))",
+      "weighted_before": {
+        "position_error": 0.12732718049532127,
+        "velocity_error": 0.04279498157723787,
+        "rotation_error_radians": 0.06569188945608109,
+        "wheel_speed_error": 0.9643969256629605,
+        "angular_momentum_error": 87.69028162830885,
+        "suspension_length_error": 0.0019457942940404455,
+        "wheel_height_error": 0.0006652996905515384,
+        "position_x_error": 0.11880477713971176,
+        "position_y_error": 0.013262485789314549,
+        "position_z_error": 0.04383768119277948,
+        "velocity_x_error": 0.027085640673533674,
+        "velocity_y_error": 0.0038319305054696122,
+        "velocity_z_error": 0.03291040604583296,
+        "angular_momentum_x_error": 22.091134215522676,
+        "angular_momentum_y_error": 83.0394294915259,
+        "angular_momentum_z_error": 17.493439651646046
+      },
+      "weighted_after": {
+        "position_error": 0.12732718049531927,
+        "velocity_error": 0.04279498157701852,
+        "rotation_error_radians": 0.065691889456081,
+        "wheel_speed_error": 0.9643969256629605,
+        "angular_momentum_error": 87.69028162830885,
+        "suspension_length_error": 0.0019457942940404455,
+        "wheel_height_error": 0.0006652996905515384,
+        "position_x_error": 0.11880477713971145,
+        "position_y_error": 0.013262485789298221,
+        "position_z_error": 0.04383768119277948,
+        "velocity_x_error": 0.02708564067352991,
+        "velocity_y_error": 0.003831930502747938,
+        "velocity_z_error": 0.03291040604586772,
+        "angular_momentum_x_error": 22.091134215522676,
+        "angular_momentum_y_error": 83.0394294915259,
+        "angular_momentum_z_error": 17.493439651646046
+      },
+      "changed": [
+        "skin-tilted-triangle-angle1-skin0-thin0",
+        "skin-tilted-triangle-angle2-skin0-thin0",
+        "skin-tilted-triangle-angle3-skin0-thin0",
+        "skin-tilted-triangle-angle4-skin0-thin0",
+        "skin-tilted-box-angle1-skin0-thin0",
+        "skin-tilted-box-angle2-skin0-thin0",
+        "skin-tilted-box-angle3-skin0-thin0",
+        "skin-tilted-box-angle4-skin0-thin0",
+        "skin-tilted-triangle-angle1-skin1-thin0",
+        "skin-tilted-triangle-angle2-skin1-thin0",
+        "skin-tilted-triangle-angle3-skin1-thin0",
+        "skin-tilted-triangle-angle4-skin1-thin0",
+        "skin-tilted-box-angle1-skin1-thin0",
+        "skin-tilted-box-angle2-skin1-thin0",
+        "skin-tilted-box-angle3-skin1-thin0",
+        "skin-tilted-box-angle4-skin1-thin0",
+        "skin-tilted-triangle-angle1-skin2-thin0",
+        "skin-tilted-triangle-angle2-skin2-thin0",
+        "skin-tilted-triangle-angle3-skin2-thin0",
+        "skin-tilted-triangle-angle4-skin2-thin0",
+        "skin-tilted-box-angle1-skin2-thin0",
+        "skin-tilted-box-angle2-skin2-thin0",
+        "skin-tilted-box-angle3-skin2-thin0",
+        "skin-tilted-box-angle4-skin2-thin0",
+        "skin-tilted-triangle-angle1-skin0-thin1",
+        "skin-tilted-triangle-angle2-skin0-thin1",
+        "skin-tilted-triangle-angle3-skin0-thin1",
+        "skin-tilted-triangle-angle4-skin0-thin1",
+        "skin-tilted-box-angle1-skin0-thin1",
+        "skin-tilted-box-angle2-skin0-thin1",
+        "skin-tilted-box-angle3-skin0-thin1",
+        "skin-tilted-box-angle4-skin0-thin1",
+        "skin-tilted-triangle-angle1-skin1-thin1",
+        "skin-tilted-triangle-angle2-skin1-thin1",
+        "skin-tilted-triangle-angle3-skin1-thin1",
+        "skin-tilted-triangle-angle4-skin1-thin1",
+        "skin-tilted-box-angle1-skin1-thin1",
+        "skin-tilted-box-angle2-skin1-thin1",
+        "skin-tilted-box-angle3-skin1-thin1",
+        "skin-tilted-box-angle4-skin1-thin1",
+        "skin-tilted-triangle-angle1-skin2-thin1",
+        "skin-tilted-triangle-angle2-skin2-thin1",
+        "skin-tilted-triangle-angle3-skin2-thin1",
+        "skin-tilted-triangle-angle4-skin2-thin1",
+        "skin-tilted-box-angle1-skin2-thin1",
+        "skin-tilted-box-angle2-skin2-thin1",
+        "skin-tilted-box-angle3-skin2-thin1",
+        "skin-tilted-box-angle4-skin2-thin1"
+      ],
+      "new_passes": [],
+      "new_failures": [],
+      "all_channel_regressions": {
+        "position_error": [
+          {
+            "case": "skin-tilted-box-angle2-skin0-thin0",
+            "before": 1.0453704742021346e-07,
+            "after": 1.4462404978089458e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin0-thin0",
+            "before": 1.0453704742021346e-07,
+            "after": 1.4462404978089458e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin0",
+            "before": 6.298873421105681e-08,
+            "after": 7.046586933888787e-08
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin0",
+            "before": 6.298873421105681e-08,
+            "after": 7.046586933888787e-08
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin2-thin0",
+            "before": 2.0747476394778464e-07,
+            "after": 2.0861336887918905e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin0",
+            "before": 2.6194975336374425e-08,
+            "after": 2.6310794030966496e-08
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin2-thin0",
+            "before": 2.6194975336374425e-08,
+            "after": 2.6310794030966496e-08
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin1",
+            "before": 1.758169488958841e-07,
+            "after": 1.7682058438071618e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 9.707413329464087e-08,
+            "after": 1.1159575209390313e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin1",
+            "before": 3.5945807610205024e-07,
+            "after": 3.7498315000816834e-07
+          }
+        ],
+        "velocity_error": [
+          {
+            "case": "skin-tilted-triangle-angle1-skin0-thin0",
+            "before": 0.00023596861215605924,
+            "after": 0.00023597922728325286
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin0",
+            "before": 2.604946713832251e-07,
+            "after": 3.0348954781886034e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin0-thin0",
+            "before": 6.070647479297214e-07,
+            "after": 8.573508840447487e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin0",
+            "before": 2.604946713832251e-07,
+            "after": 3.0348954781886034e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin0",
+            "before": 3.43928274838821e-06,
+            "after": 3.440280985811213e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin0",
+            "before": 3.43928274838821e-06,
+            "after": 3.440280985811213e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin2-thin0",
+            "before": 4.4978607606537883e-07,
+            "after": 5.767398306063885e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin0",
+            "before": 4.6601004512228464e-07,
+            "after": 5.837132821490019e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin2-thin0",
+            "before": 9.315379137581366e-07,
+            "after": 9.452661062105838e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin1",
+            "before": 9.240772161624034e-05,
+            "after": 9.24209084916179e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin1",
+            "before": 2.7851095137319126e-06,
+            "after": 2.7853121087223405e-06
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin1",
+            "before": 1.0528622644049504e-06,
+            "after": 1.100791431850259e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin0-thin1",
+            "before": 4.5665534643678395e-06,
+            "after": 4.566562729366719e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin1-thin1",
+            "before": 2.8256010035977937e-05,
+            "after": 2.827526082624846e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin1-thin1",
+            "before": 7.132485049324997e-05,
+            "after": 7.132485504478316e-05
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 5.96981239108187e-07,
+            "after": 7.04524342294707e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin1",
+            "before": 3.3014333033373216e-06,
+            "after": 6.8848613620856e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin1",
+            "before": 4.203103402315317e-06,
+            "after": 4.34449522673769e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin2-thin1",
+            "before": 0.000992817302956055,
+            "after": 0.0009928173393851532
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin1",
+            "before": 3.7651554723800983e-07,
+            "after": 3.786364502030418e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin1",
+            "before": 4.157396562306062e-06,
+            "after": 4.370303160776358e-06
+          }
+        ],
+        "rotation_error_radians": [],
+        "wheel_speed_error": [],
+        "angular_momentum_error": [],
+        "suspension_length_error": [],
+        "wheel_height_error": [],
+        "position_x_error": [],
+        "position_y_error": [
+          {
+            "case": "skin-tilted-box-angle2-skin0-thin0",
+            "before": 1.0453704742021346e-07,
+            "after": 1.4462404978089458e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin0-thin0",
+            "before": 1.0453704742021346e-07,
+            "after": 1.4462404978089458e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin0",
+            "before": 6.298873421105681e-08,
+            "after": 7.046586933888787e-08
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin0",
+            "before": 6.298873421105681e-08,
+            "after": 7.046586933888787e-08
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin2-thin0",
+            "before": 2.0747476394778464e-07,
+            "after": 2.0861336887918905e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin0",
+            "before": 2.6194975336374425e-08,
+            "after": 2.6310794030966496e-08
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin2-thin0",
+            "before": 2.6194975336374425e-08,
+            "after": 2.6310794030966496e-08
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin1",
+            "before": 1.4598492911654938e-07,
+            "after": 1.471921161979948e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 9.707413329464087e-08,
+            "after": 1.1159575209390313e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin1",
+            "before": 3.5945807610205024e-07,
+            "after": 3.7498315000816834e-07
+          }
+        ],
+        "position_z_error": [],
+        "velocity_x_error": [
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin0",
+            "before": 2.6004767283721735e-07,
+            "after": 3.030368844015051e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin0-thin0",
+            "before": 6.045750769308325e-07,
+            "after": 8.537614720025816e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin0",
+            "before": 2.6004767283721735e-07,
+            "after": 3.030368844015051e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin0",
+            "before": 6.38663857375024e-07,
+            "after": 6.523920946902693e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin1-thin0",
+            "before": 3.118465232323159e-07,
+            "after": 3.157357186817558e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin0",
+            "before": 6.219027650024327e-07,
+            "after": 6.679981127031318e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin0",
+            "before": 1.5946592498627687e-07,
+            "after": 1.0785869407427602e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin0",
+            "before": 6.219027650024327e-07,
+            "after": 6.679981127031318e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin2-thin0",
+            "before": 4.491532930001478e-07,
+            "after": 5.758887389587905e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin0",
+            "before": 4.6599953558525744e-07,
+            "after": 5.837017371958466e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin0-thin1",
+            "before": 1.0655280320581328e-06,
+            "after": 1.0655335448743012e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin1",
+            "before": 2.588351935763381e-06,
+            "after": 2.7296726406652937e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin1",
+            "before": 2.2162016409463087e-07,
+            "after": 2.2237897461858403e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin1",
+            "before": 6.688738843373891e-07,
+            "after": 7.354917948078294e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin0-thin1",
+            "before": 1.1765681740887424e-06,
+            "after": 1.2469736313820477e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin1-thin1",
+            "before": 1.106169610517758e-06,
+            "after": 1.1064618254754686e-06
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin1-thin1",
+            "before": 1.7407003239276444e-06,
+            "after": 1.747548459095419e-06
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 8.148333768631798e-08,
+            "after": 2.4040419138428727e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin1",
+            "before": 6.005067364225251e-07,
+            "after": 1.835738055525081e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin1",
+            "before": 3.680816366622315e-06,
+            "after": 3.85978430416782e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin2-thin1",
+            "before": 1.7976984366661253e-07,
+            "after": 3.2380422799146187e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin1",
+            "before": 3.5936809493346005e-07,
+            "after": 3.615895006903531e-07
+          }
+        ],
+        "velocity_y_error": [
+          {
+            "case": "skin-tilted-box-angle2-skin0-thin0",
+            "before": 7.206976409468621e-07,
+            "after": 7.414195966102226e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin0-thin0",
+            "before": 7.206976409468621e-07,
+            "after": 7.414195966102226e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin0",
+            "before": 5.027579071946057e-07,
+            "after": 5.099045065924919e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin1-thin0",
+            "before": 5.027579071946057e-07,
+            "after": 5.099045065924919e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin2-thin0",
+            "before": 9.104358509761354e-07,
+            "after": 9.244775393824812e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin0",
+            "before": 3.5797301470132586e-07,
+            "after": 3.6131561743219474e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin2-thin0",
+            "before": 3.5797301470132586e-07,
+            "after": 3.6131561743219474e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin0-thin1",
+            "before": 6.947046159567835e-07,
+            "after": 7.024792250480315e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 4.0217430615764867e-07,
+            "after": 4.826833876838157e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin1",
+            "before": 3.440113328660747e-06,
+            "after": 3.6408304458414664e-06
+          }
+        ],
+        "velocity_z_error": [
+          {
+            "case": "skin-tilted-triangle-angle1-skin0-thin0",
+            "before": 0.0002359665183781679,
+            "after": 0.00023597713359962115
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin0",
+            "before": 1.525390674555187e-08,
+            "after": 1.6569620621038396e-08
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin0-thin0",
+            "before": 5.492344247271937e-08,
+            "after": 7.837019392790283e-08
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin0",
+            "before": 1.525390674555187e-08,
+            "after": 1.6569620621038396e-08
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin1-thin0",
+            "before": 2.6289144064187645e-08,
+            "after": 2.8762704274179568e-08
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin1-thin0",
+            "before": 9.343750683393979e-08,
+            "after": 2.1529556366417553e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin0",
+            "before": 1.9350394042832056e-07,
+            "after": 2.1070259265812248e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin2-thin0",
+            "before": 2.3850232900625592e-08,
+            "after": 3.132080056990386e-08
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin0",
+            "before": 3.1296947452054453e-09,
+            "after": 3.671205757133523e-09
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin0",
+            "before": 1.1636068435817296e-07,
+            "after": 1.1639421425616324e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin2-thin0",
+            "before": 1.0384639205968495e-07,
+            "after": 1.1238400694799699e-07
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin2-thin0",
+            "before": 1.1636068435817296e-07,
+            "after": 1.1639421425616324e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin0-thin1",
+            "before": 9.237146447123811e-05,
+            "after": 9.238058894427342e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin1",
+            "before": 2.7762779951486627e-06,
+            "after": 2.7764205615581512e-06
+          },
+          {
+            "case": "skin-tilted-box-angle4-skin0-thin1",
+            "before": 3.6481131933894533e-07,
+            "after": 3.649272763567129e-07
+          },
+          {
+            "case": "skin-tilted-triangle-angle1-skin1-thin1",
+            "before": 2.825197864850082e-05,
+            "after": 2.82716700261518e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle2-skin1-thin1",
+            "before": 7.13162722432772e-05,
+            "after": 7.131627226228315e-05
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin1-thin1",
+            "before": 1.3221341070244387e-07,
+            "after": 1.4841933065698732e-07
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin1-thin1",
+            "before": 4.33593003856448e-07,
+            "after": 4.5340613240750467e-07
+          },
+          {
+            "case": "skin-tilted-box-angle3-skin1-thin1",
+            "before": 2.102100047884288e-06,
+            "after": 6.482813647988943e-06
+          },
+          {
+            "case": "skin-tilted-triangle-angle3-skin2-thin1",
+            "before": 1.1233222892755958e-07,
+            "after": 1.1233251716605348e-07
+          },
+          {
+            "case": "skin-tilted-box-angle1-skin2-thin1",
+            "before": 7.82118085717334e-08,
+            "after": 7.858876775173854e-08
+          },
+          {
+            "case": "skin-tilted-box-angle2-skin2-thin1",
+            "before": 2.293942444628632e-06,
+            "after": 2.391552805135925e-06
+          }
+        ],
+        "angular_momentum_x_error": [],
+        "angular_momentum_y_error": [],
+        "angular_momentum_z_error": []
+      }
+    }
+  },
+  "full_legacy_control": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical_to_v24_principal": true
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical_to_v24_principal": true
+    }
+  },
+  "long_contact": {
+    "cases": 72,
+    "steps": 120,
+    "samples_per_capture": 8640,
+    "coverage_complete": true,
+    "physical_and_force_repeats_exact": true,
+    "remaining": 72,
+    "max_errors": {
+      "position_error": 0.0022401798900979894,
+      "velocity_error": 0.0476159705174023,
+      "rotation_error_radians": 1.4812276368769634e-09
+    },
+    "coverage": {
+      "windows": {
+        "frame-v25-long-p0-x0-y0": {
+          "force_records": 346,
+          "positive_force_records": 287,
+          "maximum_normal_force": 14643.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x0-y1": {
+          "force_records": 161,
+          "positive_force_records": 121,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 839,
+          "maximum_normal_force": 11857.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x1-y1": {
+          "force_records": 404,
+          "positive_force_records": 262,
+          "maximum_normal_force": 18623.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x2-y0": {
+          "force_records": 346,
+          "positive_force_records": 310,
+          "maximum_normal_force": 14984.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x2-y1": {
+          "force_records": 146,
+          "positive_force_records": 122,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x0-y0": {
+          "force_records": 374,
+          "positive_force_records": 348,
+          "maximum_normal_force": 14302.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x0-y1": {
+          "force_records": 156,
+          "positive_force_records": 125,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x1-y0": {
+          "force_records": 240,
+          "positive_force_records": 240,
+          "maximum_normal_force": 13034.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x1-y1": {
+          "force_records": 172,
+          "positive_force_records": 132,
+          "maximum_normal_force": 23880.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x2-y0": {
+          "force_records": 242,
+          "positive_force_records": 228,
+          "maximum_normal_force": 35347.7,
+          "first_positive_tick": 6
+        },
+        "frame-v25-long-p1-x2-y1": {
+          "force_records": 118,
+          "positive_force_records": 116,
+          "maximum_normal_force": 33332.9,
+          "first_positive_tick": 4
+        },
+        "frame-v25-long-p10-x0-y0": {
+          "force_records": 346,
+          "positive_force_records": 287,
+          "maximum_normal_force": 14636,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x0-y1": {
+          "force_records": 161,
+          "positive_force_records": 122,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 604,
+          "maximum_normal_force": 9740.83,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x1-y1": {
+          "force_records": 404,
+          "positive_force_records": 277,
+          "maximum_normal_force": 21623.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x2-y0": {
+          "force_records": 346,
+          "positive_force_records": 309,
+          "maximum_normal_force": 15053.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x2-y1": {
+          "force_records": 146,
+          "positive_force_records": 122,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x0-y0": {
+          "force_records": 378,
+          "positive_force_records": 285,
+          "maximum_normal_force": 17881.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x0-y1": {
+          "force_records": 300,
+          "positive_force_records": 152,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 960,
+          "maximum_normal_force": 6181.07,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x1-y1": {
+          "force_records": 462,
+          "positive_force_records": 352,
+          "maximum_normal_force": 17297,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x2-y0": {
+          "force_records": 386,
+          "positive_force_records": 283,
+          "maximum_normal_force": 19951.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x2-y1": {
+          "force_records": 411,
+          "positive_force_records": 225,
+          "maximum_normal_force": 23420.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x0-y0": {
+          "force_records": 326,
+          "positive_force_records": 286,
+          "maximum_normal_force": 17052.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x0-y1": {
+          "force_records": 182,
+          "positive_force_records": 138,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x1-y0": {
+          "force_records": 240,
+          "positive_force_records": 240,
+          "maximum_normal_force": 17071.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x1-y1": {
+          "force_records": 309,
+          "positive_force_records": 172,
+          "maximum_normal_force": 23880.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x2-y0": {
+          "force_records": 318,
+          "positive_force_records": 263,
+          "maximum_normal_force": 31543.8,
+          "first_positive_tick": 9
+        },
+        "frame-v25-long-p2-x2-y1": {
+          "force_records": 428,
+          "positive_force_records": 221,
+          "maximum_normal_force": 35846.7,
+          "first_positive_tick": 7
+        },
+        "frame-v25-long-p3-x0-y0": {
+          "force_records": 370,
+          "positive_force_records": 284,
+          "maximum_normal_force": 17833,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x0-y1": {
+          "force_records": 297,
+          "positive_force_records": 152,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 720,
+          "maximum_normal_force": 5740.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x1-y1": {
+          "force_records": 468,
+          "positive_force_records": 313,
+          "maximum_normal_force": 18010,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x2-y0": {
+          "force_records": 388,
+          "positive_force_records": 282,
+          "maximum_normal_force": 19924.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x2-y1": {
+          "force_records": 412,
+          "positive_force_records": 241,
+          "maximum_normal_force": 23420.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x0-y0": {
+          "force_records": 378,
+          "positive_force_records": 285,
+          "maximum_normal_force": 17878.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x0-y1": {
+          "force_records": 300,
+          "positive_force_records": 152,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 960,
+          "maximum_normal_force": 5676.66,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x1-y1": {
+          "force_records": 462,
+          "positive_force_records": 358,
+          "maximum_normal_force": 17142.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x2-y0": {
+          "force_records": 386,
+          "positive_force_records": 281,
+          "maximum_normal_force": 19923.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x2-y1": {
+          "force_records": 411,
+          "positive_force_records": 237,
+          "maximum_normal_force": 23420.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "force_records": 378,
+          "positive_force_records": 285,
+          "maximum_normal_force": 17887.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x0-y1": {
+          "force_records": 300,
+          "positive_force_records": 152,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 960,
+          "maximum_normal_force": 5643.01,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "force_records": 462,
+          "positive_force_records": 359,
+          "maximum_normal_force": 17115.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x2-y0": {
+          "force_records": 386,
+          "positive_force_records": 281,
+          "maximum_normal_force": 19946.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x2-y1": {
+          "force_records": 411,
+          "positive_force_records": 214,
+          "maximum_normal_force": 23420.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x0-y0": {
+          "force_records": 378,
+          "positive_force_records": 285,
+          "maximum_normal_force": 17904.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x0-y1": {
+          "force_records": 300,
+          "positive_force_records": 152,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 960,
+          "maximum_normal_force": 5635.76,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x1-y1": {
+          "force_records": 460,
+          "positive_force_records": 361,
+          "maximum_normal_force": 17110.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x2-y0": {
+          "force_records": 386,
+          "positive_force_records": 281,
+          "maximum_normal_force": 19941.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x2-y1": {
+          "force_records": 411,
+          "positive_force_records": 253,
+          "maximum_normal_force": 23420.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x0-y0": {
+          "force_records": 386,
+          "positive_force_records": 288,
+          "maximum_normal_force": 17934.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x0-y1": {
+          "force_records": 301,
+          "positive_force_records": 153,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "force_records": 960,
+          "positive_force_records": 720,
+          "maximum_normal_force": 5551.92,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x1-y1": {
+          "force_records": 454,
+          "positive_force_records": 417,
+          "maximum_normal_force": 15741.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x2-y0": {
+          "force_records": 382,
+          "positive_force_records": 281,
+          "maximum_normal_force": 19906,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x2-y1": {
+          "force_records": 410,
+          "positive_force_records": 207,
+          "maximum_normal_force": 23420.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x0-y0": {
+          "force_records": 330,
+          "positive_force_records": 259,
+          "maximum_normal_force": 30486.9,
+          "first_positive_tick": 9
+        },
+        "frame-v25-long-p8-x0-y1": {
+          "force_records": 387,
+          "positive_force_records": 249,
+          "maximum_normal_force": 35845.7,
+          "first_positive_tick": 7
+        },
+        "frame-v25-long-p8-x1-y0": {
+          "force_records": 240,
+          "positive_force_records": 240,
+          "maximum_normal_force": 17071.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x1-y1": {
+          "force_records": 227,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23880.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x2-y0": {
+          "force_records": 326,
+          "positive_force_records": 285,
+          "maximum_normal_force": 18523.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x2-y1": {
+          "force_records": 247,
+          "positive_force_records": 163,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x0-y0": {
+          "force_records": 242,
+          "positive_force_records": 228,
+          "maximum_normal_force": 35347.7,
+          "first_positive_tick": 6
+        },
+        "frame-v25-long-p9-x0-y1": {
+          "force_records": 138,
+          "positive_force_records": 116,
+          "maximum_normal_force": 33330.8,
+          "first_positive_tick": 4
+        },
+        "frame-v25-long-p9-x1-y0": {
+          "force_records": 240,
+          "positive_force_records": 240,
+          "maximum_normal_force": 13034.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23880.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x2-y0": {
+          "force_records": 374,
+          "positive_force_records": 348,
+          "maximum_normal_force": 17697,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x2-y1": {
+          "force_records": 262,
+          "positive_force_records": 162,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        }
+      },
+      "mac": {
+        "frame-v25-long-p0-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25796.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26169,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24416.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24385.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25329.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p0-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23659.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24850.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 28308.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p1-x2-y0": {
+          "force_records": 114,
+          "positive_force_records": 114,
+          "maximum_normal_force": 70306.1,
+          "first_positive_tick": 6
+        },
+        "frame-v25-long-p1-x2-y1": {
+          "force_records": 118,
+          "positive_force_records": 116,
+          "maximum_normal_force": 33333.1,
+          "first_positive_tick": 4
+        },
+        "frame-v25-long-p10-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25785.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26163.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24453.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24429.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25351.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p10-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23421.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 31167.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30147.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24844,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27882.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26253.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p11-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25365.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27531.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 34139.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27651.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p2-x2-y0": {
+          "force_records": 111,
+          "positive_force_records": 111,
+          "maximum_normal_force": 77119.1,
+          "first_positive_tick": 9
+        },
+        "frame-v25-long-p2-x2-y1": {
+          "force_records": 113,
+          "positive_force_records": 113,
+          "maximum_normal_force": 48082.4,
+          "first_positive_tick": 7
+        },
+        "frame-v25-long-p3-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30833.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30282.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27103.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25930.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p3-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25372.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 31104.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30125.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24950.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 28535.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26363.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p4-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25362.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 31099.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30124.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24957.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 28604.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26362.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p5-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25362.4,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 31095.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30122.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24950.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 28614.3,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26362.6,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p6-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25361.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x0-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30515.5,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x0-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 30065.1,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27160.8,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25760.7,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p7-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 26512,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x0-y0": {
+          "force_records": 111,
+          "positive_force_records": 111,
+          "maximum_normal_force": 67781.6,
+          "first_positive_tick": 9
+        },
+        "frame-v25-long-p8-x0-y1": {
+          "force_records": 113,
+          "positive_force_records": 113,
+          "maximum_normal_force": 43072.7,
+          "first_positive_tick": 7
+        },
+        "frame-v25-long-p8-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23880.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24901,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p8-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 25050.2,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x0-y0": {
+          "force_records": 114,
+          "positive_force_records": 114,
+          "maximum_normal_force": 70304,
+          "first_positive_tick": 6
+        },
+        "frame-v25-long-p9-x0-y1": {
+          "force_records": 118,
+          "positive_force_records": 116,
+          "maximum_normal_force": 33331.3,
+          "first_positive_tick": 4
+        },
+        "frame-v25-long-p9-x1-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 24000,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x1-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23880.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x2-y0": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 27430.9,
+          "first_positive_tick": 0
+        },
+        "frame-v25-long-p9-x2-y1": {
+          "force_records": 120,
+          "positive_force_records": 120,
+          "maximum_normal_force": 23736.8,
+          "first_positive_tick": 0
+        }
+      }
+    }
+  },
+  "short_contact": {
+    "matrix": {
+      "remaining": 72,
+      "maximum_rotation_error_radians": 1.4812276368769634e-09
+    },
+    "legacy": {
+      "remaining": 72,
+      "maximum_rotation_error_radians": 1.6822439025294836e-07
+    }
+  },
+  "initial_pose_model": {
+    "cases": 72,
+    "nonexact": {
+      "input_matrix": [],
+      "actual_q": [],
+      "actual_matrix": [
+        {
+          "case": "frame-v23-p0-x0-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p0-x0-y1",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p0-x1-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p0-x1-y1",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p0-x2-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p0-x2-y1",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x0-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x0-y1",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x1-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x1-y1",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x2-y0",
+          "maximum_error": 1.3737007975578308e-08
+        },
+        {
+          "case": "frame-v23-p10-x2-y1",
+          "maximum_error": 1.3737007975578308e-08
+        }
+      ]
+    }
+  },
+  "portable_pose_fixture": {
+    "scope": "Native PhysX2.8.4 public NxActorDesc matrix input and createActor output; unique single-axis inputs only; general compound orientation not separately certified",
+    "cases": 13,
+    "input_matrix_and_stored_quaternion_exact_float32": true,
+    "decode_stored_quaternion_matrix_differences": [
+      {
+        "case": "frame-v23-p0-x0-y0",
+        "maximum_error": 1.3737007975578308e-08
+      },
+      {
+        "case": "frame-v23-p10-x0-y0",
+        "maximum_error": 1.3737007975578308e-08
+      }
+    ],
+    "reference_sha256": "55e10ec03cfa49b78c313dee3e9b826d1dc5103ec64a9dc16fc2eb2193a0668f",
+    "helper_sha256": "896d816bf0e6546b3b7c05b4376a0bad6d693fc4b112e4f8bd1477215ba1916d"
+  },
+  "actual_initial_contact_pose": {
+    "step0_contact_cases": 64,
+    "nonexact": []
+  },
+  "runtime_geometry_helper": {
+    "cases": 64,
+    "points": 306,
+    "maximum_source_separation_difference": 0.0,
+    "scope": "Scalar helper built with O0/ffp-contract=on compared with current Debug runtime"
+  },
+  "windows_long_probe": {
+    "exe": "PhysicsSpringProbe-v25-Long-Windows.exe",
+    "exe_bytes": 206848,
+    "exe_sha256": "20cc755ed1a777f8eb7e45639f8b308dc35db8ed0662c8281a04b8b8a5511a73",
+    "guest_exe_sha256_verified": true,
+    "loaded_modules": [
+      {
+        "module": "PhysXLoader.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\long-contacts-v25\\PhysXLoader.dll",
+        "sha256": "29b2183cbd9b4b43f247d7e47e7a636ed3898d8e79afb109b5ef0e02c5493768",
+        "same_as_v23": true
+      },
+      {
+        "module": "PhysXCore.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\long-contacts-v25\\PhysXCore.dll",
+        "sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+        "same_as_v23": true
+      },
+      {
+        "module": "PhysXCooking.dll",
+        "path": "C:\\MotorRock\\calibration-probes\\long-contacts-v25\\PhysXCooking.dll",
+        "sha256": "2e5657ae13de0a0c79c56453b8c73ba3978069d55440134873c6534bbada522b",
+        "same_as_v23": true
+      }
+    ]
+  },
+  "game_validation": {
+    "default-unfrozen/physics": {
+      "exit": 0
+    },
+    "default-unfrozen/track0": {
+      "exit": 0
+    },
+    "default-unfrozen/track16": {
+      "exit": 0
+    },
+    "default-unfrozen/track48": {
+      "exit": 0
+    },
+    "default-unfrozen/track64": {
+      "exit": 1
+    },
+    "frozen-profile/physics": {
+      "exit": 0
+    },
+    "frozen-profile/track0": {
+      "exit": 0
+    },
+    "frozen-profile/track16": {
+      "exit": 0
+    },
+    "frozen-profile/track48": {
+      "exit": 0
+    },
+    "frozen-profile/track64": {
+      "exit": 1
+    }
+  },
+  "tests": {
+    "comparator_unit_tests": 21,
+    "ctest": 53,
+    "all_passed": true
+  },
+  "isolation": {
+    "00": {
+      "cases": 9,
+      "remaining": 0,
+      "repeatable": true
+    },
+    "01": {
+      "cases": 108,
+      "remaining": 0,
+      "repeatable": true
+    },
+    "02": {
+      "cases": 48,
+      "remaining": 0,
+      "repeatable": true
+    },
+    "03": {
+      "cases": 24,
+      "remaining": 12,
+      "repeatable": true
+    }
+  },
+  "measurements": {
+    "calibration-contact-legacy-pose-run0-v25-mac.jsonl": {
+      "bytes": 1984077,
+      "sha256": "e012b36118f6d641af1f4e12c305eb61175e2c7c3d4891443291fc6a31825906"
+    },
+    "calibration-contact-legacy-pose-run1-v25-mac.jsonl": {
+      "bytes": 1984077,
+      "sha256": "4520a8f3a8af0762625f1896096fde20aba36ffde2d1393fc6be14e9aaf3b68d"
+    },
+    "calibration-contact-long-contact-run0-v25-mac.jsonl": {
+      "bytes": 26408566,
+      "sha256": "5691a53e9582531305a0f2a398488199ae730cdadfa62beaa18783ab551a68c8"
+    },
+    "calibration-contact-long-contact-run1-v25-mac.jsonl": {
+      "bytes": 26408566,
+      "sha256": "f304434f7d6f8be3b617aff943a84f7dc457775bd7fe13eb8b21f043d2a01c35"
+    },
+    "calibration-contact-matrix-pose-run0-v25-mac.jsonl": {
+      "bytes": 1984390,
+      "sha256": "833bcfae0daf88b58be2f43db96abb75089e913ffa0be82e7473d9243ae5a927"
+    },
+    "calibration-contact-matrix-pose-run1-v25-mac.jsonl": {
+      "bytes": 1984390,
+      "sha256": "3ebaea8722fe712eeded73f894f17cb5d7226361333260928036a4b09eeee787"
+    },
+    "calibration-contact-pose-trace-run0-v25-mac.jsonl": {
+      "bytes": 1984077,
+      "sha256": "dc07bf09190492362a077508bc2815c6c1c24448cb20d5d4f4cede387411c9be"
+    },
+    "calibration-contact-pose-trace-run1-v25-mac.jsonl": {
+      "bytes": 1984077,
+      "sha256": "b64535b964d22f996e287fcea428ef43068a9f7830a024fbdde529d71928133a"
+    },
+    "calibration-v25-legacy-pose-matrix-mesh1-default-mac.jsonl": {
+      "bytes": 393704226,
+      "sha256": "7d42f788a83058731318a54819f20f26f09954b2a93ed895009b1a4ebd2d581a"
+    },
+    "calibration-v25-legacy-pose-matrix-mesh1-frozen-mac.jsonl": {
+      "bytes": 394406280,
+      "sha256": "c643adb3930bedab6739391eabfc3a2e71a3514557e0a22ca27628847aafe50a"
+    },
+    "calibration-v25-matrix-pose-matrix-mesh1-default-mac.jsonl": {
+      "bytes": 393704263,
+      "sha256": "26b4acaf4a9b61ffdd61a6681139ced157963b174b501baf68377ea231cbedba"
+    },
+    "calibration-v25-matrix-pose-matrix-mesh1-frozen-mac.jsonl": {
+      "bytes": 394405642,
+      "sha256": "cfdf73da0f367aa48af70b3678e48540b5b56d6c31a1523ad6aa83ee4e0a0634"
+    },
+    "reference-initial-pair-pose-v25-windows.jsonl": {
+      "bytes": 885816,
+      "sha256": "f8d035d87b1a3e8c0641862188280bc7f64db782d2a0289a61b8630ceeba489f"
+    },
+    "reference-initial-pose-run0-v25-windows.jsonl": {
+      "bytes": 9423817,
+      "sha256": "1d7172e654311c50d8b4df7ead12ec7f69fa0824ec9c7df86c2f5a526512350a"
+    },
+    "reference-initial-pose-run1-v25-windows.jsonl": {
+      "bytes": 9423817,
+      "sha256": "3847c1d1e26866a8a0571a014a4949603101c8212c9d4c6ece7d52185ac4ebf2"
+    },
+    "reference-long-contact-run0-v25-windows.jsonl": {
+      "bytes": 90505801,
+      "sha256": "a6c95c093eef2c24bc467e8e2334ad9b76c5f561d87a1a10738f5aa79c48d6eb"
+    },
+    "reference-long-contact-run1-v25-windows.jsonl": {
+      "bytes": 90505801,
+      "sha256": "3ad8b5e32350bec2d849f015db9b8e51e7c812c6b30eee33429675986c697736"
+    },
+    "reference-long-probe-modules-v25-windows.jsonl": {
+      "bytes": 1512383,
+      "sha256": "fc29d0d22093ce04d55874b6358bdaf93d10531a653c0772eff15b963dafa10e"
+    }
+  },
+  "rotation_metric": "2*atan2(norm(vector(conj(q_windows)*q_mac)), abs(dot(q_windows,q_mac)))",
+  "legacy_acos_reports": "Retained as historical measurements; current parity uses stable-rotation reports and contact-coverage comparison."
+}

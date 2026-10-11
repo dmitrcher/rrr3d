@@ -1,9 +1,10 @@
 import copy
 import json
+import math
 from pathlib import Path
 import tempfile
 import unittest
-from compare import compare
+from compare import compare, rotation_error
 
 
 def fixture(platform):
@@ -34,6 +35,16 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(report['cases']['force']['maximum']['wheel_height_error'],.5)
     def test_quaternion_sign(self):
         self.b[1]['sample']['rotation']=[0,0,0,-1];self.assertEqual(self.run_compare()['cases']['force']['rms']['rotation_error_radians'],0)
+    def test_tiny_rotation_is_not_rounded_to_zero(self):
+        angle=1e-9
+        self.b[1]['sample']['rotation']=[0,math.sin(angle/2),0,math.cos(angle/2)]
+        report=self.run_compare()
+        self.assertAlmostEqual(report['cases']['force']['maximum']['rotation_error_radians'],angle,places=16)
+        self.assertFalse(report['exact_parity']['complete'])
+    def test_rotation_metric_nonunit_and_large_angle(self):
+        self.assertEqual(rotation_error([.25,.5,.25,.5],[.25,.5,.25,.5]),0)
+        self.assertEqual(rotation_error([.25,.5,.25,.5],[-.25,-.5,-.25,-.5]),0)
+        self.assertAlmostEqual(rotation_error([0,0,0,1],[1,0,0,0]),math.pi)
     def test_real_divergence(self):
         self.b[1]['sample']['velocity'][0]+=1
         self.assertGreater(self.run_compare()['cases']['force']['rms']['velocity_error'],.7)

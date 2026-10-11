@@ -40,7 +40,8 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
            if not k.startswith('RRR3D_EXPERIMENT') and k not in
-           ('RRR3D_CALIBRATION_PROFILE', 'RRR3D_CONTACT_POINTS', 'NX_SPRING_ITERATIONS')}
+           ('RRR3D_CALIBRATION_PROFILE', 'RRR3D_CONTACT_POINTS',
+            'RRR3D_CALIBRATION_LEGACY_DIRECT_ROTATION', 'NX_SPRING_ITERATIONS')}
     env['RRR3D_SEED'] = '42'
     env['NX_SPRING_ITERATIONS'] = '4'
     if args.platform == 'mac':

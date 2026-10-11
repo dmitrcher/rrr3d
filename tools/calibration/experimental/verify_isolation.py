@@ -10,14 +10,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import compare
 
 
-def capture(path, platform):
+def capture(path, platform, expected_prefix='isolate-'):
     cases = compare.load(path, platform)
     semantic = hashlib.sha256()
     contacts = 0
     maximum_reported_friction_force = 0.0
     for name, case in cases.items():
         meta = case['meta']
-        assert name.startswith('isolate-'), 'Unexpected scenario'
+        assert name.startswith(expected_prefix), 'Unexpected scenario'
         assert meta.get('wheel_contacts_enabled') is False, name
         assert meta.get('body_contact_friction_enabled') is False, name
         assert meta.get('body_linear_damping') == 0, name

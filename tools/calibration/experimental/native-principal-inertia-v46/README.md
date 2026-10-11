@@ -42,7 +42,10 @@ TraceMass.exe mass.jsonl <v45-SpringProbe.exe> physical.jsonl list:pose-v45-inve
 The tracer requires exact PhysXCore SHA-256
 c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb.
 Original binary files on disk remain unchanged; debugger breakpoints only
-observe arithmetic. measurements includes raw records and export/source hashes.
+observe arithmetic. measurements includes raw records, losslessly compressed full physical captures,
+an untraced reference, and export/source hashes. Run `python3 verify.py` to check
+every measurement hash, all actual matrix inputs, the exploratory model outputs,
+and both full physical runs against the independent untraced reference.
 
 Next: reproduce the double algorithm's stopping/rotation operation order in a
 separate candidate, verify principal moments for every shipped chassis, then

@@ -55,6 +55,12 @@ def exploratory_diagonal(values):
 manifest = json.loads((measurements / 'manifest.json').read_text())
 for name, expected in manifest.items():
     assert hashlib.sha256((measurements / name).read_bytes()).hexdigest() == expected, name
+exports = json.loads((measurements / 'physics-v46-native-diagnostic-export.json').read_text())
+for entry, source in zip(exports, ['diagonal-probe.cpp', 'trace-mass.cpp']):
+    assert hashlib.sha256((base / source).read_bytes()).hexdigest() == entry['source_sha256']
+lead = json.loads((measurements / 'physics-v46-diagonalization-lead.json').read_text())
+for name, expected in lead['source_sha256'].items():
+    assert hashlib.sha256((base / name).read_bytes()).hexdigest() == expected
 inputs = [[f32(float(v)) for v in line.split()] for line in (base / 'input.txt').read_text().splitlines()]
 assert len(inputs) == 6
 reports = []

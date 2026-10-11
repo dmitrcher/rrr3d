@@ -1,0 +1,236 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1,3 +1,5 @@
++#include "physics/NativeContactCache.h"
++#include <map>
+ #include "physics/OriginalVehiclePhysics.h"
+ #include "physics/CalibrationTuning.h"
+ #include "physics/SourceBoxManifold.h"
+@@ -959,6 +961,7 @@
+     struct SourceMesh { std::vector<SourceMeshTriangle> triangles; };
+     static constexpr JPH::uint64 sourceMeshMarker = JPH::uint64{1} << 62;
+     std::vector<std::shared_ptr<const SourceMesh>> sourceMeshes_;
++    std::map<std::uint64_t,motorrock::nativecache::Cache> nativeContactCaches_;
+     const int sourceMeshMode_ = std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")? std::atoi(std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")) : 0;
+ 
+     bool meshManifold(const JPH::Body& first, const JPH::Body& second,
+@@ -1018,6 +1021,7 @@
+         output=input;output.mRelativeContactPointsOn1.clear();output.mRelativeContactPointsOn2.clear();
+         output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
+         output.mNativeErrorFrameActive=false;
++        output.mNativeErrorCacheActive=false;
+         if(!contacts.count)return true;
+         const char* materialFlag=std::getenv("RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE");
+         if(materialFlag && std::strcmp(materialFlag,"1")==0) {
+@@ -1041,6 +1045,25 @@
+             if(candidate.callback.modified) {
+                 commonNormal={candidate.normal[0],candidate.normal[1],candidate.normal[2]};
+             }
++        }
++        const char* cacheFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_CACHE");
++        if(output.mNativeErrorFrameActive && cacheFlag && std::strcmp(cacheFlag,"1")==0) {
++            namespace nc=motorrock::nativecache;namespace cf=motorrock::contactframe;
++            const nc::Pose actor{cf::columns({{box.m.column0.x,box.m.column0.y,box.m.column0.z}},{{box.m.column1.x,box.m.column1.y,box.m.column1.z}},{{box.m.column2.x,box.m.column2.y,box.m.column2.z}}),{{box.p.x,box.p.y,box.p.z}}};
++            const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(transform.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
++            const auto translation=fromJolt(JPH::Vec3(transform.GetTranslation()));
++            const nc::Pose ground{cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY())),{{translation.x,translation.y,translation.z}}};
++            std::vector<cf::Vector> points;for(unsigned i=0;i<contacts.count;++i){const auto& p=contacts.contacts[i].point;points.push_back({{p.x,p.y,p.z}});}
++            const auto& n=contacts.contacts[0].normal;const cf::Vector normal={{n.x,n.y,n.z}};
++            const std::uint64_t key=std::uint64_t(car.GetID().GetIndexAndSequenceNumber()) | (std::uint64_t(surface.GetID().GetIndexAndSequenceNumber())<<32);
++            std::scoped_lock lock(mutex_);
++            cf::Quaternion cacheFrame;for(unsigned j=0;j<4;++j)cacheFrame[j]=output.mNativeErrorRawQuaternion[j];
++            std::vector<cf::Vector> levers;
++            const auto errors=nativeContactCaches_[key].prepare(actor,ground,points,normal,nc::de::mul(nc::de::add(full.skin,.025F),.2F),cacheFrame,&levers);
++            const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
++            const cf::Vector offset={{nc::de::sub(box.p.x,center.x),nc::de::sub(box.p.y,center.y),nc::de::sub(box.p.z,center.z)}};
++            output.mNativeErrorCacheActive=true;
++            for(unsigned i=0;i<errors.size();++i)for(unsigned j=0;j<3;++j){output.mNativeErrorTransverse[i][j]=errors[i][j];output.mNativeCachedLeverArms[i][j]=nc::de::add(levers[i][j],offset[j]);}
+         }
+         output.mWorldSpaceNormal=toJolt(Vec3{commonNormal.x,commonNormal.y,commonNormal.z})*(carFirst?-1.0f:1.0f);
+         for(unsigned i=0;i<contacts.count;++i) {
+@@ -1290,6 +1313,8 @@
+             settings.mUseDiagnosticNativeErrors=manifold.mUseDiagnosticNativeErrors;
+             settings.mDiagnosticNativeErrors=manifold.mDiagnosticNativeErrors;
+             settings.mUseDerivedNativeErrors=manifold.mNativeErrorFrameActive;
++            settings.mNativeCachedLeverActive=manifold.mNativeErrorCacheActive;
++            settings.mNativeCachedLeverArms=manifold.mNativeCachedLeverArms;
+             if(settings.mUseDerivedNativeErrors) {
+                 motorrock::derivederror::Frames frames;
+                 for(int j=0;j<4;++j) {
+@@ -1298,7 +1323,11 @@
+                 }
+                 for(unsigned j=0;j<manifold.mRelativeContactPointsOn1.size();++j) {
+                     const float rawError=motorrock::derivederror::add(manifold.mSourceSeparations[j],settings.mAdditionalSeparation);
+-                    settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(rawError,frames);
++                    if(manifold.mNativeErrorCacheActive) {
++                        const auto& transverse=manifold.mNativeErrorTransverse[j];
++                        motorrock::contactframe::Vector raw={{rawError,transverse[1],transverse[2]}};
++                        settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(raw,frames);
++                    } else settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(rawError,frames);
+                 }
+             }
+             settings.mUseBoxContactOrder = false;
+--- a/src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h
++++ b/src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h
+@@ -30,4 +30,7 @@
+ inline float error(float rawError,const Frames& f) {
+  const cf::Vector initial={{rawError,0,0}};return rotate(f.material,rotate(f.raw,initial,false),true)[0];
+ }
++inline float error(cf::Vector rawError,const Frames& f) {
++ return rotate(f.material,rotate(f.raw,rawError,false),true)[0];
++}
+ }}
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -21,7 +21,7 @@
+ {
+ public:
+ 	/// Swaps shape 1 and 2
+-	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors, mNativeErrorFrameActive, mNativeErrorRawQuaternion, mNativeErrorMaterialQuaternion }; }
++	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors, mNativeErrorFrameActive, mNativeErrorRawQuaternion, mNativeErrorMaterialQuaternion, mNativeErrorCacheActive, mNativeErrorTransverse, mNativeCachedLeverArms }; }
+ 
+ 	/// Access to the world space contact positions
+ 	inline RVec3			GetWorldSpaceContactPointOn1(uint inIndex) const { return mBaseOffset + mRelativeContactPointsOn1[inIndex]; }
+@@ -42,6 +42,8 @@
+ 	std::array<float,64> mDiagnosticNativeErrors{};
+ 	bool mNativeErrorFrameActive = false;
+ 	std::array<float,4> mNativeErrorRawQuaternion{}, mNativeErrorMaterialQuaternion{};
++	bool mNativeErrorCacheActive = false;
++	std::array<std::array<float,3>,64> mNativeErrorTransverse{}, mNativeCachedLeverArms{};
+ };
+ 
+ /// When a contact point is added or persisted, the callback gets a chance to override certain properties of the contact constraint.
+@@ -64,6 +66,8 @@
+ 	std::array<float,64> mDiagnosticNativeErrors{};
+ 	bool mUseDerivedNativeErrors = false;
+ 	std::array<float,64> mDerivedNativeErrors{};
++	bool mNativeCachedLeverActive = false;
++	std::array<std::array<float,3>,64> mNativeCachedLeverArms{};
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -143,7 +143,7 @@
+         const uint native_mask = NativeContactArithmetic::Flags();
+         if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) {
+             constexpr bool first = Type1 == EMotionType::Dynamic;
+-            mNativeContact.Prepare(native_mask,first,first?r1:r2,first?inInvI1:inInvI2,first?inInvM1:inInvM2,
++            mNativeContact.Prepare(native_mask,first,mNativeCachedLeverActive?mNativeCachedLever:(first?r1:r2),first?inInvI1:inInvI2,first?inInvM1:inInvM2,
+                 inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:(mDerivedNativeError?mDerivedNativeConstraintError:-penetration),inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
+             mNativeContact.mDerivedError=mDerivedNativeError&&!mDiagnosticNativeError;
+         }
+@@ -772,6 +772,9 @@
+ 		wcp.mDiagnosticNativeConstraintError = inSettings.mDiagnosticNativeErrors[source_point_index];
+ 		wcp.mDerivedNativeError = inSettings.mUseDerivedNativeErrors;
+ 		wcp.mDerivedNativeConstraintError = inSettings.mDerivedNativeErrors[source_point_index];
++        wcp.mNativeCachedLeverActive = inSettings.mNativeCachedLeverActive;
++        const auto& native_lever = inSettings.mNativeCachedLeverArms[source_point_index];
++        wcp.mNativeCachedLever = Vec3(native_lever[0],native_lever[2],native_lever[1]);
+ 		++source_point_index;
+ 		RVec3 p1 = inTransformBody1 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition1);
+ 		RVec3 p2 = inTransformBody2 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition2);
+@@ -1010,6 +1013,9 @@
+ 		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
+ 		wcp.mDerivedNativeError = settings.mUseDerivedNativeErrors;
+ 		wcp.mDerivedNativeConstraintError = settings.mDerivedNativeErrors[i];
++        wcp.mNativeCachedLeverActive = settings.mNativeCachedLeverActive;
++        const auto& native_lever = settings.mNativeCachedLeverArms[i];
++        wcp.mNativeCachedLever = Vec3(native_lever[0],native_lever[2],native_lever[1]);
+ 				wcp.mNonPenetrationConstraint.SetTotalLambda(ccp.mNonPenetrationLambda);
+ 				wcp.mFrictionConstraint1.SetTotalLambda(ccp.mFrictionLambda[0]);
+ 				wcp.mFrictionConstraint2.SetTotalLambda(ccp.mFrictionLambda[1]);
+@@ -1254,6 +1260,9 @@
+ 		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
+ 		wcp.mDerivedNativeError = settings.mUseDerivedNativeErrors;
+ 		wcp.mDerivedNativeConstraintError = settings.mDerivedNativeErrors[i];
++        wcp.mNativeCachedLeverActive = settings.mNativeCachedLeverActive;
++        const auto& native_lever = settings.mNativeCachedLeverArms[i];
++        wcp.mNativeCachedLever = Vec3(native_lever[0],native_lever[2],native_lever[1]);
+ 			RVec3 p1_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn1[i];
+ 			RVec3 p2_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn2[i];
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -445,6 +445,8 @@
+ 		float mDiagnosticNativeConstraintError = 0.0f;
+ 		bool mDerivedNativeError = false;
+ 		float mDerivedNativeConstraintError = 0.0f;
++        bool mNativeCachedLeverActive = false;
++        Vec3 mNativeCachedLever = Vec3::sZero();
+ 		CachedContactPoint *	mContactPoint;
+ 	};
+ 
+--- a/src/Rock3dEngine/header/physics/NativeContactCache.h
++++ b/src/Rock3dEngine/header/physics/NativeContactCache.h
+@@ -0,0 +1,70 @@
++#pragma once
++// Experimental reconstruction of PhysX 2.8.4 mesh-contact point persistence.
++// Distances, normals and float operation order come from the native algorithm;
++// no recorded state or per-scenario values are consumed by this implementation.
++#include "DerivedContactErrorFrame.h"
++#include <vector>
++namespace motorrock { namespace nativecache {
++namespace cf=motorrock::contactframe;
++namespace de=motorrock::derivederror;
++struct Pose { cf::Matrix rotation; cf::Vector position; };
++inline cf::Vector subtract(cf::Vector a,cf::Vector b) {
++ for(int i=0;i<3;++i)a[i]=de::sub(a[i],b[i]);return a;
++}
++inline cf::Vector local(const Pose& p,cf::Vector v) {
++ v=subtract(v,p.position);cf::Vector out;
++ for(int i=0;i<3;++i) {
++  const int a=i==1?2:1,b=i==1?1:2;
++  out[i]=de::add(de::add(de::mul(p.rotation.a[a][i],v[a]),de::mul(p.rotation.a[b][i],v[b])),de::mul(p.rotation.a[0][i],v[0]));
++ }return out;
++}
++inline cf::Vector world(const Pose& p,cf::Vector v) {
++ cf::Vector out;
++ for(int i=0;i<3;++i) {
++  const int a=i==1?1:0,b=i==1?2:1,c=i==1?0:2;
++  out[i]=de::add(p.position[i],de::add(de::add(de::mul(p.rotation.a[i][a],v[a]),de::mul(p.rotation.a[i][b],v[b])),de::mul(p.rotation.a[i][c],v[c])));
++ }return out;
++}
++inline float distanceSquared(cf::Vector a,cf::Vector b) {
++ const auto d=subtract(a,b);return de::add(de::mul(d[2],d[2]),de::add(de::mul(d[1],d[1]),de::mul(d[0],d[0])));
++}
++inline float dot(cf::Vector a,cf::Vector b,bool reverse) {
++ const int i=reverse?2:1,j=reverse?1:2;
++ return de::add(de::add(de::mul(a[i],b[i]),de::mul(a[j],b[j])),de::mul(a[0],b[0]));
++}
++inline cf::Vector directionLocal(const Pose& p,cf::Vector v) {
++ Pose r=p;r.position={{0,0,0}};return local(r,v);
++}
++// The cache uses a unit-quaternion matrix expression, while the subsequent
++// material transform uses w*w - 0.5. Non-unit float quaternions distinguish them.
++inline cf::Vector transverse(cf::Quaternion q,cf::Vector d) {
++ const float x=q[0],y=q[1],z=q[2],w=q[3];cf::Vector out={{0,0,0}};
++ const float xy=de::mul(x,y),zw=de::mul(z,w),xw=de::mul(x,w),yz=de::mul(y,z);
++ const float xx=de::mul(x,x),yy=de::mul(y,y),zz=de::mul(z,z);
++ out[1]=de::add(de::add(de::mul(de::mul(de::sub(xy,zw),2),d[0]),de::mul(de::mul(de::add(xw,yz),2),d[2])),de::mul(de::sub(1,de::mul(de::add(zz,xx),2)),d[1]));
++ out[2]=de::add(de::add(de::mul(de::mul(de::add(de::mul(y,w),de::mul(x,z)),2),d[0]),de::mul(de::sub(1,de::mul(de::add(xx,yy),2)),d[2])),de::mul(de::mul(de::sub(yz,xw),2),d[1]));
++ return out;
++}
++struct Point { cf::Vector on0,on1,normal0,normal1; };
++struct Cache {
++ std::vector<Point> points;
++ std::vector<cf::Vector> prepare(const Pose& a,const Pose& b,const std::vector<cf::Vector>& current,cf::Vector normal,float threshold,cf::Quaternion frame,std::vector<cf::Vector>* levers=nullptr) {
++  const auto n0=directionLocal(a,normal),n1=directionLocal(b,normal);
++  std::vector<int> matched;std::vector<bool> used(points.size());bool reuse=points.size()==current.size();
++  const float limit=de::mul(threshold,threshold);
++  for(const auto& v:current) {
++   const auto p0=local(a,v),p1=local(b,v);int found=-1;
++   if(reuse)for(unsigned j=0;j<points.size();++j)if(!used[j] && distanceSquared(points[j].on0,p0)<limit && distanceSquared(points[j].on1,p1)<limit && dot(points[j].normal0,n0,false)>.999F && dot(points[j].normal1,n1,true)>.999F){found=int(j);used[j]=true;break;}
++   if(found<0)reuse=false;matched.push_back(found);
++  }
++  std::vector<cf::Vector> result(current.size(),cf::Vector{{0,0,0}});
++  if(!reuse) {
++   points.clear();for(const auto& v:current)points.push_back({local(a,v),local(b,v),n0,n1});
++  } else for(unsigned i=0;i<current.size();++i) {
++   const auto& p=points[matched[i]];result[i]=transverse(frame,subtract(world(a,p.on0),world(b,p.on1)));
++  }
++  if(levers){levers->clear();Pose rotation=a;rotation.position={{0,0,0}};for(unsigned i=0;i<current.size();++i)levers->push_back(world(rotation,points[reuse?matched[i]:i].on0));}
++  return result;
++ }
++};
++}}

@@ -1,0 +1,91 @@
+{
+  "ordinary": {
+    "exact_parity": {
+      "complete": true,
+      "cases_remaining": [],
+      "cases_checked": 12
+    },
+    "physical_and_contact_event_repeats_exact": true,
+    "sha256": [
+      "7954df33cebf252fc6e05796844db650b9ccec2631322232a31149148b7954de",
+      "6db0f77f244cafef4ce2ba6b5410fe188a72bd19c3a26842464b7541f6d0c085"
+    ]
+  },
+  "control": {
+    "exact_parity": {
+      "complete": false,
+      "cases_remaining": [
+        "isolate-03-contact-m0-h0-v0-f1",
+        "isolate-03-contact-m0-h0-v1-f1",
+        "isolate-03-contact-m0-h1-v0-f1",
+        "isolate-03-contact-m0-h1-v1-f1",
+        "isolate-03-contact-m1-h0-v0-f1",
+        "isolate-03-contact-m1-h0-v1-f1",
+        "isolate-03-contact-m1-h1-v0-f1",
+        "isolate-03-contact-m1-h1-v1-f1",
+        "isolate-03-contact-m2-h0-v0-f1",
+        "isolate-03-contact-m2-h0-v1-f1",
+        "isolate-03-contact-m2-h1-v0-f1",
+        "isolate-03-contact-m2-h1-v1-f1"
+      ],
+      "cases_checked": 12
+    },
+    "physical_and_contact_event_repeats_exact": true,
+    "sha256": [
+      "87d62fd55446add638fd48b74035b9dcbd1ac1fb666f086f838b47384942c51a",
+      "a815e6d420b4280e9eb3f18edcbb128c6bec6e82c2aa639fbba68bed2e47a0be"
+    ]
+  },
+  "mass0_later_native_rows": {
+    "isolate-03-contact-m0-h0-v0-f1": {
+      "tick": 27,
+      "exact_fields": {
+        "velocity": 40,
+        "angular": 40,
+        "lambda": 40,
+        "effective_mass": 40,
+        "scaled_bias": 40,
+        "constraint_error": 40,
+        "lever_arm": 40
+      }
+    },
+    "isolate-03-contact-m0-h0-v1-f1": {
+      "tick": 24,
+      "exact_fields": {
+        "velocity": 40,
+        "angular": 40,
+        "lambda": 40,
+        "effective_mass": 40,
+        "scaled_bias": 40,
+        "constraint_error": 40,
+        "lever_arm": 40
+      }
+    },
+    "isolate-03-contact-m0-h1-v0-f1": {
+      "tick": 7,
+      "exact_fields": {
+        "velocity": 40,
+        "angular": 40,
+        "lambda": 40,
+        "effective_mass": 40,
+        "scaled_bias": 40,
+        "constraint_error": 40,
+        "lever_arm": 40
+      }
+    },
+    "isolate-03-contact-m0-h1-v1-f1": {
+      "tick": 3,
+      "exact_fields": {
+        "velocity": 40,
+        "angular": 40,
+        "lambda": 40,
+        "effective_mass": 40,
+        "scaled_bias": 40,
+        "constraint_error": 40,
+        "lever_arm": 40
+      }
+    }
+  },
+  "scope": "12 complete120-step no-AI zero-friction floor contacts; 160 observed later solver rows across4 mass0 fixtures. Tilted/friction/suspension/AI not accepted.",
+  "goal_complete": false
+}

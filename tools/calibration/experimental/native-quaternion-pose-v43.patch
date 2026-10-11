@@ -1,0 +1,163 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -9,6 +9,7 @@
+ #include "physics/NativeMaterialFrameV36.h"
+ #include "physics/NativeInertiaRotation.h"
+ #include "physics/NativePhysicalPoseV42.h"
++#include "physics/NativeQuaternionPoseV43.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -957,6 +958,11 @@
+     {
+         const JPH::Shape* shape = body.GetShape();
+         JPH::RMat44 transform = body.GetWorldTransform();
++        motorrock::contactframe::Quaternion physicalPose={{0,0,0,1}};
++        bool hasPhysicalPose=false;
++        motorrock::contactframe::Quaternion localShapeRotation={{0,0,0,1}};
++        motorrock::contactframe::Vector localShapePosition={{0,0,0}};
++        motorrock::contactframe::Quaternion bodyPhysicalPose={{0,0,0,1}};
+         const char* physicalPoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE");
+         if(body.IsDynamic() && physicalPoseFlag && std::strcmp(physicalPoseFlag,"1")==0) {
+             motorrock::contactframe::Quaternion pose;
+@@ -964,6 +970,14 @@
+               const auto prepared=nativeMaterialActorPoses_.find(body.GetID().GetIndexAndSequenceNumber());
+               if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical geometry pose");
+               pose=prepared->second; }
++            physicalPose=bodyPhysicalPose=pose;hasPhysicalPose=true;
++            const char* originFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_ORIGIN");
++            if(originFlag && std::strcmp(originFlag,"1")==0) {
++                const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
++                const auto local=fromJolt(body.GetShape()->GetCenterOfMass());
++                const auto origin=motorrock::quaternionposev43::origin(pose,{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
++                transform.SetTranslation(toJolt(Vec3{origin[0],origin[1],origin[2]}));
++            }
+             const auto rotation=motorrock::physicalposev42::rotation(pose);
+             const unsigned axes[]={0,2,1};
+             for(unsigned col=0;col<3;++col)transform.SetColumn3(axes[col],
+@@ -973,6 +987,24 @@
+             if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
+                 const auto* decorated = static_cast<const JPH::RotatedTranslatedShape*>(shape);
+                 transform = transform * JPH::Mat44::sRotationTranslation(decorated->GetRotation(), decorated->GetPosition());
++                const char* shapeFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SHAPE_TRANSLATION");
++                if(hasPhysicalPose && shapeFlag && std::strcmp(shapeFlag,"1")==0) {
++                    const auto p=fromJolt(decorated->GetPosition());
++                    localShapePosition=motorrock::quaternionposev43::center(localShapeRotation,localShapePosition,{{p.x,p.y,p.z}});
++                    const auto localCenter=fromJolt(body.GetShape()->GetCenterOfMass());
++                    motorrock::contactframe::Vector offset;
++                    for(int i=0;i<3;++i)offset[i]=motorrock::derivederror::sub(localShapePosition[i],i==0?localCenter.x:i==1?localCenter.y:localCenter.z);
++                    const auto center=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
++                    // Original geometry composes shape-to-COM locally, then
++                    // transforms once. Two separate world translations round differently.
++                    const auto translated=motorrock::quaternionposev43::center(bodyPhysicalPose,{{center.x,center.y,center.z}},offset);
++                    transform.SetTranslation(toJolt(Vec3{translated[0],translated[1],translated[2]}));
++                }
++                if(hasPhysicalPose) {
++                    const auto q=fromJolt(decorated->GetRotation());
++                    physicalPose=motorrock::framev36::multiply(physicalPose,{{q.x,q.y,q.z,q.w}});
++                    localShapeRotation=motorrock::framev36::multiply(localShapeRotation,{{q.x,q.y,q.z,q.w}});
++                }
+             } else if (shape->GetSubType() != JPH::EShapeSubType::OffsetCenterOfMass) return false;
+             shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+         }
+@@ -2597,6 +2629,17 @@
+                 const bool normalizeInitial=tuning_.physxWheelCompat && tuning_.physxFrozenPose &&
+                     vehicle.spawn.vehicle.freezeRotation && vehicle.sourceFrozenNormalizationPending &&
+                     normalizeFlag && std::strcmp(normalizeFlag,"1")==0;
++                const char* centerFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_INITIAL_COM");
++                if(normalizeInitial && centerFlag && std::strcmp(centerFlag,"1")==0) {
++                    auto& bodies=system_.GetBodyInterface();
++                    const auto rotation=bodies.GetRotation(vehicle.body);
++                    const auto q=fromJolt(rotation);
++                    const auto position=fromJolt(JPH::Vec3(bodies.GetPosition(vehicle.body)));
++                    const auto local=fromJolt(bodies.GetShape(vehicle.body)->GetCenterOfMass());
++                    const auto center=motorrock::quaternionposev43::center({{q.x,q.y,q.z,q.w}},{{position.x,position.y,position.z}},{{local.x,local.y,local.z}});
++                    const auto offset=rotation*bodies.GetShape(vehicle.body)->GetCenterOfMass();
++                    bodies.SetPositionAndRotation(vehicle.body,toJolt(Vec3{center[0],center[1],center[2]})-JPH::RVec3(offset),rotation,JPH::EActivation::DontActivate);
++                }
+                 contactListener_.prepareNativeMaterialPose(vehicle.body,
+                     system_.GetBodyInterface().GetRotation(vehicle.body),normalizeInitial);
+             }
+@@ -2641,6 +2684,25 @@
+                             const auto offset=vehicle.sourceFrozenRotation*bodies.GetShape(vehicle.body)->GetCenterOfMass();
+                             bodies.SetPositionAndRotation(vehicle.body,center-JPH::RVec3(offset),vehicle.sourceFrozenRotation,
+                                 JPH::EActivation::DontActivate);
++                            const auto restored=bodies.GetCenterOfMassPosition(vehicle.body);
++                            const char* exactFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_EXACT");
++                            if(exactFlag && std::strcmp(exactFlag,"1")==0 && restored!=center) {
++                                // Actor-origin subtraction and addition can lose a COM
++                                // bit. Repair the actual integrated COM, then refresh bounds.
++                                const auto localCenter=bodies.GetShape(vehicle.body)->GetCenterOfMass();
++                                { JPH::BodyLockWrite lock(system_.GetBodyLockInterface(),vehicle.body);
++                                  if(!lock.Succeeded())std::abort();
++                                  lock.GetBody().AddPositionStep(JPH::Vec3(center-restored));
++                                  lock.GetBody().CalculateWorldSpaceBoundsInternal(); }
++                                bodies.NotifyShapeChanged(vehicle.body,localCenter,false,JPH::EActivation::DontActivate);
++                            }
++                            const char* restoreTrace=std::getenv("RRR3D_CONTACT_CM_RESTORE_TRACE");
++                            if(restoreTrace && std::strcmp(restoreTrace,"1")==0) {
++                                const auto actual=bodies.GetCenterOfMassPosition(vehicle.body);
++                                const auto vector=[](std::ostream& out,JPH::RVec3 v){const auto p=fromJolt(JPH::Vec3(v));out<<'['<<p.x<<','<<p.y<<','<<p.z<<']';};
++                                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"integrated\":";vector(sample,center);sample<<",\"after_actor_restore\":";vector(sample,restored);sample<<",\"actual\":";vector(sample,actual);sample<<'}';
++                                motorrock::parity::event("physics.native-frozen-com-restore","integrated versus restored center of mass",sample.str());
++                            }
+                         } else bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
+                             JPH::EActivation::DontActivate);
+                         bodies.SetAngularVelocity(vehicle.body, JPH::Vec3::sZero());
+@@ -4394,6 +4456,14 @@
+         auto& state = vehicle.state;
+         state.bodyAwake = body.IsActive();
+         state.body.position = fromJolt(body.GetPosition());
++        const char* actorOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_OUTPUT");
++        if(vehicle.spawn.vehicle.freezeRotation && actorOutputFlag && std::strcmp(actorOutputFlag,"1")==0) {
++            const auto q=fromJolt(body.GetRotation());
++            const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
++            const auto local=fromJolt(body.GetShape()->GetCenterOfMass());
++            const auto origin=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
++            state.body.position={origin[0],origin[1],origin[2]};
++        }
+         state.body.rotation = fromJolt(body.GetRotation());
+         state.body.scale = {1.0F, 1.0F, 1.0F};
+         state.linearVelocity = fromJolt(body.GetLinearVelocity());
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativeQuaternionPoseV43.h
+@@ -0,0 +1,15 @@
++#pragma once
++// Experimental original Nx quaternion translation, distinct from unit-matrix
++// translation. Every operation follows the independently traced scalar stores.
++#include "DerivedContactErrorFrame.h"
++namespace motorrock { namespace quaternionposev43 {
++namespace cf=contactframe; namespace de=derivederror;
++inline cf::Vector center(cf::Quaternion q,cf::Vector position,cf::Vector offset) {
++ const auto rotated=de::rotate(q,offset,false);
++ for(int i=0;i<3;++i)position[i]=de::add(position[i],rotated[i]);return position;
++}
++inline cf::Vector origin(cf::Quaternion q,cf::Vector center,cf::Vector offset) {
++ const auto rotated=de::rotate(q,offset,false);
++ for(int i=0;i<3;++i)center[i]=de::sub(center[i],rotated[i]);return center;
++}
++}}
+--- a/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h
+@@ -27,6 +27,7 @@
+                     Sub(Mul(a.GetX(), b.GetY()), Mul(a.GetY(), b.GetX())));
+     }
+     static float DotXYZ(Vec3Arg a, Vec3Arg b) { return Add(Add(Mul(a.GetX(), b.GetX()), Mul(a.GetY(), b.GetY())), Mul(a.GetZ(), b.GetZ())); }
++    static float DotZXY(Vec3Arg a, Vec3Arg b) { return Add(Add(Mul(a.GetZ(), b.GetZ()), Mul(a.GetX(), b.GetX())), Mul(a.GetY(), b.GetY())); }
+     static float DotXZY(Vec3Arg a, Vec3Arg b) { return Add(Add(Mul(a.GetX(), b.GetX()), Mul(a.GetZ(), b.GetZ())), Mul(a.GetY(), b.GetY())); }
+     Vec3 Tensor(Vec3Arg a) const {
+         float r[3]; for (uint j = 0; j < 3; ++j)
+@@ -50,7 +51,12 @@
+         }
+         if (mMask & Mass) {
+             Vec3 response=Tensor(Cross(mR,mNormal));
+-            float k=Div(1.0f,Add(mInvMass,DotXYZ(mNormal,Cross(response,mR))));
++            const char *massOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MASS_DOT_ORDER");
++            const Vec3 contactResponse=Cross(response,mR);
++            // Original normal-response projection at PhysXCore 0x84633 sums Z,X,Y.
++            const float projection=massOrderFlag && std::strcmp(massOrderFlag,"1")==0
++                ? DotZXY(mNormal,contactResponse) : DotXYZ(mNormal,contactResponse);
++            float k=Div(1.0f,Add(mInvMass,projection));
+             ioRow.SetSourceContactEffectiveMass(k);
+         }
+         mRawBias=Mul(mError,Div(1.0f,inDeltaTime));

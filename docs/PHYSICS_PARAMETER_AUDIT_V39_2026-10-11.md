@@ -83,3 +83,15 @@ large restoration bug: preserving integrated COM reduces maximum position drift
 from 6.44 to about 0.0000021. Four of six expanded cases still differ at float
 rounding scale. No power, grip or suspension coefficients were tuned. See
 [v42 evidence](PHYSICS_CONTACT_V42_2026-10-12.md). The full goal remains active.
+
+## v43 follow-up
+
+Original quaternion translation differs from Jolt unit-matrix translation for
+float quaternions whose norm is not exactly one. Correct initial COM, actor
+origin/output and local shape-to-COM composition; preserve the integrated COM
+bit for bit after frozen rotation. The earlier normal-mass projection also used
+the wrong sum order: original SSE sums Z,X,Y. The candidate now matches 44/72
+old contacts and all 6/6 new COM/shape fixtures, with separate cumulative flag
+ablations. Partial regressions and 28 old contacts remain. No power or grip
+coefficients were tuned; the goal is still active. See
+[v43 evidence](PHYSICS_CONTACT_V43_2026-10-12.md).

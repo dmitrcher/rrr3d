@@ -1,0 +1,17 @@
+{
+  "baseline": "exact experimental v42 adapter and existing v37/v42 NativeContactArithmetic SDK header; candidate default-off",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "9dd70464d4ae36bafbc2c5b18fad9b236266ae3825f8a23bcf93436b5ceffaf2",
+      "after_sha256": "94972af2f7f8a7925f96624bbe925bcb57e91cce1749180bd5b451c2846aba46"
+    },
+    "src/Rock3dEngine/header/physics/NativeQuaternionPoseV43.h": {
+      "before_sha256": null,
+      "after_sha256": "affb5b511a22d65730c2b47a3ea8fd6540dc8f17ce83593feb39d6ac84eac443"
+    },
+    "Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h": {
+      "before_sha256": "6d2dee8002d31792460ad5dbcf895ef0bbf58779837d456bd6808c89c03e6c4d",
+      "after_sha256": "707a99cadde3ca7fc832bee290b7e40234100d944f91f2b7751a676f24920177"
+    }
+  }
+}

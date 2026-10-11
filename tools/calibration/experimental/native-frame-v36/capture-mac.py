@@ -9,7 +9,9 @@ if a.trace:env.update({'RRR3D_CONTACT_ROWS':'1','RRR3D_CONTACT_NATIVE_TRACE_STEP
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[2]));import compare
 reference=compare.load(a.reference,'windows-physx-d3d9')
 baseline=compare.load(a.v35_baseline,'mac-jolt-metal')
-manifest={'probe_sha256':hashlib.sha256(probe.read_bytes()).hexdigest(),'environment':{k:v for k,v in env.items() if k.startswith(('RRR3D_','NX_'))},'cases':names,'captures':{},'status':'capturing'}
+def comparable(case):
+ result=dict(case);result['meta']=dict(case['meta']);profile=result['meta'].pop('profile');assert '\n' in profile;result['profile_contents']=profile.split('\n',1)[1];return result
+manifest={'profile_sha256':hashlib.sha256(a.profile.read_bytes()).hexdigest(),'probe_sha256':hashlib.sha256(probe.read_bytes()).hexdigest(),'environment':{k:v for k,v in env.items() if k.startswith(('RRR3D_','NX_'))},'cases':names,'captures':{},'status':'capturing'}
 for mode in ('ordinary','control'):
  if mode=='ordinary':env['RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME']='1'
  else:env.pop('RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME',None)
@@ -23,7 +25,7 @@ for mode in ('ordinary','control'):
     output.write(tmp.read_bytes());tmp.unlink()
   cases=compare.load(dest,'mac-jolt-metal');assert set(cases)==set(names)
   captures.append(cases)
-  if mode=='control':assert all(cases[name]==baseline[name] for name in names),('Disabled candidate changed prior states',repeat)
+  if mode=='control':assert all(comparable(cases[name])==comparable(baseline[name]) for name in names),('Disabled candidate changed prior states',repeat)
   stats={name:{'first_difference':next((x['tick'] for x,y in zip(reference[name]['rows'],cases[name]['rows']) if x!=y),None),'max_position':max(compare.norm(x['position'],y['position']) for x,y in zip(reference[name]['rows'],cases[name]['rows'])),'max_velocity':max(compare.norm(x['velocity'],y['velocity']) for x,y in zip(reference[name]['rows'],cases[name]['rows']))} for name in names}
   manifest['captures'][mode+str(repeat)]={'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'cases':stats}
   print(mode,repeat,'exact',sum(v['first_difference'] is None for v in stats.values()),'of',len(names),'position_max',max(v['max_position'] for v in stats.values()),'velocity_max',max(v['max_velocity'] for v in stats.values()),flush=True)

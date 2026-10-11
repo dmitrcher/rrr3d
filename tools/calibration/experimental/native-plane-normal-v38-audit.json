@@ -1,0 +1,1349 @@
+{
+  "goal_complete": false,
+  "experimental_only": true,
+  "isolation": {
+    "00": {
+      "cases": 9,
+      "repeatable": true,
+      "complete": true
+    },
+    "01": {
+      "cases": 108,
+      "repeatable": true,
+      "complete": true
+    },
+    "02": {
+      "cases": 48,
+      "repeatable": true,
+      "complete": true
+    },
+    "03": {
+      "cases": 24,
+      "repeatable": true,
+      "complete": true
+    }
+  },
+  "factorial": {
+    "plane-only": {
+      "cases": 72,
+      "steps_per_case": 120,
+      "repeatable": true,
+      "control_unchanged_vs_v37": true,
+      "remaining": 66,
+      "max_position": 0.0022348560420203203,
+      "max_velocity": 0.04756456096166578,
+      "position_error_increased": [
+        "frame-v25-long-p8-x0-y0"
+      ],
+      "position_error_decreased": [
+        "frame-v25-long-p0-x0-y0",
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p0-x2-y0",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y0",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y0",
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p2-x0-y0",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p2-x2-y0",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x0-y0",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p3-x2-y0",
+        "frame-v25-long-p3-x2-y1",
+        "frame-v25-long-p4-x0-y0",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y0",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x0-y0",
+        "frame-v25-long-p5-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p5-x2-y0",
+        "frame-v25-long-p5-x2-y1",
+        "frame-v25-long-p6-x0-y0",
+        "frame-v25-long-p6-x0-y1",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p6-x2-y0",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x0-y0",
+        "frame-v25-long-p7-x0-y1",
+        "frame-v25-long-p7-x1-y1",
+        "frame-v25-long-p7-x2-y0",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p8-x1-y1",
+        "frame-v25-long-p8-x2-y0",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x0-y0",
+        "frame-v25-long-p9-x0-y1",
+        "frame-v25-long-p9-x1-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p9-x2-y1",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p10-x0-y1",
+        "frame-v25-long-p10-x1-y1",
+        "frame-v25-long-p10-x2-y0",
+        "frame-v25-long-p10-x2-y1",
+        "frame-v25-long-p11-x0-y0",
+        "frame-v25-long-p11-x0-y1",
+        "frame-v25-long-p11-x1-y1",
+        "frame-v25-long-p11-x2-y0",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "velocity_error_increased": [
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p3-x2-y1",
+        "frame-v25-long-p7-x1-y1",
+        "frame-v25-long-p8-x1-y1",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x1-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p10-x0-y1",
+        "frame-v25-long-p11-x0-y0",
+        "frame-v25-long-p11-x0-y1",
+        "frame-v25-long-p11-x1-y1"
+      ],
+      "velocity_error_decreased": [
+        "frame-v25-long-p0-x0-y0",
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p0-x2-y0",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y0",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y0",
+        "frame-v25-long-p2-x0-y0",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p2-x2-y0",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x0-y0",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p3-x2-y0",
+        "frame-v25-long-p4-x0-y0",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y0",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x0-y0",
+        "frame-v25-long-p5-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p5-x2-y0",
+        "frame-v25-long-p5-x2-y1",
+        "frame-v25-long-p6-x0-y0",
+        "frame-v25-long-p6-x0-y1",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p6-x2-y0",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x0-y0",
+        "frame-v25-long-p7-x0-y1",
+        "frame-v25-long-p7-x2-y0",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y0",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p8-x2-y0",
+        "frame-v25-long-p9-x0-y0",
+        "frame-v25-long-p9-x0-y1",
+        "frame-v25-long-p9-x2-y1",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p10-x1-y1",
+        "frame-v25-long-p10-x2-y0",
+        "frame-v25-long-p10-x2-y1",
+        "frame-v25-long-p11-x2-y0",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "new_exact": [],
+      "lost_exact": []
+    },
+    "normal-only": {
+      "cases": 72,
+      "steps_per_case": 120,
+      "repeatable": true,
+      "control_unchanged_vs_v37": true,
+      "remaining": 66,
+      "max_position": 0.0022367229261575686,
+      "max_velocity": 0.04754349401159817,
+      "position_error_increased": [
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "position_error_decreased": [
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x1-y1",
+        "frame-v25-long-p11-x1-y1"
+      ],
+      "velocity_error_increased": [
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p11-x1-y1",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "velocity_error_decreased": [
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p9-x1-y1"
+      ],
+      "new_exact": [],
+      "lost_exact": []
+    },
+    "combined": {
+      "cases": 72,
+      "steps_per_case": 120,
+      "repeatable": true,
+      "control_unchanged_vs_v37": true,
+      "remaining": 66,
+      "max_position": 0.002234855935042542,
+      "max_velocity": 0.047565308163696716,
+      "position_error_increased": [
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p8-x0-y0"
+      ],
+      "position_error_decreased": [
+        "frame-v25-long-p0-x0-y0",
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p0-x2-y0",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y0",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y0",
+        "frame-v25-long-p2-x0-y0",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p2-x2-y0",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x0-y0",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p3-x2-y0",
+        "frame-v25-long-p3-x2-y1",
+        "frame-v25-long-p4-x0-y0",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y0",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x0-y0",
+        "frame-v25-long-p5-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p5-x2-y0",
+        "frame-v25-long-p5-x2-y1",
+        "frame-v25-long-p6-x0-y0",
+        "frame-v25-long-p6-x0-y1",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p6-x2-y0",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x0-y0",
+        "frame-v25-long-p7-x0-y1",
+        "frame-v25-long-p7-x1-y1",
+        "frame-v25-long-p7-x2-y0",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p8-x1-y1",
+        "frame-v25-long-p8-x2-y0",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x0-y0",
+        "frame-v25-long-p9-x0-y1",
+        "frame-v25-long-p9-x1-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p9-x2-y1",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p10-x0-y1",
+        "frame-v25-long-p10-x1-y1",
+        "frame-v25-long-p10-x2-y0",
+        "frame-v25-long-p10-x2-y1",
+        "frame-v25-long-p11-x0-y0",
+        "frame-v25-long-p11-x0-y1",
+        "frame-v25-long-p11-x1-y1",
+        "frame-v25-long-p11-x2-y0",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "velocity_error_increased": [
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p3-x2-y1",
+        "frame-v25-long-p6-x0-y1",
+        "frame-v25-long-p7-x1-y1",
+        "frame-v25-long-p8-x1-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p10-x0-y1",
+        "frame-v25-long-p11-x0-y0",
+        "frame-v25-long-p11-x0-y1",
+        "frame-v25-long-p11-x1-y1"
+      ],
+      "velocity_error_decreased": [
+        "frame-v25-long-p0-x0-y0",
+        "frame-v25-long-p0-x0-y1",
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p0-x2-y0",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y0",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y0",
+        "frame-v25-long-p2-x0-y0",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x1-y1",
+        "frame-v25-long-p2-x2-y0",
+        "frame-v25-long-p2-x2-y1",
+        "frame-v25-long-p3-x0-y0",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p3-x1-y1",
+        "frame-v25-long-p3-x2-y0",
+        "frame-v25-long-p4-x0-y0",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x1-y1",
+        "frame-v25-long-p4-x2-y0",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x0-y0",
+        "frame-v25-long-p5-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p5-x2-y0",
+        "frame-v25-long-p5-x2-y1",
+        "frame-v25-long-p6-x0-y0",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p6-x2-y0",
+        "frame-v25-long-p6-x2-y1",
+        "frame-v25-long-p7-x0-y0",
+        "frame-v25-long-p7-x0-y1",
+        "frame-v25-long-p7-x2-y0",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y0",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p8-x2-y0",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x0-y0",
+        "frame-v25-long-p9-x0-y1",
+        "frame-v25-long-p9-x1-y1",
+        "frame-v25-long-p9-x2-y1",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p10-x1-y1",
+        "frame-v25-long-p10-x2-y0",
+        "frame-v25-long-p10-x2-y1",
+        "frame-v25-long-p11-x2-y0",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "new_exact": [],
+      "lost_exact": []
+    }
+  },
+  "first_contact": {
+    "scope": "First contact only; all 120 rows across eight fields exact, long-run parity remains incomplete",
+    "repeats": {
+      "0": {
+        "frame-v25-long-p4-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 20,
+            "constraint_error": 20,
+            "lambda": 20,
+            "lever_arm": 20,
+            "velocity": 20,
+            "angular": 20,
+            "inverse_inertia": 20
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 20,
+            "constraint_error": 20,
+            "lambda": 20,
+            "lever_arm": 20,
+            "velocity": 20,
+            "angular": 20,
+            "inverse_inertia": 20
+          },
+          "differences": []
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        }
+      },
+      "1": {
+        "frame-v25-long-p4-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 20,
+            "constraint_error": 20,
+            "lambda": 20,
+            "lever_arm": 20,
+            "velocity": 20,
+            "angular": 20,
+            "inverse_inertia": 20
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 20,
+            "constraint_error": 20,
+            "lambda": 20,
+            "lever_arm": 20,
+            "velocity": 20,
+            "angular": 20,
+            "inverse_inertia": 20
+          },
+          "differences": []
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        }
+      }
+    }
+  },
+  "formula_validation": {
+    "scope": "Recorded original Windows plane and kernel normal calculations; independent Mac triangle inputs and normals checked separately. Diagnostic helpers are not simulation replay.",
+    "plane_cases": {
+      "frame-v25-long-p4-x1-y0-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ],
+            [
+              -500,
+              500,
+              10
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x0-y0-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              110
+            ],
+            [
+              500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              500,
+              -90
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              110
+            ],
+            [
+              500,
+              500,
+              -90
+            ],
+            [
+              -500,
+              500,
+              110
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ],
+          [
+            0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x0-y1-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              60
+            ],
+            [
+              500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              500,
+              -40
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              60
+            ],
+            [
+              500,
+              500,
+              -40
+            ],
+            [
+              -500,
+              500,
+              160
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.759002685546875
+          ],
+          [
+            0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.759002685546875
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x1-y1-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              500,
+              60
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              500,
+              60
+            ],
+            [
+              -500,
+              500,
+              60
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            -0.09950371831655502,
+            0.9950371980667114,
+            -9.950370788574219
+          ],
+          [
+            0.0,
+            -0.09950371831655502,
+            0.9950371980667114,
+            -9.950370788574219
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x2-y0-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              -500,
+              110
+            ],
+            [
+              500,
+              500,
+              110
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              500,
+              110
+            ],
+            [
+              -500,
+              500,
+              -90
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            -0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ],
+          [
+            -0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x2-y1-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              -500,
+              60
+            ],
+            [
+              500,
+              500,
+              160
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              500,
+              160
+            ],
+            [
+              -500,
+              500,
+              -40
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            -0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.758995056152344
+          ],
+          [
+            -0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.758995056152344
+          ]
+        ]
+      },
+      "frame-v25-long-p7-x1-y0-run0": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ],
+            [
+              -500,
+              500,
+              10
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ]
+        ]
+      },
+      "frame-v25-long-p4-x1-y0-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ],
+            [
+              -500,
+              500,
+              10
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x0-y0-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              110
+            ],
+            [
+              500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              500,
+              -90
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              110
+            ],
+            [
+              500,
+              500,
+              -90
+            ],
+            [
+              -500,
+              500,
+              110
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ],
+          [
+            0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x0-y1-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              60
+            ],
+            [
+              500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              500,
+              -40
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              60
+            ],
+            [
+              500,
+              500,
+              -40
+            ],
+            [
+              -500,
+              500,
+              160
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.759002685546875
+          ],
+          [
+            0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.759002685546875
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x1-y1-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              500,
+              60
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -40
+            ],
+            [
+              500,
+              500,
+              60
+            ],
+            [
+              -500,
+              500,
+              60
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            -0.09950371831655502,
+            0.9950371980667114,
+            -9.950370788574219
+          ],
+          [
+            0.0,
+            -0.09950371831655502,
+            0.9950371980667114,
+            -9.950370788574219
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x2-y0-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              -500,
+              110
+            ],
+            [
+              500,
+              500,
+              110
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -90
+            ],
+            [
+              500,
+              500,
+              110
+            ],
+            [
+              -500,
+              500,
+              -90
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            -0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ],
+          [
+            -0.1961161345243454,
+            0.0,
+            0.9805806875228882,
+            -9.805809020996094
+          ]
+        ]
+      },
+      "frame-v25-long-p5-x2-y1-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              -500,
+              60
+            ],
+            [
+              500,
+              500,
+              160
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              -140
+            ],
+            [
+              500,
+              500,
+              160
+            ],
+            [
+              -500,
+              500,
+              -40
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            -0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.758995056152344
+          ],
+          [
+            -0.1951800137758255,
+            -0.09759000688791275,
+            0.9759000539779663,
+            -9.758995056152344
+          ]
+        ]
+      },
+      "frame-v25-long-p7-x1-y0-run1": {
+        "triangles": 2,
+        "plane_formula_exact": true,
+        "independent_mac_plane_exact": true,
+        "inputs": [
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ]
+          ],
+          [
+            [
+              -500,
+              -500,
+              10
+            ],
+            [
+              500,
+              500,
+              10
+            ],
+            [
+              -500,
+              500,
+              10
+            ]
+          ]
+        ],
+        "planes": [
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -10.0
+          ]
+        ]
+      }
+    },
+    "normal_cases": {
+      "frame-v25-long-p7-x1-y0-run0": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 40
+      },
+      "frame-v25-long-p5-x0-y0-run0": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 20
+      },
+      "frame-v25-long-p5-x1-y1-run0": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 20
+      },
+      "frame-v25-long-p4-x1-y0-run0": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 40
+      },
+      "frame-v25-long-p7-x1-y0-run1": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 40
+      },
+      "frame-v25-long-p5-x0-y0-run1": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 20
+      },
+      "frame-v25-long-p5-x1-y1-run1": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 20
+      },
+      "frame-v25-long-p4-x1-y0-run1": {
+        "recorded_kernel_normals": 64,
+        "formula_exact": true,
+        "independent_mac_first_rows_exact": 40
+      }
+    },
+    "goal_complete": false
+  },
+  "build": {
+    "full_debug_passed": true,
+    "ctest_passed": 53,
+    "ctest_total": 53,
+    "assets": 1200,
+    "movies": 14,
+    "new_visual_game_check": false
+  },
+  "mac_probe_sha256": "3048f593c69136000af840886a34b95e5353559c52511ce877332e4bcfe59e48",
+  "tracers": {
+    "vertex": {
+      "exe": "NativeVertexTrace-v38-Windows.exe",
+      "bytes": 30208,
+      "sha256": "aca4841f1e3aa2a88d35c588b3aec802689290fef8d550a40ef450bdd30fedec",
+      "source_sha256": "08f872641ad46d4d82ec3f9e286718892a7d5576e87c1c5cbc1a1597658dacca",
+      "guest_exe_sha_verified": true,
+      "compiled_source_exact": true,
+      "reference_probe_core_unchanged": true
+    },
+    "normal": {
+      "exe": "NativeNormalTrace-v38-Windows.exe",
+      "bytes": 30720,
+      "sha256": "11a310c3ce6c1647fa37b4526621cfd68c355b5fd63f4353213a7d97f8ea94b5",
+      "source_sha256": "fefe4311586f65d00bded0840b4f4692f799f387d62e4d66ac92209eb06df619",
+      "guest_exe_sha_verified": true,
+      "compiled_source_exact": true,
+      "reference_probe_core_unchanged": true
+    }
+  },
+  "first_physical_difference": {
+    "frame-v25-long-p7-x1-y0": 2,
+    "frame-v25-long-p5-x0-y0": 1,
+    "frame-v25-long-p5-x1-y1": 11,
+    "frame-v25-long-p4-x1-y0": null
+  }
+}

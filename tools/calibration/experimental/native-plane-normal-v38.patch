@@ -1,0 +1,103 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1032,6 +1032,17 @@
+             bool overlap=true;for(int a=0;a<3;++a)overlap &= min[a]<=hi[a]+.05f && max[a]>=lo[a]-.05f;
+             if(!overlap)continue;
+             const unsigned before=contacts.count;
++            const char* geometryTrace=std::getenv("RRR3D_CONTACT_GEOMETRY_INPUT_TRACE");
++            if(geometryTrace && std::strcmp(geometryTrace,"1")==0 && traceStep_==1) {
++                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
++                sample<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex<<",\"half\":["<<half.x<<','<<half.y<<','<<half.z<<"],\"box\":[";
++                for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)sample<<(col||row?",":"")<<(col==0?box.m.column0:col==1?box.m.column1:box.m.column2)[row];
++                sample<<','<<box.p.x<<','<<box.p.y<<','<<box.p.z<<"],\"vertices\":[";
++                for(unsigned i=0;i<3;++i)sample<<(i?",":"")<<'['<<verts[i].x<<','<<verts[i].y<<','<<verts[i].z<<']';
++                const sourcemesh::PxPlane plane=sourcemesh::trianglePlane(verts);
++                sample<<"],\"plane\":["<<plane.n.x<<','<<plane.n.y<<','<<plane.n.z<<','<<plane.d<<"]}";
++                motorrock::parity::event("physics.source-mesh-input","independent geometry inputs",sample.str());
++            }
+             sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge);
+             if(contacts.count==before)continue;
+             const auto normal=contacts.contacts[before].normal;
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -32,6 +32,7 @@
+ #include <array>
+ #include <cmath>
+ #include <cstdint>
++#include <cstdlib>
+ #include <cfloat>
+ #include <cstring>
+ #include <algorithm>
+@@ -958,12 +959,31 @@
+ #undef PxMemZero
+ #undef PX_ASSERT
+ 
++// v38: observed original triangle plane arithmetic (SSE stores, x87 normalization).
++namespace nativeplane {
++inline PxPlane triangle(PxVec3 p0,PxVec3 p1,PxVec3 p2) {
++ using namespace nativeedge;
++ const PxVec3 a={sub(p1.x,p0.x),sub(p1.y,p0.y),sub(p1.z,p0.z)};
++ const PxVec3 b={sub(p2.x,p0.x),sub(p2.y,p0.y),sub(p2.z,p0.z)};
++ const PxVec3 cross={sub(mul(a.y,b.z),mul(a.z,b.y)),sub(mul(a.z,b.x),mul(a.x,b.z)),sub(mul(a.x,b.y),mul(a.y,b.x))};
++ const float length2=add(add(mul(cross.z,cross.z),mul(cross.y,cross.y)),mul(cross.x,cross.x));
++ PxVec3 n(0);
++ if(length2>0){const double inverse=1.0/std::sqrt(double(length2));n={store(double(cross.x)*inverse),store(double(cross.y)*inverse),store(double(cross.z)*inverse)};}
++ const float distance=add(add(mul(n.z,p0.z),mul(n.y,p0.y)),mul(n.x,p0.x));
++ return PxPlane(n,-distance);
++}
++}
++inline PxPlane trianglePlane(const std::array<PxVec3,3>& vertices) {
++ const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_TRIANGLE_PLANE");
++ return flag && std::strcmp(flag,"1")==0?nativeplane::triangle(vertices[0],vertices[1],vertices[2]):PxPlane(vertices[0],vertices[1],vertices[2]);
++}
++
+ // Experimental face-contact wrapper. SAT/backface validation is supplied by
+ // the caller; edge-axis contacts require a separate generic convex wrapper.
+ inline void faceContacts(ContactBuffer& out,PxVec3 half,const Cm::Matrix34& box,
+                          const std::array<PxVec3,3>& triangle,unsigned index=0,bool nativeEdge=false)
+ {
+- const PxPlane plane(triangle[0],triangle[1],triangle[2]);
++ const PxPlane plane=trianglePlane(triangle);
+  if(plane.distance(box.p)<0.0f)return;
+  const PxVec3 local=box.rotateTranspose(-plane.n);
+  const float support=std::abs(local.x)*half.x+std::abs(local.y)*half.y+std::abs(local.z)*half.z;
+--- a/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
++++ b/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
+@@ -2,6 +2,7 @@
+ // Experimental scalar reconstruction of PhysXCore 203979/20aad0/99860/ac00.
+ // No fixture identifiers, measured states, or expected outputs are used.
+ #include "DerivedContactErrorFrame.h"
++#include "NativeContactNormalV38.h"
+ namespace motorrock { namespace framev36 {
+ namespace cf=contactframe; namespace de=derivederror;
+ using de::add; using de::sub; using de::mul;
+@@ -77,7 +78,11 @@
+  r.errors.material=framev36::encode(matrix);for(int i=0;i<3;++i)r.errors.material[i]=-r.errors.material[i];
+  const auto seed=framev36::multiply(inverse,r.errors.material);
+  r.callback=cf::modify(seed,actor,cf::Matrix{{{1,0,0},{0,1,0},{0,0,1}}},plane,true);
+- r.normal=r.callback.modified?materialcandidate::solverNormal(framev36::multiply(actorQuaternion,r.callback.local0)):plane;
++ if(r.callback.modified) {
++  const auto solverQuaternion=framev36::multiply(actorQuaternion,r.callback.local0);
++  const char* normalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_NORMAL");
++  r.normal=normalFlag && std::strcmp(normalFlag,"1")==0?contactnormalv38::decode(solverQuaternion):materialcandidate::solverNormal(solverQuaternion);
++ } else r.normal=plane;
+  return r;
+ }
+ }}
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativeContactNormalV38.h
+@@ -0,0 +1,14 @@
++#pragma once
++// Original contact kernel first-column decode: double quaternion components
++// before products, round scalar operations, subtract the combined diagonal.
++#include "ContactFrameScalar.h"
++namespace motorrock { namespace contactnormalv38 {
++namespace cf=contactframe;
++inline cf::Vector decode(cf::Quaternion q) {
++ const float x2=cf::store(double(q[0])*2),y2=cf::store(double(q[1])*2),z2=cf::store(double(q[2])*2);
++ const float yy=cf::store(double(q[1])*y2),zz=cf::store(double(q[2])*z2);
++ const float xy=cf::store(double(q[1])*x2),wz=cf::store(double(q[3])*z2);
++ const float xz=cf::store(double(q[2])*x2),wy=cf::store(double(q[3])*y2);
++ return {{cf::store(1.0-cf::store(double(zz)+yy)),cf::store(double(wz)+xy),cf::store(double(xz)-wy)}};
++}
++}}

@@ -1,0 +1,33 @@
+{
+  "base_commit": "b97c33ad95719d7615c7395d2829a831f9ad8c60",
+  "base_candidate": "Tested v37 experimental adapter and SDK; production adapter is not this patch base",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "a9394ec5f3df880da62c41879a81e54702ecc7778375642e77bb665a1e1cc1c6",
+      "after_sha256": "9e1f62a620ff6e35919aa9c21e4b600816e3445bbb05123563f6d81ccc412615"
+    },
+    "src/Rock3dEngine/header/physics/SourceMeshManifold.h": {
+      "before_sha256": "3ac0bdebf92cf06ddb5732cd9cf3e06dbb6df699af9a4937e933bf7bdeb8efad",
+      "after_sha256": "878b60411c6eb03bcac4a8f14af52847c4346ed64c8b04ecd6c9d0331178e182"
+    },
+    "src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h": {
+      "before_sha256": "77df3d1b7661a4473a604f394a7bca32bca01fde4c89155435b35805a025da48",
+      "after_sha256": "555fa34b49e2a8d7b539ebfd73669b21edc79c9bacefa38e2b7462223e875255"
+    },
+    "src/Rock3dEngine/header/physics/NativeContactNormalV38.h": {
+      "before_sha256": null,
+      "after_sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8"
+    }
+  },
+  "required_v37_files": {
+    "src/Rock3dEngine/header/physics/ContactFrameScalar.h": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b",
+    "src/Rock3dEngine/header/physics/SourceMaterialFrameCandidate.h": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862",
+    "src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5",
+    "src/Rock3dEngine/header/physics/NativeContactCache.h": "3a06ed6fac8cc733aea0c92930040c49eedad3619ae7a4a1df3b735528b67ad4",
+    "src/Rock3dEngine/header/physics/NativeInertiaRotation.h": "0934feaf8a14ecb88282a22a9933aaff6ff4e676d5100d708d02bed52a938173",
+    "Jolt/Physics/Collision/ContactListener.h": "aff4a787636641e9d4ed805286b4aecb73cc01d6e08609cc03f8ee8e6014bf83",
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": "fd98073fbb8f349e416c880a36b325df18b3bde3cb79ef18fa95ccbaf678a662",
+    "Jolt/Physics/Constraints/ContactConstraintManager.h": "b00b733e7ebcf1b5f6dafc5ba8f1761315e0e82636c0e970eafe879b2fbbd03d",
+    "Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h": "6d2dee8002d31792460ad5dbcf895ef0bbf58779837d456bd6808c89c03e6c4d"
+  }
+}

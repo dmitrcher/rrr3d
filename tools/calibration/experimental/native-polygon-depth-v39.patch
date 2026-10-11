@@ -1,0 +1,39 @@
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -377,9 +377,28 @@
+ 	return result;
+ }
+ 
++// Experimental depth projection: original x86 mulss/addss round separately.
++// Keep this local to polygon projection; never change global compiler settings.
++namespace nativeprojection {
++inline float store(float v){volatile float out=v;return out;}
++inline float mul(float a,float b){return store(a*b);}
++inline float add(float a,float b){return store(a+b);}
++inline bool enabled(){const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_POLYGON_DEPTH");return flag && std::strcmp(flag,"1")==0;}
++inline float dot(PxVec3 a,PxVec3 b){return add(add(mul(a.x,b.x),mul(a.y,b.y)),mul(a.z,b.z));}
++inline PxVec3 transpose(const PxMat33& a,PxVec3 b){return {dot(a.column0,b),dot(a.column1,b),dot(a.column2,b)};}
++inline Cm::Matrix34 flatten(const PxMat33& a,const Cm::Matrix34& b){
++ PxVec3 p=transpose(a,b.p);
++ // Native Matrix34 multiply evaluates translation Y in Y + X + Z order.
++ p.y=add(add(mul(a.column1.y,b.p.y),mul(a.column1.x,b.p.x)),mul(a.column1.z,b.p.z));
++ return {transpose(a,b.m.column0),transpose(a,b.m.column1),transpose(a,b.m.column2),p};
++}
++inline float z(PxVec3 src,const Cm::Matrix34& mat){return add(dot(src,{mat.m.column0.z,mat.m.column1.z,mat.m.column2.z}),mat.p.z);}
++}
++
+ // PT: using this specialized version avoids doing an explicit transpose, which reduces LHS
+ PX_FORCE_INLINE Cm::Matrix34 transformTranspose(const PxMat33& a, const Cm::Matrix34& b)
+ {
++	if(nativeprojection::enabled())return nativeprojection::flatten(a,b);
+ 	return Cm::Matrix34(a.transformTranspose(b.m.column0), a.transformTranspose(b.m.column1), a.transformTranspose(b.m.column2), a.transformTranspose(b.p));
+ }
+ 
+@@ -400,6 +419,7 @@
+ // Helper function to transform z coordinate of point.
+ PX_FORCE_INLINE PxReal transformZ(const PxVec3& src, const Cm::Matrix34& mat)
+ {
++	if(nativeprojection::enabled())return nativeprojection::z(src,mat);
+ 	return src.x * mat.m.column0.z + src.y * mat.m.column1.z + src.z * mat.m.column2.z + mat.p.z;
+ }
+ 

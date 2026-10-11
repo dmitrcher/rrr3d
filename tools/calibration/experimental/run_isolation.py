@@ -45,6 +45,8 @@ def main():
                    help='Enable the v34 contact chain plus independent cached points/errors; requires the v35 patched probe')
     p.add_argument('--contact-v38-plane-normal', action='store_true',
                    help='Enable the v37 chain plus native triangle plane and contact normal decode; requires the v38 patched probe')
+    p.add_argument('--contact-v39-depth', action='store_true',
+                   help='Enable the v38 chain plus separately rounded polygon depth projection; requires the v39 patched probe')
     p.add_argument('--contact-v37-inertia', action='store_true',
                    help='Enable the v36 chain plus independent native inertia rotation; requires the v37 patched probe')
     p.add_argument('--contact-v36-frame', action='store_true',
@@ -54,6 +56,8 @@ def main():
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
+    if args.contact_v39_depth:
+        args.contact_v38_plane_normal = True
     if args.platform == 'mac' and args.reference_dir is None:
         p.error('Mac gates require two native Windows captures per stage')
     if (args.contact_v34 or args.contact_v35_cache or args.contact_v36_frame or args.contact_v37_inertia or args.contact_v38_plane_normal) and (args.platform != 'mac' or args.raw_contact_mass):
@@ -103,6 +107,8 @@ def main():
         if args.contact_v38_plane_normal:
             env['RRR3D_EXPERIMENT_NATIVE_TRIANGLE_PLANE'] = '1'
             env['RRR3D_EXPERIMENT_NATIVE_SOLVER_NORMAL'] = '1'
+        if args.contact_v39_depth:
+            env['RRR3D_EXPERIMENT_NATIVE_POLYGON_DEPTH'] = '1'
     manifest_path = args.out / 'isolation-run.json'
     if manifest_path.exists():
         p.error('Run manifest already exists; use a fresh output directory')
@@ -116,6 +122,7 @@ def main():
         'contact_v36_frame': args.contact_v36_frame or args.contact_v37_inertia or args.contact_v38_plane_normal,
         'contact_v37_inertia': args.contact_v37_inertia or args.contact_v38_plane_normal,
         'contact_v38_plane_normal': args.contact_v38_plane_normal,
+        'contact_v39_depth': args.contact_v39_depth,
         'environment': {k: v for k, v in env.items()
                         if k.startswith(('RRR3D_', 'NX_SPRING_ITERATIONS'))},
         'stages': {}, 'status': 'capturing',

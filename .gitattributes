@@ -22,3 +22,7 @@ tools/calibration/*.cmd -text whitespace=cr-at-eol
 
 # Keep the checksum-verified v38 vendor geometry snapshot byte-for-byte.
 tools/calibration/experimental/native-plane-normal-v38/src/Rock3dEngine/header/physics/SourceMeshManifold.h -text -whitespace
+
+# Keep checksum-verified v39 geometry snapshots byte-for-byte.
+tools/calibration/experimental/native-depth-v39/src/Rock3dEngine/header/physics/SourceMeshManifold.h -text -whitespace
+tools/calibration/experimental/native-depth-v39/before/SourceMeshManifold.h -text -whitespace

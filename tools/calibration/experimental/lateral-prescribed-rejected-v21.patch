@@ -1,0 +1,38 @@
+--- a/Jolt/Physics/Vehicle/WheeledVehicleController.h
++++ b/Jolt/Physics/Vehicle/WheeledVehicleController.h
+@@ -65,6 +65,8 @@
+ 	// Source wheel-contact callback supplies a tire force without axle reaction.
+ 	// Configured by the embedding adapter; like callbacks, not serialized state.
+ 	bool mUsePrescribedLongitudinalImpulse = false;
++	bool mUsePrescribedLateralImpulse = false;
++	float mPrescribedLateralVelocity = 0.0f;
+ 	bool mPrescribedBraking = false;
+ 	float mPrescribedLongitudinalSlip = 0.0f;
+ 	float						mBrakeImpulse = 0.0f;						///< Amount of impulse that the brakes can apply to the floor (excluding friction)
+--- a/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
++++ b/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
+@@ -740,6 +740,12 @@
+ 
+ 			// Lateral friction
+ 			float max_lateral_impulse = max_lateral_friction_impulse[wheel_index];
++			if (w->mUsePrescribedLateralImpulse)
++			{
++				float prescribed = (w->mPrescribedLateralVelocity > 0.0f? -1.0f : w->mPrescribedLateralVelocity < 0.0f? 1.0f : 0.0f) * max_lateral_impulse;
++				impulse |= w->SolveLateralConstraintPart(mConstraint, prescribed, prescribed);
++			}
++			else
+ 			impulse |= w->SolveLateralConstraintPart(mConstraint, -max_lateral_impulse, max_lateral_impulse);
+ 		}
+ 		++wheel_index;
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3842,6 +3842,9 @@
+                     wheel->mPrescribedLongitudinalSlip = vehicle.sourceLongitudinalSlips[i];
+                     wheel->mPrescribedBraking = vehicle.sourceBrakeTorque > std::abs(source.wheels[i].driven ? vehicle.motorTorque : 0.0F);
+                     const float sideways = wheel->HasContact() ? relative.Dot(wheel->GetContactLateral()) : 0.0F;
++                    const char* lateralMode = std::getenv("RRR3D_EXPERIMENT_TIRE_LATERAL_PRESCRIBED");
++                    wheel->mUsePrescribedLateralImpulse = lateralMode != nullptr && std::strcmp(lateralMode, "1") == 0;
++                    wheel->mPrescribedLateralVelocity = sideways;
+                     const float normal = wheel->HasContact() ? relative.Dot(wheel->GetContactNormal()) : 0.0F;
+                     vehicle.sourceLateralSlips[i] = std::atan2(std::abs(sideways), std::sqrt(forward * forward + normal * normal));
+                 }

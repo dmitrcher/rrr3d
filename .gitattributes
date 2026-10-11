@@ -7,6 +7,9 @@ resources/game-data/** -text -diff -whitespace
 # unified-diff context, not project source formatting.
 cmake/patches/*.patch -text -diff -whitespace
 
+# Experimental patch payloads preserve the SDK's exact context and whitespace.
+tools/calibration/experimental/*.patch -text -whitespace
+
 # Third-party license text is preserved verbatim.
 resources/macos/Licenses/** -text -diff -whitespace
 

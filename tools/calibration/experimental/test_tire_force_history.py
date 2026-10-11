@@ -29,13 +29,13 @@ def solve(case,previous,current,n,retain=True,cold=True,hard_first=True,activati
 
 
 if __name__=='__main__':
- cases=json.loads(Path(sys.argv[1]).read_text())['cases'];assert len(cases)==68
+ reference=json.loads(Path(sys.argv[1]).read_text()); groups=reference.get('groups',[{'iterations':reference.get('iterations',4),'cases':reference.get('cases',[])}]); cases=[dict(case,iterations=group['iterations']) for group in groups for case in group['cases']];assert len(cases)==68*len(groups)
  max_error=0;checked=wrong_current=wrong_soft=wrong_zero=0
  for case in cases:
   inp=case['input'];dt=inp['dt'];cap=abs(inp['gravity'])*case['actual']['mass']/4*1.5
   previous=[inp['height'],inp['initial_velocity'][2],0,0];last_soft=[0]*4;last_total=[0]*4
   for a in case['samples']:
-   mask=sum(1<<i for i,w in enumerate(a['wheels']) if w['contact']);length=next((w['suspension_length'] for w in a['wheels'] if w['contact']),0);current=[a['position'][2],a['velocity'][2],mask,length];pred=solve(case,previous,current,4)
+   mask=sum(1<<i for i,w in enumerate(a['wheels']) if w['contact']);length=next((w['suspension_length'] for w in a['wheels'] if w['contact']),0);current=[a['position'][2],a['velocity'][2],mask,length];pred=solve(case,previous,current,case['iterations'])
    for i,w in enumerate(a['wheels']):
     observed=w['engine_normal_force'];expected=min(cap,max(0,last_total[i]/dt)) if w['contact'] else 0
     max_error=max(max_error,abs(expected-observed));assert abs(expected-observed)<.01,(case['name'],a['tick'],i,expected,observed)
@@ -44,5 +44,5 @@ if __name__=='__main__':
      wrong_soft+=abs(min(cap,max(0,last_soft[i]/dt))-observed)>.1
      if cap==0:wrong_zero+=abs(max(0,last_total[i]/dt)-observed)>.1
    last_soft=pred[2] if mask else [0]*4;last_total=pred[3] if mask else [0]*4;previous=current;checked+=1
- assert checked==888 and wrong_current>100 and wrong_soft>10 and wrong_zero>10,(checked,wrong_current,wrong_soft,wrong_zero)
- print('888 independent Nx force-history samples passed; maxN',max_error,'rejected current/soft-only/zero-load',wrong_current,wrong_soft,wrong_zero)
+ assert checked==888*len(groups) and wrong_current>100 and wrong_soft>10 and wrong_zero>10,(checked,wrong_current,wrong_soft,wrong_zero)
+ print(checked,'independent Nx force-history samples passed; maxN',max_error,'rejected current/soft-only/zero-load',wrong_current,wrong_soft,wrong_zero)

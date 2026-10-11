@@ -1,0 +1,13 @@
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -511,7 +511,9 @@
+ 				//
+ 				// Note that we clamp 1 / cos(alpha) to the range [0.1, 1] in order not to increase the stiffness / damping by too much.
+ 				Vec3 ws_direction = body_transform.Multiply3x3(settings->mSuspensionDirection);
+-				float cos_angle = max(0.1f, ws_direction.Dot(neg_contact_normal));
++				const char *raw_mode = std::getenv("RRR3D_EXPERIMENT_SUSPENSION_RAW");
++				const bool raw_spring = UsesSourceSpringFinal() && raw_mode != nullptr && std::strcmp(raw_mode, "1") == 0;
++				float cos_angle = raw_spring? 1.0f : max(0.1f, ws_direction.Dot(neg_contact_normal));
+ 				stiffness /= cos_angle;
+ 				damping /= cos_angle;
+ 

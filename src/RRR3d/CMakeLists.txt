@@ -470,6 +470,8 @@ elseif(RRR3D_BUILD_PORTABLE_MENU OR RRR3D_BUILD_ORIGINAL_MENU OR
                 OriginalGameDebug.h
                 OriginalJungleAudit.cpp
                 OriginalJungleAudit.h
+                OriginalPhysicsReplay.cpp
+                OriginalPhysicsReplay.h
                 OriginalRaceHud.cpp
                 OriginalRaceHud.h
                 OriginalRaceRenderer.cpp

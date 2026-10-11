@@ -16,6 +16,7 @@
 #include "OriginalGameDebug.h"
 #include "ParityTrace.h"
 #include "OriginalJungleAudit.h"
+#include "OriginalPhysicsReplay.h"
 #include "OriginalGameMode.h"
 #include "OriginalGarage.h"
 #include "OriginalProfile.h"
@@ -455,6 +456,7 @@ struct Options
 #endif
 #ifdef RRR3D_PHYSICS
     bool physicsSmokeTest = false;
+    bool soloPhysicsReplay = false;
     bool jungleStartAudit = false;
     bool allMapAiAudit = false;
     bool gameDebug = false;
@@ -773,6 +775,11 @@ std::optional<Options> parseOptions(int argc, char** argv)
         if (argument == "--physics-smoke-test")
         {
             options.physicsSmokeTest = true;
+            continue;
+        }
+        if (argument == "--solo-physics-replay")
+        {
+            options.soloPhysicsReplay = true;
             continue;
         }
         if (argument == "--jungle-start-audit")
@@ -1359,6 +1366,7 @@ int main(int argc, char** argv)
                      "[--track=0..89] [--car=garage-record] "
                      "[--weather=fair|night|cloudy|rainy|sahara|hell|snow] "
                      "[--physics-smoke-test] [--jungle-start-audit] "
+                     "[--solo-physics-replay] "
                      "[--all-map-ai-audit] [--race-render-smoke-test] "
                      "[--finish-menu-smoke-test] "
                      "[--gamers-frame-smoke-test] "
@@ -1403,7 +1411,11 @@ int main(int argc, char** argv)
 #endif
     motorrock::parity::ConsoleTrace traceOut(std::cout);
     motorrock::parity::ConsoleTrace traceError(std::cerr);
-    const unsigned paritySeed = motorrock::parity::seedFromEnvironment(static_cast<unsigned>(std::time(nullptr)));
+    const unsigned paritySeed = motorrock::parity::seedFromEnvironment(
+#ifdef RRR3D_PHYSICS
+        options->soloPhysicsReplay ? 42U :
+#endif
+        static_cast<unsigned>(std::time(nullptr)));
     std::srand(paritySeed);
     motorrock::parity::event("rng.seed", std::to_string(paritySeed));
     motorrock::parity::event("session.begin", "native macOS source runtime");
@@ -1423,7 +1435,8 @@ int main(int argc, char** argv)
     const bool sourceNormalInteractiveLaunch =
         options->smokeFrames == 0U &&
         !options->verifyResources &&
-        !options->physicsSmokeTest && !options->jungleStartAudit;
+        !options->physicsSmokeTest && !options->soloPhysicsReplay &&
+        !options->jungleStartAudit;
     const auto runtimeProfileDirectory =
         sourceNormalInteractiveLaunch
             ? rrr3d::platform::save_directory()
@@ -1472,7 +1485,7 @@ int main(int argc, char** argv)
         };
     if (!profileWarning.empty())
         std::cerr << "Profile import warning: " << profileWarning << '\n';
-    if (options->physicsSmokeTest)
+    if (options->physicsSmokeTest || options->soloPhysicsReplay)
     {
         profileState =
             r3d::game::originalrace::makeOriginalDefaultProfileState();
@@ -1598,7 +1611,8 @@ int main(int argc, char** argv)
         // The provenance/physics smoke has exact World1/map1 assertions and
         // must not depend on whichever tournament track a prior GUI run
         // persisted in user.xml.
-        if (!options->trackSelected && !options->physicsSmokeTest)
+        if (!options->trackSelected && !options->physicsSmokeTest &&
+            !options->soloPhysicsReplay)
         {
             selectedTrack =
                 r3d::game::originalrace::resolveOriginalTournamentTrack(
@@ -1611,7 +1625,7 @@ int main(int argc, char** argv)
                         options->legacyWindowsDebug));
             }
         }
-        if (!options->physicsSmokeTest)
+        if (!options->physicsSmokeTest && !options->soloPhysicsReplay)
         {
             r3d::game::originalrace::selectOriginalWeather(
                 *resources, *originalRace,
@@ -1637,6 +1651,9 @@ int main(int argc, char** argv)
         r3d::game::originalrace::applyOriginalPlayerProfile(
             *originalRace, *resources, profileState.player,
             achievementOpened("armor4"));
+        if (options->soloPhysicsReplay)
+            r3d::game::originalrace::reconcileOriginalPlayerRoster(
+                *originalRace, 0U, false);
         r3d::game::originalrace::writeOriginalTournamentSelection(
             *originalRace, selectedTrack, profileState.player);
         originalGarageScene.emplace(
@@ -1829,6 +1846,10 @@ int main(int argc, char** argv)
     }
 
 #ifdef RRR3D_PHYSICS
+    if (options->soloPhysicsReplay)
+        return rrr3d::diagnostics::replaySoloPhysics(
+                   *originalRace, *physicsDescription)
+                   ? EXIT_SUCCESS : EXIT_FAILURE;
     if (options->jungleStartAudit)
         return rrr3d::diagnostics::auditJungleStarts(*resources) ? EXIT_SUCCESS : EXIT_FAILURE;
     if (options->allMapAiAudit)

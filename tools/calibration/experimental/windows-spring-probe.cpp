@@ -2,6 +2,7 @@
 #include <NxPhysics.h>
 #include "Fixture.h"
 #include <iostream>
+#include <cstdlib>
 #include "EulerAngles.h"
 #include "WindowsReferenceGeometry.h"
 namespace cal=motorrock::calibration;
@@ -78,6 +79,11 @@ static void execute(const cal::Case& c) {
  cal::Sample s;NxActor* observed=c.pair&&c.watched==1?peer:car;NxWheelShape** observedWheels=c.pair&&c.watched==1?peerWheels:wheels;NxVec3 p=observed->getGlobalPosition(),v=observed->getLinearVelocity(),m=observed->getAngularMomentum();NxQuat q=observed->getGlobalOrientationQuat();
  s.position=cal::V(p.x,p.y,p.z);s.velocity=cal::V(v.x,v.y,v.z);s.momentum=cal::V(m.x,m.y,m.z);s.q[0]=q.x;s.q[1]=q.y;s.q[2]=q.z;s.q[3]=q.w;
  for(int i=0;i<4;++i){NxWheelContactData contact;bool hit=observedWheels[i]->getContact(contact)!=0;s.wheelSpeed.push_back(observedWheels[i]->getAxleSpeed());s.contacts.push_back(hit?1:0);s.wheelHeight.push_back(hit?contact.contactPoint.z:0);s.longSlip.push_back(hit?contact.longitudalSlip:0);s.latSlip.push_back(hit?contact.lateralSlip:0);s.suspension.push_back(hit?contact.contactPosition-observedWheels[i]->getRadius():0);s.normalForce.push_back(hit?contact.contactForce:0);s.longImpulse.push_back(hit?contact.longitudalImpulse:0);s.latImpulse.push_back(hit?contact.lateralImpulse:0);}
+ if(std::getenv("NX_WHEEL_AXES")) {
+ std::ostringstream axes;axes.imbue(std::locale::classic());axes<<std::setprecision(9)<<"{\"tick\":"<<tick<<",\"contact_cache_phase\":\"pre_solve_geometry\",\"wheels\":[";
+ for(int i=0;i<4;++i){if(i)axes<<',';NxWheelContactData contact;bool hit=observedWheels[i]->getContact(contact)!=0;axes<<"{\"contact\":"<<(hit?"true":"false");if(hit)axes<<",\"point\":"<<cal::vector(cal::V(contact.contactPoint.x,contact.contactPoint.y,contact.contactPoint.z))<<",\"normal\":"<<cal::vector(cal::V(contact.contactNormal.x,contact.contactNormal.y,contact.contactNormal.z))<<",\"longitudinal\":"<<cal::vector(cal::V(contact.longitudalDirection.x,contact.longitudalDirection.y,contact.longitudalDirection.z))<<",\"lateral\":"<<cal::vector(cal::V(contact.lateralDirection.x,contact.lateralDirection.y,contact.lateralDirection.z));axes<<'}';}
+ axes<<"]}";motorrock::parity::event("calibration.wheel-axes",c.name,axes.str());
+ }
  cal::sample(c,tick,x,s);
  }
  if(peer)scene->releaseActor(*peer);scene->releaseActor(*car);sdk->releaseScene(*scene);if(groundMesh)sdk->releaseTriangleMesh(*groundMesh);if(borderMesh)sdk->releaseTriangleMesh(*borderMesh);

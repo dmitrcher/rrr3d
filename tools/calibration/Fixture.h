@@ -84,6 +84,9 @@ inline void begin(const Case& c,const std::string& profile) {
  for(size_t i=0;i<c.wheels.size();++i){const Wheel& w=c.wheels[i];if(i)s<<',';s<<"{\"position\":"<<vector(w.position)<<",\"radius\":"<<w.radius<<",\"travel\":"<<w.travel<<",\"spring\":"<<w.spring<<",\"damper\":"<<w.damper<<",\"target\":"<<w.target<<",\"inverse_mass\":"<<w.inverseMass<<",\"flags\":"<<w.flags<<",\"driven\":"<<(w.driven?"true":"false")<<",\"steering\":"<<(w.steering?"true":"false")<<",\"longitudinal_tire\":"<<tireJson(w.longitudinal)<<",\"lateral_tire\":"<<tireJson(w.lateral)<<'}';}
  s<<"],\"extra_gravity\":"<<(c.extraGravity?"true":"false")<<",\"air_pitch\":"<<c.airPitch<<",\"clamp_roll\":"<<c.clampRoll<<",\"clamp_pitch\":"<<c.clampPitch<<",\"game_angular_damping\":"<<vector(c.angularDamping)<<"},\"units\":\"source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v\"}";
  std::string metadata=s.str();if(c.initialPitch!=0){std::ostringstream x;x<<",\"initial_pitch\":"<<std::setprecision(9)<<c.initialPitch;metadata.insert(metadata.size()-1,x.str());}if(c.bodySkinWidth!=.025){std::ostringstream x;x<<",\"body_skin_width\":"<<std::setprecision(9)<<c.bodySkinWidth;metadata.insert(metadata.size()-1,x.str());}if(c.startOffset.x!=0||c.startOffset.y!=0||c.startOffset.z!=0)metadata.insert(metadata.size()-1,",\"initial_position\":"+vector(V(c.startOffset.x,c.startOffset.y,c.height+c.startOffset.z)));if(c.fixedOrientation)metadata.insert(metadata.size()-1,",\"fixed_orientation\":true");
+#ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
+ if(c.initialPitch!=0){std::ostringstream pitch;pitch.imbue(std::locale::classic());pitch<<std::setprecision(9)<<",\"initial_pitch\":"<<c.initialPitch;metadata.insert(metadata.size()-1,pitch.str());}
+#endif
  if(c.pair){std::ostringstream pair;pair.imbue(std::locale::classic());pair<<std::setprecision(9)<<",\"pair\":{\"watched\":"<<c.watched<<",\"peer_friction\":"<<c.peerFriction<<",\"peer_mass\":"<<c.peerMass<<",\"peer_position\":"<<vector(c.peerPosition)<<",\"peer_velocity\":"<<vector(c.peerVelocity)<<",\"primary_roll\":"<<c.primaryRoll<<",\"peer_roll\":"<<c.peerRoll<<'}';metadata.insert(metadata.size()-1,pair.str());}
  parity::event("calibration.begin",c.name,metadata);
 }
@@ -148,7 +151,7 @@ inline std::vector<Case> cases() {
  }
 
 #ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
- appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);appendTireSlipProbes(s);appendHardTireProbes(s);appendZeroLoadTireProbes(s);
+ appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);appendTireSlipProbes(s);appendHardTireProbes(s);appendZeroLoadTireProbes(s);appendNegativeTireSlipProbes(s);appendSuspensionAxisProbes(s);
 #endif
  appendCatalogCases(s);return s;
 }

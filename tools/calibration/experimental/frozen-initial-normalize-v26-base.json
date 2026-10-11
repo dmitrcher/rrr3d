@@ -1,0 +1,9 @@
+{
+  "scope": "Apply after v25 trace-only patch. New flag strictly1, defaultoff; normalize frozen saved orientation once after first update, pending state resets on vehicle reset or network rotation snap.",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before": "f9346202b25ca32b6f98ee57eebc548cd4402c898d6620e7a6ef686af40ec449",
+      "after": "51f1a677a43ae691347368c2b15318bd40e778ddc2cfa1016e9625e080b9ef25"
+    }
+  }
+}

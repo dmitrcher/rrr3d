@@ -1,0 +1,56 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1875,6 +1875,7 @@
+             vehicle.body, toJolt(position),
+             JPH::Quat::sRotation(JPH::Vec3::sAxisY(), -angle),
+             JPH::EActivation::Activate);
++        vehicle.sourceFrozenNormalizationPending = true;
+         bodies.SetLinearAndAngularVelocity(
+             vehicle.body, JPH::Vec3::sZero(), JPH::Vec3::sZero());
+         vehicle.controller->SetDriverInput(0.0F, 0.0F, 0.0F, 0.0F);
+@@ -2060,6 +2061,7 @@
+             bodies.SetRotation(
+                 vehicle.body, targetRotation,
+                 JPH::EActivation::Activate);
++            vehicle.sourceFrozenNormalizationPending = true;
+         }
+ 
+         JPH::BodyLockRead momentumLock(
+@@ -2276,9 +2278,28 @@
+             // mass. SetRotation preserves the actor origin (including its COM
+             // offset); clearing angular velocity also matches the Nx captures.
+             if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+-                for (const auto& vehicle : vehicles_)
++                for (auto& vehicle : vehicles_)
+                     if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+                     {
++                        const char* normalizeFlag = std::getenv("RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE");
++                        if (vehicle.sourceFrozenNormalizationPending && normalizeFlag && std::strcmp(normalizeFlag, "1") == 0)
++                        {
++                            // Nx freezes the orientation after one initial float
++                            // normalization. Repeating normalization can alternate
++                            // between adjacent quaternions; retain the result.
++                            auto q = fromJolt(vehicle.sourceFrozenRotation);
++                            const auto store = [](double value) { volatile float result = static_cast<float>(value); return result; };
++                            const float square = store(double(q.x)*q.x + double(q.y)*q.y + double(q.z)*q.z + double(q.w)*q.w);
++                            const float root = store(std::sqrt(double(square)));
++                            if (root > 0.0F)
++                            {
++                                const float inverse = store(1.0 / root);
++                                q.x = store(double(q.x)*inverse); q.y = store(double(q.y)*inverse);
++                                q.z = store(double(q.z)*inverse); q.w = store(double(q.w)*inverse);
++                                vehicle.sourceFrozenRotation = toJolt(q);
++                            }
++                            vehicle.sourceFrozenNormalizationPending = false;
++                        }
+                         auto& bodies = system_.GetBodyInterface();
+                         bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
+                             JPH::EActivation::DontActivate);
+@@ -2653,6 +2674,7 @@
+         VehicleState state;
+         Vec3 diagnosticAcceleration{};
+         JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
++        bool sourceFrozenNormalizationPending = true;
+         std::vector<float> sourceWheelAxleSpeeds;
+         std::vector<float> sourceLongitudinalSlips, sourceLateralSlips;
+         float sourceBrakeTorque = 0;

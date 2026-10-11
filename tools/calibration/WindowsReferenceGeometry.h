@@ -3,6 +3,7 @@
 #include <NxCooking.h>
 #include <NxStream.h>
 #include <cstring>
+#include <float.h>
 // Memory-only cooking stream; no assets or renderer are needed for this probe.
 class CalibrationStream : public NxStream {
  std::vector<NxU8> bytes; mutable size_t cursor;
@@ -28,10 +29,16 @@ public:
 class CalibrationTrackContact : public NxUserContactModify {
  std::string caseName;
  bool frictionEnabled;
+ bool floatingEnvironmentReported;
 public:
  int tick;
- explicit CalibrationTrackContact(const std::string& name,bool friction=true):caseName(name),frictionEnabled(friction),tick(0){}
+ explicit CalibrationTrackContact(const std::string& name,bool friction=true):caseName(name),frictionEnabled(friction),floatingEnvironmentReported(false),tick(0){}
  virtual bool onContactConstraint(NxU32& flags,const NxShape* s0,const NxShape* s1,NxU32 feature0,NxU32 feature1,NxContactCallbackData& data){
+  if(!floatingEnvironmentReported && std::getenv("NX_FLOAT_ENV_TRACE")) {
+   floatingEnvironmentReported=true;
+   std::ostringstream environment;environment<<"{\"tick\":"<<tick<<",\"phase\":\"contact-callback\",\"control\":"<<_controlfp(0,0)<<'}';
+   motorrock::parity::event("calibration.floating-environment",caseName,environment.str());
+  }
   if(!frictionEnabled){
    data.staticFriction0=data.staticFriction1=data.dynamicFriction0=data.dynamicFriction1=0;
    flags|=NX_CCC_STATICFRICTION0|NX_CCC_STATICFRICTION1|NX_CCC_DYNAMICFRICTION0|NX_CCC_DYNAMICFRICTION1;

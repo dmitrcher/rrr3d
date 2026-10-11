@@ -5,11 +5,17 @@
 #include "Fixture.h"
 #include <iostream>
 #include <cstdlib>
+#include <float.h>
 #include "EulerAngles.h"
 #include "WindowsReferenceGeometry.h"
 namespace cal=motorrock::calibration;
 static NxPhysicsSDK* sdk=0;
 static NxCookingInterface* cooking=0;
+static void traceFloatingEnvironment(const std::string& name,const char* phase) {
+ if(!std::getenv("NX_FLOAT_ENV_TRACE"))return;
+ std::ostringstream out;out<<"{\"phase\":"<<motorrock::parity::quote(phase)<<",\"control\":"<<_controlfp(0,0)<<'}';
+ motorrock::parity::event("calibration.floating-environment",name,out.str());
+}
 static NxVec3 v3(cal::V v){return NxVec3((float)v.x,(float)v.y,(float)v.z);}
 static NxTireFunctionDesc tire(const cal::Tire& t){NxTireFunctionDesc d;d.extremumSlip=(float)t.extremumSlip;d.extremumValue=(float)t.extremumValue;d.asymptoteSlip=(float)t.asymptoteSlip;d.asymptoteValue=(float)t.asymptoteValue;d.stiffnessFactor=(float)t.stiffness;return d;}
 // Same neutral GameCar wheel-contact budget (no clutch/tireSpring effects).
@@ -34,9 +40,11 @@ static void tracePhysXModules(const std::string& name) {
 }
 static void execute(const cal::Case& c) {
  tracePhysXModules(c.name);
+ traceFloatingEnvironment(c.name,"before-scene-create");
  CalibrationTrackContact bodyContacts(c.name,c.bodyContactFrictionEnabled);CalibrationBodyReport bodyReport(c.name);
  NxSceneDesc desc;desc.userContactModify=&bodyContacts;desc.userContactReport=&bodyReport;desc.gravity=NxVec3(0,0,(float)c.gravity);desc.upAxis=2;desc.timeStepMethod=NX_TIMESTEP_VARIABLE;desc.simType=NX_SIMULATION_SW;
  NxScene* scene=sdk->createScene(desc);if(!scene)throw std::runtime_error("PhysX scene creation failed");
+ traceFloatingEnvironment(c.name,"after-scene-create");
  NxMaterial* material=scene->getMaterialFromIndex(0);material->setStaticFriction(.5f);material->setDynamicFriction(.5f);material->setRestitution(.5f);
  NxMaterialDesc carMat;carMat.staticFriction=carMat.dynamicFriction=(float)c.bodyFriction;carMat.restitution=0;carMat.staticFrictionV=3.2f;carMat.dynamicFrictionV=2;carMat.dirOfAnisotropy=NxVec3(0,0,1);carMat.flags=NX_MF_ANISOTROPIC|NX_MF_DISABLE_STRONG_FRICTION;if(!c.bodyContactFrictionEnabled)carMat.flags|=NX_MF_DISABLE_FRICTION;carMat.frictionCombineMode=NX_CM_MIN;
  NxMaterial* carMaterial=scene->createMaterial(carMat);

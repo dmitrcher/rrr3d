@@ -13,3 +13,17 @@ inline void appendSpringProbes(std::vector<Case>& s) {
   s.push_back(c);
  }
 }
+
+inline void appendScalarSpringProbes(std::vector<Case>& suite) {
+ for(int active=1;active<=4;active*=2) for(int type=0;type<3;++type) for(int speed=0;speed<3;++speed) {
+  std::ostringstream name;name<<"scalar-spring-"<<active<<"-"<<type<<"-"<<speed;
+  Case c(name.str(),-20,1200,10.75);c.steps=1;c.traction=false;
+  c.velocity.z=speed==0?0:speed==1?-1:1;
+  for(size_t index=0;index<c.wheels.size();++index) {
+   c.wheels[index].position=V(0,0,index<(size_t)active?0:100);
+   if(type==1)c.wheels[index].spring=140000;
+   if(type==2)c.wheels[index].damper=1000;
+  }
+  suite.push_back(c);
+ }
+}

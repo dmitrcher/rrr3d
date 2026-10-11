@@ -1,0 +1,264 @@
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -222,6 +222,7 @@
+ 	}
+ 
+ public:
++	void PrepareSourceFinalSpringBias(uint inVelocitySteps) { mSpringPart.PrepareSourceFinalBias(mEffectiveMass, inVelocitySteps); }
+ 	void SetHardVelocityBias(float inBias) { mSpringPart.CalculateSpringPropertiesWithBias(inBias); }
+ 
+ 	/// Templated form of CalculateConstraintProperties with the motion types baked in
+--- a/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
+@@ -30,7 +30,8 @@
+ 		// Calculate bias factor (baumgarte stabilization):
+ 		// beta = dt * k / (c + dt * k) = dt * k^2 * softness
+ 		// b = beta / dt * C = dt * k * softness * C
+-		mBias = inBias + inDeltaTime * inStiffness * mSoftness * inC;
++		mGeometricBias = inDeltaTime * inStiffness * mSoftness * inC;
++		mBias = inBias + mGeometricBias;
+ 
+ 		// Update the effective mass, see post by Erin Catto: http://www.bulletphysics.org/Bullet/phpBB3/viewtopic.php?f=4&t=1354
+ 		//
+@@ -72,6 +73,7 @@
+ 	{
+ 		mSoftness = 0.0f;
+ 		mBias = inBias;
++		mGeometricBias = 0.0f;
+ 	}
+ 
+ 	/// Calculate spring properties based on frequency and damping ratio
+@@ -127,6 +129,14 @@
+ 		}
+ 	}
+ 
++	void PrepareSourceFinalBias(float inEffectiveMass, uint inVelocitySteps)
++	{
++		float retention = Clamp(1.0f - inEffectiveMass * mSoftness, 0.0f, 1.0f);
++		float remainder = 1.0f;
++		for (uint i = 0; i < inVelocitySteps; ++i) remainder *= retention;
++		mBias -= mGeometricBias * remainder;
++	}
++
+ 	/// Returns if this spring is active
+ 	inline bool					IsActive() const
+ 	{
+@@ -162,6 +172,7 @@
+ 	}
+ 
+ private:
++	float mGeometricBias = 0.0f;
+ 	float						mBias  = 0.0f;
+ 	float						mSoftness  = 0.0f;
+ };
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -3,6 +3,7 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #include <Jolt/Jolt.h>
++#include <Jolt/Physics/Vehicle/VehicleConstraint.h>
+ 
+ #include <Jolt/Physics/Constraints/ContactConstraintManager.h>
+ #include <Jolt/Physics/Constraints/CalculateSolverSteps.h>
+@@ -1828,7 +1829,7 @@
+ 	return any_impulse_applied;
+ }
+ 
+-void ContactConstraintManager::StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd)
++void ContactConstraintManager::StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd, Constraint *const *inActiveConstraints, const uint32 *inJointBegin, const uint32 *inJointEnd, float inDeltaTime)
+ {
+ 	struct SourceMotion { Body *body; Vec3 velocity; Vec3 angular; };
+ 	Array<SourceMotion> source_motion;
+@@ -1842,13 +1843,32 @@
+ 		for (WorldContactPoint &wcp : constraint.mContactPoints)
+ 			wcp.mNonPenetrationConstraint.SetHardVelocityBias(wcp.mSourceUnbiasedVelocityBias);
+ 	}
++	Array<VehicleConstraint *> source_vehicles;
++	if (inActiveConstraints != nullptr)
++		for (const uint32 *index = inJointBegin; index < inJointEnd; ++index)
++			if (inActiveConstraints[*index]->GetSubType() == EConstraintSubType::Vehicle) {
++				auto *vehicle = static_cast<VehicleConstraint *>(inActiveConstraints[*index]);
++				Array<Body *> bodies;
++				if (vehicle->PrepareSourceFinalVelocityConstraints(bodies)) {
++					source_vehicles.push_back(vehicle);
++					for (Body *body : bodies)
++						if (body->IsDynamic() && std::none_of(source_motion.begin(), source_motion.end(), [&](const SourceMotion &motion) { return motion.body == body; }))
++							source_motion.push_back({body, body->GetLinearVelocity(), body->GetAngularVelocity()});
++				}
++			}
++	for (VehicleConstraint *vehicle : source_vehicles) vehicle->SolveVelocityConstraint(inDeltaTime);
+ 	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
+ 		if (mConstraints[*idx].mUseSourceBlockPGS) SolveVelocityConstraints(idx, idx + 1);
+ 	for (const SourceMotion &s : source_motion)
+ 	{
+ 		if (mContactListener != nullptr) mContactListener->OnSourceMotionSolved(*s.body, s.body->GetLinearVelocity(), s.body->GetAngularVelocity());
+ 		s.body->GetMotionProperties()->SetLinearVelocity(s.velocity);
+-		s.body->GetMotionProperties()->SetAngularVelocity(s.angular);
++		// PhysX caps before solving; constraint impulses can exceed the cap until the next step.
++		auto *motion = s.body->GetMotionProperties();
++		const float limit = motion->GetMaxAngularVelocity();
++		motion->SetMaxAngularVelocity(std::max(limit, s.angular.Length() + 0.001f));
++		motion->SetAngularVelocity(s.angular);
++		motion->SetMaxAngularVelocity(limit);
+ 	}
+ 
+ 	// Copy back total applied impulse to cache for the next frame
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -23,6 +23,7 @@
+ 
+ struct PhysicsSettings;
+ class PhysicsUpdateContext;
++class Constraint;
+ 
+ /// A contact constraint manager manages all contacts between two bodies
+ ///
+@@ -209,7 +210,7 @@
+ 	bool						SolveVelocityConstraints(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd);
+ 
+ 	/// Save back the lambdas to the contact cache for the next warm start
+-	void						StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd);
++	void						StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd, Constraint *const *inActiveConstraints = nullptr, const uint32 *inJointBegin = nullptr, const uint32 *inJointEnd = nullptr, float inDeltaTime = 0.0f);
+ 
+ 	/// Solve position constraints.
+ 	/// This is using the approach described in 'Modeling and Solving Constraints' by Erin Catto presented at GDC 2007.
+--- a/Jolt/Physics/PhysicsSystem.cpp
++++ b/Jolt/Physics/PhysicsSystem.cpp
+@@ -1446,7 +1446,7 @@
+ 
+ 					// Save back the lambdas in the contact cache for the warm start of the next physics update
+ 					if (last_iteration)
+-						mContactManager.StoreAppliedImpulses(contacts_begin, contacts_end);
++						mContactManager.StoreAppliedImpulses(contacts_begin, contacts_end, active_constraints, constraints_begin, constraints_end, delta_time);
+ 
+ 				#ifdef JPH_TRACK_SIMULATION_STATS
+ 					uint64 num_ticks = GetProcessorTickCount() - start_tick;
+@@ -1546,7 +1546,7 @@
+ 				}
+ 
+ 				// Save back the lambdas in the contact cache for the warm start of the next physics update
+-				mContactManager.StoreAppliedImpulses(contacts_begin, contacts_end);
++				mContactManager.StoreAppliedImpulses(contacts_begin, contacts_end, active_constraints, constraints_begin, constraints_end, delta_time);
+ 			}
+ 
+ 		#ifdef JPH_TRACK_SIMULATION_STATS
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -421,6 +421,7 @@
+ 
+ void VehicleConstraint::SetupVelocityConstraint(float inDeltaTime)
+ {
++	mSourceVelocitySteps = 0;
+ 	RMat44 body_transform = mBody->GetWorldTransform();
+ 
+ 	for (Wheel *w : mWheels)
+@@ -552,10 +553,14 @@
+ 
+ bool VehicleConstraint::SolveVelocityConstraint(float inDeltaTime)
+ {
++	const bool source = UsesSourceSpringFinal();
++	if (source) ++mSourceVelocitySteps;
+ 	bool impulse = false;
+ 
+ 	// Solve suspension
+-	for (Wheel *w : mWheels)
++	for (uint index = 0; index < mWheels.size(); ++index)
++	{
++		Wheel *w = mWheels[source? mWheels.size() - 1 - index : index];
+ 		if (w->mContactBody != nullptr)
+ 		{
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+@@ -569,6 +574,8 @@
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 		}
+ 
++		}
++
+ 	// Solve the horizontal movement of the vehicle
+ 	impulse |= mController->SolveLongitudinalAndLateralConstraints(inDeltaTime);
+ 
+@@ -576,7 +583,7 @@
+ 	if (mPitchRollPart.IsActive())
+ 		impulse |= mPitchRollPart.SolveVelocityConstraint(*mBody, Body::sFixedToWorld, mPitchRollRotationAxis, 0, FLT_MAX);
+ 
+-	return impulse;
++	return impulse || source;
+ }
+ 
+ bool VehicleConstraint::SolvePositionConstraint(float inDeltaTime, float inBaumgarte)
+@@ -703,3 +710,25 @@
+ }
+ 
+ JPH_NAMESPACE_END
++
++JPH_NAMESPACE_BEGIN
++bool VehicleConstraint::UsesSourceSpringFinal() const
++{
++ const char *mode = std::getenv("RRR3D_EXPERIMENT_SPRING_FINAL");
++ return mode != nullptr && std::strcmp(mode, "1") == 0 &&
++  !mWheels.empty() && mWheels[0]->mSettings->mSuspensionSpringBiasFactor == 0.7f;
++}
++bool VehicleConstraint::PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies)
++{
++ if (!UsesSourceSpringFinal()) return false;
++ bool contact = false; for (const Wheel *w : mWheels) contact |= w->mContactBody != nullptr;
++ if (!contact) return false;
++ outBodies.push_back(mBody);
++ for (Wheel *w : mWheels)
++  if (w->mContactBody != nullptr) {
++   if (w->mContactBody->IsDynamic()) outBodies.push_back(w->mContactBody);
++   if (w->mSuspensionPart.IsActive()) w->mSuspensionPart.PrepareSourceFinalSpringBias(mSourceVelocitySteps);
++  }
++ return true;
++}
++JPH_NAMESPACE_END
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -189,6 +189,8 @@
+ 	virtual void				ResetWarmStart() override;
+ 	virtual void				WarmStartVelocityConstraint(float inWarmStartImpulseRatio) override;
+ 	virtual bool				SolveVelocityConstraint(float inDeltaTime) override;
++	bool UsesSourceSpringFinal() const;
++	bool PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies);
+ 	virtual bool				SolvePositionConstraint(float inDeltaTime, float inBaumgarte) override;
+ 	virtual void				BuildIslands(uint32 inConstraintIndex, IslandBuilder &ioBuilder, BodyManager &inBodyManager) override;
+ 	virtual uint				BuildIslandSplits(LargeIslandSplitter &ioSplitter) const override;
+@@ -219,6 +221,7 @@
+ 	Vec3						mForward;									///< Local space forward vector for the vehicle
+ 	Vec3						mUp;										///< Local space up vector for the vehicle
+ 	Vec3						mWorldUp;									///< Vector indicating the world space up direction (used to limit vehicle pitch/roll)
++	uint mSourceVelocitySteps = 0;
+ 	Wheels						mWheels;									///< Wheel states of the vehicle
+ 	VehicleAntiRollBars			mAntiRollBars;								///< Anti rollbars of the vehicle
+ 	VehicleController *			mController;								///< Controls the acceleration / deceleration of the vehicle
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -757,7 +757,11 @@
+             JPH::BodyLockWrite lock(locks, state.body);
+             if (lock.Succeeded()) {
+                 lock.GetBody().SetLinearVelocity(state.velocity);
+-                lock.GetBody().SetAngularVelocity(state.angular);
++                auto* motion = lock.GetBody().GetMotionProperties();
++                const float limit = motion->GetMaxAngularVelocity();
++                motion->SetMaxAngularVelocity(std::max(limit, state.angular.Length() + 0.001F));
++                motion->SetAngularVelocity(state.angular);
++                motion->SetMaxAngularVelocity(limit);
+             }
+         }
+         sourceFinalMotion_.clear();
+@@ -1698,7 +1702,13 @@
+             physicsSettings.mSpeculativeContactDistance = sourcePenetrationSlop;
+         }
+         physicsSettings.mNumVelocitySteps = sourceSolverIterations;
+-        if (tuning_.physxWheelCompat && tuning_.physxBoxManifolds) physicsSettings.mUseLargeIslandSplitter = false;
++        if (tuning_.physxWheelCompat) {
++            const char* count = std::getenv("RRR3D_EXPERIMENT_SPRING_ITERATIONS");
++            if (count && (std::strcmp(count, "1") == 0 || std::strcmp(count, "2") == 0 ||
++                          std::strcmp(count, "4") == 0 || std::strcmp(count, "8") == 0))
++                physicsSettings.mNumVelocitySteps = std::atoi(count);
++        }
++        if (tuning_.physxWheelCompat && (tuning_.physxBoxManifolds || std::getenv("RRR3D_EXPERIMENT_SPRING_FINAL"))) physicsSettings.mUseLargeIslandSplitter = false;
+         // PhysX 2.8 suppresses restitution below NX_BOUNCE_THRESHOLD (-2).
+         // Jolt expresses the same threshold as a positive speed magnitude.
+         physicsSettings.mMinVelocityForRestitution =

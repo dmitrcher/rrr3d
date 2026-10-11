@@ -200,6 +200,9 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
     target_link_libraries(rrr3d_physics_spring_probe PRIVATE Rock3dEngine)
     rrr3d_set_common_target_options(rrr3d_physics_spring_probe)
     if(Python3_Interpreter_FOUND)
+        add_test(NAME source_spring_final_reference COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_spring_final.py"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-spring-first-v17.json")
         add_test(NAME source_spring_reference COMMAND "${Python3_EXECUTABLE}"
             "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_spring_reference.py"
             "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-spring-first-v16.json")

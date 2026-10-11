@@ -38,6 +38,8 @@ def main():
                    help='Enable the unverified v27 material-frame arithmetic candidate')
     p.add_argument('--raw-contact-mass', action='store_true',
                    help='Include raw contact-normal length squared in translational effective mass')
+    p.add_argument('--normal-row-trace', action='store_true',
+                   help='Record source normal-row diagnostics with the v29 experimental SDK/adapter')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
@@ -45,7 +47,7 @@ def main():
         p.error('Mac gates require two native Windows captures per stage')
     args.out.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
-           if not k.startswith('RRR3D_EXPERIMENT') and k not in
+           if not k.startswith(('RRR3D_EXPERIMENT', 'RRR3D_CONTACT')) and k not in
            ('RRR3D_CALIBRATION_PROFILE', 'RRR3D_CONTACT_POINTS',
             'RRR3D_CALIBRATION_LEGACY_DIRECT_ROTATION', 'NX_SPRING_ITERATIONS')}
     env['RRR3D_SEED'] = '42'
@@ -64,6 +66,8 @@ def main():
         if args.raw_contact_mass:
             env['RRR3D_EXPERIMENT_RAW_CONTACT_MASS'] = '1'
         env['RRR3D_CONTACT_POINTS'] = '1'
+        if args.normal_row_trace:
+            env['RRR3D_CONTACT_ROWS'] = '1'
         env['RRR3D_CALIBRATION_PROFILE'] = str(args.profile.resolve())
         for flag in ('SPRING_BIAS', 'SPRING_FINAL', 'SPRING_LOST', 'SPRING_COLD',
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',
@@ -84,6 +88,19 @@ def main():
             dest.write_bytes(b''.join(chunks))
             cases, _ = capture(dest, 'windows-physx-d3d9' if args.platform == 'windows' else 'mac-jolt-metal')
             if set(cases) != set(names): p.error('Scenario set differs from isolation contract')
+            if args.platform == 'mac' and args.normal_row_trace:
+                traced = set()
+                current = None
+                with dest.open() as stream:
+                    for line in stream:
+                        row = json.loads(line)
+                        if row['event'] == 'calibration.begin':
+                            current = row['detail']
+                        elif row['event'] == 'physics.source-normal-row':
+                            traced.add(current)
+                expected = {name for name in names if stage == '03' and name.endswith('-f1')}
+                if traced != expected:
+                    p.error('Normal-row trace coverage differs; use the v29 patched SDK/adapter')
             files.append(dest)
         if args.platform == 'mac':
             refs = [args.reference_dir / f'isolation-stage{stage}-run{r}-windows.jsonl' for r in range(2)]

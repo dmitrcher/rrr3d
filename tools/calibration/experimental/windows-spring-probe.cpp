@@ -63,6 +63,13 @@ static void execute(const cal::Case& c) {
  if(c.initialPitch!=0){NxQuat q;q.fromAngleAxisFast((float)c.initialPitch,NxVec3(0,1,0));actor.globalPose.M.fromQuat(q);}
  NxActor* car=scene->createActor(actor);if(!car)throw std::runtime_error("Car creation failed");car->userData=reinterpret_cast<void*>(1);
  car->setContactReportFlags(NX_NOTIFY_ON_START_TOUCH|NX_NOTIFY_ON_TOUCH|NX_NOTIFY_FORCES);
+ if(std::getenv("NX_INVERSE_MASS_TRACE")) {
+  const NxMat33 inverseInertia=car->getGlobalInertiaTensorInverse();
+  std::ostringstream diag;diag<<std::setprecision(9)<<"{\"mass\":"<<car->getMass();
+  for(int axis=0;axis<3;++axis){const NxVec3 v=inverseInertia.getColumn(axis);diag<<",\"inverse_inertia_axis"<<axis<<"\":"<<cal::vector(cal::V(v.x,v.y,v.z));}
+  diag<<'}';motorrock::parity::event("calibration.inverse-mass",c.name,diag.str());
+ }
+
  if(std::getenv("NX_INITIAL_ROTATION_TRACE")) {
   const NxQuat actual=car->getGlobalOrientationQuat();const NxMat33 input=actor.globalPose.M,basis=car->getGlobalOrientation();
   const NxVec3 position=car->getGlobalPosition();NxQuat inputQuaternion;input.toQuat(inputQuaternion);

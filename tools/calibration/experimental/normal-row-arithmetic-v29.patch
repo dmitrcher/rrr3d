@@ -1,0 +1,141 @@
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -43,7 +43,7 @@
+ {
+ 	/// Internal helper function to update velocities of bodies after Lagrange multiplier is calculated
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE bool				ApplyVelocityStep(MotionProperties *ioMotionProperties1, float inInvMass1, MotionProperties *ioMotionProperties2, float inInvMass2, Vec3Arg inWorldSpaceAxis, float inLambda) const
++	JPH_INLINE bool				ApplyVelocityStep(MotionProperties *ioMotionProperties1, float inInvMass1, MotionProperties *ioMotionProperties2, float inInvMass2, Vec3Arg inWorldSpaceAxis, float inLambda, bool inPremultipliedLinear = false) const
+ 	{
+ 		// Apply impulse if delta is not zero
+ 		if (inLambda != 0.0f)
+@@ -57,12 +57,12 @@
+ 			// v' = v + M^-1 P
+ 			if constexpr (Type1 == EMotionType::Dynamic)
+ 			{
+-				ioMotionProperties1->SubLinearVelocityStep((inLambda * inInvMass1) * inWorldSpaceAxis);
++				ioMotionProperties1->SubLinearVelocityStep((inPremultipliedLinear? (inWorldSpaceAxis * inInvMass1) * inLambda : (inLambda * inInvMass1) * inWorldSpaceAxis));
+ 				ioMotionProperties1->SubAngularVelocityStep(inLambda * Vec3::sLoadFloat3Unsafe(mInvI1_R1PlusUxAxis));
+ 			}
+ 			if constexpr (Type2 == EMotionType::Dynamic)
+ 			{
+-				ioMotionProperties2->AddLinearVelocityStep((inLambda * inInvMass2) * inWorldSpaceAxis);
++				ioMotionProperties2->AddLinearVelocityStep((inPremultipliedLinear? (inWorldSpaceAxis * inInvMass2) * inLambda : (inLambda * inInvMass2) * inWorldSpaceAxis));
+ 				ioMotionProperties2->AddAngularVelocityStep(inLambda * Vec3::sLoadFloat3Unsafe(mInvI2_R2xAxis));
+ 			}
+ 			return true;
+@@ -73,7 +73,7 @@
+ 
+ 	/// Internal helper function to calculate the inverse effective mass
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE float			TemplatedCalculateInverseEffectiveMass(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, bool inRawAxisMass = false)
++	JPH_INLINE float			TemplatedCalculateInverseEffectiveMass(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, bool inRawAxisMass = false, bool inJacobianMass = false)
+ 	{
+ 		JPH_ASSERT(inWorldSpaceAxis.IsNormalized(1.0e-5f));
+ 
+@@ -111,7 +111,7 @@
+ 		{
+ 			Vec3 invi1_r1_plus_u_x_axis = inInvI1.Multiply3x3(r1_plus_u_x_axis);
+ 			invi1_r1_plus_u_x_axis.StoreFloat3(&mInvI1_R1PlusUxAxis);
+-			inv_effective_mass = (inRawAxisMass? inInvMass1 * inWorldSpaceAxis.LengthSq() : inInvMass1) + invi1_r1_plus_u_x_axis.Dot(r1_plus_u_x_axis);
++			inv_effective_mass = (inJacobianMass? inWorldSpaceAxis.Dot(inWorldSpaceAxis * inInvMass1) : (inRawAxisMass? inInvMass1 * inWorldSpaceAxis.LengthSq() : inInvMass1)) + invi1_r1_plus_u_x_axis.Dot(r1_plus_u_x_axis);
+ 		}
+ 		else
+ 		{
+@@ -124,7 +124,7 @@
+ 		{
+ 			Vec3 invi2_r2_x_axis = inInvI2.Multiply3x3(r2_x_axis);
+ 			invi2_r2_x_axis.StoreFloat3(&mInvI2_R2xAxis);
+-			inv_effective_mass += (inRawAxisMass? inInvMass2 * inWorldSpaceAxis.LengthSq() : inInvMass2) + invi2_r2_x_axis.Dot(r2_x_axis);
++			inv_effective_mass += (inJacobianMass? inWorldSpaceAxis.Dot(inWorldSpaceAxis * inInvMass2) : (inRawAxisMass? inInvMass2 * inWorldSpaceAxis.LengthSq() : inInvMass2)) + invi2_r2_x_axis.Dot(r2_x_axis);
+ 		}
+ 		else
+ 		{
+@@ -227,9 +227,9 @@
+ 
+ 	/// Templated form of CalculateConstraintProperties with the motion types baked in
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE void				TemplatedCalculateConstraintProperties(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, float inBias = 0.0f, bool inRawAxisMass = false)
+-	{
+-		float inv_effective_mass = TemplatedCalculateInverseEffectiveMass<Type1, Type2>(inInvMass1, inInvI1, inR1PlusU, inInvMass2, inInvI2, inR2, inWorldSpaceAxis, inRawAxisMass);
++	JPH_INLINE void				TemplatedCalculateConstraintProperties(float inInvMass1, Mat44Arg inInvI1, Vec3Arg inR1PlusU, float inInvMass2, Mat44Arg inInvI2, Vec3Arg inR2, Vec3Arg inWorldSpaceAxis, float inBias = 0.0f, bool inRawAxisMass = false, bool inJacobianMass = false)
++	{
++		float inv_effective_mass = TemplatedCalculateInverseEffectiveMass<Type1, Type2>(inInvMass1, inInvI1, inR1PlusU, inInvMass2, inInvI2, inR2, inWorldSpaceAxis, inRawAxisMass, inJacobianMass);
+ 
+ 		if (inv_effective_mass == 0.0f)
+ 			Deactivate();
+@@ -394,7 +394,7 @@
+ 
+ 	/// Templated form of SolveVelocityConstraint with the motion types baked in, part 1: get the total lambda
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE float			TemplatedSolveVelocityConstraintGetTotalLambda(const MotionProperties *ioMotionProperties1, const MotionProperties *ioMotionProperties2, Vec3Arg inWorldSpaceAxis) const
++	JPH_INLINE float			TemplatedSolveVelocityConstraintGetTotalLambda(const MotionProperties *ioMotionProperties1, const MotionProperties *ioMotionProperties2, Vec3Arg inWorldSpaceAxis, bool inSplitBias = false) const
+ 	{
+ 		// Calculate jacobian multiplied by linear velocity
+ 		float jv;
+@@ -416,7 +416,12 @@
+ 		// Lagrange multiplier is:
+ 		//
+ 		// lambda = -K^-1 (J v + b)
+-		float lambda = mEffectiveMass * (jv - mSpringPart.GetBias(mTotalLambda));
++		float lambda;
++		if (inSplitBias) {
++			const volatile float scaled_velocity = mEffectiveMass * jv;
++			const volatile float scaled_bias = mEffectiveMass * mSpringPart.GetBias(mTotalLambda);
++			lambda = scaled_velocity - scaled_bias;
++		} else lambda = mEffectiveMass * (jv - mSpringPart.GetBias(mTotalLambda));
+ 
+ 		// Return the total accumulated lambda
+ 		return mTotalLambda + lambda;
+@@ -424,12 +429,12 @@
+ 
+ 	/// Templated form of SolveVelocityConstraint with the motion types baked in, part 2: apply new lambda
+ 	template <EMotionType Type1, EMotionType Type2>
+-	JPH_INLINE bool				TemplatedSolveVelocityConstraintApplyLambda(MotionProperties *ioMotionProperties1, float inInvMass1, MotionProperties *ioMotionProperties2, float inInvMass2, Vec3Arg inWorldSpaceAxis, float inTotalLambda)
++	JPH_INLINE bool				TemplatedSolveVelocityConstraintApplyLambda(MotionProperties *ioMotionProperties1, float inInvMass1, MotionProperties *ioMotionProperties2, float inInvMass2, Vec3Arg inWorldSpaceAxis, float inTotalLambda, bool inPremultipliedLinear = false)
+ 	{
+ 		float delta_lambda = inTotalLambda - mTotalLambda; // Calculate change in lambda
+ 		mTotalLambda = inTotalLambda; // Store accumulated impulse
+ 
+-		return ApplyVelocityStep<Type1, Type2>(ioMotionProperties1, inInvMass1, ioMotionProperties2, inInvMass2, inWorldSpaceAxis, delta_lambda);
++		return ApplyVelocityStep<Type1, Type2>(ioMotionProperties1, inInvMass1, ioMotionProperties2, inInvMass2, inWorldSpaceAxis, delta_lambda, inPremultipliedLinear);
+ 	}
+ 
+ 	/// Templated form of SolveVelocityConstraint with the motion types baked in
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -135,7 +135,9 @@
+ 	}
+ 	const char *raw_axis_flag = std::getenv("RRR3D_EXPERIMENT_RAW_CONTACT_MASS");
+ 	const bool raw_axis_mass = inSettings.mUseSourceBlockPGS && raw_axis_flag != nullptr && std::strcmp(raw_axis_flag, "1") == 0;
+-	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias, raw_axis_mass);
++	const char *jacobian_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_JACOBIAN_MASS");
++	const bool jacobian_mass = inSettings.mUseSourceBlockPGS && jacobian_flag != nullptr && std::strcmp(jacobian_flag, "1") == 0;
++	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias, raw_axis_mass, jacobian_mass);
+ 
+ 	// Calculate friction part
+ 	if (inSettings.mCombinedFriction > 0.0f || inSettings.mCombinedFriction2 > 0.0f)
+@@ -1657,9 +1659,13 @@
+ 	if (ioConstraint.mUseSourceBlockPGS)
+ 	{
+ 		Vec3 normal = ioConstraint.GetWorldSpaceNormal();
++		const char *split_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_SPLIT_BIAS");
++		const bool split_bias = split_flag != nullptr && std::strcmp(split_flag, "1") == 0;
++		const char *linear_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_PREMULTIPLIED_LINEAR");
++		const bool premultiplied_linear = linear_flag != nullptr && std::strcmp(linear_flag, "1") == 0;
+ 		for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 		{
+-			float normal_lambda = max(0.0f, wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, normal));
++			float normal_lambda = max(0.0f, wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, normal, split_bias));
+ 			float lambda1 = 0.0f, lambda2 = 0.0f;
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
+ 			{
+@@ -1674,7 +1680,7 @@
+ 					lambda2 = wcp.mFrictionConstraint2.GetTotalLambda();
+ 				}
+ 			}
+-			any_impulse_applied |= wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, normal, normal_lambda);
++			any_impulse_applied |= wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, normal, normal_lambda, premultiplied_linear);
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
+ 			{
+ 				any_impulse_applied |= wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, t1, lambda1);

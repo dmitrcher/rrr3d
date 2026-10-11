@@ -1,0 +1,71 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -712,8 +712,11 @@
+     bool OverrideContactManifold(const JPH::Body& first, const JPH::Body& second,
+                                  const JPH::ContactManifold& input, JPH::ContactManifold& output) override
+     {
+-        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second))
+-            return meshManifold(first, second, input, output);
++        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second)) {
++            const bool generated = meshManifold(first, second, input, output);
++            if (generated) replayFirstContact(first, second, output);
++            return generated;
++        }
+         if (!WantsContactManifoldRefresh(first, second)) return false;
+         SourceBox a, b;
+         if (!sourceBox(first, a) || !sourceBox(second, b)) return false;
+@@ -992,6 +995,54 @@
+             output.mSourceSeparations[i]=c.separation;output.mPenetrationDepth=std::max(output.mPenetrationDepth,-c.separation);
+         }
+         return true;
++    }
++
++    // Diagnostic intervention only. The recorded Native geometry is an external
++    // input, not an implementation of contact generation or evidence of parity.
++    void replayFirstContact(const JPH::Body& first, const JPH::Body& second,
++                            JPH::ContactManifold& output)
++    {
++        const auto enabled = [](const char* name) {
++            const char* value = std::getenv(name);
++            return value && std::strcmp(value,"1")==0;
++        };
++        if (!enabled("RRR3D_CONTACT_GEOMETRY_REPLAY")) return;
++        const char* path = std::getenv("RRR3D_CONTACT_GEOMETRY_REPLAY_FILE");
++        if (!path || !*path) throw std::runtime_error("Contact replay requires a recorded geometry file");
++        std::ifstream input(path);
++        unsigned tick = 0, count = 0; Vec3 referenceNormal;
++        if (!(input >> tick >> count >> referenceNormal.x >> referenceNormal.y >> referenceNormal.z))
++            throw std::runtime_error("Invalid contact replay header");
++        if (traceStep_ - 1 != tick) return;
++        if (count != output.mRelativeContactPointsOn1.size() || !output.mUseSourceSeparation || !output.mUseSourceBlockPGS)
++            throw std::runtime_error("Contact replay point count or solver mode differs");
++        std::size_t vehicle = 0;
++        const bool carFirst = vehicleIndex(first.GetUserData(), vehicle);
++        const JPH::Vec3 expectedNormal = toJolt(referenceNormal) * (carFirst? -1.0F : 1.0F);
++        if (expectedNormal.GetX()!=output.mWorldSpaceNormal.GetX() || expectedNormal.GetY()!=output.mWorldSpaceNormal.GetY() || expectedNormal.GetZ()!=output.mWorldSpaceNormal.GetZ())
++            throw std::runtime_error("Contact replay normal differs; geometry-only intervention is invalid");
++        const bool positions = enabled("RRR3D_CONTACT_REPLAY_POSITIONS");
++        const bool separations = enabled("RRR3D_CONTACT_REPLAY_SEPARATIONS");
++        for (unsigned i=0; i<count; ++i) {
++            Vec3 point; float separation;
++            if (!(input >> point.x >> point.y >> point.z >> separation))
++                throw std::runtime_error("Invalid contact replay point");
++            if (positions) {
++                const JPH::Vec3 relative(toJolt(point) - output.mBaseOffset);
++                output.mRelativeContactPointsOn1[i] = relative;
++                output.mRelativeContactPointsOn2[i] = relative;
++            }
++            if (separations) output.mSourceSeparations[i] = separation;
++        }
++        if (separations) {
++            output.mPenetrationDepth=0.0F;
++            for (unsigned i=0;i<count;++i) output.mPenetrationDepth=std::max(output.mPenetrationDepth,-output.mSourceSeparations[i]);
++        }
++        std::ostringstream record;
++        record << "{\"step\":" << tick << ",\"points\":" << count
++               << ",\"positions_replayed\":" << (positions?"true":"false")
++               << ",\"separations_replayed\":" << (separations?"true":"false") << '}';
++        motorrock::parity::event("physics.diagnostic-contact-replay", "Native first-contact geometry intervention", record.str());
+     }
+ 
+     struct SourceFinalMotion { JPH::BodyID body; JPH::Vec3 velocity, angular; };

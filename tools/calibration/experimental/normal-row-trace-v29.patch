@@ -1,0 +1,104 @@
+--- a/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -660,6 +660,10 @@
+ 		return mTotalLambda;
+ 	}
+ 
++	/// Read-only diagnostics of the normal row; does not prepare or solve it.
++	float GetDiagnosticEffectiveMass() const { return mEffectiveMass; }
++	float GetDiagnosticVelocityBias() const { return mSpringPart.GetBias(mTotalLambda); }
++
+ 	/// Save state of this constraint part
+ 	void						SaveState(StateRecorder &inStream) const
+ 	{
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -107,6 +107,8 @@
+ 	///
+ 	/// The collision result (inCollisionResult) is reported relative to inBaseOffset.
+ 	virtual void OnSourceMotionSolved([[maybe_unused]] const Body &inBody, [[maybe_unused]] Vec3Arg inVelocity, [[maybe_unused]] Vec3Arg inAngularVelocity) { }
++	/// Optional read-only source normal-row diagnostics, before and after the final unbiased sweep.
++	virtual void OnSourceNormalRow([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] uint inIndex, [[maybe_unused]] const char *inPhase, [[maybe_unused]] float inEffectiveMass, [[maybe_unused]] float inVelocityBias, [[maybe_unused]] float inUnbiasedBias, [[maybe_unused]] float inSourceSeparation, [[maybe_unused]] float inLambda, [[maybe_unused]] float inDeltaTime) { }
+ 	virtual bool WantsContactManifoldRefresh([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2) const { return false; }
+ 	virtual bool OverrideContactManifold([[maybe_unused]] const Body &inBody1, [[maybe_unused]] const Body &inBody2, [[maybe_unused]] const ContactManifold &inManifold, [[maybe_unused]] ContactManifold &outManifold) { return false; }
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -1839,6 +1839,16 @@
+ 
+ void ContactConstraintManager::StoreAppliedImpulses(const uint32 *inConstraintIdxBegin, const uint32 *inConstraintIdxEnd, Constraint *const *inActiveConstraints, const uint32 *inJointBegin, const uint32 *inJointEnd, float inDeltaTime)
+ {
++	const char *row_trace_flag = std::getenv("RRR3D_CONTACT_ROWS");
++	const bool trace_rows = mContactListener != nullptr && row_trace_flag != nullptr && std::strcmp(row_trace_flag, "1") == 0;
++	const auto trace_normal_rows = [&](const ContactConstraint &constraint, const char *phase) {
++		if (!trace_rows) return;
++		uint point_index = 0;
++		for (const WorldContactPoint &wcp : constraint.mContactPoints)
++			mContactListener->OnSourceNormalRow(*constraint.mBody1, *constraint.mBody2, point_index++, phase,
++				wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(), wcp.mNonPenetrationConstraint.GetDiagnosticVelocityBias(),
++				wcp.mSourceUnbiasedVelocityBias, wcp.mSourceSeparation, wcp.mNonPenetrationConstraint.GetTotalLambda(), inDeltaTime);
++	};
+ 	struct SourceMotion { Body *body; Vec3 velocity; Vec3 angular; };
+ 	Array<SourceMotion> source_motion;
+ 	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
+@@ -1848,6 +1858,7 @@
+ 		for (Body *body : { constraint.mBody1, constraint.mBody2 })
+ 			if (body->IsDynamic() && std::none_of(source_motion.begin(), source_motion.end(), [&](const SourceMotion &s) { return s.body == body; }))
+ 				source_motion.push_back({ body, body->GetLinearVelocity(), body->GetAngularVelocity() });
++		trace_normal_rows(constraint, "biased-final");
+ 		for (WorldContactPoint &wcp : constraint.mContactPoints)
+ 			wcp.mNonPenetrationConstraint.SetHardVelocityBias(wcp.mSourceUnbiasedVelocityBias);
+ 	}
+@@ -1867,6 +1878,8 @@
+ 	for (VehicleConstraint *vehicle : source_vehicles) vehicle->SolveVelocityConstraint(inDeltaTime);
+ 	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
+ 		if (mConstraints[*idx].mUseSourceBlockPGS) SolveVelocityConstraints(idx, idx + 1);
++	for (const uint32 *idx = inConstraintIdxBegin; idx < inConstraintIdxEnd; ++idx)
++		if (mConstraints[*idx].mUseSourceBlockPGS) trace_normal_rows(mConstraints[*idx], "unbiased-final");
+ 	for (const SourceMotion &s : source_motion)
+ 	{
+ 		if (mContactListener != nullptr) mContactListener->OnSourceMotionSolved(*s.body, s.body->GetLinearVelocity(), s.body->GetAngularVelocity());
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -747,6 +747,41 @@
+             output.mPenetrationDepth = std::max(output.mPenetrationDepth, -c.separation);
+         }
+         return true;
++    }
++
++    void OnSourceNormalRow(const JPH::Body& first, const JPH::Body& second, JPH::uint index,
++                           const char* phase, float effectiveMass, float velocityBias,
++                           float unbiasedBias, float separation, float lambda, float dt) override
++    {
++        std::ostringstream out;
++        out.imbue(std::locale::classic());
++        out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
++            << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
++            << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
++            << ",\"index\":" << index << ",\"phase\":" << motorrock::parity::quote(phase)
++            << ",\"effective_mass\":" << effectiveMass << ",\"velocity_bias\":" << velocityBias
++            << ",\"unbiased_bias\":" << unbiasedBias << ",\"source_separation\":" << separation
++            << ",\"normal_lambda\":" << lambda << ",\"dt\":" << dt;
++        const auto vector = [&](const char* name, JPH::Vec3 value) {
++            const Vec3 v = fromJolt(value);
++            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
++        };
++        vector("velocity0", first.GetLinearVelocity()); vector("velocity1", second.GetLinearVelocity());
++        vector("angular0", first.GetAngularVelocity()); vector("angular1", second.GetAngularVelocity());
++        const auto inertia = [&](const char* prefix, const JPH::Body& body) {
++            const float inverseMass = body.IsDynamic()? body.GetMotionPropertiesUnchecked()->GetInverseMass() : 0.0F;
++            out << ",\"" << prefix << "_inverse_mass\":" << inverseMass;
++            if (!body.IsDynamic()) return;
++            const JPH::Mat44 inverse = body.GetInverseInertia();
++            for (int axis = 0; axis < 3; ++axis) {
++                const Vec3 sourceAxis = axis == 0? Vec3{1,0,0} : axis == 1? Vec3{0,1,0} : Vec3{0,0,1};
++                const std::string name = std::string(prefix) + "_inverse_inertia_axis" + std::to_string(axis);
++                vector(name.c_str(), inverse.Multiply3x3(toJolt(sourceAxis)));
++            }
++        };
++        inertia("body0", first); inertia("body1", second);
++        out << '}';
++        motorrock::parity::event("physics.source-normal-row", "source normal row diagnostics", out.str());
+     }
+ 
+     void OnSourceMotionSolved(const JPH::Body& body, JPH::Vec3Arg velocity, JPH::Vec3Arg angular) override

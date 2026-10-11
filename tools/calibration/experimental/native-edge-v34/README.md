@@ -46,7 +46,7 @@ EdgeTracer 867c3d05c466159cc981b18097dd84432006702ae1775e3451effbae670792da
 ## Verify an extracted archive
 
 ```sh
-chmod +x executables/macos/rrr3d_physics_spring_probe executables/macos/NativeEdgeArithmeticProbe
+chmod +x executables/macos/rrr3d_physics_spring_probe executables/macos/NativeEdgeArithmeticProbe executables/macos/NativeMeshGeometryProbe
 python3 source/tools/calibration/experimental/native-edge-v34/verify-edge-model.py --measurements measurements --edge-probe executables/macos/NativeEdgeArithmeticProbe
 python3 source/tools/calibration/experimental/native-edge-v34/verify-first.py --measurements measurements --contracts contracts/contracts.json
 python3 source/tools/calibration/experimental/native-edge-v34/verify-isolation.py --measurements measurements

@@ -1,0 +1,147 @@
+{
+  "goal_complete": false,
+  "experimental_only": true,
+  "production_promotion_accepted": false,
+  "source_contract": {
+    "base_commit": "78d363bca13fab1490a76b75683ccebf6c2e82ac",
+    "base_candidate": "v35 tested SDK/adapter; production adapter is not the patch base",
+    "files": {
+      "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+        "before_sha256": "328e0d1bd73494a35c3b25f0f7e44c6379608d30015b810cfc3cbde34961efcc",
+        "after_sha256": "1b0aa0cce5ad17fe600987fc0a8eca45a56a3945b7f2887c9c7b1a291ce1c296"
+      },
+      "src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h": {
+        "before_sha256": null,
+        "after_sha256": "77df3d1b7661a4473a604f394a7bca32bca01fde4c89155435b35805a025da48"
+      }
+    },
+    "required_v35_files": {
+      "src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5",
+      "Jolt/Physics/Collision/ContactListener.h": "a24e35fdbcbf1c4d2edc7bbde03673557c7f69d3aa74243982bcec4fb29afa48",
+      "Jolt/Physics/Constraints/ContactConstraintManager.cpp": "7b9f4043c26838125445ad871b4b9d2788cf0b94e8fe0dd59aa84a522b50d589",
+      "Jolt/Physics/Constraints/ContactConstraintManager.h": "b00b733e7ebcf1b5f6dafc5ba8f1761315e0e82636c0e970eafe879b2fbbd03d",
+      "src/Rock3dEngine/header/physics/NativeContactCache.h": "3a06ed6fac8cc733aea0c92930040c49eedad3619ae7a4a1df3b735528b67ad4"
+    }
+  },
+  "probe_sha256": "697cdc30eff1f5bb482000a24eb187dbcf5770b410dcd467ccb6a69ea344f98f",
+  "frame_helper_sha256": "2ced62aa33bd28b3362249af03a3c7f11b35cc116481b4922cfc55dea189b14a",
+  "windows_probe_sha256": "8c331b7ea35ed6181c0f8dd52cddca451f60c817d381d360cb53852e8c49ed9d",
+  "unchanged_native_tracer_sha256": "ac7b9064d6d0f0d5638da3556123308bf06ba30f84ef770a182e0fce424bb01e",
+  "unchanged_windows_core_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+  "comparison": {
+    "goal_complete": false,
+    "experimental_only": true,
+    "isolation": {
+      "00": {
+        "cases": 9,
+        "repeatable": true,
+        "complete": true
+      },
+      "01": {
+        "cases": 108,
+        "repeatable": true,
+        "complete": true
+      },
+      "02": {
+        "cases": 48,
+        "repeatable": true,
+        "complete": true
+      },
+      "03": {
+        "cases": 24,
+        "repeatable": true,
+        "complete": true
+      }
+    },
+    "tilted": {
+      "ordinary": {
+        "cases": 72,
+        "repeatable": true,
+        "remaining": 66,
+        "max_position": 0.0022367704633597042,
+        "max_velocity": 0.04754320932921389
+      },
+      "control": {
+        "cases": 72,
+        "repeatable": true,
+        "remaining": 70,
+        "max_position": 0.002236822134789187,
+        "max_velocity": 0.04754252218259157
+      },
+      "new_exact": [
+        "frame-v25-long-p1-x1-y0",
+        "frame-v25-long-p2-x1-y0",
+        "frame-v25-long-p3-x1-y0",
+        "frame-v25-long-p4-x1-y0"
+      ],
+      "lost_exact": [],
+      "position_error_increased": [
+        "frame-v25-long-p0-x1-y1",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p1-x2-y1",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x2-y0",
+        "frame-v25-long-p5-x2-y1",
+        "frame-v25-long-p6-x0-y1",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y0",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p8-x2-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p9-x2-y1",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p10-x0-y1",
+        "frame-v25-long-p10-x2-y1",
+        "frame-v25-long-p11-x0-y0",
+        "frame-v25-long-p11-x1-y0",
+        "frame-v25-long-p11-x2-y1"
+      ],
+      "velocity_error_increased": [
+        "frame-v25-long-p0-x0-y0",
+        "frame-v25-long-p0-x2-y0",
+        "frame-v25-long-p0-x2-y1",
+        "frame-v25-long-p1-x0-y1",
+        "frame-v25-long-p1-x1-y1",
+        "frame-v25-long-p2-x0-y1",
+        "frame-v25-long-p2-x2-y0",
+        "frame-v25-long-p3-x0-y1",
+        "frame-v25-long-p4-x0-y0",
+        "frame-v25-long-p4-x0-y1",
+        "frame-v25-long-p4-x2-y1",
+        "frame-v25-long-p5-x0-y1",
+        "frame-v25-long-p5-x1-y1",
+        "frame-v25-long-p6-x0-y0",
+        "frame-v25-long-p6-x1-y1",
+        "frame-v25-long-p7-x0-y0",
+        "frame-v25-long-p7-x2-y1",
+        "frame-v25-long-p8-x0-y0",
+        "frame-v25-long-p8-x0-y1",
+        "frame-v25-long-p9-x2-y0",
+        "frame-v25-long-p10-x0-y0",
+        "frame-v25-long-p11-x1-y0",
+        "frame-v25-long-p11-x1-y1"
+      ]
+    }
+  },
+  "full_mac_debug_build": {
+    "passed": true,
+    "assets": 1200,
+    "movies": 14,
+    "signed": true
+  },
+  "ctest": {
+    "passed": 53,
+    "failed": 0,
+    "seconds": 20.54
+  },
+  "next_work": [
+    "Native local cached point transforms on tilted bodies",
+    "Slope separation arithmetic before solver",
+    "Rotated inverse inertia and angular update arithmetic",
+    "Remaining suspension/friction/tire/engine/pairs/fullmatrix/race/AI scope remains required"
+  ]
+}

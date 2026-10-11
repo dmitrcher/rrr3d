@@ -1,0 +1,21 @@
+{
+  "base_commit": "78d363bca13fab1490a76b75683ccebf6c2e82ac",
+  "base_candidate": "v35 tested SDK/adapter; production adapter is not the patch base",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "328e0d1bd73494a35c3b25f0f7e44c6379608d30015b810cfc3cbde34961efcc",
+      "after_sha256": "1b0aa0cce5ad17fe600987fc0a8eca45a56a3945b7f2887c9c7b1a291ce1c296"
+    },
+    "src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h": {
+      "before_sha256": null,
+      "after_sha256": "77df3d1b7661a4473a604f394a7bca32bca01fde4c89155435b35805a025da48"
+    }
+  },
+  "required_v35_files": {
+    "src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5",
+    "Jolt/Physics/Collision/ContactListener.h": "a24e35fdbcbf1c4d2edc7bbde03673557c7f69d3aa74243982bcec4fb29afa48",
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": "7b9f4043c26838125445ad871b4b9d2788cf0b94e8fe0dd59aa84a522b50d589",
+    "Jolt/Physics/Constraints/ContactConstraintManager.h": "b00b733e7ebcf1b5f6dafc5ba8f1761315e0e82636c0e970eafe879b2fbbd03d",
+    "src/Rock3dEngine/header/physics/NativeContactCache.h": "3a06ed6fac8cc733aea0c92930040c49eedad3619ae7a4a1df3b735528b67ad4"
+  }
+}

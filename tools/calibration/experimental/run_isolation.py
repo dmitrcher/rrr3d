@@ -43,6 +43,8 @@ def main():
                    help='Record source normal-row diagnostics with the v29 experimental SDK/adapter')
     p.add_argument('--contact-v35-cache', action='store_true',
                    help='Enable the v34 contact chain plus independent cached points/errors; requires the v35 patched probe')
+    p.add_argument('--contact-v36-frame', action='store_true',
+                   help='Enable the v35 chain plus reconstructed native material frame; requires the v36 patched probe')
     p.add_argument('--contact-v34', action='store_true',
                    help='Enable all independently calculated v34 contact candidates on Mac; requires the v34 patched probe')
     p.add_argument('--profile', type=Path,
@@ -50,7 +52,7 @@ def main():
     args = p.parse_args()
     if args.platform == 'mac' and args.reference_dir is None:
         p.error('Mac gates require two native Windows captures per stage')
-    if (args.contact_v34 or args.contact_v35_cache) and (args.platform != 'mac' or args.raw_contact_mass):
+    if (args.contact_v34 or args.contact_v35_cache or args.contact_v36_frame) and (args.platform != 'mac' or args.raw_contact_mass):
         p.error('Contact candidates are Mac-only and cannot be combined with --raw-contact-mass')
     args.out.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
@@ -80,7 +82,7 @@ def main():
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',
                      'TIRE_FORCE_HISTORY', 'SUSPENSION_RAW'):
             env['RRR3D_EXPERIMENT_' + flag] = '1'
-        if args.contact_v34 or args.contact_v35_cache:
+        if args.contact_v34 or args.contact_v35_cache or args.contact_v36_frame:
             for flag in ('UPPER_FACE_WINDING', 'NEGATIVE_X_FACE_ORDER',
                          'PRINCIPAL_MOMENTUM', 'FROZEN_INITIAL_NORMALIZE',
                          'MATERIAL_FRAME_CANDIDATE', 'NATIVE_CONTACT_MASS',
@@ -88,8 +90,10 @@ def main():
                          'NATIVE_CONTACT_ORIGINAL_DELTA', 'NATIVE_CONTACT_FORCE_FIRST',
                          'NATIVE_CONTACT_ERROR_FRAME', 'NATIVE_MESH_EDGE'):
                 env['RRR3D_EXPERIMENT_' + flag] = '1'
-        if args.contact_v35_cache:
+        if args.contact_v35_cache or args.contact_v36_frame:
             env['RRR3D_EXPERIMENT_NATIVE_CONTACT_CACHE'] = '1'
+        if args.contact_v36_frame:
+            env['RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME'] = '1'
     manifest_path = args.out / 'isolation-run.json'
     if manifest_path.exists():
         p.error('Run manifest already exists; use a fresh output directory')
@@ -98,8 +102,9 @@ def main():
         'probe_sha256': hashlib.sha256(args.probe.read_bytes()).hexdigest(),
         'profile_sha256': (hashlib.sha256(args.profile.read_bytes()).hexdigest()
                            if args.platform == 'mac' else None),
-        'contact_v34': args.contact_v34 or args.contact_v35_cache,
-        'contact_v35_cache': args.contact_v35_cache,
+        'contact_v34': args.contact_v34 or args.contact_v35_cache or args.contact_v36_frame,
+        'contact_v35_cache': args.contact_v35_cache or args.contact_v36_frame,
+        'contact_v36_frame': args.contact_v36_frame,
         'environment': {k: v for k, v in env.items()
                         if k.startswith(('RRR3D_', 'NX_SPRING_ITERATIONS'))},
         'stages': {}, 'status': 'capturing',

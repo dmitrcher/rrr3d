@@ -45,6 +45,19 @@ public:
     <<",\"triangle\":"<<((s0->isTriangleMesh()||s1->isTriangleMesh())?"true":"false")
     <<",\"static_friction0\":"<<data.staticFriction0<<",\"static_friction1\":"<<data.staticFriction1
     <<",\"friction0\":"<<data.dynamicFriction0<<",\"friction1\":"<<data.dynamicFriction1;
+   points<<",\"feature0\":"<<feature0<<",\"feature1\":"<<feature1;
+   const NxTriangleMeshShape* diagnosticMesh=s0->isTriangleMesh()?s0->isTriangleMesh():s1->isTriangleMesh();
+   if(diagnosticMesh){
+    NxTriangle diagnosticTriangle;
+    diagnosticMesh->getTriangle(diagnosticTriangle,0,0,s0->isTriangleMesh()?feature0:feature1,true,true);
+    points<<",\"triangle_vertices\":[";
+    for(int vi=0;vi<3;++vi){
+     if(vi)points<<',';
+     const NxVec3& dv=diagnosticTriangle.verts[vi];
+     points<<motorrock::calibration::vector(motorrock::calibration::V(dv.x,dv.y,dv.z));
+    }
+    points<<']';
+   }
    NxMat33 rawFrame(data.localorientation0);
    if(s0->getActor().isDynamic())rawFrame=s0->getActor().getCMassGlobalPose().M*rawFrame;
    for(int axis=0;axis<3;++axis){NxVec3 direction=rawFrame.getColumn(axis);points<<",\"axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(direction.x,direction.y,direction.z));}

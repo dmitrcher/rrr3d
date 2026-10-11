@@ -1,0 +1,23 @@
+{
+  "base_commit": "50e5a37da973faf8febfc6dfb87c95b62ac8d67e",
+  "sha256": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": "3308b178ef6c7b212c7049e0e0f505a5daff49bdda5c6f09e25fa0f50dba647f",
+    "Jolt/Physics/Constraints/ContactConstraintManager.h": "879acf7950b02234794b09fd46ecd90e339ad560dfefce97d2943fcb0b1c9d48",
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": "d667340b89241fc6f2f9b0ac6691350e53bf3c11026cb5f04e4de9585ba2c2b4"
+  },
+  "environment": "RRR3D_EXPERIMENT_MESH_CONTACTS=1 or 2 (geometry-only)",
+  "production_default": false,
+  "additional_header": "SourceMeshManifold.h must be copied to src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+  "sdk": "Apply Jolt paths inside build/_deps/rrr3d_jolt-src, after the production v14 patch. No friction-limit experiments included.",
+  "adapted_primary_sources": [
+    {
+      "url": "https://github.com/NVIDIAGameWorks/PhysX-3.4/blob/master/PhysX_3.4/Source/GeomUtils/src/contact/GuContactPolygonPolygon.cpp",
+      "git_blob": "c662a2a51b3baaeb860b0e21d31eac3d1c40b904"
+    },
+    {
+      "url": "https://github.com/NVIDIAGameWorks/PhysX-3.4/blob/master/PhysX_3.4/Source/GeomUtils/src/contact/GuContactConvexMesh.cpp",
+      "git_blob": "ea8a0c50c1672a1bb4fe0dccd51cf99ca70ed2e5"
+    }
+  ],
+  "independent_oracle": "PhysX 2.8.4 actual Windows captures; PhysX 3.4 code is a candidate, not proof of engine equivalence"
+}

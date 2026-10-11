@@ -1,0 +1,187 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1,6 +1,7 @@
+ #include "physics/OriginalVehiclePhysics.h"
+ #include "physics/CalibrationTuning.h"
+ #include "physics/SourceBoxManifold.h"
++#include "physics/SourceMeshManifold.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -676,8 +677,25 @@
+         box.SetUserData(contactGeometryMarker | static_cast<JPH::uint64>(index));
+     }
+ 
++    void registerSourceMesh(JPH::Shape& shape, const JPH::TriangleList& triangles)
++    {
++        auto record = std::make_shared<SourceMesh>();
++        for (const auto& triangle : triangles) {
++            SourceMeshTriangle out;
++            for (int j = 0; j < 3; ++j) {
++                const auto v = fromJolt(JPH::Vec3::sLoadFloat3Unsafe(triangle.mV[j == 0? 0 : 3-j]));
++                out.points[j] = {v.x, v.y, v.z};
++            }
++            record->triangles.push_back(out);
++        }
++        std::scoped_lock lock(mutex_);
++        shape.SetUserData(sourceMeshMarker | sourceMeshes_.size());
++        sourceMeshes_.push_back(std::move(record));
++    }
++
+     bool WantsContactManifoldRefresh(const JPH::Body& first, const JPH::Body& second) const override
+     {
++        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second)) return true;
+         if (!sourceBoxManifolds_) return false;
+         std::size_t index;
+         if (!vehicleIndex(first.GetUserData(), index) && !vehicleIndex(second.GetUserData(), index)) return false;
+@@ -690,6 +708,8 @@
+     bool OverrideContactManifold(const JPH::Body& first, const JPH::Body& second,
+                                  const JPH::ContactManifold& input, JPH::ContactManifold& output) override
+     {
++        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second))
++            return meshManifold(first, second, input, output);
+         if (!WantsContactManifoldRefresh(first, second)) return false;
+         SourceBox a, b;
+         if (!sourceBox(first, a) || !sourceBox(second, b)) return false;
+@@ -847,6 +867,76 @@
+         box.skin = geometry.skin;
+         return true;
+     }
++    struct SourceMeshTriangle { std::array<sourcemesh::PxVec3,3> points; };
++    struct SourceMesh { std::vector<SourceMeshTriangle> triangles; };
++    static constexpr JPH::uint64 sourceMeshMarker = JPH::uint64{1} << 62;
++    std::vector<std::shared_ptr<const SourceMesh>> sourceMeshes_;
++    const int sourceMeshMode_ = std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")? std::atoi(std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")) : 0;
++
++    bool meshManifold(const JPH::Body& first, const JPH::Body& second,
++                      const JPH::ContactManifold& input, JPH::ContactManifold& output)
++    {
++        const bool carFirst = first.GetMotionType() != JPH::EMotionType::Static;
++        const auto& car = carFirst? first : second;
++        const auto& surface = carFirst? second : first;
++        if (surface.GetMotionType() != JPH::EMotionType::Static || surface.IsSensor()) return false;
++        SourceBox full;
++        if (!sourceBox(car, full)) return false;
++        const auto* shape = surface.GetShape();
++        JPH::RMat44 transform = surface.GetWorldTransform();
++        while (shape->GetType() == JPH::EShapeType::Decorated) {
++            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
++                const auto* d = static_cast<const JPH::RotatedTranslatedShape*>(shape);
++                transform = transform * JPH::Mat44::sRotationTranslation(d->GetRotation(),d->GetPosition());
++            } else if (shape->GetSubType() != JPH::EShapeSubType::OffsetCenterOfMass) return false;
++            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
++        }
++        if (shape->GetSubType() != JPH::EShapeSubType::Mesh) return false;
++        const auto data = shape->GetUserData();
++        if ((data & sourceMeshMarker) == 0) return false;
++        std::shared_ptr<const SourceMesh> mesh;
++        { std::scoped_lock lock(mutex_); const auto index = data & ~sourceMeshMarker; if (index >= sourceMeshes_.size()) return false; mesh = sourceMeshes_[index]; }
++        const auto cv = [](sourcebox::PxVec3 a) { return sourcemesh::PxVec3{a.x,a.y,a.z}; };
++        const sourcemesh::PxVec3 half = cv(full.half);
++        const sourcemesh::Cm::Matrix34 box{{cv(full.transform.m.column0),cv(full.transform.m.column1),cv(full.transform.m.column2)},cv(full.transform.p)};
++        sourcemesh::PxVec3 lo(FLT_MAX),hi(-FLT_MAX);
++        for (int mask=0;mask<8;++mask) {
++            const auto point=box.transform({(mask&1)?half.x:-half.x,(mask&2)?half.y:-half.y,(mask&4)?half.z:-half.z});
++            for(int a=0;a<3;++a){lo[a]=std::min(lo[a],point[a]);hi[a]=std::max(hi[a],point[a]);}
++        }
++        sourcemesh::ContactBuffer contacts;
++        sourcemesh::PxVec3 commonNormal;
++        unsigned index=0;
++        for (const auto& t : mesh->triangles) {
++            std::array<sourcemesh::PxVec3,3> verts;
++            sourcemesh::PxVec3 min(FLT_MAX),max(-FLT_MAX);
++            for(int j=0;j<3;++j) {
++                const auto& p=t.points[j];const auto v=fromJolt(JPH::Vec3(transform*JPH::RVec3(toJolt(Vec3{p.x,p.y,p.z}))));verts[j]={v.x,v.y,v.z};
++                for(int a=0;a<3;++a){min[a]=std::min(min[a],verts[j][a]);max[a]=std::max(max[a],verts[j][a]);}
++            }
++            const unsigned triangleIndex=index++;
++            bool overlap=true;for(int a=0;a<3;++a)overlap &= min[a]<=hi[a]+.05f && max[a]>=lo[a]-.05f;
++            if(!overlap)continue;
++            const unsigned before=contacts.count;
++            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex);
++            if(contacts.count==before)continue;
++            const auto normal=contacts.contacts[before].normal;
++            if(before && normal.dot(commonNormal)<.999999f)return false;
++            commonNormal=normal;
++        }
++        if(contacts.count>16)return false;
++        output=input;output.mRelativeContactPointsOn1.clear();output.mRelativeContactPointsOn2.clear();
++        output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
++        if(!contacts.count)return true;
++        output.mWorldSpaceNormal=toJolt(Vec3{commonNormal.x,commonNormal.y,commonNormal.z})*(carFirst?-1.0f:1.0f);
++        for(unsigned i=0;i<contacts.count;++i) {
++            const auto& c=contacts.contacts[i];const JPH::Vec3 relative(toJolt(Vec3{c.point.x,c.point.y,c.point.z})-output.mBaseOffset);
++            output.mRelativeContactPointsOn1.push_back(relative);output.mRelativeContactPointsOn2.push_back(relative);
++            output.mSourceSeparations[i]=c.separation;output.mPenetrationDepth=std::max(output.mPenetrationDepth,-c.separation);
++        }
++        return true;
++    }
++
+     struct SourceFinalMotion { JPH::BodyID body; JPH::Vec3 velocity, angular; };
+     std::vector<SourceFinalMotion> sourceFinalMotion_;
+     bool sourceBoxManifolds_ = false;
+@@ -1008,6 +1098,8 @@
+         if (manifold.mUseSourceSeparation) {
+             SourceBox a, b;
+             if (sourceBox(first, a) && sourceBox(second, b)) settings.mAdditionalSeparation = a.skin + b.skin;
++            else if (sourceBox(first,a)) settings.mAdditionalSeparation = a.skin + 0.025F;
++            else if (sourceBox(second,b)) settings.mAdditionalSeparation = b.skin + 0.025F;
+             settings.mUseSourceSeparation = true;
+             settings.mSourceSeparations = manifold.mSourceSeparations;
+             settings.mUseBoxContactOrder = false;
+@@ -3317,6 +3409,7 @@
+             if (shapeResult.HasError())
+                 throw std::runtime_error(
+                     ("Jolt track mesh: " + shapeResult.GetError()).c_str());
++            contactListener_.registerSourceMesh(*shapeResult.Get(),source);
+             JPH::BodyCreationSettings settings(
+                 shapeResult.Get(), JPH::RVec3::sZero(),
+                 JPH::Quat::sIdentity(), JPH::EMotionType::Static,
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -77,6 +77,7 @@
+ 
+ 	/// Max 4 contact points are needed for a stable manifold
+ 	static const int			MaxContactPoints = 4;
++	static const int MaxSourceContactPoints = 16;
+ 
+ 	/// Contacts are allocated in a lock free hash map
+ 	class ContactAllocator : public LFHMAllocatorContext
+@@ -440,7 +441,7 @@
+ 		CachedContactPoint *	mContactPoint;
+ 	};
+ 
+-	using WorldContactPoints = StaticArray<WorldContactPoint, MaxContactPoints>;
++	using WorldContactPoints = StaticArray<WorldContactPoint, MaxSourceContactPoints>;
+ 
+ 	/// Contact constraint class, used for solving penetrations
+ 	class ContactConstraint
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -692,7 +692,7 @@
+ 	JPH_ASSERT(mMaxConstraints == inMaxContactConstraints, "Cannot support this many contact constraints!");
+ 
+ 	// Calculate worst case cache usage
+-	constexpr uint cMaxManifoldSizePerConstraint = sizeof(CachedManifold) + (MaxContactPoints - 1) * sizeof(CachedContactPoint);
++	constexpr uint cMaxManifoldSizePerConstraint = sizeof(CachedManifold) + (MaxSourceContactPoints - 1) * sizeof(CachedContactPoint);
+ 	static_assert(cMaxManifoldSizePerConstraint < sizeof(ContactConstraint)); // If not true, then the next line can overflow
+ 	uint cached_manifolds_size = mMaxConstraints * cMaxManifoldSizePerConstraint;
+ 
+@@ -1074,7 +1074,7 @@
+ 
+ 	// Determine number of contact points
+ 	int num_contact_points = (int)inManifold.mRelativeContactPointsOn1.size();
+-	JPH_ASSERT(num_contact_points <= MaxContactPoints);
++	JPH_ASSERT(num_contact_points <= (inManifold.mUseSourceSeparation? MaxSourceContactPoints : MaxContactPoints));
+ 	JPH_ASSERT(num_contact_points == (int)inManifold.mRelativeContactPointsOn2.size());
+ 
+ 	// Reserve space for new contact cache entry
+@@ -1339,7 +1339,7 @@
+ 	if (mContactListener != nullptr && mContactListener->OverrideContactManifold(*body1, *body2, *manifold, source_manifold))
+ 	{
+ 		if (source_manifold.mRelativeContactPointsOn1.empty()) return false;
+-		if (source_manifold.mRelativeContactPointsOn1.size() <= MaxContactPoints) manifold = &source_manifold;
++		if (source_manifold.mRelativeContactPointsOn1.size() <= MaxSourceContactPoints) manifold = &source_manifold;
+ 	}
+ 
+ 	// Dispatch to the correct templated form

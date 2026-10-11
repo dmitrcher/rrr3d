@@ -180,6 +180,19 @@ if(NOT WIN32 AND RRR3D_ENABLE_PHYSICS AND RRR3D_BUILD_ORIGINAL_MENU)
             $<TARGET_FILE:rrr3d_physics_calibration>
             "${CMAKE_SOURCE_DIR}/tools/calibration/probes/reference-box-contact-v14.json")
     endif()
+    # Independent face-generation probe. The experimental solver is not
+    # included in the production adapter until matrix regressions are fixed.
+    add_executable(rrr3d_mesh_geometry_probe ../../tools/calibration/experimental/mesh_probe.cpp)
+    rrr3d_set_common_target_options(rrr3d_mesh_geometry_probe)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(rrr3d_mesh_geometry_probe PRIVATE -ffp-contract=off)
+    endif()
+    if(Python3_Interpreter_FOUND)
+        add_test(NAME source_mesh_first_geometry COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/test_mesh_geometry.py"
+            $<TARGET_FILE:rrr3d_mesh_geometry_probe>
+            "${CMAKE_SOURCE_DIR}/tools/calibration/experimental/reference-mesh-first-v15.json")
+    endif()
     add_executable(rrr3d_body_friction_test ../../tools/calibration/test_body_friction.cpp)
     target_link_libraries(rrr3d_body_friction_test PRIVATE Rock3dEngine)
     rrr3d_set_common_target_options(rrr3d_body_friction_test)

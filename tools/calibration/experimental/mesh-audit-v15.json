@@ -1,0 +1,2313 @@
+{
+  "default": {
+    "cases": 608,
+    "samples": 255864,
+    "remaining": 572,
+    "changed": [
+      "radius-small",
+      "mass-heavy",
+      "body-slide-x",
+      "body-slide-y",
+      "body-slide-diagonal",
+      "body-tilt-pitch",
+      "body-tilt-roll",
+      "border-air-straight",
+      "border-air-oblique",
+      "border-grounded",
+      "border-pole",
+      "border-front-air-straight",
+      "border-front-air-oblique",
+      "border-front-grounded",
+      "contact-locked-triangle-depth0-speed2",
+      "contact-locked-triangle-depth1-speed2",
+      "contact-locked-triangle-depth2-speed2",
+      "contact-locked-triangle-depth3-speed1",
+      "contact-locked-triangle-depth3-speed2",
+      "contact-locked-triangle-depth4-speed0",
+      "contact-locked-triangle-depth4-speed1",
+      "contact-locked-triangle-depth4-speed2",
+      "contact-locked-triangle-depth5-speed0",
+      "contact-locked-triangle-depth5-speed1",
+      "contact-locked-triangle-depth5-speed2",
+      "contact-free-triangle-depth0-speed2",
+      "contact-free-triangle-depth1-speed2",
+      "contact-free-triangle-depth2-speed2",
+      "contact-free-triangle-depth3-speed1",
+      "contact-free-triangle-depth3-speed2",
+      "contact-free-triangle-depth4-speed0",
+      "contact-free-triangle-depth4-speed1",
+      "contact-free-triangle-depth4-speed2",
+      "contact-free-triangle-depth5-speed0",
+      "contact-free-triangle-depth5-speed1",
+      "contact-free-triangle-depth5-speed2",
+      "skin-tilted-triangle-angle0-skin0-thin0",
+      "skin-tilted-triangle-angle1-skin0-thin0",
+      "skin-tilted-triangle-angle2-skin0-thin0",
+      "skin-tilted-triangle-angle3-skin0-thin0",
+      "skin-tilted-triangle-angle4-skin0-thin0",
+      "skin-tilted-triangle-angle0-skin1-thin0",
+      "skin-tilted-triangle-angle1-skin1-thin0",
+      "skin-tilted-triangle-angle2-skin1-thin0",
+      "skin-tilted-triangle-angle3-skin1-thin0",
+      "skin-tilted-triangle-angle4-skin1-thin0",
+      "skin-tilted-triangle-angle0-skin2-thin0",
+      "skin-tilted-triangle-angle1-skin2-thin0",
+      "skin-tilted-triangle-angle2-skin2-thin0",
+      "skin-tilted-triangle-angle3-skin2-thin0",
+      "skin-tilted-triangle-angle4-skin2-thin0",
+      "skin-tilted-triangle-angle0-skin0-thin1",
+      "skin-tilted-triangle-angle1-skin0-thin1",
+      "skin-tilted-triangle-angle2-skin0-thin1",
+      "skin-tilted-triangle-angle3-skin0-thin1",
+      "skin-tilted-triangle-angle4-skin0-thin1",
+      "skin-tilted-triangle-angle0-skin1-thin1",
+      "skin-tilted-triangle-angle1-skin1-thin1",
+      "skin-tilted-triangle-angle2-skin1-thin1",
+      "skin-tilted-triangle-angle3-skin1-thin1",
+      "skin-tilted-triangle-angle4-skin1-thin1",
+      "skin-tilted-triangle-angle0-skin2-thin1",
+      "skin-tilted-triangle-angle1-skin2-thin1",
+      "skin-tilted-triangle-angle2-skin2-thin1",
+      "skin-tilted-triangle-angle3-skin2-thin1",
+      "skin-tilted-triangle-angle4-skin2-thin1",
+      "marauder/suspension-drop",
+      "mobility/marauder/wheel1/suspension-drop",
+      "mobility/marauder/wheel2/suspension-drop",
+      "mobility/marauder/wheel3/suspension-drop",
+      "monstertruckBoss/suspension-drop",
+      "mobility/monstertruckBoss/wheel1/suspension-drop",
+      "mobility/monstertruckBoss/wheel2/suspension-drop",
+      "mobility/monstertruckBoss/wheel3/suspension-drop",
+      "xCar/suspension-drop",
+      "mobility/xCar/engine1/suspension-drop",
+      "mobility/xCar/engine2/suspension-drop",
+      "mobility/xCar/engine3/suspension-drop"
+    ],
+    "weighted_rms": {
+      "position_error": 0.2719120575537913,
+      "velocity_error": 0.14768626823163256,
+      "rotation_error_radians": 0.10560908117614456,
+      "angular_momentum_error": 211.7960488083148,
+      "suspension_length_error": 0.005677398113171056
+    },
+    "regressions": {
+      "position_error": [
+        {
+          "case": "border-grounded",
+          "old": 0.4032942439465397,
+          "new": 2.3503543739943864,
+          "delta": 1.9470601300478467
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.21239610112338178,
+          "new": 2.020128164719617,
+          "delta": 1.8077320635962355
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.010662757696741382,
+          "new": 0.3547792635681182,
+          "delta": 0.34411650587137677
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.010662757736214995,
+          "new": 0.35477920182512385,
+          "delta": 0.34411644408890885
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.010277955245546254,
+          "new": 0.35388788813648003,
+          "delta": 0.3436099328909338
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.011167646304758897,
+          "new": 0.35279481476442576,
+          "delta": 0.34162716845966684
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 0.030592302385871642,
+          "new": 0.13823662772267434,
+          "delta": 0.1076443253368027
+        },
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 0.0029458803275613753,
+          "new": 0.02883336135722239,
+          "delta": 0.025887481029661014
+        },
+        {
+          "case": "contact-locked-triangle-depth1-speed2",
+          "old": 0.0029480600685485255,
+          "new": 0.027500264763575095,
+          "delta": 0.02455220469502657
+        },
+        {
+          "case": "body-slide-diagonal",
+          "old": 0.7864664121452013,
+          "new": 0.7901302745185671,
+          "delta": 0.0036638623733658005
+        },
+        {
+          "case": "mobility/xCar/engine2/suspension-drop",
+          "old": 0.0239488033426553,
+          "new": 0.024409902204622743,
+          "delta": 0.00046109886196744193
+        },
+        {
+          "case": "mobility/xCar/engine1/suspension-drop",
+          "old": 0.023948827239305675,
+          "new": 0.024409904025114094,
+          "delta": 0.00046107678580841957
+        },
+        {
+          "case": "mobility/xCar/engine3/suspension-drop",
+          "old": 0.02394882849684488,
+          "new": 0.024409889497742802,
+          "delta": 0.0004610610008979228
+        },
+        {
+          "case": "xCar/suspension-drop",
+          "old": 0.023969489597568394,
+          "new": 0.02440478639046619,
+          "delta": 0.00043529679289779424
+        },
+        {
+          "case": "mass-heavy",
+          "old": 0.004513403854038701,
+          "new": 0.004515713038464945,
+          "delta": 2.3091844262440597e-06
+        }
+      ],
+      "velocity_error": [
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 0.2234017241192427,
+          "new": 1.6303359957553822,
+          "delta": 1.4069342716361395
+        },
+        {
+          "case": "contact-locked-triangle-depth1-speed2",
+          "old": 0.22364796082527033,
+          "new": 1.6227673263115927,
+          "delta": 1.3991193654863223
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.04130265468086841,
+          "new": 0.38027787322032447,
+          "delta": 0.33897521853945606
+        },
+        {
+          "case": "border-grounded",
+          "old": 0.36656889262257814,
+          "new": 0.5488049395120049,
+          "delta": 0.1822360468894268
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 0.01689417407318801,
+          "new": 0.040228310112943276,
+          "delta": 0.023334136039755267
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.09494133101334273,
+          "new": 0.10220708722561378,
+          "delta": 0.007265756212271046
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.0949411149869584,
+          "new": 0.10220666143265154,
+          "delta": 0.007265546445693147
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.09496298145255076,
+          "new": 0.10212197753095752,
+          "delta": 0.007158996078406754
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.0949590815601293,
+          "new": 0.1020009676563972,
+          "delta": 0.007041886096267894
+        },
+        {
+          "case": "mobility/marauder/wheel1/suspension-drop",
+          "old": 0.07083220258213142,
+          "new": 0.0708390922440477,
+          "delta": 6.8896619162817085e-06
+        },
+        {
+          "case": "mobility/marauder/wheel3/suspension-drop",
+          "old": 0.07083167320212375,
+          "new": 0.07083719909525889,
+          "delta": 5.525893135141513e-06
+        },
+        {
+          "case": "mobility/marauder/wheel2/suspension-drop",
+          "old": 0.07083077557163571,
+          "new": 0.07083599724143869,
+          "delta": 5.2216698029766695e-06
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 0.07083451960825751,
+          "new": 0.07083887681839397,
+          "delta": 4.357210136460288e-06
+        }
+      ],
+      "rotation_error_radians": [
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.10702268199298631,
+          "new": 1.12215954776089,
+          "delta": 1.0151368657679039
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.0006216329971313715,
+          "new": 0.03706058765557556,
+          "delta": 0.036438954658444184
+        },
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 4.6970696939349974e-05,
+          "new": 0.010821314819461206,
+          "delta": 0.010774344122521855
+        },
+        {
+          "case": "border-grounded",
+          "old": 0.04000358104713391,
+          "new": 0.04794423987275407,
+          "delta": 0.007940658825620159
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.0002349280491154298,
+          "new": 0.0025492972243594185,
+          "delta": 0.0023143691752439887
+        },
+        {
+          "case": "radius-small",
+          "old": 0.0021063043056077685,
+          "new": 0.0029965950698610413,
+          "delta": 0.0008902907642532728
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.00022761939536713593,
+          "new": 0.0005735096951735991,
+          "delta": 0.00034589029980646314
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.00022805712184682702,
+          "new": 0.0005734862881387855,
+          "delta": 0.00034542916629195846
+        },
+        {
+          "case": "mass-heavy",
+          "old": 0.00027832867407657943,
+          "new": 0.0002812840855800011,
+          "delta": 2.9554115034216848e-06
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 0.008038652486695885,
+          "new": 0.008041126239277697,
+          "delta": 2.4737525818122053e-06
+        }
+      ],
+      "angular_momentum_error": [
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 800.9328905223289,
+          "new": 1956.6847763111848,
+          "delta": 1155.7518857888558
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 17.659135674553287,
+          "new": 214.20616402543942,
+          "delta": 196.54702835088614
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 9.054182552198467,
+          "new": 42.96310596329267,
+          "delta": 33.9089234110942
+        },
+        {
+          "case": "border-grounded",
+          "old": 498.6173610488151,
+          "new": 514.7833420912158,
+          "delta": 16.165981042400688
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 4.02843922833239,
+          "new": 18.57455562430032,
+          "delta": 14.54611639596793
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 9.023303154750133,
+          "new": 23.417893296375546,
+          "delta": 14.394590141625413
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 9.004423980366568,
+          "new": 19.623406263511978,
+          "delta": 10.61898228314541
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 9.006194542141062,
+          "new": 19.621978795179363,
+          "delta": 10.615784253038301
+        },
+        {
+          "case": "mobility/xCar/engine2/suspension-drop",
+          "old": 8.421645345795914,
+          "new": 8.913198946360241,
+          "delta": 0.49155360056432684
+        },
+        {
+          "case": "mobility/xCar/engine1/suspension-drop",
+          "old": 8.422726272571403,
+          "new": 8.913170330511315,
+          "delta": 0.4904440579399125
+        },
+        {
+          "case": "mobility/xCar/engine3/suspension-drop",
+          "old": 8.423564873225695,
+          "new": 8.913182765935634,
+          "delta": 0.48961789270993883
+        },
+        {
+          "case": "xCar/suspension-drop",
+          "old": 8.458614861071506,
+          "new": 8.90254901126164,
+          "delta": 0.4439341501901328
+        },
+        {
+          "case": "mobility/marauder/wheel2/suspension-drop",
+          "old": 20.528489453627643,
+          "new": 20.546975702289558,
+          "delta": 0.018486248661915283
+        },
+        {
+          "case": "mobility/marauder/wheel3/suspension-drop",
+          "old": 20.527250163217936,
+          "new": 20.54570844448996,
+          "delta": 0.01845828127202509
+        },
+        {
+          "case": "mobility/marauder/wheel1/suspension-drop",
+          "old": 20.57785209175918,
+          "new": 20.595716943880284,
+          "delta": 0.01786485212110378
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 21.077223261099963,
+          "new": 21.092369546929753,
+          "delta": 0.015146285829789718
+        },
+        {
+          "case": "contact-free-triangle-depth5-speed1",
+          "old": 21.534908672908394,
+          "new": 21.53538621456617,
+          "delta": 0.0004775416577764702
+        },
+        {
+          "case": "border-air-straight",
+          "old": 916.4801462298158,
+          "new": 916.4802064337155,
+          "delta": 6.020389969307871e-05
+        },
+        {
+          "case": "contact-free-triangle-depth4-speed1",
+          "old": 4.480444363967806,
+          "new": 4.480492758955908,
+          "delta": 4.839498810138565e-05
+        },
+        {
+          "case": "contact-free-triangle-depth4-speed0",
+          "old": 0.6679015969057723,
+          "new": 0.6679431185855758,
+          "delta": 4.152167980342458e-05
+        },
+        {
+          "case": "contact-free-triangle-depth5-speed0",
+          "old": 14.975679131810873,
+          "new": 14.975696047447771,
+          "delta": 1.6915636898318098e-05
+        }
+      ],
+      "suspension_length_error": [
+        {
+          "case": "border-front-grounded",
+          "old": 0.001392120512244582,
+          "new": 0.004326360173495349,
+          "delta": 0.0029342396612507668
+        }
+      ]
+    },
+    "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+    "candidate_sha256": "87e3725804f8d5474cdc6bc26bf6431e0b0cefa8968c9772b2cabae95b50a2b4"
+  },
+  "frozen": {
+    "cases": 608,
+    "samples": 255864,
+    "remaining": 572,
+    "changed": [
+      "radius-small",
+      "mass-heavy",
+      "body-slide-x",
+      "body-slide-y",
+      "body-slide-diagonal",
+      "body-tilt-pitch",
+      "body-tilt-roll",
+      "border-air-straight",
+      "border-air-oblique",
+      "border-grounded",
+      "border-pole",
+      "border-front-air-straight",
+      "border-front-air-oblique",
+      "border-front-grounded",
+      "contact-locked-triangle-depth0-speed2",
+      "contact-locked-triangle-depth1-speed2",
+      "contact-locked-triangle-depth2-speed2",
+      "contact-locked-triangle-depth3-speed1",
+      "contact-locked-triangle-depth3-speed2",
+      "contact-locked-triangle-depth4-speed0",
+      "contact-locked-triangle-depth4-speed1",
+      "contact-locked-triangle-depth4-speed2",
+      "contact-locked-triangle-depth5-speed0",
+      "contact-locked-triangle-depth5-speed1",
+      "contact-locked-triangle-depth5-speed2",
+      "contact-free-triangle-depth0-speed2",
+      "contact-free-triangle-depth1-speed2",
+      "contact-free-triangle-depth2-speed2",
+      "contact-free-triangle-depth3-speed1",
+      "contact-free-triangle-depth3-speed2",
+      "contact-free-triangle-depth4-speed0",
+      "contact-free-triangle-depth4-speed1",
+      "contact-free-triangle-depth4-speed2",
+      "contact-free-triangle-depth5-speed0",
+      "contact-free-triangle-depth5-speed1",
+      "contact-free-triangle-depth5-speed2",
+      "skin-tilted-triangle-angle0-skin0-thin0",
+      "skin-tilted-triangle-angle1-skin0-thin0",
+      "skin-tilted-triangle-angle2-skin0-thin0",
+      "skin-tilted-triangle-angle3-skin0-thin0",
+      "skin-tilted-triangle-angle4-skin0-thin0",
+      "skin-tilted-triangle-angle0-skin1-thin0",
+      "skin-tilted-triangle-angle1-skin1-thin0",
+      "skin-tilted-triangle-angle2-skin1-thin0",
+      "skin-tilted-triangle-angle3-skin1-thin0",
+      "skin-tilted-triangle-angle4-skin1-thin0",
+      "skin-tilted-triangle-angle0-skin2-thin0",
+      "skin-tilted-triangle-angle1-skin2-thin0",
+      "skin-tilted-triangle-angle2-skin2-thin0",
+      "skin-tilted-triangle-angle3-skin2-thin0",
+      "skin-tilted-triangle-angle4-skin2-thin0",
+      "skin-tilted-triangle-angle0-skin0-thin1",
+      "skin-tilted-triangle-angle1-skin0-thin1",
+      "skin-tilted-triangle-angle2-skin0-thin1",
+      "skin-tilted-triangle-angle3-skin0-thin1",
+      "skin-tilted-triangle-angle4-skin0-thin1",
+      "skin-tilted-triangle-angle0-skin1-thin1",
+      "skin-tilted-triangle-angle1-skin1-thin1",
+      "skin-tilted-triangle-angle2-skin1-thin1",
+      "skin-tilted-triangle-angle3-skin1-thin1",
+      "skin-tilted-triangle-angle4-skin1-thin1",
+      "skin-tilted-triangle-angle0-skin2-thin1",
+      "skin-tilted-triangle-angle1-skin2-thin1",
+      "skin-tilted-triangle-angle2-skin2-thin1",
+      "skin-tilted-triangle-angle3-skin2-thin1",
+      "skin-tilted-triangle-angle4-skin2-thin1",
+      "marauder/suspension-drop",
+      "mobility/marauder/wheel1/suspension-drop",
+      "mobility/marauder/wheel2/suspension-drop",
+      "mobility/marauder/wheel3/suspension-drop",
+      "monstertruckBoss/suspension-drop",
+      "mobility/monstertruckBoss/wheel1/suspension-drop",
+      "mobility/monstertruckBoss/wheel2/suspension-drop",
+      "mobility/monstertruckBoss/wheel3/suspension-drop",
+      "xCar/suspension-drop",
+      "mobility/xCar/engine1/suspension-drop",
+      "mobility/xCar/engine2/suspension-drop",
+      "mobility/xCar/engine3/suspension-drop"
+    ],
+    "weighted_rms": {
+      "position_error": 0.2430941409146157,
+      "velocity_error": 0.13930910701410068,
+      "rotation_error_radians": 0.10560908117614456,
+      "angular_momentum_error": 211.7960488083148,
+      "suspension_length_error": 0.005677398113171056
+    },
+    "regressions": {
+      "position_error": [
+        {
+          "case": "border-grounded",
+          "old": 0.4032942439465397,
+          "new": 2.3503543739943864,
+          "delta": 1.9470601300478467
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.21239610112338178,
+          "new": 2.020128164719617,
+          "delta": 1.8077320635962355
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.010662757696741382,
+          "new": 0.3547792635681182,
+          "delta": 0.34411650587137677
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.010662757736214995,
+          "new": 0.35477920182512385,
+          "delta": 0.34411644408890885
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.010277955245546254,
+          "new": 0.35388788813648003,
+          "delta": 0.3436099328909338
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.011167646304758897,
+          "new": 0.35279481476442576,
+          "delta": 0.34162716845966684
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 0.030592302385871642,
+          "new": 0.13823662772267434,
+          "delta": 0.1076443253368027
+        },
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 0.0029458803275613753,
+          "new": 0.02883336135722239,
+          "delta": 0.025887481029661014
+        },
+        {
+          "case": "contact-locked-triangle-depth1-speed2",
+          "old": 0.0029451646601788214,
+          "new": 0.028542242514326716,
+          "delta": 0.025597077854147894
+        },
+        {
+          "case": "body-slide-diagonal",
+          "old": 0.7864664121452013,
+          "new": 0.7901302745185671,
+          "delta": 0.0036638623733658005
+        },
+        {
+          "case": "skin-tilted-triangle-angle2-skin0-thin1",
+          "old": 0.0013951087462753479,
+          "new": 0.002870397038046836,
+          "delta": 0.001475288291771488
+        },
+        {
+          "case": "skin-tilted-triangle-angle2-skin2-thin1",
+          "old": 0.0016124774628814807,
+          "new": 0.0029332895777258567,
+          "delta": 0.001320812114844376
+        },
+        {
+          "case": "skin-tilted-triangle-angle2-skin1-thin1",
+          "old": 0.0020936128640926762,
+          "new": 0.002878218685101904,
+          "delta": 0.0007846058210092279
+        },
+        {
+          "case": "mobility/xCar/engine2/suspension-drop",
+          "old": 0.0239488033426553,
+          "new": 0.024409902204622743,
+          "delta": 0.00046109886196744193
+        },
+        {
+          "case": "mobility/xCar/engine1/suspension-drop",
+          "old": 0.023948827239305675,
+          "new": 0.024409904025114094,
+          "delta": 0.00046107678580841957
+        },
+        {
+          "case": "mobility/xCar/engine3/suspension-drop",
+          "old": 0.02394882849684488,
+          "new": 0.024409889497742802,
+          "delta": 0.0004610610008979228
+        },
+        {
+          "case": "xCar/suspension-drop",
+          "old": 0.023969489597568394,
+          "new": 0.02440478639046619,
+          "delta": 0.00043529679289779424
+        },
+        {
+          "case": "mass-heavy",
+          "old": 0.004513403854038701,
+          "new": 0.004515713038464945,
+          "delta": 2.3091844262440597e-06
+        }
+      ],
+      "velocity_error": [
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 0.2234017241192427,
+          "new": 1.6303359957553822,
+          "delta": 1.4069342716361395
+        },
+        {
+          "case": "contact-locked-triangle-depth1-speed2",
+          "old": 0.22346173953120144,
+          "new": 1.6303436381884424,
+          "delta": 1.406881898657241
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.04130265468086841,
+          "new": 0.38027787322032447,
+          "delta": 0.33897521853945606
+        },
+        {
+          "case": "border-grounded",
+          "old": 0.36656889262257814,
+          "new": 0.5488049395120049,
+          "delta": 0.1822360468894268
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 0.01689417407318801,
+          "new": 0.040228310112943276,
+          "delta": 0.023334136039755267
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.09494133101334273,
+          "new": 0.10220708722561378,
+          "delta": 0.007265756212271046
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.0949411149869584,
+          "new": 0.10220666143265154,
+          "delta": 0.007265546445693147
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.09496298145255076,
+          "new": 0.10212197753095752,
+          "delta": 0.007158996078406754
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.0949590815601293,
+          "new": 0.1020009676563972,
+          "delta": 0.007041886096267894
+        },
+        {
+          "case": "mobility/marauder/wheel1/suspension-drop",
+          "old": 0.07083220258213142,
+          "new": 0.0708390922440477,
+          "delta": 6.8896619162817085e-06
+        },
+        {
+          "case": "mobility/marauder/wheel3/suspension-drop",
+          "old": 0.07083167320212375,
+          "new": 0.07083719909525889,
+          "delta": 5.525893135141513e-06
+        },
+        {
+          "case": "mobility/marauder/wheel2/suspension-drop",
+          "old": 0.07083077557163571,
+          "new": 0.07083599724143869,
+          "delta": 5.2216698029766695e-06
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 0.07083451960825751,
+          "new": 0.07083887681839397,
+          "delta": 4.357210136460288e-06
+        }
+      ],
+      "rotation_error_radians": [
+        {
+          "case": "border-front-air-oblique",
+          "old": 0.10702268199298631,
+          "new": 1.12215954776089,
+          "delta": 1.0151368657679039
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 0.0006216329971313715,
+          "new": 0.03706058765557556,
+          "delta": 0.036438954658444184
+        },
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 4.6970696939349974e-05,
+          "new": 0.010821314819461206,
+          "delta": 0.010774344122521855
+        },
+        {
+          "case": "border-grounded",
+          "old": 0.04000358104713391,
+          "new": 0.04794423987275407,
+          "delta": 0.007940658825620159
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 0.0002349280491154298,
+          "new": 0.0025492972243594185,
+          "delta": 0.0023143691752439887
+        },
+        {
+          "case": "radius-small",
+          "old": 0.0021063043056077685,
+          "new": 0.0029965950698610413,
+          "delta": 0.0008902907642532728
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 0.00022761939536713593,
+          "new": 0.0005735096951735991,
+          "delta": 0.00034589029980646314
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 0.00022805712184682702,
+          "new": 0.0005734862881387855,
+          "delta": 0.00034542916629195846
+        },
+        {
+          "case": "mass-heavy",
+          "old": 0.00027832867407657943,
+          "new": 0.0002812840855800011,
+          "delta": 2.9554115034216848e-06
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 0.008038652486695885,
+          "new": 0.008041126239277697,
+          "delta": 2.4737525818122053e-06
+        }
+      ],
+      "angular_momentum_error": [
+        {
+          "case": "contact-free-triangle-depth1-speed2",
+          "old": 800.9328905223289,
+          "new": 1956.6847763111848,
+          "delta": 1155.7518857888558
+        },
+        {
+          "case": "border-front-air-oblique",
+          "old": 17.659135674553287,
+          "new": 214.20616402543942,
+          "delta": 196.54702835088614
+        },
+        {
+          "case": "monstertruckBoss/suspension-drop",
+          "old": 9.054182552198467,
+          "new": 42.96310596329267,
+          "delta": 33.9089234110942
+        },
+        {
+          "case": "border-grounded",
+          "old": 498.6173610488151,
+          "new": 514.7833420912158,
+          "delta": 16.165981042400688
+        },
+        {
+          "case": "border-front-grounded",
+          "old": 4.02843922833239,
+          "new": 18.57455562430032,
+          "delta": 14.54611639596793
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+          "old": 9.023303154750133,
+          "new": 23.417893296375546,
+          "delta": 14.394590141625413
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+          "old": 9.004423980366568,
+          "new": 19.623406263511978,
+          "delta": 10.61898228314541
+        },
+        {
+          "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+          "old": 9.006194542141062,
+          "new": 19.621978795179363,
+          "delta": 10.615784253038301
+        },
+        {
+          "case": "mobility/xCar/engine2/suspension-drop",
+          "old": 8.421645345795914,
+          "new": 8.913198946360241,
+          "delta": 0.49155360056432684
+        },
+        {
+          "case": "mobility/xCar/engine1/suspension-drop",
+          "old": 8.422726272571403,
+          "new": 8.913170330511315,
+          "delta": 0.4904440579399125
+        },
+        {
+          "case": "mobility/xCar/engine3/suspension-drop",
+          "old": 8.423564873225695,
+          "new": 8.913182765935634,
+          "delta": 0.48961789270993883
+        },
+        {
+          "case": "xCar/suspension-drop",
+          "old": 8.458614861071506,
+          "new": 8.90254901126164,
+          "delta": 0.4439341501901328
+        },
+        {
+          "case": "mobility/marauder/wheel2/suspension-drop",
+          "old": 20.528489453627643,
+          "new": 20.546975702289558,
+          "delta": 0.018486248661915283
+        },
+        {
+          "case": "mobility/marauder/wheel3/suspension-drop",
+          "old": 20.527250163217936,
+          "new": 20.54570844448996,
+          "delta": 0.01845828127202509
+        },
+        {
+          "case": "mobility/marauder/wheel1/suspension-drop",
+          "old": 20.57785209175918,
+          "new": 20.595716943880284,
+          "delta": 0.01786485212110378
+        },
+        {
+          "case": "marauder/suspension-drop",
+          "old": 21.077223261099963,
+          "new": 21.092369546929753,
+          "delta": 0.015146285829789718
+        },
+        {
+          "case": "contact-free-triangle-depth5-speed1",
+          "old": 21.534908672908394,
+          "new": 21.53538621456617,
+          "delta": 0.0004775416577764702
+        },
+        {
+          "case": "border-air-straight",
+          "old": 916.4801462298158,
+          "new": 916.4802064337155,
+          "delta": 6.020389969307871e-05
+        },
+        {
+          "case": "contact-free-triangle-depth4-speed1",
+          "old": 4.480444363967806,
+          "new": 4.480492758955908,
+          "delta": 4.839498810138565e-05
+        },
+        {
+          "case": "contact-free-triangle-depth4-speed0",
+          "old": 0.6679015969057723,
+          "new": 0.6679431185855758,
+          "delta": 4.152167980342458e-05
+        },
+        {
+          "case": "contact-free-triangle-depth5-speed0",
+          "old": 14.975679131810873,
+          "new": 14.975696047447771,
+          "delta": 1.6915636898318098e-05
+        }
+      ],
+      "suspension_length_error": [
+        {
+          "case": "border-front-grounded",
+          "old": 0.001392120512244582,
+          "new": 0.004326360173495349,
+          "delta": 0.0029342396612507668
+        }
+      ]
+    },
+    "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+    "candidate_sha256": "e016cc722ee9be1db5ba61149061cde615b7343bf2ef729aadcf20c001d39ed2"
+  },
+  "status": "experimental; rejected for default promotion due to recorded regressions",
+  "goal": "active; all physics discrepancies must be eliminated",
+  "tested_generator": "initial v15, before face winding/support boundary corrections",
+  "new_winding_subset": "physics-v15-mesh-winding-both-x-default-report.json",
+  "face_winding_followup": {
+    "default": {
+      "reference_sha256": "e4df4f60519b5a19f5f6d02a1f439014721b3cea043cab92d976418a27c6753e",
+      "candidate_sha256": "a5a23988a40f72b1dcd4ec37edaec178a820389fc513dd94c9dce9a31e1b0a2f",
+      "cases": {
+        "body-slide-x": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.581781588231549,
+            "velocity_error": 0.37936354135243533,
+            "rotation_error_radians": 0.17761960022407236,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 1335.6252372635618,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.5817815710613184,
+            "position_y_error": 1.926762633078996e-08,
+            "position_z_error": 0.00014134584260674956,
+            "velocity_x_error": 0.3793559816076288,
+            "velocity_y_error": 3.4736380822507277e-08,
+            "velocity_z_error": 0.00239493757164633,
+            "angular_momentum_x_error": 1138.8923229305967,
+            "angular_momentum_y_error": 674.0158800528583,
+            "angular_momentum_z_error": 180.33758516090361
+          }
+        },
+        "body-slide-y": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0003909815716928302,
+            "velocity_error": 0.0007224395196492459,
+            "rotation_error_radians": 0.0004887911499720763,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 5.35405194179324,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0003909812106355781,
+            "position_y_error": 0.0,
+            "position_z_error": 5.313504807740128e-07,
+            "velocity_x_error": 0.000722247547229651,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 1.665353031000557e-05,
+            "angular_momentum_x_error": 3.5125527630609468,
+            "angular_momentum_y_error": 3.8410821289293597,
+            "angular_momentum_z_error": 1.254565008659324
+          }
+        },
+        "body-tilt-pitch": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0425509611649718,
+            "velocity_error": 0.02955689872082972,
+            "rotation_error_radians": 0.0026400613299112623,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 6532.996847904309,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.042267737589049476,
+            "position_y_error": 0.004871146071747725,
+            "position_z_error": 0.0005427624838627997,
+            "velocity_x_error": 0.02635203319331131,
+            "velocity_y_error": 0.003730103029858911,
+            "velocity_z_error": 0.01285561900332465,
+            "angular_momentum_x_error": 6250.373923629574,
+            "angular_momentum_y_error": 372.7538736850661,
+            "angular_momentum_z_error": 1863.8476813280267
+          }
+        },
+        "body-tilt-roll": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0008920033367490042,
+            "velocity_error": 0.0010255306868366067,
+            "rotation_error_radians": 0.00011378386455232447,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 599.6298649437799,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 2.468569970721681e-06,
+            "position_y_error": 0.0008919330119280209,
+            "position_z_error": 1.0925253620206231e-05,
+            "velocity_x_error": 4.886208880341162e-06,
+            "velocity_y_error": 0.00099597027278119,
+            "velocity_z_error": 0.00024440239430599205,
+            "angular_momentum_x_error": 6.099721077411837,
+            "angular_momentum_y_error": 478.4159918087596,
+            "angular_momentum_z_error": 361.4372796446355
+          }
+        },
+        "border-air-straight": {
+          "samples": 600,
+          "rms": {
+            "position_error": 2.5032942287147617,
+            "velocity_error": 0.5274937580200233,
+            "rotation_error_radians": 1.557410215693592,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 916.4808941332954,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0012670337113898373,
+            "position_y_error": 0.07831757895301437,
+            "position_z_error": 2.5020684936606243,
+            "velocity_x_error": 9.164688570294322e-07,
+            "velocity_y_error": 0.01511034936604989,
+            "velocity_z_error": 0.5272772914617914,
+            "angular_momentum_x_error": 244.16231402216468,
+            "angular_momentum_y_error": 877.1244637772672,
+            "angular_momentum_z_error": 104.76005329393293
+          }
+        },
+        "border-grounded": {
+          "samples": 600,
+          "rms": {
+            "position_error": 2.3481537396016514,
+            "velocity_error": 0.5371140211598115,
+            "rotation_error_radians": 0.05272510219048719,
+            "wheel_speed_error": 1.3115502382727215,
+            "angular_momentum_error": 519.6966932757731,
+            "suspension_length_error": 0.026571958829271065,
+            "wheel_height_error": 5.631015301207733e-08,
+            "position_x_error": 2.338417378018324,
+            "position_y_error": 0.21088160079880583,
+            "position_z_error": 0.03404557873879686,
+            "velocity_x_error": 0.43370441706004614,
+            "velocity_y_error": 0.04809907591939518,
+            "velocity_z_error": 0.31317475831357844,
+            "angular_momentum_x_error": 13.987636850744288,
+            "angular_momentum_y_error": 519.4950995366054,
+            "angular_momentum_z_error": 3.720292267707144
+          }
+        },
+        "border-front-air-straight": {
+          "samples": 600,
+          "rms": {
+            "position_error": 0.00014359422813533005,
+            "velocity_error": 2.4189691116561314e-05,
+            "rotation_error_radians": 0.00031620621918643737,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.08213356205864866,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.00014358821020195396,
+            "position_y_error": 1.7647870968285947e-08,
+            "position_z_error": 1.3145087802476855e-06,
+            "velocity_x_error": 2.075922187014149e-05,
+            "velocity_y_error": 3.403458398336302e-09,
+            "velocity_z_error": 1.2417562243747977e-05,
+            "angular_momentum_x_error": 0.017102495521660734,
+            "angular_momentum_y_error": 0.009518848808635846,
+            "angular_momentum_z_error": 0.07976727512414973
+          }
+        },
+        "border-front-air-oblique": {
+          "samples": 600,
+          "rms": {
+            "position_error": 1.0762450247661567e-05,
+            "velocity_error": 3.309555257549915e-05,
+            "rotation_error_radians": 4.7320324834734524e-05,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.011307675346207318,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 1.0762015083928799e-05,
+            "position_y_error": 0.0,
+            "position_z_error": 9.678154100616931e-08,
+            "velocity_x_error": 9.405697867526082e-06,
+            "velocity_y_error": 6.9282032266288095e-09,
+            "velocity_z_error": 3.173087455306651e-05,
+            "angular_momentum_x_error": 0.0026044449277147852,
+            "angular_momentum_y_error": 0.010089662650750404,
+            "angular_momentum_z_error": 0.004390796732687342
+          }
+        },
+        "contact-locked-triangle-depth1-speed2": {
+          "samples": 12,
+          "rms": {
+            "position_error": 7.435210151724995e-06,
+            "velocity_error": 0.00013528638004391277,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.0,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 1.846126575708975e-06,
+            "position_y_error": 0.0,
+            "position_z_error": 7.202372294374644e-06,
+            "velocity_x_error": 6.902030741282988e-05,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 0.00011635549746369726,
+            "angular_momentum_x_error": 0.0,
+            "angular_momentum_y_error": 0.0,
+            "angular_momentum_z_error": 0.0
+          }
+        },
+        "contact-locked-triangle-depth5-speed0": {
+          "samples": 12,
+          "rms": {
+            "position_error": 0.00015086649514860386,
+            "velocity_error": 0.0022443097345297034,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.0,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 1.3026198921422544e-05,
+            "position_y_error": 0.0,
+            "position_z_error": 0.00015030308546428193,
+            "velocity_x_error": 4.731860099641167e-06,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 0.0022443047462420928,
+            "angular_momentum_x_error": 0.0,
+            "angular_momentum_y_error": 0.0,
+            "angular_momentum_z_error": 0.0
+          }
+        },
+        "contact-free-triangle-depth1-speed2": {
+          "samples": 12,
+          "rms": {
+            "position_error": 8.655255218257473e-15,
+            "velocity_error": 5.384538702720649e-07,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.11210187078456246,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 8.655255218257473e-15,
+            "position_z_error": 0.0,
+            "velocity_x_error": 1.380667722564443e-07,
+            "velocity_y_error": 7.82622509606983e-14,
+            "velocity_z_error": 5.204518583016557e-07,
+            "angular_momentum_x_error": 0.1120988394426636,
+            "angular_momentum_y_error": 0.0008233106426162607,
+            "angular_momentum_z_error": 4.2291753604444777e-05
+          }
+        },
+        "contact-free-triangle-depth5-speed0": {
+          "samples": 12,
+          "rms": {
+            "position_error": 2.157405849597968e-05,
+            "velocity_error": 0.0022431190217237574,
+            "rotation_error_radians": 6.415003256385751e-07,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 14.975701958221961,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 3.8837360757734993e-11,
+            "position_z_error": 2.1574058495944725e-05,
+            "velocity_x_error": 8.02512980212741e-06,
+            "velocity_y_error": 3.4268921982822873e-10,
+            "velocity_z_error": 0.0022431046660623057,
+            "angular_momentum_x_error": 14.421127141366368,
+            "angular_momentum_y_error": 4.03766473830476,
+            "angular_momentum_z_error": 0.0021389459403890064
+          }
+        },
+        "monstertruckBoss/suspension-drop": {
+          "samples": 600,
+          "rms": {
+            "position_error": 0.35279481476442576,
+            "velocity_error": 0.1020009676563972,
+            "rotation_error_radians": 0.03706058765557556,
+            "wheel_speed_error": 0.0870611289273797,
+            "angular_momentum_error": 42.96310596329267,
+            "suspension_length_error": 0.006607760429188077,
+            "wheel_height_error": 4.3293611603821374e-07,
+            "position_x_error": 0.35261467686095216,
+            "position_y_error": 0.0076557196162669195,
+            "position_z_error": 0.008274112887124768,
+            "velocity_x_error": 0.06539340940617325,
+            "velocity_y_error": 0.0025210703760170415,
+            "velocity_z_error": 0.07824029405132095,
+            "angular_momentum_x_error": 10.559080258418806,
+            "angular_momentum_y_error": 16.28127684308708,
+            "angular_momentum_z_error": 38.33085340125029
+          }
+        }
+      },
+      "default_promotion": false,
+      "reason": "Back-facing wall contacts and wheel/body coupling still regress. Later trial preserving final zero-normal friction also regressed and was removed."
+    },
+    "frozen": {
+      "reference_sha256": "e4df4f60519b5a19f5f6d02a1f439014721b3cea043cab92d976418a27c6753e",
+      "candidate_sha256": "645b00dabebd445252d84912771f5668b080340f4a450e3e60b5de916a9f7bf5",
+      "cases": {
+        "body-slide-x": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.581781588231549,
+            "velocity_error": 0.37936354135243533,
+            "rotation_error_radians": 0.17761960022407236,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 1335.6252372635618,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.5817815710613184,
+            "position_y_error": 1.926762633078996e-08,
+            "position_z_error": 0.00014134584260674956,
+            "velocity_x_error": 0.3793559816076288,
+            "velocity_y_error": 3.4736380822507277e-08,
+            "velocity_z_error": 0.00239493757164633,
+            "angular_momentum_x_error": 1138.8923229305967,
+            "angular_momentum_y_error": 674.0158800528583,
+            "angular_momentum_z_error": 180.33758516090361
+          }
+        },
+        "body-slide-y": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0003909815716928302,
+            "velocity_error": 0.0007224395196492459,
+            "rotation_error_radians": 0.0004887911499720763,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 5.35405194179324,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0003909812106355781,
+            "position_y_error": 0.0,
+            "position_z_error": 5.313504807740128e-07,
+            "velocity_x_error": 0.000722247547229651,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 1.665353031000557e-05,
+            "angular_momentum_x_error": 3.5125527630609468,
+            "angular_momentum_y_error": 3.8410821289293597,
+            "angular_momentum_z_error": 1.254565008659324
+          }
+        },
+        "body-tilt-pitch": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0425509611649718,
+            "velocity_error": 0.02955689872082972,
+            "rotation_error_radians": 0.0026400613299112623,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 6532.996847904309,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.042267737589049476,
+            "position_y_error": 0.004871146071747725,
+            "position_z_error": 0.0005427624838627997,
+            "velocity_x_error": 0.02635203319331131,
+            "velocity_y_error": 0.003730103029858911,
+            "velocity_z_error": 0.01285561900332465,
+            "angular_momentum_x_error": 6250.373923629574,
+            "angular_momentum_y_error": 372.7538736850661,
+            "angular_momentum_z_error": 1863.8476813280267
+          }
+        },
+        "body-tilt-roll": {
+          "samples": 180,
+          "rms": {
+            "position_error": 0.0008920033367490042,
+            "velocity_error": 0.0010255306868366067,
+            "rotation_error_radians": 0.00011378386455232447,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 599.6298649437799,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 2.468569970721681e-06,
+            "position_y_error": 0.0008919330119280209,
+            "position_z_error": 1.0925253620206231e-05,
+            "velocity_x_error": 4.886208880341162e-06,
+            "velocity_y_error": 0.00099597027278119,
+            "velocity_z_error": 0.00024440239430599205,
+            "angular_momentum_x_error": 6.099721077411837,
+            "angular_momentum_y_error": 478.4159918087596,
+            "angular_momentum_z_error": 361.4372796446355
+          }
+        },
+        "border-air-straight": {
+          "samples": 600,
+          "rms": {
+            "position_error": 2.5032942287147617,
+            "velocity_error": 0.5274937580200233,
+            "rotation_error_radians": 1.557410215693592,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 916.4808941332954,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0012670337113898373,
+            "position_y_error": 0.07831757895301437,
+            "position_z_error": 2.5020684936606243,
+            "velocity_x_error": 9.164688570294322e-07,
+            "velocity_y_error": 0.01511034936604989,
+            "velocity_z_error": 0.5272772914617914,
+            "angular_momentum_x_error": 244.16231402216468,
+            "angular_momentum_y_error": 877.1244637772672,
+            "angular_momentum_z_error": 104.76005329393293
+          }
+        },
+        "border-grounded": {
+          "samples": 600,
+          "rms": {
+            "position_error": 2.3481537396016514,
+            "velocity_error": 0.5371140211598115,
+            "rotation_error_radians": 0.05272510219048719,
+            "wheel_speed_error": 1.3115502382727215,
+            "angular_momentum_error": 519.6966932757731,
+            "suspension_length_error": 0.026571958829271065,
+            "wheel_height_error": 5.631015301207733e-08,
+            "position_x_error": 2.338417378018324,
+            "position_y_error": 0.21088160079880583,
+            "position_z_error": 0.03404557873879686,
+            "velocity_x_error": 0.43370441706004614,
+            "velocity_y_error": 0.04809907591939518,
+            "velocity_z_error": 0.31317475831357844,
+            "angular_momentum_x_error": 13.987636850744288,
+            "angular_momentum_y_error": 519.4950995366054,
+            "angular_momentum_z_error": 3.720292267707144
+          }
+        },
+        "border-front-air-straight": {
+          "samples": 600,
+          "rms": {
+            "position_error": 0.00014359422813533005,
+            "velocity_error": 2.4189691116561314e-05,
+            "rotation_error_radians": 0.00031620621918643737,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.08213356205864866,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.00014358821020195396,
+            "position_y_error": 1.7647870968285947e-08,
+            "position_z_error": 1.3145087802476855e-06,
+            "velocity_x_error": 2.075922187014149e-05,
+            "velocity_y_error": 3.403458398336302e-09,
+            "velocity_z_error": 1.2417562243747977e-05,
+            "angular_momentum_x_error": 0.017102495521660734,
+            "angular_momentum_y_error": 0.009518848808635846,
+            "angular_momentum_z_error": 0.07976727512414973
+          }
+        },
+        "border-front-air-oblique": {
+          "samples": 600,
+          "rms": {
+            "position_error": 1.0762450247661567e-05,
+            "velocity_error": 3.309555257549915e-05,
+            "rotation_error_radians": 4.7320324834734524e-05,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.011307675346207318,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 1.0762015083928799e-05,
+            "position_y_error": 0.0,
+            "position_z_error": 9.678154100616931e-08,
+            "velocity_x_error": 9.405697867526082e-06,
+            "velocity_y_error": 6.9282032266288095e-09,
+            "velocity_z_error": 3.173087455306651e-05,
+            "angular_momentum_x_error": 0.0026044449277147852,
+            "angular_momentum_y_error": 0.010089662650750404,
+            "angular_momentum_z_error": 0.004390796732687342
+          }
+        },
+        "contact-locked-triangle-depth1-speed2": {
+          "samples": 12,
+          "rms": {
+            "position_error": 0.0,
+            "velocity_error": 1.4536759060082332e-07,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.0,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 0.0,
+            "position_z_error": 0.0,
+            "velocity_x_error": 1.359545299042167e-07,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 5.145971429780789e-08,
+            "angular_momentum_x_error": 0.0,
+            "angular_momentum_y_error": 0.0,
+            "angular_momentum_z_error": 0.0
+          }
+        },
+        "contact-locked-triangle-depth5-speed0": {
+          "samples": 12,
+          "rms": {
+            "position_error": 2.1574058495944725e-05,
+            "velocity_error": 0.002244312330369565,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.0,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 0.0,
+            "position_z_error": 2.1574058495944725e-05,
+            "velocity_x_error": 5.852527232580083e-06,
+            "velocity_y_error": 0.0,
+            "velocity_z_error": 0.0022443046994946696,
+            "angular_momentum_x_error": 0.0,
+            "angular_momentum_y_error": 0.0,
+            "angular_momentum_z_error": 0.0
+          }
+        },
+        "contact-free-triangle-depth1-speed2": {
+          "samples": 12,
+          "rms": {
+            "position_error": 8.655255218257473e-15,
+            "velocity_error": 5.384538702720649e-07,
+            "rotation_error_radians": 0.0,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 0.11210187078456246,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 8.655255218257473e-15,
+            "position_z_error": 0.0,
+            "velocity_x_error": 1.380667722564443e-07,
+            "velocity_y_error": 7.82622509606983e-14,
+            "velocity_z_error": 5.204518583016557e-07,
+            "angular_momentum_x_error": 0.1120988394426636,
+            "angular_momentum_y_error": 0.0008233106426162607,
+            "angular_momentum_z_error": 4.2291753604444777e-05
+          }
+        },
+        "contact-free-triangle-depth5-speed0": {
+          "samples": 12,
+          "rms": {
+            "position_error": 2.157405849597968e-05,
+            "velocity_error": 0.0022431190217237574,
+            "rotation_error_radians": 6.415003256385751e-07,
+            "wheel_speed_error": 0.0,
+            "angular_momentum_error": 14.975701958221961,
+            "suspension_length_error": 0.0,
+            "wheel_height_error": 0.0,
+            "position_x_error": 0.0,
+            "position_y_error": 3.8837360757734993e-11,
+            "position_z_error": 2.1574058495944725e-05,
+            "velocity_x_error": 8.02512980212741e-06,
+            "velocity_y_error": 3.4268921982822873e-10,
+            "velocity_z_error": 0.0022431046660623057,
+            "angular_momentum_x_error": 14.421127141366368,
+            "angular_momentum_y_error": 4.03766473830476,
+            "angular_momentum_z_error": 0.0021389459403890064
+          }
+        },
+        "monstertruckBoss/suspension-drop": {
+          "samples": 600,
+          "rms": {
+            "position_error": 0.35279481476442576,
+            "velocity_error": 0.1020009676563972,
+            "rotation_error_radians": 0.03706058765557556,
+            "wheel_speed_error": 0.0870611289273797,
+            "angular_momentum_error": 42.96310596329267,
+            "suspension_length_error": 0.006607760429188077,
+            "wheel_height_error": 4.3293611603821374e-07,
+            "position_x_error": 0.35261467686095216,
+            "position_y_error": 0.0076557196162669195,
+            "position_z_error": 0.008274112887124768,
+            "velocity_x_error": 0.06539340940617325,
+            "velocity_y_error": 0.0025210703760170415,
+            "velocity_z_error": 0.07824029405132095,
+            "angular_momentum_x_error": 10.559080258418806,
+            "angular_momentum_y_error": 16.28127684308708,
+            "angular_momentum_z_error": 38.33085340125029
+          }
+        }
+      },
+      "default_promotion": false,
+      "reason": "Back-facing wall contacts and wheel/body coupling still regress. Later trial preserving final zero-normal friction also regressed and was removed."
+    }
+  },
+  "corrected_winding_full_matrix": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "changed": [
+        "radius-small",
+        "mass-heavy",
+        "body-slide-x",
+        "body-slide-y",
+        "body-slide-diagonal",
+        "body-tilt-pitch",
+        "body-tilt-roll",
+        "border-air-straight",
+        "border-air-oblique",
+        "border-grounded",
+        "border-pole",
+        "border-front-air-straight",
+        "border-front-air-oblique",
+        "border-front-grounded",
+        "contact-locked-triangle-depth0-speed2",
+        "contact-locked-triangle-depth1-speed2",
+        "contact-locked-triangle-depth2-speed2",
+        "contact-locked-triangle-depth3-speed1",
+        "contact-locked-triangle-depth3-speed2",
+        "contact-locked-triangle-depth4-speed0",
+        "contact-locked-triangle-depth4-speed1",
+        "contact-locked-triangle-depth4-speed2",
+        "contact-locked-triangle-depth5-speed0",
+        "contact-locked-triangle-depth5-speed1",
+        "contact-locked-triangle-depth5-speed2",
+        "contact-free-triangle-depth0-speed2",
+        "contact-free-triangle-depth1-speed2",
+        "contact-free-triangle-depth2-speed2",
+        "contact-free-triangle-depth3-speed1",
+        "contact-free-triangle-depth3-speed2",
+        "contact-free-triangle-depth4-speed0",
+        "contact-free-triangle-depth4-speed1",
+        "contact-free-triangle-depth4-speed2",
+        "contact-free-triangle-depth5-speed0",
+        "contact-free-triangle-depth5-speed1",
+        "contact-free-triangle-depth5-speed2",
+        "skin-tilted-triangle-angle0-skin0-thin0",
+        "skin-tilted-triangle-angle1-skin0-thin0",
+        "skin-tilted-triangle-angle2-skin0-thin0",
+        "skin-tilted-triangle-angle3-skin0-thin0",
+        "skin-tilted-triangle-angle4-skin0-thin0",
+        "skin-tilted-triangle-angle0-skin1-thin0",
+        "skin-tilted-triangle-angle1-skin1-thin0",
+        "skin-tilted-triangle-angle2-skin1-thin0",
+        "skin-tilted-triangle-angle3-skin1-thin0",
+        "skin-tilted-triangle-angle4-skin1-thin0",
+        "skin-tilted-triangle-angle0-skin2-thin0",
+        "skin-tilted-triangle-angle1-skin2-thin0",
+        "skin-tilted-triangle-angle2-skin2-thin0",
+        "skin-tilted-triangle-angle3-skin2-thin0",
+        "skin-tilted-triangle-angle4-skin2-thin0",
+        "skin-tilted-triangle-angle0-skin0-thin1",
+        "skin-tilted-triangle-angle1-skin0-thin1",
+        "skin-tilted-triangle-angle2-skin0-thin1",
+        "skin-tilted-triangle-angle3-skin0-thin1",
+        "skin-tilted-triangle-angle4-skin0-thin1",
+        "skin-tilted-triangle-angle0-skin1-thin1",
+        "skin-tilted-triangle-angle1-skin1-thin1",
+        "skin-tilted-triangle-angle2-skin1-thin1",
+        "skin-tilted-triangle-angle3-skin1-thin1",
+        "skin-tilted-triangle-angle4-skin1-thin1",
+        "skin-tilted-triangle-angle0-skin2-thin1",
+        "skin-tilted-triangle-angle1-skin2-thin1",
+        "skin-tilted-triangle-angle2-skin2-thin1",
+        "skin-tilted-triangle-angle3-skin2-thin1",
+        "skin-tilted-triangle-angle4-skin2-thin1",
+        "marauder/suspension-drop",
+        "mobility/marauder/wheel1/suspension-drop",
+        "mobility/marauder/wheel2/suspension-drop",
+        "mobility/marauder/wheel3/suspension-drop",
+        "monstertruckBoss/suspension-drop",
+        "mobility/monstertruckBoss/wheel1/suspension-drop",
+        "mobility/monstertruckBoss/wheel2/suspension-drop",
+        "mobility/monstertruckBoss/wheel3/suspension-drop",
+        "xCar/suspension-drop",
+        "mobility/xCar/engine1/suspension-drop",
+        "mobility/xCar/engine2/suspension-drop",
+        "mobility/xCar/engine3/suspension-drop"
+      ],
+      "weighted_rms": {
+        "position_error": 0.2531558403882247,
+        "velocity_error": 0.1455549777512968,
+        "rotation_error_radians": 0.09043795180671785,
+        "angular_momentum_error": 207.88623924420952,
+        "suspension_length_error": 0.005660109767008124
+      },
+      "regressions": {
+        "position_error": [
+          {
+            "case": "border-grounded",
+            "old": 0.4032942439465397,
+            "new": 2.3481537396016514,
+            "delta": 1.9448594956551117
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.010662757696741382,
+            "new": 0.3547792635681182,
+            "delta": 0.34411650587137677
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.010662757736214995,
+            "new": 0.35477920182512385,
+            "delta": 0.34411644408890885
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.010277955245546254,
+            "new": 0.35388788813648003,
+            "delta": 0.3436099328909338
+          },
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.011167646304758897,
+            "new": 0.35279481476442576,
+            "delta": 0.34162716845966684
+          },
+          {
+            "case": "body-slide-diagonal",
+            "old": 0.7864664121452013,
+            "new": 0.7901302745185671,
+            "delta": 0.0036638623733658005
+          },
+          {
+            "case": "mobility/xCar/engine2/suspension-drop",
+            "old": 0.0239488033426553,
+            "new": 0.024409902204622743,
+            "delta": 0.00046109886196744193
+          },
+          {
+            "case": "mobility/xCar/engine1/suspension-drop",
+            "old": 0.023948827239305675,
+            "new": 0.024409904025114094,
+            "delta": 0.00046107678580841957
+          },
+          {
+            "case": "mobility/xCar/engine3/suspension-drop",
+            "old": 0.02394882849684488,
+            "new": 0.024409889497742802,
+            "delta": 0.0004610610008979228
+          },
+          {
+            "case": "xCar/suspension-drop",
+            "old": 0.023969489597568394,
+            "new": 0.02440478639046619,
+            "delta": 0.00043529679289779424
+          },
+          {
+            "case": "mass-heavy",
+            "old": 0.004513403854038701,
+            "new": 0.004515713038464945,
+            "delta": 2.3091844262440597e-06
+          }
+        ],
+        "velocity_error": [
+          {
+            "case": "border-grounded",
+            "old": 0.36656889262257814,
+            "new": 0.5371140211598115,
+            "delta": 0.17054512853723341
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.09494133101334273,
+            "new": 0.10220708722561378,
+            "delta": 0.007265756212271046
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.0949411149869584,
+            "new": 0.10220666143265154,
+            "delta": 0.007265546445693147
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.09496298145255076,
+            "new": 0.10212197753095752,
+            "delta": 0.007158996078406754
+          },
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.0949590815601293,
+            "new": 0.1020009676563972,
+            "delta": 0.007041886096267894
+          },
+          {
+            "case": "mobility/marauder/wheel1/suspension-drop",
+            "old": 0.07083220258213142,
+            "new": 0.0708390922440477,
+            "delta": 6.8896619162817085e-06
+          },
+          {
+            "case": "mobility/marauder/wheel3/suspension-drop",
+            "old": 0.07083167320212375,
+            "new": 0.07083719909525889,
+            "delta": 5.525893135141513e-06
+          },
+          {
+            "case": "mobility/marauder/wheel2/suspension-drop",
+            "old": 0.07083077557163571,
+            "new": 0.07083599724143869,
+            "delta": 5.2216698029766695e-06
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 0.07083451960825751,
+            "new": 0.07083887681839397,
+            "delta": 4.357210136460288e-06
+          }
+        ],
+        "rotation_error_radians": [
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.0006216329971313715,
+            "new": 0.03706058765557556,
+            "delta": 0.036438954658444184
+          },
+          {
+            "case": "border-grounded",
+            "old": 0.04000358104713391,
+            "new": 0.05272510219048719,
+            "delta": 0.01272152114335328
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.0002349280491154298,
+            "new": 0.0025492972243594185,
+            "delta": 0.0023143691752439887
+          },
+          {
+            "case": "radius-small",
+            "old": 0.0021063043056077685,
+            "new": 0.0029965950698610413,
+            "delta": 0.0008902907642532728
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.00022761939536713593,
+            "new": 0.0005735096951735991,
+            "delta": 0.00034589029980646314
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.00022805712184682702,
+            "new": 0.0005734862881387855,
+            "delta": 0.00034542916629195846
+          },
+          {
+            "case": "mass-heavy",
+            "old": 0.00027832867407657943,
+            "new": 0.0002812840855800011,
+            "delta": 2.9554115034216848e-06
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 0.008038652486695885,
+            "new": 0.008041126239277697,
+            "delta": 2.4737525818122053e-06
+          }
+        ],
+        "angular_momentum_error": [
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 9.054182552198467,
+            "new": 42.96310596329267,
+            "delta": 33.9089234110942
+          },
+          {
+            "case": "border-grounded",
+            "old": 498.6173610488151,
+            "new": 519.6966932757731,
+            "delta": 21.079332226958
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 9.023303154750133,
+            "new": 23.417893296375546,
+            "delta": 14.394590141625413
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 9.004423980366568,
+            "new": 19.623406263511978,
+            "delta": 10.61898228314541
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 9.006194542141062,
+            "new": 19.621978795179363,
+            "delta": 10.615784253038301
+          },
+          {
+            "case": "mobility/xCar/engine2/suspension-drop",
+            "old": 8.421645345795914,
+            "new": 8.913198946360241,
+            "delta": 0.49155360056432684
+          },
+          {
+            "case": "mobility/xCar/engine1/suspension-drop",
+            "old": 8.422726272571403,
+            "new": 8.913170330511315,
+            "delta": 0.4904440579399125
+          },
+          {
+            "case": "mobility/xCar/engine3/suspension-drop",
+            "old": 8.423564873225695,
+            "new": 8.913182765935634,
+            "delta": 0.48961789270993883
+          },
+          {
+            "case": "xCar/suspension-drop",
+            "old": 8.458614861071506,
+            "new": 8.90254901126164,
+            "delta": 0.4439341501901328
+          },
+          {
+            "case": "mobility/marauder/wheel2/suspension-drop",
+            "old": 20.528489453627643,
+            "new": 20.546975702289558,
+            "delta": 0.018486248661915283
+          },
+          {
+            "case": "mobility/marauder/wheel3/suspension-drop",
+            "old": 20.527250163217936,
+            "new": 20.54570844448996,
+            "delta": 0.01845828127202509
+          },
+          {
+            "case": "mobility/marauder/wheel1/suspension-drop",
+            "old": 20.57785209175918,
+            "new": 20.595716943880284,
+            "delta": 0.01786485212110378
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 21.077223261099963,
+            "new": 21.092369546929753,
+            "delta": 0.015146285829789718
+          },
+          {
+            "case": "border-air-straight",
+            "old": 916.4801462298158,
+            "new": 916.4808941332954,
+            "delta": 0.0007479034795778716
+          },
+          {
+            "case": "contact-free-triangle-depth5-speed1",
+            "old": 21.534908672908394,
+            "new": 21.535442470852836,
+            "delta": 0.0005337979444419716
+          },
+          {
+            "case": "contact-free-triangle-depth4-speed1",
+            "old": 4.480444363967806,
+            "new": 4.480542892086905,
+            "delta": 9.852811909816239e-05
+          },
+          {
+            "case": "contact-free-triangle-depth4-speed0",
+            "old": 0.6679015969057723,
+            "new": 0.6679431185855758,
+            "delta": 4.152167980342458e-05
+          },
+          {
+            "case": "contact-free-triangle-depth5-speed0",
+            "old": 14.975679131810873,
+            "new": 14.975701958221961,
+            "delta": 2.2826411088416876e-05
+          }
+        ],
+        "suspension_length_error": []
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "5c0eadd8fb364aaabebd5ffdf718db7ec2e7ca4ada876e3d6e7ceb9466a623bf"
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "changed": [
+        "radius-small",
+        "mass-heavy",
+        "body-slide-x",
+        "body-slide-y",
+        "body-slide-diagonal",
+        "body-tilt-pitch",
+        "body-tilt-roll",
+        "border-air-straight",
+        "border-air-oblique",
+        "border-grounded",
+        "border-pole",
+        "border-front-air-straight",
+        "border-front-air-oblique",
+        "border-front-grounded",
+        "contact-locked-triangle-depth0-speed2",
+        "contact-locked-triangle-depth1-speed2",
+        "contact-locked-triangle-depth2-speed2",
+        "contact-locked-triangle-depth3-speed1",
+        "contact-locked-triangle-depth3-speed2",
+        "contact-locked-triangle-depth4-speed0",
+        "contact-locked-triangle-depth4-speed1",
+        "contact-locked-triangle-depth4-speed2",
+        "contact-locked-triangle-depth5-speed0",
+        "contact-locked-triangle-depth5-speed1",
+        "contact-locked-triangle-depth5-speed2",
+        "contact-free-triangle-depth0-speed2",
+        "contact-free-triangle-depth1-speed2",
+        "contact-free-triangle-depth2-speed2",
+        "contact-free-triangle-depth3-speed1",
+        "contact-free-triangle-depth3-speed2",
+        "contact-free-triangle-depth4-speed0",
+        "contact-free-triangle-depth4-speed1",
+        "contact-free-triangle-depth4-speed2",
+        "contact-free-triangle-depth5-speed0",
+        "contact-free-triangle-depth5-speed1",
+        "contact-free-triangle-depth5-speed2",
+        "skin-tilted-triangle-angle0-skin0-thin0",
+        "skin-tilted-triangle-angle1-skin0-thin0",
+        "skin-tilted-triangle-angle2-skin0-thin0",
+        "skin-tilted-triangle-angle3-skin0-thin0",
+        "skin-tilted-triangle-angle4-skin0-thin0",
+        "skin-tilted-triangle-angle0-skin1-thin0",
+        "skin-tilted-triangle-angle1-skin1-thin0",
+        "skin-tilted-triangle-angle2-skin1-thin0",
+        "skin-tilted-triangle-angle3-skin1-thin0",
+        "skin-tilted-triangle-angle4-skin1-thin0",
+        "skin-tilted-triangle-angle0-skin2-thin0",
+        "skin-tilted-triangle-angle1-skin2-thin0",
+        "skin-tilted-triangle-angle2-skin2-thin0",
+        "skin-tilted-triangle-angle3-skin2-thin0",
+        "skin-tilted-triangle-angle4-skin2-thin0",
+        "skin-tilted-triangle-angle0-skin0-thin1",
+        "skin-tilted-triangle-angle1-skin0-thin1",
+        "skin-tilted-triangle-angle2-skin0-thin1",
+        "skin-tilted-triangle-angle3-skin0-thin1",
+        "skin-tilted-triangle-angle4-skin0-thin1",
+        "skin-tilted-triangle-angle0-skin1-thin1",
+        "skin-tilted-triangle-angle1-skin1-thin1",
+        "skin-tilted-triangle-angle2-skin1-thin1",
+        "skin-tilted-triangle-angle3-skin1-thin1",
+        "skin-tilted-triangle-angle4-skin1-thin1",
+        "skin-tilted-triangle-angle0-skin2-thin1",
+        "skin-tilted-triangle-angle1-skin2-thin1",
+        "skin-tilted-triangle-angle2-skin2-thin1",
+        "skin-tilted-triangle-angle3-skin2-thin1",
+        "skin-tilted-triangle-angle4-skin2-thin1",
+        "marauder/suspension-drop",
+        "mobility/marauder/wheel1/suspension-drop",
+        "mobility/marauder/wheel2/suspension-drop",
+        "mobility/marauder/wheel3/suspension-drop",
+        "monstertruckBoss/suspension-drop",
+        "mobility/monstertruckBoss/wheel1/suspension-drop",
+        "mobility/monstertruckBoss/wheel2/suspension-drop",
+        "mobility/monstertruckBoss/wheel3/suspension-drop",
+        "xCar/suspension-drop",
+        "mobility/xCar/engine1/suspension-drop",
+        "mobility/xCar/engine2/suspension-drop",
+        "mobility/xCar/engine3/suspension-drop"
+      ],
+      "weighted_rms": {
+        "position_error": 0.22191545092762455,
+        "velocity_error": 0.13704337553244833,
+        "rotation_error_radians": 0.09043795180671785,
+        "angular_momentum_error": 207.88623924420952,
+        "suspension_length_error": 0.005660109767008124
+      },
+      "regressions": {
+        "position_error": [
+          {
+            "case": "border-grounded",
+            "old": 0.4032942439465397,
+            "new": 2.3481537396016514,
+            "delta": 1.9448594956551117
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.010662757696741382,
+            "new": 0.3547792635681182,
+            "delta": 0.34411650587137677
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.010662757736214995,
+            "new": 0.35477920182512385,
+            "delta": 0.34411644408890885
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.010277955245546254,
+            "new": 0.35388788813648003,
+            "delta": 0.3436099328909338
+          },
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.011167646304758897,
+            "new": 0.35279481476442576,
+            "delta": 0.34162716845966684
+          },
+          {
+            "case": "body-slide-diagonal",
+            "old": 0.7864664121452013,
+            "new": 0.7901302745185671,
+            "delta": 0.0036638623733658005
+          },
+          {
+            "case": "mobility/xCar/engine2/suspension-drop",
+            "old": 0.0239488033426553,
+            "new": 0.024409902204622743,
+            "delta": 0.00046109886196744193
+          },
+          {
+            "case": "mobility/xCar/engine1/suspension-drop",
+            "old": 0.023948827239305675,
+            "new": 0.024409904025114094,
+            "delta": 0.00046107678580841957
+          },
+          {
+            "case": "mobility/xCar/engine3/suspension-drop",
+            "old": 0.02394882849684488,
+            "new": 0.024409889497742802,
+            "delta": 0.0004610610008979228
+          },
+          {
+            "case": "xCar/suspension-drop",
+            "old": 0.023969489597568394,
+            "new": 0.02440478639046619,
+            "delta": 0.00043529679289779424
+          },
+          {
+            "case": "mass-heavy",
+            "old": 0.004513403854038701,
+            "new": 0.004515713038464945,
+            "delta": 2.3091844262440597e-06
+          }
+        ],
+        "velocity_error": [
+          {
+            "case": "border-grounded",
+            "old": 0.36656889262257814,
+            "new": 0.5371140211598115,
+            "delta": 0.17054512853723341
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.09494133101334273,
+            "new": 0.10220708722561378,
+            "delta": 0.007265756212271046
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.0949411149869584,
+            "new": 0.10220666143265154,
+            "delta": 0.007265546445693147
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.09496298145255076,
+            "new": 0.10212197753095752,
+            "delta": 0.007158996078406754
+          },
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.0949590815601293,
+            "new": 0.1020009676563972,
+            "delta": 0.007041886096267894
+          },
+          {
+            "case": "skin-tilted-triangle-angle4-skin0-thin1",
+            "old": 0.020090268776423167,
+            "new": 0.020420551707933804,
+            "delta": 0.0003302829315106372
+          },
+          {
+            "case": "mobility/marauder/wheel1/suspension-drop",
+            "old": 0.07083220258213142,
+            "new": 0.0708390922440477,
+            "delta": 6.8896619162817085e-06
+          },
+          {
+            "case": "mobility/marauder/wheel3/suspension-drop",
+            "old": 0.07083167320212375,
+            "new": 0.07083719909525889,
+            "delta": 5.525893135141513e-06
+          },
+          {
+            "case": "mobility/marauder/wheel2/suspension-drop",
+            "old": 0.07083077557163571,
+            "new": 0.07083599724143869,
+            "delta": 5.2216698029766695e-06
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 0.07083451960825751,
+            "new": 0.07083887681839397,
+            "delta": 4.357210136460288e-06
+          }
+        ],
+        "rotation_error_radians": [
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 0.0006216329971313715,
+            "new": 0.03706058765557556,
+            "delta": 0.036438954658444184
+          },
+          {
+            "case": "border-grounded",
+            "old": 0.04000358104713391,
+            "new": 0.05272510219048719,
+            "delta": 0.01272152114335328
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 0.0002349280491154298,
+            "new": 0.0025492972243594185,
+            "delta": 0.0023143691752439887
+          },
+          {
+            "case": "radius-small",
+            "old": 0.0021063043056077685,
+            "new": 0.0029965950698610413,
+            "delta": 0.0008902907642532728
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 0.00022761939536713593,
+            "new": 0.0005735096951735991,
+            "delta": 0.00034589029980646314
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 0.00022805712184682702,
+            "new": 0.0005734862881387855,
+            "delta": 0.00034542916629195846
+          },
+          {
+            "case": "mass-heavy",
+            "old": 0.00027832867407657943,
+            "new": 0.0002812840855800011,
+            "delta": 2.9554115034216848e-06
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 0.008038652486695885,
+            "new": 0.008041126239277697,
+            "delta": 2.4737525818122053e-06
+          }
+        ],
+        "angular_momentum_error": [
+          {
+            "case": "monstertruckBoss/suspension-drop",
+            "old": 9.054182552198467,
+            "new": 42.96310596329267,
+            "delta": 33.9089234110942
+          },
+          {
+            "case": "border-grounded",
+            "old": 498.6173610488151,
+            "new": 519.6966932757731,
+            "delta": 21.079332226958
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel1/suspension-drop",
+            "old": 9.023303154750133,
+            "new": 23.417893296375546,
+            "delta": 14.394590141625413
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel2/suspension-drop",
+            "old": 9.004423980366568,
+            "new": 19.623406263511978,
+            "delta": 10.61898228314541
+          },
+          {
+            "case": "mobility/monstertruckBoss/wheel3/suspension-drop",
+            "old": 9.006194542141062,
+            "new": 19.621978795179363,
+            "delta": 10.615784253038301
+          },
+          {
+            "case": "mobility/xCar/engine2/suspension-drop",
+            "old": 8.421645345795914,
+            "new": 8.913198946360241,
+            "delta": 0.49155360056432684
+          },
+          {
+            "case": "mobility/xCar/engine1/suspension-drop",
+            "old": 8.422726272571403,
+            "new": 8.913170330511315,
+            "delta": 0.4904440579399125
+          },
+          {
+            "case": "mobility/xCar/engine3/suspension-drop",
+            "old": 8.423564873225695,
+            "new": 8.913182765935634,
+            "delta": 0.48961789270993883
+          },
+          {
+            "case": "xCar/suspension-drop",
+            "old": 8.458614861071506,
+            "new": 8.90254901126164,
+            "delta": 0.4439341501901328
+          },
+          {
+            "case": "mobility/marauder/wheel2/suspension-drop",
+            "old": 20.528489453627643,
+            "new": 20.546975702289558,
+            "delta": 0.018486248661915283
+          },
+          {
+            "case": "mobility/marauder/wheel3/suspension-drop",
+            "old": 20.527250163217936,
+            "new": 20.54570844448996,
+            "delta": 0.01845828127202509
+          },
+          {
+            "case": "mobility/marauder/wheel1/suspension-drop",
+            "old": 20.57785209175918,
+            "new": 20.595716943880284,
+            "delta": 0.01786485212110378
+          },
+          {
+            "case": "marauder/suspension-drop",
+            "old": 21.077223261099963,
+            "new": 21.092369546929753,
+            "delta": 0.015146285829789718
+          },
+          {
+            "case": "border-air-straight",
+            "old": 916.4801462298158,
+            "new": 916.4808941332954,
+            "delta": 0.0007479034795778716
+          },
+          {
+            "case": "contact-free-triangle-depth5-speed1",
+            "old": 21.534908672908394,
+            "new": 21.535442470852836,
+            "delta": 0.0005337979444419716
+          },
+          {
+            "case": "contact-free-triangle-depth4-speed1",
+            "old": 4.480444363967806,
+            "new": 4.480542892086905,
+            "delta": 9.852811909816239e-05
+          },
+          {
+            "case": "contact-free-triangle-depth4-speed0",
+            "old": 0.6679015969057723,
+            "new": 0.6679431185855758,
+            "delta": 4.152167980342458e-05
+          },
+          {
+            "case": "contact-free-triangle-depth5-speed0",
+            "old": 14.975679131810873,
+            "new": 14.975701958221961,
+            "delta": 2.2826411088416876e-05
+          }
+        ],
+        "suspension_length_error": []
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "6e84d5bcfa6946588827474ca8e24a0a01f19d5705a10a916145a827ade328c1"
+    },
+    "production_default": false,
+    "status": "Candidate retained only as an opt-in prototype; 11 position regressions and wheel/body coupling remain."
+  },
+  "disabled_experiment_full_controls": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "all_sample_digests_identical": true,
+      "candidate_sha256": "7ede58ddae1ff191085b297ed072e7588409d640911ef02f3501d5e7c410f9e5"
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "all_sample_digests_identical": true
+    }
+  },
+  "checks": {
+    "ctest_passed": 45,
+    "comparison_tests_passed": 19,
+    "independent_windows_physical_repeats": 12,
+    "independent_geometry_manifolds": 7,
+    "ordered_points_with_triangle_ids": 46,
+    "separated_floor_negative_control": true
+  }
+}

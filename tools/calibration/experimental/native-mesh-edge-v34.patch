@@ -1,0 +1,131 @@
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -570,11 +570,45 @@
+ 	return InsideFlag & 1;
+ }
+ 
++// v34 candidate: observed Native edge path normalizes plane normal and the
++// colliding segment before division. Each SSE scalar primitive stores float32;
++// reciprocal sqrt uses an extended intermediate as in the x87 source path.
++// No recorded coordinates or case identifiers are used. Tilted parity pending.
++namespace nativeedge {
++inline float store(double a){volatile float r=static_cast<float>(a);return r;}
++inline float add(float a,float b){return store(double(a)+b);}
++inline float sub(float a,float b){return store(double(a)-b);}
++inline float mul(float a,float b){return store(double(a)*b);}
++inline float divide(float a,float b){return store(double(a)/b);}
++inline float dot(PxVec3 a,PxVec3 b){return add(add(mul(a.y,b.y),mul(a.z,b.z)),mul(a.x,b.x));}
++inline PxVec3 unit(PxVec3 a){
++ const float length2=add(add(mul(a.x,a.x),mul(a.z,a.z)),mul(a.y,a.y));
++ if(!(length2>0))return PxVec3(0);
++ const double inverse=1.0/std::sqrt(double(length2));
++ return {store(double(a.x)*inverse),store(double(a.y)*inverse),store(double(a.z)*inverse)};
++}
++inline bool intersect(PxVec3 v1,const PxPlane& plane,PxVec3 p1,PxVec3 p2,PxVec3 dir,PxVec3 p3,PxVec3 p4,float& distance,PxVec3& point,unsigned i,unsigned j,float coefficient){
++ const float d3=add(dot(plane.n,p3),plane.d);
++ if(mul(d3,add(dot(plane.n,p4),plane.d))>0)return false;
++ const auto v2=unit({sub(p4.x,p3.x),sub(p4.y,p3.y),sub(p4.z,p3.z)});
++ const float denominator=add(add(mul(plane.n.x,v2.x),mul(plane.n.z,v2.z)),mul(plane.n.y,v2.y));
++ if(denominator==0)return false;
++ const float ratio=divide(d3,denominator);
++ for(int a=0;a<3;++a)point[a]=sub(p3[a],mul(v2[a],ratio));
++ distance=mul(sub(mul(v1[i],sub(point[j],p1[j])),mul(v1[j],sub(point[i],p1[i]))),coefficient);
++ if(distance<0)return false;
++ for(int a=0;a<3;++a)point[a]=sub(point[a],mul(distance,dir[a]));
++ const float x=mul(sub(p1.x,point.x),sub(p2.x,point.x)),z=mul(sub(p1.z,point.z),sub(p2.z,point.z)),y=mul(sub(p1.y,point.y),sub(p2.y,point.y));
++ return add(add(x,z),y)<0;
++}
++}
++
+ // Helper function to detect contact between two edges
+ PX_FORCE_INLINE bool EdgeEdgeContactSpecial(const PxVec3& v1, const PxPlane& plane, 
+ 	const PxVec3& p1, const PxVec3& p2, const PxVec3& dir, const PxVec3& p3, const PxVec3& p4,
+-	PxReal& dist, PxVec3& ip, unsigned int i, unsigned int j, float coeff)
+-{
++	PxReal& dist, PxVec3& ip, unsigned int i, unsigned int j, float coeff, bool nativeEdge=false)
++{
++ if(nativeEdge)return nativeedge::intersect(v1,plane,p1,p2,dir,p3,p4,dist,ip,i,j,coeff);
+ 	const PxReal d3 = plane.distance(p3);
+ 	PxReal temp = d3 * plane.distance(p4);
+ 	if(temp > 0.0f)
+@@ -618,7 +652,7 @@
+ 									const Cm::Matrix34& transform0to1, const Cm::Matrix34& transform1to0,	//transforms between polygons
+ 									PxU32 /*polyIndex0*/, PxU32 polyIndex1,	//feature indices for contact callback
+ 									ContactBuffer& contactBuffer,
+-									bool flipNormal, const PxVec3& posShift, PxReal sepShift)	// shape order, result shift
++									bool flipNormal, const PxVec3& posShift, PxReal sepShift, bool nativeEdge=false)	// shape order, result shift
+ {
+ 	const PxVec3 n = flipNormal ? -worldSepAxis : worldSepAxis;
+ 
+@@ -858,14 +892,16 @@
+ //		gVisualizeLocalLine(vertices1[indices1[j]], vertices1[indices1[j1]], world1, callback.getManager());
+ 
+ 		const PxVec3 v1 = p1-p0;
+-		const PxVec3 planeNormal = v1.cross(localPlane0.n);
+-		const PxPlane plane(planeNormal, -(planeNormal.dot(p0)));
++		PxVec3 planeNormal = v1.cross(localPlane0.n);
++        if(nativeEdge)planeNormal=nativeedge::unit(planeNormal);
++		const PxPlane plane(planeNormal, -(nativeEdge?nativeedge::dot(planeNormal,p0):planeNormal.dot(p0)));
+ 
+ 		// find largest 2D plane projection
+ 		PxU32 _i, _j;
+ 		Ps::closestAxis(planeNormal, _i, _j);
+-
+-		const PxReal coeff = 1.0f / (v1[_i]*localPlane0.n[_j]-v1[_j]*localPlane0.n[_i]);
++        if(nativeEdge){_i=1;_j=2;if(std::abs(planeNormal.y)>std::abs(planeNormal.x)&&std::abs(planeNormal.y)>std::abs(planeNormal.z))_i=0;else if(std::abs(planeNormal.z)>std::abs(planeNormal.x)){_i=0;_j=1;}}
++
++		const PxReal coeff = nativeEdge?nativeedge::divide(1.0f,nativeedge::sub(nativeedge::mul(v1[_i],localPlane0.n[_j]),nativeedge::mul(v1[_j],localPlane0.n[_i]))):1.0f / (v1[_i]*localPlane0.n[_j]-v1[_j]*localPlane0.n[_i]);
+ 
+ 		for(PxU32 i=0; i<numVerts0; i++)
+ 		{
+@@ -887,7 +923,7 @@
+ 			PxReal dist;
+ 			PxVec3 p;
+ 
+-			if(EdgeEdgeContactSpecial(v1, plane, p0, p1, localPlane0.n, p0b, p1b, dist, p, _i, _j, coeff))
++			if(EdgeEdgeContactSpecial(v1, plane, p0, p1, localPlane0.n, p0b, p1b, dist, p, _i, _j, coeff, nativeEdge))
+ 			{
+ 				status = true;	// PT: keep this first to avoid an LHS when leaving the function
+ /*				p = world0.transform(p);
+@@ -925,7 +961,7 @@
+ // Experimental face-contact wrapper. SAT/backface validation is supplied by
+ // the caller; edge-axis contacts require a separate generic convex wrapper.
+ inline void faceContacts(ContactBuffer& out,PxVec3 half,const Cm::Matrix34& box,
+-                         const std::array<PxVec3,3>& triangle,unsigned index=0)
++                         const std::array<PxVec3,3>& triangle,unsigned index=0,bool nativeEdge=false)
+ {
+  const PxPlane plane(triangle[0],triangle[1],triangle[2]);
+  if(plane.distance(box.p)<0.0f)return;
+@@ -954,8 +990,8 @@
+  const auto r0=findRotationMatrixFromZ(face.n),r1=findRotationMatrixFromZ(plane.n);
+  const auto worldFaceNormal=box.rotate(face.n);
+  if(std::abs(worldFaceNormal.dot(plane.n))>1.0f)
+-  contactPolygonPolygonExt(4,verts.data(),boxIndices,box,face,r0,3,triangle.data(),triIndices,world,plane,r1,worldFaceNormal,toTriangle,toBox,0,index,out,true,PxVec3(0),0);
++  contactPolygonPolygonExt(4,verts.data(),boxIndices,box,face,r0,3,triangle.data(),triIndices,world,plane,r1,worldFaceNormal,toTriangle,toBox,0,index,out,true,PxVec3(0),0,nativeEdge);
+  else
+-  contactPolygonPolygonExt(3,triangle.data(),triIndices,world,plane,r1,4,verts.data(),boxIndices,box,face,r0,plane.n,toBox,toTriangle,0,index,out,false,PxVec3(0),0);
+-}
+-}
++  contactPolygonPolygonExt(3,triangle.data(),triIndices,world,plane,r1,4,verts.data(),boxIndices,box,face,r0,plane.n,toBox,toTriangle,0,index,out,false,PxVec3(0),0,nativeEdge);
++}
++}
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -994,6 +994,8 @@
+         }
+         sourcemesh::ContactBuffer contacts;
+         sourcemesh::PxVec3 commonNormal;
++        const char* nativeEdgeFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_EDGE");
++        const bool nativeEdge=nativeEdgeFlag && std::strcmp(nativeEdgeFlag,"1")==0;
+         unsigned index=0;
+         for (const auto& t : mesh->triangles) {
+             std::array<sourcemesh::PxVec3,3> verts;
+@@ -1006,7 +1008,7 @@
+             bool overlap=true;for(int a=0;a<3;++a)overlap &= min[a]<=hi[a]+.05f && max[a]>=lo[a]-.05f;
+             if(!overlap)continue;
+             const unsigned before=contacts.count;
+-            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex);
++            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge);
+             if(contacts.count==before)continue;
+             const auto normal=contacts.contacts[before].normal;
+             if(before && normal.dot(commonNormal)<.999999f)return false;

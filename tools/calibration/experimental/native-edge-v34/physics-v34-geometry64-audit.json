@@ -1,0 +1,732 @@
+{
+  "scope": "Broader standalone face-contact arithmetic only, recorded Native initial pose/mesh inputs and recorded SDK points, not full physical replay. v26 separation is reconstructed diagnostic.",
+  "reference_fixture_sha256": "4d1a428b1f481a92b6034aa7385cd3a0027b9fff4e9522d5eb44ba5bd10ebcb0",
+  "input_sha256": "ba9c060364844e2a3ae74f1e998e65dd8c6b0f904b9ab411001cb945975c50cf",
+  "helper_sha256": "c2f8dc05ba7e3278b6d77578895be07739dcd2b1ab06c076a56cd0efeb7ceab9",
+  "goal_complete": false,
+  "reports": {
+    "0": {
+      "semantic_numeric_repeats_exact": true,
+      "report": {
+        "scope": "64 initial native contact states,306 points. Actual native matrices supplied; counts/triangle order and coordinates are compared. Separation is reconstructed from callback constraint_error minus skin and is not claimed to equal internal SDK separation exactly.",
+        "cases": 64,
+        "points": 306,
+        "counts_and_triangle_order_exact": true,
+        "nonexact_points": 183,
+        "point_rms": 4.3059742804579526e-05,
+        "maximum_point_distance": 0.00017913751332582675,
+        "separation_rms": 7.916820714433055e-06,
+        "maximum_separation_error": 4.163831472397961e-05,
+        "details": {
+          "frame-v23-p0-x0-y0": {
+            "nonexact_points": 8,
+            "maximum_point_distance": 8.739809876739394e-05,
+            "maximum_separation_error": 7.816404104230013e-06
+          },
+          "frame-v23-p0-x0-y1": {
+            "nonexact_points": 6,
+            "maximum_point_distance": 8.659460047936399e-05,
+            "maximum_separation_error": 3.90950590371808e-06
+          },
+          "frame-v23-p0-x1-y0": {
+            "nonexact_points": 7,
+            "maximum_point_distance": 4.315837287515549e-05,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p0-x1-y1": {
+            "nonexact_points": 5,
+            "maximum_point_distance": 4.3433191382052305e-05,
+            "maximum_separation_error": 3.839656710621919e-06
+          },
+          "frame-v23-p0-x2-y0": {
+            "nonexact_points": 8,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5589594840992316e-05
+          },
+          "frame-v23-p0-x2-y1": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 4.315837287515549e-05,
+            "maximum_separation_error": 1.925230026234015e-06
+          },
+          "frame-v23-p1-x0-y0": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 9.620329998841089e-05,
+            "maximum_separation_error": 3.764331340788685e-05
+          },
+          "frame-v23-p1-x0-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 8.683727853263826e-05,
+            "maximum_separation_error": 2.214014530182995e-05
+          },
+          "frame-v23-p1-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.1175870923141318e-09
+          },
+          "frame-v23-p1-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p2-x0-y0": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 9.263123690992191e-05,
+            "maximum_separation_error": 3.309622406959256e-05
+          },
+          "frame-v23-p2-x0-y1": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.9674965215427e-05,
+            "maximum_separation_error": 2.5080703198912535e-05
+          },
+          "frame-v23-p2-x1-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p2-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 2.805888652812616e-06
+          },
+          "frame-v23-p3-x0-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 8.858383271173738e-05,
+            "maximum_separation_error": 1.6364455223072394e-05
+          },
+          "frame-v23-p3-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.320054028309979e-05,
+            "maximum_separation_error": 3.841519355785028e-06
+          },
+          "frame-v23-p3-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 6.083399057416061e-07
+          },
+          "frame-v23-p3-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.3116246626272375e-05,
+            "maximum_separation_error": 2.7984380722018143e-06
+          },
+          "frame-v23-p3-x2-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.841121015042938e-05,
+            "maximum_separation_error": 1.4853477478038446e-05
+          },
+          "frame-v23-p3-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.633136939492602e-05,
+            "maximum_separation_error": 1.5509128570567743e-05
+          },
+          "frame-v23-p4-x0-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5538930892955438e-05
+          },
+          "frame-v23-p4-x0-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.342990914516468e-05,
+            "maximum_separation_error": 3.929436206806525e-06
+          },
+          "frame-v23-p4-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 1.4156103136930831e-08
+          },
+          "frame-v23-p4-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 8.686638276410461e-05,
+            "maximum_separation_error": 7.67707824705921e-06
+          },
+          "frame-v23-p4-x2-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.4267756128611385e-05,
+            "maximum_separation_error": 7.77542591096081e-06
+          },
+          "frame-v23-p4-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.641564133029348e-05,
+            "maximum_separation_error": 1.5628337860118524e-05
+          },
+          "frame-v23-p5-x0-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5568733215343133e-05
+          },
+          "frame-v23-p5-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 0.0001299907474968695,
+            "maximum_separation_error": 7.812678813945428e-06
+          },
+          "frame-v23-p5-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 7.450580569168253e-10
+          },
+          "frame-v23-p5-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.3411990506839745e-05,
+            "maximum_separation_error": 3.834068775188104e-06
+          },
+          "frame-v23-p5-x2-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5538930892955438e-05
+          },
+          "frame-v23-p5-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 0.00017913751332582675,
+            "maximum_separation_error": 3.1334161758433954e-05
+          },
+          "frame-v23-p6-x0-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.4267756128611385e-05,
+            "maximum_separation_error": 7.760524749766962e-06
+          },
+          "frame-v23-p6-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 0.00013003341708812307,
+            "maximum_separation_error": 7.805228233348505e-06
+          },
+          "frame-v23-p6-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 1.4156103136930831e-08
+          },
+          "frame-v23-p6-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.3667064083652393e-05,
+            "maximum_separation_error": 7.67707824705921e-06
+          },
+          "frame-v23-p6-x2-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.552402973176159e-05
+          },
+          "frame-v23-p6-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 8.956825093715619e-05,
+            "maximum_separation_error": 1.563429832457386e-05
+          },
+          "frame-v23-p7-x0-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.841121015042938e-05,
+            "maximum_separation_error": 1.482367515565075e-05
+          },
+          "frame-v23-p7-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.342835485299281e-05,
+            "maximum_separation_error": 3.6761164665111146e-06
+          },
+          "frame-v23-p7-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 6.083399057416061e-07
+          },
+          "frame-v23-p7-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.172325134277344e-07,
+            "maximum_separation_error": 3.9368867874034486e-06
+          },
+          "frame-v23-p7-x2-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 8.858383271173738e-05,
+            "maximum_separation_error": 1.6304850578297003e-05
+          },
+          "frame-v23-p7-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 9.296553470587179e-05,
+            "maximum_separation_error": 3.2055377960193976e-05
+          },
+          "frame-v23-p8-x1-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p8-x1-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 4.479640997945431e-05,
+            "maximum_separation_error": 1.1676736176011171e-05
+          },
+          "frame-v23-p8-x2-y0": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 9.263123690992191e-05,
+            "maximum_separation_error": 3.311485052108487e-05
+          },
+          "frame-v23-p8-x2-y1": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 0.00014052506387872828,
+            "maximum_separation_error": 4.163831472397961e-05
+          },
+          "frame-v23-p9-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.980232241545089e-09
+          },
+          "frame-v23-p9-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p9-x2-y0": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 9.620329998841089e-05,
+            "maximum_separation_error": 3.7598609924305304e-05
+          },
+          "frame-v23-p9-x2-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 4.9156453211700375e-05,
+            "maximum_separation_error": 2.537369728089489e-05
+          },
+          "frame-v23-p10-x0-y0": {
+            "nonexact_points": 8,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5604496002186163e-05
+          },
+          "frame-v23-p10-x0-y1": {
+            "nonexact_points": 6,
+            "maximum_point_distance": 8.659460047936399e-05,
+            "maximum_separation_error": 3.936886787417326e-06
+          },
+          "frame-v23-p10-x1-y0": {
+            "nonexact_points": 7,
+            "maximum_point_distance": 4.315837287515549e-05,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p10-x1-y1": {
+            "nonexact_points": 5,
+            "maximum_point_distance": 4.3433191382052305e-05,
+            "maximum_separation_error": 3.851205110552702e-06
+          },
+          "frame-v23-p10-x2-y0": {
+            "nonexact_points": 8,
+            "maximum_point_distance": 8.739809876739394e-05,
+            "maximum_separation_error": 7.801502943036165e-06
+          },
+          "frame-v23-p10-x2-y1": {
+            "nonexact_points": 5,
+            "maximum_point_distance": 8.956825093715619e-05,
+            "maximum_separation_error": 1.5576183795940057e-05
+          },
+          "frame-v23-p11-x0-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 8.849234454756944e-05,
+            "maximum_separation_error": 1.5568733215343133e-05
+          },
+          "frame-v23-p11-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 0.0001302996389022618,
+            "maximum_separation_error": 1.1909008026111945e-05
+          },
+          "frame-v23-p11-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.631674575031098e-05,
+            "maximum_separation_error": 1.0319054126461946e-07
+          },
+          "frame-v23-p11-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 8.686638276410461e-05,
+            "maximum_separation_error": 7.572770118702277e-06
+          },
+          "frame-v23-p11-x2-y0": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.4267756128611385e-05,
+            "maximum_separation_error": 7.760524749766962e-06
+          },
+          "frame-v23-p11-x2-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.641564133029348e-05,
+            "maximum_separation_error": 1.5538930892955438e-05
+          }
+        }
+      }
+    },
+    "1": {
+      "semantic_numeric_repeats_exact": true,
+      "report": {
+        "scope": "64 initial native contact states,306 points. Actual native matrices supplied; counts/triangle order and coordinates are compared. Separation is reconstructed from callback constraint_error minus skin and is not claimed to equal internal SDK separation exactly.",
+        "cases": 64,
+        "points": 306,
+        "counts_and_triangle_order_exact": true,
+        "nonexact_points": 70,
+        "point_rms": 1.2419381673206316e-05,
+        "maximum_point_distance": 0.0001327246084576716,
+        "separation_rms": 2.620826685321252e-06,
+        "maximum_separation_error": 1.569390296934925e-05,
+        "details": {
+          "frame-v23-p0-x0-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 1.0237097740062318e-06
+          },
+          "frame-v23-p0-x0-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 2.923607826221808e-06
+          },
+          "frame-v23-p0-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p0-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 2.805888652812616e-06
+          },
+          "frame-v23-p0-x2-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 4.7527253627804855e-06
+          },
+          "frame-v23-p0-x2-y1": {
+            "nonexact_points": 5,
+            "maximum_point_distance": 4.641661722165089e-05,
+            "maximum_separation_error": 1.5671551227558478e-05
+          },
+          "frame-v23-p1-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.0460615157970032e-06
+          },
+          "frame-v23-p1-x0-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.917779445637091e-06
+          },
+          "frame-v23-p1-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.1175870923141318e-09
+          },
+          "frame-v23-p1-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p2-x0-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.1801719665416321e-06
+          },
+          "frame-v23-p2-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 2.968311309803351e-06
+          },
+          "frame-v23-p2-x1-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p2-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 2.805888652812616e-06
+          },
+          "frame-v23-p3-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.2099742889293275e-06
+          },
+          "frame-v23-p3-x0-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.1934509277232728e-06
+          },
+          "frame-v23-p3-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p3-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.7984380722018143e-06
+          },
+          "frame-v23-p3-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.892183303821906e-06
+          },
+          "frame-v23-p3-x2-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.060962676990851e-06
+          },
+          "frame-v23-p4-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 9.71555709827765e-07
+          },
+          "frame-v23-p4-x0-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.342990914516468e-05,
+            "maximum_separation_error": 3.929436206806525e-06
+          },
+          "frame-v23-p4-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.6077032061477823e-09
+          },
+          "frame-v23-p4-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 5.960464477539063e-08,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p4-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.832578659046515e-06
+          },
+          "frame-v23-p4-x2-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 9.26852226246222e-07
+          },
+          "frame-v23-p5-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 9.119510650523743e-07
+          },
+          "frame-v23-p5-x0-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.880526542652472e-06
+          },
+          "frame-v23-p5-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 7.450580569168253e-10
+          },
+          "frame-v23-p5-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p5-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.8027763366588196e-06
+          },
+          "frame-v23-p5-x2-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 9.119510650523743e-07
+          },
+          "frame-v23-p6-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 9.71555709827765e-07
+          },
+          "frame-v23-p6-x0-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.8954277038463196e-06
+          },
+          "frame-v23-p6-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.6077032061477823e-09
+          },
+          "frame-v23-p6-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 5.960464477539063e-08,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p6-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.8027763366588196e-06
+          },
+          "frame-v23-p6-x2-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 0.0001327246084576716,
+            "maximum_separation_error": 1.563429832457386e-05
+          },
+          "frame-v23-p7-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.1205673217662415e-06
+          },
+          "frame-v23-p7-x0-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.2828578948863587e-06
+          },
+          "frame-v23-p7-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p7-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.7984380722018143e-06
+          },
+          "frame-v23-p7-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.951787948597296e-06
+          },
+          "frame-v23-p7-x2-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.0907649993785462e-06
+          },
+          "frame-v23-p8-x1-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p8-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 2.7835369110218444e-06
+          },
+          "frame-v23-p8-x2-y0": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 3.921985626209601e-06
+          },
+          "frame-v23-p8-x2-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 1.1920928955078125e-07,
+            "maximum_separation_error": 1.9848346710094056e-06
+          },
+          "frame-v23-p9-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.980232241545089e-09
+          },
+          "frame-v23-p9-x1-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 2.8580427169910827e-06
+          },
+          "frame-v23-p9-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.86238098143421e-06
+          },
+          "frame-v23-p9-x2-y1": {
+            "nonexact_points": 3,
+            "maximum_point_distance": 4.6458752333854775e-05,
+            "maximum_separation_error": 1.569390296934925e-05
+          },
+          "frame-v23-p10-x0-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 1.8805265426663498e-06
+          },
+          "frame-v23-p10-x0-y1": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.6879418215652e-05,
+            "maximum_separation_error": 7.820129394528474e-06
+          },
+          "frame-v23-p10-x1-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 1.2293457987699874e-08
+          },
+          "frame-v23-p10-x1-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 2.805888652812616e-06
+          },
+          "frame-v23-p10-x2-y0": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 3.2782554626464844e-07,
+            "maximum_separation_error": 3.8549304008372864e-06
+          },
+          "frame-v23-p10-x2-y1": {
+            "nonexact_points": 4,
+            "maximum_point_distance": 8.956825093715619e-05,
+            "maximum_separation_error": 1.569390296934925e-05
+          },
+          "frame-v23-p11-x0-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.0907649993785462e-06
+          },
+          "frame-v23-p11-x0-y1": {
+            "nonexact_points": 2,
+            "maximum_point_distance": 4.341943704903929e-05,
+            "maximum_separation_error": 3.9815902709849915e-06
+          },
+          "frame-v23-p11-x1-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 6.332993504609696e-09
+          },
+          "frame-v23-p11-x1-y1": {
+            "nonexact_points": 1,
+            "maximum_point_distance": 4.3667064083652393e-05,
+            "maximum_separation_error": 7.596611976634637e-06
+          },
+          "frame-v23-p11-x2-y0": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 3.8027763366588196e-06
+          },
+          "frame-v23-p11-x2-y1": {
+            "nonexact_points": 0,
+            "maximum_point_distance": 0.0,
+            "maximum_separation_error": 1.8954277038463196e-06
+          }
+        }
+      }
+    }
+  },
+  "point_change_statistics": {
+    "new_exact_points": 115,
+    "exact_points_regressed": 2,
+    "nonexact_distance_increased": 7,
+    "nonexact_distance_decreased": 123,
+    "same_distance_points": 176
+  },
+  "distance_increase_details": [
+    {
+      "case": "frame-v23-p0-x2-y1",
+      "point": 1,
+      "before_distance": 0.0,
+      "after_distance": 4.641661722165089e-05
+    },
+    {
+      "case": "frame-v23-p0-x2-y1",
+      "point": 4,
+      "before_distance": 4.315837287515549e-05,
+      "after_distance": 4.641564133029348e-05
+    },
+    {
+      "case": "frame-v23-p6-x2-y1",
+      "point": 2,
+      "before_distance": 8.956825093715619e-05,
+      "after_distance": 0.0001327246084576716
+    },
+    {
+      "case": "frame-v23-p9-x2-y1",
+      "point": 2,
+      "before_distance": 0.0,
+      "after_distance": 4.315837287515549e-05
+    },
+    {
+      "case": "frame-v23-p9-x2-y1",
+      "point": 5,
+      "before_distance": 3.4652809748050293e-06,
+      "after_distance": 4.6458752333854775e-05
+    },
+    {
+      "case": "frame-v23-p10-x0-y1",
+      "point": 5,
+      "before_distance": 8.534086384341927e-07,
+      "after_distance": 8.6879418215652e-05
+    },
+    {
+      "case": "frame-v23-p10-x2-y1",
+      "point": 4,
+      "before_distance": 4.315837287515549e-05,
+      "after_distance": 8.956825093715619e-05
+    }
+  ]
+}

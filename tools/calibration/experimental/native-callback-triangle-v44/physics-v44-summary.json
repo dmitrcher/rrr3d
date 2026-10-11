@@ -1,0 +1,144 @@
+{
+  "scope": "Separate public triangle normal for experimental material callback; no force tuning or production promotion; full goal incomplete",
+  "probe_sha256": "5cba4f6b3baa2386af1aca4a3e3e435e4e89db642b692dcb9fa873a8f5458377",
+  "long_summary": {
+    "exact": 67,
+    "remaining": 5,
+    "new_exact": [
+      "frame-v25-long-p0-x0-y1",
+      "frame-v25-long-p0-x1-y1",
+      "frame-v25-long-p0-x2-y1",
+      "frame-v25-long-p1-x1-y1",
+      "frame-v25-long-p1-x2-y1",
+      "frame-v25-long-p10-x0-y1",
+      "frame-v25-long-p10-x1-y1",
+      "frame-v25-long-p10-x2-y1",
+      "frame-v25-long-p2-x0-y1",
+      "frame-v25-long-p2-x1-y1",
+      "frame-v25-long-p3-x0-y1",
+      "frame-v25-long-p3-x2-y1",
+      "frame-v25-long-p4-x2-y1",
+      "frame-v25-long-p5-x0-y1",
+      "frame-v25-long-p5-x2-y1",
+      "frame-v25-long-p6-x0-y1",
+      "frame-v25-long-p6-x2-y1",
+      "frame-v25-long-p7-x0-y1",
+      "frame-v25-long-p7-x2-y1",
+      "frame-v25-long-p8-x0-y1",
+      "frame-v25-long-p8-x2-y1",
+      "frame-v25-long-p9-x0-y1",
+      "frame-v25-long-p9-x1-y1"
+    ],
+    "lost_exact": [],
+    "residuals": {
+      "frame-v25-long-p11-x0-y0": {
+        "first_difference": 3,
+        "max_position": 0.00030043271809301273,
+        "max_velocity": 0.007802910088146683
+      },
+      "frame-v25-long-p11-x0-y1": {
+        "first_difference": 45,
+        "max_position": 0.00025891344165282205,
+        "max_velocity": 0.0021433645053048193
+      },
+      "frame-v25-long-p11-x1-y0": {
+        "first_difference": 0,
+        "max_position": 1.0909999999977166e-11,
+        "max_velocity": 1.1920000058852594e-07
+      },
+      "frame-v25-long-p11-x1-y1": {
+        "first_difference": 4,
+        "max_position": 0.0022348796830243055,
+        "max_velocity": 0.04756044447137011
+      },
+      "frame-v25-long-p11-x2-y1": {
+        "first_difference": 17,
+        "max_position": 0.0,
+        "max_velocity": 1.200000001588819e-07
+      }
+    },
+    "position_improved": 23,
+    "velocity_improved": 23,
+    "position_or_velocity_worsened": 0
+  },
+  "expanded": {
+    "exact": 6,
+    "disabled_control_equals_v43": true,
+    "repeatable": true
+  },
+  "original_callback_stage": [
+    {
+      "callback_axes_and_local_quaternions_exact": 17,
+      "native_callbacks_checked": 4,
+      "scope": "First geometry pass only; native public tick can include next simulation callbacks",
+      "callback_normal": [
+        -0.195180014,
+        -0.0975900069,
+        0.975900114
+      ],
+      "original_native_physical_states_unchanged": true
+    },
+    {
+      "callback_axes_and_local_quaternions_exact": 17,
+      "native_callbacks_checked": 4,
+      "scope": "First geometry pass only; native public tick can include next simulation callbacks",
+      "callback_normal": [
+        -0.195180014,
+        -0.0975900069,
+        0.975900114
+      ],
+      "original_native_physical_states_unchanged": true
+    }
+  ],
+  "new_p7_solver_step0": {
+    "frame-v25-long-p7-x2-y1": {
+      "points": 4,
+      "rows": 20,
+      "exact_fields": {
+        "effective_mass": 20,
+        "scaled_bias": 20,
+        "constraint_error": 20,
+        "lambda": 20,
+        "lever_arm": 20,
+        "velocity": 20,
+        "angular": 20,
+        "inverse_inertia": 20
+      },
+      "differences": []
+    }
+  },
+  "isolation": {
+    "00": {
+      "cases": 9,
+      "complete": true,
+      "repeatable": true
+    },
+    "01": {
+      "cases": 108,
+      "complete": true,
+      "repeatable": true
+    },
+    "02": {
+      "cases": 48,
+      "complete": true,
+      "repeatable": true
+    },
+    "03": {
+      "cases": 24,
+      "complete": true,
+      "repeatable": true
+    }
+  },
+  "old_solver_rows": 475,
+  "ctest": {
+    "passed": 53,
+    "failed": 0,
+    "seconds": 16.82
+  },
+  "full_debug_app": {
+    "assets": 1200,
+    "movies": 14,
+    "signed": true
+  },
+  "goal_complete": false
+}

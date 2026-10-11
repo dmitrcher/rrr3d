@@ -1,0 +1,110 @@
+{
+  "scope": "Read-only diagnostic: same current Jolt dense matrix passed separately to original NxDiagonalizeInertiaTensor and Jolt decomposition; no runtime changes",
+  "source_sha256": {
+    "mass-probe.cpp": "5a403f0099f2393ce4c4c8b77ea0c4ea66f30ae80237368fd1d693367cc8013f",
+    "diagonal-probe.cpp": "4cf07d96f8a22b332408e8809b39224c240c05d92d40786ee39dea7c4246b690",
+    "input.txt": "70ac24c55257ac67326127e9f4de8537495184ac4eab2654df32b74c49a73361"
+  },
+  "native_repeats": 2,
+  "native_repeatable": true,
+  "native_diagonalizer_rva": 124096,
+  "cases": [
+    {
+      "case_index": 0,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "jolt_diagonal_axis_association": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "differences": []
+    },
+    {
+      "case_index": 1,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "jolt_diagonal_axis_association": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "differences": []
+    },
+    {
+      "case_index": 2,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "jolt_diagonal_axis_association": [
+        389.5772705078125,
+        1062.6103515625,
+        1388.9193115234375
+      ],
+      "differences": []
+    },
+    {
+      "case_index": 3,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        398.61529541015625,
+        1109.5126953125,
+        1426.783447265625
+      ],
+      "jolt_diagonal_axis_association": [
+        398.61529541015625,
+        1109.5126953125,
+        1426.783447265625
+      ],
+      "differences": []
+    },
+    {
+      "case_index": 4,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        398.61529541015625,
+        1109.5126953125,
+        1426.783447265625
+      ],
+      "jolt_diagonal_axis_association": [
+        398.61529541015625,
+        1109.5126953125,
+        1426.783447265625
+      ],
+      "differences": []
+    },
+    {
+      "case_index": 5,
+      "identical_dense_matrix_input": true,
+      "native_diagonal": [
+        407.4853210449219,
+        1109.7730712890625,
+        1436.4140625
+      ],
+      "jolt_diagonal_axis_association": [
+        407.4853210449219,
+        1109.7730712890625,
+        1436.4139404296875
+      ],
+      "differences": [
+        {
+          "axis": 2,
+          "native": 1436.4140625,
+          "jolt": 1436.4139404296875
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

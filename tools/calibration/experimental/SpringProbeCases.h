@@ -27,3 +27,36 @@ inline void appendScalarSpringProbes(std::vector<Case>& suite) {
   suite.push_back(c);
  }
 }
+
+// History-dependent suspension contact transitions, isolated from torque and slip.
+inline void appendLostSpringProbes(std::vector<Case>& suite) {
+ const double heights[]={10.75,10.89,10.95,11.1};
+ for(int mass=0;mass<2;++mass) for(int active=0;active<2;++active)
+ for(int height=0;height<4;++height) for(int target=0;target<3;++target) for(int speed=0;speed<3;++speed) {
+  std::ostringstream name;name<<"lost-spring-"<<mass<<"-"<<active<<"-"<<height<<"-"<<target<<"-"<<speed;
+  Case c(name.str(),-20,mass?1200:300,heights[height]);c.steps=32;c.traction=false;
+  c.velocity.z=speed==0?0:speed==1?1:3;
+  for(size_t index=0;index<c.wheels.size();++index) {
+   c.wheels[index].position=V(0,0,index<(size_t)(active?4:1)?0:100);
+   c.wheels[index].target=target*.5;
+  }
+  suite.push_back(c);
+ }
+}
+
+// Thin body stays above the ground: only the suspension compression stop acts.
+inline void appendHardSpringProbes(std::vector<Case>& suite) {
+ const double offsets[]={-.06,-.05,-.01,0,.01};
+ for(int mass=0;mass<2;++mass) for(int active=0;active<2;++active)
+ for(int height=0;height<5;++height) for(int spring=0;spring<3;++spring) for(int speed=0;speed<3;++speed) {
+  std::ostringstream name;name<<"hard-spring-"<<mass<<"-"<<active<<"-"<<height<<"-"<<spring<<"-"<<speed;
+  Case c(name.str(),-20,mass?1200:300,10.4+offsets[height]);c.steps=1;c.traction=false;c.halfExtents.z=.02;
+  c.velocity.z=speed==0?0:speed==1?-1:-5;
+  for(size_t index=0;index<c.wheels.size();++index) {
+   c.wheels[index].position=V(0,0,index<(size_t)(active?4:1)?0:100);
+   c.wheels[index].spring=spring==0?0:spring==1?35000:140000;
+   c.wheels[index].damper=spring==0?0:4500;
+  }
+  suite.push_back(c);
+ }
+}

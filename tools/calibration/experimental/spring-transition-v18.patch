@@ -1,0 +1,195 @@
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -137,7 +137,7 @@
+ 	// Calculate the matrix that takes us from the rotational space to vehicle local space
+ 	Vec3 local_forward, local_up, local_right;
+ 	GetWheelLocalBasis(wheel, local_forward, local_up, local_right);
+-	Vec3 local_wheel_pos = settings->mPosition + settings->mSuspensionDirection * wheel->mSuspensionLength;
++	Vec3 local_wheel_pos = settings->mPosition + settings->mSuspensionDirection * wheel->GetSuspensionLength();
+ 	Mat44 rotational_to_local(Vec4(local_right, 0), Vec4(local_up, 0), Vec4(local_forward, 0), Vec4(local_wheel_pos, 1));
+ 
+ 	// Calculate transform of rotated wheel
+@@ -187,11 +187,20 @@
+ 
+ 	RMat44 body_transform = mBody->GetWorldTransform();
+ 
++	const char *lost_mode = std::getenv("RRR3D_EXPERIMENT_SPRING_LOST");
++	const bool source_lost = UsesSourceSpringFinal() && lost_mode != nullptr && std::strcmp(lost_mode, "1") == 0;
+ 	// Test collision for wheels
+ 	for (uint wheel_index = 0; wheel_index < mWheels.size(); ++wheel_index)
+ 	{
+ 		Wheel *w = mWheels[wheel_index];
+ 		const WheelSettings *settings = w->mSettings;
++		const bool previous_contact = source_lost && !w->mSourceContactLost && !w->mContactBodyID.IsInvalid();
++		const BodyID previous_body = w->mContactBodyID;
++		const SubShapeID previous_shape = w->mContactSubShapeID;
++		const float previous_length = w->mSuspensionLength;
++		const RVec3 previous_position = previous_contact? w->mContactPosition : RVec3::sZero();
++		const Vec3 previous_normal = previous_contact? w->mContactNormal : Vec3::sZero();
++		w->mSourceContactLost = false;
+ 
+ 		// Calculate suspension origin and direction
+ 		RVec3 ws_origin = body_transform * settings->mPosition;
+@@ -236,6 +245,19 @@
+ 			}
+ 		}
+ 
++		if (w->mContactBody == nullptr && previous_contact) {
++			Body *previous = inContext.mPhysicsSystem->GetBodyLockInterfaceNoLock().TryGetBody(previous_body);
++			if (previous != nullptr) {
++				w->mContactBody = previous;
++				w->mContactBodyID = previous_body;
++				w->mContactSubShapeID = previous_shape;
++				w->mSuspensionLength = previous_length;
++				w->mContactPosition = previous_position;
++				w->mContactNormal = previous_normal;
++				w->mSourceContactLost = true;
++			}
++		}
++
+ 		if (w->mContactBody != nullptr)
+ 		{
+ 			// Store contact velocity, cache this as the contact body may be removed
+@@ -421,6 +443,7 @@
+ 
+ void VehicleConstraint::SetupVelocityConstraint(float inDeltaTime)
+ {
++	const bool source_stop = UsesSourceSuspensionStop();
+ 	mSourceVelocitySteps = 0;
+ 	RMat44 body_transform = mBody->GetWorldTransform();
+ 
+@@ -501,14 +524,20 @@
+ 				w->mSuspensionPart.Deactivate();
+ 
+ 			// Check if we reached the 'max up' position and if so add a hard velocity constraint that stops any further movement in the normal direction
+-			if (w->mSuspensionLength < settings->mSuspensionMinLength)
++			if (w->mSuspensionLength < settings->mSuspensionMinLength + (source_stop? 0.05f : 0.0f)) {
+ 				w->mSuspensionMaxUpPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, neg_contact_normal);
+-			else
++				if (source_stop) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.7f * (w->mSuspensionLength - settings->mSuspensionMinLength) / inDeltaTime);
++			} else
+ 				w->mSuspensionMaxUpPart.Deactivate();
+ 
+ 			// Friction and propulsion
++			if (w->mSourceContactLost) {
++				w->mLongitudinalPart.Deactivate();
++				w->mLateralPart.Deactivate();
++			} else {
+ 			w->mLongitudinalPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, -w->mContactLongitudinal);
+ 			w->mLateralPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, -w->mContactLateral);
++			}
+ 		}
+ 		else
+ 		{
+@@ -537,13 +566,16 @@
+ 
+ void VehicleConstraint::WarmStartVelocityConstraint(float inWarmStartImpulseRatio)
+ {
++	const float stop_ratio = UsesSourceSuspensionStop()? 0.0f : inWarmStartImpulseRatio;
++	const char *cold_mode = std::getenv("RRR3D_EXPERIMENT_SPRING_COLD");
++	const float spring_ratio = UsesSourceSpringFinal() && cold_mode != nullptr && std::strcmp(cold_mode, "1") == 0? 0.0f : inWarmStartImpulseRatio;
+ 	for (Wheel *w : mWheels)
+ 		if (w->mContactBody != nullptr)
+ 		{
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+ 
+-			w->mSuspensionPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, inWarmStartImpulseRatio);
+-			w->mSuspensionMaxUpPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, inWarmStartImpulseRatio);
++			w->mSuspensionPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, spring_ratio);
++			w->mSuspensionMaxUpPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, stop_ratio);
+ 			w->mLongitudinalPart.WarmStart(*mBody, *w->mContactBody, -w->mContactLongitudinal, 0.0f); // Don't warm start the longitudinal part (the engine/brake force, we don't want to preserve anything from the last frame)
+ 			w->mLateralPart.WarmStart(*mBody, *w->mContactBody, -w->mContactLateral, inWarmStartImpulseRatio);
+ 		}
+@@ -554,6 +586,7 @@
+ bool VehicleConstraint::SolveVelocityConstraint(float inDeltaTime)
+ {
+ 	const bool source = UsesSourceSpringFinal();
++	const bool source_stop = UsesSourceSuspensionStop();
+ 	if (source) ++mSourceVelocitySteps;
+ 	bool impulse = false;
+ 
+@@ -565,13 +598,15 @@
+ 		{
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+ 
+-			// Suspension spring, note that it can only push and not pull
++			if (source_stop && w->mSuspensionMaxUpPart.IsActive())
++				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++
+ 			if (w->mSuspensionPart.IsActive())
+ 				impulse |= w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+-			// When reaching the minimal suspension length only allow forces pushing the bodies away
+-			if (w->mSuspensionMaxUpPart.IsActive())
++			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++
+ 		}
+ 
+ 		}
+@@ -614,6 +649,7 @@
+ 				CalculateSuspensionForcePoint(*w, r1_plus_u, r2);
+ 				w->mSuspensionMaxUpPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, neg_contact_normal);
+ 
++				if (!UsesSourceSuspensionStop())
+ 				impulse |= w->mSuspensionMaxUpPart.SolvePositionConstraint(*mBody, *w->mContactBody, neg_contact_normal, max_up_error, inBaumgarte);
+ 			}
+ 		}
+@@ -728,7 +764,15 @@
+   if (w->mContactBody != nullptr) {
+    if (w->mContactBody->IsDynamic()) outBodies.push_back(w->mContactBody);
+    if (w->mSuspensionPart.IsActive()) w->mSuspensionPart.PrepareSourceFinalSpringBias(mSourceVelocitySteps);
++   if (UsesSourceSuspensionStop() && w->mSuspensionMaxUpPart.IsActive()) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.0f);
+   }
+  return true;
+ }
+ JPH_NAMESPACE_END
++
++JPH_NAMESPACE_BEGIN
++bool VehicleConstraint::UsesSourceSuspensionStop() const {
++ const char *mode = std::getenv("RRR3D_EXPERIMENT_SUSPENSION_STOP");
++ return UsesSourceSpringFinal() && mode != nullptr && std::strcmp(mode, "1") == 0;
++}
++JPH_NAMESPACE_END
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -190,6 +190,7 @@
+ 	virtual void				WarmStartVelocityConstraint(float inWarmStartImpulseRatio) override;
+ 	virtual bool				SolveVelocityConstraint(float inDeltaTime) override;
+ 	bool UsesSourceSpringFinal() const;
++	bool UsesSourceSuspensionStop() const;
+ 	bool PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies);
+ 	virtual bool				SolvePositionConstraint(float inDeltaTime, float inBaumgarte) override;
+ 	virtual void				BuildIslands(uint32 inConstraintIndex, IslandBuilder &ioBuilder, BodyManager &inBodyManager) override;
+--- a/Jolt/Physics/Vehicle/Wheel.h
++++ b/Jolt/Physics/Vehicle/Wheel.h
+@@ -74,10 +74,10 @@
+ 	void					SetSteerAngle(float inAngle)				{ mSteerAngle = inAngle; }
+ 
+ 	/// Returns true if the wheel is touching an object
+-	inline bool				HasContact() const							{ return !mContactBodyID.IsInvalid(); }
++	inline bool				HasContact() const							{ return !mSourceContactLost && !mContactBodyID.IsInvalid(); }
+ 
+ 	/// Returns the body ID of the body that this wheel is touching
+-	BodyID					GetContactBodyID() const					{ return mContactBodyID; }
++	BodyID					GetContactBodyID() const					{ return mSourceContactLost? BodyID() : mContactBodyID; }
+ 
+ 	/// Returns the sub shape ID where we're contacting the body
+ 	SubShapeID				GetContactSubShapeID() const				{ return mContactSubShapeID; }
+@@ -98,7 +98,7 @@
+ 	Vec3					GetContactLateral() const					{ JPH_ASSERT(HasContact()); return mContactLateral; }
+ 
+ 	/// Get the length of the suspension for a wheel (m) relative to the suspension attachment point (hard point)
+-	float					GetSuspensionLength() const					{ return mSuspensionLength; }
++	float					GetSuspensionLength() const					{ return mSourceContactLost? mSettings->mSuspensionMaxLength : mSuspensionLength; }
+ 
+ 	/// Check if the suspension hit its upper limit
+ 	bool					HasHitHardPoint() const						{ return mSuspensionMaxUpPart.IsActive(); }
+@@ -124,6 +124,7 @@
+ 	RefConst<WheelSettings>	mSettings;									///< Configuration settings for this wheel
+ 	BodyID					mContactBodyID;								///< ID of body for ground
+ 	SubShapeID				mContactSubShapeID;							///< Sub shape ID for ground
++	bool mSourceContactLost = false; ///< Suspension-only row retained for one solve after source ray contact disappears.
+ 	Body *					mContactBody = nullptr;						///< Body for ground
+ 	float					mSuspensionLength;							///< Current length of the suspension
+ 	RVec3					mContactPosition;							///< Position of the contact point between wheel and ground

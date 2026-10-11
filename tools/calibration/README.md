@@ -361,3 +361,13 @@ Mac записывает реальные prepared Jacobians с корректн
 Наблюдён фактический callback dispatcher и его parent call site для проверенной
 x86 DLL. Физического исправления пока нет; 12 контактов остаются непройденными.
 `experimental/normal-row-v30` содержит verifiers и модельные исследования.
+
+## Реальный Native solver kernel v31
+
+[Доказанные операции и ограничения](../../docs/PHYSICS_CONTACT_V31_2026-10-11.md):
+actual Windows solver trace позволил точно восстановить 96 effective masses,
+96 scaled biases и 480 последовательных состояний v/angular v/lambda, с двумя
+повторами. Выявлены разные порядки округления K, bias и импульса. Геометрия
+и constraint error пока берутся из Native записей, поэтому Mac исправление
+ещё не принято. `experimental/NativeSolverTrace` содержит debugger, capture,
+forward model и verifier для зафиксированных DLL и probe.

@@ -1,0 +1,410 @@
+{
+  "schema": 1,
+  "status": "progress",
+  "goal_complete": false,
+  "standalone_physical_fix_accepted": false,
+  "scope": "Native PhysX2.8.4 actual initialization and iterative kernel, identity actor orientation, first impact in12 flat isolated ground-on cases, four biased passes and one unbiased pass. Native recorded rows are diagnostic inputs. Raw pointer addresses, heap padding and unspecified fields are excluded from trace repeat claims.",
+  "cases": [
+    {
+      "case": "isolate-03-contact-m0-h0-v0-f1",
+      "first_tick": 25,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "946b8615e1986f093c3176685bb2bb1baab3c21931c96a6e32ca243879ebf7c0"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "e4d9413332d56d53fd2d54e3ffa9530905ecdce8647abacd2eb9406c3eb0792d"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "0a7d61079d29c85a8e4f130c21e94fec9ae77e9f9c8f8556b63187d1e8374e07"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "0878d91c180601440eaa274dbd67d7b2c633f99323c36e87fa56d66922fbf71d"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h0-v1-f1",
+      "first_tick": 22,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "00311cbdc8b352fac5eff82ed18f07ab5366ce9961b0efc06f1a2b3358ec2c81"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "97db2c8aa061377980290ea27ff806f4ebbbd8995e34bd2dfd6789f32fb50d0d"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "b3b2a5cc51f0f46635ea07e7c20ee58c935bf7ee7bb7b5ac9c26cc763b18caca"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h0-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "da5218709f9c6abf837a5cff00f767a922f5b7fada9338f171e55bece99309dd"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h1-v0-f1",
+      "first_tick": 2,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "04605d457b6fd994cff36362cdc10415f0074e100180f2faf68a17f14fcf137b"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "486d4ac5702ae177205a04af0a97101ba3f8fc76ba5fa51ed780b232ebab0ca8"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "85bf6633323f50cea8bfbaf4c4b4c1a5109dd88d62d46ae8903323ca17c28796"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "53b14f67b1bac249758c2e3eb4af44bb73a69f02f629ae13c8989e4d4522f4ae"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h1-v1-f1",
+      "first_tick": 1,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "b6e307f6a14c07eefefd980e932364350f167fc4b7339a0a82a9b52361ec5320"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "2062562601b59bbdd29cfd8fb28fd1432f38ab4edad9120449830ef3cc1baaaa"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "258684359b96cfb1ce93b2b3b5d55e87ed70ed4181fbe48c5bdf0bdfccfe8207"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m0-h1-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "065b4dd692a0dbfd7b261263046f71a5e2255ca636ca4b476e13db8c65904ce7"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h0-v0-f1",
+      "first_tick": 25,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "5438312930860d3c62ca0f9088dd32a9e3ab41d5bf3b9c6387f6d537ae5337c4"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "36e2aa7a48f9041625830f764d04eba25330be2fa4dd0bf553455909e7dd9d65"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "1da20054c4d8d3babc0a6abf6de795466a0481ea74a29119d0b5d6212257a2c2"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "e6dcaabe503f348a814c2f719cce7026e4968c24066d3585964ff6c7dcf2608b"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h0-v1-f1",
+      "first_tick": 22,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "982b8f44dcb40a2d496c4023ada5097eafd6087522bf065a6ba37ddb4dcaa8fd"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "85007c1f8d4c5f0ad328282c6f262b41221ac4aca606e56bb30656f242545a3e"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "d826d95cd586fc4a077c3471ba7a12679777974580cc8bb44a1765b27fe9a0ff"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h0-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "d8469a5354f7986f555066b111a29670c6ccb28e330fcc8a97caa798e4f7fc28"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h1-v0-f1",
+      "first_tick": 2,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "59346e2a728fb61ff2cd55dc103b5cd3320fc6f047463569ae24541e0573fddc"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "d8315d0586655d22f3744417220efb4bb23bd00bd42e0508c975d7957380ec2c"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "42e8b3d1356b62b23677bbbaa27f6c96e94ee835d05599356c0a56cd548a8b99"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "27c25a742736d3210e4a1fc1819097ae6462f95f8f18f5e9253e418dad38c359"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h1-v1-f1",
+      "first_tick": 1,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "e70f43ae3cb0f018db4768360c0209e2e84c0ead6a1bbd0946558a1d665e2c79"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "5e600b8ed78d154d42a3d443140a59a5d5e8eec3ef6bfd714caddc54dc9c5049"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "174d80a1f2ecf800cd707a119bb2ad1fee90f06f16dedc00a702354efb9f96f4"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m1-h1-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "93f2e16ac3b737097ba3f3595fbb5e1cb05233ee64681d058ffa8409d9e2a688"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h0-v0-f1",
+      "first_tick": 25,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "b3895fd8f64c4ae3df3617a3141bd8c2bab6562ebd8d7cc0ba1756b665854ce4"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "37bb4d078d6d01a76994ab84d61f3405ff9eacecf01be0a10df2b181f386bede"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "16878cc2cfa33d5d05b2226459ad68c402d880f5ba86b785db6702ccfd5255d5"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "0a36d0dd9f9594f60e358c11352ae37c547ef30a169c8a40df8fecf75f1e057d"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h0-v1-f1",
+      "first_tick": 22,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 5,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "f5c7e985cae49647d455c1f270045e07920df41ad110e51127333f05d82e05fd"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "c94ba84033384bb5f61c738f481517169a1f11c510f402fa11eb306a581387af"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "d1b299a69f8657a0910a6fd3b4fb383a548645dc75263a7f13a32e6ca5a38972"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h0-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "e20cfb052bc2ba4ac45d0547df5964c972ed96e0d4a8e7c771a2f4871d22647a"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h1-v0-f1",
+      "first_tick": 2,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v0-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "902d1e61dd7d7cb8a1c979423eb062cf13839b4ae020ef97904ef31103bd8f6b"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v0-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "1c63463021dab23a798688553188cdf6eff1d7393ed41bc71b2e4da605ba4092"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v0-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "a16ed9b5e262eded4add2685a6c0dace09356488efad97c0bb9376af5e953f6a"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v0-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "efba2fedeee39e9dfc4cf59c5130c76aabeeabffaed1e8fd9f4cc61b56d672b5"
+        }
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h1-v1-f1",
+      "first_tick": 1,
+      "native_kernel_inputs_checked": 40,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "forward_v_angular_lambda_exact": true,
+      "final_velocity_exact": true,
+      "baseline_all120_states_preserved": true,
+      "physics_and_event_repeats_exact": true,
+      "defined_trace_repeats_exact": true,
+      "mac_replayed_geometry_effective_mass_matches": 2,
+      "effective_masses_checked": 8,
+      "watch_configuration_successful": true,
+      "files": [
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v1-f1-geometry-run0-v31-windows.jsonl",
+          "sha256": "770c11548d670cb225a442e4fc21f46261e4b474addc0de2e6ec991b3c0320c7"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v1-f1-geometry-run1-v31-windows.jsonl",
+          "sha256": "f26a9957d5a782c2178e072706063c9ff24d9d57aa51a0e1d9c2b276d4073e50"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v1-f1-physics-run0-v31-windows.jsonl",
+          "sha256": "7c12e637fb1b0c9ad4e37d2d3c5253e64a7f8c337344946291aa9227c480c0c2"
+        },
+        {
+          "name": "reference-native-kernel-isolate-03-contact-m2-h1-v1-f1-physics-run1-v31-windows.jsonl",
+          "sha256": "93e6a33e9d47c2ee9756e20c72640bc33259f99b00401468b95fac3e444d3020"
+        }
+      ]
+    }
+  ],
+  "effective_masses_reconstructed_exact": 96,
+  "scaled_biases_reconstructed_exact": 96,
+  "kernel_states_exact": 480,
+  "mac_mass_matches": 42,
+  "core_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb"
+}

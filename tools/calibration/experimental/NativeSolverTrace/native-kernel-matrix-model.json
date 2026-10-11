@@ -1,0 +1,428 @@
+{
+  "scope": "Recorded contact geometry/constraint error and initial body; effective masses and scaled biases computed by the model, followed by forward arithmetic reconstruction without state resets or target values in the predictor. Diagnostics, not standalone Mac parity.",
+  "repeatable": true,
+  "cases": [
+    {
+      "case": "isolate-03-contact-m0-h0-v0-f1",
+      "first_tick": 25,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "expected_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -4.053115389979212e-06,
+        0.0,
+        2.6666646003723145
+      ],
+      "lambda": [
+        340.98095703125,
+        377.992919921875,
+        580.9837036132812,
+        492.15350341796875,
+        292.30023193359375,
+        380.2494812011719,
+        71.14405059814453,
+        50.341583251953125
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h0-v1-f1",
+      "first_tick": 22,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "expected_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -3.480919303910923e-06,
+        0.0,
+        1.0666897296905518
+      ],
+      "lambda": [
+        359.4315185546875,
+        372.2581787109375,
+        599.1897583007812,
+        505.3025817871094,
+        298.9770812988281,
+        387.0096740722656,
+        36.559852600097656,
+        35.729942321777344
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h1-v0-f1",
+      "first_tick": 2,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m0-h1-v1-f1",
+      "first_tick": 1,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h0-v0-f1",
+      "first_tick": 25,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "expected_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -4.053115389979212e-06,
+        0.0,
+        2.6666646003723145
+      ],
+      "lambda": [
+        1363.923828125,
+        1511.9716796875,
+        2323.934814453125,
+        1968.614013671875,
+        1169.200927734375,
+        1520.9979248046875,
+        284.5762023925781,
+        201.3663330078125
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h0-v1-f1",
+      "first_tick": 22,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "expected_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -3.480919303910923e-06,
+        0.0,
+        1.0666897296905518
+      ],
+      "lambda": [
+        1437.72607421875,
+        1489.03271484375,
+        2396.759033203125,
+        2021.2103271484375,
+        1195.9083251953125,
+        1548.0386962890625,
+        146.23941040039062,
+        142.91976928710938
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h1-v0-f1",
+      "first_tick": 2,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m1-h1-v1-f1",
+      "first_tick": 1,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h0-v0-f1",
+      "first_tick": 25,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "expected_velocity": [
+        -3.0829266961518442e-06,
+        0.0,
+        -0.04617966338992119
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -4.053115389979212e-06,
+        0.0,
+        2.6666646003723145
+      ],
+      "lambda": [
+        2727.84765625,
+        3023.943359375,
+        4647.86962890625,
+        3937.22802734375,
+        2338.40185546875,
+        3041.995849609375,
+        569.1524047851562,
+        402.732666015625
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h0-v1-f1",
+      "first_tick": 22,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "expected_velocity": [
+        -3.092834958806634e-06,
+        0.0,
+        -0.018472295254468918
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        -3.480919303910923e-06,
+        0.0,
+        1.0666897296905518
+      ],
+      "lambda": [
+        2875.4521484375,
+        2978.0654296875,
+        4793.51806640625,
+        4042.420654296875,
+        2391.816650390625,
+        3096.077392578125,
+        292.47882080078125,
+        285.83953857421875
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h1-v0-f1",
+      "first_tick": 2,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "isolate-03-contact-m2-h1-v1-f1",
+      "first_tick": 1,
+      "effective_masses_reconstructed_exact": 8,
+      "scaled_biases_reconstructed_exact": 8,
+      "entries_checked": 40,
+      "entries_exact": 40,
+      "issues": [],
+      "final_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "expected_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "final_velocity_exact": true,
+      "biased_velocity": [
+        0.0,
+        0.0,
+        -1.6666667461395264
+      ],
+      "lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "all_exact": true,
+  "goal_complete": false
+}

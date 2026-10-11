@@ -1,0 +1,66 @@
+--- a/src/Rock3dEngine/header/physics/NativeContactCache.h
++++ b/src/Rock3dEngine/header/physics/NativeContactCache.h
+@@ -48,7 +48,8 @@
+ struct Point { cf::Vector on0,on1,normal0,normal1; };
+ struct Cache {
+  std::vector<Point> points;
+- std::vector<cf::Vector> prepare(const Pose& a,const Pose& b,const std::vector<cf::Vector>& current,cf::Vector normal,float threshold,cf::Quaternion frame,std::vector<cf::Vector>* levers=nullptr) {
++ cf::Quaternion storedFrame={{0,0,0,1}};
++ std::vector<cf::Vector> prepare(const Pose& a,const Pose& b,const std::vector<cf::Vector>& current,cf::Vector normal,float threshold,cf::Quaternion frame,std::vector<cf::Vector>* levers=nullptr,bool persistentFrame=false) {
+   const auto n0=directionLocal(a,normal),n1=directionLocal(b,normal);
+   std::vector<int> matched;std::vector<bool> used(points.size());bool reuse=points.size()==current.size();
+   const float limit=de::mul(threshold,threshold);
+@@ -59,9 +60,10 @@
+   }
+   std::vector<cf::Vector> result(current.size(),cf::Vector{{0,0,0}});
+   if(!reuse) {
++   if(persistentFrame)storedFrame=frame;
+    points.clear();for(const auto& v:current)points.push_back({local(a,v),local(b,v),n0,n1});
+   } else for(unsigned i=0;i<current.size();++i) {
+-   const auto& p=points[matched[i]];result[i]=transverse(frame,subtract(world(a,p.on0),world(b,p.on1)));
++   const auto& p=points[matched[i]];result[i]=transverse(persistentFrame?storedFrame:frame,subtract(world(a,p.on0),world(b,p.on1)));
+   }
+   if(levers){levers->clear();Pose rotation=a;rotation.position={{0,0,0}};for(unsigned i=0;i<current.size();++i)levers->push_back(world(rotation,points[reuse?matched[i]:i].on0));}
+   return result;
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1033,7 +1033,9 @@
+             if(!overlap)continue;
+             const unsigned before=contacts.count;
+             const char* geometryTrace=std::getenv("RRR3D_CONTACT_GEOMETRY_INPUT_TRACE");
+-            if(geometryTrace && std::strcmp(geometryTrace,"1")==0 && traceStep_==1) {
++            const char* geometryStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
++            const bool selectedGeometryStep=geometryStep && *geometryStep? std::strtoull(geometryStep,nullptr,10)==traceStep_-1:traceStep_==1;
++            if(geometryTrace && std::strcmp(geometryTrace,"1")==0 && selectedGeometryStep) {
+                 std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
+                 sample<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex<<",\"half\":["<<half.x<<','<<half.y<<','<<half.z<<"],\"box\":[";
+                 for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)sample<<(col||row?",":"")<<(col==0?box.m.column0:col==1?box.m.column1:box.m.column2)[row];
+@@ -1101,8 +1103,27 @@
+             const std::uint64_t key=std::uint64_t(car.GetID().GetIndexAndSequenceNumber()) | (std::uint64_t(surface.GetID().GetIndexAndSequenceNumber())<<32);
+             std::scoped_lock lock(mutex_);
+             cf::Quaternion cacheFrame;for(unsigned j=0;j<4;++j)cacheFrame[j]=output.mNativeErrorRawQuaternion[j];
++            const char* cacheFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_FRAME");
++            const bool persistentCacheFrame=cacheFrameFlag && std::strcmp(cacheFrameFlag,"1")==0;
++            if(persistentCacheFrame)cacheFrame=motorrock::framev36::rawWorld(normal);
+             std::vector<cf::Vector> levers;
+-            const auto errors=nativeContactCaches_[key].prepare(actor,ground,points,normal,nc::de::mul(nc::de::add(full.skin,.025F),.2F),cacheFrame,&levers);
++            const char* cacheTraceFlag=std::getenv("RRR3D_CONTACT_CACHE_INPUT_TRACE");
++            const char* cacheTraceStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
++            const bool traceCache=cacheTraceFlag && std::strcmp(cacheTraceFlag,"1")==0 &&
++                (!cacheTraceStep || !*cacheTraceStep || std::strtoull(cacheTraceStep,nullptr,10)==traceStep_-1);
++            const auto beforeCache=traceCache?nativeContactCaches_[key].points:std::vector<nc::Point>{};
++            const auto errors=nativeContactCaches_[key].prepare(actor,ground,points,normal,nc::de::mul(nc::de::add(full.skin,.025F),.2F),cacheFrame,&levers,persistentCacheFrame);
++            if(traceCache) {
++                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
++                const auto vector=[&](const cf::Vector& v){sample<<'['<<v[0]<<','<<v[1]<<','<<v[2]<<']';};
++                const auto pose=[&](const nc::Pose& p){sample<<'[';for(unsigned c=0;c<3;++c)for(unsigned r=0;r<3;++r)sample<<(c||r?",":"")<<p.rotation.a[r][c];for(unsigned i=0;i<3;++i)sample<<','<<p.position[i];sample<<']';};
++                const auto cache=[&](const std::vector<nc::Point>& stored){sample<<'[';for(unsigned i=0;i<stored.size();++i){sample<<(i?",":"")<<'[';vector(stored[i].on0);sample<<',';vector(stored[i].on1);sample<<',';vector(stored[i].normal0);sample<<',';vector(stored[i].normal1);sample<<']';}sample<<']';};
++                sample<<"{\"step\":"<<traceStep_-1<<",\"actor_quaternion\":[";const auto preparedPose=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());if(preparedPose==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing native cache pose");for(unsigned j=0;j<4;++j)sample<<(j?",":"")<<preparedPose->second[j];sample<<"],\"actor\":";pose(actor);sample<<",\"ground\":";pose(ground);
++                sample<<",\"frame\":[";for(unsigned j=0;j<4;++j)sample<<(j?",":"")<<cacheFrame[j];sample<<"],\"before\":";cache(beforeCache);sample<<",\"after\":";cache(nativeContactCaches_[key].points);
++                sample<<",\"current\":[";for(unsigned i=0;i<points.size();++i){sample<<(i?",":"");vector(points[i]);}sample<<"],\"separations\":[";for(unsigned i=0;i<contacts.count;++i)sample<<(i?",":"")<<contacts.contacts[i].separation;
++                sample<<"],\"errors\":[";for(unsigned i=0;i<errors.size();++i){sample<<(i?",":"");vector(errors[i]);}sample<<"]}";
++                motorrock::parity::event("physics.native-cache-input","independent cache inputs and persistence",sample.str());
++            }
+             const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
+             const cf::Vector offset={{nc::de::sub(box.p.x,center.x),nc::de::sub(box.p.y,center.y),nc::de::sub(box.p.z,center.z)}};
+             output.mNativeErrorCacheActive=true;

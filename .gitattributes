@@ -26,3 +26,8 @@ tools/calibration/experimental/native-plane-normal-v38/src/Rock3dEngine/header/p
 # Keep checksum-verified v39 geometry snapshots byte-for-byte.
 tools/calibration/experimental/native-depth-v39/src/Rock3dEngine/header/physics/SourceMeshManifold.h -text -whitespace
 tools/calibration/experimental/native-depth-v39/before/SourceMeshManifold.h -text -whitespace
+
+# Preserve checksum-verified experimental v40 before/after source snapshots.
+tools/calibration/experimental/native-cache-frame-v40/before/** -text -whitespace
+tools/calibration/experimental/native-cache-frame-v40/src/** -text -whitespace
+tools/calibration/experimental/motor-runtime-v40/*.cmd -text whitespace=cr-at-eol

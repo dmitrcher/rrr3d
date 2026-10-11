@@ -1,0 +1,42 @@
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -940,8 +940,11 @@
+  const char* upperFaceFlag=std::getenv("RRR3D_EXPERIMENT_UPPER_FACE_WINDING");
+  if(upperFaceFlag && std::strcmp(upperFaceFlag,"1")==0 && axis==2 && sign>0)
+   reverseWinding=!reverseWinding;
++ const char* negativeXFlag=std::getenv("RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER");
++ const bool negativeXOrder=negativeXFlag && std::strcmp(negativeXFlag,"1")==0 && axis==0 && sign<0;
++ if(negativeXOrder)reverseWinding=!reverseWinding;
+  std::array<PxVec3,4> verts;
+- for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=reverseWinding?(4-i)%4:i;verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
++ for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=negativeXOrder?(3+i)%4:(reverseWinding?(4-i)%4:i);verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
+  PxVec3 faceNormal(0);faceNormal[axis]=sign;const PxPlane face(faceNormal,-half[axis]);
+  float minimum=FLT_MAX;
+  for(PxVec3 v:verts)minimum=std::min(minimum,plane.distance(box.transform(v)));
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -4021,10 +4021,23 @@
+         state.body.scale = {1.0F, 1.0F, 1.0F};
+         state.linearVelocity = fromJolt(body.GetLinearVelocity());
+         const JPH::Vec3 angularVelocity = body.GetAngularVelocity();
+-        const JPH::Vec3 angularMomentum = vehicle.spawn.vehicle.freezeRotation
++        JPH::Vec3 angularMomentum = vehicle.spawn.vehicle.freezeRotation
+             ? JPH::Vec3::sZero() : body.GetInverseInertia()
+                 .Inversed3x3()
+                 .Multiply3x3(angularVelocity);
++        const char* principalMomentumFlag = std::getenv("RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM");
++        if (!vehicle.spawn.vehicle.freezeRotation && principalMomentumFlag &&
++            std::strcmp(principalMomentumFlag, "1") == 0) {
++            const auto* motion = body.GetMotionProperties();
++            const JPH::Vec3 inv = motion->GetInverseInertiaDiagonal();
++            const JPH::Vec3 diagonal(inv.GetX() > 0 ? 1.0F / inv.GetX() : 0,
++                                     inv.GetY() > 0 ? 1.0F / inv.GetY() : 0,
++                                     inv.GetZ() > 0 ? 1.0F / inv.GetZ() : 0);
++            const JPH::Mat44 principal = JPH::Mat44::sRotation(
++                body.GetRotation() * motion->GetInertiaRotation());
++            angularMomentum = principal.Multiply3x3(
++                diagonal * principal.Multiply3x3Transposed(angularVelocity));
++        }
+         state.angularMomentum = fromJoltAngular(angularMomentum);
+         state.kineticEnergy =
+             0.5F * vehicle.spawn.vehicle.mass *

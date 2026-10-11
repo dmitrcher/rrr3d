@@ -28,6 +28,10 @@ def main():
     p.add_argument('--reference-dir', type=Path)
     p.add_argument('--upper-face-winding', action='store_true',
                    help='Enable the v23 upper local-Z mesh-face winding experiment on Mac')
+    p.add_argument('--negative-x-face-order', action='store_true',
+                   help='Enable the v24 negative local-X face order experiment on Mac')
+    p.add_argument('--principal-momentum', action='store_true',
+                   help='Use principal-axis inertia to reconstruct Mac angular momentum')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
@@ -42,6 +46,10 @@ def main():
     if args.platform == 'mac':
         if args.upper_face_winding:
             env['RRR3D_EXPERIMENT_UPPER_FACE_WINDING'] = '1'
+        if args.negative_x_face_order:
+            env['RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER'] = '1'
+        if args.principal_momentum:
+            env['RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM'] = '1'
         env['RRR3D_CALIBRATION_PROFILE'] = str(args.profile.resolve())
         for flag in ('SPRING_BIAS', 'SPRING_FINAL', 'SPRING_LOST', 'SPRING_COLD',
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',

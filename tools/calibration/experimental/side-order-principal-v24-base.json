@@ -1,0 +1,18 @@
+{
+  "enable": [
+    "RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER=1",
+    "RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM=1"
+  ],
+  "requires": "Active v23 prototype; upper-face-winding-v23.patch already applied; v20 adapter and v21 raw-only SDK",
+  "default_changed": false,
+  "files": {
+    "src/Rock3dEngine/header/physics/SourceMeshManifold.h": {
+      "before_sha256": "2bb3b967e459e983db69bd6ebf27c4b731d73692bcffa69cfde84f118c7f424d",
+      "after_sha256": "d4a7ae6779312c4e3c40823276e0f786e95ed4c12016be0fdc7918cb82371317"
+    },
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "e9096238024e59b49bb71ec0deb8e408b9a66f23a1a496b40ba79c881d4ea230",
+      "after_sha256": "695e9de707e1dccfb0cfa5f046803fb15c26df5cab474211473ec6a1a1b2648b"
+    }
+  }
+}

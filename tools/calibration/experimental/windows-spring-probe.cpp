@@ -99,6 +99,19 @@ static void execute(const cal::Case& c) {
  for(int i=0;i<4;++i){if(i)axes<<',';NxWheelContactData contact;bool hit=observedWheels[i]->getContact(contact)!=0;axes<<"{\"contact\":"<<(hit?"true":"false");if(hit)axes<<",\"point\":"<<cal::vector(cal::V(contact.contactPoint.x,contact.contactPoint.y,contact.contactPoint.z))<<",\"normal\":"<<cal::vector(cal::V(contact.contactNormal.x,contact.contactNormal.y,contact.contactNormal.z))<<",\"longitudinal\":"<<cal::vector(cal::V(contact.longitudalDirection.x,contact.longitudalDirection.y,contact.longitudalDirection.z))<<",\"lateral\":"<<cal::vector(cal::V(contact.lateralDirection.x,contact.lateralDirection.y,contact.lateralDirection.z));axes<<'}';}
  axes<<"]}";motorrock::parity::event("calibration.wheel-axes",c.name,axes.str());
  }
+ if(std::getenv("NX_ANGULAR_MOMENTUM_TRACE")) {
+  const NxVec3 omega=observed->getAngularVelocity(),inertia=observed->getMassSpaceInertiaTensor();
+  const NxMat33 tensor=observed->getGlobalInertiaTensor(),inverse=observed->getGlobalInertiaTensorInverse(),orientation=observed->getCMassGlobalOrientation();
+  const NxVec3 computed=tensor*omega;
+  std::ostringstream diagnostic;diagnostic.imbue(std::locale::classic());diagnostic<<std::setprecision(9)<<"{\"tick\":"<<tick
+   <<",\"angular_velocity\":"<<cal::vector(cal::V(omega.x,omega.y,omega.z))
+   <<",\"mass_inertia\":"<<cal::vector(cal::V(inertia.x,inertia.y,inertia.z))
+   <<",\"momentum\":"<<cal::vector(cal::V(m.x,m.y,m.z))
+   <<",\"tensor_momentum\":"<<cal::vector(cal::V(computed.x,computed.y,computed.z));
+  const NxMat33 matrices[]={tensor,inverse,orientation};const char* names[]={"world_inertia_columns","world_inverse_inertia_columns","mass_orientation_columns"};
+  for(int a=0;a<3;++a){diagnostic<<",\""<<names[a]<<"\":[";for(int column=0;column<3;++column){if(column)diagnostic<<',';const NxVec3 axis=matrices[a].getColumn(column);diagnostic<<cal::vector(cal::V(axis.x,axis.y,axis.z));}diagnostic<<']';}
+  diagnostic<<'}';motorrock::parity::event("calibration.angular-momentum",c.name,diagnostic.str());
+ }
  cal::sample(c,tick,x,s);
  }
  if(peer)scene->releaseActor(*peer);scene->releaseActor(*car);sdk->releaseScene(*scene);if(groundMesh)sdk->releaseTriangleMesh(*groundMesh);if(borderMesh)sdk->releaseTriangleMesh(*borderMesh);

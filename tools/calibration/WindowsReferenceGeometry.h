@@ -27,10 +27,15 @@ public:
 // triangles. Preserve the SDK friction frame and the original triangle-normal fallback.
 class CalibrationTrackContact : public NxUserContactModify {
  std::string caseName;
+ bool frictionEnabled;
 public:
  int tick;
- explicit CalibrationTrackContact(const std::string& name):caseName(name),tick(0){}
+ explicit CalibrationTrackContact(const std::string& name,bool friction=true):caseName(name),frictionEnabled(friction),tick(0){}
  virtual bool onContactConstraint(NxU32& flags,const NxShape* s0,const NxShape* s1,NxU32 feature0,NxU32 feature1,NxContactCallbackData& data){
+  if(!frictionEnabled){
+   data.staticFriction0=data.staticFriction1=data.dynamicFriction0=data.dynamicFriction1=0;
+   flags|=NX_CCC_STATICFRICTION0|NX_CCC_STATICFRICTION1|NX_CCC_DYNAMICFRICTION0|NX_CCC_DYNAMICFRICTION1;
+  }
   const NxShape* car=s0->getActor().isDynamic()?s0:s1;
   if(car->getActor().isDynamic()){
    const NxVec3 point0=s0->getActor().isDynamic()?s0->getActor().getCMassGlobalPose()*data.localpos0:data.localpos0;

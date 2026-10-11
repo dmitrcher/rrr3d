@@ -654,6 +654,9 @@ class OriginalContactListener final : public JPH::ContactListener
 {
 public:
     void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
+    void disableBodyFriction(JPH::BodyID body) {
+        frictionDisabledBodies_.push_back(body);
+    }
     void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs, bool contactOffsets, bool boxManifolds) {
         independentFriction_ = independent; boxContactOrder_ = boxOrder;
         materialPairs_ = materialPairs; contactOffsets_ = contactOffsets; sourceBoxManifolds_ = boxManifolds;
@@ -1032,6 +1035,12 @@ private:
         settings.mCombinedFriction = source.first;
         settings.mCombinedFriction2 = source.second;
         settings.mFrictionDirection1 = source.firstDirection;
+        if (std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+                      first.GetID()) != frictionDisabledBodies_.end() ||
+            std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+                      second.GetID()) != frictionDisabledBodies_.end()) {
+            settings.mCombinedFriction = settings.mCombinedFriction2 = 0.0F;
+        }
     }
 
     void recordOne(std::size_t vehicle, const JPH::Body& body,
@@ -1274,6 +1283,7 @@ private:
     }
 
     bool solvedImpulses_ = false;
+    std::vector<JPH::BodyID> frictionDisabledBodies_;
     bool independentFriction_ = false;
     bool boxContactOrder_ = false;
     bool contactOffsets_ = false;
@@ -1296,9 +1306,10 @@ private:
 class OriginalWheelCollisionTester final
     : public JPH::VehicleCollisionTester
 {
+    bool enabled_;
 public:
-    explicit OriginalWheelCollisionTester(JPH::ObjectLayer layer)
-        : VehicleCollisionTester(layer)
+    explicit OriginalWheelCollisionTester(JPH::ObjectLayer layer, bool enabled)
+        : VehicleCollisionTester(layer), enabled_(enabled)
     {
     }
 
@@ -1310,6 +1321,8 @@ public:
                  JPH::RVec3& outPosition, JPH::Vec3& outNormal,
                  float& outLength) const override
     {
+        if (!enabled_)
+            return false;
         const JPH::DefaultBroadPhaseLayerFilter defaultBroadPhase =
             system.GetDefaultBroadPhaseLayerFilter(mObjectLayer);
         const JPH::BroadPhaseLayerFilter& broadPhase =
@@ -3513,8 +3526,8 @@ private:
         // DataBase::AddPxBody uses an otherwise-default NxBodyDesc. Preserve
         // those SDK defaults instead of inheriting Jolt's 0.05 linear drag
         // and much larger angular speed ceiling.
-        bodySettings.mLinearDamping = 0.0F;
-        bodySettings.mAngularDamping = 0.05F;
+        bodySettings.mLinearDamping = source.bodyLinearDamping;
+        bodySettings.mAngularDamping = source.bodyAngularDamping;
         if (source.freezeRotation &&
             !(tuning_.physxWheelCompat && tuning_.physxFrozenPose))
             bodySettings.mAllowedDOFs = JPH::EAllowedDOFs::TranslationX |
@@ -3533,6 +3546,8 @@ private:
             bodySettings, JPH::EActivation::Activate);
         if (runtime.body.IsInvalid())
             throw std::runtime_error("Jolt could not create vehicle body");
+        if (!source.bodyContactFrictionEnabled)
+            contactListener_.disableBodyFriction(runtime.body);
         JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), runtime.body);
         if (!lock.Succeeded())
             throw std::runtime_error("Jolt could not lock vehicle body");
@@ -3673,7 +3688,8 @@ private:
             new JPH::VehicleConstraint(lock.GetBody(), settings);
         runtime.constraint->SetVehicleCollisionTester(
             new OriginalWheelCollisionTester(
-                sourceObjectLayer(SourceCollisionGroup::Wheel, true)));
+                sourceObjectLayer(SourceCollisionGroup::Wheel, true),
+                source.wheelContactsEnabled));
         system_.AddConstraint(runtime.constraint);
         system_.AddStepListener(runtime.constraint);
         runtime.controller = static_cast<JPH::WheeledVehicleController*>(

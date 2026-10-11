@@ -17,12 +17,13 @@ struct Wheel { V position; double radius,travel,spring,damper,target,inverseMass
  Wheel():radius(.4),travel(.5),spring(35000),damper(4500),target(0),inverseMass(.1),flags(64),driven(false),steering(false){} };
 struct Case {
  std::string name, action, catalog; double gravity,mass,height,bodyFriction,sleepThreshold,restBrake,tireSpring,torqueFactor,brakeFactor,steerFactor,brakeLimit;
- V startOffset,velocity,angular,halfExtents,shapePosition,centerOfMass,angularDamping;
+ V startOffset,velocity,angular,halfExtents,shapePosition,centerOfMass,angularDamping,commandedAcceleration;
+ double bodyLinearDamping,bodyAngularDamping;bool wheelContactsEnabled,bodyContactFrictionEnabled;
  double initialPitch,bodySkinWidth,clampRoll,clampPitch,airPitch; bool extraGravity; int steps,obstacle; bool ground,traction; double slopeX,slopeY; bool fixedOrientation;
  bool pair;int watched;double peerFriction,peerMass,primaryRoll,peerRoll;V peerPosition,peerVelocity;
  std::vector<Wheel> wheels;
  Case(const std::string& n,double g=-20,double m=1200,double h=12,bool floor=true):name(n),action(n),catalog("synthetic"),gravity(g),mass(m),height(h),bodyFriction(.08),sleepThreshold(0),restBrake(0),tireSpring(0),torqueFactor(1),brakeFactor(1),steerFactor(1),brakeLimit(4000),halfExtents(1.5,.8,.3),angularDamping(1,1,1),initialPitch(0),bodySkinWidth(.025),clampRoll(0),clampPitch(0),airPitch(0),extraGravity(false),steps(600),obstacle(0),ground(floor),traction(true),slopeX(0),slopeY(0){
-  pair=false;watched=0;peerFriction=.08;peerMass=1200;primaryRoll=peerRoll=0;fixedOrientation=false;for(int i=0;i<4;++i){Wheel w;w.position=V(i<2?1.1:-1.1,i%2==0?.75:-.75,0);w.driven=w.steering=i<2;wheels.push_back(w);}
+  bodyLinearDamping=0;bodyAngularDamping=.05;wheelContactsEnabled=bodyContactFrictionEnabled=true;pair=false;watched=0;peerFriction=.08;peerMass=1200;primaryRoll=peerRoll=0;fixedOrientation=false;for(int i=0;i<4;++i){Wheel w;w.position=V(i<2?1.1:-1.1,i%2==0?.75:-.75,0);w.driven=w.steering=i<2;wheels.push_back(w);}
  }
 };
 inline std::vector<Case> coreCases() {
@@ -52,6 +53,7 @@ struct Inputs {
 inline const Inputs& inputs(){static const Inputs value;return value;}
 inline Command command(const Case& c,int tick) {
  Command x;
+ if(c.action=="isolation-acceleration")x.acceleration=c.commandedAcceleration;
  if(c.action=="force" || c.action=="force-heavy") x.acceleration=V(inputs().acceleration,0,0);
  if(c.action=="impulse" && tick==0) x.impulse=V(inputs().impulse,0,0); // delta-v, not Newton seconds
  if(c.action=="wheel-drive" && tick>=120) x.torque=inputs().torque*c.torqueFactor;
@@ -80,7 +82,7 @@ struct Sample { V position,velocity,momentum; double q[4]; std::vector<double> w
 };
 inline std::string tireJson(const Tire& t){std::ostringstream s;s.imbue(std::locale::classic());s<<std::setprecision(9)<<'['<<t.extremumSlip<<','<<t.extremumValue<<','<<t.asymptoteSlip<<','<<t.asymptoteValue<<','<<t.stiffness<<']';return s.str();}
 inline void begin(const Case& c,const std::string& profile) {
- std::ostringstream s;s.imbue(std::locale::classic());s<<std::setprecision(9)<<"{\"schema\":1,\"fixture\":\"source-vehicle-matrix-v7-sdk\",\"dt\":0.016666666666666666,\"sample_phase\":\"after_solve\",\"steps\":"<<c.steps<<",\"mass\":"<<c.mass<<",\"gravity\":"<<c.gravity<<",\"height\":"<<c.height<<",\"ground\":"<<(c.ground?"true":"false")<<",\"initial_velocity\":"<<vector(c.velocity)<<",\"initial_angular_velocity\":"<<vector(c.angular)<<",\"profile\":"<<parity::quote(profile)<<",\"fixture_parameters\":{\"catalog\":"<<parity::quote(c.catalog)<<",\"half_extents\":"<<vector(c.halfExtents)<<",\"shape_position\":"<<vector(c.shapePosition)<<",\"center_of_mass\":"<<vector(c.centerOfMass)<<",\"body_friction\":"<<c.bodyFriction<<",\"sleep_threshold\":"<<c.sleepThreshold<<",\"tire_spring\":"<<c.tireSpring<<",\"traction\":"<<(c.traction?"true":"false")<<",\"obstacle\":"<<c.obstacle<<",\"slope_x\":"<<c.slopeX<<",\"slope_y\":"<<c.slopeY<<",\"angular_damping\":0.05,\"skin_width\":0.025,\"adaptive_force\":false,\"actor_flags\":20,\"ground_friction\":0.1,\"ground_restitution\":0,\"brake_limit\":"<<c.brakeLimit<<",\"ground_height\":10,\"wheels\":[";
+ std::ostringstream s;s.imbue(std::locale::classic());s<<std::setprecision(9)<<"{\"schema\":1,\"fixture\":\"source-vehicle-matrix-v7-sdk\",\"dt\":0.016666666666666666,\"sample_phase\":\"after_solve\",\"steps\":"<<c.steps<<",\"mass\":"<<c.mass<<",\"gravity\":"<<c.gravity<<",\"height\":"<<c.height<<",\"ground\":"<<(c.ground?"true":"false")<<",\"initial_velocity\":"<<vector(c.velocity)<<",\"initial_angular_velocity\":"<<vector(c.angular)<<",\"profile\":"<<parity::quote(profile)<<",\"fixture_parameters\":{\"catalog\":"<<parity::quote(c.catalog)<<",\"half_extents\":"<<vector(c.halfExtents)<<",\"shape_position\":"<<vector(c.shapePosition)<<",\"center_of_mass\":"<<vector(c.centerOfMass)<<",\"body_friction\":"<<c.bodyFriction<<",\"sleep_threshold\":"<<c.sleepThreshold<<",\"tire_spring\":"<<c.tireSpring<<",\"traction\":"<<(c.traction?"true":"false")<<",\"obstacle\":"<<c.obstacle<<",\"slope_x\":"<<c.slopeX<<",\"slope_y\":"<<c.slopeY<<",\"angular_damping\":"<<c.bodyAngularDamping<<",\"skin_width\":0.025,\"adaptive_force\":false,\"actor_flags\":20,\"ground_friction\":0.1,\"ground_restitution\":0,\"brake_limit\":"<<c.brakeLimit<<",\"ground_height\":10,\"wheels\":[";
  for(size_t i=0;i<c.wheels.size();++i){const Wheel& w=c.wheels[i];if(i)s<<',';s<<"{\"position\":"<<vector(w.position)<<",\"radius\":"<<w.radius<<",\"travel\":"<<w.travel<<",\"spring\":"<<w.spring<<",\"damper\":"<<w.damper<<",\"target\":"<<w.target<<",\"inverse_mass\":"<<w.inverseMass<<",\"flags\":"<<w.flags<<",\"driven\":"<<(w.driven?"true":"false")<<",\"steering\":"<<(w.steering?"true":"false")<<",\"longitudinal_tire\":"<<tireJson(w.longitudinal)<<",\"lateral_tire\":"<<tireJson(w.lateral)<<'}';}
  s<<"],\"extra_gravity\":"<<(c.extraGravity?"true":"false")<<",\"air_pitch\":"<<c.airPitch<<",\"clamp_roll\":"<<c.clampRoll<<",\"clamp_pitch\":"<<c.clampPitch<<",\"game_angular_damping\":"<<vector(c.angularDamping)<<"},\"units\":\"source-world, seconds, radians, kg, Nm; acceleration=world/s^2; impulse=delta-v\"}";
  std::string metadata=s.str();if(c.initialPitch!=0){std::ostringstream x;x<<",\"initial_pitch\":"<<std::setprecision(9)<<c.initialPitch;metadata.insert(metadata.size()-1,x.str());}if(c.bodySkinWidth!=.025){std::ostringstream x;x<<",\"body_skin_width\":"<<std::setprecision(9)<<c.bodySkinWidth;metadata.insert(metadata.size()-1,x.str());}if(c.startOffset.x!=0||c.startOffset.y!=0||c.startOffset.z!=0)metadata.insert(metadata.size()-1,",\"initial_position\":"+vector(V(c.startOffset.x,c.startOffset.y,c.height+c.startOffset.z)));if(c.fixedOrientation)metadata.insert(metadata.size()-1,",\"fixed_orientation\":true");
@@ -88,6 +90,9 @@ inline void begin(const Case& c,const std::string& profile) {
  if(c.initialPitch!=0){std::ostringstream pitch;pitch.imbue(std::locale::classic());pitch<<std::setprecision(9)<<",\"initial_pitch\":"<<c.initialPitch;metadata.insert(metadata.size()-1,pitch.str());}
 #endif
  if(c.pair){std::ostringstream pair;pair.imbue(std::locale::classic());pair<<std::setprecision(9)<<",\"pair\":{\"watched\":"<<c.watched<<",\"peer_friction\":"<<c.peerFriction<<",\"peer_mass\":"<<c.peerMass<<",\"peer_position\":"<<vector(c.peerPosition)<<",\"peer_velocity\":"<<vector(c.peerVelocity)<<",\"primary_roll\":"<<c.primaryRoll<<",\"peer_roll\":"<<c.peerRoll<<'}';metadata.insert(metadata.size()-1,pair.str());}
+ if(c.bodyLinearDamping!=0 || c.bodyAngularDamping!=.05){std::ostringstream damping;damping.imbue(std::locale::classic());damping<<std::setprecision(9)<<",\"body_linear_damping\":"<<c.bodyLinearDamping<<",\"body_angular_damping\":"<<c.bodyAngularDamping;metadata.insert(metadata.size()-1,damping.str());}
+ if(!c.wheelContactsEnabled)metadata.insert(metadata.size()-1,",\"wheel_contacts_enabled\":false");
+ if(!c.bodyContactFrictionEnabled)metadata.insert(metadata.size()-1,",\"body_contact_friction_enabled\":false");
  parity::event("calibration.begin",c.name,metadata);
 }
 inline void sample(const Case& c,int tick,const Command& command,const Sample& a) {
@@ -98,6 +103,7 @@ inline void sample(const Case& c,int tick,const Command& command,const Sample& a
 #include "Catalog.h"
 #ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
 #include "experimental/SpringProbeCases.h"
+#include "experimental/IsolationProbeCases.h"
 #endif
 inline std::vector<Case> cases() {
  std::vector<Case> s=coreCases();Case c("probe");
@@ -151,7 +157,7 @@ inline std::vector<Case> cases() {
  }
 
 #ifdef MOTORROCK_EXPERIMENT_SPRING_PROBES
- appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);appendTireSlipProbes(s);appendHardTireProbes(s);appendZeroLoadTireProbes(s);appendNegativeTireSlipProbes(s);appendSuspensionAxisProbes(s);
+ appendSpringProbes(s);appendScalarSpringProbes(s);appendLostSpringProbes(s);appendHardSpringProbes(s);appendCoupledFloorProbes(s);appendTireSlipProbes(s);appendHardTireProbes(s);appendZeroLoadTireProbes(s);appendNegativeTireSlipProbes(s);appendSuspensionAxisProbes(s);appendIsolationProbes(s);
 #endif
  appendCatalogCases(s);return s;
 }

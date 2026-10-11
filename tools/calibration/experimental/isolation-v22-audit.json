@@ -1,0 +1,157 @@
+{
+  "scope": "Progressive isolated native Windows PhysX / experimental Mac Jolt; no AI, no GameCar commands",
+  "goal_complete": false,
+  "exact_means": "All logged comparator observables equal; telemetry has 9 significant digits",
+  "stages": {
+    "00": {
+      "cases": 9,
+      "samples": 1080,
+      "repeatable": true,
+      "nonzero_cases": 0,
+      "maximum": {
+        "position_error": 0.0,
+        "velocity_error": 0.0,
+        "rotation_error_radians": 0.0,
+        "angular_momentum_error": 0.0,
+        "wheel_speed_error": 0.0
+      },
+      "windows_contact_records": 0,
+      "windows_maximum_reported_friction_force": 0.0,
+      "capture_hashes": [
+        "484582f79d7f8f7ff8302d246a067880f54d4afb5deea472bfdff26f04426fe8",
+        "b0e5b6722699f012976a6d5e6375a4a7e2133e75f0995deab29edf3e6420e5c8",
+        "693c8b818f5063635b93d375d8d4b329f492a96cb27d5084d58b5b16f4850390",
+        "4e5ab87fff6283370dbd9ef6f52dfdce9a184da6597931bfb0a51b8ed0ee0771"
+      ]
+    },
+    "01": {
+      "cases": 108,
+      "samples": 12960,
+      "repeatable": true,
+      "nonzero_cases": 0,
+      "maximum": {
+        "position_error": 0.0,
+        "velocity_error": 0.0,
+        "rotation_error_radians": 0.0,
+        "angular_momentum_error": 0.0,
+        "wheel_speed_error": 0.0
+      },
+      "windows_contact_records": 0,
+      "windows_maximum_reported_friction_force": 0.0,
+      "capture_hashes": [
+        "70ba92b10b0d8d0de7cdb9094efc1ac1e0cb66aa4e594ae98cc57afea495eaaf",
+        "9c9720e3baa1a16555a19e758629a7504c8ba287d7ad9a6bcf5e30a8e522d577",
+        "8ae355481f87c43e4c8b7c5edb5f1642a9bc3dd2c2a465f5841faf1647bf8d4f",
+        "6b485b9db9d798558ec03c5d1d1a74ea2d9d19662e7adcdb7c931fdc129664e6"
+      ]
+    },
+    "02": {
+      "cases": 48,
+      "samples": 5760,
+      "repeatable": true,
+      "nonzero_cases": 0,
+      "maximum": {
+        "position_error": 0.0,
+        "velocity_error": 0.0,
+        "rotation_error_radians": 0.0,
+        "angular_momentum_error": 0.0,
+        "wheel_speed_error": 0.0
+      },
+      "windows_contact_records": 0,
+      "windows_maximum_reported_friction_force": 0.0,
+      "capture_hashes": [
+        "ace87ba5ae43839219d78390e11a6b940f3c28b66a04792eb48ef80d54e9029d",
+        "f5de9135ab32dc11e8c46724c0e4808b5f04c15c9a03a83419d084995cd35318",
+        "5cba6142f4e798c1f110d954efa9fcadb6411a17947a636e7e5b32fbd4881c82",
+        "662140e60012af5c4ded8119021fdb3bb91c5ffd9e27adeaee8496198449da0f"
+      ]
+    },
+    "03": {
+      "cases": 24,
+      "samples": 2880,
+      "repeatable": true,
+      "nonzero_cases": 12,
+      "maximum": {
+        "position_error": 1.51181612e-05,
+        "velocity_error": 1.4662771720081564e-05,
+        "rotation_error_radians": 0.0,
+        "angular_momentum_error": 0.0,
+        "wheel_speed_error": 0.0
+      },
+      "windows_contact_records": 41280,
+      "windows_maximum_reported_friction_force": 0.0771783239731955,
+      "capture_hashes": [
+        "88fd7a6af56400ae27e3c8cf6495dd46f8bd01bb7dba782dc7793d0e11d283fb",
+        "10421310c6767cf3061a238eb44f8ef2d863c0ee8b674b71128563564faf22c1",
+        "dddd2307d0e7e996035aeb4ed7e5d15b2b0d6d936d4975fc316cc05711bb5860",
+        "07afdb74b78154a3c308a3db7273917b50097871b8cceff6519bd3be7fe419ec"
+      ]
+    }
+  },
+  "passed_stages": [
+    "00",
+    "01",
+    "02"
+  ],
+  "first_remaining_stage": "03 chassis/ground contact",
+  "next_stages_not_yet_certified": [
+    "springs",
+    "damping",
+    "tire grip",
+    "drive/brake/steering",
+    "body friction",
+    "angular response",
+    "combined effects and actual maps"
+  ],
+  "profile": "windows-source-v14.cfg (physx_frozen_pose=1), v21 accepted experimental flags",
+  "default_controls_vs_v14": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical": true,
+      "differences": []
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical": true,
+      "differences": []
+    }
+  },
+  "ctest": {
+    "passed": 53,
+    "failed": 0,
+    "log_sha256": "95dad614a1bf93a82e67a513a4c981ac9cc189dcfa925eda982ea3c153810446"
+  },
+  "original_game_physics_smoke": {
+    "passed": true,
+    "log_sha256": "97a748fca894734953f2837694b6faf73a9c8f498a34f4561d2f04e0a643e03c"
+  },
+  "windows_probe": {
+    "sha256": "4aba51438faf65f5ec3d88a79392c934f28d934e188f0e5fb1616107f1f6bbda",
+    "bytes": 200704,
+    "guest_sha256_verified": true
+  },
+  "active_adapter_patch": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "1ace5f1f336bd2445b065aa1331f6be309b3db6c735362d06075e67e8f128709",
+      "after_sha256": "e9096238024e59b49bb71ec0deb8e408b9a66f23a1a496b40ba79c881d4ea230"
+    }
+  },
+  "remaining_contact_detail": {
+    "coefficient_records_zero_checked": 41280,
+    "normal_frame": "Windows callback / SDK quaternion reconstruction yields small nonvertical normals; Mac has exact vertical normal",
+    "status": "Measured diagnostic; do not replace with a fitted constant or declare full equality",
+    "reported_friction_force_nonzero_despite_disable_flags": 0.0771783239731955
+  },
+  "measurement_negative_controls": {
+    "rejected": [
+      "wheel_contact",
+      "wheel_force",
+      "motor_torque",
+      "body_friction_flag",
+      "body_damping"
+    ],
+    "passed": true
+  }
+}

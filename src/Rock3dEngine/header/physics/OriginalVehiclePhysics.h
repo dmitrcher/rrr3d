@@ -126,6 +126,14 @@ struct VehicleDescription
     Vec3 shapePosition;
     Vec3 centerOfMass;
     Vec3 angularDamping{1.0F, 1.0F, 1.0F};
+    // Intrinsic rigid-body drag, separate from GameCar's per-axis multiplier.
+    // Defaults match NxBodyDesc; isolated probes can disable both explicitly.
+    float bodyLinearDamping = 0.0F;
+    float bodyAngularDamping = 0.05F;
+    // Disable suspension rays as well as tire forces while retaining wheel
+    // geometry in the body's mass/inertia calculation for isolated probes.
+    bool wheelContactsEnabled = true;
+    bool bodyContactFrictionEnabled = true;
     float bodySkinWidth = 0.025F;
     float bodySleepEnergyThreshold = 0.05F;
     // Nx frozen-rotation control, also used to isolate translation in probes.

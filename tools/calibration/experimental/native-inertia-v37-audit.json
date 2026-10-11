@@ -1,0 +1,3781 @@
+{
+  "goal_complete": false,
+  "experimental_only": true,
+  "isolation": {
+    "00": {
+      "cases": 9,
+      "repeatable": true,
+      "complete": true
+    },
+    "01": {
+      "cases": 108,
+      "repeatable": true,
+      "complete": true
+    },
+    "02": {
+      "cases": 48,
+      "repeatable": true,
+      "complete": true
+    },
+    "03": {
+      "cases": 24,
+      "repeatable": true,
+      "complete": true
+    }
+  },
+  "tilted": {
+    "ordinary": {
+      "cases": 72,
+      "repeatable": true,
+      "remaining": 66,
+      "max_position": 0.0022367704633597042,
+      "max_velocity": 0.04754320932921389
+    },
+    "control": {
+      "cases": 72,
+      "repeatable": true,
+      "remaining": 66,
+      "max_position": 0.0022367704633597042,
+      "max_velocity": 0.04754320932921389
+    },
+    "changed_cases_vs_v36": [
+      "frame-v25-long-p0-x0-y0",
+      "frame-v25-long-p0-x0-y1",
+      "frame-v25-long-p0-x1-y0",
+      "frame-v25-long-p0-x1-y1",
+      "frame-v25-long-p0-x2-y0",
+      "frame-v25-long-p0-x2-y1",
+      "frame-v25-long-p2-x0-y0",
+      "frame-v25-long-p2-x0-y1",
+      "frame-v25-long-p2-x1-y1",
+      "frame-v25-long-p2-x2-y0",
+      "frame-v25-long-p2-x2-y1",
+      "frame-v25-long-p3-x0-y0",
+      "frame-v25-long-p3-x0-y1",
+      "frame-v25-long-p3-x1-y1",
+      "frame-v25-long-p3-x2-y0",
+      "frame-v25-long-p3-x2-y1",
+      "frame-v25-long-p7-x0-y0",
+      "frame-v25-long-p7-x1-y1",
+      "frame-v25-long-p7-x2-y0",
+      "frame-v25-long-p7-x2-y1",
+      "frame-v25-long-p8-x0-y0",
+      "frame-v25-long-p8-x0-y1",
+      "frame-v25-long-p8-x1-y1",
+      "frame-v25-long-p8-x2-y0",
+      "frame-v25-long-p8-x2-y1",
+      "frame-v25-long-p10-x0-y0",
+      "frame-v25-long-p10-x0-y1",
+      "frame-v25-long-p10-x1-y0",
+      "frame-v25-long-p10-x1-y1",
+      "frame-v25-long-p10-x2-y0",
+      "frame-v25-long-p10-x2-y1"
+    ],
+    "control_states_unchanged_vs_v36": true,
+    "position_error_increased": [
+      "frame-v25-long-p2-x0-y1",
+      "frame-v25-long-p3-x1-y1",
+      "frame-v25-long-p3-x2-y1",
+      "frame-v25-long-p10-x1-y0"
+    ],
+    "position_error_decreased": [
+      "frame-v25-long-p0-x0-y1",
+      "frame-v25-long-p0-x1-y0",
+      "frame-v25-long-p0-x1-y1",
+      "frame-v25-long-p0-x2-y1",
+      "frame-v25-long-p2-x2-y0",
+      "frame-v25-long-p2-x2-y1",
+      "frame-v25-long-p7-x0-y0",
+      "frame-v25-long-p7-x1-y1",
+      "frame-v25-long-p7-x2-y0",
+      "frame-v25-long-p8-x0-y0",
+      "frame-v25-long-p8-x0-y1",
+      "frame-v25-long-p8-x2-y1",
+      "frame-v25-long-p10-x0-y1",
+      "frame-v25-long-p10-x1-y1",
+      "frame-v25-long-p10-x2-y1"
+    ],
+    "velocity_error_increased": [
+      "frame-v25-long-p0-x1-y1",
+      "frame-v25-long-p0-x2-y0",
+      "frame-v25-long-p2-x0-y0",
+      "frame-v25-long-p2-x2-y0",
+      "frame-v25-long-p2-x2-y1",
+      "frame-v25-long-p3-x0-y0",
+      "frame-v25-long-p7-x1-y1",
+      "frame-v25-long-p7-x2-y0",
+      "frame-v25-long-p8-x0-y1",
+      "frame-v25-long-p8-x2-y0",
+      "frame-v25-long-p8-x2-y1",
+      "frame-v25-long-p10-x0-y0",
+      "frame-v25-long-p10-x1-y1",
+      "frame-v25-long-p10-x2-y1"
+    ],
+    "velocity_error_decreased": [
+      "frame-v25-long-p0-x0-y1",
+      "frame-v25-long-p0-x1-y0",
+      "frame-v25-long-p0-x2-y1",
+      "frame-v25-long-p2-x0-y1",
+      "frame-v25-long-p2-x1-y1",
+      "frame-v25-long-p8-x0-y0",
+      "frame-v25-long-p10-x0-y1",
+      "frame-v25-long-p10-x1-y0"
+    ],
+    "new_exact": [],
+    "lost_exact": []
+  },
+  "initial_anchor_hypothesis_correction": "The preliminary v36 local-anchor discrepancy used 9-digit JSON doubles without casting operands to float32. Corrected first p7 eight-point transform matches Windows; that preliminary discrepancy is not evidence of a physics defect.",
+  "first_solver": {
+    "scope": "First contact only; intermediate solver states are not all identical",
+    "repeats": {
+      "0": {
+        "frame-v25-long-p4-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 12,
+            "constraint_error": 10,
+            "lambda": 9,
+            "lever_arm": 20,
+            "velocity": 2,
+            "angular": 2,
+            "inverse_inertia": 20
+          },
+          "differences": [
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                0.681491494178772,
+                0.0,
+                3.074126958847046
+              ],
+              "windows": [
+                0.6814931631088257,
+                0.0,
+                3.0741355419158936
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                -8.39683723449707,
+                3.6870148181915283,
+                0.47104454040527344
+              ],
+              "windows": [
+                -8.396858215332031,
+                3.687028646469116,
+                0.47104570269584656
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                1.1869866847991943,
+                0.0,
+                5.601604461669922
+              ],
+              "windows": [
+                1.1869895458221436,
+                0.0,
+                5.601619720458984
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                -2.168602466583252,
+                7.797158241271973,
+                0.1216539740562439
+              ],
+              "windows": [
+                -2.168607711791992,
+                7.797183036804199,
+                0.121654212474823
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.1869866847991943,
+                0.0,
+                5.601604461669922
+              ],
+              "windows": [
+                1.1869895458221436,
+                0.0,
+                5.601619720458984
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                -2.168602466583252,
+                7.797158241271973,
+                0.1216539740562439
+              ],
+              "windows": [
+                -2.168607711791992,
+                7.797183036804199,
+                0.121654212474823
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 1097.593017578125,
+              "windows": 1097.603515625
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                0.9357158541679382,
+                0.0,
+                4.345249176025391
+              ],
+              "windows": [
+                0.9357165098190308,
+                0.0,
+                4.345253944396973
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.9273910522460938,
+                6.681958198547363,
+                -0.052024587988853455
+              ],
+              "windows": [
+                0.9274120330810547,
+                6.681973457336426,
+                -0.05202583968639374
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 3093.037841796875,
+              "windows": 3093.0458984375
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.006723165512085,
+                0.0,
+                4.700285911560059
+              ],
+              "windows": [
+                1.0067250728607178,
+                0.0,
+                4.7002973556518555
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.05250650644302368,
+                7.259313106536865,
+                -0.0029454492032527924
+              ],
+              "windows": [
+                0.05251079797744751,
+                7.259339332580566,
+                -0.002945762127637863
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.0035622119903564,
+                0.0,
+                4.684481143951416
+              ],
+              "windows": [
+                1.0035638809204102,
+                0.0,
+                4.684491157531738
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.013560261577367783,
+                7.233611583709717,
+                -0.0007606486324220896
+              ],
+              "windows": [
+                0.013561110943555832,
+                7.233635425567627,
+                -0.0007607685402035713
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 1534.85302734375,
+              "windows": 1534.83984375
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                1.0035622119903564,
+                0.0,
+                4.684481143951416
+              ],
+              "windows": [
+                1.0035638809204102,
+                0.0,
+                4.684491157531738
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.013560261577367783,
+                7.233611583709717,
+                -0.0007606486324220896
+              ],
+              "windows": [
+                0.013561110943555832,
+                7.233635425567627,
+                -0.0007607685402035713
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 1532.07421875,
+              "windows": 1532.093017578125
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.9217836856842041,
+                0.0,
+                4.275588035583496
+              ],
+              "windows": [
+                0.9217838644981384,
+                0.0,
+                4.275590896606445
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                1.0211812257766724,
+                6.870658874511719,
+                -0.057286009192466736
+              ],
+              "windows": [
+                1.0212006568908691,
+                6.870676040649414,
+                -0.057287175208330154
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 3073.696533203125,
+              "windows": 3073.702880859375
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.9881991744041443,
+                0.0,
+                4.607666015625
+              ],
+              "windows": [
+                0.9882006645202637,
+                0.0,
+                4.607675075531006
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.20287203788757324,
+                7.410678386688232,
+                -0.011380624026060104
+              ],
+              "windows": [
+                0.2028757929801941,
+                7.410706043243408,
+                -0.011380910873413086
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.975986123085022,
+                0.0,
+                4.546600818634033
+              ],
+              "windows": [
+                0.9759873747825623,
+                0.0,
+                4.5466084480285645
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.05239446461200714,
+                7.311375141143799,
+                -0.0029391562566161156
+              ],
+              "windows": [
+                0.05239477753639221,
+                7.311400413513184,
+                -0.0029392503201961517
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 1034.46435546875,
+              "windows": 1034.44189453125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.975986123085022,
+                0.0,
+                4.546600818634033
+              ],
+              "windows": [
+                0.9759873747825623,
+                0.0,
+                4.5466084480285645
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.05239446461200714,
+                7.311375141143799,
+                -0.0029391562566161156
+              ],
+              "windows": [
+                0.05239477753639221,
+                7.311400413513184,
+                -0.0029392503201961517
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 1938.459228515625,
+              "windows": 1938.48583984375
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.9003013372421265,
+                0.0,
+                4.168176651000977
+              ],
+              "windows": [
+                0.9003012180328369,
+                0.0,
+                4.168177127838135
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.9849320650100708,
+                6.975468158721924,
+                -0.05525251105427742
+              ],
+              "windows": [
+                0.9849495887756348,
+                6.975487232208252,
+                -0.05525357276201248
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 2998.967041015625,
+              "windows": 2998.9716796875
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.964166522026062,
+                0.0,
+                4.4875030517578125
+              ],
+              "windows": [
+                0.964167594909668,
+                0.0,
+                4.487509250640869
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.19804507493972778,
+                7.494751453399658,
+                -0.011109843850135803
+              ],
+              "windows": [
+                0.1980484127998352,
+                7.49478006362915,
+                -0.011110104620456696
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.9522440433502197,
+                0.0,
+                4.427890777587891
+              ],
+              "windows": [
+                0.9522449374198914,
+                0.0,
+                4.427896022796631
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.05114789307117462,
+                7.397810935974121,
+                -0.0028692279011011124
+              ],
+              "windows": [
+                0.05114877223968506,
+                7.397838115692139,
+                -0.002869349904358387
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 571.3623046875,
+              "windows": 571.331298828125
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.9522440433502197,
+                0.0,
+                4.427890777587891
+              ],
+              "windows": [
+                0.9522449374198914,
+                0.0,
+                4.427896022796631
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.05114789307117462,
+                7.397810935974121,
+                -0.0028692279011011124
+              ],
+              "windows": [
+                0.05114877223968506,
+                7.397838115692139,
+                -0.002869349904358387
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 2329.239501953125,
+              "windows": 2329.273193359375
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.8588663339614868,
+                0.0,
+                3.9610016345977783
+              ],
+              "windows": [
+                0.8588722944259644,
+                0.0,
+                3.9610323905944824
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                1.2016866207122803,
+                6.9833784103393555,
+                -0.06741198152303696
+              ],
+              "windows": [
+                1.201625108718872,
+                6.983428001403809,
+                -0.06740859895944595
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 2926.015625,
+              "windows": 2926.01904296875
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.478198766708374,
+                0.0,
+                2.057662010192871
+              ],
+              "windows": [
+                0.47819921374320984,
+                0.0,
+                2.0576653480529785
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                5.891914367675781,
+                3.888198137283325,
+                -0.33052363991737366
+              ],
+              "windows": [
+                5.89192008972168,
+                3.8882031440734863,
+                -0.3305240571498871
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.012402743101119995,
+                0.0,
+                -0.271320104598999
+              ],
+              "windows": [
+                0.012402594089508057,
+                0.0,
+                -0.2713196277618408
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.15281391143798828,
+                0.1008446216583252,
+                -0.008572489023208618
+              ],
+              "windows": [
+                0.15281295776367188,
+                0.1008453369140625,
+                -0.008572489023208618
+              ]
+            }
+          ]
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "lambda": 7,
+            "lever_arm": 20,
+            "velocity": 1,
+            "angular": 1,
+            "inverse_inertia": 20,
+            "scaled_bias": 12,
+            "constraint_error": 10
+          },
+          "differences": [
+            {
+              "row": 0,
+              "index": 0,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 0,
+              "index": 0,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -5.684751158696599e-08,
+                -0.09490098804235458,
+                0.6156764030456543
+              ],
+              "windows": [
+                0.0,
+                -0.09489842504262924,
+                0.6156508922576904
+              ]
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                2.2508628368377686,
+                -1.6075671911239624,
+                -0.12298894673585892
+              ],
+              "windows": [
+                2.2508022785186768,
+                -1.607523798942566,
+                -0.12298566102981567
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -7.645167698910882e-08,
+                -0.12762808799743652,
+                0.9429473876953125
+              ],
+              "windows": [
+                0.0,
+                -0.12762854993343353,
+                0.942952036857605
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                3.0270614624023438,
+                -1.8977382183074951,
+                -0.1451888382434845
+              ],
+              "windows": [
+                3.0270724296569824,
+                -1.897721529006958,
+                -0.1451876163482666
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -1.2495769396991818e-07,
+                -0.20860382914543152,
+                1.7527047395706177
+              ],
+              "windows": [
+                0.0,
+                -0.20860102772712708,
+                1.7526767253875732
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                4.94764518737793,
+                -0.5260565280914307,
+                -0.04024655371904373
+              ],
+              "windows": [
+                4.947578430175781,
+                -0.5260951519012451,
+                -0.04024959355592728
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 1144.4915771484375,
+              "windows": 1144.460693359375
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.2495769396991818e-07,
+                -0.20860382914543152,
+                1.7527047395706177
+              ],
+              "windows": [
+                0.0,
+                -0.20860102772712708,
+                1.7526767253875732
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.94764518737793,
+                -0.5260565280914307,
+                -0.04024655371904373
+              ],
+              "windows": [
+                4.947578430175781,
+                -0.5260951519012451,
+                -0.04024959355592728
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 394.6839599609375,
+              "windows": 394.7203369140625
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0730622079790919e-07,
+                -0.17913654446601868,
+                1.4580318927764893
+              ],
+              "windows": [
+                0.0,
+                -0.17913156747817993,
+                1.4579821825027466
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.248739719390869,
+                -0.026897847652435303,
+                -0.0020577944815158844
+              ],
+              "windows": [
+                4.248621463775635,
+                -0.026899784803390503,
+                -0.0020580142736434937
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 976.5552368164062,
+              "windows": 976.5158081054688
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0763104540956192e-07,
+                -0.1796787977218628,
+                1.4634544849395752
+              ],
+              "windows": [
+                0.0,
+                -0.17967776954174042,
+                1.4634442329406738
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.261600494384766,
+                -0.031705714762210846,
+                -0.002425626153126359
+              ],
+              "windows": [
+                4.261576175689697,
+                -0.031742651015520096,
+                -0.002428523963317275
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0844353681704888e-07,
+                -0.18103516101837158,
+                1.477018117904663
+              ],
+              "windows": [
+                0.0,
+                -0.1810331493616104,
+                1.4769980907440186
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.293770790100098,
+                -0.008729703724384308,
+                -0.0006678166100755334
+              ],
+              "windows": [
+                4.293723106384277,
+                -0.008783271536231041,
+                -0.0006719873053953052
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 789.1204833984375,
+              "windows": 789.0634765625
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0844353681704888e-07,
+                -0.18103516101837158,
+                1.477018117904663
+              ],
+              "windows": [
+                0.0,
+                -0.1810331493616104,
+                1.4769980907440186
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.293770790100098,
+                -0.008729703724384308,
+                -0.0006678166100755334
+              ],
+              "windows": [
+                4.293723106384277,
+                -0.008783271536231041,
+                -0.0006719873053953052
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 401.2235107421875,
+              "windows": 401.3074951171875
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0815062267965914e-07,
+                -0.18054617941379547,
+                1.4721282720565796
+              ],
+              "windows": [
+                0.0,
+                -0.18054114282131195,
+                1.4720780849456787
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282173156738281,
+                -0.00044657010585069656,
+                -3.4105207305401564e-05
+              ],
+              "windows": [
+                4.2820539474487305,
+                -0.0004490436986088753,
+                -3.436655970290303e-05
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 992.9127807617188,
+              "windows": 992.8615112304688
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0815279694043056e-07,
+                -0.18054981529712677,
+                1.4721646308898926
+              ],
+              "windows": [
+                0.0,
+                -0.180548757314682,
+                1.4721542596817017
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282259464263916,
+                -0.000478788890177384,
+                -3.6570145311998203e-05
+              ],
+              "windows": [
+                4.2822346687316895,
+                -0.0005165325710549951,
+                -3.952988481614739e-05
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0816716411454763e-07,
+                -0.18057380616664886,
+                1.4724044799804688
+              ],
+              "windows": [
+                0.0,
+                -0.1805717796087265,
+                1.4723845720291138
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282828330993652,
+                -7.242514402605593e-05,
+                -5.480760592035949e-06
+              ],
+              "windows": [
+                4.282780647277832,
+                -0.00012645768583752215,
+                -9.686709745437838e-06
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 783.223388671875,
+              "windows": 783.1300048828125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816716411454763e-07,
+                -0.18057380616664886,
+                1.4724044799804688
+              ],
+              "windows": [
+                0.0,
+                -0.1805717796087265,
+                1.4723845720291138
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282828330993652,
+                -7.242514402605593e-05,
+                -5.480760592035949e-06
+              ],
+              "windows": [
+                4.282780647277832,
+                -0.00012645768583752215,
+                -9.686709745437838e-06
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 401.267333984375,
+              "windows": 401.3992919921875
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816473405839133e-07,
+                -0.18056975305080414,
+                1.4723639488220215
+              ],
+              "windows": [
+                0.0,
+                -0.18056470155715942,
+                1.4723137617111206
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282732009887695,
+                -3.669083525892347e-06,
+                -2.2049243852961808e-07
+              ],
+              "windows": [
+                4.2826128005981445,
+                -6.4346459112130105e-06,
+                -5.041938493377529e-07
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 993.2020874023438,
+              "windows": 993.1392211914062
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816153661608041e-07,
+                -0.18056441843509674,
+                1.4723106622695923
+              ],
+              "windows": [
+                0.0,
+                -0.1805633306503296,
+                1.4723000526428223
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.2826056480407715,
+                4.362699473858811e-05,
+                3.397952241357416e-06
+              ],
+              "windows": [
+                4.282580375671387,
+                5.770793904957827e-06,
+                4.2959896973115974e-07
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816255269219255e-07,
+                -0.18056611716747284,
+                1.472327709197998
+              ],
+              "windows": [
+                0.0,
+                -0.18056409060955048,
+                1.4723076820373535
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282646179199219,
+                7.243252184707671e-05,
+                5.601756583928363e-06
+              ],
+              "windows": [
+                4.282598495483398,
+                1.863040597527288e-05,
+                1.4134400316834217e-06
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 783.1744384765625,
+              "windows": 783.0445556640625
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -1.0816610540587135e-07,
+                -0.180572047829628,
+                1.4723870754241943
+              ],
+              "windows": [
+                0.0,
+                -0.18057039380073547,
+                1.4723707437515259
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                4.282786846160889,
+                1.983939000638202e-05,
+                1.5780542526044883e-06
+              ],
+              "windows": [
+                4.282748222351074,
+                -3.72834547306411e-05,
+                -2.864321004381054e-06
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 401.2030029296875,
+              "windows": 401.3826904296875
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -6.926541118446039e-08,
+                -0.11563140153884888,
+                0.8229806423187256
+              ],
+              "windows": [
+                0.0,
+                -0.11564052104949951,
+                0.8230720162391663
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                2.742523670196533,
+                1.10007643699646,
+                0.08416278660297394
+              ],
+              "windows": [
+                2.7427403926849365,
+                1.099836826324463,
+                0.08414441347122192
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 993.2225952148438,
+              "windows": 993.1483764648438
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -4.933744435220433e-08,
+                -0.08236373960971832,
+                0.49030405282974243
+              ],
+              "windows": [
+                0.0,
+                -0.08235795795917511,
+                0.49024641513824463
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                1.9535045623779297,
+                1.3950401544570923,
+                0.10672935098409653
+              ],
+              "windows": [
+                1.953367829322815,
+                1.394932746887207,
+                0.10672109574079514
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 0.071533203125,
+              "windows": 0.0760498046875
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -3.7025067456397665e-09,
+                -0.006180979311466217,
+                -0.27152353525161743
+              ],
+              "windows": [
+                0.0,
+                -0.006181247532367706,
+                -0.2715206742286682
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.1466008424758911,
+                0.10454881191253662,
+                0.007998622953891754
+              ],
+              "windows": [
+                0.14660751819610596,
+                0.10454380512237549,
+                0.007998242974281311
+              ]
+            }
+          ]
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        }
+      },
+      "1": {
+        "frame-v25-long-p4-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        },
+        "frame-v25-long-p5-x0-y0": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "scaled_bias": 12,
+            "constraint_error": 10,
+            "lambda": 9,
+            "lever_arm": 20,
+            "velocity": 2,
+            "angular": 2,
+            "inverse_inertia": 20
+          },
+          "differences": [
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                0.681491494178772,
+                0.0,
+                3.074126958847046
+              ],
+              "windows": [
+                0.6814931631088257,
+                0.0,
+                3.0741355419158936
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                -8.39683723449707,
+                3.6870148181915283,
+                0.47104454040527344
+              ],
+              "windows": [
+                -8.396858215332031,
+                3.687028646469116,
+                0.47104570269584656
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                1.1869866847991943,
+                0.0,
+                5.601604461669922
+              ],
+              "windows": [
+                1.1869895458221436,
+                0.0,
+                5.601619720458984
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                -2.168602466583252,
+                7.797158241271973,
+                0.1216539740562439
+              ],
+              "windows": [
+                -2.168607711791992,
+                7.797183036804199,
+                0.121654212474823
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.1869866847991943,
+                0.0,
+                5.601604461669922
+              ],
+              "windows": [
+                1.1869895458221436,
+                0.0,
+                5.601619720458984
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                -2.168602466583252,
+                7.797158241271973,
+                0.1216539740562439
+              ],
+              "windows": [
+                -2.168607711791992,
+                7.797183036804199,
+                0.121654212474823
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 1097.593017578125,
+              "windows": 1097.603515625
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                0.9357158541679382,
+                0.0,
+                4.345249176025391
+              ],
+              "windows": [
+                0.9357165098190308,
+                0.0,
+                4.345253944396973
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.9273910522460938,
+                6.681958198547363,
+                -0.052024587988853455
+              ],
+              "windows": [
+                0.9274120330810547,
+                6.681973457336426,
+                -0.05202583968639374
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 3093.037841796875,
+              "windows": 3093.0458984375
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.006723165512085,
+                0.0,
+                4.700285911560059
+              ],
+              "windows": [
+                1.0067250728607178,
+                0.0,
+                4.7002973556518555
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.05250650644302368,
+                7.259313106536865,
+                -0.0029454492032527924
+              ],
+              "windows": [
+                0.05251079797744751,
+                7.259339332580566,
+                -0.002945762127637863
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                1.0035622119903564,
+                0.0,
+                4.684481143951416
+              ],
+              "windows": [
+                1.0035638809204102,
+                0.0,
+                4.684491157531738
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                0.013560261577367783,
+                7.233611583709717,
+                -0.0007606486324220896
+              ],
+              "windows": [
+                0.013561110943555832,
+                7.233635425567627,
+                -0.0007607685402035713
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 1534.85302734375,
+              "windows": 1534.83984375
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                1.0035622119903564,
+                0.0,
+                4.684481143951416
+              ],
+              "windows": [
+                1.0035638809204102,
+                0.0,
+                4.684491157531738
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.013560261577367783,
+                7.233611583709717,
+                -0.0007606486324220896
+              ],
+              "windows": [
+                0.013561110943555832,
+                7.233635425567627,
+                -0.0007607685402035713
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 1532.07421875,
+              "windows": 1532.093017578125
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.9217836856842041,
+                0.0,
+                4.275588035583496
+              ],
+              "windows": [
+                0.9217838644981384,
+                0.0,
+                4.275590896606445
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                1.0211812257766724,
+                6.870658874511719,
+                -0.057286009192466736
+              ],
+              "windows": [
+                1.0212006568908691,
+                6.870676040649414,
+                -0.057287175208330154
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 3073.696533203125,
+              "windows": 3073.702880859375
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.9881991744041443,
+                0.0,
+                4.607666015625
+              ],
+              "windows": [
+                0.9882006645202637,
+                0.0,
+                4.607675075531006
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.20287203788757324,
+                7.410678386688232,
+                -0.011380624026060104
+              ],
+              "windows": [
+                0.2028757929801941,
+                7.410706043243408,
+                -0.011380910873413086
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                0.975986123085022,
+                0.0,
+                4.546600818634033
+              ],
+              "windows": [
+                0.9759873747825623,
+                0.0,
+                4.5466084480285645
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                0.05239446461200714,
+                7.311375141143799,
+                -0.0029391562566161156
+              ],
+              "windows": [
+                0.05239477753639221,
+                7.311400413513184,
+                -0.0029392503201961517
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 1034.46435546875,
+              "windows": 1034.44189453125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.975986123085022,
+                0.0,
+                4.546600818634033
+              ],
+              "windows": [
+                0.9759873747825623,
+                0.0,
+                4.5466084480285645
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.05239446461200714,
+                7.311375141143799,
+                -0.0029391562566161156
+              ],
+              "windows": [
+                0.05239477753639221,
+                7.311400413513184,
+                -0.0029392503201961517
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 1938.459228515625,
+              "windows": 1938.48583984375
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.9003013372421265,
+                0.0,
+                4.168176651000977
+              ],
+              "windows": [
+                0.9003012180328369,
+                0.0,
+                4.168177127838135
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.9849320650100708,
+                6.975468158721924,
+                -0.05525251105427742
+              ],
+              "windows": [
+                0.9849495887756348,
+                6.975487232208252,
+                -0.05525357276201248
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -3486.197265625,
+              "windows": -3486.207763671875
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 2998.967041015625,
+              "windows": 2998.9716796875
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.964166522026062,
+                0.0,
+                4.4875030517578125
+              ],
+              "windows": [
+                0.964167594909668,
+                0.0,
+                4.487509250640869
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.19804507493972778,
+                7.494751453399658,
+                -0.011109843850135803
+              ],
+              "windows": [
+                0.1980484127998352,
+                7.49478006362915,
+                -0.011110104620456696
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                0.9522440433502197,
+                0.0,
+                4.427890777587891
+              ],
+              "windows": [
+                0.9522449374198914,
+                0.0,
+                4.427896022796631
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                0.05114789307117462,
+                7.397810935974121,
+                -0.0028692279011011124
+              ],
+              "windows": [
+                0.05114877223968506,
+                7.397838115692139,
+                -0.002869349904358387
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 571.3623046875,
+              "windows": 571.331298828125
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.9522440433502197,
+                0.0,
+                4.427890777587891
+              ],
+              "windows": [
+                0.9522449374198914,
+                0.0,
+                4.427896022796631
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.05114789307117462,
+                7.397810935974121,
+                -0.0028692279011011124
+              ],
+              "windows": [
+                0.05114877223968506,
+                7.397838115692139,
+                -0.002869349904358387
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 2329.239501953125,
+              "windows": 2329.273193359375
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.8588663339614868,
+                0.0,
+                3.9610016345977783
+              ],
+              "windows": [
+                0.8588722944259644,
+                0.0,
+                3.9610323905944824
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                1.2016866207122803,
+                6.9833784103393555,
+                -0.06741198152303696
+              ],
+              "windows": [
+                1.201625108718872,
+                6.983428001403809,
+                -0.06740859895944595
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.3128167688846588,
+              "windows": -0.3128177225589752
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 2926.015625,
+              "windows": 2926.01904296875
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.478198766708374,
+                0.0,
+                2.057662010192871
+              ],
+              "windows": [
+                0.47819921374320984,
+                0.0,
+                2.0576653480529785
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                5.891914367675781,
+                3.888198137283325,
+                -0.33052363991737366
+              ],
+              "windows": [
+                5.89192008972168,
+                3.8882031440734863,
+                -0.3305240571498871
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                0.012402743101119995,
+                0.0,
+                -0.271320104598999
+              ],
+              "windows": [
+                0.012402594089508057,
+                0.0,
+                -0.2713196277618408
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.15281391143798828,
+                0.1008446216583252,
+                -0.008572489023208618
+              ],
+              "windows": [
+                0.15281295776367188,
+                0.1008453369140625,
+                -0.008572489023208618
+              ]
+            }
+          ]
+        },
+        "frame-v25-long-p5-x1-y1": {
+          "points": 4,
+          "rows": 20,
+          "exact_fields": {
+            "effective_mass": 20,
+            "lambda": 7,
+            "lever_arm": 20,
+            "velocity": 1,
+            "angular": 1,
+            "inverse_inertia": 20,
+            "scaled_bias": 12,
+            "constraint_error": 10
+          },
+          "differences": [
+            {
+              "row": 0,
+              "index": 0,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 0,
+              "index": 0,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -5.684751158696599e-08,
+                -0.09490098804235458,
+                0.6156764030456543
+              ],
+              "windows": [
+                0.0,
+                -0.09489842504262924,
+                0.6156508922576904
+              ]
+            },
+            {
+              "row": 1,
+              "index": 1,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                2.2508628368377686,
+                -1.6075671911239624,
+                -0.12298894673585892
+              ],
+              "windows": [
+                2.2508022785186768,
+                -1.607523798942566,
+                -0.12298566102981567
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -7.645167698910882e-08,
+                -0.12762808799743652,
+                0.9429473876953125
+              ],
+              "windows": [
+                0.0,
+                -0.12762854993343353,
+                0.942952036857605
+              ]
+            },
+            {
+              "row": 2,
+              "index": 2,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                3.0270614624023438,
+                -1.8977382183074951,
+                -0.1451888382434845
+              ],
+              "windows": [
+                3.0270724296569824,
+                -1.897721529006958,
+                -0.1451876163482666
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "velocity",
+              "mac": [
+                -1.2495769396991818e-07,
+                -0.20860382914543152,
+                1.7527047395706177
+              ],
+              "windows": [
+                0.0,
+                -0.20860102772712708,
+                1.7526767253875732
+              ]
+            },
+            {
+              "row": 3,
+              "index": 3,
+              "iteration": 0,
+              "field": "angular",
+              "mac": [
+                4.94764518737793,
+                -0.5260565280914307,
+                -0.04024655371904373
+              ],
+              "windows": [
+                4.947578430175781,
+                -0.5260951519012451,
+                -0.04024959355592728
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 1144.4915771484375,
+              "windows": 1144.460693359375
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.2495769396991818e-07,
+                -0.20860382914543152,
+                1.7527047395706177
+              ],
+              "windows": [
+                0.0,
+                -0.20860102772712708,
+                1.7526767253875732
+              ]
+            },
+            {
+              "row": 4,
+              "index": 0,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.94764518737793,
+                -0.5260565280914307,
+                -0.04024655371904373
+              ],
+              "windows": [
+                4.947578430175781,
+                -0.5260951519012451,
+                -0.04024959355592728
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 394.6839599609375,
+              "windows": 394.7203369140625
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0730622079790919e-07,
+                -0.17913654446601868,
+                1.4580318927764893
+              ],
+              "windows": [
+                0.0,
+                -0.17913156747817993,
+                1.4579821825027466
+              ]
+            },
+            {
+              "row": 5,
+              "index": 1,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.248739719390869,
+                -0.026897847652435303,
+                -0.0020577944815158844
+              ],
+              "windows": [
+                4.248621463775635,
+                -0.026899784803390503,
+                -0.0020580142736434937
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "lambda",
+              "mac": 976.5552368164062,
+              "windows": 976.5158081054688
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0763104540956192e-07,
+                -0.1796787977218628,
+                1.4634544849395752
+              ],
+              "windows": [
+                0.0,
+                -0.17967776954174042,
+                1.4634442329406738
+              ]
+            },
+            {
+              "row": 6,
+              "index": 2,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.261600494384766,
+                -0.031705714762210846,
+                -0.002425626153126359
+              ],
+              "windows": [
+                4.261576175689697,
+                -0.031742651015520096,
+                -0.002428523963317275
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "velocity",
+              "mac": [
+                -1.0844353681704888e-07,
+                -0.18103516101837158,
+                1.477018117904663
+              ],
+              "windows": [
+                0.0,
+                -0.1810331493616104,
+                1.4769980907440186
+              ]
+            },
+            {
+              "row": 7,
+              "index": 3,
+              "iteration": 1,
+              "field": "angular",
+              "mac": [
+                4.293770790100098,
+                -0.008729703724384308,
+                -0.0006678166100755334
+              ],
+              "windows": [
+                4.293723106384277,
+                -0.008783271536231041,
+                -0.0006719873053953052
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 789.1204833984375,
+              "windows": 789.0634765625
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0844353681704888e-07,
+                -0.18103516101837158,
+                1.477018117904663
+              ],
+              "windows": [
+                0.0,
+                -0.1810331493616104,
+                1.4769980907440186
+              ]
+            },
+            {
+              "row": 8,
+              "index": 0,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.293770790100098,
+                -0.008729703724384308,
+                -0.0006678166100755334
+              ],
+              "windows": [
+                4.293723106384277,
+                -0.008783271536231041,
+                -0.0006719873053953052
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 401.2235107421875,
+              "windows": 401.3074951171875
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0815062267965914e-07,
+                -0.18054617941379547,
+                1.4721282720565796
+              ],
+              "windows": [
+                0.0,
+                -0.18054114282131195,
+                1.4720780849456787
+              ]
+            },
+            {
+              "row": 9,
+              "index": 1,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282173156738281,
+                -0.00044657010585069656,
+                -3.4105207305401564e-05
+              ],
+              "windows": [
+                4.2820539474487305,
+                -0.0004490436986088753,
+                -3.436655970290303e-05
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "lambda",
+              "mac": 992.9127807617188,
+              "windows": 992.8615112304688
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0815279694043056e-07,
+                -0.18054981529712677,
+                1.4721646308898926
+              ],
+              "windows": [
+                0.0,
+                -0.180548757314682,
+                1.4721542596817017
+              ]
+            },
+            {
+              "row": 10,
+              "index": 2,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282259464263916,
+                -0.000478788890177384,
+                -3.6570145311998203e-05
+              ],
+              "windows": [
+                4.2822346687316895,
+                -0.0005165325710549951,
+                -3.952988481614739e-05
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "velocity",
+              "mac": [
+                -1.0816716411454763e-07,
+                -0.18057380616664886,
+                1.4724044799804688
+              ],
+              "windows": [
+                0.0,
+                -0.1805717796087265,
+                1.4723845720291138
+              ]
+            },
+            {
+              "row": 11,
+              "index": 3,
+              "iteration": 2,
+              "field": "angular",
+              "mac": [
+                4.282828330993652,
+                -7.242514402605593e-05,
+                -5.480760592035949e-06
+              ],
+              "windows": [
+                4.282780647277832,
+                -0.00012645768583752215,
+                -9.686709745437838e-06
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 783.223388671875,
+              "windows": 783.1300048828125
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816716411454763e-07,
+                -0.18057380616664886,
+                1.4724044799804688
+              ],
+              "windows": [
+                0.0,
+                -0.1805717796087265,
+                1.4723845720291138
+              ]
+            },
+            {
+              "row": 12,
+              "index": 0,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282828330993652,
+                -7.242514402605593e-05,
+                -5.480760592035949e-06
+              ],
+              "windows": [
+                4.282780647277832,
+                -0.00012645768583752215,
+                -9.686709745437838e-06
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 401.267333984375,
+              "windows": 401.3992919921875
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816473405839133e-07,
+                -0.18056975305080414,
+                1.4723639488220215
+              ],
+              "windows": [
+                0.0,
+                -0.18056470155715942,
+                1.4723137617111206
+              ]
+            },
+            {
+              "row": 13,
+              "index": 1,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282732009887695,
+                -3.669083525892347e-06,
+                -2.2049243852961808e-07
+              ],
+              "windows": [
+                4.2826128005981445,
+                -6.4346459112130105e-06,
+                -5.041938493377529e-07
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "scaled_bias",
+              "mac": -1070.001708984375,
+              "windows": -1069.9708251953125
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "lambda",
+              "mac": 993.2020874023438,
+              "windows": 993.1392211914062
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816153661608041e-07,
+                -0.18056441843509674,
+                1.4723106622695923
+              ],
+              "windows": [
+                0.0,
+                -0.1805633306503296,
+                1.4723000526428223
+              ]
+            },
+            {
+              "row": 14,
+              "index": 2,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.2826056480407715,
+                4.362699473858811e-05,
+                3.397952241357416e-06
+              ],
+              "windows": [
+                4.282580375671387,
+                5.770793904957827e-06,
+                4.2959896973115974e-07
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "velocity",
+              "mac": [
+                -1.0816255269219255e-07,
+                -0.18056611716747284,
+                1.472327709197998
+              ],
+              "windows": [
+                0.0,
+                -0.18056409060955048,
+                1.4723076820373535
+              ]
+            },
+            {
+              "row": 15,
+              "index": 3,
+              "iteration": 3,
+              "field": "angular",
+              "mac": [
+                4.282646179199219,
+                7.243252184707671e-05,
+                5.601756583928363e-06
+              ],
+              "windows": [
+                4.282598495483398,
+                1.863040597527288e-05,
+                1.4134400316834217e-06
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 783.1744384765625,
+              "windows": 783.0445556640625
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -1.0816610540587135e-07,
+                -0.180572047829628,
+                1.4723870754241943
+              ],
+              "windows": [
+                0.0,
+                -0.18057039380073547,
+                1.4723707437515259
+              ]
+            },
+            {
+              "row": 16,
+              "index": 0,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                4.282786846160889,
+                1.983939000638202e-05,
+                1.5780542526044883e-06
+              ],
+              "windows": [
+                4.282748222351074,
+                -3.72834547306411e-05,
+                -2.864321004381054e-06
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 401.2030029296875,
+              "windows": 401.3826904296875
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -6.926541118446039e-08,
+                -0.11563140153884888,
+                0.8229806423187256
+              ],
+              "windows": [
+                0.0,
+                -0.11564052104949951,
+                0.8230720162391663
+              ]
+            },
+            {
+              "row": 17,
+              "index": 1,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                2.742523670196533,
+                1.10007643699646,
+                0.08416278660297394
+              ],
+              "windows": [
+                2.7427403926849365,
+                1.099836826324463,
+                0.08414441347122192
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "constraint_error",
+              "mac": -0.09925766289234161,
+              "windows": -0.0992548018693924
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 993.2225952148438,
+              "windows": 993.1483764648438
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -4.933744435220433e-08,
+                -0.08236373960971832,
+                0.49030405282974243
+              ],
+              "windows": [
+                0.0,
+                -0.08235795795917511,
+                0.49024641513824463
+              ]
+            },
+            {
+              "row": 18,
+              "index": 2,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                1.9535045623779297,
+                1.3950401544570923,
+                0.10672935098409653
+              ],
+              "windows": [
+                1.953367829322815,
+                1.394932746887207,
+                0.10672109574079514
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "lambda",
+              "mac": 0.071533203125,
+              "windows": 0.0760498046875
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "velocity",
+              "mac": [
+                -3.7025067456397665e-09,
+                -0.006180979311466217,
+                -0.27152353525161743
+              ],
+              "windows": [
+                0.0,
+                -0.006181247532367706,
+                -0.2715206742286682
+              ]
+            },
+            {
+              "row": 19,
+              "index": 3,
+              "iteration": 4,
+              "field": "angular",
+              "mac": [
+                0.1466008424758911,
+                0.10454881191253662,
+                0.007998622953891754
+              ],
+              "windows": [
+                0.14660751819610596,
+                0.10454380512237549,
+                0.007998242974281311
+              ]
+            }
+          ]
+        },
+        "frame-v25-long-p7-x1-y0": {
+          "points": 8,
+          "rows": 40,
+          "exact_fields": {
+            "effective_mass": 40,
+            "scaled_bias": 40,
+            "constraint_error": 40,
+            "lambda": 40,
+            "lever_arm": 40,
+            "velocity": 40,
+            "angular": 40,
+            "inverse_inertia": 40
+          },
+          "differences": []
+        }
+      }
+    }
+  },
+  "inertia_model": {
+    "scope": "Independent Mac body-local tensor transformed using recorded native actor quaternion; diagnostic formula validation only",
+    "fixtures": {
+      "frame-v25-long-p4-x1-y0-run0": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          -4.999999873689376e-05,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p5-x0-y0-run0": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p5-x1-y1-run0": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p7-x1-y0-run0": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0049999793991446495,
+          0.0,
+          0.9999876022338867
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p4-x1-y0-run1": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          -4.999999873689376e-05,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p5-x0-y0-run1": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p5-x1-y1-run1": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      },
+      "frame-v25-long-p7-x1-y0-run1": {
+        "entries": 9,
+        "formula_exact": true,
+        "independent_mac_contact_tensor_exact": true,
+        "native_actor_quaternion": [
+          0.0,
+          0.0049999793991446495,
+          0.0,
+          0.9999876022338867
+        ],
+        "mac_local_tensor": [
+          0.002566884970292449,
+          0.0,
+          0.0,
+          0.0,
+          0.0009410787024535239,
+          0.0,
+          0.0,
+          0.0,
+          0.000719984236638993
+        ]
+      }
+    }
+  },
+  "build": {
+    "full_debug_passed": true,
+    "ctest_passed": 53,
+    "ctest_total": 53,
+    "assets": 1200,
+    "movies": 14,
+    "new_visual_game_check": false
+  },
+  "native_tracer_sha256": "347db1abdcff81779a9e5a4e238ceaca9aebb08174be6f4da187cb816517cd9c",
+  "native_tracer_source_sha256": "4ae32c38d7339c7334b890cbee6c0d70a265ceb34ad4db59d7a6e3596ae38d71",
+  "mac_probe_sha256": "8cf7b7e828c505f515c754a92fb07613b96629756bcbcc603b87c67dfcd2bd71"
+}

@@ -1,0 +1,22 @@
+{
+  "base_commit": "a5d1e979f6179a05aaa10c2623446b9dc5d6e742",
+  "base_candidate": "Tested v36 adapter and v35 SDK contact chain; production source is not this patch base",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "1b0aa0cce5ad17fe600987fc0a8eca45a56a3945b7f2887c9c7b1a291ce1c296",
+      "after_sha256": "a9394ec5f3df880da62c41879a81e54702ecc7778375642e77bb665a1e1cc1c6"
+    },
+    "src/Rock3dEngine/header/physics/NativeInertiaRotation.h": {
+      "before_sha256": null,
+      "after_sha256": "0934feaf8a14ecb88282a22a9933aaff6ff4e676d5100d708d02bed52a938173"
+    },
+    "Jolt/Physics/Collision/ContactListener.h": {
+      "before_sha256": "a24e35fdbcbf1c4d2edc7bbde03673557c7f69d3aa74243982bcec4fb29afa48",
+      "after_sha256": "aff4a787636641e9d4ed805286b4aecb73cc01d6e08609cc03f8ee8e6014bf83"
+    },
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": {
+      "before_sha256": "7b9f4043c26838125445ad871b4b9d2788cf0b94e8fe0dd59aa84a522b50d589",
+      "after_sha256": "fd98073fbb8f349e416c880a36b325df18b3bde3cb79ef18fa95ccbaf678a662"
+    }
+  }
+}

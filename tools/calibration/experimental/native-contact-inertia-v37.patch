@@ -1,0 +1,97 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -7,6 +7,7 @@
+ #include "physics/SourceMaterialFrameCandidate.h"
+ #include "physics/DerivedContactErrorFrame.h"
+ #include "physics/NativeMaterialFrameV36.h"
++#include "physics/NativeInertiaRotation.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -816,6 +817,14 @@
+             if (nativeFirstTraceStep_!=traceStep_-1) return;
+         }
+         const JPH::Body& dynamic=row.mDynamicFirst?first:second;
++        const char* localInertiaTrace=std::getenv("RRR3D_CONTACT_LOCAL_INERTIA_TRACE");
++        if(localInertiaTrace && std::strcmp(localInertiaTrace,"1")==0 && index==0 && row.mIteration==0) {
++            const auto local=dynamic.GetMotionProperties()->GetLocalSpaceInverseInertia();
++            const unsigned axes[]={0,2,1};std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
++            sample<<"{\"step\":"<<traceStep_-1<<",\"local_inverse_inertia\":[";
++            for(unsigned col=0;col<3;++col)for(unsigned r=0;r<3;++r)sample<<(col||r?",":"")<<local.GetColumn3(axes[col])[axes[r]];
++            sample<<"]}";motorrock::parity::event("physics.source-local-inertia","independent body tensor",sample.str());
++        }
+         std::ostringstream out;out.imbue(std::locale::classic());out<<std::setprecision(9)
+             << "{\"step\":" << traceStep_-1 << ",\"index\":" << index << ",\"iteration\":" << row.mIteration
+             << ",\"mask\":" << row.mMask << ",\"dynamic_first\":" << (row.mDynamicFirst?"true":"false")
+@@ -1357,6 +1366,26 @@
+         }
+         const JPH::Body& car = firstIsVehicle ? first : second;
+         const JPH::Body& other = firstIsVehicle ? second : first;
++        const char* nativeInertiaFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_INERTIA");
++        if(nativeInertiaFlag && std::strcmp(nativeInertiaFlag,"1")==0 &&
++           car.IsDynamic() && other.IsStatic() && settings.mUseSourceBlockPGS) {
++            namespace cf=motorrock::contactframe;
++            cf::Quaternion pose;
++            { std::scoped_lock lock(mutex_);
++              const auto found=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
++              // A prepared pose is required; this contact callback cannot throw.
++              if(found==nativeMaterialActorPoses_.end())std::abort();
++              pose=found->second; }
++            const auto local=car.GetMotionProperties()->GetLocalSpaceInverseInertia();
++            const unsigned axes[]={0,2,1};cf::Matrix tensor;
++            for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)
++                tensor.a[row][col]=local.GetColumn3(axes[col])[axes[row]];
++            const auto rotated=motorrock::inertiav37::rotate(cf::decode(pose),tensor);
++            settings.mNativeInverseInertia=JPH::Mat44::sZero();
++            for(unsigned col=0;col<3;++col)settings.mNativeInverseInertia.SetColumn3(axes[col],
++                toJolt(Vec3{rotated.a[0][col],rotated.a[1][col],rotated.a[2][col]}));
++            settings.mNativeInverseInertiaActive=true;
++        }
+         const auto surface = collisionSurface(other.GetUserData());
+         const bool sourceTrackActor =
+             (other.GetUserData() & bodyKindMask) == surfaceBodyKind;
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativeInertiaRotation.h
+@@ -0,0 +1,18 @@
++#pragma once
++// Experimental native global inverse-inertia transform. Keep intermediate
++// products extended and store each output once; the tensor is symmetric.
++// Inputs are the current independently calculated actor pose and local tensor.
++#include "ContactFrameScalar.h"
++namespace motorrock { namespace inertiav37 {
++namespace cf=contactframe;
++inline cf::Matrix rotate(const cf::Matrix& rotation,const cf::Matrix& local) {
++ cf::Matrix result;
++ for(int i=0;i<3;++i)for(int j=i;j<3;++j) {
++  double sum=0;
++  for(int k=0;k<3;++k)for(int l=0;l<3;++l)
++   sum+=double(rotation.a[i][k])*local.a[k][l]*rotation.a[j][l];
++  result.a[i][j]=cf::store(sum);result.a[j][i]=result.a[i][j];
++ }
++ return result;
++}
++}}
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -66,6 +66,8 @@
+ 	std::array<float,64> mDiagnosticNativeErrors{};
+ 	bool mUseDerivedNativeErrors = false;
+ 	std::array<float,64> mDerivedNativeErrors{};
++	bool mNativeInverseInertiaActive = false;
++	Mat44 mNativeInverseInertia = Mat44::sZero();
+ 	bool mNativeCachedLeverActive = false;
+ 	std::array<std::array<float,3>,64> mNativeCachedLeverArms{};
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -143,7 +143,9 @@
+         const uint native_mask = NativeContactArithmetic::Flags();
+         if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) {
+             constexpr bool first = Type1 == EMotionType::Dynamic;
+-            mNativeContact.Prepare(native_mask,first,mNativeCachedLeverActive?mNativeCachedLever:(first?r1:r2),first?inInvI1:inInvI2,first?inInvM1:inInvM2,
++            const Mat44 native_inverse_inertia=inSettings.mNativeInverseInertiaActive && native_mask==31?
++                (first?inSettings.mInvInertiaScale1:inSettings.mInvInertiaScale2)*inSettings.mNativeInverseInertia:(first?inInvI1:inInvI2);
++            mNativeContact.Prepare(native_mask,first,mNativeCachedLeverActive?mNativeCachedLever:(first?r1:r2),native_inverse_inertia,first?inInvM1:inInvM2,
+                 inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:(mDerivedNativeError?mDerivedNativeConstraintError:-penetration),inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
+             mNativeContact.mDerivedError=mDerivedNativeError&&!mDiagnosticNativeError;
+         }

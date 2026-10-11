@@ -1,0 +1,90 @@
+{
+  "scope": "Diagnostic reconstruction only, not an integrated physics correction",
+  "verified_repeats": 2,
+  "source_sha256": "38dabf46d49b6771fe39b565f469b9cd9df495398b8baa0b9eb53d0196b3fcdb",
+  "records": [
+    {
+      "repeat": 0,
+      "step": 1,
+      "case": "frame-v25-long-p5-x0-y0",
+      "native_world_pose": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.015870749950408936,
+        0.0,
+        10.303797721862793
+      ],
+      "native_flattened_translation": [
+        -2.005178451538086,
+        0.0,
+        10.106818199157715
+      ],
+      "native_vertex_z": 9.51846981048584,
+      "native_separation": -0.2873392105102539,
+      "mac_separation": -0.2873401641845703,
+      "reconstruction_contraction_on": [
+        -2.005178451538086,
+        0.0,
+        10.106817245483398,
+        9.518468856811523,
+        -0.2873401641845703
+      ],
+      "reconstruction_contraction_off": [
+        -2.005178451538086,
+        0.0,
+        10.106818199157715,
+        9.51846981048584,
+        -0.2873392105102539
+      ]
+    },
+    {
+      "repeat": 1,
+      "step": 1,
+      "case": "frame-v25-long-p5-x0-y0",
+      "native_world_pose": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.015870749950408936,
+        0.0,
+        10.303797721862793
+      ],
+      "native_flattened_translation": [
+        -2.005178451538086,
+        0.0,
+        10.106818199157715
+      ],
+      "native_vertex_z": 9.51846981048584,
+      "native_separation": -0.2873392105102539,
+      "mac_separation": -0.2873401641845703,
+      "reconstruction_contraction_on": [
+        -2.005178451538086,
+        0.0,
+        10.106817245483398,
+        9.518468856811523,
+        -0.2873401641845703
+      ],
+      "reconstruction_contraction_off": [
+        -2.005178451538086,
+        0.0,
+        10.106818199157715,
+        9.51846981048584,
+        -0.2873392105102539
+      ]
+    }
+  ],
+  "interpretation": "Fused multiply-add contraction in polygon flattened translation reproduces the first Mac separation mismatch. Separate multiply/add reproduces Windows at identical inputs. No force, fixture, or scenario-specific constant is changed."
+}

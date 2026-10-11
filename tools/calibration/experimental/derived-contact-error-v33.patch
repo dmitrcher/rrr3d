@@ -1,0 +1,187 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3,6 +3,7 @@
+ #include "physics/SourceBoxManifold.h"
+ #include "physics/SourceMeshManifold.h"
+ #include "physics/SourceMaterialFrameCandidate.h"
++#include "physics/DerivedContactErrorFrame.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -816,6 +817,7 @@
+             << "{\"step\":" << traceStep_-1 << ",\"index\":" << index << ",\"iteration\":" << row.mIteration
+             << ",\"mask\":" << row.mMask << ",\"dynamic_first\":" << (row.mDynamicFirst?"true":"false")
+             << ",\"diagnostic_error\":" << (row.mDiagnosticError?"true":"false")
++            << (row.mDerivedError?",\"derived_error\":true":"")
+             << ",\"effective_mass\":" << mass << ",\"scaled_bias\":" << row.mScaledBias
+             << ",\"raw_bias\":" << row.mRawBias << ",\"constraint_error\":" << row.mError
+             << ",\"lambda\":" << lambda << ",\"inverse_mass\":" << row.mInvMass;
+@@ -1013,6 +1015,7 @@
+         if(contacts.count>16)return false;
+         output=input;output.mRelativeContactPointsOn1.clear();output.mRelativeContactPointsOn2.clear();
+         output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
++        output.mNativeErrorFrameActive=false;
+         if(!contacts.count)return true;
+         const char* materialFlag=std::getenv("RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE");
+         if(materialFlag && std::strcmp(materialFlag,"1")==0) {
+@@ -1024,6 +1027,15 @@
+             const cf::Quaternion actorQuaternion={{q.x,q.y,q.z,q.w}};
+             const cf::Vector plane={{commonNormal.x,commonNormal.y,commonNormal.z}};
+             const auto candidate=motorrock::materialcandidate::compute(cf::columns(a,b,c),actorQuaternion,plane);
++            const char* errorFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ERROR_FRAME");
++            if(errorFlag && std::strcmp(errorFlag,"1")==0) {
++                const auto frames=motorrock::derivederror::frames(cf::columns(a,b,c),actorQuaternion,plane);
++                output.mNativeErrorFrameActive=true;
++                for(int j=0;j<4;++j) {
++                    output.mNativeErrorRawQuaternion[j]=frames.raw[j];
++                    output.mNativeErrorMaterialQuaternion[j]=frames.material[j];
++                }
++            }
+             if(candidate.callback.modified) {
+                 commonNormal={candidate.normal[0],candidate.normal[1],candidate.normal[2]};
+             }
+@@ -1275,6 +1287,18 @@
+             settings.mSourceSeparations = manifold.mSourceSeparations;
+             settings.mUseDiagnosticNativeErrors=manifold.mUseDiagnosticNativeErrors;
+             settings.mDiagnosticNativeErrors=manifold.mDiagnosticNativeErrors;
++            settings.mUseDerivedNativeErrors=manifold.mNativeErrorFrameActive;
++            if(settings.mUseDerivedNativeErrors) {
++                motorrock::derivederror::Frames frames;
++                for(int j=0;j<4;++j) {
++                    frames.raw[j]=manifold.mNativeErrorRawQuaternion[j];
++                    frames.material[j]=manifold.mNativeErrorMaterialQuaternion[j];
++                }
++                for(unsigned j=0;j<manifold.mRelativeContactPointsOn1.size();++j) {
++                    const float rawError=motorrock::derivederror::add(manifold.mSourceSeparations[j],settings.mAdditionalSeparation);
++                    settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(rawError,frames);
++                }
++            }
+             settings.mUseBoxContactOrder = false;
+         }
+         const JPH::Body& car = firstIsVehicle ? first : second;
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -144,7 +144,8 @@
+         if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) {
+             constexpr bool first = Type1 == EMotionType::Dynamic;
+             mNativeContact.Prepare(native_mask,first,first?r1:r2,first?inInvI1:inInvI2,first?inInvM1:inInvM2,
+-                inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:-penetration,inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
++                inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:(mDerivedNativeError?mDerivedNativeConstraintError:-penetration),inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
++            mNativeContact.mDerivedError=mDerivedNativeError&&!mDiagnosticNativeError;
+         }
+     }
+ 
+@@ -769,6 +770,8 @@
+ 		wcp.mSourceSeparation = inSettings.mUseSourceSeparation? inSettings.mSourceSeparations[source_point_index] : 0.0f;
+ 		wcp.mDiagnosticNativeError = inSettings.mUseDiagnosticNativeErrors;
+ 		wcp.mDiagnosticNativeConstraintError = inSettings.mDiagnosticNativeErrors[source_point_index];
++		wcp.mDerivedNativeError = inSettings.mUseDerivedNativeErrors;
++		wcp.mDerivedNativeConstraintError = inSettings.mDerivedNativeErrors[source_point_index];
+ 		++source_point_index;
+ 		RVec3 p1 = inTransformBody1 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition1);
+ 		RVec3 p2 = inTransformBody2 * Vec3::sLoadFloat3Unsafe(wcp.mContactPoint->mPosition2);
+@@ -1005,6 +1008,8 @@
+ 			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
+ 		wcp.mDiagnosticNativeError = settings.mUseDiagnosticNativeErrors;
+ 		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
++		wcp.mDerivedNativeError = settings.mUseDerivedNativeErrors;
++		wcp.mDerivedNativeConstraintError = settings.mDerivedNativeErrors[i];
+ 				wcp.mNonPenetrationConstraint.SetTotalLambda(ccp.mNonPenetrationLambda);
+ 				wcp.mFrictionConstraint1.SetTotalLambda(ccp.mFrictionLambda[0]);
+ 				wcp.mFrictionConstraint2.SetTotalLambda(ccp.mFrictionLambda[1]);
+@@ -1247,6 +1252,8 @@
+ 			wcp.mSourceSeparation = settings.mUseSourceSeparation? settings.mSourceSeparations[i] : 0.0f;
+ 		wcp.mDiagnosticNativeError = settings.mUseDiagnosticNativeErrors;
+ 		wcp.mDiagnosticNativeConstraintError = settings.mDiagnosticNativeErrors[i];
++		wcp.mDerivedNativeError = settings.mUseDerivedNativeErrors;
++		wcp.mDerivedNativeConstraintError = settings.mDerivedNativeErrors[i];
+ 			RVec3 p1_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn1[i];
+ 			RVec3 p2_ws = inManifold.mBaseOffset + inManifold.mRelativeContactPointsOn2[i];
+ 
+--- a/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -443,6 +443,8 @@
+ 		NativeContactArithmetic mNativeContact;
+ 		bool mDiagnosticNativeError = false;
+ 		float mDiagnosticNativeConstraintError = 0.0f;
++		bool mDerivedNativeError = false;
++		float mDerivedNativeConstraintError = 0.0f;
+ 		CachedContactPoint *	mContactPoint;
+ 	};
+ 
+--- a/Jolt/Physics/Collision/ContactListener.h
++++ b/Jolt/Physics/Collision/ContactListener.h
+@@ -21,7 +21,7 @@
+ {
+ public:
+ 	/// Swaps shape 1 and 2
+-	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors }; }
++	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors, mNativeErrorFrameActive, mNativeErrorRawQuaternion, mNativeErrorMaterialQuaternion }; }
+ 
+ 	/// Access to the world space contact positions
+ 	inline RVec3			GetWorldSpaceContactPointOn1(uint inIndex) const { return mBaseOffset + mRelativeContactPointsOn1[inIndex]; }
+@@ -40,6 +40,8 @@
+ 	// Recorded Native constraint errors: explicit diagnostic intervention only.
+ 	bool mUseDiagnosticNativeErrors = false;
+ 	std::array<float,64> mDiagnosticNativeErrors{};
++	bool mNativeErrorFrameActive = false;
++	std::array<float,4> mNativeErrorRawQuaternion{}, mNativeErrorMaterialQuaternion{};
+ };
+ 
+ /// When a contact point is added or persisted, the callback gets a chance to override certain properties of the contact constraint.
+@@ -60,6 +62,8 @@
+ 	// Recorded Native constraint errors: explicit diagnostic intervention only.
+ 	bool mUseDiagnosticNativeErrors = false;
+ 	std::array<float,64> mDiagnosticNativeErrors{};
++	bool mUseDerivedNativeErrors = false;
++	std::array<float,64> mDerivedNativeErrors{};
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+ 	float					mInvMassScale1 = 1.0f;				///< Scale factor for the inverse mass of body 1 (0 = infinite mass, 1 = use original mass, 2 = body has half the mass). For the same contact pair, you should strive to keep the value the same over time.
+ 	float					mInvInertiaScale1 = 1.0f;			///< Scale factor for the inverse inertia of body 1 (usually same as mInvMassScale1)
+--- a/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h
++++ b/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h
+@@ -11,7 +11,7 @@
+ public:
+     enum : uint { Mass = 1, Bias = 2, PointVelocity = 4, OriginalDelta = 8, ForceFirst = 16 };
+     uint mMask = 0, mIteration = 0;
+-    bool mDynamicFirst = false, mDiagnosticError = false;
++    bool mDynamicFirst = false, mDiagnosticError = false, mDerivedError = false;
+     Vec3 mR = Vec3::sZero(), mNormal = Vec3::sZero(); // Native Z-up polar coordinates
+     float mInvI[9]{}; // Native column-major inverse inertia
+     float mInvMass = 0, mError = 0, mRawBias = 0, mScaledBias = 0;
+--- a/src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h
++++ b/src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h
+@@ -0,0 +1,33 @@
++#pragma once
++// v33 experimental Native material error transform. First identity-body flat
++// mesh contacts verified against actual private Native preparation. Arbitrary
++// raw seed construction and tilted actor/frame combinations remain unaccepted.
++// No recorded errors, case identifiers or expected outputs are loaded here.
++#include "SourceMaterialFrameCandidate.h"
++namespace motorrock { namespace derivederror {
++namespace cf=motorrock::contactframe;
++namespace mf=motorrock::materialcandidate;
++inline float add(float a,float b){return cf::store(double(a)+b);}
++inline float sub(float a,float b){return cf::store(double(a)-b);}
++inline float mul(float a,float b){return cf::store(double(a)*b);}
++inline cf::Vector rotate(cf::Quaternion q,cf::Vector v,bool inverse) {
++ const float x=q[0],y=q[1],z=q[2],w=q[3];
++ const cf::Vector cross={{sub(mul(y,v[2]),mul(z,v[1])),sub(mul(z,v[0]),mul(x,v[2])),sub(mul(x,v[1]),mul(y,v[0]))}};
++ const float dot=add(add(mul(q[inverse?2:1],v[inverse?2:1]),mul(q[inverse?1:2],v[inverse?1:2])),mul(x,v[0]));
++ const float scale=sub(mul(w,w),.5F);cf::Vector out;
++ for(int i=0;i<3;++i){const float a=mul(scale,v[i]),b=mul(w,cross[i]);out[i]=mul(add(inverse?sub(a,b):add(a,b),mul(q[i],dot)),2.0F);}return out;
++}
++struct Frames {cf::Quaternion raw,material;};
++inline Frames frames(const cf::Matrix& actor,cf::Quaternion actorQuaternion,cf::Vector normal) {
++ const auto n=cf::unit(normal);cf::Vector axis={{1,0,0}},tangent=cf::cross(n,axis);
++ if(cf::length(tangent)<=.0001F){axis=cf::Vector{{0,0,1}};tangent=cf::cross(n,axis);}
++ tangent=cf::unit(tangent);const auto rawWorld=cf::encode(cf::columns(n,tangent,cf::cross(n,tangent)));
++ auto inverseActor=actorQuaternion;for(int i=0;i<3;++i)inverseActor[i]=-inverseActor[i];
++ const auto rawLocal=mf::multiply(inverseActor,rawWorld);
++ Frames f;f.raw=mf::multiply(actorQuaternion,rawLocal);
++ const auto candidate=mf::compute(actor,actorQuaternion,n);f.material=mf::multiply(actorQuaternion,candidate.seed);return f;
++}
++inline float error(float rawError,const Frames& f) {
++ const cf::Vector initial={{rawError,0,0}};return rotate(f.material,rotate(f.raw,initial,false),true)[0];
++}
++}}

@@ -1,0 +1,29 @@
+{
+  "scope": "v33 independently computes Native normal error from Mac separation/skin and Native quaternion forward/inverse material-frame operations. Defaultoff strict1; source mesh and existing material-frame experiment only. No recorded error required; geometry replay remains diagnostic and independent geometry unaccepted. Layered after v32.",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "b9df185c3c8341c5fee345e427880ecb58ea62fc47153b12a6e93f421f5c91aa",
+      "after_sha256": "f6ab08821071c3f7873c062c45aba90e210c14370ac0a3b234b4e819abbf45cb"
+    },
+    "Jolt/Physics/Constraints/ContactConstraintManager.cpp": {
+      "before_sha256": "07b7a00c605c5049524ef29817747a2083c87d4d84925d75566084ba7a7cbc63",
+      "after_sha256": "4b3946e16780398b24f368bf0b18a86dd0d7705f7143f800a98bd16c5524ab01"
+    },
+    "Jolt/Physics/Constraints/ContactConstraintManager.h": {
+      "before_sha256": "23baa9ddc83447eaa6d8c62d89969ee008b2b5f8c338fb9378f30846cd810850",
+      "after_sha256": "2a336b4d3cff795dad12616d04f9a4c0b03628b2f1cb32f65dd0663598dc5209"
+    },
+    "Jolt/Physics/Collision/ContactListener.h": {
+      "before_sha256": "f54d9cefbb411c8ff7f2b4c5caf1b8f52c374fb169eb47c809841ef250295771",
+      "after_sha256": "123485866d1d3429cb692cb79254bf8677eaa83dbe72daf6337e2f5bd9722906"
+    },
+    "Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h": {
+      "before_sha256": "595dea442b401eb536f494446ae3253574e4af230296a86596af61dacabad7fb",
+      "after_sha256": "6d2dee8002d31792460ad5dbcf895ef0bbf58779837d456bd6808c89c03e6c4d"
+    },
+    "src/Rock3dEngine/header/physics/DerivedContactErrorFrame.h": {
+      "before_sha256": null,
+      "after_sha256": "35d7944159e2eb6e12e1e6d08e8cf5289baa0a2c467dbff8a123c4ac86f24b1a"
+    }
+  }
+}

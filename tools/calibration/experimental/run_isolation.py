@@ -45,6 +45,8 @@ def main():
                    help='Enable the v34 contact chain plus independent cached points/errors; requires the v35 patched probe')
     p.add_argument('--contact-v38-plane-normal', action='store_true',
                    help='Enable the v37 chain plus native triangle plane and contact normal decode; requires the v38 patched probe')
+    p.add_argument('--contact-v42-physical-pose', action='store_true',
+                   help='Enable the v41 chain plus distinct internal geometry/cache and callback poses; requires the v42 patched probe')
     p.add_argument('--contact-v41-solver-inertia', action='store_true',
                    help='Enable the v40 chain plus native scalar SSE solver inertia; requires the v41 patched probe')
     p.add_argument('--contact-v40-cache-frame', action='store_true',
@@ -60,6 +62,8 @@ def main():
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
+    if args.contact_v42_physical_pose:
+        args.contact_v41_solver_inertia = True
     if args.contact_v41_solver_inertia:
         args.contact_v40_cache_frame = True
     if args.contact_v40_cache_frame:
@@ -121,6 +125,10 @@ def main():
             env['RRR3D_EXPERIMENT_NATIVE_CACHE_FRAME'] = '1'
         if args.contact_v41_solver_inertia:
             env['RRR3D_EXPERIMENT_NATIVE_SOLVER_INERTIA'] = '1'
+        if args.contact_v42_physical_pose:
+            env['RRR3D_EXPERIMENT_NATIVE_CACHE_POSE'] = '1'
+            env['RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE'] = '1'
+            env['RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_RESTORE'] = '1'
     manifest_path = args.out / 'isolation-run.json'
     if manifest_path.exists():
         p.error('Run manifest already exists; use a fresh output directory')
@@ -137,6 +145,7 @@ def main():
         'contact_v39_depth': args.contact_v39_depth,
         'contact_v40_cache_frame': args.contact_v40_cache_frame,
         'contact_v41_solver_inertia': args.contact_v41_solver_inertia,
+        'contact_v42_physical_pose': args.contact_v42_physical_pose,
         'environment': {k: v for k, v in env.items()
                         if k.startswith(('RRR3D_', 'NX_SPRING_ITERATIONS'))},
         'stages': {}, 'status': 'capturing',

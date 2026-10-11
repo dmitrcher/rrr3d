@@ -72,4 +72,21 @@ inline void appendIsolationProbes(std::vector<Case>& suite) {
   c.name=c.action=longName.str();c.steps=120;suite.push_back(c);
  }
 
+ // Frozen contact pose coverage: shape origin and center of mass are independent.
+ // Keep AI, wheel rays, tire forces, motor/brake torque and damping disabled.
+ for(int type=0;type<6;++type) {
+  std::ostringstream name;name<<"pose-v42-frozen-"<<type;
+  Case c=isolatedBody(name.str(),1200);c.steps=120;c.ground=true;c.gravity=-20;
+  c.fixedOrientation=true;c.initialPitch=.25;c.slopeY=.1;
+  if(type==1)c.centerOfMass=V(.5,0,0);
+  if(type==2)c.centerOfMass=V(0,0,-.5);
+  if(type>=3)c.shapePosition=V(.2,0,.1);
+  if(type==4)c.centerOfMass=V(.5,0,-.5);
+  if(type==5){c.shapePosition=V(.2,.1,.1);c.centerOfMass=V(.2,-.3,-.4);}
+  c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
+  // Offset the actor so the geometric box has the same initial floor penetration.
+  c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
+  suite.push_back(c);
+ }
+
 }

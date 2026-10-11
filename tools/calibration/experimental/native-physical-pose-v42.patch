@@ -1,0 +1,158 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -8,6 +8,7 @@
+ #include "physics/DerivedContactErrorFrame.h"
+ #include "physics/NativeMaterialFrameV36.h"
+ #include "physics/NativeInertiaRotation.h"
++#include "physics/NativePhysicalPoseV42.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -956,6 +957,18 @@
+     {
+         const JPH::Shape* shape = body.GetShape();
+         JPH::RMat44 transform = body.GetWorldTransform();
++        const char* physicalPoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE");
++        if(body.IsDynamic() && physicalPoseFlag && std::strcmp(physicalPoseFlag,"1")==0) {
++            motorrock::contactframe::Quaternion pose;
++            { std::scoped_lock lock(mutex_);
++              const auto prepared=nativeMaterialActorPoses_.find(body.GetID().GetIndexAndSequenceNumber());
++              if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical geometry pose");
++              pose=prepared->second; }
++            const auto rotation=motorrock::physicalposev42::rotation(pose);
++            const unsigned axes[]={0,2,1};
++            for(unsigned col=0;col<3;++col)transform.SetColumn3(axes[col],
++                toJolt(Vec3{rotation.a[0][col],rotation.a[1][col],rotation.a[2][col]}));
++        }
+         while (shape->GetType() == JPH::EShapeType::Decorated) {
+             if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
+                 const auto* decorated = static_cast<const JPH::RotatedTranslatedShape*>(shape);
+@@ -1075,7 +1088,16 @@
+                   const auto pose=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+                   if(pose==nativeMaterialActorPoses_.end())throw std::runtime_error("Native material actor pose was not prepared");
+                   actorQuaternion=pose->second; }
+-                nativeCandidate=motorrock::framev36::compute(cf::columns(a,b,c),actorQuaternion,plane);
++                // Original frozen actors expose the saved API pose to the user
++                // callback while internal geometry/cache use the prepared pose.
++                auto callbackActor=cf::columns(a,b,c);
++                const char* geometryPoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE");
++                if(geometryPoseFlag && std::strcmp(geometryPoseFlag,"1")==0) {
++                    const auto apiPose=car.GetCenterOfMassTransform();
++                    const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(apiPose.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
++                    callbackActor=cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY()));
++                }
++                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane);
+             }
+             const char* errorFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ERROR_FRAME");
+             if(errorFlag && std::strcmp(errorFlag,"1")==0) {
+@@ -1094,7 +1116,7 @@
+         const char* cacheFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_CACHE");
+         if(output.mNativeErrorFrameActive && cacheFlag && std::strcmp(cacheFlag,"1")==0) {
+             namespace nc=motorrock::nativecache;namespace cf=motorrock::contactframe;
+-            const nc::Pose actor{cf::columns({{box.m.column0.x,box.m.column0.y,box.m.column0.z}},{{box.m.column1.x,box.m.column1.y,box.m.column1.z}},{{box.m.column2.x,box.m.column2.y,box.m.column2.z}}),{{box.p.x,box.p.y,box.p.z}}};
++            nc::Pose actor{cf::columns({{box.m.column0.x,box.m.column0.y,box.m.column0.z}},{{box.m.column1.x,box.m.column1.y,box.m.column1.z}},{{box.m.column2.x,box.m.column2.y,box.m.column2.z}}),{{box.p.x,box.p.y,box.p.z}}};
+             const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(transform.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
+             const auto translation=fromJolt(JPH::Vec3(transform.GetTranslation()));
+             const nc::Pose ground{cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY())),{{translation.x,translation.y,translation.z}}};
+@@ -1102,6 +1124,14 @@
+             const auto& n=contacts.contacts[0].normal;const cf::Vector normal={{n.x,n.y,n.z}};
+             const std::uint64_t key=std::uint64_t(car.GetID().GetIndexAndSequenceNumber()) | (std::uint64_t(surface.GetID().GetIndexAndSequenceNumber())<<32);
+             std::scoped_lock lock(mutex_);
++            const char* cachePoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_POSE");
++            if(cachePoseFlag && std::strcmp(cachePoseFlag,"1")==0) {
++                const auto prepared=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
++                if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical cache pose");
++                actor.rotation=motorrock::physicalposev42::rotation(prepared->second);
++                const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
++                actor.position={{center.x,center.y,center.z}};
++            }
+             cf::Quaternion cacheFrame;for(unsigned j=0;j<4;++j)cacheFrame[j]=output.mNativeErrorRawQuaternion[j];
+             const char* cacheFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_FRAME");
+             const bool persistentCacheFrame=cacheFrameFlag && std::strcmp(cacheFrameFlag,"1")==0;
+@@ -1125,7 +1155,7 @@
+                 motorrock::parity::event("physics.native-cache-input","independent cache inputs and persistence",sample.str());
+             }
+             const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
+-            const cf::Vector offset={{nc::de::sub(box.p.x,center.x),nc::de::sub(box.p.y,center.y),nc::de::sub(box.p.z,center.z)}};
++            const cf::Vector offset={{nc::de::sub(actor.position[0],center.x),nc::de::sub(actor.position[1],center.y),nc::de::sub(actor.position[2],center.z)}};
+             output.mNativeErrorCacheActive=true;
+             for(unsigned i=0;i<errors.size();++i)for(unsigned j=0;j<3;++j){output.mNativeErrorTransverse[i][j]=errors[i][j];output.mNativeCachedLeverArms[i][j]=nc::de::add(levers[i][j],offset[j]);}
+         }
+@@ -2576,8 +2606,8 @@
+             // followed by pose restoration. Independent Nx captures confirm
+             // equal first-step translation/velocity for free and frozen bodies.
+             // Removing rotational DOFs instead changes the contact effective
+-            // mass. SetRotation preserves the actor origin (including its COM
+-            // offset); clearing angular velocity also matches the Nx captures.
++            // mass. The legacy path preserves actor origin; offset-COM probes
++            // require preserving integrated center of mass instead. Clear spin.
+             if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+                 for (auto& vehicle : vehicles_)
+                     if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+@@ -2602,7 +2632,16 @@
+                             vehicle.sourceFrozenNormalizationPending = false;
+                         }
+                         auto& bodies = system_.GetBodyInterface();
+-                        bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
++                        const char* frozenCenterFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_RESTORE");
++                        if(frozenCenterFlag && std::strcmp(frozenCenterFlag,"1")==0) {
++                            // Freeze orientation around the integrated center of mass.
++                            // SetRotation alone preserves the old actor origin and
++                            // moves an offset center after every integration step.
++                            const auto center=bodies.GetCenterOfMassPosition(vehicle.body);
++                            const auto offset=vehicle.sourceFrozenRotation*bodies.GetShape(vehicle.body)->GetCenterOfMass();
++                            bodies.SetPositionAndRotation(vehicle.body,center-JPH::RVec3(offset),vehicle.sourceFrozenRotation,
++                                JPH::EActivation::DontActivate);
++                        } else bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
+                             JPH::EActivation::DontActivate);
+                         bodies.SetAngularVelocity(vehicle.body, JPH::Vec3::sZero());
+                     }
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativePhysicalPoseV42.h
+@@ -0,0 +1,22 @@
++#pragma once
++// Prepared original physical pose uses scalar SSE matrix construction.
++// The public NxMat33 helper is a distinct, extended-precision operation path.
++#include "ContactFrameScalar.h"
++namespace motorrock { namespace physicalposev42 {
++namespace cf=contactframe;
++inline float mul(float a,float b){return cf::store(double(a)*b);}
++inline float add(float a,float b){return cf::store(double(a)+b);}
++inline float sub(float a,float b){return cf::store(double(a)-b);}
++inline cf::Matrix rotation(cf::Quaternion q) {
++ const float x=q[0],y=q[1],z=q[2],w=q[3];
++ const float dx=mul(x,2),dy=mul(y,2),dz=mul(z,2);
++ const float xx=mul(x,dx),yy=mul(y,dy),zz=mul(z,dz);
++ const float xy=mul(y,dx),xz=mul(z,dx),yz=mul(z,dy);
++ const float wx=mul(w,dx),wy=mul(w,dy),wz=mul(w,dz);
++ cf::Matrix r;
++ r.a[0][0]=sub(1,add(zz,yy));r.a[0][1]=sub(xy,wz);r.a[0][2]=add(xz,wy);
++ r.a[1][0]=add(xy,wz);r.a[1][1]=sub(1,add(zz,xx));r.a[1][2]=sub(yz,wx);
++ r.a[2][0]=sub(xz,wy);r.a[2][1]=add(yz,wx);r.a[2][2]=sub(1,add(yy,xx));
++ return r;
++}
++}}
+--- a/tools/calibration/experimental/IsolationProbeCases.h
++++ b/tools/calibration/experimental/IsolationProbeCases.h
+@@ -72,4 +72,21 @@
+   c.name=c.action=longName.str();c.steps=120;suite.push_back(c);
+  }
+ 
++ // Frozen contact pose coverage: shape origin and center of mass are independent.
++ // Keep AI, wheel rays, tire forces, motor/brake torque and damping disabled.
++ for(int type=0;type<6;++type) {
++  std::ostringstream name;name<<"pose-v42-frozen-"<<type;
++  Case c=isolatedBody(name.str(),1200);c.steps=120;c.ground=true;c.gravity=-20;
++  c.fixedOrientation=true;c.initialPitch=.25;c.slopeY=.1;
++  if(type==1)c.centerOfMass=V(.5,0,0);
++  if(type==2)c.centerOfMass=V(0,0,-.5);
++  if(type>=3)c.shapePosition=V(.2,0,.1);
++  if(type==4)c.centerOfMass=V(.5,0,-.5);
++  if(type==5){c.shapePosition=V(.2,.1,.1);c.centerOfMass=V(.2,-.3,-.4);}
++  c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
++  // Offset the actor so the geometric box has the same initial floor penetration.
++  c.height+=c.shapePosition.x*std::sin(c.initialPitch)-c.shapePosition.z*std::cos(c.initialPitch)+c.slopeY*c.shapePosition.y;
++  suite.push_back(c);
++ }
++
+ }

@@ -73,3 +73,13 @@ but the original internal solver uses float SSE operations with different term
 ordering. The corrected experiment closes nine more complete contact fixtures
 without changing coefficients. See [v41 evidence](PHYSICS_CONTACT_V41_2026-10-12.md).
 The complete goal remains active, with 45/72 tilted fixtures unresolved.
+
+## v42 follow-up
+
+Original internal geometry and cache poses differ from the saved API callback
+pose on frozen actors. Separating them closes nine more long contacts (36/72
+exact) and the p7 cached normal defect. New offset-COM fixtures also expose a
+large restoration bug: preserving integrated COM reduces maximum position drift
+from 6.44 to about 0.0000021. Four of six expanded cases still differ at float
+rounding scale. No power, grip or suspension coefficients were tuned. See
+[v42 evidence](PHYSICS_CONTACT_V42_2026-10-12.md). The full goal remains active.

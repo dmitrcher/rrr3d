@@ -1,0 +1,303 @@
+{
+  "goal_complete": false,
+  "default_game_physics_promoted": false,
+  "experiment": "upper local Z face winding",
+  "scope": "Contact stage; no next physical effect enabled",
+  "upper_face_patch_status": "Retained experiment: improves contact vector errors, with a Y angular-momentum regression. Do not promote as full parity.",
+  "isolated_72": {
+    "scope": "72 native tilt/slope contact cases, no wheels/AI, 8 fixed steps",
+    "cases": 72,
+    "remaining": 72,
+    "maximum_before": {
+      "position_error": 0.008545936387754418,
+      "velocity_error": 0.3236418549035166,
+      "rotation_error_radians": 1.6858739404357617e-07,
+      "angular_momentum_error": 0.0
+    },
+    "maximum_after": {
+      "position_error": 0.0010313164862291902,
+      "velocity_error": 0.04146641778580456,
+      "rotation_error_radians": 1.6858739404357617e-07,
+      "angular_momentum_error": 0.0
+    },
+    "changed": [
+      "frame-v23-p11-x0-y0",
+      "frame-v23-p11-x0-y1",
+      "frame-v23-p11-x1-y0",
+      "frame-v23-p11-x1-y1",
+      "frame-v23-p11-x2-y0",
+      "frame-v23-p11-x2-y1"
+    ],
+    "regressions": {
+      "position_error": [
+        {
+          "case": "frame-v23-p11-x1-y1",
+          "before": 7.102778687308876e-07,
+          "after": 7.10351368731564e-07
+        }
+      ],
+      "velocity_error": [
+        {
+          "case": "frame-v23-p11-x2-y0",
+          "before": 1.5376955034130775e-05,
+          "after": 1.5422082734566738e-05
+        }
+      ],
+      "rotation_error_radians": [],
+      "angular_momentum_error": []
+    }
+  },
+  "full_608": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "changed": [
+        "body-tilt-pitch"
+      ],
+      "weighted_before": {
+        "position_error": 0.17634072586156754,
+        "velocity_error": 0.06562156084957918,
+        "rotation_error_radians": 0.06644409095225184,
+        "angular_momentum_error": 88.0254283864504,
+        "suspension_length_error": 0.0019394619794564402
+      },
+      "weighted_after": {
+        "position_error": 0.1763407220818339,
+        "velocity_error": 0.0656214260722464,
+        "rotation_error_radians": 0.06644409054719318,
+        "angular_momentum_error": 87.89753272874856,
+        "suspension_length_error": 0.0019394619794564402
+      },
+      "regressions": {
+        "position_error": [],
+        "velocity_error": [],
+        "rotation_error_radians": [],
+        "angular_momentum_error": [],
+        "suspension_length_error": []
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "2ba05927be3cb196003f2c000d554ea894643f716730009101232ae37f10d6a0",
+      "all_channel_regressions": {
+        "angular_momentum_y_error": [
+          {
+            "case": "body-tilt-pitch",
+            "old": 102.53150091828148,
+            "new": 105.42224458233555
+          }
+        ]
+      }
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "remaining": 572,
+      "changed": [
+        "body-tilt-pitch"
+      ],
+      "weighted_before": {
+        "position_error": 0.1274852465698967,
+        "velocity_error": 0.04280873807539212,
+        "rotation_error_radians": 0.06644409095225184,
+        "angular_momentum_error": 88.0254283864504,
+        "suspension_length_error": 0.0019394619794564402
+      },
+      "weighted_after": {
+        "position_error": 0.1274852413416762,
+        "velocity_error": 0.042808531474786714,
+        "rotation_error_radians": 0.06644409054719318,
+        "angular_momentum_error": 87.89753272874856,
+        "suspension_length_error": 0.0019394619794564402
+      },
+      "regressions": {
+        "position_error": [],
+        "velocity_error": [],
+        "rotation_error_radians": [],
+        "angular_momentum_error": [],
+        "suspension_length_error": []
+      },
+      "reference_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+      "candidate_sha256": "6ac299589dc65c270a6c98612d677320fa3b71ced9b7c2a695b0ea7ae8a9b6aa",
+      "all_channel_regressions": {
+        "angular_momentum_y_error": [
+          {
+            "case": "body-tilt-pitch",
+            "old": 102.53150091828148,
+            "new": 105.42224458233555
+          }
+        ]
+      }
+    }
+  },
+  "disabled_control": {
+    "default": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical_to_v21": true
+    },
+    "frozen": {
+      "cases": 608,
+      "samples": 255864,
+      "all_identical_to_v21": true
+    }
+  },
+  "source_callback_cpp": {
+    "scope": "Callback math given native material seed and body matrices; not material-seed generation, solver-normal decoding or complete physics parity",
+    "helper_sha256": "4bcf21e9bc21b792c1f4c12e482ce8367685c55bf6dc53ccf0e84700d65bd3a2",
+    "captures": {
+      "outputs/reference-contact-frame-final-stage03-run0-v23-windows.jsonl": {
+        "callbacks": 20640,
+        "exact_float32_channels": 598560,
+        "all_equal": true,
+        "native_trace_sha256": "0857fcc74895804071f3d771fe90a50c3b360584191a500942b068bd73302d7b"
+      },
+      "outputs/reference-contact-frame-final-stage03-run1-v23-windows.jsonl": {
+        "callbacks": 20640,
+        "exact_float32_channels": 598560,
+        "all_equal": true,
+        "native_trace_sha256": "773563c3000bc35ea25f080a701fcf2bcd7ceb0526e5b1148592757bfef65edf"
+      },
+      "outputs/reference-contact-frame-final-stageframe-run0-v23-windows.jsonl": {
+        "callbacks": 4152,
+        "exact_float32_channels": 120408,
+        "all_equal": true,
+        "native_trace_sha256": "d4feda43e499d7f9a6fc7b816abdd3d0b47bfcea3af4bffd03708d08dfef88ca"
+      },
+      "outputs/reference-contact-frame-final-stageframe-run1-v23-windows.jsonl": {
+        "callbacks": 4152,
+        "exact_float32_channels": 120408,
+        "all_equal": true,
+        "native_trace_sha256": "8ebe69c23b9726eb669b3e9c7a4c68614d40c26883e41dee32bee7fb359e580b"
+      }
+    }
+  },
+  "ladder": {
+    "00": {
+      "exact_parity": {
+        "complete": true,
+        "cases_remaining": [],
+        "cases_checked": 9
+      },
+      "repeatable": true
+    },
+    "01": {
+      "exact_parity": {
+        "complete": true,
+        "cases_remaining": [],
+        "cases_checked": 108
+      },
+      "repeatable": true
+    },
+    "02": {
+      "exact_parity": {
+        "complete": true,
+        "cases_remaining": [],
+        "cases_checked": 48
+      },
+      "repeatable": true
+    },
+    "03": {
+      "exact_parity": {
+        "complete": false,
+        "cases_remaining": [
+          "isolate-03-contact-m0-h0-v0-f1",
+          "isolate-03-contact-m0-h0-v1-f1",
+          "isolate-03-contact-m0-h1-v0-f1",
+          "isolate-03-contact-m0-h1-v1-f1",
+          "isolate-03-contact-m1-h0-v0-f1",
+          "isolate-03-contact-m1-h0-v1-f1",
+          "isolate-03-contact-m1-h1-v0-f1",
+          "isolate-03-contact-m1-h1-v1-f1",
+          "isolate-03-contact-m2-h0-v0-f1",
+          "isolate-03-contact-m2-h0-v1-f1",
+          "isolate-03-contact-m2-h1-v0-f1",
+          "isolate-03-contact-m2-h1-v1-f1"
+        ],
+        "cases_checked": 24
+      },
+      "repeatable": true
+    }
+  },
+  "native_modules": [
+    {
+      "module": "PhysXLoader.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\contact-frame-v23\\PhysXLoader.dll",
+      "guest_sha256": "29b2183cbd9b4b43f247d7e47e7a636ed3898d8e79afb109b5ef0e02c5493768",
+      "local_dll_same": true
+    },
+    {
+      "module": "PhysXCore.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\contact-frame-v23\\PhysXCore.dll",
+      "guest_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+      "local_dll_same": true
+    },
+    {
+      "module": "PhysXCooking.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\contact-frame-v23\\PhysXCooking.dll",
+      "guest_sha256": "2e5657ae13de0a0c79c56453b8c73ba3978069d55440134873c6534bbada522b",
+      "local_dll_same": true
+    }
+  ],
+  "windows_probe": {
+    "sha256": "8fea28f9891ae0c5f4c90409bb670abb8b10c5742d5759b600e59db687d18153",
+    "bytes": 202752,
+    "guest_verified": true
+  },
+  "ctest": {
+    "passed": 53,
+    "failed": 0
+  },
+  "game": {
+    "default-unfrozen/physics": {
+      "exit": 0
+    },
+    "default-unfrozen/track0": {
+      "exit": 0
+    },
+    "default-unfrozen/track16": {
+      "exit": 0
+    },
+    "default-unfrozen/track48": {
+      "exit": 0
+    },
+    "default-unfrozen/track64": {
+      "exit": 1
+    },
+    "frozen-profile/physics": {
+      "exit": 0
+    },
+    "frozen-profile/track0": {
+      "exit": 0
+    },
+    "frozen-profile/track16": {
+      "exit": 0
+    },
+    "frozen-profile/track48": {
+      "exit": 0
+    },
+    "frozen-profile/track64": {
+      "exit": 1
+    }
+  },
+  "next": [
+    "Source SDK material-frame seed and solver-normal decode remain incomplete on tilted bodies",
+    "Resolve contact order/geometry on side faces and residual upper-face edges",
+    "Resolve body-tilt-pitch Y angular-momentum regression before promotion",
+    "Recheck passed isolation stages and all full-matrix channels"
+  ],
+  "native_physical_verification": {
+    "03": {
+      "cases": 24,
+      "samples": 2880,
+      "repeat_identical": true,
+      "all_identical_to_before_module_trace": true,
+      "all_identical_to_v22": true
+    },
+    "frame": {
+      "cases": 72,
+      "samples": 576,
+      "repeat_identical": true,
+      "all_identical_to_before_module_trace": true
+    }
+  }
+}

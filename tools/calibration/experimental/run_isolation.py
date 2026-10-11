@@ -26,6 +26,8 @@ def main():
     p.add_argument('--platform', choices=['windows', 'mac'], required=True)
     p.add_argument('--out', type=Path, required=True)
     p.add_argument('--reference-dir', type=Path)
+    p.add_argument('--upper-face-winding', action='store_true',
+                   help='Enable the v23 upper local-Z mesh-face winding experiment on Mac')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
@@ -38,6 +40,8 @@ def main():
     env['RRR3D_SEED'] = '42'
     env['NX_SPRING_ITERATIONS'] = '4'
     if args.platform == 'mac':
+        if args.upper_face_winding:
+            env['RRR3D_EXPERIMENT_UPPER_FACE_WINDING'] = '1'
         env['RRR3D_CALIBRATION_PROFILE'] = str(args.profile.resolve())
         for flag in ('SPRING_BIAS', 'SPRING_FINAL', 'SPRING_LOST', 'SPRING_COLD',
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',

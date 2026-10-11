@@ -66,6 +66,17 @@ public:
    NxMat33 rawFrame(data.localorientation0);
    if(s0->getActor().isDynamic())rawFrame=s0->getActor().getCMassGlobalPose().M*rawFrame;
    for(int axis=0;axis<3;++axis){NxVec3 direction=rawFrame.getColumn(axis);points<<",\"axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(direction.x,direction.y,direction.z));}
+   if(std::getenv("NX_CONTACT_QUAT_TRACE")) {
+    for(int actor=0;actor<2;++actor) {
+     const NxMat33 basis=(actor==0?s0:s1)->getActor().getCMassGlobalPose().M;
+     for(int axis=0;axis<3;++axis) {
+      const NxVec3 v=basis.getColumn(axis);
+      points<<",\"actor"<<actor<<"_axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(v.x,v.y,v.z));
+     }
+    }
+    points<<std::setprecision(9)<<",\"local_quaternion0\":["<<data.localorientation0.x<<','<<data.localorientation0.y<<','<<data.localorientation0.z<<','<<data.localorientation0.w<<']'
+     <<",\"local_quaternion1\":["<<data.localorientation1.x<<','<<data.localorientation1.y<<','<<data.localorientation1.z<<','<<data.localorientation1.w<<']';
+   }
    points<<'}';
    motorrock::parity::event("calibration.body-points",caseName,points.str());
   }
@@ -96,6 +107,15 @@ public:
   local.toQuat(data.localorientation0);
   if(s1->getActor().isDynamic()){s1->getActor().getCMassGlobalPose().M.getInverse(inverse);local=inverse*frame;}else local=frame;
   local.toQuat(data.localorientation1);
+  if(std::getenv("NX_CONTACT_QUAT_TRACE")) {
+   const NxMat33 result(data.localorientation0);
+   const NxVec3 decoded=result.getColumn(0);
+   std::ostringstream q;q<<std::setprecision(9)<<"{\"tick\":"<<tick
+    <<",\"local_quaternion0\":["<<data.localorientation0.x<<','<<data.localorientation0.y<<','<<data.localorientation0.z<<','<<data.localorientation0.w<<']'
+    <<",\"local_quaternion1\":["<<data.localorientation1.x<<','<<data.localorientation1.y<<','<<data.localorientation1.z<<','<<data.localorientation1.w<<']'
+    <<",\"decoded_local_normal\":"<<motorrock::calibration::vector(motorrock::calibration::V(decoded.x,decoded.y,decoded.z))<<'}';
+   motorrock::parity::event("calibration.contact-quaternion",caseName,q.str());
+  }
   data.staticFriction0=data.dynamicFriction0=0;
   flags|=NX_CCC_LOCALORIENTATION0|NX_CCC_LOCALORIENTATION1|NX_CCC_STATICFRICTION0|NX_CCC_DYNAMICFRICTION0;
   return true;

@@ -1,0 +1,14 @@
+--- a/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -936,7 +936,10 @@
+  const float sign=local[axis]<0?-1.0f:1.0f;
+  int a=(axis==0?1:0),b=(axis==2?1:2);
+  const int signs[4][2]={{-1,-1},{1,-1},{1,1},{-1,1}};
+- const bool reverseWinding=axis==0 || (axis!=1)==(sign>0);
++ bool reverseWinding=axis==0 || (axis!=1)==(sign>0);
++ const char* upperFaceFlag=std::getenv("RRR3D_EXPERIMENT_UPPER_FACE_WINDING");
++ if(upperFaceFlag && std::strcmp(upperFaceFlag,"1")==0 && axis==2 && sign>0)
++  reverseWinding=!reverseWinding;
+  std::array<PxVec3,4> verts;
+  for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=reverseWinding?(4-i)%4:i;verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
+  PxVec3 faceNormal(0);faceNormal[axis]=sign;const PxPlane face(faceNormal,-half[axis]);

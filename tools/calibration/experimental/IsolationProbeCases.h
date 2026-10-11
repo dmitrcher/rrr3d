@@ -57,4 +57,15 @@ inline void appendIsolationProbes(std::vector<Case>& suite) {
   suite.push_back(c);
  }
 
+ // Contact-frame diagnostics: vary pitch and plane slopes without adding forces.
+ const double pitches[]={-1.57,-.8,-.25,-.01,-.0001,0,.0001,.01,.25,.8,1.57,3.14};
+ const double slopes[]={-.2,0,.2};
+ for(int pitch=0;pitch<12;++pitch)for(int slope=0;slope<3;++slope)for(int y=0;y<2;++y) {
+  std::ostringstream n;n<<"frame-v23-p"<<pitch<<"-x"<<slope<<"-y"<<y;
+  Case c=isolatedBody(n.str(),1200);c.ground=true;c.gravity=-20;c.steps=8;
+  c.fixedOrientation=true;c.initialPitch=pitches[pitch];c.slopeX=slopes[slope];c.slopeY=y?.1:0;
+  c.height=10+1.5*std::abs(std::sin(c.initialPitch))+.3*std::abs(std::cos(c.initialPitch))-.07;
+  suite.push_back(c);
+ }
+
 }

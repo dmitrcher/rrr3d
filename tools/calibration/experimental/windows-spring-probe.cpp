@@ -1,4 +1,6 @@
 #define MOTORROCK_EXPERIMENT_SPRING_PROBES 1
+#include <windows.h>
+#include <TlHelp32.h>
 #include <NxPhysics.h>
 #include "Fixture.h"
 #include <iostream>
@@ -18,7 +20,20 @@ struct WheelContact : NxUserWheelContactModify {
   force=!traction || (tireSpring>0 && force>load*tireSpring)?0:std::min(force,load*1.5f);return true;
  }
 };
+static void tracePhysXModules(const std::string& name) {
+ static bool done=false;if(done || !std::getenv("NX_CONTACT_QUAT_TRACE"))return;done=true;
+ HANDLE snapshot=CreateToolhelp32Snapshot(TH32CS_SNAPMODULE,GetCurrentProcessId());
+ if(snapshot==INVALID_HANDLE_VALUE)throw std::runtime_error("Cannot inspect loaded PhysX modules");
+ MODULEENTRY32 entry;entry.dwSize=sizeof(entry);
+ if(Module32First(snapshot,&entry))do {
+  if(std::strstr(entry.szModule,"PhysX")) {
+   std::ostringstream module;module<<"{\"module\":"<<motorrock::parity::quote(entry.szModule)<<",\"path\":"<<motorrock::parity::quote(entry.szExePath)<<'}';
+   motorrock::parity::event("calibration.windows-module",name,module.str());
+  }
+ }while(Module32Next(snapshot,&entry));CloseHandle(snapshot);
+}
 static void execute(const cal::Case& c) {
+ tracePhysXModules(c.name);
  CalibrationTrackContact bodyContacts(c.name,c.bodyContactFrictionEnabled);CalibrationBodyReport bodyReport(c.name);
  NxSceneDesc desc;desc.userContactModify=&bodyContacts;desc.userContactReport=&bodyReport;desc.gravity=NxVec3(0,0,(float)c.gravity);desc.upAxis=2;desc.timeStepMethod=NX_TIMESTEP_VARIABLE;desc.simType=NX_SIMULATION_SW;
  NxScene* scene=sdk->createScene(desc);if(!scene)throw std::runtime_error("PhysX scene creation failed");

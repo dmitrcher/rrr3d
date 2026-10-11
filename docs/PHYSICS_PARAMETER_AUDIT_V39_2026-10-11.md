@@ -65,3 +65,11 @@ SEM, workshop upgrades, передач, ограничения скорости 
 точность реального игрового потока ещё не подтверждена. Подробности и
 исправление отдельной ошибки contact cache:
 [PHYSICS_CONTACT_V40_2026-10-11.md](PHYSICS_CONTACT_V40_2026-10-11.md).
+
+## v41 follow-up
+
+The solver inertia path was misidentified in v37: the public accessor matched,
+but the original internal solver uses float SSE operations with different term
+ordering. The corrected experiment closes nine more complete contact fixtures
+without changing coefficients. See [v41 evidence](PHYSICS_CONTACT_V41_2026-10-12.md).
+The complete goal remains active, with 45/72 tilted fixtures unresolved.

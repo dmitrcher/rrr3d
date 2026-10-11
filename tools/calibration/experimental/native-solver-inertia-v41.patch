@@ -1,0 +1,51 @@
+--- a/src/Rock3dEngine/header/physics/NativeInertiaRotation.h
++++ b/src/Rock3dEngine/header/physics/NativeInertiaRotation.h
+@@ -15,4 +15,35 @@
+  }
+  return result;
+ }
++
++// Solver-body preparation at PhysXCore RVA 0x7c5a0 uses scalar SSE float
++// operations, distinct from the public extended-precision tensor accessor.
++// The native body stores principal inverse inertia; a non-diagonal tensor
++// needs its independently matched mass-frame orientation before using this.
++inline bool diagonal(const cf::Matrix& local) {
++ for(int i=0;i<3;++i)for(int j=0;j<3;++j)if(i!=j && local.a[i][j]!=0)return false;
++ return true;
++}
++inline float smul(float a,float b){return cf::store(double(a)*b);}
++inline float sadd(float a,float b){return cf::store(double(a)+b);}
++inline float ssub(float a,float b){return cf::store(double(a)-b);}
++inline cf::Matrix solver(cf::Quaternion q,const cf::Matrix& local) {
++ const float x=q[0],y=q[1],z=q[2],w=q[3];
++ const float dx=smul(x,2),dy=smul(y,2),dz=smul(z,2);
++ const float xx=smul(x,dx),yy=smul(y,dy),zz=smul(z,dz);
++ const float xy=smul(y,dx),xz=smul(z,dx),yz=smul(z,dy);
++ const float wx=smul(w,dx),wy=smul(w,dy),wz=smul(w,dz);
++ const float r00=ssub(1,sadd(zz,yy)),r11=ssub(1,sadd(zz,xx)),r22=ssub(1,sadd(yy,xx));
++ const float r01=ssub(xy,wz),r10=sadd(xy,wz),r02=sadd(xz,wy),r20=ssub(xz,wy),r12=ssub(yz,wx),r21=sadd(yz,wx);
++ const float a=local.a[0][0],b=local.a[1][1],c=local.a[2][2];
++ const auto weighted=[](float d,float l,float r){return smul(smul(d,l),r);};
++ cf::Matrix out;
++ out.a[0][0]=sadd(sadd(weighted(b,r01,r01),weighted(c,r02,r02)),weighted(a,r00,r00));
++ out.a[0][1]=out.a[1][0]=sadd(sadd(weighted(a,r00,r10),weighted(c,r12,r02)),weighted(b,r11,r01));
++ out.a[0][2]=out.a[2][0]=sadd(sadd(weighted(a,r00,r20),weighted(c,r22,r02)),weighted(b,r21,r01));
++ out.a[1][1]=sadd(sadd(smul(smul(r12,r12),c),weighted(a,r10,r10)),weighted(b,r11,r11));
++ out.a[1][2]=out.a[2][1]=sadd(sadd(smul(smul(r22,r12),c),weighted(a,r10,r20)),weighted(b,r21,r11));
++ out.a[2][2]=sadd(sadd(smul(smul(r22,r22),c),weighted(a,r20,r20)),weighted(b,r21,r21));
++ return out;
++}
+ }}
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1412,7 +1412,9 @@
+             const unsigned axes[]={0,2,1};cf::Matrix tensor;
+             for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)
+                 tensor.a[row][col]=local.GetColumn3(axes[col])[axes[row]];
+-            const auto rotated=motorrock::inertiav37::rotate(cf::decode(pose),tensor);
++            const char* solverInertiaFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_INERTIA");
++            const bool solverInertia=solverInertiaFlag && std::strcmp(solverInertiaFlag,"1")==0 && motorrock::inertiav37::diagonal(tensor);
++            const auto rotated=solverInertia?motorrock::inertiav37::solver(pose,tensor):motorrock::inertiav37::rotate(cf::decode(pose),tensor);
+             settings.mNativeInverseInertia=JPH::Mat44::sZero();
+             for(unsigned col=0;col<3;++col)settings.mNativeInverseInertia.SetColumn3(axes[col],
+                 toJolt(Vec3{rotated.a[0][col],rotated.a[1][col],rotated.a[2][col]}));

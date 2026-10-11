@@ -34,6 +34,8 @@ def main():
                    help='Use principal-axis inertia to reconstruct Mac angular momentum')
     p.add_argument('--frozen-initial-normalize', action='store_true',
                    help='Normalize the saved frozen orientation once after its first step')
+    p.add_argument('--material-frame-candidate', action='store_true',
+                   help='Enable the unverified v27 material-frame arithmetic candidate')
     p.add_argument('--profile', type=Path,
                    default=Path(__file__).resolve().parents[1] / 'profiles/windows-source-v14.cfg')
     args = p.parse_args()
@@ -55,6 +57,8 @@ def main():
             env['RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM'] = '1'
         if args.frozen_initial_normalize:
             env['RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE'] = '1'
+        if args.material_frame_candidate:
+            env['RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE'] = '1'
         env['RRR3D_CALIBRATION_PROFILE'] = str(args.profile.resolve())
         for flag in ('SPRING_BIAS', 'SPRING_FINAL', 'SPRING_LOST', 'SPRING_COLD',
                      'FRICTION_ZERO', 'SUSPENSION_STOP', 'MESH_CONTACTS',

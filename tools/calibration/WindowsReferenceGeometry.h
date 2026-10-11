@@ -75,11 +75,14 @@ public:
    for(int axis=0;axis<3;++axis){NxVec3 direction=rawFrame.getColumn(axis);points<<",\"axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(direction.x,direction.y,direction.z));}
    if(std::getenv("NX_CONTACT_QUAT_TRACE")) {
     for(int actor=0;actor<2;++actor) {
-     const NxMat33 basis=(actor==0?s0:s1)->getActor().getCMassGlobalPose().M;
+     const NxActor& diagnosticActor=(actor==0?s0:s1)->getActor();
+     const NxMat33 basis=diagnosticActor.getCMassGlobalPose().M;
      for(int axis=0;axis<3;++axis) {
       const NxVec3 v=basis.getColumn(axis);
       points<<",\"actor"<<actor<<"_axis"<<axis<<"\":"<<motorrock::calibration::vector(motorrock::calibration::V(v.x,v.y,v.z));
      }
+     const NxQuat actorQuaternion=diagnosticActor.getGlobalOrientationQuat();
+     points<<std::setprecision(9)<<",\"actor"<<actor<<"_quaternion\":["<<actorQuaternion.x<<','<<actorQuaternion.y<<','<<actorQuaternion.z<<','<<actorQuaternion.w<<']';
     }
     points<<std::setprecision(9)<<",\"local_quaternion0\":["<<data.localorientation0.x<<','<<data.localorientation0.y<<','<<data.localorientation0.z<<','<<data.localorientation0.w<<']'
      <<",\"local_quaternion1\":["<<data.localorientation1.x<<','<<data.localorientation1.y<<','<<data.localorientation1.z<<','<<data.localorientation1.w<<']';

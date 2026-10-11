@@ -1,0 +1,31 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -2,6 +2,7 @@
+ #include "physics/CalibrationTuning.h"
+ #include "physics/SourceBoxManifold.h"
+ #include "physics/SourceMeshManifold.h"
++#include "physics/SourceMaterialFrameCandidate.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -935,6 +936,20 @@
+         output=input;output.mRelativeContactPointsOn1.clear();output.mRelativeContactPointsOn2.clear();
+         output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
+         if(!contacts.count)return true;
++        const char* materialFlag=std::getenv("RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE");
++        if(materialFlag && std::strcmp(materialFlag,"1")==0) {
++            namespace cf=motorrock::contactframe;
++            cf::Vector a={{box.m.column0.x,box.m.column0.y,box.m.column0.z}};
++            cf::Vector b={{box.m.column1.x,box.m.column1.y,box.m.column1.z}};
++            cf::Vector c={{box.m.column2.x,box.m.column2.y,box.m.column2.z}};
++            const auto q=fromJolt(car.GetRotation());
++            const cf::Quaternion actorQuaternion={{q.x,q.y,q.z,q.w}};
++            const cf::Vector plane={{commonNormal.x,commonNormal.y,commonNormal.z}};
++            const auto candidate=motorrock::materialcandidate::compute(cf::columns(a,b,c),actorQuaternion,plane);
++            if(candidate.callback.modified) {
++                commonNormal={candidate.normal[0],candidate.normal[1],candidate.normal[2]};
++            }
++        }
+         output.mWorldSpaceNormal=toJolt(Vec3{commonNormal.x,commonNormal.y,commonNormal.z})*(carFirst?-1.0f:1.0f);
+         for(unsigned i=0;i<contacts.count;++i) {
+             const auto& c=contacts.contacts[i];const JPH::Vec3 relative(toJolt(Vec3{c.point.x,c.point.y,c.point.z})-output.mBaseOffset);

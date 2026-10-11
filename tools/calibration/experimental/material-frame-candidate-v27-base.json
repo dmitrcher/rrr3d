@@ -1,0 +1,19 @@
+{
+  "scope": "Apply after the active v26 prototype; add the two experimental headers to Rock3dEngine/header/physics. Canonical production adapter is not changed.",
+  "before_sha256": "51f1a677a43ae691347368c2b15318bd40e778ddc2cfa1016e9625e080b9ef25",
+  "after_sha256": "7826d685df5494baf2040d6904fc1a0577043ed9de192474d5b78dd175c765d8",
+  "strict_flag": "RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE=1",
+  "default_enabled": false,
+  "headers": [
+    {
+      "source": "tools/calibration/experimental/ContactFrameScalar.h",
+      "target": "src/Rock3dEngine/header/physics/ContactFrameScalar.h",
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "source": "tools/calibration/experimental/SourceMaterialFrameCandidate.h",
+      "target": "src/Rock3dEngine/header/physics/SourceMaterialFrameCandidate.h",
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    }
+  ]
+}

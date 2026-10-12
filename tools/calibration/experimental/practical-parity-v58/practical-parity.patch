@@ -1,0 +1,386 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -4721,6 +4721,16 @@
+                     longitudinalFriction * allowedSuspensionImpulse;
+                 lateral = lateralFriction * allowedSuspensionImpulse;
+                 namespace nt = motorrock::tirev55;
++                if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57") && vehicle.constraint->UsesSourceSpringFinal() &&
++                    vehicle.constraint->GetSourceVelocityStepsV57()==1 &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") &&
++                    wheel->HasContact() && wheel->GetSteerAngle()==0 &&
++                    vehicle.tireAnchorsV55[wheelIndex].valid) {
++                    const auto &anchor=vehicle.tireAnchorsV55[wheelIndex];
++                    const float inverse_time=nt::div(1,deltaTime);
++                    vehicle.constraint->GetWheel(wheelIndex)->SetSourceAnchorBiasV57(nt::mul(anchor.longitudinal,inverse_time),nt::mul(anchor.lateral,inverse_time),nt::mul(vehicle.sourceWheelAxleSpeeds[wheelIndex],source.wheels[wheelIndex].radius));
++                }
+                 // PhysX flags64 copies the signed curve-scaled tire request
+                 // into NxWheelContactData, not the solver's final lambda.
+                 // Restrict this experiment to the proved static, zero-steer,
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -90,6 +90,8 @@
+  static unsigned sequence=0;if(sequence>=256)return;FILE* fp=std::fopen(path,"a");if(!fp)return;
+  Vec3 r=part.GetDiagnosticR1CrossAxis(),inv=part.GetDiagnosticInvI1R1CrossAxis();Vec3 v=body.GetLinearVelocity(),w=body.GetAngularVelocity();
+  std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"mass\":%.9g,\"bias\":%.9g,\"lambda\":%.9g,\"minimum\":%.9g,\"maximum\":%.9g,\"axis\":[%.9g,%.9g,%.9g],\"position\":[%.9g,%.9g,%.9g],\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g],\"linear\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]",event,sequence++,part.GetDiagnosticEffectiveMass(),part.GetDiagnosticVelocityBias(),part.GetTotalLambda(),minimum,maximum,axis.GetX(),axis.GetY(),axis.GetZ(),position.GetX(),position.GetY(),position.GetZ(),r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ(),v.GetX(),v.GetY(),v.GetZ(),w.GetX(),w.GetY(),w.GetZ());
++ Vec3 prepared_axis=AxisConstraintPart::UsesNativeWheelFrameV57()?AxisConstraintPart::NativeWheelFrameAxisV57(body,axis):axis;
++ std::fprintf(fp,",\"body_axis\":[%.9g,%.9g,%.9g],\"geometry_bias\":%.9g,\"constant_velocity_bias\":%.9g",prepared_axis.GetX(),prepared_axis.GetY(),prepared_axis.GetZ(),part.GetDiagnosticGeometryBiasV57(),part.GetDiagnosticConstantBiasV57());
+  Mat44 matrix=body.GetInverseInertia();std::fprintf(fp,",\"inverse_inertia\":[");for(int row=0;row<3;++row)for(int col=0;col<3;++col){if(row||col)std::fprintf(fp,",");std::fprintf(fp,"%.9g",matrix.GetColumn3(col)[row]);}
+  auto q=body.GetRotation();auto iq=body.GetMotionPropertiesUnchecked()->GetInertiaRotation();Vec3 d=body.GetMotionPropertiesUnchecked()->GetInverseInertiaDiagonal();std::fprintf(fp,"],\"rotation\":[%.9g,%.9g,%.9g,%.9g],\"inertia_rotation\":[%.9g,%.9g,%.9g,%.9g],\"inverse_inertia_diagonal\":[%.9g,%.9g,%.9g],\"inverse_mass\":%.9g}\n",q.GetX(),q.GetY(),q.GetZ(),q.GetW(),iq.GetX(),iq.GetY(),iq.GetZ(),iq.GetW(),d.GetX(),d.GetY(),d.GetZ(),body.GetMotionPropertiesUnchecked()->GetInverseMass());std::fclose(fp);
+ }
+@@ -97,14 +99,20 @@
+ bool Wheel::SolveLongitudinalConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse)
+ {
+ 	TraceTireV55("longitudinal-input",mLongitudinalPart,*inConstraint.GetVehicleBody(),-mContactLongitudinal,mContactPosition,inMinImpulse,inMaxImpulse);
+-	const bool changed=mLongitudinalPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLongitudinal, inMinImpulse, inMaxImpulse);
++	const char *anchor_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
++ const bool native_anchor=anchor_v57&&std::strcmp(anchor_v57,"1")==0&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal();
++ const bool native_frame=AxisConstraintPart::UsesNativeWheelFrameV57()&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal()&&!mSettings->mEnableSuspensionForcePoint;
++ const bool changed=native_anchor?mLongitudinalPart.SolveNativeWheelAnchorV57(*inConstraint.GetVehicleBody(),*mContactBody,-mContactLongitudinal,inMinImpulse,inMaxImpulse,native_frame):(native_frame?mLongitudinalPart.SolveNativeWheelFrameV57(*inConstraint.GetVehicleBody(),*mContactBody,-mContactLongitudinal,inMinImpulse,inMaxImpulse):mLongitudinalPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLongitudinal, inMinImpulse, inMaxImpulse));
+ 	TraceTireV55("longitudinal-result",mLongitudinalPart,*inConstraint.GetVehicleBody(),-mContactLongitudinal,mContactPosition,inMinImpulse,inMaxImpulse);return changed;
+ }
+ 
+ bool Wheel::SolveLateralConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse)
+ {
+ 	TraceTireV55("lateral-input",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);
+-	const bool changed=mLateralPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLateral, inMinImpulse, inMaxImpulse);
++	const char *anchor_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
++ const bool native_anchor=anchor_v57&&std::strcmp(anchor_v57,"1")==0&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal();
++ const bool native_frame=AxisConstraintPart::UsesNativeWheelFrameV57()&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal()&&!mSettings->mEnableSuspensionForcePoint;
++ const bool changed=native_anchor?mLateralPart.SolveNativeWheelAnchorV57(*inConstraint.GetVehicleBody(),*mContactBody,-mContactLateral,inMinImpulse,inMaxImpulse,native_frame):(native_frame?mLateralPart.SolveNativeWheelFrameV57(*inConstraint.GetVehicleBody(),*mContactBody,-mContactLateral,inMinImpulse,inMaxImpulse):mLateralPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLateral, inMinImpulse, inMaxImpulse));
+ 	TraceTireV55("lateral-result",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);return changed;
+ }
+ 
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.h
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.h
+@@ -119,9 +119,19 @@
+ 	/// Internal function that should only be called by the controller. Used to apply impulses in the sideways direction of the vehicle.
+ 	bool					SolveLateralConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse);
+ 
++void SetSourceAnchorBiasV57(float longitudinal,float lateral,float rolling) { mLongitudinalPart.SetNativeWheelAnchorV57(rolling,longitudinal);mLateralPart.SetNativeWheelAnchorV57(0,lateral); }
++void ClearSourceAnchorGeometryV57() { mLongitudinalPart.ClearNativeWheelAnchorGeometryV57();mLateralPart.ClearNativeWheelAnchorGeometryV57(); }
++ bool HasStaticSourceContactV58() const { return HasContact() && mContactBody != nullptr && mContactBody->IsStatic(); }
++
+ void SetSourceContactBasisV55(Vec3Arg lateral, Vec3Arg longitudinal) { mContactLateral=lateral;mContactLongitudinal=longitudinal; }
+ 
+ protected:
++    // Original PhysX keeps both actor-local row anchors for its one-step
++    // lost-contact spring. A stale world point cannot be inverted again after
++    // the car has moved. Coordinates here are the original source frame.
++    Vec3 mSourceLocalContactPointV58 = Vec3::sZero();
++    Vec3 mSourceLocalContactAxisV58 = Vec3::sZero();
++    bool mSourceLocalContactValidV58 = false;
+ 	friend class VehicleConstraint;
+ 
+ 	RefConst<WheelSettings>	mSettings;									///< Configuration settings for this wheel
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -456,6 +456,24 @@
+ 
+ 			Vec3 r1_plus_u, r2;
+ 			CalculateSuspensionForcePoint(*w, r1_plus_u, r2);
++            const char *frame_flag_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_FRAME_V57");
++            const bool frame_v57=frame_flag_v57&&std::strcmp(frame_flag_v57,"1")==0&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()&&w->mSteerAngle==0&&!settings->mEnableSuspensionForcePoint;
++            Vec3 prepared_normal_v57=frame_v57?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,neg_contact_normal):neg_contact_normal;
++            const char *local_lost_flag_v58=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
++            const bool local_lost_v58=frame_v57&&local_lost_flag_v58&&std::strcmp(local_lost_flag_v58,"1")==0;
++            if(local_lost_v58 && !w->mSourceContactLost) {
++                namespace frame=motorrock_native_wheel_frame_v57;
++                auto q=mBody->GetRotation();frame::Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++                auto p=w->mContactPosition,c=mBody->GetCenterOfMassPosition();
++                auto local=frame::local_point(rotation,{{float(p.GetX()),float(p.GetZ()),float(p.GetY())}},{{float(c.GetX()),float(c.GetZ()),float(c.GetY())}});
++                auto axis=frame::inverse(rotation,{{-neg_contact_normal.GetX(),-neg_contact_normal.GetZ(),-neg_contact_normal.GetY()}},true);
++                w->mSourceLocalContactPointV58=Vec3(local[0],local[1],local[2]);
++                w->mSourceLocalContactAxisV58=Vec3(axis[0],axis[1],axis[2]);
++                w->mSourceLocalContactValidV58=true;
++            }
++            const bool cached_frame_v58=local_lost_v58&&w->mSourceContactLost&&w->mSourceLocalContactValidV58;
++            if(cached_frame_v58)prepared_normal_v57=AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceLocalContactAxisV58);
++
+ 
+ 			// Suspension spring
+ 			if (settings->mSuspensionMaxLength > settings->mSuspensionMinLength
+@@ -524,13 +542,15 @@
+ 				w->mNativeSpringV53.enabled = false;
+ 				const char *split_v53 = std::getenv("RRR3D_EXPERIMENT_NATIVE_SPRING_SPLIT_V53");
+ 				if (UsesSourceSpringFinal() && split_v53 != nullptr && std::strcmp(split_v53, "1") == 0) w->mSuspensionPart.PrepareNativeSplitSpringV53(w->mNativeSpringV53);
++                if(cached_frame_v58)w->mSuspensionPart.PrepareNativeWheelLocalFrameV58(*mBody,w->mSourceLocalContactPointV58,w->mSourceLocalContactAxisV58);
++                else if(frame_v57)w->mSuspensionPart.PrepareNativeWheelFrameV57(*mBody,w->mContactPosition,neg_contact_normal);
+                 const char *inertia_v56=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56");
+-                if(inertia_v56&&std::strcmp(inertia_v56,"1")==0)w->mSuspensionPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,neg_contact_normal,false);
++                if(inertia_v56&&std::strcmp(inertia_v56,"1")==0)w->mSuspensionPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,prepared_normal_v57,false);
+                 const char *prep_v53 = std::getenv("RRR3D_EXPERIMENT_NATIVE_SPRING_PREP_V53");
+                 if (w->mNativeSpringV53.enabled && prep_v53 != nullptr && std::strcmp(prep_v53, "1") == 0) {
+                     using namespace motorrock_native_spring_v53;
+                     float raw_error = sub(add(add(sub(w->mSuspensionLength, settings->mSuspensionMaxLength), 0.025f), 0.025f), settings->mSourceSpringTargetV53);
+-                    w->mSuspensionPart.PrepareNativeSpringCoefficientsV53(*mBody, *w->mContactBody, neg_contact_normal, inDeltaTime, raw_error, stiffness, damping, settings->mSuspensionSpringBiasFactor, w->mNativeSpringV53);
++                    w->mSuspensionPart.PrepareNativeSpringCoefficientsV53(*mBody, *w->mContactBody, prepared_normal_v57, inDeltaTime, raw_error, stiffness, damping, settings->mSuspensionSpringBiasFactor, w->mNativeSpringV53);
+                 }
+ 
+ 			}
+@@ -551,10 +571,15 @@
+ 			} else {
+ 			w->mLongitudinalPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, -w->mContactLongitudinal);
+ 			w->mLateralPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, -w->mContactLateral);
++            if(frame_v57){
++             w->mLongitudinalPart.PrepareNativeWheelFrameV57(*mBody,w->mContactPosition,-w->mContactLongitudinal);
++             w->mLateralPart.PrepareNativeWheelFrameV57(*mBody,w->mContactPosition,-w->mContactLateral);
++            }
++
+             const char *inertia_v56=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56");
+             if(inertia_v56&&std::strcmp(inertia_v56,"1")==0){
+-             w->mLongitudinalPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,-w->mContactLongitudinal,true);
+-             w->mLateralPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,-w->mContactLateral,true);
++             w->mLongitudinalPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,frame_v57?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,-w->mContactLongitudinal):-w->mContactLongitudinal,true);
++             w->mLateralPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,frame_v57?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,-w->mContactLateral):-w->mContactLateral,true);
+             }
+ 			}
+ 		}
+@@ -596,7 +621,9 @@
+ 			w->mSuspensionPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, spring_ratio);
+ 			w->mSuspensionMaxUpPart.WarmStart(*mBody, *w->mContactBody, neg_contact_normal, stop_ratio);
+ 			w->mLongitudinalPart.WarmStart(*mBody, *w->mContactBody, -w->mContactLongitudinal, 0.0f); // Don't warm start the longitudinal part (the engine/brake force, we don't want to preserve anything from the last frame)
+-			w->mLateralPart.WarmStart(*mBody, *w->mContactBody, -w->mContactLateral, inWarmStartImpulseRatio);
++            const char *tire_cold_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_TIRE_COLD_V57");
++            const bool native_tire_cold=UsesSourceSpringFinal()&&tire_cold_v57&&std::strcmp(tire_cold_v57,"1")==0&&w->mContactBody->IsStatic()&&w->mSteerAngle==0;
++            w->mLateralPart.WarmStart(*mBody, *w->mContactBody, -w->mContactLateral, native_tire_cold?0.0f:inWarmStartImpulseRatio);
+ 		}
+ 
+ 	mPitchRollPart.WarmStart(*mBody, Body::sFixedToWorld, inWarmStartImpulseRatio);
+@@ -620,8 +647,15 @@
+ 			if (source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
++            const char *local_lost_flag_v58=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
++            const bool cached_frame_v58=local_lost_flag_v58&&std::strcmp(local_lost_flag_v58,"1")==0
++                && AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()
++                && w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint&&w->mSourceContactLost&&w->mSourceLocalContactValidV58;
+ 			if (w->mSuspensionPart.IsActive())
+-				impulse |= w->mNativeSpringV53.enabled? w->mSuspensionPart.SolveNativeSplitSpringV53(*mBody, *w->mContactBody, neg_contact_normal, w->mNativeSpringV53, 0.0f, FLT_MAX) : w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++                impulse |= w->mNativeSpringV53.enabled? w->mSuspensionPart.SolveNativeSplitSpringV53(*mBody, *w->mContactBody,
++                    cached_frame_v58?AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceLocalContactAxisV58):
++                    (AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()&&w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,neg_contact_normal):neg_contact_normal),
++                    w->mNativeSpringV53, 0.0f, FLT_MAX) : w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+ 			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+@@ -784,6 +818,8 @@
+    if (w->mContactBody->IsDynamic()) outBodies.push_back(w->mContactBody);
+    if (w->mSuspensionPart.IsActive()) { if (w->mNativeSpringV53.enabled) w->mSuspensionPart.PrepareNativeFinalSpringV53(w->mNativeSpringV53); else w->mSuspensionPart.PrepareSourceFinalSpringBias(mSourceVelocitySteps); }
+    if (UsesSourceSuspensionStop() && w->mSuspensionMaxUpPart.IsActive()) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.0f);
++   const char *anchor_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
++   if(anchor_v57&&std::strcmp(anchor_v57,"1")==0)w->ClearSourceAnchorGeometryV57();
+   }
+  return true;
+ }
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -190,6 +190,7 @@
+ 	virtual void				WarmStartVelocityConstraint(float inWarmStartImpulseRatio) override;
+ 	virtual bool				SolveVelocityConstraint(float inDeltaTime) override;
+ 	bool UsesSourceSpringFinal() const;
++	uint GetSourceVelocityStepsV57() const { return mSourceVelocitySteps; }
+ 	bool UsesSourceSuspensionStop() const;
+ 	bool PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies);
+ 	virtual bool				SolvePositionConstraint(float inDeltaTime, float inBaumgarte) override;
+--- a/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -9,6 +9,7 @@
+ #include <Jolt/Physics/Constraints/SpringSettings.h>
+ #include <Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h>
+ #include <Jolt/Physics/Constraints/ConstraintPart/NativeWheelRowV56.h>
++#include <Jolt/Physics/Constraints/ConstraintPart/NativeWheelFrameV57.h>
+ #include <Jolt/Physics/StateRecorder.h>
+ #include <Jolt/Physics/DeterminismLog.h>
+ 
+@@ -675,12 +676,60 @@
+ 	bool ApplySourceContactDelta(MotionProperties *inMotion1, float inInvMass1, MotionProperties *inMotion2, float inInvMass2, Vec3Arg inAxis, float inDelta, bool inPremultipliedLinear) const { return ApplyVelocityStep<Type1,Type2>(inMotion1,inInvMass1,inMotion2,inInvMass2,inAxis,inDelta,inPremultipliedLinear); }
+ 
+ 
++ void TraceNativeSpringBodyV57(const char *event,const Body &body,Vec3Arg axis,float delta) const {
++  const char *path=std::getenv("RRR3D_NATIVE_SPRING_BODY_V57_TRACE");if(!path||!*path)return;
++  static unsigned sequence=0;if(sequence>=256)return;FILE *fp=std::fopen(path,"a");if(!fp)return;
++  Vec3 v=body.GetLinearVelocity(),w=body.GetAngularVelocity();
++  std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"axis\":[%.9g,%.9g,%.9g],\"linear\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g],\"delta\":%.9g}\n",event,sequence++,axis.GetX(),axis.GetY(),axis.GetZ(),v.GetX(),v.GetY(),v.GetZ(),w.GetX(),w.GetY(),w.GetZ(),delta);std::fclose(fp);
++ }
+  void TraceNativeSplitV53(const char *event,const motorrock_native_spring_v53::State &s,float jv,float delta) const {
+   const char *path=std::getenv("RRR3D_NATIVE_SPRING_V53_TRACE");if(path==nullptr||*path==0)return;
+   static unsigned lines=0;if(lines>=256)return;FILE *fp=std::fopen(path,"a");if(fp==nullptr)return;
+   Vec3 r=GetDiagnosticR1CrossAxis(), inv=GetDiagnosticInvI1R1CrossAxis();
+   std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"effective_mass\":%.9g,\"position_term\":%.9g,\"impulse_softness\":%.9g,\"unbiased\":%.9g,\"applied\":%.9g,\"jv\":%.9g,\"delta\":%.9g,\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g]}\n",event,lines++,mEffectiveMass,s.position_term,s.impulse_softness,s.unbiased,mTotalLambda,jv,delta,r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ());std::fclose(fp);
+  }
++ static bool UsesNativeWheelFrameV57() {
++  const char *flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_FRAME_V57");
++  return flag&&std::strcmp(flag,"1")==0;
++ }
++ static Vec3 NativeWheelFrameAxisV57(const Body &body,Vec3Arg axis) {
++  using namespace motorrock_native_wheel_frame_v57;
++  using Vector=motorrock_native_wheel_frame_v57::Vector;
++  auto q=body.GetRotation();Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++  Vector source{{-axis.GetX(),-axis.GetZ(),-axis.GetY()}};
++  auto prepared=body_axis(rotation,source);
++  return Vec3(-prepared[0],-prepared[2],-prepared[1]);
++ }
++ void PrepareNativeWheelFrameV57(const Body &body,Vec3Arg world_point,Vec3Arg axis) {
++  using namespace motorrock_native_wheel_frame_v57;
++  using Vector=motorrock_native_wheel_frame_v57::Vector;
++  auto q=body.GetRotation();Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++  Vector source_axis{{-axis.GetX(),-axis.GetZ(),-axis.GetY()}},point{{world_point.GetX(),world_point.GetZ(),world_point.GetY()}};
++  auto c=body.GetCenterOfMassPosition();Vector center{{float(c.GetX()),float(c.GetZ()),float(c.GetY())}};
++  auto prepared_axis=body_axis(rotation,source_axis),prepared_lever=body_lever(rotation,point,center);
++  auto jacobian=cross(prepared_lever,prepared_axis);
++  Vec3(jacobian[0],jacobian[2],jacobian[1]).StoreFloat3(&mR1PlusUxAxis);
++ }
++ bool SolveNativeWheelFrameV57(Body &body1,Body &body2,Vec3Arg axis,float minimum,float maximum) {
++  JPH_ASSERT(body1.IsDynamic()&&body2.IsStatic());
++  return SolveVelocityConstraint(body1,body2,NativeWheelFrameAxisV57(body1,axis),minimum,maximum);
++ }
++ static Vec3 NativeWheelLocalAxisV58(const Body &body, Vec3Arg local_axis) {
++  namespace frame=motorrock_native_wheel_frame_v57;
++  auto q=body.GetRotation();frame::Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++  auto axis=frame::forward(rotation,{{local_axis.GetX(),local_axis.GetY(),local_axis.GetZ()}},true);
++  return Vec3(-axis[0],-axis[2],-axis[1]);
++ }
++ void PrepareNativeWheelLocalFrameV58(const Body &body, Vec3Arg local_point, Vec3Arg local_axis) {
++  namespace frame=motorrock_native_wheel_frame_v57;
++  auto q=body.GetRotation();frame::Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++  auto axis=frame::forward(rotation,{{local_axis.GetX(),local_axis.GetY(),local_axis.GetZ()}},true);
++  auto lever=frame::forward(rotation,{{local_point.GetX(),local_point.GetY(),local_point.GetZ()}},false);
++  auto jacobian=frame::cross(lever,axis);
++  Vec3(jacobian[0],jacobian[2],jacobian[1]).StoreFloat3(&mR1PlusUxAxis);
++ }
++ float GetDiagnosticGeometryBiasV57() const { return mSpringPart.GetDiagnosticGeometricBiasV53(); }
++ float GetDiagnosticConstantBiasV57() const { return mSpringPart.GetDiagnosticConstantBiasV53(); }
+  void PrepareNativeWheelRowInertiaV56(const Body &body1,const Body &body2,Vec3Arg axis,bool hard) {
+   using namespace motorrock_native_wheel_row_v56;
+   auto vector=[](Vec3Arg v){return motorrock_native_wheel_row_v56::Vector{{v.GetX(),v.GetZ(),v.GetY()}};};
+@@ -693,6 +742,27 @@
+   float k=prepare(body1,GetDiagnosticR1CrossAxis(),mInvI1_R1PlusUxAxis);
+   if(body2.IsDynamic())k=add(k,prepare(body2,GetDiagnosticR2CrossAxis(),mInvI2_R2xAxis));
+   if(hard&&k>0.0f)mEffectiveMass=div(1.0f,k);
++ }
++ template <EMotionType Type2>
++ bool TemplatedSolveNativeWheelAnchorV57(Body &body1,Body &body2,Vec3 axis,float minimum,float maximum,bool use_frame) {
++  if constexpr(Type2==EMotionType::Static)if(use_frame)axis=NativeWheelFrameAxisV57(body1,axis);
++  using namespace motorrock_native_spring_v53;
++  auto *mp1=body1.GetMotionPropertiesUnchecked();
++  auto *mp2=Type2!=EMotionType::Static?body2.GetMotionPropertiesUnchecked():nullptr;
++  float jv=axis.Dot(mp1->GetLinearVelocity());
++  if constexpr(Type2!=EMotionType::Static)jv=axis.Dot(mp1->GetLinearVelocity()-mp2->GetLinearVelocity());
++  jv+=GetDiagnosticR1CrossAxis().Dot(mp1->GetAngularVelocity());
++  if constexpr(Type2!=EMotionType::Static)jv-=GetDiagnosticR2CrossAxis().Dot(mp2->GetAngularVelocity());
++  float velocity=mul(add(mSpringPart.GetDiagnosticConstantBiasV53(),jv),mEffectiveMass);
++  float position=mul(mSpringPart.GetDiagnosticGeometricBiasV53(),mul(0.7f,mEffectiveMass));
++  float total=add(mTotalLambda,sub(velocity,position));if(total>maximum)total=maximum;else if(minimum>total)total=minimum;
++  return TemplatedSolveVelocityConstraintApplyLambda<EMotionType::Dynamic,Type2>(mp1,mp1->GetInverseMass(),mp2,0,axis,total);
++ }
++ void SetNativeWheelAnchorV57(float velocity,float geometry) { mSpringPart.SetNativeWheelAnchorV57(velocity,geometry); }
++ void ClearNativeWheelAnchorGeometryV57() { mSpringPart.ClearNativeWheelAnchorGeometryV57(); }
++ bool SolveNativeWheelAnchorV57(Body &body1,Body &body2,Vec3Arg axis,float minimum,float maximum,bool use_frame=false) {
++  JPH_ASSERT(body1.IsDynamic()&&body2.IsStatic());
++  return IsActive()?TemplatedSolveNativeWheelAnchorV57<EMotionType::Static>(body1,body2,axis,minimum,maximum,use_frame):false;
+  }
+  void PrepareNativeSplitSpringV53(motorrock_native_spring_v53::State &s) const {
+   s.enabled=true; s.native_jv=false; s.unbiased=0.0f;
+@@ -723,7 +793,7 @@
+   TraceNativeSplitV53("final",s,0.0f,0.0f);
+  }
+  template <EMotionType Type2>
+- bool TemplatedSolveNativeSplitSpringV53(Body &body1, Body &body2, Vec3Arg axis, motorrock_native_spring_v53::State &s, float minimum, float maximum) {
++ bool TemplatedSolveNativeSplitSpringV53(Body &body1, Body &body2, Vec3 axis, motorrock_native_spring_v53::State &s, float minimum, float maximum) {
+   MotionProperties *mp1=body1.GetMotionPropertiesUnchecked();
+   MotionProperties *mp2=Type2!=EMotionType::Static?body2.GetMotionPropertiesUnchecked():nullptr;
+   float jv;
+@@ -740,13 +810,15 @@
+     jv=motorrock_native_spring_v53::sub(jv,motorrock_native_spring_v53::body1_jv(n,r,v,w));
+    }
+   }
++  TraceNativeSpringBodyV57("input",body1,axis,0.0f);
+   TraceNativeSplitV53("input",s,jv,0.0f);
+   float velocity=motorrock_native_spring_v53::mul(motorrock_native_spring_v53::sub(jv,s.velocity_bias),mEffectiveMass);
+   auto result=motorrock_native_spring_v53::solve(velocity,s.position_term,s.impulse_softness,s.unbiased,mTotalLambda,1.0f,minimum,maximum);
+   s.unbiased=result.unbiased; mTotalLambda=result.biased;
+   TraceNativeSplitV53("result",s,jv,result.delta);
+   float inv2=0.0f; if constexpr(Type2==EMotionType::Dynamic) inv2=mp2->GetInverseMass();
+-  return ApplyVelocityStep<EMotionType::Dynamic,Type2>(mp1,mp1->GetInverseMass(),mp2,inv2,axis,result.delta);
++  bool changed=ApplyVelocityStep<EMotionType::Dynamic,Type2>(mp1,mp1->GetInverseMass(),mp2,inv2,axis,result.delta);
++  TraceNativeSpringBodyV57("result",body1,axis,result.delta);return changed;
+  }
+  bool SolveNativeSplitSpringV53(Body &body1,Body &body2,Vec3Arg axis,motorrock_native_spring_v53::State &s,float minimum,float maximum) {
+   JPH_ASSERT(body1.IsDynamic());
+--- a/sdk/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
+@@ -66,6 +66,8 @@
+ 	}
+ 
+ public:
++ void SetNativeWheelAnchorV57(float velocity,float geometry) { mBias=velocity;mGeometricBias=geometry;mSoftness=0; }
++ void ClearNativeWheelAnchorGeometryV57() { mGeometricBias=0; }
+ 	/// Turn off the spring and set a bias only
+ 	///
+ 	/// @param inBias Bias term (b) for the constraint impulse: lambda = J v + b
+--- /dev/null
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeWheelFrameV57.h
+@@ -0,0 +1,45 @@
++#pragma once
++#include <array>
++#include "NativeSpringSplitV53.h"
++namespace motorrock_native_wheel_frame_v57 {
++using namespace motorrock_native_spring_v53;
++using Vector = std::array<float, 3>;
++using Quaternion = std::array<float, 4>;
++inline Vector cross(const Vector &a, const Vector &b) {
++ return {{sub(mul(a[1], b[2]), mul(a[2], b[1])),
++          sub(mul(a[2], b[0]), mul(a[0], b[2])),
++          sub(mul(a[0], b[1]), mul(a[1], b[0]))}};
++}
++// Original actor inverse-transform: point dot XYZ, direction dot XZY.
++// The factor two is applied after all three terms have been rounded.
++inline Vector inverse(const Quaternion &q, const Vector &v, bool direction) {
++ float dot = direction? add(add(mul(v[0], q[0]), mul(v[2], q[2])), mul(v[1], q[1]))
++                      : add(add(mul(v[0], q[0]), mul(v[1], q[1])), mul(v[2], q[2]));
++ float coefficient = sub(mul(q[3], q[3]), 0.5f);
++ Vector xyz{{q[0], q[1], q[2]}}, perpendicular = cross(xyz, v), result;
++ for (unsigned i = 0; i < 3; ++i)
++  result[i] = mul(add(sub(mul(coefficient, v[i]), mul(q[3], perpendicular[i])), mul(q[i], dot)), 2.0f);
++ return result;
++}
++inline Vector local_point(const Quaternion &q, const Vector &point, const Vector &center) {
++ Vector delta; for (unsigned i = 0; i < 3; ++i) delta[i] = sub(point[i], center[i]);
++ return inverse(q, delta, false);
++}
++// Original row preparation: point dot XYZ, direction dot ZXY.
++// The doubled terms are rounded separately before the final additions.
++inline Vector forward(const Quaternion &q, const Vector &v, bool direction) {
++ float dot = direction? add(add(mul(v[2], q[2]), mul(v[0], q[0])), mul(v[1], q[1]))
++                      : add(add(mul(v[0], q[0]), mul(v[1], q[1])), mul(v[2], q[2]));
++ float coefficient = sub(mul(mul(q[3], q[3]), 2.0f), 1.0f);
++ Vector xyz{{q[0], q[1], q[2]}}, perpendicular = cross(xyz, v), result;
++ for (unsigned i = 0; i < 3; ++i)
++  result[i] = add(add(mul(coefficient, v[i]), mul(mul(perpendicular[i], q[3]), 2.0f)), mul(mul(q[i], dot), 2.0f));
++ return result;
++}
++inline Vector body_axis(const Quaternion &q, const Vector &world_axis) {
++ return forward(q, inverse(q, world_axis, true), true);
++}
++inline Vector body_lever(const Quaternion &q, const Vector &world_point, const Vector &center) {
++ return forward(q, local_point(q, world_point, center), false);
++}
++}
+--- a/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
++++ b/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
+@@ -683,7 +683,13 @@
+ 			float min_longitudinal_impulse, max_longitudinal_impulse;
+ 			if (w->mUsePrescribedLongitudinalImpulse) // source-prescribed-tire support
+ 			{
+-				if (w->mPrescribedBraking)
++                const char *velocity_limit_v58 = std::getenv("RRR3D_EXPERIMENT_NATIVE_TIRE_VELOCITY_LIMIT_V58");
++                const char *anchor_v57 = std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
++                const bool native_velocity_limit = velocity_limit_v58 && std::strcmp(velocity_limit_v58,"1")==0
++                    && anchor_v57 && std::strcmp(anchor_v57,"1")==0
++                    && mConstraint.UsesSourceSpringFinal() && w->HasStaticSourceContactV58()
++                    && w->GetSteerAngle()==0 && !settings->mEnableSuspensionForcePoint;
++				if (w->mPrescribedBraking || native_velocity_limit)
+ 					impulse |= w->SolveLongitudinalConstraintPart(mConstraint, -max_longitudinal_friction_impulse, max_longitudinal_friction_impulse);
+ 				else
+ 				{

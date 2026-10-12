@@ -1,0 +1,182 @@
+{
+  "objective": "Preserve the active all-physics-discrepancies goal; prioritize perceptible differences and real game validation over first-bit divergence.",
+  "reason": "First divergence is a useful locator but a poor measure of playable equivalence. Current v57 delays it in43cases, but large trajectory differences remain and latest experiments are not certified in ordinary gameplay.",
+  "method_change": [
+    "Rank unresolved cases by complete-trajectory position, velocity, orientation and wheel-contact errors; retain strict float32 results as separate diagnostics.",
+    "Investigate largest single-car source-catalog driving and boundary-contact defects first. Use isolated force/contact stages within the selected defect, rather than chasing the earliest tiny discrepancy across the whole engine.",
+    "Validate the full GameCar command chain: record and compare throttle/brake/steer, selected gear, calculated torque and actually applied wheel commands.",
+    "Create a full-game comparison with one car, no other car actors or AI, fixed initial state and identical prerecorded open-loop input by physics step; confirm identical map/car asset identities.",
+    "Report complete trajectory errors and visible behavior before/after each correction. First-divergence delay alone is not evidence of no regression.",
+    "Promote corrections to a separate playable comparison build only after the relevant meaningful checks pass; maintain the independent regression suite.",
+    "Keep exact parity discrepancies recorded; practical error budgets must be named explicitly and must not be described as exact Windows equality."
+  ],
+  "next_cases": [
+    {
+      "name": "border-grounded",
+      "samples": 600,
+      "seconds": 10.0,
+      "pair": false,
+      "current": {
+        "position_max": 4.243929285804358,
+        "position_rms": 2.348891175289196,
+        "position_final": 4.243929285804358,
+        "velocity_max": 5.7941065329753725,
+        "speed_max": 1.670926712840691,
+        "speed_final": 0.46733402953983205,
+        "orientation_max_degrees": 21.212256343540954,
+        "orientation_final_degrees": 0.7797497385434782
+      },
+      "previous_v56": {
+        "position_max": 4.24392789294626,
+        "position_rms": 2.3488913590245737,
+        "position_final": 4.24392789294626,
+        "velocity_max": 5.794097525953391,
+        "speed_max": 1.6709346816925486,
+        "speed_final": 0.4673237132543884,
+        "orientation_max_degrees": 21.212303066071787,
+        "orientation_final_degrees": 0.779364896346513
+      }
+    },
+    {
+      "name": "mobility/monstertruck/wheel2/wheel-drive",
+      "samples": 600,
+      "seconds": 10.0,
+      "pair": false,
+      "current": {
+        "position_max": 0.7349930184225474,
+        "position_rms": 0.3516781654981925,
+        "position_final": 0.7349930184225474,
+        "velocity_max": 0.722630980030405,
+        "speed_max": 0.7226294629569869,
+        "speed_final": 0.07084624051871913,
+        "orientation_max_degrees": 13.923074708601314,
+        "orientation_final_degrees": 13.923074708601314
+      },
+      "previous_v56": {
+        "position_max": 0.7349908861782786,
+        "position_rms": 0.35168552687026267,
+        "position_final": 0.7349908861782786,
+        "velocity_max": 0.7226200100389975,
+        "speed_max": 0.722618489064291,
+        "speed_final": 0.0708568808779404,
+        "orientation_max_degrees": 13.92357026185769,
+        "orientation_final_degrees": 13.92357026185769
+      }
+    },
+    {
+      "name": "mobility/podushka/engine2/wheel-drive",
+      "samples": 600,
+      "seconds": 10.0,
+      "pair": false,
+      "current": {
+        "position_max": 0.45472432067928353,
+        "position_rms": 0.10345801963077572,
+        "position_final": 0.45472432067928353,
+        "velocity_max": 0.3061465525960321,
+        "speed_max": 0.15831296228628844,
+        "speed_final": 0.08815489622963923,
+        "orientation_max_degrees": 3.576095341775276,
+        "orientation_final_degrees": 3.576095341775276
+      },
+      "previous_v56": {
+        "position_max": 0.4546575895120747,
+        "position_rms": 0.1034218325505009,
+        "position_final": 0.4546575895120747,
+        "velocity_max": 0.3061489920807748,
+        "speed_max": 0.15833266221046927,
+        "speed_final": 0.08817491906536645,
+        "orientation_max_degrees": 3.5767886308249697,
+        "orientation_final_degrees": 3.5767886308249697
+      }
+    },
+    {
+      "name": "bump-crossing",
+      "samples": 600,
+      "seconds": 10.0,
+      "pair": false,
+      "current": {
+        "position_max": 0.017795517650181957,
+        "position_rms": 0.0033810675056084503,
+        "position_final": 0.005733435577207746,
+        "velocity_max": 0.27716816899999996,
+        "speed_max": 0.009388224143235036,
+        "speed_final": 7.069602006026798e-07,
+        "orientation_max_degrees": 1.0284806775627524,
+        "orientation_final_degrees": 0.08225598818800504
+      },
+      "previous_v56": {
+        "position_max": 0.017795517653589527,
+        "position_rms": 0.003381126930019506,
+        "position_final": 0.00573393099,
+        "velocity_max": 0.27716816899999996,
+        "speed_max": 0.009388220762165389,
+        "speed_final": 7.075231991393593e-07,
+        "orientation_max_degrees": 1.0284854755631874,
+        "orientation_final_degrees": 0.082259897609238
+      }
+    },
+    {
+      "name": "pair-stock-pole-0",
+      "samples": 300,
+      "seconds": 5.0,
+      "pair": true,
+      "current": {
+        "position_max": 1.0990124001137072,
+        "position_rms": 0.6764406994032941,
+        "position_final": 1.0990124001137072,
+        "velocity_max": 2.186174990002821,
+        "speed_max": 2.1861749899966005,
+        "speed_final": 0.19209646999643248,
+        "orientation_max_degrees": 0.08490746884416175,
+        "orientation_final_degrees": 0.08490746884416175
+      },
+      "previous_v56": {
+        "position_max": 1.0990124001137072,
+        "position_rms": 0.6764406994032941,
+        "position_final": 1.0990124001137072,
+        "velocity_max": 2.186174990002821,
+        "speed_max": 2.1861749899966005,
+        "speed_final": 0.19209646999643248,
+        "orientation_max_degrees": 0.08490746884416175,
+        "orientation_final_degrees": 0.08490746884416175
+      }
+    },
+    {
+      "name": "border-air-straight",
+      "samples": 600,
+      "seconds": 10.0,
+      "pair": false,
+      "current": {
+        "position_max": 0.8709359347978516,
+        "position_rms": 0.4767587252078389,
+        "position_final": 0.8709359347978516,
+        "velocity_max": 0.09709907828968349,
+        "speed_max": 0.006748712437307347,
+        "speed_final": 0.006748712437307347,
+        "orientation_max_degrees": 65.4922810932907,
+        "orientation_final_degrees": 65.4922810932907
+      },
+      "previous_v56": {
+        "position_max": 0.8709359347978516,
+        "position_rms": 0.4767587252078389,
+        "position_final": 0.8709359347978516,
+        "velocity_max": 0.09709907828968349,
+        "speed_max": 0.006748712437307347,
+        "speed_final": 0.006748712437307347,
+        "orientation_max_degrees": 65.4922810932907,
+        "orientation_final_degrees": 65.4922810932907
+      }
+    }
+  ],
+  "current_sampling": {
+    "dt_seconds": 0.016666666666666666,
+    "sample_phase": "after_solve",
+    "index_starts_at": 0,
+    "simple_suite_steps": 600,
+    "simple_suite_seconds": 10,
+    "random_ai_in_probe": false,
+    "pair_cases_in_broad_suite": 34,
+    "pair_control": "Explicit scripted actors, no AI."
+  },
+  "goal_complete": false
+}

@@ -1,0 +1,72 @@
+{
+  "baseline_commit": "3a6c8ea3748ddbeebcbda6f5e5aafcfffc7136c8",
+  "baseline": "Exact active v56 investigation chain, not a patch against the ordinary root adapter.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "dabb6693f1f61661e7768ddaed246141a0624473688bf5736d85ba83db37782e",
+      "after_sha256": "2a741b9c05f64ba1c70553ab6d91586dd971c34568f1f542d9cda90169b7f415"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "5b1550c6c635894e72433c7864161a842148bdff1cc650f507fed898166ae3a3",
+      "after_sha256": "8f6dc93d7517de99b90985bd128dcf5cdb307c6f4d8c9207a6c14ed84c5ac661"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "d6bc9c91f724d6b7dcf068e7d5cc214a21ca89dd7bcb56e8cba42a1577009ab0",
+      "after_sha256": "0cfe0a25eb8aeb963567b744a553196f8f1b03959b930099552f14de4c169bd0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "937281dd9052bb1c217188c2900d757123f985b2bbf40edcc599be50e5074845",
+      "after_sha256": "a6e6401cc5b9c1a51704ec622a1a03cbfedf09c0f2ffc5cbf88fdbe0f6125c0b"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "da9ae5ebdb9247397d00002184ca067a185cb0a2d521a59d0ba5c3a607d90494",
+      "after_sha256": "8c916320027ab47af3b1d85198152837e1416e0c9d8579789dd0c7a7473887b0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "before_sha256": "b82ae432b2fda4f655abd0189094f79fb4ed430c4f98d663e8375835964c4b51",
+      "after_sha256": "8648073a01095835e696bc2d9fa5325aa51ed32d8ea2c8cd7c6cc3d3549abf58"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/SpringPart.h",
+      "before_sha256": "adf9eb8f56047b8bf017e2ace6e08e9cb67156e7b545f6ac2175415093dd5938",
+      "after_sha256": "8f193e7dc4cfb07a2dc58ce8b17bca019791271ee77c8350902a5c5e3cb3c44c"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeWheelFrameV57.h",
+      "before_sha256": null,
+      "after_sha256": "b1bf7ea7437c202fd81af05f9871c3106c97333a2528a7c80a51a83137715a08"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "0d6aee479305ec850c325e2e070db09a1e92360af3d248420f96487ad4fa1a15",
+      "after_sha256": "5013dba22996f8cebcc06aa65f69baaf42a31d6069969b25a86ec81e9a8252c7"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_FRAME_V57",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_COLD_V57",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_VELOCITY_LIMIT_V58",
+    "RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58"
+  ],
+  "default_off": true,
+  "sdk_layout_changed": true,
+  "snapshot_compatibility_certified": false,
+  "interactive_gameplay_parity_certified": false,
+  "goal_complete": false
+}

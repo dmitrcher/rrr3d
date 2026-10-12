@@ -1,0 +1,61 @@
+{
+  "capture_points": 5,
+  "rows": 54,
+  "two_actual_native_repeats": true,
+  "checks": [
+    {
+      "optimization": "-O0",
+      "checks": 324,
+      "stdout": "324 original wheel frame float32 words exact"
+    },
+    {
+      "optimization": "-O2",
+      "checks": 324,
+      "stdout": "324 original wheel frame float32 words exact"
+    }
+  ],
+  "raw_bindings": [
+    {
+      "path": "outputs/native-practical-v58/0-private-run0.jsonl",
+      "sha256": "87dd678f8a7bdaf1e5b27be59441de90a0d670ed444b460af74210673cfbb372"
+    },
+    {
+      "path": "outputs/native-practical-v58/0-private-run1.jsonl",
+      "sha256": "2c5c50371ca0da607181d53a91d99be8e31c8a13ab3625995c244c1ac91904d6"
+    },
+    {
+      "path": "outputs/native-practical-v58/1-private-run0.jsonl",
+      "sha256": "2cc0d0b9c77085327f3cca65de9e9323bd8a9cd7255fddc3df5d5f85fc22217d"
+    },
+    {
+      "path": "outputs/native-practical-v58/1-private-run1.jsonl",
+      "sha256": "e6979b40d3039068a18c366e9485ce3e75c06e179f5dc2471ad0a46fff2bcdf8"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/0-private-run0.jsonl",
+      "sha256": "868f512bef29a942d22072f052b768d7d006c5ce7dcfdf2341c9f050aceee684"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/0-private-run1.jsonl",
+      "sha256": "90389862067760c9cda49459584b55b9cba5b7a00a5c703537ef7333a522aaa1"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/1-private-run0.jsonl",
+      "sha256": "b9080f533b46bcce588d697265370e4a75a25ecf5cb4f370890ac35b37f8a0ad"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/1-private-run1.jsonl",
+      "sha256": "12a0c83f9ee150b0716f6175463b48c5bbd2a993a49576161d4bde3a5d8d2d88"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/2-private-run0.jsonl",
+      "sha256": "dbaa59aa4dc8068d58312685620bd9664a60421ad51cc67ed3f80f09f78b3c06"
+    },
+    {
+      "path": "outputs/native-practical-edge-v58/2-private-run1.jsonl",
+      "sha256": "fa078e73c4420f5f427bf39a3b0530308ffecc9b39f69008e8d78b898fa01dc1"
+    }
+  ],
+  "scope": "Original prepared axes and Jacobians, including cached actor-local anchors across loss of floor contact. Full trajectory parity remains unproved.",
+  "goal_complete": false
+}

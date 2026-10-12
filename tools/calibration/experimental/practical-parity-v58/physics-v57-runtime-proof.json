@@ -1,0 +1,110 @@
+{
+  "original_prepared_rows_initial_zero_lambda": 352,
+  "actual_original_repeats_bound": 28,
+  "settle_counter": 21,
+  "cases": {
+    "control": {
+      "source_spring_input_bodies_exact": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "exact_of20": 0
+    },
+    "cold": {
+      "source_spring_input_bodies_exact": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "exact_of20": 1
+    },
+    "frame-cold": {
+      "source_spring_input_bodies_exact": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exact_of20": 20
+    },
+    "all": {
+      "source_spring_input_bodies_exact": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exact_of20": 20
+    }
+  },
+  "goal_complete": false,
+  "all8_hard_rows_axis_jacobian_inertia_mass_exact": true,
+  "scope": "Both actual runtime repeats; complete body/wheel observables until first remaining divergence. No trajectory parity, moving-contact or steering certification. No parameter fit."
+}

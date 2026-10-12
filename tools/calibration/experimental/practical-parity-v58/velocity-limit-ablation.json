@@ -1,0 +1,1134 @@
+{
+  "scope": "Single-car fixtures, no AI. All original parameters unchanged. Disable-one ablation is diagnostic and not a proposed correction.",
+  "cases": {
+    "border-grounded": {
+      "v57": {
+        "position_max": 4.243929285804358,
+        "position_rms": 2.348891175289196,
+        "position_final": 4.243929285804358,
+        "velocity_max": 5.7941065329753725,
+        "orientation_max_degrees": 21.212256343540954,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 7.400000001656082e-09,
+            "orientation_degrees": 5.380086352766172e-08
+          },
+          "119": {
+            "position": 0.5537802864272343,
+            "velocity": 0.458405219912416,
+            "orientation_degrees": 0.20594826135570654
+          },
+          "120": {
+            "position": 0.5614179554679283,
+            "velocity": 0.4583823313220547,
+            "orientation_degrees": 0.2018409376745574
+          },
+          "179": {
+            "position": 1.0120143944460132,
+            "velocity": 0.4583971083926759,
+            "orientation_degrees": 0.020245536837457168
+          },
+          "239": {
+            "position": 1.4705590648736664,
+            "velocity": 0.4588849980236788,
+            "orientation_degrees": 0.1390067930801748
+          },
+          "299": {
+            "position": 1.9298347374410594,
+            "velocity": 0.4597199413226089,
+            "orientation_degrees": 0.2795850692389864
+          },
+          "399": {
+            "position": 2.6974967634823126,
+            "velocity": 0.46172985148351386,
+            "orientation_degrees": 0.47984257344263526
+          },
+          "499": {
+            "position": 3.4686600283795923,
+            "velocity": 0.46436498006058674,
+            "orientation_degrees": 0.6444514042262618
+          },
+          "599": {
+            "position": 4.243929285804358,
+            "velocity": 0.46740899222826154,
+            "orientation_degrees": 0.7797497385434782
+          }
+        },
+        "first_position_above_0_01": 61,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": 61
+      },
+      "anchor": {
+        "position_max": 4.243929285804358,
+        "position_rms": 2.348891175289196,
+        "position_final": 4.243929285804358,
+        "velocity_max": 5.7941065329753725,
+        "orientation_max_degrees": 21.212256343540954,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 7.400000001656082e-09,
+            "orientation_degrees": 5.380086352766172e-08
+          },
+          "119": {
+            "position": 0.5537802864272343,
+            "velocity": 0.458405219912416,
+            "orientation_degrees": 0.20594826135570654
+          },
+          "120": {
+            "position": 0.5614179554679283,
+            "velocity": 0.4583823313220547,
+            "orientation_degrees": 0.2018409376745574
+          },
+          "179": {
+            "position": 1.0120143944460132,
+            "velocity": 0.4583971083926759,
+            "orientation_degrees": 0.020245536837457168
+          },
+          "239": {
+            "position": 1.4705590648736664,
+            "velocity": 0.4588849980236788,
+            "orientation_degrees": 0.1390067930801748
+          },
+          "299": {
+            "position": 1.9298347374410594,
+            "velocity": 0.4597199413226089,
+            "orientation_degrees": 0.2795850692389864
+          },
+          "399": {
+            "position": 2.6974967634823126,
+            "velocity": 0.46172985148351386,
+            "orientation_degrees": 0.47984257344263526
+          },
+          "499": {
+            "position": 3.4686600283795923,
+            "velocity": 0.46436498006058674,
+            "orientation_degrees": 0.6444514042262618
+          },
+          "599": {
+            "position": 4.243929285804358,
+            "velocity": 0.46740899222826154,
+            "orientation_degrees": 0.7797497385434782
+          }
+        },
+        "first_position_above_0_01": 61,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": 61
+      },
+      "limit": {
+        "position_max": 4.243929285804358,
+        "position_rms": 2.3488911356247058,
+        "position_final": 4.243929285804358,
+        "velocity_max": 5.794106576258037,
+        "orientation_max_degrees": 21.21225632411347,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 1.5356180380040056e-09
+          },
+          "119": {
+            "position": 0.5537802864272343,
+            "velocity": 0.45840522516164384,
+            "orientation_degrees": 0.20594944047881605
+          },
+          "120": {
+            "position": 0.5614179554679283,
+            "velocity": 0.45838233716094356,
+            "orientation_degrees": 0.20184208419901936
+          },
+          "179": {
+            "position": 1.0120143944460132,
+            "velocity": 0.45839710839153375,
+            "orientation_degrees": 0.020244547009911244
+          },
+          "239": {
+            "position": 1.4705590648736664,
+            "velocity": 0.45888498756060314,
+            "orientation_degrees": 0.13900693044895626
+          },
+          "299": {
+            "position": 1.9298347374410594,
+            "velocity": 0.45971995207894006,
+            "orientation_degrees": 0.27958668283272153
+          },
+          "399": {
+            "position": 2.6974967634823126,
+            "velocity": 0.4617298374008171,
+            "orientation_degrees": 0.47984231198404115
+          },
+          "499": {
+            "position": 3.4686599439235932,
+            "velocity": 0.46436498006680027,
+            "orientation_degrees": 0.6444512715860395
+          },
+          "599": {
+            "position": 4.243929285804358,
+            "velocity": 0.4674090097509693,
+            "orientation_degrees": 0.7797493942618365
+          }
+        },
+        "first_position_above_0_01": 61,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": 61
+      }
+    },
+    "border-air-straight": {
+      "v57": {
+        "position_max": 0.8709359347978516,
+        "position_rms": 0.4767587252078389,
+        "position_final": 0.8709359347978516,
+        "velocity_max": 0.09709907828968349,
+        "orientation_max_degrees": 65.4922810932907,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "119": {
+            "position": 0.09387898523664794,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 26.622914937248435
+          },
+          "120": {
+            "position": 0.09549728839504866,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 27.04349943812951
+          },
+          "179": {
+            "position": 0.1909765545032517,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 48.22979331306431
+          },
+          "239": {
+            "position": 0.2880781898048424,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 60.98464718853136
+          },
+          "299": {
+            "position": 0.38518084043882705,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 64.56312347647477
+          },
+          "399": {
+            "position": 0.5470670800407461,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 57.17879596858578
+          },
+          "499": {
+            "position": 0.7090015195894689,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 52.79551059377149
+          },
+          "599": {
+            "position": 0.8709359347978516,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 65.4922810932907
+          }
+        },
+        "first_position_above_0_01": 68,
+        "first_body_contact_windows": 61,
+        "first_body_contact_mac": 61
+      },
+      "anchor": {
+        "position_max": 0.8709359347978516,
+        "position_rms": 0.4767587252078389,
+        "position_final": 0.8709359347978516,
+        "velocity_max": 0.09709907828968349,
+        "orientation_max_degrees": 65.4922810932907,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "119": {
+            "position": 0.09387898523664794,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 26.622914937248435
+          },
+          "120": {
+            "position": 0.09549728839504866,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 27.04349943812951
+          },
+          "179": {
+            "position": 0.1909765545032517,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 48.22979331306431
+          },
+          "239": {
+            "position": 0.2880781898048424,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 60.98464718853136
+          },
+          "299": {
+            "position": 0.38518084043882705,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 64.56312347647477
+          },
+          "399": {
+            "position": 0.5470670800407461,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 57.17879596858578
+          },
+          "499": {
+            "position": 0.7090015195894689,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 52.79551059377149
+          },
+          "599": {
+            "position": 0.8709359347978516,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 65.4922810932907
+          }
+        },
+        "first_position_above_0_01": 68,
+        "first_body_contact_windows": 61,
+        "first_body_contact_mac": 61
+      },
+      "limit": {
+        "position_max": 0.8709359347978516,
+        "position_rms": 0.4767587252078389,
+        "position_final": 0.8709359347978516,
+        "velocity_max": 0.09709907828968349,
+        "orientation_max_degrees": 65.4922810932907,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "119": {
+            "position": 0.09387898523664794,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 26.622914937248435
+          },
+          "120": {
+            "position": 0.09549728839504866,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 27.04349943812951
+          },
+          "179": {
+            "position": 0.1909765545032517,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 48.22979331306431
+          },
+          "239": {
+            "position": 0.2880781898048424,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 60.98464718853136
+          },
+          "299": {
+            "position": 0.38518084043882705,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 64.56312347647477
+          },
+          "399": {
+            "position": 0.5470670800407461,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 57.17879596858578
+          },
+          "499": {
+            "position": 0.7090015195894689,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 52.79551059377149
+          },
+          "599": {
+            "position": 0.8709359347978516,
+            "velocity": 0.09709907828968349,
+            "orientation_degrees": 65.4922810932907
+          }
+        },
+        "first_position_above_0_01": 68,
+        "first_body_contact_windows": 61,
+        "first_body_contact_mac": 61
+      }
+    },
+    "wheel-drive": {
+      "v57": {
+        "position_max": 1.3682791949966459e-05,
+        "position_rms": 5.551075664347765e-06,
+        "position_final": 1.3682791949966459e-05,
+        "velocity_max": 3.546207592923822e-06,
+        "orientation_max_degrees": 0.0005080411418712076,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 7.164825999999994e-07,
+            "velocity": 1.2542135944745862e-06,
+            "orientation_degrees": 3.200042263499983e-05
+          },
+          "119": {
+            "position": 1.401036500001824e-06,
+            "velocity": 6.884217361989425e-07,
+            "orientation_degrees": 3.230787440481026e-05
+          },
+          "120": {
+            "position": 1.4122015001172784e-06,
+            "velocity": 6.784856811618831e-07,
+            "orientation_degrees": 3.3304937509401835e-05
+          },
+          "179": {
+            "position": 1.7539094718836733e-06,
+            "velocity": 1.1480977528169188e-06,
+            "orientation_degrees": 0.00011511274462954453
+          },
+          "239": {
+            "position": 2.332450238140638e-06,
+            "velocity": 6.104598444839346e-07,
+            "orientation_degrees": 5.352007340186777e-05
+          },
+          "299": {
+            "position": 1.8257733876228456e-06,
+            "velocity": 2.141087953269715e-06,
+            "orientation_degrees": 0.00031748601474651777
+          },
+          "399": {
+            "position": 3.736343158252153e-06,
+            "velocity": 3.033454510736233e-06,
+            "orientation_degrees": 0.00035604821347375704
+          },
+          "499": {
+            "position": 8.89051293858178e-06,
+            "velocity": 3.261960920611537e-06,
+            "orientation_degrees": 4.1421152514335805e-05
+          },
+          "599": {
+            "position": 1.3682791949966459e-05,
+            "velocity": 2.851837494027531e-06,
+            "orientation_degrees": 6.078455493810619e-05
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": null
+      },
+      "anchor": {
+        "position_max": 4.801214398334873e-07,
+        "position_rms": 1.0033985553180559e-07,
+        "position_final": 4.700857609820579e-07,
+        "velocity_max": 3.5365596984371697e-07,
+        "orientation_max_degrees": 1.760200846434717e-05,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 5.983360000000042e-15,
+            "velocity": 1.900176884089951e-12,
+            "orientation_degrees": 0.0
+          },
+          "119": {
+            "position": 3.939014999999998e-14,
+            "velocity": 3.266571000000013e-14,
+            "orientation_degrees": 1.627200137977616e-11
+          },
+          "120": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 1.9480565032130038e-11
+          },
+          "179": {
+            "position": 4.045997579848174e-09,
+            "velocity": 9.183556124379503e-09,
+            "orientation_degrees": 8.321147769471618e-07
+          },
+          "239": {
+            "position": 7.970503138913046e-08,
+            "velocity": 1.1485647747059747e-07,
+            "orientation_degrees": 4.264465370137389e-06
+          },
+          "299": {
+            "position": 1.238740097005141e-07,
+            "velocity": 3.358491157126322e-08,
+            "orientation_degrees": 1.855953501358763e-06
+          },
+          "399": {
+            "position": 1.1064599999999094e-07,
+            "velocity": 7.21852426803703e-08,
+            "orientation_degrees": 4.135885761787295e-06
+          },
+          "499": {
+            "position": 8.477999999999481e-08,
+            "velocity": 7.411562025472159e-08,
+            "orientation_degrees": 4.598332770949792e-06
+          },
+          "599": {
+            "position": 4.700857609820579e-07,
+            "velocity": 1.6923728239108645e-07,
+            "orientation_degrees": 5.8386620732490205e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": null
+      },
+      "limit": {
+        "position_max": 2.403650363853415e-07,
+        "position_rms": 9.34315125116554e-08,
+        "position_final": 2.303138218499442e-07,
+        "velocity_max": 2.947280062579517e-07,
+        "orientation_max_degrees": 1.7868884680390484e-05,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 0.0
+          },
+          "59": {
+            "position": 1.3300500000002867e-16,
+            "velocity": 1.900001242941888e-12,
+            "orientation_degrees": 0.0
+          },
+          "119": {
+            "position": 5.021379999999739e-15,
+            "velocity": 5.9362200000002746e-15,
+            "orientation_degrees": 1.627200137977616e-11
+          },
+          "120": {
+            "position": 0.0,
+            "velocity": 0.0,
+            "orientation_degrees": 1.9480565032130038e-11
+          },
+          "179": {
+            "position": 4.045997579848174e-09,
+            "velocity": 9.183556124379503e-09,
+            "orientation_degrees": 8.321147769471618e-07
+          },
+          "239": {
+            "position": 7.973199219191698e-08,
+            "velocity": 1.1674187160462107e-07,
+            "orientation_degrees": 4.229954905443514e-06
+          },
+          "299": {
+            "position": 1.2473011402513483e-07,
+            "velocity": 3.6810686972792184e-08,
+            "orientation_degrees": 1.8016952467252287e-06
+          },
+          "399": {
+            "position": 1.1296700000000017e-07,
+            "velocity": 3.824133433632134e-08,
+            "orientation_degrees": 3.8384633908798234e-06
+          },
+          "499": {
+            "position": 9.607200000000412e-08,
+            "velocity": 4.1199348954152316e-08,
+            "orientation_degrees": 5.3273000529112385e-06
+          },
+          "599": {
+            "position": 2.303138218499442e-07,
+            "velocity": 1.4980256130394044e-07,
+            "orientation_degrees": 5.0500129354798805e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 20,
+        "first_body_contact_mac": null
+      }
+    },
+    "mobility/monstertruck/wheel2/wheel-drive": {
+      "v57": {
+        "position_max": 0.7349930184225474,
+        "position_rms": 0.3516781654981925,
+        "position_final": 0.7349930184225474,
+        "velocity_max": 0.722630980030405,
+        "orientation_max_degrees": 13.923074708601314,
+        "error_landmarks": {
+          "19": {
+            "position": 2.4594917761464127e-09,
+            "velocity": 2.426354350867671e-07,
+            "orientation_degrees": 4.0162394644890463e-07
+          },
+          "59": {
+            "position": 3.4670666114369626e-06,
+            "velocity": 2.720432848573805e-07,
+            "orientation_degrees": 5.41554787328605e-05
+          },
+          "119": {
+            "position": 3.462791481926376e-06,
+            "velocity": 1.1488415095983303e-06,
+            "orientation_degrees": 5.281938144670015e-05
+          },
+          "120": {
+            "position": 0.0060121278469693834,
+            "velocity": 0.3727843800051889,
+            "orientation_degrees": 0.00957741122279927
+          },
+          "179": {
+            "position": 0.18301770003808357,
+            "velocity": 0.09794620220336306,
+            "orientation_degrees": 0.004284458969637102
+          },
+          "239": {
+            "position": 0.26339720009713863,
+            "velocity": 0.06857680089590741,
+            "orientation_degrees": 0.00021431273372073126
+          },
+          "299": {
+            "position": 0.32478300003063526,
+            "velocity": 0.0557327017047238,
+            "orientation_degrees": 0.00023316845152249565
+          },
+          "399": {
+            "position": 0.4072570014788464,
+            "velocity": 0.04455571849033551,
+            "orientation_degrees": 5.328990831650822e-05
+          },
+          "499": {
+            "position": 0.4759530123912957,
+            "velocity": 0.038230911372985656,
+            "orientation_degrees": 0.0002296029673030105
+          },
+          "599": {
+            "position": 0.7349930184225474,
+            "velocity": 0.11691618075134513,
+            "orientation_degrees": 13.923074708601314
+          }
+        },
+        "first_position_above_0_01": 121,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "anchor": {
+        "position_max": 0.7351121367729699,
+        "position_rms": 0.3517710313758397,
+        "position_final": 0.7351121367729699,
+        "velocity_max": 0.7226219200148553,
+        "orientation_max_degrees": 13.922824497563806,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 2.29999999987291e-13,
+            "orientation_degrees": 2.0397297340753375e-13
+          },
+          "59": {
+            "position": 1.4619302344427742e-10,
+            "velocity": 2.8380707114981414e-10,
+            "orientation_degrees": 4.312444942598979e-10
+          },
+          "119": {
+            "position": 4.0703662193961483e-10,
+            "velocity": 2.656405103025386e-10,
+            "orientation_degrees": 4.3124449860832667e-10
+          },
+          "120": {
+            "position": 0.006011951767368699,
+            "velocity": 0.3727748400062425,
+            "orientation_degrees": 0.009577947263524907
+          },
+          "179": {
+            "position": 0.18301770164048461,
+            "velocity": 0.0979614270451792,
+            "orientation_degrees": 0.004230174320691901
+          },
+          "239": {
+            "position": 0.263435308971522,
+            "velocity": 0.0685959315606934,
+            "orientation_degrees": 0.00029313741546902833
+          },
+          "299": {
+            "position": 0.3248590195440689,
+            "velocity": 0.055786126075515856,
+            "orientation_degrees": 0.00028517497252741425
+          },
+          "399": {
+            "position": 0.4074090526100145,
+            "velocity": 0.044616750551678054,
+            "orientation_degrees": 9.514902301178363e-05
+          },
+          "499": {
+            "position": 0.4761051018962135,
+            "velocity": 0.03819283527641994,
+            "orientation_degrees": 0.00013175459407122202
+          },
+          "599": {
+            "position": 0.7351121367729699,
+            "velocity": 0.1169307682460488,
+            "orientation_degrees": 13.922824497563806
+          }
+        },
+        "first_position_above_0_01": 121,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "limit": {
+        "position_max": 0.22774864985771226,
+        "position_rms": 0.03732543630355284,
+        "position_final": 0.22774864985771226,
+        "velocity_max": 0.14481352866805552,
+        "orientation_max_degrees": 13.921129629301282,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 2.29999999987291e-13,
+            "orientation_degrees": 2.0397297340753375e-13
+          },
+          "59": {
+            "position": 2.900364803895208e-11,
+            "velocity": 3.6314963114614033e-11,
+            "orientation_degrees": 3.943614787056384e-11
+          },
+          "119": {
+            "position": 5.814402891327798e-11,
+            "velocity": 8.724558025698047e-12,
+            "orientation_degrees": 1.6173160406265995e-10
+          },
+          "120": {
+            "position": 3.801002900885531e-09,
+            "velocity": 2.3012667187685873e-07,
+            "orientation_degrees": 4.4375918639304235e-05
+          },
+          "179": {
+            "position": 8.904118146834096e-06,
+            "velocity": 2.0368574294393506e-05,
+            "orientation_degrees": 6.10483001578397e-05
+          },
+          "239": {
+            "position": 5.08651611921977e-05,
+            "velocity": 4.092672123433996e-05,
+            "orientation_degrees": 8.452321118555733e-05
+          },
+          "299": {
+            "position": 0.0001198704573084425,
+            "velocity": 5.82473800260047e-05,
+            "orientation_degrees": 7.047789491663132e-05
+          },
+          "399": {
+            "position": 0.00021865694709066416,
+            "velocity": 7.317216134221758e-05,
+            "orientation_degrees": 9.760265253397952e-05
+          },
+          "499": {
+            "position": 0.000370960389222124,
+            "velocity": 0.00013237653441480713,
+            "orientation_degrees": 0.00014520416190876015
+          },
+          "599": {
+            "position": 0.22774864985771226,
+            "velocity": 0.14481333120421788,
+            "orientation_degrees": 13.921129629301282
+          }
+        },
+        "first_position_above_0_01": 553,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      }
+    },
+    "monstertruck/settle": {
+      "v57": {
+        "position_max": 1.046971113762422e-06,
+        "position_rms": 8.222030578541687e-07,
+        "position_final": 1.0016512936891353e-06,
+        "velocity_max": 2.0028515442237956e-05,
+        "orientation_max_degrees": 1.4825701121233158e-05,
+        "error_landmarks": {
+          "19": {
+            "position": 1.0299999999246703e-12,
+            "velocity": 7.276411459745616e-14,
+            "orientation_degrees": 6.634111171318654e-10
+          },
+          "59": {
+            "position": 1.379963894844255e-07,
+            "velocity": 1.4900953068673355e-07,
+            "orientation_degrees": 2.6494962849799293e-06
+          },
+          "119": {
+            "position": 1.980646261995411e-07,
+            "velocity": 2.465200924300335e-06,
+            "orientation_degrees": 6.823407168579125e-06
+          },
+          "120": {
+            "position": 2.0067338742822242e-07,
+            "velocity": 1.9493007716515874e-06,
+            "orientation_degrees": 7.186939100122637e-06
+          },
+          "179": {
+            "position": 1.4289381108510596e-07,
+            "velocity": 3.8345267501308324e-07,
+            "orientation_degrees": 3.529468026892612e-06
+          },
+          "239": {
+            "position": 1.014788195795052e-06,
+            "velocity": 1.2093456445639981e-05,
+            "orientation_degrees": 5.346161799174256e-06
+          },
+          "299": {
+            "position": 1.0063250667125223e-06,
+            "velocity": 1.7484536345888923e-05,
+            "orientation_degrees": 2.1633075761289706e-06
+          },
+          "399": {
+            "position": 1.0027535785834286e-06,
+            "velocity": 1.8463458716755155e-05,
+            "orientation_degrees": 9.565977929254097e-07
+          },
+          "499": {
+            "position": 1.0060092465899591e-06,
+            "velocity": 1.7615960651022767e-05,
+            "orientation_degrees": 2.395642057357076e-06
+          },
+          "599": {
+            "position": 1.0016512936891353e-06,
+            "velocity": 1.768069610035715e-05,
+            "orientation_degrees": 1.0270275147340431e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "anchor": {
+        "position_max": 1.6864478812769962e-07,
+        "position_rms": 4.018090300949022e-08,
+        "position_final": 5.3958359752094614e-08,
+        "velocity_max": 2.503366787717137e-06,
+        "orientation_max_degrees": 8.068545639773035e-06,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 7.276089588710318e-14,
+            "orientation_degrees": 5.267773925418087e-14
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 5.78546817e-14,
+            "orientation_degrees": 6.615370590381796e-11
+          },
+          "119": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 3.4715983146508656e-13,
+            "orientation_degrees": 1.2627989718068895e-11
+          },
+          "120": {
+            "position": 2.200000001627739e-13,
+            "velocity": 2.3615238421602625e-13,
+            "orientation_degrees": 1.628346042535247e-11
+          },
+          "179": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 1.1876921290558445e-13,
+            "orientation_degrees": 2.3408763487920695e-10
+          },
+          "239": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 7.913213454220117e-14,
+            "orientation_degrees": 3.0532920653465743e-10
+          },
+          "299": {
+            "position": 2.9499999999014364e-12,
+            "velocity": 3.596964358734185e-13,
+            "orientation_degrees": 4.535190094584781e-10
+          },
+          "399": {
+            "position": 4.2295633397086805e-08,
+            "velocity": 5.23426965841669e-07,
+            "orientation_degrees": 2.019484132295195e-06
+          },
+          "499": {
+            "position": 4.466714392807056e-08,
+            "velocity": 9.902404966218448e-07,
+            "orientation_degrees": 2.1192661873522493e-06
+          },
+          "599": {
+            "position": 5.3958359752094614e-08,
+            "velocity": 1.156324414815511e-06,
+            "orientation_degrees": 2.6479852871174055e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "limit": {
+        "position_max": 1.6864478812769962e-07,
+        "position_rms": 4.01807939320069e-08,
+        "position_final": 5.3958359752094614e-08,
+        "velocity_max": 2.5033667877171387e-06,
+        "orientation_max_degrees": 8.068545639530503e-06,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 4.400000003582409e-16,
+            "orientation_degrees": 1.689079565956022e-15
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 1.0915912769999999e-13,
+            "orientation_degrees": 6.696730595917405e-11
+          },
+          "119": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 3.5967491816186513e-13,
+            "orientation_degrees": 1.1814389654484414e-11
+          },
+          "120": {
+            "position": 2.200000001627739e-13,
+            "velocity": 2.5419293167594367e-13,
+            "orientation_degrees": 1.546986036180986e-11
+          },
+          "179": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 1.5024110665532694e-13,
+            "orientation_degrees": 2.332740348174099e-10
+          },
+          "239": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 1.21441957567494e-13,
+            "orientation_degrees": 3.045156064728959e-10
+          },
+          "299": {
+            "position": 2.9499999999014364e-12,
+            "velocity": 3.712818270348387e-13,
+            "orientation_degrees": 4.5270540939595886e-10
+          },
+          "399": {
+            "position": 4.2295633397086805e-08,
+            "velocity": 5.234269658416773e-07,
+            "orientation_degrees": 2.019484131925832e-06
+          },
+          "499": {
+            "position": 4.466714392807056e-08,
+            "velocity": 9.902404966218488e-07,
+            "orientation_degrees": 2.1192661843744075e-06
+          },
+          "599": {
+            "position": 5.3958359752094614e-08,
+            "velocity": 1.156324414815514e-06,
+            "orientation_degrees": 2.6479852839098086e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      }
+    },
+    "monstertruck/wheel-drive": {
+      "v57": {
+        "position_max": 5.806937596294156e-06,
+        "position_rms": 1.5216286621059623e-06,
+        "position_final": 2.597271971835919e-06,
+        "velocity_max": 2.0458350223021675e-05,
+        "orientation_max_degrees": 0.0001964566319559422,
+        "error_landmarks": {
+          "19": {
+            "position": 1.0299999999246703e-12,
+            "velocity": 7.276411459745616e-14,
+            "orientation_degrees": 6.634111171318654e-10
+          },
+          "59": {
+            "position": 1.379963894844255e-07,
+            "velocity": 1.4900953068673355e-07,
+            "orientation_degrees": 2.6494962849799293e-06
+          },
+          "119": {
+            "position": 1.980646261995411e-07,
+            "velocity": 2.465200924300335e-06,
+            "orientation_degrees": 6.823407168579125e-06
+          },
+          "120": {
+            "position": 2.006659027969925e-07,
+            "velocity": 1.961464726718295e-06,
+            "orientation_degrees": 7.18842632003623e-06
+          },
+          "179": {
+            "position": 2.0166877479973408e-07,
+            "velocity": 3.689489777011412e-07,
+            "orientation_degrees": 6.392295463378938e-06
+          },
+          "239": {
+            "position": 1.1078806860751418e-06,
+            "velocity": 1.1239061316148702e-05,
+            "orientation_degrees": 6.552770375413908e-06
+          },
+          "299": {
+            "position": 1.245401826992176e-06,
+            "velocity": 1.7653550662865856e-05,
+            "orientation_degrees": 5.353223982382616e-06
+          },
+          "399": {
+            "position": 1.5639608309312953e-06,
+            "velocity": 1.4885831522573582e-05,
+            "orientation_degrees": 9.508713493828961e-06
+          },
+          "499": {
+            "position": 2.6062661792820245e-06,
+            "velocity": 1.7012836828247914e-05,
+            "orientation_degrees": 5.0484302800028235e-05
+          },
+          "599": {
+            "position": 2.597271971835919e-06,
+            "velocity": 1.6959166881214524e-05,
+            "orientation_degrees": 1.757350309396073e-05
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "anchor": {
+        "position_max": 1.4317443456369044e-06,
+        "position_rms": 3.545945490518811e-07,
+        "position_final": 1.4317443456369044e-06,
+        "velocity_max": 2.7182181153583113e-06,
+        "orientation_max_degrees": 1.4898116775861532e-05,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 7.276089588710318e-14,
+            "orientation_degrees": 5.267773925418087e-14
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 5.78546817e-14,
+            "orientation_degrees": 6.615370590381796e-11
+          },
+          "119": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 3.4715983146508656e-13,
+            "orientation_degrees": 1.2627989718068895e-11
+          },
+          "120": {
+            "position": 2.7299999999504207e-12,
+            "velocity": 1.7099999998502672e-13,
+            "orientation_degrees": 2.1990254265490825e-10
+          },
+          "179": {
+            "position": 3.9569999999756084e-11,
+            "velocity": 2.900047922028346e-08,
+            "orientation_degrees": 1.6723403599666064e-08
+          },
+          "239": {
+            "position": 4.616140000000448e-09,
+            "velocity": 5.901377321760076e-08,
+            "orientation_degrees": 2.838616264050493e-07
+          },
+          "299": {
+            "position": 1.203169046588627e-07,
+            "velocity": 7.022622071564494e-08,
+            "orientation_degrees": 7.342454324527143e-07
+          },
+          "399": {
+            "position": 2.0886539999999966e-08,
+            "velocity": 5.137066041758219e-07,
+            "orientation_degrees": 6.415358832045474e-07
+          },
+          "499": {
+            "position": 5.095311893761041e-07,
+            "velocity": 6.171507790599953e-07,
+            "orientation_degrees": 7.683650087700325e-06
+          },
+          "599": {
+            "position": 1.4317443456369044e-06,
+            "velocity": 4.809642446935968e-07,
+            "orientation_degrees": 8.847296715952896e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      },
+      "limit": {
+        "position_max": 1.4317443456369044e-06,
+        "position_rms": 3.545945490518811e-07,
+        "position_final": 1.4317443456369044e-06,
+        "velocity_max": 2.7182181153583113e-06,
+        "orientation_max_degrees": 1.4898116776647748e-05,
+        "error_landmarks": {
+          "19": {
+            "position": 0.0,
+            "velocity": 4.400000003582409e-16,
+            "orientation_degrees": 1.689079565956022e-15
+          },
+          "59": {
+            "position": 0.0,
+            "velocity": 1.0915912769999999e-13,
+            "orientation_degrees": 6.696730595917405e-11
+          },
+          "119": {
+            "position": 2.3000000019904885e-13,
+            "velocity": 3.5967491816186513e-13,
+            "orientation_degrees": 1.1814389654484414e-11
+          },
+          "120": {
+            "position": 2.7299999999504207e-12,
+            "velocity": 1.7099999998502672e-13,
+            "orientation_degrees": 2.205913239101488e-10
+          },
+          "179": {
+            "position": 3.9569999999756084e-11,
+            "velocity": 2.900047922028346e-08,
+            "orientation_degrees": 1.6724205094213186e-08
+          },
+          "239": {
+            "position": 4.616140000000448e-09,
+            "velocity": 5.901377321760076e-08,
+            "orientation_degrees": 2.8386186026733045e-07
+          },
+          "299": {
+            "position": 1.203169046588627e-07,
+            "velocity": 7.022622071564494e-08,
+            "orientation_degrees": 7.342456418169509e-07
+          },
+          "399": {
+            "position": 2.0886539999999966e-08,
+            "velocity": 5.137066041758219e-07,
+            "orientation_degrees": 6.415361275103311e-07
+          },
+          "499": {
+            "position": 5.095311893761041e-07,
+            "velocity": 6.171507790599953e-07,
+            "orientation_degrees": 7.6836500963065e-06
+          },
+          "599": {
+            "position": 1.4317443456369044e-06,
+            "velocity": 4.809642446935968e-07,
+            "orientation_degrees": 8.847296715903965e-06
+          }
+        },
+        "first_position_above_0_01": null,
+        "first_body_contact_windows": 14,
+        "first_body_contact_mac": null
+      }
+    }
+  },
+  "goal_complete": false
+}

@@ -1,0 +1,41 @@
+{
+  "scope": "Identical Native box pose and physical quaternion; standalone local-coordinate computation, not solver integration.",
+  "native_expected_points": [
+    [
+      -0.13334035873413086,
+      -12.00056266784668,
+      -0.6208667755126953
+    ],
+    [
+      -0.13334417343139648,
+      7.999411106109619,
+      -0.5875167846679688
+    ]
+  ],
+  "candidate_points": [
+    [
+      -0.133340359,
+      -12.0005627,
+      -0.620866776
+    ],
+    [
+      -0.133344173,
+      7.99941111,
+      -0.587516785
+    ]
+  ],
+  "all_six_float32_words_equal": true,
+  "ordinary_matrix_inverse_points": [
+    [
+      -0.133328915,
+      -12.0005589,
+      -0.62085247
+    ],
+    [
+      -0.133332729,
+      7.99941397,
+      -0.58750248
+    ]
+  ],
+  "goal_complete": false
+}

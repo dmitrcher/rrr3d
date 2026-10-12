@@ -1,0 +1,68 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10126690: 83 ec 68                     	subl	$0x68, %esp
+10126693: 56                           	pushl	%esi
+10126694: 8b f1                        	movl	%ecx, %esi
+10126696: 8b 4e 20                     	movl	0x20(%esi), %ecx
+10126699: 85 c9                        	testl	%ecx, %ecx
+1012669b: 75 66                        	jne	0x10126703 <NpCreatePhysicsSDK+0x19593>
+1012669d: 39 0d e4 07 35 10            	cmpl	%ecx, 0x103507e4
+101266a3: 75 01                        	jne	0x101266a6 <NpCreatePhysicsSDK+0x19536>
+101266a5: cc                           	int3
+101266a6: 68 80 00 32 10               	pushl	$0x10320080             # imm = 0x10320080
+101266ab: 68 ac ea 31 10               	pushl	$0x1031eaac             # imm = 0x1031EAAC
+101266b0: 6a 01                        	pushl	$0x1
+101266b2: 33 c9                        	xorl	%ecx, %ecx
+101266b4: ba a5 04 00 00               	movl	$0x4a5, %edx            # imm = 0x4A5
+101266b9: e8 c2 a9 ed ff               	calll	0x10001080 <.text+0x80>
+101266be: 8b 44 24 7c                  	movl	0x7c(%esp), %eax
+101266c2: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101266c5: f3 0f 10 0d 84 15 33 10      	movss	0x10331584, %xmm1
+101266cd: 83 c4 0c                     	addl	$0xc, %esp
+101266d0: f3 0f 11 08                  	movss	%xmm1, (%eax)
+101266d4: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+101266d9: f3 0f 11 40 08               	movss	%xmm0, 0x8(%eax)
+101266de: f3 0f 11 40 0c               	movss	%xmm0, 0xc(%eax)
+101266e3: f3 0f 11 48 10               	movss	%xmm1, 0x10(%eax)
+101266e8: f3 0f 11 40 14               	movss	%xmm0, 0x14(%eax)
+101266ed: f3 0f 11 40 18               	movss	%xmm0, 0x18(%eax)
+101266f2: f3 0f 11 40 1c               	movss	%xmm0, 0x1c(%eax)
+101266f7: f3 0f 11 48 20               	movss	%xmm1, 0x20(%eax)
+101266fc: 5e                           	popl	%esi
+101266fd: 83 c4 68                     	addl	$0x68, %esp
+10126700: c2 04 00                     	retl	$0x4
+10126703: 8b 01                        	movl	(%ecx), %eax
+10126705: 8b 40 08                     	movl	0x8(%eax), %eax
+10126708: 8d 54 24 14                  	leal	0x14(%esp), %edx
+1012670c: 52                           	pushl	%edx
+1012670d: ff d0                        	calll	*%eax
+1012670f: f3 0f 10 05 d8 15 33 10      	movss	0x103315d8, %xmm0
+10126717: f3 0f 10 68 04               	movss	0x4(%eax), %xmm5
+1012671c: f3 0f 10 50 08               	movss	0x8(%eax), %xmm2
+10126721: f3 0f 10 08                  	movss	(%eax), %xmm1
+10126725: f3 0f 10 35 84 15 33 10      	movss	0x10331584, %xmm6
+1012672d: f3 0f 10 78 0c               	movss	0xc(%eax), %xmm7
+10126732: 8b 4e 20                     	movl	0x20(%esi), %ecx
+10126735: 8b 11                        	movl	(%ecx), %edx
+10126737: 8b 52 50                     	movl	0x50(%edx), %edx
+1012673a: 0f 28 dd                     	movaps	%xmm5, %xmm3
+1012673d: f3 0f 59 dd                  	mulss	%xmm5, %xmm3
+10126741: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+10126745: f3 0f 5c f3                  	subss	%xmm3, %xmm6
+10126749: f3 0f 11 5c 24 10            	movss	%xmm3, 0x10(%esp)
+1012674f: 0f 28 e2                     	movaps	%xmm2, %xmm4
+10126752: f3 0f 59 e2                  	mulss	%xmm2, %xmm4
+10126756: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1012675a: f3 0f 5c f4                  	subss	%xmm4, %xmm6
+1012675e: f3 0f 11 64 24 08            	movss	%xmm4, 0x8(%esp)
+10126764: f3 0f 11 74 24 48            	movss	%xmm6, 0x48(%esp)
+1012676a: 0f 28 e5                     	movaps	%xmm5, %xmm4
+1012676d: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+10126771: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+10126775: f3 0f 11 64 24 04            	movss	%xmm4, 0x4(%esp)
+1012677b: 0f 28 da                     	movaps	%xmm2, %xmm3
+1012677e: f3 0f 59 df                  	mulss	%xmm7, %xmm3

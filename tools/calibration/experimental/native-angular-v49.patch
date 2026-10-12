@@ -1,0 +1,218 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -10,6 +10,7 @@
+ #include "physics/NativeInertiaRotation.h"
+ #include "physics/NativePrincipalInertia.h"
+ #include "physics/NativeShapeMass.h"
++#include "physics/NativePublicAngular.h"
+ #include "physics/NativePhysicalPoseV42.h"
+ #include "physics/NativeQuaternionPoseV43.h"
+ 
+@@ -4538,7 +4539,9 @@
+         state.bodyAwake = body.IsActive();
+         state.body.position = fromJolt(body.GetPosition());
+         const char* actorOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_OUTPUT");
+-        if(vehicle.spawn.vehicle.freezeRotation && actorOutputFlag && std::strcmp(actorOutputFlag,"1")==0) {
++        const char* dynamicOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_DYNAMIC_ACTOR_OUTPUT");
++        if((vehicle.spawn.vehicle.freezeRotation && actorOutputFlag && std::strcmp(actorOutputFlag,"1")==0) ||
++            (!vehicle.spawn.vehicle.freezeRotation && dynamicOutputFlag && std::strcmp(dynamicOutputFlag,"1")==0)) {
+             const auto q=fromJolt(body.GetRotation());
+             const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+             const auto local=fromJolt(body.GetShape()->GetCenterOfMass());
+@@ -4566,7 +4569,62 @@
+             angularMomentum = principal.Multiply3x3(
+                 diagonal * principal.Multiply3x3Transposed(angularVelocity));
+         }
++        const char* publicAngularFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PUBLIC_ANGULAR_MOMENTUM");
++        if (!vehicle.spawn.vehicle.freezeRotation && publicAngularFlag && std::strcmp(publicAngularFlag, "1") == 0)
++        {
++            const auto local = body.GetMotionProperties()->GetLocalSpaceInverseInertia();
++            // This oracle currently covers an identity mass frame in source axes.
++            // Do not approximate a non-diagonal frame by dropping its cross terms.
++            bool diagonal = true;
++            for (unsigned i=0; i<3; ++i) for (unsigned j=0; j<3; ++j)
++                if (i!=j && local(i,j)!=0.0F) diagonal=false;
++            if (diagonal && local(0,0)>0 && local(1,1)>0 && local(2,2)>0)
++            {
++                const auto q = fromJolt(body.GetRotation());
++                const auto omega = fromJoltAngular(angularVelocity);
++                const auto matrix = motorrock::nativepublicangular::orientation({q.x,q.y,q.z,q.w});
++                const auto tensor = motorrock::nativepublicangular::inertia(matrix, {1.0F/local(0,0),1.0F/local(2,2),1.0F/local(1,1)});
++                const auto momentum = motorrock::nativepublicangular::momentum(tensor,{omega.x,omega.y,omega.z});
++                angularMomentum = toJoltAngular(Vec3{momentum[0],momentum[1],momentum[2]});
++            }
++        }
+         state.angularMomentum = fromJoltAngular(angularMomentum);
++        const char* angularTrace = std::getenv("RRR3D_ANGULAR_STATE_TRACE");
++        if (angularTrace && std::strcmp(angularTrace, "1") == 0)
++        {
++            const auto q = fromJolt(body.GetRotation());
++            const auto omega = fromJoltAngular(angularVelocity);
++            const auto center = fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
++            const auto localCenter = fromJolt(body.GetShape()->GetCenterOfMass());
++            const auto inverseDiagonal = body.GetMotionProperties()->GetInverseInertiaDiagonal();
++            const auto inertiaQ = fromJolt(body.GetMotionProperties()->GetInertiaRotation());
++            std::ostringstream diagnostic; diagnostic.imbue(std::locale::classic());
++            diagnostic << std::setprecision(9) << "{\"body_id\":" << body.GetID().GetIndexAndSequenceNumber()
++                << ",\"angular_velocity\":[" << omega.x << ',' << omega.y << ',' << omega.z
++                << "],\"physical_quaternion\":[" << q.x << ',' << q.y << ',' << q.z << ',' << q.w
++                << "],\"inertia_quaternion\":[" << inertiaQ.x << ',' << inertiaQ.y << ',' << inertiaQ.z << ',' << inertiaQ.w
++                << "],\"inverse_diagonal\":[" << inverseDiagonal.GetX() << ',' << inverseDiagonal.GetZ() << ',' << inverseDiagonal.GetY()
++                << "],\"center_position\":[" << center.x << ',' << center.y << ',' << center.z
++                << "],\"local_center\":[" << localCenter.x << ',' << localCenter.y << ',' << localCenter.z
++                << "],\"momentum\":[" << state.angularMomentum.x << ',' << state.angularMomentum.y << ',' << state.angularMomentum.z << ']';
++            const JPH::Mat44 matrices[] = {JPH::Mat44::sRotation(body.GetRotation()),
++                body.GetInverseInertia(), body.GetMotionProperties()->GetLocalSpaceInverseInertia()};
++            const char* names[] = {"body_orientation_columns", "world_inverse_inertia_columns", "local_inverse_inertia_columns"};
++            const unsigned axes[] = {0, 2, 1};
++            for (unsigned m = 0; m < 3; ++m)
++            {
++                diagnostic << ",\"" << names[m] << "\":[";
++                for (unsigned col = 0; col < 3; ++col)
++                {
++                    if (col) diagnostic << ',';
++                    diagnostic << '[' << matrices[m](axes[0], axes[col]) << ','
++                        << matrices[m](axes[1], axes[col]) << ',' << matrices[m](axes[2], axes[col]) << ']';
++                }
++                diagnostic << ']';
++            }
++            diagnostic << '}';
++            motorrock::parity::event("physics.angular-state", "independent body state", diagnostic.str());
++        }
+         state.kineticEnergy =
+             0.5F * vehicle.spawn.vehicle.mass *
+                 body.GetLinearVelocity().LengthSq() +
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativePublicAngular.h
+@@ -0,0 +1,35 @@
++#pragma once
++#include <array>
++namespace motorrock::nativepublicangular {
++inline float add(float a,float b){volatile float v=a+b;return v;}
++inline float sub(float a,float b){volatile float v=a-b;return v;}
++inline float mul(float a,float b){volatile float v=a*b;return v;}
++using Matrix=std::array<std::array<float,3>,3>;
++inline Matrix orientation(std::array<float,4> q){
++ const auto x=q[0],y=q[1],z=q[2],w=q[3];
++ const auto xx=mul(mul(x,x),2),yy=mul(mul(y,y),2),zz=mul(mul(z,z),2);
++ const auto xy=mul(mul(y,x),2),xz=mul(mul(z,x),2),yz=mul(mul(z,y),2);
++ const auto wx=mul(mul(x,w),2),wy=mul(mul(y,w),2),wz=mul(mul(z,w),2);
++ return {{{sub(sub(1,yy),zz),sub(xy,wz),add(xz,wy)},
++          {add(xy,wz),sub(sub(1,xx),zz),sub(yz,wx)},
++          {sub(xz,wy),add(yz,wx),sub(sub(1,xx),yy)}}};
++}
++// Original public NxActor tensor accessor uses a different quaternion decoder
++// and sum order from the solver. 'diagonal' is the public reciprocal of the
++// stored principal inverse inertia, in source axes; local frame must be identity.
++inline Matrix inertia(const Matrix&r,std::array<float,3> diagonal){
++ const auto a=diagonal[0],b=diagonal[1],c=diagonal[2];Matrix v{};
++ v[0][0]=add(add(mul(r[0][2],mul(r[0][2],c)),mul(r[0][1],mul(r[0][1],b))),mul(r[0][0],mul(r[0][0],a)));
++ v[0][1]=v[1][0]=add(add(mul(r[1][2],mul(r[0][2],c)),mul(r[1][1],mul(r[0][1],b))),mul(r[1][0],mul(r[0][0],a)));
++ v[0][2]=v[2][0]=add(add(mul(r[2][2],mul(r[0][2],c)),mul(r[2][0],mul(r[0][0],a))),mul(r[2][1],mul(r[0][1],b)));
++ v[1][1]=add(add(mul(r[1][2],mul(r[1][2],c)),mul(r[1][1],mul(r[1][1],b))),mul(r[1][0],mul(r[1][0],a)));
++ v[1][2]=v[2][1]=add(add(mul(r[2][2],mul(r[1][2],c)),mul(r[2][0],mul(r[1][0],a))),mul(r[2][1],mul(r[1][1],b)));
++ v[2][2]=add(add(mul(mul(r[2][2],c),r[2][2]),mul(mul(r[2][0],a),r[2][0])),mul(mul(r[2][1],b),r[2][1]));
++ return v;
++}
++inline std::array<float,3> momentum(const Matrix&m,std::array<float,3> v){
++ return {add(add(mul(v[0],m[0][0]),mul(v[2],m[0][2])),mul(v[1],m[0][1])),
++         add(add(mul(v[1],m[1][1]),mul(v[2],m[1][2])),mul(v[0],m[1][0])),
++         add(add(mul(v[0],m[2][0]),mul(v[1],m[2][1])),mul(v[2],m[2][2]))};
++}
++}
+--- a/sdk/Jolt/Physics/Body/Body.h
++++ b/sdk/Jolt/Physics/Body/Body.h
+@@ -344,6 +344,7 @@
+ 
+ 	/// Update rotation using an Euler step (used during position integrate & constraint solving)
+ 	inline void				AddRotationStep(Vec3Arg inAngularVelocityTimesDeltaTime);
++	inline void				AddNativeRotationStep(Vec3Arg inAngularVelocity, float inDeltaTime);
+ 	inline void				SubRotationStep(Vec3Arg inAngularVelocityTimesDeltaTime);
+ 
+ 	/// Flag if body is in the broadphase (should only be called by the BroadPhase)
+--- a/sdk/Jolt/Physics/Body/Body.inl
++++ b/sdk/Jolt/Physics/Body/Body.inl
+@@ -3,6 +3,7 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #pragma once
++#include <Jolt/Physics/Body/NativeAngularIntegration.h>
+ 
+ JPH_NAMESPACE_BEGIN
+ 
+@@ -97,6 +98,18 @@
+ 	}
+ }
+ 
++void Body::AddNativeRotationStep(Vec3Arg inAngularVelocity, float inDeltaTime)
++{
++ JPH_ASSERT(IsRigidBody());
++ JPH_ASSERT(BodyAccess::sCheckRights(BodyAccess::sPositionAccess(), BodyAccess::EAccess::ReadWrite));
++ if (inAngularVelocity.IsNearZero(0.0f)) return;
++ const std::array<float, 4> sourceRotation = {-mRotation.GetX(), -mRotation.GetZ(), -mRotation.GetY(), mRotation.GetW()};
++ const std::array<float, 3> sourceVelocity = {-inAngularVelocity.GetX(), -inAngularVelocity.GetZ(), -inAngularVelocity.GetY()};
++ const auto step = ::motorrock::nativeangular::integrate(sourceRotation, sourceVelocity, inDeltaTime);
++ mRotation = Quat(-step.rotation[0], -step.rotation[2], -step.rotation[1], step.rotation[3]);
++ JPH_ASSERT(!mRotation.IsNaN());
++}
++
+ void Body::SubRotationStep(Vec3Arg inAngularVelocityTimesDeltaTime)
+ {
+ 	JPH_ASSERT(IsRigidBody());
+--- a/sdk/Jolt/Physics/PhysicsSystem.cpp
++++ b/sdk/Jolt/Physics/PhysicsSystem.cpp
+@@ -3,6 +3,7 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #include <Jolt/Jolt.h>
++#include <cstdlib>
+ 
+ #include <Jolt/Physics/PhysicsSystem.h>
+ #include <Jolt/Physics/PhysicsSettings.h>
+@@ -1657,7 +1658,11 @@
+ 			// time step) resulting in a lot of stolen time and the body appearing to be frozen in an unnatural pose (like it is glued at an angle to the surface). (2) obviously has some negative side effects
+ 			// too as simulating the rotation first may cause it to tunnel through a small object that the linear cast might have otherwise detected. In any case a linear cast is not good for detecting
+ 			// tunneling due to angular rotation, so we don't care about that too much (you'd need a full cast to take angular effects into account).
+-			body.AddRotationStep(body.GetAngularVelocity() * delta_time);
++			static const bool nativeAngularIntegration = [] { const char *flag = std::getenv("RRR3D_EXPERIMENT_NATIVE_ANGULAR_INTEGRATION"); return flag != nullptr && flag[0] == '1' && flag[1] == '\0'; }();
++            if (nativeAngularIntegration && body.IsDynamic())
++                body.AddNativeRotationStep(body.GetAngularVelocity(), delta_time);
++            else
++                body.AddRotationStep(body.GetAngularVelocity() * delta_time);
+ 
+ 			// Get delta position
+ 			Vec3 delta_pos = body.GetLinearVelocity() * delta_time;
+--- /dev/null
++++ b/sdk/Jolt/Physics/Body/NativeAngularIntegration.h
+@@ -0,0 +1,31 @@
++#pragma once
++#include <array>
++#include <cmath>
++namespace motorrock::nativeangular {
++inline float add(float a,float b){volatile float v=a+b;return v;}
++inline float sub(float a,float b){volatile float v=a-b;return v;}
++inline float mul(float a,float b){volatile float v=a*b;return v;}
++struct Step {std::array<float,4> rotation;float length=0,halfAngle=0,cosine=1,sineFactor=0;};
++// Source coordinates, scalar-last quaternion. Reconstructed from original
++// PhysX 2.8.4 CPU integration (RVA 0x7f1d0), not a fitted fixture formula.
++// The caller supplies already-clamped, post-solver angular velocity.
++inline Step integrate(std::array<float,4> q,std::array<float,3> v,float dt){
++ Step r;r.rotation=q;
++ const float square=add(add(mul(v[0],v[0]),mul(v[1],v[1])),mul(v[2],v[2]));
++ if(square==0)return r;
++ r.length=static_cast<float>(std::sqrt(static_cast<double>(square)));
++ if(r.length==0)return r;
++ r.halfAngle=static_cast<float>(static_cast<double>(r.length)*static_cast<double>(dt)*0.5);
++ r.cosine=static_cast<float>(std::cos(static_cast<double>(r.halfAngle)));
++ // The x87 FSIN result is divided before the float store: do not round sine
++ // to float before division. Host double reproduces all captured intermediates;
++ // arbitrary transcendental boundary cases are not yet certified.
++ r.sineFactor=static_cast<float>(std::sin(static_cast<double>(r.halfAngle))/static_cast<double>(r.length));
++ std::array<float,3>d={mul(v[0],r.sineFactor),mul(v[1],r.sineFactor),mul(v[2],r.sineFactor)};
++ std::array<float,3>cross={sub(mul(d[1],q[2]),mul(q[1],d[2])),sub(mul(q[0],d[2]),mul(q[2],d[0])),sub(mul(q[1],d[0]),mul(q[0],d[1]))};
++ for(unsigned i=0;i<3;++i)r.rotation[i]=add(mul(r.cosine,q[i]),add(add(cross[i],mul(q[i],0.0f)),mul(q[3],d[i])));
++ const float dot=add(add(mul(q[0],d[0]),mul(q[2],d[2])),mul(q[1],d[1]));
++ r.rotation[3]=add(mul(r.cosine,q[3]),sub(mul(q[3],0.0f),dot));
++ return r;
++}
++}

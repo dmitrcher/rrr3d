@@ -1,0 +1,332 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+1007f130: d4 00                        	aam	$0x0
+1007f132: 00 00                        	addb	%al, (%eax)
+1007f134: 89 87 d8 00 00 00            	movl	%eax, 0xd8(%edi)
+1007f13a: 6a 04                        	pushl	$0x4
+1007f13c: f3 0f 11 87 dc 00 00 00      	movss	%xmm0, 0xdc(%edi)
+1007f144: c7 87 e0 00 00 00 20 00 00 00	movl	$0x20, 0xe0(%edi)
+1007f14e: 88 8f e5 00 00 00            	movb	%cl, 0xe5(%edi)
+1007f154: 88 97 e6 00 00 00            	movb	%dl, 0xe6(%edi)
+1007f15a: c6 87 e4 00 00 00 01         	movb	$0x1, 0xe4(%edi)
+1007f161: ff 15 68 07 35 10            	calll	*0x10350768
+1007f167: 83 c4 04                     	addl	$0x4, %esp
+1007f16a: 5e                           	popl	%esi
+1007f16b: 3b c3                        	cmpl	%ebx, %eax
+1007f16d: 5b                           	popl	%ebx
+1007f16e: 74 06                        	je	0x1007f176 <.text+0x7e176>
+1007f170: c7 00 6c 0f 33 10            	movl	$0x10330f6c, (%eax)     # imm = 0x10330F6C
+1007f176: 89 47 44                     	movl	%eax, 0x44(%edi)
+1007f179: 8b c7                        	movl	%edi, %eax
+1007f17b: c2 08 00                     	retl	$0x8
+1007f17e: cc                           	int3
+1007f17f: cc                           	int3
+1007f180: 56                           	pushl	%esi
+1007f181: 8b f0                        	movl	%eax, %esi
+1007f183: e8 c8 fe ff ff               	calll	0x1007f050 <.text+0x7e050>
+1007f188: 56                           	pushl	%esi
+1007f189: ff 15 6c 07 35 10            	calll	*0x1035076c
+1007f18f: 83 c4 04                     	addl	$0x4, %esp
+1007f192: 5e                           	popl	%esi
+1007f193: c3                           	retl
+1007f194: cc                           	int3
+1007f195: cc                           	int3
+1007f196: cc                           	int3
+1007f197: cc                           	int3
+1007f198: cc                           	int3
+1007f199: cc                           	int3
+1007f19a: cc                           	int3
+1007f19b: cc                           	int3
+1007f19c: cc                           	int3
+1007f19d: cc                           	int3
+1007f19e: cc                           	int3
+1007f19f: cc                           	int3
+1007f1a0: 57                           	pushl	%edi
+1007f1a1: 68 e8 00 00 00               	pushl	$0xe8
+1007f1a6: ff 15 68 07 35 10            	calll	*0x10350768
+1007f1ac: 8b f8                        	movl	%eax, %edi
+1007f1ae: 83 c4 04                     	addl	$0x4, %esp
+1007f1b1: 85 ff                        	testl	%edi, %edi
+1007f1b3: 74 15                        	je	0x1007f1ca <.text+0x7e1ca>
+1007f1b5: 8b 44 24 10                  	movl	0x10(%esp), %eax
+1007f1b9: 8b 4c 24 0c                  	movl	0xc(%esp), %ecx
+1007f1bd: 50                           	pushl	%eax
+1007f1be: 8b 44 24 0c                  	movl	0xc(%esp), %eax
+1007f1c2: 51                           	pushl	%ecx
+1007f1c3: e8 f8 fe ff ff               	calll	0x1007f0c0 <.text+0x7e0c0>
+1007f1c8: 8b c7                        	movl	%edi, %eax
+1007f1ca: 5f                           	popl	%edi
+1007f1cb: c3                           	retl
+1007f1cc: cc                           	int3
+1007f1cd: cc                           	int3
+1007f1ce: cc                           	int3
+1007f1cf: cc                           	int3
+1007f1d0: 83 ec 38                     	subl	$0x38, %esp
+1007f1d3: 0f 57 ff                     	xorps	%xmm7, %xmm7
+1007f1d6: 53                           	pushl	%ebx
+1007f1d7: 8b 5c 24 40                  	movl	0x40(%esp), %ebx
+1007f1db: f3 0f 10 43 3c               	movss	0x3c(%ebx), %xmm0
+1007f1e0: 55                           	pushl	%ebp
+1007f1e1: 56                           	pushl	%esi
+1007f1e2: 57                           	pushl	%edi
+1007f1e3: 8b f9                        	movl	%ecx, %edi
+1007f1e5: f3 0f 10 4f 4c               	movss	0x4c(%edi), %xmm1
+1007f1ea: f3 0f 10 57 50               	movss	0x50(%edi), %xmm2
+1007f1ef: f3 0f 10 5f 54               	movss	0x54(%edi), %xmm3
+1007f1f4: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+1007f1f8: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+1007f1fc: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f200: f3 0f 10 47 64               	movss	0x64(%edi), %xmm0
+1007f205: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1007f209: f3 0f 11 47 64               	movss	%xmm0, 0x64(%edi)
+1007f20e: f3 0f 10 47 68               	movss	0x68(%edi), %xmm0
+1007f213: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+1007f217: f3 0f 11 47 68               	movss	%xmm0, 0x68(%edi)
+1007f21c: f3 0f 10 47 6c               	movss	0x6c(%edi), %xmm0
+1007f221: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1007f225: f3 0f 11 47 6c               	movss	%xmm0, 0x6c(%edi)
+1007f22a: f3 0f 10 57 5c               	movss	0x5c(%edi), %xmm2
+1007f22f: f3 0f 10 4f 60               	movss	0x60(%edi), %xmm1
+1007f234: f3 0f 10 47 58               	movss	0x58(%edi), %xmm0
+1007f239: 0f 28 da                     	movaps	%xmm2, %xmm3
+1007f23c: f3 0f 59 da                  	mulss	%xmm2, %xmm3
+1007f240: f3 0f 59 c0                  	mulss	%xmm0, %xmm0
+1007f244: 0f 28 d1                     	movaps	%xmm1, %xmm2
+1007f247: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1007f24b: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+1007f24f: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+1007f253: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f256: 8b f0                        	movl	%eax, %esi
+1007f258: 9f                           	lahf
+1007f259: f3 0f 11 44 24 4c            	movss	%xmm0, 0x4c(%esp)
+1007f25f: f6 c4 44                     	testb	$0x44, %ah
+1007f262: 0f 8b fe 02 00 00            	jnp	0x1007f566 <.text+0x7e566>
+1007f268: d9 44 24 4c                  	flds	0x4c(%esp)
+1007f26c: 51                           	pushl	%ecx
+1007f26d: d9 1c 24                     	fstps	(%esp)
+1007f270: e8 cb 22 f8 ff               	calll	0x10001540 <.text+0x540>
+1007f275: d9 5c 24 50                  	fstps	0x50(%esp)
+1007f279: 83 c4 04                     	addl	$0x4, %esp
+1007f27c: 80 bf a2 00 00 00 00         	cmpb	$0x0, 0xa2(%edi)
+1007f283: f3 0f 10 44 24 4c            	movss	0x4c(%esp), %xmm0
+1007f289: 74 5e                        	je	0x1007f2e9 <.text+0x7e2e9>
+1007f28b: f3 0f 10 15 94 17 33 10      	movss	0x10331794, %xmm2
+1007f293: 0f 28 c8                     	movaps	%xmm0, %xmm1
+1007f296: f3 0f 59 4b 3c               	mulss	0x3c(%ebx), %xmm1
+1007f29b: 0f 2f ca                     	comiss	%xmm2, %xmm1
+1007f29e: 0f 86 c5 00 00 00            	jbe	0x1007f369 <.text+0x7e369>
+1007f2a4: 0f 28 c2                     	movaps	%xmm2, %xmm0
+1007f2a7: f3 0f 5e c1                  	divss	%xmm1, %xmm0
+1007f2ab: f3 0f 10 4f 58               	movss	0x58(%edi), %xmm1
+1007f2b0: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f2b4: f3 0f 11 4f 58               	movss	%xmm1, 0x58(%edi)
+1007f2b9: f3 0f 10 4f 5c               	movss	0x5c(%edi), %xmm1
+1007f2be: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f2c2: f3 0f 11 4f 5c               	movss	%xmm1, 0x5c(%edi)
+1007f2c7: f3 0f 10 4f 60               	movss	0x60(%edi), %xmm1
+1007f2cc: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f2d0: f3 0f 11 4f 60               	movss	%xmm1, 0x60(%edi)
+1007f2d5: f3 0f 10 43 40               	movss	0x40(%ebx), %xmm0
+1007f2da: f3 0f 59 c2                  	mulss	%xmm2, %xmm0
+1007f2de: f3 0f 11 44 24 4c            	movss	%xmm0, 0x4c(%esp)
+1007f2e4: e9 80 00 00 00               	jmp	0x1007f369 <.text+0x7e369>
+1007f2e9: f3 0f 10 0d 90 17 33 10      	movss	0x10331790, %xmm1
+1007f2f1: 0f 2f c1                     	comiss	%xmm1, %xmm0
+1007f2f4: 76 73                        	jbe	0x1007f369 <.text+0x7e369>
+1007f2f6: f3 0f 5e c8                  	divss	%xmm0, %xmm1
+1007f2fa: 0f 28 c1                     	movaps	%xmm1, %xmm0
+1007f2fd: f3 0f 10 4f 58               	movss	0x58(%edi), %xmm1
+1007f302: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f306: f3 0f 11 4f 58               	movss	%xmm1, 0x58(%edi)
+1007f30b: f3 0f 10 4f 5c               	movss	0x5c(%edi), %xmm1
+1007f310: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f314: f3 0f 11 4f 5c               	movss	%xmm1, 0x5c(%edi)
+1007f319: f3 0f 10 4f 60               	movss	0x60(%edi), %xmm1
+1007f31e: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f322: f3 0f 11 4f 60               	movss	%xmm1, 0x60(%edi)
+1007f327: f3 0f 10 57 58               	movss	0x58(%edi), %xmm2
+1007f32c: 0f 28 c1                     	movaps	%xmm1, %xmm0
+1007f32f: f3 0f 10 4f 5c               	movss	0x5c(%edi), %xmm1
+1007f334: 0f 28 da                     	movaps	%xmm2, %xmm3
+1007f337: f3 0f 59 da                  	mulss	%xmm2, %xmm3
+1007f33b: 0f 28 d1                     	movaps	%xmm1, %xmm2
+1007f33e: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+1007f342: 0f 28 c8                     	movaps	%xmm0, %xmm1
+1007f345: f3 0f 58 da                  	addss	%xmm2, %xmm3
+1007f349: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f34d: 51                           	pushl	%ecx
+1007f34e: f3 0f 58 d9                  	addss	%xmm1, %xmm3
+1007f352: f3 0f 11 1c 24               	movss	%xmm3, (%esp)
+1007f357: e8 e4 21 f8 ff               	calll	0x10001540 <.text+0x540>
+1007f35c: d9 5c 24 50                  	fstps	0x50(%esp)
+1007f360: f3 0f 10 44 24 50            	movss	0x50(%esp), %xmm0
+1007f366: 83 c4 04                     	addl	$0x4, %esp
+1007f369: 0f 57 ff                     	xorps	%xmm7, %xmm7
+1007f36c: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f36f: 9f                           	lahf
+1007f370: f6 c4 44                     	testb	$0x44, %ah
+1007f373: 0f 8b ed 01 00 00            	jnp	0x1007f566 <.text+0x7e566>
+1007f379: d9 44 24 4c                  	flds	0x4c(%esp)
+1007f37d: 51                           	pushl	%ecx
+1007f37e: d8 4b 3c                     	fmuls	0x3c(%ebx)
+1007f381: d8 0d d0 15 33 10            	fmuls	0x103315d0
+1007f387: d9 54 24 14                  	fsts	0x14(%esp)
+1007f38b: d9 1c 24                     	fstps	(%esp)
+1007f38e: e8 fd cd f8 ff               	calll	0x1000c190 <.text+0xb190>
+1007f393: d9 5c 24 18                  	fstps	0x18(%esp)
+1007f397: d9 44 24 14                  	flds	0x14(%esp)
+1007f39b: d9 1c 24                     	fstps	(%esp)
+1007f39e: e8 fd cd f8 ff               	calll	0x1000c1a0 <.text+0xb1a0>
+1007f3a3: d8 74 24 50                  	fdivs	0x50(%esp)
+1007f3a7: f3 0f 10 4f 58               	movss	0x58(%edi), %xmm1
+1007f3ac: f3 0f 10 57 5c               	movss	0x5c(%edi), %xmm2
+1007f3b1: f3 0f 10 5f 60               	movss	0x60(%edi), %xmm3
+1007f3b6: 0f 57 ff                     	xorps	%xmm7, %xmm7
+1007f3b9: 83 c4 04                     	addl	$0x4, %esp
+1007f3bc: d9 5c 24 4c                  	fstps	0x4c(%esp)
+1007f3c0: f3 0f 10 44 24 4c            	movss	0x4c(%esp), %xmm0
+1007f3c6: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1007f3ca: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+1007f3ce: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+1007f3d2: f3 0f 10 47 7c               	movss	0x7c(%edi), %xmm0
+1007f3d7: 0f 28 e0                     	movaps	%xmm0, %xmm4
+1007f3da: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+1007f3de: f3 0f 11 64 24 3c            	movss	%xmm4, 0x3c(%esp)
+1007f3e4: 0f 28 e2                     	movaps	%xmm2, %xmm4
+1007f3e7: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1007f3eb: f3 0f 11 64 24 40            	movss	%xmm4, 0x40(%esp)
+1007f3f1: 0f 28 e3                     	movaps	%xmm3, %xmm4
+1007f3f4: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1007f3f8: f3 0f 11 64 24 44            	movss	%xmm4, 0x44(%esp)
+1007f3fe: f3 0f 11 44 24 4c            	movss	%xmm0, 0x4c(%esp)
+1007f404: f3 0f 10 47 70               	movss	0x70(%edi), %xmm0
+1007f409: 0f 28 e0                     	movaps	%xmm0, %xmm4
+1007f40c: f3 0f 59 e7                  	mulss	%xmm7, %xmm4
+1007f410: f3 0f 11 64 24 24            	movss	%xmm4, 0x24(%esp)
+1007f416: f3 0f 10 67 74               	movss	0x74(%edi), %xmm4
+1007f41b: 0f 28 ec                     	movaps	%xmm4, %xmm5
+1007f41e: f3 0f 59 ef                  	mulss	%xmm7, %xmm5
+1007f422: f3 0f 11 6c 24 28            	movss	%xmm5, 0x28(%esp)
+1007f428: f3 0f 10 6f 78               	movss	0x78(%edi), %xmm5
+1007f42d: 0f 28 f5                     	movaps	%xmm5, %xmm6
+1007f430: f3 0f 59 f7                  	mulss	%xmm7, %xmm6
+1007f434: f3 0f 11 74 24 2c            	movss	%xmm6, 0x2c(%esp)
+1007f43a: 0f 28 f5                     	movaps	%xmm5, %xmm6
+1007f43d: f3 0f 59 f2                  	mulss	%xmm2, %xmm6
+1007f441: 0f 28 fc                     	movaps	%xmm4, %xmm7
+1007f444: f3 0f 59 fb                  	mulss	%xmm3, %xmm7
+1007f448: f3 0f 5c f7                  	subss	%xmm7, %xmm6
+1007f44c: f3 0f 11 74 24 18            	movss	%xmm6, 0x18(%esp)
+1007f452: 0f 28 f0                     	movaps	%xmm0, %xmm6
+1007f455: f3 0f 59 f3                  	mulss	%xmm3, %xmm6
+1007f459: 0f 28 fd                     	movaps	%xmm5, %xmm7
+1007f45c: f3 0f 59 f9                  	mulss	%xmm1, %xmm7
+1007f460: f3 0f 5c f7                  	subss	%xmm7, %xmm6
+1007f464: f3 0f 11 74 24 1c            	movss	%xmm6, 0x1c(%esp)
+1007f46a: 0f 28 f4                     	movaps	%xmm4, %xmm6
+1007f46d: f3 0f 59 f1                  	mulss	%xmm1, %xmm6
+1007f471: 0f 28 f8                     	movaps	%xmm0, %xmm7
+1007f474: f3 0f 59 fa                  	mulss	%xmm2, %xmm7
+1007f478: f3 0f 5c f7                  	subss	%xmm7, %xmm6
+1007f47c: f3 0f 11 74 24 20            	movss	%xmm6, 0x20(%esp)
+1007f482: f3 0f 10 74 24 18            	movss	0x18(%esp), %xmm6
+1007f488: f3 0f 58 74 24 24            	addss	0x24(%esp), %xmm6
+1007f48e: f3 0f 11 74 24 30            	movss	%xmm6, 0x30(%esp)
+1007f494: f3 0f 10 74 24 1c            	movss	0x1c(%esp), %xmm6
+1007f49a: f3 0f 58 74 24 28            	addss	0x28(%esp), %xmm6
+1007f4a0: f3 0f 11 74 24 34            	movss	%xmm6, 0x34(%esp)
+1007f4a6: f3 0f 10 74 24 20            	movss	0x20(%esp), %xmm6
+1007f4ac: f3 0f 58 74 24 2c            	addss	0x2c(%esp), %xmm6
+1007f4b2: f3 0f 11 74 24 38            	movss	%xmm6, 0x38(%esp)
+1007f4b8: f3 0f 10 74 24 30            	movss	0x30(%esp), %xmm6
+1007f4be: f3 0f 58 74 24 3c            	addss	0x3c(%esp), %xmm6
+1007f4c4: f3 0f 11 74 24 24            	movss	%xmm6, 0x24(%esp)
+1007f4ca: f3 0f 10 74 24 34            	movss	0x34(%esp), %xmm6
+1007f4d0: f3 0f 58 74 24 40            	addss	0x40(%esp), %xmm6
+1007f4d6: f3 0f 11 74 24 28            	movss	%xmm6, 0x28(%esp)
+1007f4dc: f3 0f 10 74 24 38            	movss	0x38(%esp), %xmm6
+1007f4e2: f3 0f 58 74 24 44            	addss	0x44(%esp), %xmm6
+1007f4e8: f3 0f 11 74 24 2c            	movss	%xmm6, 0x2c(%esp)
+1007f4ee: f3 0f 10 74 24 4c            	movss	0x4c(%esp), %xmm6
+1007f4f4: 0f 57 ff                     	xorps	%xmm7, %xmm7
+1007f4f7: f3 0f 59 c1                  	mulss	%xmm1, %xmm0
+1007f4fb: f3 0f 10 4f 74               	movss	0x74(%edi), %xmm1
+1007f500: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+1007f504: f3 0f 10 5f 7c               	movss	0x7c(%edi), %xmm3
+1007f509: f3 0f 59 e2                  	mulss	%xmm2, %xmm4
+1007f50d: f3 0f 10 57 78               	movss	0x78(%edi), %xmm2
+1007f512: f3 0f 58 c5                  	addss	%xmm5, %xmm0
+1007f516: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+1007f51a: f3 0f 10 64 24 14            	movss	0x14(%esp), %xmm4
+1007f520: f3 0f 59 f7                  	mulss	%xmm7, %xmm6
+1007f524: f3 0f 5c f0                  	subss	%xmm0, %xmm6
+1007f528: 0f 28 c4                     	movaps	%xmm4, %xmm0
+1007f52b: f3 0f 59 47 70               	mulss	0x70(%edi), %xmm0
+1007f530: f3 0f 58 44 24 24            	addss	0x24(%esp), %xmm0
+1007f536: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+1007f53a: f3 0f 58 4c 24 28            	addss	0x28(%esp), %xmm1
+1007f540: f3 0f 59 d4                  	mulss	%xmm4, %xmm2
+1007f544: f3 0f 58 54 24 2c            	addss	0x2c(%esp), %xmm2
+1007f54a: f3 0f 59 dc                  	mulss	%xmm4, %xmm3
+1007f54e: f3 0f 58 de                  	addss	%xmm6, %xmm3
+1007f552: f3 0f 11 47 70               	movss	%xmm0, 0x70(%edi)
+1007f557: f3 0f 11 4f 74               	movss	%xmm1, 0x74(%edi)
+1007f55c: f3 0f 11 57 78               	movss	%xmm2, 0x78(%edi)
+1007f561: f3 0f 11 5f 7c               	movss	%xmm3, 0x7c(%edi)
+1007f566: f3 0f 10 43 3c               	movss	0x3c(%ebx), %xmm0
+1007f56b: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f56e: 9f                           	lahf
+1007f56f: f6 c4 44                     	testb	$0x44, %ah
+1007f572: 0f 8b 21 01 00 00            	jnp	0x1007f699 <.text+0x7e699>
+1007f578: f3 0f 10 47 4c               	movss	0x4c(%edi), %xmm0
+1007f57d: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f580: 9f                           	lahf
+1007f581: f6 c4 44                     	testb	$0x44, %ah
+1007f584: 7a 4a                        	jp	0x1007f5d0 <.text+0x7e5d0>
+1007f586: f3 0f 10 47 50               	movss	0x50(%edi), %xmm0
+1007f58b: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f58e: 9f                           	lahf
+1007f58f: f6 c4 44                     	testb	$0x44, %ah
+1007f592: 7a 3c                        	jp	0x1007f5d0 <.text+0x7e5d0>
+1007f594: f3 0f 10 47 54               	movss	0x54(%edi), %xmm0
+1007f599: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f59c: 9f                           	lahf
+1007f59d: f6 c4 44                     	testb	$0x44, %ah
+1007f5a0: 7a 2e                        	jp	0x1007f5d0 <.text+0x7e5d0>
+1007f5a2: f3 0f 10 47 58               	movss	0x58(%edi), %xmm0
+1007f5a7: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f5aa: 9f                           	lahf
+1007f5ab: f6 c4 44                     	testb	$0x44, %ah
+1007f5ae: 7a 20                        	jp	0x1007f5d0 <.text+0x7e5d0>
+1007f5b0: f3 0f 10 47 5c               	movss	0x5c(%edi), %xmm0
+1007f5b5: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f5b8: 9f                           	lahf
+1007f5b9: f6 c4 44                     	testb	$0x44, %ah
+1007f5bc: 7a 12                        	jp	0x1007f5d0 <.text+0x7e5d0>
+1007f5be: f3 0f 10 47 60               	movss	0x60(%edi), %xmm0
+1007f5c3: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+1007f5c6: 9f                           	lahf
+1007f5c7: f6 c4 44                     	testb	$0x44, %ah
+1007f5ca: 0f 8b c9 00 00 00            	jnp	0x1007f699 <.text+0x7e699>
+1007f5d0: 8b 03                        	movl	(%ebx), %eax
+1007f5d2: 8b 88 d4 11 00 00            	movl	0x11d4(%eax), %ecx
+1007f5d8: 89 8f a4 00 00 00            	movl	%ecx, 0xa4(%edi)
+1007f5de: 83 bf cc 00 00 00 00         	cmpl	$0x0, 0xcc(%edi)
+1007f5e5: 75 70                        	jne	0x1007f657 <.text+0x7e657>
+1007f5e7: 0f b7 87 d0 00 00 00         	movzwl	0xd0(%edi), %eax
+1007f5ee: ba ff ff 00 00               	movl	$0xffff, %edx           # imm = 0xFFFF
+1007f5f3: 66 3b c2                     	cmpw	%dx, %ax
+1007f5f6: 74 22                        	je	0x1007f61a <.text+0x7e61a>
+1007f5f8: 0f b7 d8                     	movzwl	%ax, %ebx
+1007f5fb: 8b c3                        	movl	%ebx, %eax
+1007f5fd: e8 fe 00 01 00               	calll	0x1008f700 <.text+0x8e700>
+1007f602: 8b 0e                        	movl	(%esi), %ecx
+1007f604: 8b c3                        	movl	%ebx, %eax
+1007f606: c1 e8 05                     	shrl	$0x5, %eax
+1007f609: 8d 04 81                     	leal	(%ecx,%eax,4), %eax
+1007f60c: 8b cb                        	movl	%ebx, %ecx
+1007f60e: 83 e1 1f                     	andl	$0x1f, %ecx

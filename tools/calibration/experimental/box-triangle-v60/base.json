@@ -1,0 +1,38 @@
+{
+  "baseline_commit": "f539cba96d68ccbb7164c69b9aa29d85beed95ba",
+  "baseline": "Exact active v59 investigation chain. Install the recorded predecessors first. Ordinary root source is not this base.",
+  "predecessor": "../practical-parity-v59/base.json",
+  "scope": "Default-off research prototype; first-impact improvement is insufficient for promotion.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+      "before_sha256": "db37277d602b9ef0ec3df3c92f18566ddc5a4a7cdc48bc6f869c0f717efbed69",
+      "after_sha256": "46be4702c6488eb4bffb917c89177f2a1cb75e6fd5e707e663a1faf270001e04"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "e98a5574554720e6dbbc7ae6d9bce367beb92c9c6b93f136de9c9d12d20f58a2",
+      "after_sha256": "51315b0e32bd282b1eae05a9c2eade1bc82c6b46e617a2268c635c33b00f186d"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/PhysicsSystem.cpp",
+      "before_sha256": "725e1bcbdcb8910e6bb387f3fe8abf94054a84047408d78a3408d8eb4de5d9d1",
+      "after_sha256": "30266ffc910baf272f1d1119b04992f1643cb15e5f988b34d10345a4cef2a8a8"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "a47e8285c5c1954338573a6240c6a2585cd1f82fb3f38142bc423f6a8a2de143",
+      "after_sha256": "e042f9317213a750bec97124eaee1d1a05fc2e739905fb781d08d0178a6a32a3"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_BOX_TRIANGLE_SAT_V60",
+    "RRR3D_EXPERIMENT_NATIVE_PRE_SOLVE_CAP_V60",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_PAIR_ORDER_V60"
+  ],
+  "goal_complete": false
+}

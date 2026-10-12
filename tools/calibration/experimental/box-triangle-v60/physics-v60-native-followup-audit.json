@@ -1,0 +1,30 @@
+{
+  "scope": "Read-only original SDK tracer, exact original Golden float32 physical observations, 600 samples per case; counter selects preparation before integration.",
+  "captures": [
+    {
+      "case": "border-air-straight",
+      "counter": 60,
+      "repeat": 0,
+      "all_600_float32_samples_equal_original_golden": true
+    },
+    {
+      "case": "border-air-straight",
+      "counter": 60,
+      "repeat": 1,
+      "all_600_float32_samples_equal_original_golden": true
+    },
+    {
+      "case": "border-grounded",
+      "counter": 62,
+      "repeat": 0,
+      "all_600_float32_samples_equal_original_golden": true
+    },
+    {
+      "case": "border-grounded",
+      "counter": 62,
+      "repeat": 1,
+      "all_600_float32_samples_equal_original_golden": true
+    }
+  ],
+  "goal_complete": false
+}

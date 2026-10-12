@@ -1,0 +1,23 @@
+{
+  "git_prerequisite": "45ddebafe8777b741c52e8aa619e889dd0715e98",
+  "adapter_prerequisite": "v49 full experimental snapshot",
+  "sdk_prerequisite": "v49 + v37 experimental SDK chain",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "5af7f38b3cc6b07da6510fefb5e7e9125bc78e620d00316a1ba4e95c712d2070",
+      "after_sha256": "dc15be4151b6ce3fb269512f16562d8a975e4c90b02cb996e9f3d04ba9b306bd"
+    },
+    "sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h": {
+      "before_sha256": "358464b08c41f7b919f9b64c2f98e2071e267002390d1544bd53bcd5644bf4f0",
+      "after_sha256": "545b971a7650a5d95e9722f64472bd1dc1af6f6c8b423c07314f1c33a57b4866"
+    },
+    "sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.cpp": {
+      "before_sha256": "c9a2be687105ee03bd2dc48edb0455f7360172f94a8cd595c0f60c532fef84c4",
+      "after_sha256": "d049dc8efdf7e92314ba268721bbc0a58987ede2c9c3f163c2a3c171c7dcbe69"
+    },
+    "sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp": {
+      "before_sha256": "fd98073fbb8f349e416c880a36b325df18b3bde3cb79ef18fa95ccbaf678a662",
+      "after_sha256": "3cdda0b5c8d7a12a0d80455e41ba88dbcbece20a870bfc8a132464b29aca8e94"
+    }
+  }
+}

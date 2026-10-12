@@ -1,0 +1,152 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -769,6 +769,15 @@
+                            JPH::Vec3Arg r0CrossNormal, JPH::Vec3Arg r1CrossNormal,
+                            JPH::Vec3Arg invI0R0CrossNormal, JPH::Vec3Arg invI1R1CrossNormal) override
+     {
++        if (std::strncmp(phase, "iteration-", 10) == 0) {
++            const char* target = std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
++            if (target && *target) {
++                char* end = nullptr;
++                const auto step = std::strtoull(target, &end, 10);
++                if (!end || *end) throw std::runtime_error("Invalid contact iteration trace step");
++                if (step != traceStep_ - 1) return;
++            }
++        }
+         std::ostringstream out;
+         out.imbue(std::locale::classic());
+         out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
+@@ -4150,6 +4159,10 @@
+         if (shifted.HasError())
+             throw std::runtime_error(
+                 ("Jolt car shape: " + shifted.GetError()).c_str());
++        const char* exactCenterFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_EXACT_SHAPE_COM");
++        if (tuning_.physxWheelCompat && exactCenterFlag && std::strcmp(exactCenterFlag, "1") == 0)
++            static_cast<JPH::OffsetCenterOfMassShape*>(shifted.Get().GetPtr())
++                ->SetExactCenterOfMass(toJolt(source.centerOfMass));
+         JPH::BodyCreationSettings bodySettings(
+             shifted.Get(), toJolt(spawn.position),
+             JPH::Quat::sIdentity(), JPH::EMotionType::Dynamic,
+--- a/sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h
++++ b/sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h
+@@ -46,7 +46,18 @@
+ 	Vec3							GetOffset() const										{ return mOffset; }
+ 
+ 	// See Shape::GetCenterOfMass
+-	virtual Vec3					GetCenterOfMass() const override						{ return mInnerShape->GetCenterOfMass() + mOffset; }
++	virtual Vec3                    GetCenterOfMass() const override                  { return mHasExactCenterOfMass? mExactCenterOfMass : mInnerShape->GetCenterOfMass() + mOffset; }
++
++    // Set once before the shape is attached to a body. The source engine accepts
++    // an absolute local COM, which cannot always be represented by an offset sum.
++    void SetExactCenterOfMass(Vec3Arg inCenterOfMass)
++    {
++        JPH_ASSERT(!inCenterOfMass.IsNaN());
++        mExactCenterOfMass = inCenterOfMass;
++        mOffset = inCenterOfMass - mInnerShape->GetCenterOfMass();
++        mHasExactCenterOfMass = true;
++    }
++    bool HasExactCenterOfMass() const { return mHasExactCenterOfMass; }
+ 
+ 	// See Shape::GetLocalBounds
+ 	virtual AABox					GetLocalBounds() const override;
+@@ -134,6 +145,8 @@
+ 	static void						sCastOffsetCenterOfMassVsShape(const ShapeCast &inShapeCast, const ShapeCastSettings &inShapeCastSettings, const Shape *inShape, Vec3Arg inScale, const ShapeFilter &inShapeFilter, Mat44Arg inCenterOfMassTransform2, const SubShapeIDCreator &inSubShapeIDCreator1, const SubShapeIDCreator &inSubShapeIDCreator2, CastShapeCollector &ioCollector);
+ 	static void						sCastShapeVsOffsetCenterOfMass(const ShapeCast &inShapeCast, const ShapeCastSettings &inShapeCastSettings, const Shape *inShape, Vec3Arg inScale, const ShapeFilter &inShapeFilter, Mat44Arg inCenterOfMassTransform2, const SubShapeIDCreator &inSubShapeIDCreator1, const SubShapeIDCreator &inSubShapeIDCreator2, CastShapeCollector &ioCollector);
+ 
++    Vec3                            mExactCenterOfMass = Vec3::sZero();
++    bool                            mHasExactCenterOfMass = false;
+ 	Vec3							mOffset;												///< Offset of the center of mass
+ };
+ 
+--- a/sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.cpp
++++ b/sdk/Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.cpp
+@@ -3,6 +3,7 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #include <Jolt/Jolt.h>
++#include <cstring>
+ 
+ #include <Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h>
+ #include <Jolt/Physics/Collision/CollisionDispatch.h>
+@@ -189,14 +190,37 @@
+ {
+ 	DecoratedShape::SaveBinaryState(inStream);
+ 
+-	inStream.Write(mOffset);
++    if (mHasExactCenterOfMass)
++    {
++        // A finite legacy offset never has this all-NaN word signature. Keep
++        // the old byte format unchanged for ordinary shapes; exact shapes use
++        // an explicit extension consumed by this patched reader.
++        const uint32 signature = 0x7fc24d43U;
++        float marker;
++        std::memcpy(&marker, &signature, sizeof(marker));
++        inStream.Write(Vec3(marker, marker, marker));
++        inStream.Write(mOffset);
++        inStream.Write(mExactCenterOfMass);
++    }
++    else
++        inStream.Write(mOffset);
+ }
+ 
+ void OffsetCenterOfMassShape::RestoreBinaryState(StreamIn &inStream)
+ {
+ 	DecoratedShape::RestoreBinaryState(inStream);
+ 
+-	inStream.Read(mOffset);
++    inStream.Read(mOffset);
++    Float3 marker;
++    mOffset.StoreFloat3(&marker);
++    uint32 words[3];
++    std::memcpy(words, &marker, sizeof(words));
++    mHasExactCenterOfMass = words[0] == 0x7fc24d43U && words[1] == words[0] && words[2] == words[0];
++    if (mHasExactCenterOfMass)
++    {
++        inStream.Read(mOffset);
++        inStream.Read(mExactCenterOfMass);
++    }
+ }
+ 
+ void OffsetCenterOfMassShape::sRegister()
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -1720,7 +1720,20 @@
+                 wcp.mNonPenetrationConstraint.SetSourceContactLambda(total);
+                 continue; // Native prototype is restricted to friction-free normal rows.
+             }
+-            ++native_index;
++            const uint trace_index = native_index++;
++            const char *iteration_flag = std::getenv("RRR3D_CONTACT_ITERATION_ROWS");
++            const bool trace_iteration = trace_native && iteration_flag && std::strcmp(iteration_flag, "1") == 0;
++            const auto trace_axis = [&](const AxisConstraintPart &part, const char *phase, float lambda) {
++                if (!trace_iteration) return;
++                inListener->OnSourceNormalRow(*ioConstraint.mBody1, *ioConstraint.mBody2, trace_index, phase,
++                    part.GetDiagnosticEffectiveMass(), part.GetDiagnosticVelocityBias(),
++                    wcp.mSourceUnbiasedVelocityBias, wcp.mSourceSeparation, lambda, 0.0f,
++                    Type1 == EMotionType::Static? Vec3::sZero() : part.GetDiagnosticR1CrossAxis(),
++                    Type2 == EMotionType::Static? Vec3::sZero() : part.GetDiagnosticR2CrossAxis(),
++                    Type1 == EMotionType::Dynamic? part.GetDiagnosticInvI1R1CrossAxis() : Vec3::sZero(),
++                    Type2 == EMotionType::Dynamic? part.GetDiagnosticInvI2R2CrossAxis() : Vec3::sZero());
++            };
++            trace_axis(wcp.mNonPenetrationConstraint, "iteration-before", wcp.mNonPenetrationConstraint.GetTotalLambda());
+ 			float normal_lambda = max(0.0f, wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, normal, split_bias));
+ 			float lambda1 = 0.0f, lambda2 = 0.0f;
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
+@@ -1736,11 +1749,17 @@
+ 					lambda2 = wcp.mFrictionConstraint2.GetTotalLambda();
+ 				}
+ 			}
++            trace_axis(wcp.mNonPenetrationConstraint, "iteration-normal-calculated", normal_lambda);
++            trace_axis(wcp.mFrictionConstraint1, "iteration-friction1-calculated", lambda1);
++            trace_axis(wcp.mFrictionConstraint2, "iteration-friction2-calculated", lambda2);
+ 			any_impulse_applied |= wcp.mNonPenetrationConstraint.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, normal, normal_lambda, premultiplied_linear);
++            trace_axis(wcp.mNonPenetrationConstraint, "iteration-normal-applied", normal_lambda);
+ 			if (wcp.mFrictionConstraint1.IsActive() || wcp.mFrictionConstraint2.IsActive())
+ 			{
+ 				any_impulse_applied |= wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, t1, lambda1);
++                trace_axis(wcp.mFrictionConstraint1, "iteration-friction1-applied", lambda1);
+ 				any_impulse_applied |= wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintApplyLambda<Type1, Type2>(ioMotionProperties1, ioConstraint.mInvMass1, ioMotionProperties2, ioConstraint.mInvMass2, t2, lambda2);
++                trace_axis(wcp.mFrictionConstraint2, "iteration-friction2-applied", lambda2);
+ 			}
+ 		}
+ 		return any_impulse_applied;

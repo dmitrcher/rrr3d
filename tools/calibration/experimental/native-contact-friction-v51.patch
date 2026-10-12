@@ -1,0 +1,520 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1139,6 +1139,7 @@
+         output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
+         output.mNativeErrorFrameActive=false;
+         output.mNativeErrorCacheActive=false;
++        output.mNativeSolverTangentActive=false;
+         if(!contacts.count)return true;
+         const char* materialFlag=std::getenv("RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE");
+         if(materialFlag && std::strcmp(materialFlag,"1")==0) {
+@@ -1167,9 +1168,22 @@
+                     const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(apiPose.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
+                     callbackActor=cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY()));
+                 }
++                const char* callbackActorFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_ACTOR_ROTATION");
++                if(callbackActorFlag && std::strcmp(callbackActorFlag,"1")==0) {
++                    const auto publicActor=motorrock::nativepublicangular::orientation({q.x,q.y,q.z,q.w});
++                    for(unsigned r=0;r<3;++r)for(unsigned c=0;c<3;++c)callbackActor.a[r][c]=publicActor[r][c];
++                }
+                 const char* triangleNormalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL");
+                 const auto callbackPlane=triangleNormalFlag && std::strcmp(triangleNormalFlag,"1")==0?publicTriangleNormal:plane;
+                 nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane,callbackPlane);
++                const char* solverFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
++                if(nativeCandidate.callback.modified && solverFrameFlag && std::strcmp(solverFrameFlag,"1")==0) {
++                    output.mNativeSolverTangentActive=true;
++                    const auto tangent=motorrock::framev36::solverTangent2(nativeCandidate.solverQuaternion);
++                    for(unsigned j=0;j<3;++j)output.mNativeSourceTangent2[j]=tangent[j];
++                    const auto firstTangent=motorrock::framev36::solverTangent1(nativeCandidate.solverQuaternion);
++                    for(unsigned j=0;j<3;++j)output.mNativeSourceTangent1[j]=firstTangent[j];
++                }
+                 const char* stageFlag=std::getenv("RRR3D_CONTACT_MATERIAL_STAGE_TRACE");
+                 const char* stageStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+                 if(stageFlag && std::strcmp(stageFlag,"1")==0 && (!stageStep || std::strtoull(stageStep,nullptr,10)==traceStep_-1)) {
+@@ -1490,6 +1504,9 @@
+             settings.mUseDerivedNativeErrors=manifold.mNativeErrorFrameActive;
+             settings.mNativeCachedLeverActive=manifold.mNativeErrorCacheActive;
+             settings.mNativeCachedLeverArms=manifold.mNativeCachedLeverArms;
++            settings.mNativeSolverTangentActive=manifold.mNativeSolverTangentActive;
++            settings.mNativeSourceTangent2=manifold.mNativeSourceTangent2;
++            settings.mNativeSourceTangent1=manifold.mNativeSourceTangent1;
+             if(settings.mUseDerivedNativeErrors) {
+                 motorrock::derivederror::Frames frames;
+                 for(int j=0;j<4;++j) {
+@@ -4550,7 +4567,6 @@
+         const JPH::Body& body = lock.GetBody();
+         auto& state = vehicle.state;
+         state.bodyAwake = body.IsActive();
+-        state.body.position = fromJolt(body.GetPosition());
+         const char* actorOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_OUTPUT");
+         const char* dynamicOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_DYNAMIC_ACTOR_OUTPUT");
+         if((vehicle.spawn.vehicle.freezeRotation && actorOutputFlag && std::strcmp(actorOutputFlag,"1")==0) ||
+@@ -4561,27 +4577,13 @@
+             const auto origin=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+             state.body.position={origin[0],origin[1],origin[2]};
+         }
++        else state.body.position = fromJolt(body.GetPosition());
+         state.body.rotation = fromJolt(body.GetRotation());
+         state.body.scale = {1.0F, 1.0F, 1.0F};
+         state.linearVelocity = fromJolt(body.GetLinearVelocity());
+         const JPH::Vec3 angularVelocity = body.GetAngularVelocity();
+-        JPH::Vec3 angularMomentum = vehicle.spawn.vehicle.freezeRotation
+-            ? JPH::Vec3::sZero() : body.GetInverseInertia()
+-                .Inversed3x3()
+-                .Multiply3x3(angularVelocity);
+-        const char* principalMomentumFlag = std::getenv("RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM");
+-        if (!vehicle.spawn.vehicle.freezeRotation && principalMomentumFlag &&
+-            std::strcmp(principalMomentumFlag, "1") == 0) {
+-            const auto* motion = body.GetMotionProperties();
+-            const JPH::Vec3 inv = motion->GetInverseInertiaDiagonal();
+-            const JPH::Vec3 diagonal(inv.GetX() > 0 ? 1.0F / inv.GetX() : 0,
+-                                     inv.GetY() > 0 ? 1.0F / inv.GetY() : 0,
+-                                     inv.GetZ() > 0 ? 1.0F / inv.GetZ() : 0);
+-            const JPH::Mat44 principal = JPH::Mat44::sRotation(
+-                body.GetRotation() * motion->GetInertiaRotation());
+-            angularMomentum = principal.Multiply3x3(
+-                diagonal * principal.Multiply3x3Transposed(angularVelocity));
+-        }
++        JPH::Vec3 angularMomentum = JPH::Vec3::sZero();
++        bool nativeMomentumReady = false;
+         const char* publicAngularFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PUBLIC_ANGULAR_MOMENTUM");
+         if (!vehicle.spawn.vehicle.freezeRotation && publicAngularFlag && std::strcmp(publicAngularFlag, "1") == 0)
+         {
+@@ -4599,6 +4601,30 @@
+                 const auto tensor = motorrock::nativepublicangular::inertia(matrix, {1.0F/local(0,0),1.0F/local(2,2),1.0F/local(1,1)});
+                 const auto momentum = motorrock::nativepublicangular::momentum(tensor,{omega.x,omega.y,omega.z});
+                 angularMomentum = toJoltAngular(Vec3{momentum[0],momentum[1],momentum[2]});
++                nativeMomentumReady = true;
++            }
++        }
++        // The Native accessor accepts the original, slightly non-unit pose.
++        // Do not evaluate a Jolt-only fallback that would be overwritten:
++        // its principal rotation requires normalized input and asserts on
++        // long original integration histories.
++        if (!vehicle.spawn.vehicle.freezeRotation && !nativeMomentumReady)
++        {
++            angularMomentum = body.GetInverseInertia()
++                    .Inversed3x3()
++                    .Multiply3x3(angularVelocity);
++            const char* principalMomentumFlag = std::getenv("RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM");
++            if (!vehicle.spawn.vehicle.freezeRotation && principalMomentumFlag &&
++                std::strcmp(principalMomentumFlag, "1") == 0) {
++                const auto* motion = body.GetMotionProperties();
++                const JPH::Vec3 inv = motion->GetInverseInertiaDiagonal();
++                const JPH::Vec3 diagonal(inv.GetX() > 0 ? 1.0F / inv.GetX() : 0,
++                                         inv.GetY() > 0 ? 1.0F / inv.GetY() : 0,
++                                         inv.GetZ() > 0 ? 1.0F / inv.GetZ() : 0);
++                const JPH::Mat44 principal = JPH::Mat44::sRotation(
++                    body.GetRotation() * motion->GetInertiaRotation());
++                angularMomentum = principal.Multiply3x3(
++                    diagonal * principal.Multiply3x3Transposed(angularVelocity));
+             }
+         }
+         state.angularMomentum = fromJoltAngular(angularMomentum);
+--- a/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
++++ b/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
+@@ -3,6 +3,8 @@
+ // No fixture identifiers, measured states, or expected outputs are used.
+ #include "DerivedContactErrorFrame.h"
+ #include "NativeContactNormalV38.h"
++#include <cstdlib>
++#include <cstring>
+ namespace motorrock { namespace framev36 {
+ namespace cf=contactframe; namespace de=derivederror;
+ using de::add; using de::sub; using de::mul;
+@@ -66,6 +68,23 @@
+  if(i==3){q[0]=mul(sub(m.a[2][1],m.a[1][2]),scale);q[1]=mul(sub(m.a[0][2],m.a[2][0]),scale);q[2]=mul(sub(m.a[1][0],m.a[0][1]),scale);}
+  else {q[j]=mul(add(m.a[i][j],m.a[j][i]),scale);q[k]=mul(add(m.a[k][i],m.a[i][k]),scale);q[3]=mul(sub(m.a[k][j],m.a[j][k]),scale);}if(i==3){for(int axis=0;axis<3;++axis)q[axis]=-q[axis];}else q[3]=-q[3];return q;
+ }
++// Solver composition has a different float32 association from the material seed.
++// Cross products precede the two scalar products; the scalar dot sums X,Z,Y.
++inline cf::Quaternion solverMultiply(cf::Quaternion a,cf::Quaternion b) {
++ const float x=a[0],y=a[1],z=a[2],w=a[3],X=b[0],Y=b[1],Z=b[2],W=b[3];
++ return {{add(add(sub(mul(y,Z),mul(Y,z)),mul(w,X)),mul(W,x)),
++          add(add(sub(mul(z,X),mul(Z,x)),mul(w,Y)),mul(W,y)),
++          add(add(sub(mul(x,Y),mul(X,y)),mul(w,Z)),mul(W,z)),
++          sub(mul(w,W),add(add(mul(x,X),mul(z,Z)),mul(y,Y)))}};
++}
++inline cf::Vector solverTangent1(cf::Quaternion q) {
++ const float x2=mul(q[0],2),y2=mul(q[1],2),z2=mul(q[2],2);
++ return {{sub(mul(q[1],x2),mul(q[3],z2)),sub(1,add(mul(q[2],z2),mul(q[0],x2))),add(mul(q[2],y2),mul(q[3],x2))}};
++}
++inline cf::Vector solverTangent2(cf::Quaternion q) {
++ const float x2=mul(q[0],2),y2=mul(q[1],2);
++ return {{add(mul(q[2],x2),mul(q[3],y2)),sub(mul(q[2],y2),mul(q[3],x2)),sub(1,add(mul(q[1],y2),mul(q[0],x2)))}};
++}
+ struct Result {de::Frames errors;cf::Result callback;cf::Vector normal;cf::Quaternion rawLocal,seed,solverQuaternion;cf::Matrix materialBasis;};
+ inline Result compute(const cf::Matrix& actor,cf::Quaternion actorQuaternion,cf::Vector plane,cf::Vector callbackPlane) {
+  // The caller supplies the actor pose quaternion used for this simulation.
+@@ -79,7 +98,10 @@
+  const auto seed=framev36::multiply(inverse,r.errors.material);r.seed=seed;r.solverQuaternion={{0,0,0,1}};
+  r.callback=cf::modify(seed,actor,cf::Matrix{{{1,0,0},{0,1,0},{0,0,1}}},callbackPlane,true);
+  if(r.callback.modified) {
+-  const auto solverQuaternion=framev36::multiply(actorQuaternion,r.callback.local0);r.solverQuaternion=solverQuaternion;
++  const char* solverMultiplyFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
++  const auto solverQuaternion=solverMultiplyFlag && std::strcmp(solverMultiplyFlag,"1")==0?
++      framev36::solverMultiply(actorQuaternion,r.callback.local0):framev36::multiply(actorQuaternion,r.callback.local0);
++  r.solverQuaternion=solverQuaternion;
+   const char* normalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_NORMAL");
+   r.normal=normalFlag && std::strcmp(normalFlag,"1")==0?contactnormalv38::decode(solverQuaternion):materialcandidate::solverNormal(solverQuaternion);
+  } else r.normal=plane;
+--- a/src/Rock3dEngine/header/physics/NativeContactCache.h
++++ b/src/Rock3dEngine/header/physics/NativeContactCache.h
+@@ -4,6 +4,8 @@
+ // no recorded state or per-scenario values are consumed by this implementation.
+ #include "DerivedContactErrorFrame.h"
+ #include <vector>
++#include <cstdlib>
++#include <cstring>
+ namespace motorrock { namespace nativecache {
+ namespace cf=motorrock::contactframe;
+ namespace de=motorrock::derivederror;
+@@ -18,12 +20,32 @@
+   out[i]=de::add(de::add(de::mul(p.rotation.a[a][i],v[a]),de::mul(p.rotation.a[b][i],v[b])),de::mul(p.rotation.a[0][i],v[0]));
+  }return out;
+ }
++// Original fresh body-0 cache transport at RVA 0x25381c..0x2538ab
++// sums local position X in XYZ order. Normal transforms are a separate path.
++inline cf::Vector localBody0Point(const Pose& p,cf::Vector v) {
++ auto out=local(p,v);
++ const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_LOCAL_POINT_ORDER");
++ if(flag && std::strcmp(flag,"1")==0) {
++  v=subtract(v,p.position);
++  out[0]=de::add(de::add(de::mul(p.rotation.a[0][0],v[0]),de::mul(p.rotation.a[1][0],v[1])),de::mul(p.rotation.a[2][0],v[2]));
++ }
++ return out;
++}
+ inline cf::Vector world(const Pose& p,cf::Vector v) {
+  cf::Vector out;
+  for(int i=0;i<3;++i) {
+   const int a=i==1?1:0,b=i==1?2:1,c=i==1?0:2;
+   out[i]=de::add(p.position[i],de::add(de::add(de::mul(p.rotation.a[i][a],v[a]),de::mul(p.rotation.a[i][b],v[b])),de::mul(p.rotation.a[i][c],v[c])));
+  }return out;
++}
++// Solver row body-0 lever reconstruction at RVA 0x74ac1..0x74b74
++// uses XYZ sums for all three components, without world translation.
++inline cf::Vector solverLever(const Pose& p,cf::Vector v) {
++ const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_LEVER_ORDER");
++ if(!flag || std::strcmp(flag,"1")!=0) {Pose rotation=p;rotation.position={{0,0,0}};return world(rotation,v);}
++ cf::Vector out;
++ for(unsigned i=0;i<3;++i)out[i]=de::add(de::add(de::mul(p.rotation.a[i][0],v[0]),de::mul(p.rotation.a[i][1],v[1])),de::mul(p.rotation.a[i][2],v[2]));
++ return out;
+ }
+ inline float distanceSquared(cf::Vector a,cf::Vector b) {
+  const auto d=subtract(a,b);return de::add(de::mul(d[2],d[2]),de::add(de::mul(d[1],d[1]),de::mul(d[0],d[0])));
+@@ -54,18 +76,18 @@
+   std::vector<int> matched;std::vector<bool> used(points.size());bool reuse=points.size()==current.size();
+   const float limit=de::mul(threshold,threshold);
+   for(const auto& v:current) {
+-   const auto p0=local(a,v),p1=local(b,v);int found=-1;
++   const auto p0=localBody0Point(a,v),p1=local(b,v);int found=-1;
+    if(reuse)for(unsigned j=0;j<points.size();++j)if(!used[j] && distanceSquared(points[j].on0,p0)<limit && distanceSquared(points[j].on1,p1)<limit && dot(points[j].normal0,n0,false)>.999F && dot(points[j].normal1,n1,true)>.999F){found=int(j);used[j]=true;break;}
+    if(found<0)reuse=false;matched.push_back(found);
+   }
+   std::vector<cf::Vector> result(current.size(),cf::Vector{{0,0,0}});
+   if(!reuse) {
+    if(persistentFrame)storedFrame=frame;
+-   points.clear();for(const auto& v:current)points.push_back({local(a,v),local(b,v),n0,n1});
++   points.clear();for(const auto& v:current)points.push_back({localBody0Point(a,v),local(b,v),n0,n1});
+   } else for(unsigned i=0;i<current.size();++i) {
+    const auto& p=points[matched[i]];result[i]=transverse(persistentFrame?storedFrame:frame,subtract(world(a,p.on0),world(b,p.on1)));
+   }
+-  if(levers){levers->clear();Pose rotation=a;rotation.position={{0,0,0}};for(unsigned i=0;i<current.size();++i)levers->push_back(world(rotation,points[reuse?matched[i]:i].on0));}
++  if(levers){levers->clear();for(unsigned i=0;i<current.size();++i)levers->push_back(solverLever(a,points[reuse?matched[i]:i].on0));}
+   return result;
+  }
+ };
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -441,6 +441,10 @@
+ 		float mSourceSeparation = 0.0f;
+ 		float mSourceUnbiasedVelocityBias = 0.0f;
+ 		NativeContactArithmetic mNativeContact;
++        bool mNativeSingleAxisFriction = false;
++        Vec3 mNativeFrictionAxis = Vec3::sZero(), mNativeFrictionAxis1 = Vec3::sZero(), mNativeFrictionImpulse = Vec3::sZero();
++        float mNativeFrictionMass = 0.0f, mNativeFrictionMass1 = 0.0f, mNativeFrictionCoefficient = 0.0f;
++
+ 		bool mDiagnosticNativeError = false;
+ 		float mDiagnosticNativeConstraintError = 0.0f;
+ 		bool mDerivedNativeError = false;
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -137,17 +137,56 @@
+ 	const bool raw_axis_mass = inSettings.mUseSourceBlockPGS && raw_axis_flag != nullptr && std::strcmp(raw_axis_flag, "1") == 0;
+ 	const char *jacobian_flag = std::getenv("RRR3D_EXPERIMENT_CONTACT_JACOBIAN_MASS");
+ 	const bool jacobian_mass = inSettings.mUseSourceBlockPGS && jacobian_flag != nullptr && std::strcmp(jacobian_flag, "1") == 0;
+-	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceNormal, normal_velocity_bias, raw_axis_mass, jacobian_mass);
++    const char *friction_flag = std::getenv("RRR3D_EXPERIMENT_NATIVE_SINGLE_AXIS_FRICTION");
++    const bool native_friction = friction_flag && std::strcmp(friction_flag, "1") == 0
++        && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 > 0.0f
++        && inSettings.mRelativeLinearSurfaceVelocity == Vec3::sZero()
++        && inSettings.mRelativeAngularSurfaceVelocity == Vec3::sZero();
++    bool native_axis_placeholder = false;
++    if constexpr ((Type1 == EMotionType::Dynamic && Type2 == EMotionType::Static) || (Type1 == EMotionType::Static && Type2 == EMotionType::Dynamic)) {
++        const char *pose_flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_NONUNIT_POSE_MATRIX");
++        native_axis_placeholder=pose_flag && std::strcmp(pose_flag,"1")==0 && NativeContactArithmetic::Flags()==31
++            && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution==0.0f
++            && ((inSettings.mCombinedFriction==0.0f && inSettings.mCombinedFriction2<=0.0f) || native_friction);
++    }
++    // Only initialize Jolt's unused Jacobian placeholder with a unit axis.
++    // Native Prepare below replaces its mass/bias and the force-first solver
++    // uses the original normal and lever without normalization.
++    const Vec3 generic_normal=native_axis_placeholder && !inWorldSpaceNormal.IsNormalized(1.0e-5f)?
++        inWorldSpaceNormal.Normalized() : inWorldSpaceNormal;
++	mNonPenetrationConstraint.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, generic_normal, normal_velocity_bias, raw_axis_mass, jacobian_mass);
+     mNativeContact.mMask = 0;
++    mNativeSingleAxisFriction = false;
++
++
+     if constexpr ((Type1 == EMotionType::Dynamic && Type2 == EMotionType::Static) || (Type1 == EMotionType::Static && Type2 == EMotionType::Dynamic)) {
+         const uint native_mask = NativeContactArithmetic::Flags();
+-        if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) {
++        if (native_mask && inSettings.mUseSourceBlockPGS && inSettings.mCombinedRestitution == 0.0f && ((inSettings.mCombinedFriction == 0.0f && inSettings.mCombinedFriction2 <= 0.0f) || (native_friction && native_mask == 31))) {
+             constexpr bool first = Type1 == EMotionType::Dynamic;
+             const Mat44 native_inverse_inertia=inSettings.mNativeInverseInertiaActive && native_mask==31?
+                 (first?inSettings.mInvInertiaScale1:inSettings.mInvInertiaScale2)*inSettings.mNativeInverseInertia:(first?inInvI1:inInvI2);
+             mNativeContact.Prepare(native_mask,first,mNativeCachedLeverActive?mNativeCachedLever:(first?r1:r2),native_inverse_inertia,first?inInvM1:inInvM2,
+                 inWorldSpaceNormal,mDiagnosticNativeError?mDiagnosticNativeConstraintError:(mDerivedNativeError?mDerivedNativeConstraintError:-penetration),inDeltaTime,mDiagnosticNativeError,mNonPenetrationConstraint);
+             mNativeContact.mDerivedError=mDerivedNativeError&&!mDiagnosticNativeError;
++            if (native_friction) {
++                using A = NativeContactArithmetic;
++                mNativeSingleAxisFriction = true;
++                mNativeFrictionAxis = inSettings.mNativeSolverTangentActive?
++                    Vec3(inSettings.mNativeSourceTangent2[0],inSettings.mNativeSourceTangent2[1],inSettings.mNativeSourceTangent2[2]):
++                    A::Polar(first? -inWorldSpaceTangent2 : inWorldSpaceTangent2);
++                mNativeFrictionAxis1 = inSettings.mNativeSolverTangentActive?
++                    Vec3(inSettings.mNativeSourceTangent1[0],inSettings.mNativeSourceTangent1[1],inSettings.mNativeSourceTangent1[2]):
++                    A::Polar(first? -inWorldSpaceTangent1 : inWorldSpaceTangent1);
++                mNativeFrictionImpulse = Vec3::sZero();
++                mNativeFrictionCoefficient = inSettings.mCombinedFriction2;
++                const Vec3 response = mNativeContact.Tensor(A::Cross(mNativeContact.mR, mNativeFrictionAxis));
++                mNativeFrictionMass = A::Div(1.0f, A::Add(mNativeContact.mInvMass,
++                    A::DotXYZ(mNativeFrictionAxis, A::Cross(response, mNativeContact.mR))));
++                const Vec3 response1=mNativeContact.Tensor(A::Cross(mNativeContact.mR,mNativeFrictionAxis1));
++                mNativeFrictionMass1=A::Div(1.0f,A::Add(mNativeContact.mInvMass,
++                    A::DotXYZ(mNativeFrictionAxis1,A::Cross(response1,mNativeContact.mR))));
++            }
++
+         }
+     }
+ 
+@@ -160,9 +199,11 @@
+ 		float surface_velocity1 = inWorldSpaceTangent1.Dot(ws_surface_velocity);
+ 		float surface_velocity2 = inWorldSpaceTangent2.Dot(ws_surface_velocity);
+ 
++        const Vec3 generic_tangent1=native_axis_placeholder && mNativeSingleAxisFriction && !inWorldSpaceTangent1.IsNormalized(1.0e-5f)? inWorldSpaceTangent1.Normalized() : inWorldSpaceTangent1;
++        const Vec3 generic_tangent2=native_axis_placeholder && mNativeSingleAxisFriction && !inWorldSpaceTangent2.IsNormalized(1.0e-5f)? inWorldSpaceTangent2.Normalized() : inWorldSpaceTangent2;
+ 		// Implement friction as 2 AxisConstraintParts
+-		mFrictionConstraint1.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceTangent1, surface_velocity1);
+-		mFrictionConstraint2.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, inWorldSpaceTangent2, surface_velocity2);
++		mFrictionConstraint1.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, generic_tangent1, surface_velocity1);
++		mFrictionConstraint2.TemplatedCalculateConstraintProperties<Type1, Type2>(inInvM1, inInvI1, r1, inInvM2, inInvI2, r2, generic_tangent2, surface_velocity2);
+ 	}
+ 	else
+ 	{
+@@ -1090,6 +1131,11 @@
+ 
+ 	// Determine relative orientation
+ 	Quat delta_rotation = inv_r1 * body2->GetRotation();
++    // This is Jolt's three-float cache key, not the physical body pose.
++    // Its reconstructed W assumes a unit quaternion. Keep the original raw
++    // integration pose on the body, but make this bounded cache key valid.
++    if (!delta_rotation.IsNormalized() && delta_rotation.AllowsOriginalPoseDrift())
++        delta_rotation = delta_rotation.Normalized();
+ 
+ 	// Store it
+ 	delta_rotation.StoreFloat3(&cbp->mDeltaRotation);
+@@ -1703,6 +1749,46 @@
+ 		for (WorldContactPoint &wcp : ioConstraint.mContactPoints)
+ 		{
+             auto &native = wcp.mNativeContact;
++            if (native.mMask && wcp.mNativeSingleAxisFriction) {
++                using A = NativeContactArithmetic;
++                if (trace_native) inListener->OnNativeContactIteration(*ioConstraint.mBody1,*ioConstraint.mBody2,native_index,native,wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(),wcp.mNonPenetrationConstraint.GetTotalLambda());
++                ++native.mIteration; ++native_index;
++                MotionProperties *motion = native.mDynamicFirst? ioMotionProperties1 : ioMotionProperties2;
++                const Vec3 spin = A::Cross(A::Axial(motion->GetAngularVelocity()), native.mR);
++                const Vec3 velocity = A::Polar(motion->GetLinearVelocity());
++                const Vec3 point(A::Add(velocity.GetX(),spin.GetX()), A::Add(velocity.GetY(),spin.GetY()), A::Add(velocity.GetZ(),spin.GetZ()));
++                const float old = wcp.mNonPenetrationConstraint.GetTotalLambda();
++                float delta = A::Sub(A::Mul(wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(),-A::DotXZY(native.mNormal,point)),native.mScaledBias);
++                float total = A::Add(old,delta);
++                if (total < 0.0f) { total=0.0f; delta=-old; }
++                else if (total > FLT_MAX) { total=FLT_MAX; delta=A::Sub(total,old); }
++                Vec3 friction_delta = Vec3::sZero();
++                if (total > 0.0f) {
++                    const float previous = A::DotXZY(wcp.mNativeFrictionAxis,wcp.mNativeFrictionImpulse);
++                    float desired = A::Mul(wcp.mNativeFrictionMass,-A::DotXZY(wcp.mNativeFrictionAxis,point));
++                    const float target = A::Add(previous,desired);
++                    const float limit = A::Mul(wcp.mNativeFrictionCoefficient,total);
++                    if (std::abs(target) > limit)
++                        desired = A::Sub(A::Mul(A::Div(limit,std::abs(target)),target),previous);
++                    const float previous1=A::DotXZY(wcp.mNativeFrictionAxis1,wcp.mNativeFrictionImpulse);
++                    float desired1=A::Mul(wcp.mNativeFrictionMass1,-A::DotXZY(wcp.mNativeFrictionAxis1,point));
++                    const float target1=A::Add(previous1,desired1);
++                    if(std::abs(target1)>0.0f)
++                        desired1=A::Sub(A::Mul(A::Div(0.0f,std::abs(target1)),target1),previous1);
++                    friction_delta = Vec3(
++                        A::Add(A::Mul(wcp.mNativeFrictionAxis1.GetX(),desired1),A::Mul(wcp.mNativeFrictionAxis.GetX(),desired)),
++                        A::Add(A::Mul(wcp.mNativeFrictionAxis1.GetY(),desired1),A::Mul(wcp.mNativeFrictionAxis.GetY(),desired)),
++                        A::Add(A::Mul(wcp.mNativeFrictionAxis1.GetZ(),desired1),A::Mul(wcp.mNativeFrictionAxis.GetZ(),desired)));
++                    wcp.mNativeFrictionImpulse = Vec3(A::Add(wcp.mNativeFrictionImpulse.GetX(),friction_delta.GetX()), A::Add(wcp.mNativeFrictionImpulse.GetY(),friction_delta.GetY()), A::Add(wcp.mNativeFrictionImpulse.GetZ(),friction_delta.GetZ()));
++                }
++                const Vec3 force(A::Add(friction_delta.GetX(),A::Mul(native.mNormal.GetX(),delta)), A::Add(friction_delta.GetY(),A::Mul(native.mNormal.GetY(),delta)), A::Add(friction_delta.GetZ(),A::Mul(native.mNormal.GetZ(),delta)));
++                const Vec3 linear(A::Mul(force.GetX(),native.mInvMass), A::Mul(force.GetY(),native.mInvMass), A::Mul(force.GetZ(),native.mInvMass));
++                motion->AddLinearVelocityStep(A::Polar(linear));
++                motion->AddAngularVelocityStep(A::Axial(native.Tensor(A::Cross(native.mR,force))));
++                wcp.mNonPenetrationConstraint.SetSourceContactLambda(total);
++                any_impulse_applied |= force != Vec3::sZero();
++                continue;
++            }
+             if (native.mMask) {
+                 if (trace_native) inListener->OnNativeContactIteration(*ioConstraint.mBody1,*ioConstraint.mBody2,native_index,native,wcp.mNonPenetrationConstraint.GetDiagnosticEffectiveMass(),wcp.mNonPenetrationConstraint.GetTotalLambda());
+                 ++native.mIteration; ++native_index;
+@@ -1993,6 +2079,19 @@
+ 			wcp.mContactPoint->mFrictionLambda[0] = wcp.mFrictionConstraint1.GetTotalLambda();
+ 			wcp.mContactPoint->mFrictionLambda[1] = wcp.mFrictionConstraint2.GetTotalLambda();
+ 			normal_impulse -= constraint.GetWorldSpaceNormal() * wcp.mNonPenetrationConstraint.GetTotalLambda();
++            if (wcp.mNativeSingleAxisFriction) {
++                // The original row accumulates a world vector; projecting it
++                // through Jolt's normalized tangent frame would change it.
++                const Vec3 applied = NativeContactArithmetic::Polar(wcp.mNativeFrictionImpulse)
++                    * (wcp.mNativeContact.mDynamicFirst? 1.0f : -1.0f);
++                friction_impulse += applied;
++                Vec3 tangent1, tangent2;
++                constraint.GetTangents(tangent1,tangent2);
++                // Source block PGS resets cached scalars before warm start.
++                wcp.mContactPoint->mFrictionLambda[0]=-tangent1.Dot(applied);
++                wcp.mContactPoint->mFrictionLambda[1]=-tangent2.Dot(applied);
++                continue;
++            }
+ 			// Frictionless constraints have no initialized tangent frame (NaN in debug).
+ 			if (wcp.mFrictionConstraint1.GetTotalLambda() != 0.0f || wcp.mFrictionConstraint2.GetTotalLambda() != 0.0f)
+ 			{
+--- a/sdk/Jolt/Physics/Collision/ContactListener.h
++++ b/sdk/Jolt/Physics/Collision/ContactListener.h
+@@ -21,7 +21,7 @@
+ {
+ public:
+ 	/// Swaps shape 1 and 2
+-	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors, mNativeErrorFrameActive, mNativeErrorRawQuaternion, mNativeErrorMaterialQuaternion, mNativeErrorCacheActive, mNativeErrorTransverse, mNativeCachedLeverArms }; }
++	ContactManifold			SwapShapes() const					{ return { mBaseOffset, -mWorldSpaceNormal, mPenetrationDepth, mSubShapeID2, mSubShapeID1, mRelativeContactPointsOn2, mRelativeContactPointsOn1, mUseSourceSeparation, mSourceSeparations, mUseSourceBlockPGS, mUseDiagnosticNativeErrors, mDiagnosticNativeErrors, mNativeErrorFrameActive, mNativeErrorRawQuaternion, mNativeErrorMaterialQuaternion, mNativeErrorCacheActive, mNativeErrorTransverse, mNativeCachedLeverArms, mNativeSolverTangentActive, mNativeSourceTangent2, mNativeSourceTangent1 }; }
+ 
+ 	/// Access to the world space contact positions
+ 	inline RVec3			GetWorldSpaceContactPointOn1(uint inIndex) const { return mBaseOffset + mRelativeContactPointsOn1[inIndex]; }
+@@ -44,6 +44,8 @@
+ 	std::array<float,4> mNativeErrorRawQuaternion{}, mNativeErrorMaterialQuaternion{};
+ 	bool mNativeErrorCacheActive = false;
+ 	std::array<std::array<float,3>,64> mNativeErrorTransverse{}, mNativeCachedLeverArms{};
++    bool mNativeSolverTangentActive=false;
++    std::array<float,3> mNativeSourceTangent2{},mNativeSourceTangent1{};
+ };
+ 
+ /// When a contact point is added or persisted, the callback gets a chance to override certain properties of the contact constraint.
+@@ -68,6 +70,8 @@
+ 	std::array<float,64> mDerivedNativeErrors{};
+ 	bool mNativeInverseInertiaActive = false;
+ 	Mat44 mNativeInverseInertia = Mat44::sZero();
++    bool mNativeSolverTangentActive=false;
++    std::array<float,3> mNativeSourceTangent2{},mNativeSourceTangent1{};
+ 	bool mNativeCachedLeverActive = false;
+ 	std::array<std::array<float,3>,64> mNativeCachedLeverArms{};
+ 	float					mCombinedRestitution;				///< Combined restitution for the body pair (see: PhysicsSystem::SetCombineRestitution)
+--- a/sdk/Jolt/Math/Mat44.inl
++++ b/sdk/Jolt/Math/Mat44.inl
+@@ -7,6 +7,8 @@
+ #include <Jolt/Math/Vec3.h>
+ #include <Jolt/Math/Vec4.h>
+ #include <Jolt/Math/Quat.h>
++#include <cstdlib>
++#include <cstring>
+ 
+ JPH_NAMESPACE_BEGIN
+ 
+@@ -84,7 +86,11 @@
+ 
+ Mat44 Mat44::sRotation(QuatArg inQuat)
+ {
+-	JPH_ASSERT(inQuat.IsNormalized());
++    // Original PhysX integration retains small quaternion norm drift. The
++    // measured 255864-sample Windows suite reaches 1.91e-5. Accept only this
++    // bounded compatibility input when explicitly enabled; matrix arithmetic
++    // and stored physical rotation are unchanged, and NaN still fails.
++    JPH_ASSERT(inQuat.IsNormalized() || inQuat.AllowsOriginalPoseDrift());
+ 
+ 	// See: https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation section 'Quaternion-derived rotation matrix'
+ #ifdef JPH_USE_SSE4_1
+--- a/sdk/Jolt/Math/Quat.h
++++ b/sdk/Jolt/Math/Quat.h
+@@ -6,6 +6,8 @@
+ 
+ #include <Jolt/Math/Vec3.h>
+ #include <Jolt/Math/Vec4.h>
++#include <cstdlib>
++#include <cstring>
+ 
+ JPH_NAMESPACE_BEGIN
+ 
+@@ -58,6 +60,15 @@
+ 
+ 	/// If the length of this quaternion is 1 +/- inTolerance
+ 	inline bool					IsNormalized(float inTolerance = 1.0e-5f) const					{ return mValue.IsNormalized(inTolerance); }
++
++    // Assertion-only compatibility for the original integration's bounded
++    // pose drift. Does not change IsNormalized or any quaternion arithmetic.
++    inline bool AllowsOriginalPoseDrift() const {
++        const char *flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_NONUNIT_POSE_MATRIX");
++        const char *integration=std::getenv("RRR3D_EXPERIMENT_NATIVE_ANGULAR_INTEGRATION");
++        return flag && std::strcmp(flag,"1")==0 && integration && std::strcmp(integration,"1")==0
++            && IsNormalized(3.0e-5f);
++    }
+ 
+ 	/// If any component of this quaternion is a NaN (not a number)
+ 	inline bool					IsNaN() const													{ return mValue.IsNaN(); }
+--- a/sdk/Jolt/Math/Quat.inl
++++ b/sdk/Jolt/Math/Quat.inl
+@@ -341,7 +341,7 @@
+ 	// return inValue + (v + v);
+ 	//
+ 	// But we can write out the cross products in a more efficient way:
+-	JPH_ASSERT(IsNormalized());
++	JPH_ASSERT(IsNormalized() || AllowsOriginalPoseDrift());
+ 	Vec3 xyz = GetXYZ();
+ 	Vec3 yzx = xyz.Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>();
+ 	Vec3 q_cross_p = (inValue.Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>() * xyz - yzx * inValue).Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>();
+@@ -352,7 +352,7 @@
+ 
+ Vec3 Quat::InverseRotate(Vec3Arg inValue) const
+ {
+-	JPH_ASSERT(IsNormalized());
++	JPH_ASSERT(IsNormalized() || AllowsOriginalPoseDrift());
+ 	Vec3 xyz = GetXYZ(); // Needs to be negated, but we do this in the equations below
+ 	Vec3 yzx = xyz.Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>();
+ 	Vec3 q_cross_p = (yzx * inValue - inValue.Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>() * xyz).Swizzle<SWIZZLE_Y, SWIZZLE_Z, SWIZZLE_X>();
+@@ -364,7 +364,7 @@
+ Vec3 Quat::RotateAxisX() const
+ {
+ 	// This is *this * Vec3::sAxisX() written out:
+-	JPH_ASSERT(IsNormalized());
++	JPH_ASSERT(IsNormalized() || AllowsOriginalPoseDrift());
+ 	Vec4 t = mValue + mValue;
+ 	return Vec3(t.SplatX() * mValue + (t.SplatW() * mValue.Swizzle<SWIZZLE_W, SWIZZLE_Z, SWIZZLE_Y, SWIZZLE_X>()).FlipSign<1, 1, -1, 1>() - Vec4(1, 0, 0, 0));
+ }
+@@ -372,7 +372,7 @@
+ Vec3 Quat::RotateAxisY() const
+ {
+ 	// This is *this * Vec3::sAxisY() written out:
+-	JPH_ASSERT(IsNormalized());
++	JPH_ASSERT(IsNormalized() || AllowsOriginalPoseDrift());
+ 	Vec4 t = mValue + mValue;
+ 	return Vec3(t.SplatY() * mValue + (t.SplatW() * mValue.Swizzle<SWIZZLE_Z, SWIZZLE_W, SWIZZLE_X, SWIZZLE_Y>()).FlipSign<-1, 1, 1, 1>() - Vec4(0, 1, 0, 0));
+ }
+@@ -380,7 +380,7 @@
+ Vec3 Quat::RotateAxisZ() const
+ {
+ 	// This is *this * Vec3::sAxisZ() written out:
+-	JPH_ASSERT(IsNormalized());
++	JPH_ASSERT(IsNormalized() || AllowsOriginalPoseDrift());
+ 	Vec4 t = mValue + mValue;
+ 	return Vec3(t.SplatZ() * mValue + (t.SplatW() * mValue.Swizzle<SWIZZLE_Y, SWIZZLE_X, SWIZZLE_W, SWIZZLE_Z>()).FlipSign<1, -1, 1, 1>() - Vec4(0, 0, 1, 0));
+ }

@@ -1,0 +1,52 @@
+{
+  "git_prerequisite": "59776760a64286074b4244b7de388ee204eb91e7",
+  "adapter_prerequisite": "v50 full experimental snapshot plus v44 material frame and v40 contact cache headers",
+  "sdk_prerequisite": "v50 + v37 experimental SDK chain",
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_SINGLE_AXIS_FRICTION",
+    "RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_LOCAL_POINT_ORDER",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_LEVER_ORDER",
+    "RRR3D_EXPERIMENT_NATIVE_CALLBACK_ACTOR_ROTATION",
+    "RRR3D_EXPERIMENT_NATIVE_NONUNIT_POSE_MATRIX"
+  ],
+  "all_default_off": true,
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "dc15be4151b6ce3fb269512f16562d8a975e4c90b02cb996e9f3d04ba9b306bd",
+      "after_sha256": "21d671e6fcf0b042ff2da4cb8f21954b0836d533aea7986aa109b90156fd7efd"
+    },
+    "src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h": {
+      "before_sha256": "b2a3eafc122e41858559e3668fe6c7ed7f354627e143b4ba96909a755d5947e5",
+      "after_sha256": "bc9af31a068dafbef5455efc1c722ce0b2824c3b7c7497760ead0aed6e7bc3db"
+    },
+    "src/Rock3dEngine/header/physics/NativeContactCache.h": {
+      "before_sha256": "1ca9d36ec77df352a9d9da78f7533b329cbc462c05bcab9fa805e416c1e241d2",
+      "after_sha256": "5f9a9d89b377ae3bd5461aca9d8f0ffe1adb1b4c8beb0700eabf47f3953364f7"
+    },
+    "sdk/Jolt/Physics/Constraints/ContactConstraintManager.h": {
+      "before_sha256": "b00b733e7ebcf1b5f6dafc5ba8f1761315e0e82636c0e970eafe879b2fbbd03d",
+      "after_sha256": "f0f1bb66dbb10d94b419318ac5db734f077382728a22d966f68df3c2c2d8958d"
+    },
+    "sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp": {
+      "before_sha256": "3cdda0b5c8d7a12a0d80455e41ba88dbcbece20a870bfc8a132464b29aca8e94",
+      "after_sha256": "a47e8285c5c1954338573a6240c6a2585cd1f82fb3f38142bc423f6a8a2de143"
+    },
+    "sdk/Jolt/Physics/Collision/ContactListener.h": {
+      "before_sha256": "aff4a787636641e9d4ed805286b4aecb73cc01d6e08609cc03f8ee8e6014bf83",
+      "after_sha256": "c3f093746f98fc9da39b17f99a3ef84a9895adc2106e2992ac91b0a07caee7cb"
+    },
+    "sdk/Jolt/Math/Mat44.inl": {
+      "before_sha256": "9b120e9057b0eac9067f7899db0a4298c970276b96098dfdfd3f970d89575afd",
+      "after_sha256": "252067daf3b60c657f71957f8771262ed816d1fe4f8ca51c159d021d9444e1c5"
+    },
+    "sdk/Jolt/Math/Quat.h": {
+      "before_sha256": "8e6138166569495580369a1663002c0bcf20bdfc30ba0cbbe3faf05d1c8da2e1",
+      "after_sha256": "b06c507a826cc9c7fe6fef6d17d3f013879db9139fe32ecfe96b1602dab36d6f"
+    },
+    "sdk/Jolt/Math/Quat.inl": {
+      "before_sha256": "9ecd4a5793039cb4377100bb62c6e35bdd87954f804860d884cc87a889586c02",
+      "after_sha256": "11c69513c986670298b3b74af6816d645b8e9a5ee9358a8a8e423569945b413c"
+    }
+  }
+}

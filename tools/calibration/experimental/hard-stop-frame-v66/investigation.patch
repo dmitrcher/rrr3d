@@ -1,0 +1,70 @@
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -582,6 +582,14 @@
+ 			if (w->mSuspensionLength < settings->mSuspensionMinLength + (source_stop? 0.05f : 0.0f)) {
+ 				w->mSuspensionMaxUpPart.CalculateConstraintProperties(*mBody, r1_plus_u, *w->mContactBody, r2, neg_contact_normal);
+ 				if (source_stop) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.7f * (w->mSuspensionLength - settings->mSuspensionMinLength) / inDeltaTime);
++                const char* stopFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_HARD_STOP_FRAME_V66");
++                if(frame_v57 && stopFrameFlag && std::strcmp(stopFrameFlag,"1")==0) {
++                    if(cached_frame_v58)w->mSuspensionMaxUpPart.PrepareNativeWheelLocalFrameV58(*mBody,w->mSourceLocalContactPointV58,w->mSourceLocalContactAxisV58);
++                    else w->mSuspensionMaxUpPart.PrepareNativeWheelFrameV57(*mBody,w->mContactPosition,neg_contact_normal);
++                    // Spring and tire rows already use the Native Jacobian and
++                    // scalar inertia operation; the hard stop previously did not.
++                    w->mSuspensionMaxUpPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,prepared_normal_v57,true);
++                }
+ 			} else
+ 				w->mSuspensionMaxUpPart.Deactivate();
+ 
+@@ -698,6 +706,18 @@
+ 	const bool source_stop = UsesSourceSuspensionStop();
+ 	if (source) ++mSourceVelocitySteps;
+ 	bool impulse = false;
++const auto SolveSuspensionStopV66=[&](Body& body,Wheel& wheel)
++{
++    Vec3 axis=-wheel.mContactNormal;
++    const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_HARD_STOP_FRAME_V66");
++    if(source && source_stop && flag && std::strcmp(flag,"1")==0 && AxisConstraintPart::UsesNativeWheelFrameV57()
++        && wheel.mContactBody->IsStatic() && wheel.mSteerAngle==0 && !wheel.mSettings->mEnableSuspensionForcePoint) {
++        const char* cachedFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
++        const bool cached=cachedFlag && std::strcmp(cachedFlag,"1")==0 && wheel.mSourceContactLost && wheel.mSourceLocalContactValidV58;
++        axis=cached?AxisConstraintPart::NativeWheelLocalAxisV58(body,wheel.mSourceLocalContactAxisV58):AxisConstraintPart::NativeWheelFrameAxisV57(body,axis);
++    }
++    return wheel.mSuspensionMaxUpPart.SolveVelocityConstraint(body,*wheel.mContactBody,axis,0.0f,FLT_MAX);
++};
+ 
+     const char* creationOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ROW_CREATION_ORDER_V64");
+     const bool creationOrder=source && source_stop && creationOrderFlag && std::strcmp(creationOrderFlag,"1")==0;
+@@ -725,7 +745,7 @@
+         if(wheel->mContactBody && wheel->mSuspensionMaxUpPart.IsActive()
+             && (batchedStops || wheel->mSourceContactLost)) {
+             TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"retained-stop-before",wheel->mSuspensionMaxUpPart.GetTotalLambda(),wheel->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
+-            impulse |= wheel->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody,*wheel->mContactBody,-wheel->mContactNormal,0.0f,FLT_MAX);
++            impulse |= SolveSuspensionStopV66(*mBody,*wheel);
+             TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"retained-stop-after",wheel->mSuspensionMaxUpPart.GetTotalLambda(),wheel->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
+         }
+     }
+@@ -739,13 +759,13 @@
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+             if(creationOrder && orderedRows[index].stop) {
+                 TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"ordered-stop-before",w->mSuspensionMaxUpPart.GetTotalLambda(),w->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
+-                impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody,*w->mContactBody,neg_contact_normal,0.0f,FLT_MAX);
++                impulse |= SolveSuspensionStopV66(*mBody,*w);
+                 TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"ordered-stop-after",w->mSuspensionMaxUpPart.GetTotalLambda(),w->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
+                 continue;
+             }
+ 
+ 			if (!creationOrder && source_stop && !batchedStops && !(lostStops && w->mSourceContactLost) && w->mSuspensionMaxUpPart.IsActive())
+-				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++				impulse |= SolveSuspensionStopV66(*mBody,*w);
+ 
+             const char *local_lost_flag_v58=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
+             const bool cached_frame_v58=local_lost_flag_v58&&std::strcmp(local_lost_flag_v58,"1")==0
+@@ -760,7 +780,7 @@
+ 
+             TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"spring-after",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
+ 			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+-				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++				impulse |= SolveSuspensionStopV66(*mBody,*w);
+ 
+ 		}
+ 

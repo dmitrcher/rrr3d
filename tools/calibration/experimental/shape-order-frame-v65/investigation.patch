@@ -1,0 +1,16 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1253,7 +1253,12 @@
+                 }
+                 const char* triangleNormalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL");
+                 const auto callbackPlane=triangleNormalFlag && std::strcmp(triangleNormalFlag,"1")==0?publicTriangleNormal:plane;
+-                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane,callbackPlane,nativeHullReference);
++                const char* shapeOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SHAPE_ORDER_FRAME_V65");
++                const bool shapeOrderFrame=shapeOrderFlag && std::strcmp(shapeOrderFlag,"1")==0;
++                // Diagnostic hypothesis: Native shape0 is the later-created
++                // actor, independent of which manifold polygon won SAT.
++                const bool staticFirst=shapeOrderFrame?surface.GetID().GetIndex()>car.GetID().GetIndex():nativeHullReference;
++                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane,callbackPlane,staticFirst);
+                 const char* solverFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
+                 if(nativeCandidate.callback.modified && solverFrameFlag && std::strcmp(solverFrameFlag,"1")==0) {
+                     output.mNativeSolverTangentActive=true;

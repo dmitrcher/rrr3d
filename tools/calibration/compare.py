@@ -2,6 +2,7 @@
 """Compare completed, identically commanded calibration runs against Windows."""
 import argparse
 import csv
+import gzip
 import hashlib
 import json
 import math
@@ -22,9 +23,30 @@ def finite(value):
         raise ValueError('Unsupported telemetry value')
 
 
+def capture_path(path):
+    path = Path(path)
+    compressed = path.with_name(path.name + '.gz')
+    return compressed if not path.exists() and compressed.exists() else path
+
+
+def open_capture(path, mode='rt'):
+    path = capture_path(path)
+    options = {'encoding': 'utf-8-sig'} if 't' in mode else {}
+    return gzip.open(path, mode, **options) if path.suffix == '.gz' else path.open(mode, **options)
+
+
+def capture_sha256(path):
+    """Hash logical capture bytes, preserving the original hash after compression."""
+    digest = hashlib.sha256()
+    with open_capture(path, 'rb') as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def load(path, expected):
     cases = {}
-    with Path(path).open(encoding='utf-8-sig') as stream:
+    with open_capture(path) as stream:
         for number, line in enumerate(stream, 1):
             if not line.strip(): continue
             try:
@@ -143,7 +165,7 @@ def compare(reference, candidate, out=None):
         fields = ('position_error','velocity_error','rotation_error_radians','wheel_speed_error','angular_momentum_error','suspension_length_error','wheel_height_error') + tuple(field+'_'+axis+'_error' for field in ('position','velocity','angular_momentum') for axis in 'xyz')
         result[name] = {'samples':len(errors),'rms':{f:rms([e[f] for e in errors]) for f in fields},'maximum':{f:max(e[f] for e in errors) for f in fields},'wheel_contact_mismatch_fraction':sum(e['wheel_contact_mismatch'] for e in errors)/(len(errors)*4),'windows_final':left['rows'][-1],'mac_final':right['rows'][-1]}
         details.extend(errors)
-    report = {'schema':1, 'reference':'Windows PhysX 2.8.4', 'candidate':'Mac production Jolt vehicle adapter', 'reference_sha256':hashlib.sha256(Path(reference).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(Path(candidate).read_bytes()).hexdigest(),'candidate_profiles': sorted({c['meta']['profile'] for c in b.values()}),'comparable_scenario':True,'cases':result,'limitations':['Controlled tests include all 17 original chassis and each positive workshop tire function. Equal Nm/wheel bypasses gearing/AI; individual presets do not certify every combined loadout or complete map.','Fixed solver steps remove frame-rate dependence; repeat captures are still required to measure solver variance.','Raw engine slip/normal-force fields use backend conventions and must not be compared as identical observables. Remaining contact/transient differences are recorded, not hidden by the aggregate score.']}
+    report = {'schema':1, 'reference':'Windows PhysX 2.8.4', 'candidate':'Mac production Jolt vehicle adapter', 'reference_sha256':capture_sha256(reference),'candidate_sha256':capture_sha256(candidate),'candidate_profiles': sorted({c['meta']['profile'] for c in b.values()}),'comparable_scenario':True,'cases':result,'limitations':['Controlled tests include all 17 original chassis and each positive workshop tire function. Equal Nm/wheel bypasses gearing/AI; individual presets do not certify every combined loadout or complete map.','Fixed solver steps remove frame-rate dependence; repeat captures are still required to measure solver variance.','Raw engine slip/normal-force fields use backend conventions and must not be compared as identical observables. Remaining contact/transient differences are recorded, not hidden by the aggregate score.']}
     report['rotation_metric'] = '2*atan2(norm(vector(conj(q_windows)*q_mac)), abs(dot(q_windows,q_mac)))'
     remaining = [name for name,c in result.items()
                  if any(value != 0 for value in c['maximum'].values())

@@ -1,0 +1,58 @@
+{
+  "baseline_commit": "856528942b4a8fc490a91766a0ad0de17ad5bb4d",
+  "baseline": "Exact active v58 investigation chain. Install all recorded predecessors before this incremental experiment; ordinary root adapter is not this base.",
+  "predecessor": "../practical-parity-v58/base.json",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "2a741b9c05f64ba1c70553ab6d91586dd971c34568f1f542d9cda90169b7f415",
+      "after_sha256": "e98a5574554720e6dbbc7ae6d9bce367beb92c9c6b93f136de9c9d12d20f58a2"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "8f6dc93d7517de99b90985bd128dcf5cdb307c6f4d8c9207a6c14ed84c5ac661",
+      "after_sha256": "a5a71cfbc5ad0447769d596c5c0ef63db260f85f41352945704bc0591d1bd6d3"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "0cfe0a25eb8aeb963567b744a553196f8f1b03959b930099552f14de4c169bd0",
+      "after_sha256": "a72f4d69934804ae9e8409373d4c7ed01e0484e8adcdb079a809ce29d989d9a4"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "a6e6401cc5b9c1a51704ec622a1a03cbfedf09c0f2ffc5cbf88fdbe0f6125c0b",
+      "after_sha256": "f966ef7247438fc9059b421cb2149cae826a0c3aef7ff4c5a43ec67b92393cbb"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "8c916320027ab47af3b1d85198152837e1416e0c9d8579789dd0c7a7473887b0",
+      "after_sha256": "21f85a18ed567cfc795b9bbc0bc56d113fbf0c74817e7f7ade23fef46fc7d14c"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "5013dba22996f8cebcc06aa65f69baaf42a31d6069969b25a86ec81e9a8252c7",
+      "after_sha256": "2eb6fd4543fa8ee31870b974a0cdf6ee125daf2f79133e88764c75cd2c082284"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeWheelBoxRayV59.h",
+      "before_sha256": null,
+      "after_sha256": "7eaa3cffcdeec70f240660f037cc00ceb928980b72373350966810ec56e6533b"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_LOST_TIRES_V59",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"
+  ],
+  "default_off": true,
+  "sdk_layout_changed": true,
+  "snapshot_compatibility_certified": false,
+  "interactive_gameplay_parity_certified": false,
+  "goal_complete": false
+}

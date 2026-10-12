@@ -1,0 +1,397 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -16,6 +16,7 @@
+ #include "physics/NativeWheelRayV52.h"
+ #include "physics/NativeWheelPoseV54.h"
+ #include "physics/NativeTireV55.h"
++#include "physics/NativeWheelBoxRayV59.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -35,6 +36,7 @@
+ #include <Jolt/Physics/Collision/EstimateCollisionResponse.h>
+ #include <Jolt/Physics/Collision/RayCast.h>
+ #include <Jolt/Physics/Collision/CastResult.h>
++#include <Jolt/Physics/Collision/CollisionCollectorImpl.h>
+ #include <Jolt/Physics/PhysicsSystem.h>
+ #include <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+ #include <Jolt/Physics/Vehicle/VehicleConstraint.h>
+@@ -690,9 +692,22 @@
+             if (contactGeometry_[index].skin == skin && contactGeometry_[index].inset == inset)
+                 break;
+         if (index == contactGeometry_.size()) contactGeometry_.push_back({skin, inset});
++        wheelBoxQueryPaddingV59_=std::max(wheelBoxQueryPaddingV59_,inset.Length());
+         // These private box shapes have no other shape-user-data consumer.
+         // Indexing deduplicated geometry avoids retaining destroyed debris shapes.
+         box.SetUserData(contactGeometryMarker | static_cast<JPH::uint64>(index));
++    }
++    float wheelBoxQueryPaddingV59() const {
++        std::scoped_lock lock(mutex_);return wheelBoxQueryPaddingV59_;
++    }
++    bool wheelSourceBoxV59(const JPH::Body &body,motorrock::wheelboxrayv59::Box &output) const {
++        if(!body.IsStatic())return false;
++        SourceBox box;if(!sourceBox(body,box))return false;
++        output.half={{box.half.x,box.half.y,box.half.z}};
++        output.position={{box.transform.p.x,box.transform.p.y,box.transform.p.z}};
++        const auto &m=box.transform.m;
++        output.columns={{{{m.column0.x,m.column0.y,m.column0.z}},{{m.column1.x,m.column1.y,m.column1.z}},{{m.column2.x,m.column2.y,m.column2.z}}}};
++        return true;
+     }
+ 
+     void registerSourceMesh(JPH::Shape& shape, const JPH::TriangleList& triangles)
+@@ -1846,6 +1861,7 @@
+     struct SourceContactGeometry { float skin; JPH::Vec3 inset; };
+     static constexpr JPH::uint64 contactGeometryMarker = JPH::uint64(1) << 63;
+     std::vector<SourceContactGeometry> contactGeometry_;
++    float wheelBoxQueryPaddingV59_=0;
+     bool materialPairs_ = false;
+     bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
+     std::uint64_t traceStep_ = 0;
+@@ -1962,9 +1978,9 @@
+         public:
+             Collector(JPH::PhysicsSystem& physics, const JPH::RRayCast& value,
+                       const OriginalContactListener& listener, bool exactPoint,
+-                      wr::Vector start, wr::Vector unit, float length)
++                      wr::Vector start, wr::Vector unit, float length,bool exactBox)
+                 : system(physics), ray(value), contacts(listener), nativePoint(exactPoint),
+-                  rayStart(start), unitDirection(unit), queryLength(length)
++                  rayStart(start), unitDirection(unit), queryLength(length),nativeBox(exactBox)
+             {
+             }
+ 
+@@ -1976,6 +1992,10 @@
+                                        hit.mBodyID);
+                 if (!lock.Succeeded() || lock.GetBody().IsSensor())
+                     return;
++                if(nativeBox) {
++                    motorrock::wheelboxrayv59::Box full;
++                    if(contacts.wheelSourceBoxV59(lock.GetBody(),full))return;
++                }
+                 std::size_t vehicle = 0;
+                 const JPH::uint64 userData = lock.GetBody().GetUserData();
+                 if (vehicleIndex(userData, vehicle) ||
+@@ -2018,17 +2038,47 @@
+             bool nativePoint;
+             wr::Vector rayStart, unitDirection;
+             float queryLength;
++            bool nativeBox;
+             const JPH::Body* body = nullptr;
+             JPH::SubShapeID subShape;
+             JPH::RVec3 contactPosition;
+             JPH::Vec3 contactNormal;
+-        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength);
++        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"));
+ 
+         JPH::RayCastSettings settings;
+         settings.mBackFaceModeTriangles =
+             JPH::EBackFaceMode::CollideWithBackFaces;
+         system.GetNarrowPhaseQueryNoLock().CastRay(
+             ray, settings, collector, broadPhase, object, bodyFilter);
++        if(sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59")) {
++            // Body contacts use inset geometry to emulate the old contact
++            // skin. Suspension queries must see the full original box. The
++            // broad-phase padding only selects candidates; the exact full
++            // box intersection decides whether and where a wheel touches.
++            const float padding=contacts_.wheelBoxQueryPaddingV59()+std::sqrt(3.0F)*motorrock::wheelboxrayv59::parallel_bounds_epsilon;
++            JPH::AABox bounds;bounds.Encapsulate(JPH::Vec3(queryOrigin));bounds.Encapsulate(JPH::Vec3(queryOrigin+queryDelta));
++            bounds.mMin-=JPH::Vec3::sReplicate(padding);bounds.mMax+=JPH::Vec3::sReplicate(padding);
++            JPH::AllHitCollisionCollector<JPH::CollideShapeBodyCollector> boxes;
++            system.GetBroadPhaseQuery().CollideAABox(bounds,boxes,broadPhase,object);
++            for(const auto id:boxes.mHits) {
++                if(!bodyFilter.ShouldCollide(id))continue;
++                JPH::BodyLockRead lock(system.GetBodyLockInterfaceNoLock(),id);
++                if(!lock.Succeeded()||!bodyFilter.ShouldCollideLocked(lock.GetBody())||lock.GetBody().IsSensor())continue;
++                motorrock::wheelboxrayv59::Box box;
++                if(!contacts_.wheelSourceBoxV59(lock.GetBody(),box))continue;
++                auto hit=motorrock::wheelboxrayv59::cast(box,rayStart,unitDirection,queryLength);
++                if(!hit.hit||queryLength<=0)continue;
++                const float fraction=wr::div(hit.distance,queryLength);
++                if(fraction>=collector.GetEarlyOutFraction())continue;
++                auto normal=toJolt(Vec3{hit.normal[0],hit.normal[1],hit.normal[2]});
++                if(normal.Dot(JPH::Vec3::sAxisY())<0)normal=-normal;
++                if(normal.Dot(JPH::Vec3::sAxisY())<=std::cos(80.0F*3.14159265358979323846F/180.0F))continue;
++                collector.UpdateEarlyOutFraction(fraction);
++                collector.body=&lock.GetBody();collector.subShape=JPH::SubShapeIDCreator().GetID();
++                collector.contactPosition=toJolt(Vec3{hit.point[0],hit.point[1],hit.point[2]});
++                collector.contactNormal=normal;
++            }
++        }
+         if (collector.body == nullptr)
+             return false;
+         outBody = const_cast<JPH::Body*>(collector.body);
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -98,6 +98,12 @@
+ 
+ bool Wheel::SolveLongitudinalConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse)
+ {
++ if(HasSourceLostTiresV59(inConstraint)) {
++  const auto axis=AxisConstraintPart::NativeWheelLocalAxisV58(*inConstraint.GetVehicleBody(),mSourceTireCacheV59.longitudinal_axis);
++  TraceSourceTireCacheV59(inConstraint,"lost-longitudinal-input");
++  const bool changed=mLongitudinalPart.SolveNativeWheelAnchorV57(*inConstraint.GetVehicleBody(),*mContactBody,axis,inMinImpulse,inMaxImpulse,false);
++  TraceSourceTireCacheV59(inConstraint,"lost-longitudinal-result");return changed;
++ }
+ 	TraceTireV55("longitudinal-input",mLongitudinalPart,*inConstraint.GetVehicleBody(),-mContactLongitudinal,mContactPosition,inMinImpulse,inMaxImpulse);
+ 	const char *anchor_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
+  const bool native_anchor=anchor_v57&&std::strcmp(anchor_v57,"1")==0&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal();
+@@ -108,6 +114,12 @@
+ 
+ bool Wheel::SolveLateralConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse)
+ {
++ if(HasSourceLostTiresV59(inConstraint)) {
++  const auto axis=AxisConstraintPart::NativeWheelLocalAxisV58(*inConstraint.GetVehicleBody(),mSourceTireCacheV59.lateral_axis);
++  TraceSourceTireCacheV59(inConstraint,"lost-lateral-input");
++  const bool changed=mLateralPart.SolveNativeWheelAnchorV57(*inConstraint.GetVehicleBody(),*mContactBody,axis,inMinImpulse,inMaxImpulse,false);
++  TraceSourceTireCacheV59(inConstraint,"lost-lateral-result");return changed;
++ }
+ 	TraceTireV55("lateral-input",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);
+ 	const char *anchor_v57=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
+  const bool native_anchor=anchor_v57&&std::strcmp(anchor_v57,"1")==0&&mContactBody->IsStatic()&&mSteerAngle==0&&inConstraint.UsesSourceSpringFinal();
+@@ -116,4 +128,48 @@
+ 	TraceTireV55("lateral-result",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);return changed;
+ }
+ 
++bool Wheel::SourceTireCacheEnabledV59() {
++ const char *flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_TIRES_V59");
++ return flag&&std::strcmp(flag,"1")==0;
++}
++bool Wheel::CanCacheSourceTiresV59(const VehicleConstraint &constraint) const {
++ const char *local=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
++ const char *anchor=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57");
++ return SourceTireCacheEnabledV59()&&constraint.UsesSourceSpringFinal()&&AxisConstraintPart::UsesNativeWheelFrameV57()
++  && local&&std::strcmp(local,"1")==0&&anchor&&std::strcmp(anchor,"1")==0
++  && mContactBody&&mContactBody->IsStatic()&&mSteerAngle==0&&!mSettings->mEnableSuspensionForcePoint
++  && mSourceLocalContactValidV58;
++}
++bool Wheel::HasSourceLostTiresV59(const VehicleConstraint &constraint) const {
++ return mSourceContactLost&&mSourceTireCacheV59.valid&&CanCacheSourceTiresV59(constraint);
++}
++void Wheel::CacheSourceTireLimitsV59(const VehicleConstraint &constraint,float longitudinal,float lateral) {
++ if(!mSourceContactLost&&CanCacheSourceTiresV59(constraint)&&mSourceTireCacheV59.anchor_prepared&&constraint.GetSourceVelocityStepsV57()==1) {
++  mSourceTireCacheV59.longitudinal_limit=longitudinal;
++  mSourceTireCacheV59.lateral_limit=lateral;
++  mSourceTireCacheV59.valid=true;
++  TraceSourceTireCacheV59(constraint,"cache");
++ }
++}
++void Wheel::TraceSourceTireCacheV59(const VehicleConstraint &constraint,const char *event) const {
++ const char *path=std::getenv("RRR3D_NATIVE_LOST_TIRE_V59_TRACE");if(!path||!*path)return;
++ const uint tick=constraint.GetSourceSimulationCounterV59()-1;
++ const char *from=std::getenv("RRR3D_NATIVE_LOST_TIRE_V59_TRACE_FROM");
++ const char *to=std::getenv("RRR3D_NATIVE_LOST_TIRE_V59_TRACE_TO");
++ if((from&&tick<std::strtoul(from,nullptr,10))||(to&&tick>std::strtoul(to,nullptr,10)))return;
++ FILE *fp=std::fopen(path,"a");if(!fp)return;
++ uint index=0;for(const auto *wheel:constraint.GetWheels()){if(wheel==this)break;++index;}
++ std::fprintf(fp,"{\"event\":\"%s\",\"tick\":%u,\"iteration\":%u,\"wheel\":%u,\"lost\":%s,\"rolling\":%.9g,\"longitudinal_limit\":%.9g,\"lateral_limit\":%.9g,\"longitudinal_geometry\":%.9g,\"lateral_geometry\":%.9g",event,tick,constraint.GetSourceVelocityStepsV57(),index,mSourceContactLost?"true":"false",mSourceTireCacheV59.rolling,mSourceTireCacheV59.longitudinal_limit,mSourceTireCacheV59.lateral_limit,mSourceTireCacheV59.longitudinal_geometry,mSourceTireCacheV59.lateral_geometry);
++ auto source_vector=[fp](const char *name,Vec3Arg v){std::fprintf(fp,",\"%s\":[%.9g,%.9g,%.9g]",name,v.GetX(),v.GetY(),v.GetZ());};
++ source_vector("local_point",mSourceLocalContactPointV58);
++ source_vector("local_longitudinal_axis",mSourceTireCacheV59.longitudinal_axis);
++ source_vector("local_lateral_axis",mSourceTireCacheV59.lateral_axis);
++ auto q=constraint.GetVehicleBody()->GetRotation();std::fprintf(fp,",\"rotation\":[%.9g,%.9g,%.9g,%.9g]",-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW());
++ for(uint i=0;i<2;++i){
++  const auto &part=i?mLateralPart:mLongitudinalPart;const auto &local=i?mSourceTireCacheV59.lateral_axis:mSourceTireCacheV59.longitudinal_axis;
++  auto axis=AxisConstraintPart::NativeWheelLocalAxisV58(*constraint.GetVehicleBody(),local),jac=part.GetDiagnosticR1CrossAxis();
++  std::fprintf(fp,",\"%s_row\":{\"axis\":[%.9g,%.9g,%.9g],\"jacobian\":[%.9g,%.9g,%.9g],\"mass\":%.9g,\"lambda\":%.9g}",i?"lateral":"longitudinal",-axis.GetX(),-axis.GetZ(),-axis.GetY(),jac.GetX(),jac.GetZ(),jac.GetY(),part.GetDiagnosticEffectiveMass(),part.GetTotalLambda());
++ }
++ std::fprintf(fp,"}\n");std::fclose(fp);
++}
+ JPH_NAMESPACE_END
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.h
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.h
+@@ -119,13 +119,34 @@
+ 	/// Internal function that should only be called by the controller. Used to apply impulses in the sideways direction of the vehicle.
+ 	bool					SolveLateralConstraintPart(const VehicleConstraint &inConstraint, float inMinImpulse, float inMaxImpulse);
+ 
+-void SetSourceAnchorBiasV57(float longitudinal,float lateral,float rolling) { mLongitudinalPart.SetNativeWheelAnchorV57(rolling,longitudinal);mLateralPart.SetNativeWheelAnchorV57(0,lateral); }
++void SetSourceAnchorBiasV57(float longitudinal,float lateral,float rolling) {
++ mLongitudinalPart.SetNativeWheelAnchorV57(rolling,longitudinal);mLateralPart.SetNativeWheelAnchorV57(0,lateral);
++ if(SourceTireCacheEnabledV59()) {
++  mSourceTireCacheV59.longitudinal_geometry=longitudinal;
++  mSourceTireCacheV59.lateral_geometry=lateral;
++  mSourceTireCacheV59.rolling=rolling;
++  mSourceTireCacheV59.anchor_prepared=true;
++ }
++}
+ void ClearSourceAnchorGeometryV57() { mLongitudinalPart.ClearNativeWheelAnchorGeometryV57();mLateralPart.ClearNativeWheelAnchorGeometryV57(); }
+  bool HasStaticSourceContactV58() const { return HasContact() && mContactBody != nullptr && mContactBody->IsStatic(); }
++ static bool SourceTireCacheEnabledV59();
++ bool CanCacheSourceTiresV59(const VehicleConstraint &constraint) const;
++ bool HasSourceLostTiresV59(const VehicleConstraint &constraint) const;
++ void CacheSourceTireLimitsV59(const VehicleConstraint &constraint,float longitudinal,float lateral);
++ void TraceSourceTireCacheV59(const VehicleConstraint &constraint,const char *event) const;
++ float GetSourceLongitudinalLimitV59() const { return mSourceTireCacheV59.longitudinal_limit; }
++ float GetSourceLateralLimitV59() const { return mSourceTireCacheV59.lateral_limit; }
+ 
+ void SetSourceContactBasisV55(Vec3Arg lateral, Vec3Arg longitudinal) { mContactLateral=lateral;mContactLongitudinal=longitudinal; }
+ 
+ protected:
++    struct SourceTireCacheV59 {
++        Vec3 longitudinal_axis=Vec3::sZero(),lateral_axis=Vec3::sZero();
++        float longitudinal_limit=0,lateral_limit=0;
++        float longitudinal_geometry=0,lateral_geometry=0,rolling=0;
++        bool anchor_prepared=false,valid=false;
++    } mSourceTireCacheV59;
+     // Original PhysX keeps both actor-local row anchors for its one-step
+     // lost-contact spring. A stale world point cannot be inverted again after
+     // the car has moved. Coordinates here are the original source frame.
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -473,6 +473,19 @@
+             }
+             const bool cached_frame_v58=local_lost_v58&&w->mSourceContactLost&&w->mSourceLocalContactValidV58;
+             if(cached_frame_v58)prepared_normal_v57=AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceLocalContactAxisV58);
++            if(!w->mSourceContactLost) {
++                w->mSourceTireCacheV59.valid=false;
++                w->mSourceTireCacheV59.anchor_prepared=false;
++                if(w->CanCacheSourceTiresV59(*this)) {
++                    namespace frame=motorrock_native_wheel_frame_v57;
++                    auto q=mBody->GetRotation();frame::Quaternion rotation{{-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW()}};
++                    auto lon=w->mContactLongitudinal,lat=w->mContactLateral;
++                    auto a=frame::inverse(rotation,{{lon.GetX(),lon.GetZ(),lon.GetY()}},true);
++                    auto b=frame::inverse(rotation,{{lat.GetX(),lat.GetZ(),lat.GetY()}},true);
++                    w->mSourceTireCacheV59.longitudinal_axis=Vec3(a[0],a[1],a[2]);
++                    w->mSourceTireCacheV59.lateral_axis=Vec3(b[0],b[1],b[2]);
++                }
++            }
+ 
+ 
+ 			// Suspension spring
+@@ -565,7 +578,21 @@
+ 				w->mSuspensionMaxUpPart.Deactivate();
+ 
+ 			// Friction and propulsion
+-			if (w->mSourceContactLost) {
++            if(w->HasSourceLostTiresV59(*this)) {
++                auto lon=AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceTireCacheV59.longitudinal_axis);
++                auto lat=AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceTireCacheV59.lateral_axis);
++                // Initialize hard-row storage with the collision axes. The
++                // original non-unit prepared axes/Jacobians and mass replace
++                // this generic preparation below, as in the active v57 path.
++                w->mLongitudinalPart.CalculateConstraintProperties(*mBody,r1_plus_u,*w->mContactBody,r2,-w->mContactLongitudinal);
++                w->mLateralPart.CalculateConstraintProperties(*mBody,r1_plus_u,*w->mContactBody,r2,-w->mContactLateral);
++                w->mLongitudinalPart.PrepareNativeWheelLocalFrameV58(*mBody,w->mSourceLocalContactPointV58,w->mSourceTireCacheV59.longitudinal_axis);
++                w->mLateralPart.PrepareNativeWheelLocalFrameV58(*mBody,w->mSourceLocalContactPointV58,w->mSourceTireCacheV59.lateral_axis);
++                w->mLongitudinalPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,lon,true);
++                w->mLateralPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,lat,true);
++                w->mLongitudinalPart.SetNativeWheelAnchorV57(w->mSourceTireCacheV59.rolling,w->mSourceTireCacheV59.longitudinal_geometry);
++                w->mLateralPart.SetNativeWheelAnchorV57(0,w->mSourceTireCacheV59.lateral_geometry);
++            } else if (w->mSourceContactLost) {
+ 				w->mLongitudinalPart.Deactivate();
+ 				w->mLateralPart.Deactivate();
+ 			} else {
+@@ -586,6 +613,7 @@
+ 		else
+ 		{
+ 			// No contact -> disable everything
++            w->mSourceTireCacheV59.valid=false;
+ 			w->mSuspensionPart.Deactivate();
+ 			w->mSuspensionMaxUpPart.Deactivate();
+ 			w->mLongitudinalPart.Deactivate();
+@@ -599,6 +627,7 @@
+ {
+ 	for (Wheel *w : mWheels)
+ 	{
++        w->mSourceTireCacheV59.valid=false;
+ 		w->mSuspensionPart.Deactivate();
+ 		w->mSuspensionMaxUpPart.Deactivate();
+ 		w->mLongitudinalPart.Deactivate();
+@@ -806,6 +835,9 @@
+  const char *mode = std::getenv("RRR3D_EXPERIMENT_SPRING_FINAL");
+  return mode != nullptr && std::strcmp(mode, "1") == 0 &&
+   !mWheels.empty() && mWheels[0]->mSettings->mSuspensionSpringBiasFactor == 0.7f;
++}
++uint VehicleConstraint::GetSourceSimulationCounterV59() const {
++ return mCurrentStep-uint32(Hash64(mBody->GetID().GetIndex()));
+ }
+ bool VehicleConstraint::PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies)
+ {
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -191,6 +191,7 @@
+ 	virtual bool				SolveVelocityConstraint(float inDeltaTime) override;
+ 	bool UsesSourceSpringFinal() const;
+ 	uint GetSourceVelocityStepsV57() const { return mSourceVelocitySteps; }
++ uint GetSourceSimulationCounterV59() const;
+ 	bool UsesSourceSuspensionStop() const;
+ 	bool PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies);
+ 	virtual bool				SolvePositionConstraint(float inDeltaTime, float inBaumgarte) override;
+--- a/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
++++ b/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
+@@ -664,7 +664,11 @@
+ 	uint wheel_index = 0;
+ 	for (Wheel *w_base : mConstraint.GetWheels())
+ 	{
+-		if (w_base->HasContact())
++        if(w_base->HasSourceLostTiresV59(mConstraint)) {
++            max_lateral_friction_impulse[wheel_index]=w_base->GetSourceLateralLimitV59();
++            float limit=w_base->GetSourceLongitudinalLimitV59();
++            impulse|=w_base->SolveLongitudinalConstraintPart(mConstraint,-limit,limit);
++        } else if (w_base->HasContact())
+ 		{
+ 			WheelWV *w = static_cast<WheelWV *>(w_base);
+ 			const WheelSettingsWV *settings = w->GetSettings();
+@@ -674,6 +678,7 @@
+ 			mTireMaxImpulseCallback(wheel_index,
+ 				max_longitudinal_friction_impulse, max_lateral_friction_impulse[wheel_index], w->GetSuspensionLambda(),
+ 				w->mCombinedLongitudinalFriction, w->mCombinedLateralFriction, w->mLongitudinalSlip, w->mLateralSlip, inDeltaTime);
++            w->CacheSourceTireLimitsV59(mConstraint,max_longitudinal_friction_impulse,max_lateral_friction_impulse[wheel_index]);
+ 
+ 			// Calculate relative velocity between wheel contact point and floor in longitudinal direction
+ 			Vec3 relative_velocity = mConstraint.GetVehicleBody()->GetPointVelocity(w->GetContactPosition()) - w->GetContactPointVelocity();
+@@ -743,7 +748,7 @@
+ 	{
+ 		wheel_index=reverse_lateral?uint(mConstraint.GetWheels().size())-1-visit:visit;
+ 		Wheel *w_base=mConstraint.GetWheels()[wheel_index];
+-		if (w_base->HasContact())
++		if (w_base->HasContact() || w_base->HasSourceLostTiresV59(mConstraint))
+ 		{
+ 			WheelWV *w = static_cast<WheelWV *>(w_base);
+ 
+--- /dev/null
++++ b/adapter/src/Rock3dEngine/header/physics/NativeWheelBoxRayV59.h
+@@ -0,0 +1,45 @@
++#pragma once
++#include "NativeWheelRayV52.h"
++#include <cfloat>
++#include <cmath>
++namespace motorrock::wheelboxrayv59 {
++namespace f32=motorrock::wheelrayv52;
++using Vector=f32::Vector;
++struct Box { Vector half,position; std::array<Vector,3> columns; };
++struct Hit { bool hit=false; float distance=0; Vector point{},normal{}; };
++// Measured independently in the original SDK: only exactly parallel axes
++// compare the origin against F32(half_extent + 1e-5), including at extent 200.
++// Non-parallel slab intersections keep the actual, unexpanded dimensions.
++inline constexpr float parallel_bounds_epsilon=1.0e-5f;
++inline float dot(const Vector &a,const Vector &b) {
++ return f32::add(f32::add(f32::mul(a[0],b[0]),f32::mul(a[1],b[1])),f32::mul(a[2],b[2]));
++}
++inline Hit cast(const Box &box,const Vector &start,const Vector &direction,float length) {
++ const auto delta=f32::subtract(start,box.position);
++ Vector local_start{},local_direction{};
++ for(unsigned i=0;i<3;++i){local_start[i]=dot(delta,box.columns[i]);local_direction[i]=dot(direction,box.columns[i]);}
++ float near=-FLT_MAX,far=FLT_MAX,normal_sign=1;unsigned normal_axis=0;
++ for(unsigned i=0;i<3;++i) {
++  if(local_direction[i]==0.0f) {
++   const float parallel_bound=f32::add(box.half[i],parallel_bounds_epsilon);
++   if(local_start[i]<-parallel_bound||local_start[i]>parallel_bound)return {};
++   continue;
++  }
++  float a=f32::div(f32::sub(-box.half[i],local_start[i]),local_direction[i]);
++  float b=f32::div(f32::sub(box.half[i],local_start[i]),local_direction[i]);
++  float sign=-1;
++  if(a>b){float temporary=a;a=b;b=temporary;sign=1;}
++  if(a>near){near=a;normal_axis=i;normal_sign=sign;}
++  if(b<far)far=b;
++  if(near>far)return {};
++ }
++ // Original Nx box queries do not return a hit when the ray starts inside.
++ if(far<0||near<0||near>length)return {};
++ Hit result;result.hit=true;result.distance=near;
++ for(unsigned i=0;i<3;++i){
++  result.point[i]=f32::add(start[i],f32::mul(direction[i],result.distance));
++  result.normal[i]=f32::mul(box.columns[normal_axis][i],normal_sign);
++ }
++ return result;
++}
++}

@@ -1,0 +1,58 @@
+{
+  "results": [
+    {
+      "dataset": "native-box-rays.jsonl",
+      "optimization": "-O0",
+      "queries": 384,
+      "matched_hits": 224,
+      "float32_mismatched_words": {
+        "hit": 0,
+        "distance": 0,
+        "normal": 0,
+        "point": 8
+      },
+      "reference_sha256": "2ef876ee525ff62e31b71051dbc40ec899fb6832b6ca10704f16ba3692f6a452"
+    },
+    {
+      "dataset": "native-box-rays.jsonl",
+      "optimization": "-O2",
+      "queries": 384,
+      "matched_hits": 224,
+      "float32_mismatched_words": {
+        "hit": 0,
+        "distance": 0,
+        "normal": 0,
+        "point": 8
+      },
+      "reference_sha256": "2ef876ee525ff62e31b71051dbc40ec899fb6832b6ca10704f16ba3692f6a452"
+    },
+    {
+      "dataset": "native-box-tolerance.jsonl",
+      "optimization": "-O0",
+      "queries": 408,
+      "matched_hits": 189,
+      "float32_mismatched_words": {
+        "hit": 0,
+        "distance": 0,
+        "normal": 0,
+        "point": 0
+      },
+      "reference_sha256": "a7391f7b5efdc8a02e462870c42693f4748fe058b1aa2a7220f5047a83eaffc0"
+    },
+    {
+      "dataset": "native-box-tolerance.jsonl",
+      "optimization": "-O2",
+      "queries": 408,
+      "matched_hits": 189,
+      "float32_mismatched_words": {
+        "hit": 0,
+        "distance": 0,
+        "normal": 0,
+        "point": 0
+      },
+      "reference_sha256": "a7391f7b5efdc8a02e462870c42693f4748fe058b1aa2a7220f5047a83eaffc0"
+    }
+  ],
+  "point_parity_complete": false,
+  "goal_complete": false
+}

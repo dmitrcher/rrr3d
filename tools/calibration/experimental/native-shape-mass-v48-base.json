@@ -1,0 +1,22 @@
+{
+  "base_commit": "426e8b001c146eab98451a73f59bbd8c983cae72",
+  "requires": "v47 experimental SDK/adapter chain; shape mass flag defaults off",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before": "ebc6aed31e01a359fee4e0ed542e36597e5ab39503b2aed8529f2b53d3cc703b",
+      "after": "7ce17ad17e203f0003681f34c379e35c850d311ebeb7910f72e6867905d25b32"
+    },
+    "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h": {
+      "before": "a4abd7143f4d9a667d6d91d0470a6d16b18559d048aaa5a33d603924320dffd9",
+      "after": "8456746c465a8c1ddd06e928de85766d28d26ea754f23fa3dd5ee56fc4e2ff0a"
+    },
+    "tools/calibration/mac.cpp": {
+      "before": "d474664c92cc55d848a88f985420bfacdbd7fb0d7899198e51402c132863a6e7",
+      "after": "9d50c59217d34bc17d88b745ca43bfc177ae0dda07e6f3268c88c46b2ab62972"
+    },
+    "src/Rock3dEngine/header/physics/NativeShapeMass.h": {
+      "before": null,
+      "after": "89d89b8f5fb00375bbbbab425f444df0e1b6ce85595cc16c4beb01087ce0feee"
+    }
+  }
+}

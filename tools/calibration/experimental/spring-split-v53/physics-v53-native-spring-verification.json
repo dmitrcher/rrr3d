@@ -1,0 +1,73 @@
+{
+  "case": "settle",
+  "original_windows_runs_per_capture": 2,
+  "native_capture_verification": {
+    "fixed": [
+      {
+        "repeat": 0,
+        "physical_sha256": "dc8188cae90be3833f68d8fcb4efc7e70cc552646938ea81defdc19a2b20503a",
+        "private_sha256": "94dc28ab66d1889fc1382c8a416d093dbae84f91f6656ef3dc5d86e2a0d9ea0a",
+        "all_original_600_physical_states_preserved": true
+      },
+      {
+        "repeat": 1,
+        "physical_sha256": "ca084932fe08fa032d353bd4851765074b700a93e55846f5641ee258e282ba2f",
+        "private_sha256": "7202b013b5f9f23e4a4c6edf400265cc9c60aef3216904ee7d4d27acbf5c7adb",
+        "all_original_600_physical_states_preserved": true
+      }
+    ],
+    "follow": [
+      {
+        "repeat": 0,
+        "physical_sha256": "bc7650fb5e18ff6d65671a0e554a17e360703b02b880e6d6826aa55baeb3744a",
+        "private_sha256": "f82da3f95b6562e1f69fe0b03f58a03c7967b3f4d4816fa81c4acf4c1937d2ae",
+        "all_original_600_physical_states_preserved": true
+      },
+      {
+        "repeat": 1,
+        "physical_sha256": "f0a6821470b9ba2ece695d622cf4e86bc59d1f03fa05078473fcaff48a2b389c",
+        "private_sha256": "7b0bad23a203618ff26c895b14510d689d9c8cf011ca52e06ff904c60efe1170",
+        "all_original_600_physical_states_preserved": true
+      }
+    ],
+    "solve": [
+      {
+        "repeat": 0,
+        "physical_sha256": "97bf430ad709b5c3e30c226e17d401ef0868a0ffccdc91f68e184e0af8e22f5f",
+        "private_sha256": "26e1e25884bc816c790013c22030cfa7ea0cd33e4e94f64a265594c3c0c7e14e",
+        "all_original_600_physical_states_preserved": true
+      },
+      {
+        "repeat": 1,
+        "physical_sha256": "8478b151b6a34a4974f31ac53fd9d6726d72283080a263401bdf2bbde7de7df1",
+        "private_sha256": "f30a76e40edfb2109e0cfb407dcf6c57b37a9092e2306cf7636d446c368e34d8",
+        "all_original_600_physical_states_preserved": true
+      }
+    ]
+  },
+  "original_first_contact_constraints": {
+    "springs": 4,
+    "tire_rows": 8,
+    "iterations": 5
+  },
+  "native_math_verification": [
+    {
+      "optimization": "O0",
+      "records": 144,
+      "output": "Verified 144 original Windows solve/final records",
+      "all_float32_words_exact": true
+    },
+    {
+      "optimization": "O2",
+      "records": 144,
+      "output": "Verified 144 original Windows solve/final records",
+      "all_float32_words_exact": true
+    }
+  ],
+  "prior_v17_error": "Final-bias retention-power approximation does not reproduce the original coupled row solve. Original keeps unclamped unbiased and clamped applied impulse sums; final pass removes geometric error and scales impulse softness by actual unbiased/applied ratio when abs(applied)>1e-10.",
+  "native_math_limitations": [
+    "Solve verification uses original measured row coefficients and original measured J*v.",
+    "Native row preparation, body velocity applications and complete gameplay parity are not proved by the isolated scalar verification."
+  ],
+  "goal_complete": false
+}

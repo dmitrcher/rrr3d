@@ -1,0 +1,47 @@
+{
+  "baseline_commit": "3e49a89d9ec863a1a7d4546e145ae143d06e4db3",
+  "scope": "Default-off runtime experiment, after v51 SDK changes and v52 adapter geometry experiment",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "before_sha256": "904a915c976256e73fcb13831f3373ec6b96394e27f1301be59e574aec96f326",
+      "after_sha256": "0b62ddb18965b5f5a656e4c635087f19361062bff81a0bc4dc029e80059e2233"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/SpringPart.h",
+      "before_sha256": "19b3659d0b6fe744a7cdaebd668dfe59c1fa5a21040e8e0a7080e23b075ea0a3",
+      "after_sha256": "adf9eb8f56047b8bf017e2ace6e08e9cb67156e7b545f6ac2175415093dd5938"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "cd018e7415df4908d4f4866e2c1679329c3c54dd6ee12eea45ab34bf22665489",
+      "after_sha256": "eb6ffe5ee5bffa4ea7e388345682053943aa4f73c75d759cf8d6def165a87e4f"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "bcf2e8991479f27d2333f50c09c2012a19510f9103dcd844f7bf20816ddeed89",
+      "after_sha256": "d1f6c0b4ccc2416259be0f5458bda73b0a4cbfef5fead2be0b8b7ccb8cc314ad"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h",
+      "before_sha256": null,
+      "after_sha256": "80e334c1df67ffa7a65a054fec76a18b1c793ffd064fe7b99746b20d8cda32ab"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "b1f385320675b11e11abc73928c1ee07a539756602e1df4633c879abec79e7f9",
+      "after_sha256": "3447c066e612d11f0371f6674fb13ee8df3ebdb344915016e05887df48eb57d9"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_SPRING_SPLIT_V53",
+    "RRR3D_EXPERIMENT_NATIVE_SPRING_PREP_V53"
+  ],
+  "goal_complete": false
+}

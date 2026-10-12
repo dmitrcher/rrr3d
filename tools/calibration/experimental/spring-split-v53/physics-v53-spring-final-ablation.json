@@ -1,0 +1,120 @@
+{
+  "scope": "Independent default-off v52 ray geometry / v53 split spring ablations, four cases, two actual Mac repeats each. Native row preparation remains unresolved.",
+  "control_preserves_v51": true,
+  "repeat_physics_and_geometry_exact": true,
+  "results": {
+    "control": {
+      "settle": {
+        "first_physical_difference": 20,
+        "exact_states": 20,
+        "total_states": 600
+      },
+      "spring-soft": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "suspension-drop": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "body-slide-diagonal": {
+        "first_physical_difference": null,
+        "exact_states": 180,
+        "total_states": 180
+      }
+    },
+    "v52": {
+      "settle": {
+        "first_physical_difference": 20,
+        "exact_states": 20,
+        "total_states": 600
+      },
+      "spring-soft": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "suspension-drop": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "body-slide-diagonal": {
+        "first_physical_difference": null,
+        "exact_states": 180,
+        "total_states": 180
+      }
+    },
+    "split": {
+      "settle": {
+        "first_physical_difference": 20,
+        "exact_states": 20,
+        "total_states": 600
+      },
+      "spring-soft": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "suspension-drop": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "body-slide-diagonal": {
+        "first_physical_difference": null,
+        "exact_states": 180,
+        "total_states": 180
+      }
+    },
+    "combined": {
+      "settle": {
+        "first_physical_difference": 20,
+        "exact_states": 20,
+        "total_states": 600
+      },
+      "spring-soft": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "suspension-drop": {
+        "first_physical_difference": 38,
+        "exact_states": 38,
+        "total_states": 600
+      },
+      "body-slide-diagonal": {
+        "first_physical_difference": null,
+        "exact_states": 180,
+        "total_states": 180
+      }
+    },
+    "native": {
+      "settle": {
+        "first_physical_difference": 21,
+        "exact_states": 21,
+        "total_states": 600
+      },
+      "spring-soft": {
+        "first_physical_difference": 39,
+        "exact_states": 39,
+        "total_states": 600
+      },
+      "suspension-drop": {
+        "first_physical_difference": 39,
+        "exact_states": 39,
+        "total_states": 600
+      },
+      "body-slide-diagonal": {
+        "first_physical_difference": null,
+        "exact_states": 180,
+        "total_states": 180
+      }
+    }
+  },
+  "coefficients_changed": false,
+  "solver_algorithm_changed": true,
+  "goal_complete": false
+}

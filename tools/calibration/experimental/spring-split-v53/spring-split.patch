@@ -1,0 +1,213 @@
+--- a/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -7,6 +7,7 @@
+ #include <Jolt/Physics/Body/Body.h>
+ #include <Jolt/Physics/Constraints/ConstraintPart/SpringPart.h>
+ #include <Jolt/Physics/Constraints/SpringSettings.h>
++#include <Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h>
+ #include <Jolt/Physics/StateRecorder.h>
+ #include <Jolt/Physics/DeterminismLog.h>
+ 
+@@ -671,6 +672,76 @@
+ 	void SetSourceContactLambda(float inLambda) { mTotalLambda = inLambda; }
+ 	template <EMotionType Type1, EMotionType Type2>
+ 	bool ApplySourceContactDelta(MotionProperties *inMotion1, float inInvMass1, MotionProperties *inMotion2, float inInvMass2, Vec3Arg inAxis, float inDelta, bool inPremultipliedLinear) const { return ApplyVelocityStep<Type1,Type2>(inMotion1,inInvMass1,inMotion2,inInvMass2,inAxis,inDelta,inPremultipliedLinear); }
++
++
++ void TraceNativeSplitV53(const char *event,const motorrock_native_spring_v53::State &s,float jv,float delta) const {
++  const char *path=std::getenv("RRR3D_NATIVE_SPRING_V53_TRACE");if(path==nullptr||*path==0)return;
++  static unsigned lines=0;if(lines>=256)return;FILE *fp=std::fopen(path,"a");if(fp==nullptr)return;
++  Vec3 r=GetDiagnosticR1CrossAxis(), inv=GetDiagnosticInvI1R1CrossAxis();
++  std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"effective_mass\":%.9g,\"position_term\":%.9g,\"impulse_softness\":%.9g,\"unbiased\":%.9g,\"applied\":%.9g,\"jv\":%.9g,\"delta\":%.9g,\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g]}\n",event,lines++,mEffectiveMass,s.position_term,s.impulse_softness,s.unbiased,mTotalLambda,jv,delta,r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ());std::fclose(fp);
++ }
++ void PrepareNativeSplitSpringV53(motorrock_native_spring_v53::State &s) const {
++  s.enabled=true; s.native_jv=false; s.unbiased=0.0f;
++  s.impulse_softness=motorrock_native_spring_v53::mul(mSpringPart.GetDiagnosticSoftnessV53(),mEffectiveMass);
++  s.position_term=motorrock_native_spring_v53::mul(mSpringPart.GetDiagnosticGeometricBiasV53(),mEffectiveMass);
++  s.velocity_bias=motorrock_native_spring_v53::sub(mSpringPart.GetDiagnosticConstantBiasV53(),mSpringPart.GetDiagnosticGeometricBiasV53());
++  TraceNativeSplitV53("prepare",s,0.0f,0.0f);
++ }
++
++ void PrepareNativeSpringCoefficientsV53(const Body &b1,const Body &b2,Vec3Arg axis,float dt,float raw_error,float stiffness,float damping,float bias_factor,motorrock_native_spring_v53::State &s) {
++  using namespace motorrock_native_spring_v53;
++  auto inverse=[&](const Body &b,Vec3Arg r,Vec3Arg inv) {
++   float norm=add(add(mul(axis.GetX(),axis.GetX()),mul(axis.GetY(),axis.GetY())),mul(axis.GetZ(),axis.GetZ()));
++   float k=mul(norm,b.GetMotionPropertiesUnchecked()->GetInverseMass());
++   k=add(k,mul(r.GetX(),inv.GetX()));k=add(k,mul(r.GetY(),inv.GetY()));return add(k,mul(r.GetZ(),inv.GetZ()));
++  };
++  float k=inverse(b1,GetDiagnosticR1CrossAxis(),GetDiagnosticInvI1R1CrossAxis());
++  if(b2.IsDynamic()) k=add(k,inverse(b2,GetDiagnosticR2CrossAxis(),GetDiagnosticInvI2R2CrossAxis()));
++  if(!(k>0.0f))return;
++  auto coefficients=prepare(k,dt,stiffness,damping,bias_factor);
++  mEffectiveMass=coefficients.mass;s.impulse_softness=coefficients.softness;
++  s.position_term=mul(mul(raw_error,div(1.0f,dt)),coefficients.position_coefficient);s.native_jv=true;
++  TraceNativeSplitV53("native-prepare",s,0.0f,0.0f);
++ }
++ void PrepareNativeFinalSpringV53(motorrock_native_spring_v53::State &s) const {
++  s.impulse_softness=motorrock_native_spring_v53::final_softness(s.impulse_softness,s.unbiased,mTotalLambda);
++  s.position_term=0.0f;
++  TraceNativeSplitV53("final",s,0.0f,0.0f);
++ }
++ template <EMotionType Type2>
++ bool TemplatedSolveNativeSplitSpringV53(Body &body1, Body &body2, Vec3Arg axis, motorrock_native_spring_v53::State &s, float minimum, float maximum) {
++  MotionProperties *mp1=body1.GetMotionPropertiesUnchecked();
++  MotionProperties *mp2=Type2!=EMotionType::Static?body2.GetMotionPropertiesUnchecked():nullptr;
++  float jv;
++  if constexpr(Type2!=EMotionType::Static) jv=axis.Dot(mp1->GetLinearVelocity()-mp2->GetLinearVelocity());
++  else jv=axis.Dot(mp1->GetLinearVelocity());
++  jv+=Vec3::sLoadFloat3Unsafe(mR1PlusUxAxis).Dot(mp1->GetAngularVelocity());
++  if constexpr(Type2!=EMotionType::Static) jv-=Vec3::sLoadFloat3Unsafe(mR2xAxis).Dot(mp2->GetAngularVelocity());
++  if(s.native_jv) {
++   auto source=[](Vec3Arg v,float *a){a[0]=v.GetX();a[1]=v.GetZ();a[2]=v.GetY();};
++   float n[3],r[3],v[3],w[3];source(axis,n);source(GetDiagnosticR1CrossAxis(),r);source(mp1->GetLinearVelocity(),v);source(mp1->GetAngularVelocity(),w);
++   jv=motorrock_native_spring_v53::body0_jv(n,r,v,w);
++   if constexpr(Type2!=EMotionType::Static) {
++    source(GetDiagnosticR2CrossAxis(),r);source(mp2->GetLinearVelocity(),v);source(mp2->GetAngularVelocity(),w);
++    jv=motorrock_native_spring_v53::sub(jv,motorrock_native_spring_v53::body1_jv(n,r,v,w));
++   }
++  }
++  TraceNativeSplitV53("input",s,jv,0.0f);
++  float velocity=motorrock_native_spring_v53::mul(motorrock_native_spring_v53::sub(jv,s.velocity_bias),mEffectiveMass);
++  auto result=motorrock_native_spring_v53::solve(velocity,s.position_term,s.impulse_softness,s.unbiased,mTotalLambda,1.0f,minimum,maximum);
++  s.unbiased=result.unbiased; mTotalLambda=result.biased;
++  TraceNativeSplitV53("result",s,jv,result.delta);
++  float inv2=0.0f; if constexpr(Type2==EMotionType::Dynamic) inv2=mp2->GetInverseMass();
++  return ApplyVelocityStep<EMotionType::Dynamic,Type2>(mp1,mp1->GetInverseMass(),mp2,inv2,axis,result.delta);
++ }
++ bool SolveNativeSplitSpringV53(Body &body1,Body &body2,Vec3Arg axis,motorrock_native_spring_v53::State &s,float minimum,float maximum) {
++  JPH_ASSERT(body1.IsDynamic());
++  switch(body2.GetMotionType()) {
++   case EMotionType::Dynamic:return TemplatedSolveNativeSplitSpringV53<EMotionType::Dynamic>(body1,body2,axis,s,minimum,maximum);
++   case EMotionType::Kinematic:return TemplatedSolveNativeSplitSpringV53<EMotionType::Kinematic>(body1,body2,axis,s,minimum,maximum);
++   default:return TemplatedSolveNativeSplitSpringV53<EMotionType::Static>(body1,body2,axis,s,minimum,maximum);
++  }
++ }
+ 	float GetDiagnosticEffectiveMass() const { return mEffectiveMass; }
+ 	float GetDiagnosticVelocityBias() const { return mSpringPart.GetBias(mTotalLambda); }
+ 	Vec3 GetDiagnosticR1CrossAxis() const { return Vec3::sLoadFloat3Unsafe(mR1PlusUxAxis); }
+--- a/sdk/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/SpringPart.h
+@@ -137,6 +137,10 @@
+ 		mBias -= mGeometricBias * remainder;
+ 	}
+ 
++	float GetDiagnosticGeometricBiasV53() const { return mGeometricBias; }
++	float GetDiagnosticSoftnessV53() const { return mSoftness; }
++	float GetDiagnosticConstantBiasV53() const { return mBias; }
++
+ 	/// Returns if this spring is active
+ 	inline bool					IsActive() const
+ 	{
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -521,6 +521,16 @@
+ 				float c = (w->mSuspensionLength - settings->mSuspensionMaxLength - settings->mSuspensionPreloadLength) * settings->mSuspensionSpringBiasFactor;
+ 
+ 				w->mSuspensionPart.CalculateConstraintPropertiesWithStiffnessAndDamping(inDeltaTime, *mBody, r1_plus_u, *w->mContactBody, r2, neg_contact_normal, w->mAntiRollBarImpulse, c, stiffness, damping);
++				w->mNativeSpringV53.enabled = false;
++				const char *split_v53 = std::getenv("RRR3D_EXPERIMENT_NATIVE_SPRING_SPLIT_V53");
++				if (UsesSourceSpringFinal() && split_v53 != nullptr && std::strcmp(split_v53, "1") == 0) w->mSuspensionPart.PrepareNativeSplitSpringV53(w->mNativeSpringV53);
++                const char *prep_v53 = std::getenv("RRR3D_EXPERIMENT_NATIVE_SPRING_PREP_V53");
++                if (w->mNativeSpringV53.enabled && prep_v53 != nullptr && std::strcmp(prep_v53, "1") == 0) {
++                    using namespace motorrock_native_spring_v53;
++                    float raw_error = sub(add(add(sub(w->mSuspensionLength, settings->mSuspensionMaxLength), 0.025f), 0.025f), settings->mSourceSpringTargetV53);
++                    w->mSuspensionPart.PrepareNativeSpringCoefficientsV53(*mBody, *w->mContactBody, neg_contact_normal, inDeltaTime, raw_error, stiffness, damping, settings->mSuspensionSpringBiasFactor, w->mNativeSpringV53);
++                }
++
+ 			}
+ 			else
+ 				w->mSuspensionPart.Deactivate();
+@@ -604,7 +614,7 @@
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+ 			if (w->mSuspensionPart.IsActive())
+-				impulse |= w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
++				impulse |= w->mNativeSpringV53.enabled? w->mSuspensionPart.SolveNativeSplitSpringV53(*mBody, *w->mContactBody, neg_contact_normal, w->mNativeSpringV53, 0.0f, FLT_MAX) : w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+ 			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+@@ -765,7 +775,7 @@
+  for (Wheel *w : mWheels)
+   if (w->mContactBody != nullptr) {
+    if (w->mContactBody->IsDynamic()) outBodies.push_back(w->mContactBody);
+-   if (w->mSuspensionPart.IsActive()) w->mSuspensionPart.PrepareSourceFinalSpringBias(mSourceVelocitySteps);
++   if (w->mSuspensionPart.IsActive()) { if (w->mNativeSpringV53.enabled) w->mSuspensionPart.PrepareNativeFinalSpringV53(w->mNativeSpringV53); else w->mSuspensionPart.PrepareSourceFinalSpringBias(mSourceVelocitySteps); }
+    if (UsesSourceSuspensionStop() && w->mSuspensionMaxUpPart.IsActive()) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.0f);
+   }
+  return true;
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.h
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.h
+@@ -35,6 +35,7 @@
+ 	float					mSuspensionMinLength = 0.3f;				///< How long the suspension is in max raised position relative to the attachment point (m)
+ 	float					mSuspensionMaxLength = 0.5f;				///< How long the suspension is in max droop position relative to the attachment point (m)
+ 	float					mSuspensionPreloadLength = 0.0f;			///< Natural length = max length + signed offset, constrained to be >= min length. A negative offset shortens the spring rest length without shortening the collision ray (PhysX compatibility).
++	float mSourceSpringTargetV53 = 0.0f; ///< Original target used only by the native spring preparation experiment.
+ 	float mSuspensionSpringBiasFactor = 1.0f; ///< Scale displacement correction independently of implicit spring stiffness.
+ 	SpringSettings			mSuspensionSpring { ESpringMode::FrequencyAndDamping, 1.5f, 0.5f }; ///< Settings for the suspension spring
+ 	float					mRadius = 0.3f;								///< Radius of the wheel (m)
+@@ -139,6 +140,7 @@
+ 	float					mAngularVelocity = 0.0f;					///< Rotation speed of wheel, positive when the wheels cause the vehicle to move forwards (rad/s)
+ 	float					mAngle = 0.0f;								///< Current rotation of the wheel (rad, [0, 2 pi])
+ 
++	motorrock_native_spring_v53::State mNativeSpringV53; ///< Experimental per-wheel split impulse state; generic constraints keep their layout.
+ 	AxisConstraintPart		mSuspensionPart;							///< Controls movement up/down along the contact normal
+ 	AxisConstraintPart		mSuspensionMaxUpPart;						///< Adds a hard limit when reaching the minimal suspension length
+ 	AxisConstraintPart		mLongitudinalPart;							///< Controls movement forward/backward
+--- /dev/null
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h
+@@ -0,0 +1,45 @@
++#pragma once
++#include <cmath>
++namespace motorrock_native_spring_v53 {
++inline float add(float a,float b){volatile float r=a+b;return r;}
++inline float sub(float a,float b){volatile float r=a-b;return r;}
++inline float mul(float a,float b){volatile float r=a*b;return r;}
++inline float div(float a,float b){volatile float r=a/b;return r;}
++struct State { bool enabled=false, native_jv=false; float unbiased=0.0f, position_term=0.0f, impulse_softness=0.0f, velocity_bias=0.0f; };
++struct Coefficients { float mass, softness, position_coefficient; };
++inline Coefficients prepare(float inverse_mass,float dt,float stiffness,float damping,float bias_factor) {
++ float hard_mass=div(1.0f,inverse_mass);
++ float damp=damping<9.999999747378752e-06f?9.999999747378752e-06f:damping;
++ float dt_stiffness=mul(dt,stiffness);
++ float denominator=add(dt_stiffness,damp);
++ float beta=div(dt_stiffness,denominator);
++ float gamma=div(1.0f,mul(denominator,dt));
++ float scale=div(1.0f,add(mul(gamma,hard_mass),1.0f));
++ return {mul(scale,hard_mass),div(hard_mass,add(div(1.0f,gamma),hard_mass)),mul(mul(mul(hard_mass,bias_factor),beta),scale)};
++}
++inline float body0_jv(const float *axis,const float *lever,const float *linear,const float *angular){
++ float r=add(mul(lever[2],angular[2]),mul(lever[0],angular[0]));
++ r=add(r,mul(axis[2],linear[2]));r=add(r,mul(axis[1],linear[1]));
++ r=add(r,mul(lever[1],angular[1]));return add(r,mul(axis[0],linear[0]));
++}
++inline float body1_jv(const float *axis,const float *lever,const float *linear,const float *angular){
++ float r=add(mul(lever[1],angular[1]),mul(lever[2],angular[2]));
++ r=add(r,mul(lever[0],angular[0]));r=add(r,mul(axis[2],linear[2]));
++ r=add(r,mul(axis[1],linear[1]));return add(r,mul(axis[0],linear[0]));
++}
++struct Result { float unbiased, biased, delta; };
++// The original solver keeps an unclamped impulse without geometric correction
++// alongside the clamped impulse applied to body velocity. Every operation is F32.
++inline Result solve(float velocity_term,float position_term,float impulse_softness,
++                    float unbiased,float biased,float scale,float minimum,float maximum) {
++ float next_unbiased=add(unbiased,mul(sub(velocity_term,mul(impulse_softness,unbiased)),scale));
++ float delta=mul(sub(sub(velocity_term,position_term),mul(impulse_softness,biased)),scale);
++ float next_biased=add(biased,delta);
++ if(next_biased>maximum){next_biased=maximum;delta=sub(maximum,biased);}
++ else if(minimum>next_biased){next_biased=minimum;delta=sub(minimum,biased);}
++ return {next_unbiased,next_biased,delta};
++}
++inline float final_softness(float impulse_softness,float unbiased,float biased){
++ return std::fabs(biased)>1.000000013351432e-10f?mul(div(unbiased,biased),impulse_softness):impulse_softness;
++}
++}
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -4351,6 +4351,7 @@
+             }
+             // Shipped wheels use targetValue zero. The Nx probe also verifies
+             // the SDK target offset, whose actual effect is in world units.
++            wheel->mSourceSpringTargetV53 = sourceWheel.suspensionTarget;
+             wheel->mSuspensionPreloadLength = 0.0F;
+             if (tuning_.physxWheelCompat)
+                 wheel->mSuspensionPreloadLength = -sourcePenetrationSlop + sourceWheel.suspensionTarget;

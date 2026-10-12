@@ -1,0 +1,39 @@
+{
+  "scope": "Only forward transformation of retained Native local axes/anchors and cross-product Jacobians; no freshly substituted Mac pose/anchor.",
+  "native_rows": 70,
+  "bindings": [
+    {
+      "scope": "border-counter61",
+      "two_repeats_prepared_fields_exact": true
+    },
+    {
+      "scope": "border-counter62",
+      "two_repeats_prepared_fields_exact": true
+    },
+    {
+      "scope": "drop-0",
+      "two_repeats_prepared_fields_exact": true
+    },
+    {
+      "scope": "drop-1",
+      "two_repeats_prepared_fields_exact": true
+    },
+    {
+      "scope": "drop-2",
+      "two_repeats_prepared_fields_exact": true
+    }
+  ],
+  "results": [
+    {
+      "opt": "-O0",
+      "returncode": 0,
+      "stdout": "ok 420 failed 0\n"
+    },
+    {
+      "opt": "-O2",
+      "returncode": 0,
+      "stdout": "ok 420 failed 0\n"
+    }
+  ],
+  "goal_complete": false
+}

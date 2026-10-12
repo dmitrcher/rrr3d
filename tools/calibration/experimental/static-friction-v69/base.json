@@ -1,0 +1,30 @@
+{
+  "base": "Exact preceding checkpoint, guarded all-or-nothing source validation before installation. All new flags default off.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/ContactListener.h",
+      "before_sha256": "c3f093746f98fc9da39b17f99a3ef84a9895adc2106e2992ac91b0a07caee7cb",
+      "after_sha256": "e41d48771f001d4aa3a9a9da979ce117b190d7721358ad5714d8a09f07e6e84b"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.h",
+      "before_sha256": "f0f1bb66dbb10d94b419318ac5db734f077382728a22d966f68df3c2c2d8958d",
+      "after_sha256": "27a971938a16d2fb3394ed574c6aacb2541f1f98e9b2791cc0f371a8f682b183"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "a2dd33cf9a4839497bcf9a4d96fab4607338f42b3a1dc3a130f3a560aadf2370",
+      "after_sha256": "a6823c814b3014715b68f2dcc934d6cca8ce384329162bd935bd3f3be1bf21c3"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "b6bfc66bec2a3bc10ee4877a241da4a3f02831834e0a24c68d22227711f8c598",
+      "after_sha256": "c30967d63f3e20355f3552df9cc9689608d2b0ee2d5686dec42384fc548a44f1"
+    }
+  ],
+  "goal_complete": false
+}

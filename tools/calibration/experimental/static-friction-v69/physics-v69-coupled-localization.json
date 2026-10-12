@@ -1,0 +1,71 @@
+{
+  "alignment": {
+    "native_integrator_counter": 62,
+    "mac_wheel_counter": 64,
+    "mac_contact_telemetry_step": 63,
+    "corresponding_after_solve_sample_tick": 63
+  },
+  "rounds": [
+    {
+      "iteration": 1,
+      "before_wheel_velocity_error": 3.018028852584483e-06,
+      "before_wheel_angular_error": 2.940258467257493e-06,
+      "after_wheel_velocity_error": 3.0165435682341855e-06,
+      "after_wheel_angular_error": 2.9405689099116336e-06,
+      "after_wheel_matches_first_mac_contact": true
+    },
+    {
+      "iteration": 2,
+      "before_wheel_velocity_error": 8.025021071477306e-05,
+      "before_wheel_angular_error": 3.6966663688170595e-05,
+      "after_wheel_velocity_error": 8.125342827954665e-05,
+      "after_wheel_angular_error": 2.0879937255778472e-05,
+      "after_wheel_matches_first_mac_contact": true
+    },
+    {
+      "iteration": 3,
+      "before_wheel_velocity_error": 0.4921399861224732,
+      "before_wheel_angular_error": 2.404171900692055,
+      "after_wheel_velocity_error": 0.03571846159575013,
+      "after_wheel_angular_error": 0.7247763060262972,
+      "after_wheel_matches_first_mac_contact": true
+    },
+    {
+      "iteration": 4,
+      "before_wheel_velocity_error": 0.02750134608800182,
+      "before_wheel_angular_error": 0.8556759396733735,
+      "after_wheel_velocity_error": 0.1319907367706891,
+      "after_wheel_angular_error": 1.46142070415241,
+      "after_wheel_matches_first_mac_contact": true
+    },
+    {
+      "iteration": 5,
+      "before_wheel_velocity_error": 0.08594709791177507,
+      "before_wheel_angular_error": 1.1049162411581392,
+      "after_wheel_velocity_error": 0.17717066832978326,
+      "after_wheel_angular_error": 1.3795959787996641,
+      "after_wheel_matches_first_mac_contact": true
+    }
+  ],
+  "localized_difference": {
+    "native_force": [
+      -1659.469482421875,
+      -2.1576004028320312,
+      -362.0024719238281
+    ],
+    "mac_force": [
+      -1659.47717,
+      3.08612776,
+      517.790039
+    ],
+    "static_coefficient_native": 3.200000047683716,
+    "dynamic_coefficient_native_and_mac": 1.0,
+    "original_game_material": "src/Rock3dGame/source/game/DataBase.cpp car staticFrictionV=3.2 and dynamicFrictionV=2.0; Native pair caps affect dynamic coefficient independently."
+  },
+  "identical_input_proof": {
+    "native_static_exact_transitions": 40,
+    "legacy_dynamic_only_exact_transitions": 37,
+    "total_transitions": 40
+  },
+  "goal_complete": false
+}

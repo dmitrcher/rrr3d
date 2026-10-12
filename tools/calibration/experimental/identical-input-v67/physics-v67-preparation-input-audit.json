@@ -1,0 +1,627 @@
+{
+  "scope": "Native integration counter61 and Mac vehicle counter63 are same solve; nine-digit JSON roundtrips to float32 before comparison. Different input states do not prove preparation formula error.",
+  "results": {
+    "v64": [
+      {
+        "wheel": 3,
+        "comparisons": {
+          "quaternion": {
+            "native_words": [
+              3126583376,
+              3186507929,
+              979705444,
+              1065239295
+            ],
+            "mac_words": [
+              3126583362,
+              3186507929,
+              979705443,
+              1065239295
+            ],
+            "exact_components": 2,
+            "components": 4,
+            "absolute_difference": [
+              8.149072527885437e-10,
+              0.0,
+              5.820766091346741e-11,
+              0.0
+            ]
+          },
+          "center": {
+            "native_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "mac_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "exact_components": 3,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "world_point": {
+            "native_words": [
+              1089879956,
+              1067708032,
+              1092616192
+            ],
+            "mac_words": [
+              1089879956,
+              1067708032,
+              1092616192
+            ],
+            "exact_components": 3,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "cached_local_point": {
+            "native_words": [
+              3213676184,
+              3208643649,
+              3200741776
+            ],
+            "mac_words": [
+              3213676184,
+              3208643649,
+              3200741776
+            ],
+            "exact_components": 3,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "cached_local_axis": {
+            "native_words": [
+              1047306768,
+              3136620956,
+              1064899106
+            ],
+            "mac_words": [
+              1047306768,
+              3136620942,
+              1064899106
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              1.6298145055770874e-09,
+              0.0
+            ]
+          },
+          "stop_jacobian": {
+            "native_words": [
+              3208688877,
+              1065002711,
+              2979011024
+            ],
+            "mac_words": [
+              3208688796,
+              1065002608,
+              0
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              4.827976226806641e-06,
+              6.139278411865234e-06,
+              4.1938861272683425e-09
+            ]
+          },
+          "stop_inverse_jacobian": {
+            "native_words": [
+              3136495980,
+              980479381,
+              3114511243
+            ],
+            "mac_words": [
+              3136495878,
+              980479279,
+              3114511174
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              1.1874362826347351e-08,
+              5.9371814131736755e-09,
+              2.0081643015146255e-09
+            ]
+          },
+          "stop_mass": {
+            "native_words": [
+              1134544052
+            ],
+            "mac_words": [
+              1134544168
+            ],
+            "exact_components": 0,
+            "components": 1,
+            "absolute_difference": [
+              0.0035400390625
+            ]
+          }
+        }
+      },
+      {
+        "wheel": 2,
+        "comparisons": {
+          "quaternion": {
+            "native_words": [
+              3126583376,
+              3186507929,
+              979705444,
+              1065239295
+            ],
+            "mac_words": [
+              3126583362,
+              3186507929,
+              979705443,
+              1065239295
+            ],
+            "exact_components": 2,
+            "components": 4,
+            "absolute_difference": [
+              8.149072527885437e-10,
+              0.0,
+              5.820766091346741e-11,
+              0.0
+            ]
+          },
+          "center": {
+            "native_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "mac_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "exact_components": 3,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "world_point": {
+            "native_words": [
+              1089873904,
+              1077016768,
+              1092616192
+            ],
+            "mac_words": [
+              1089873904,
+              1077016768,
+              1092616192
+            ],
+            "exact_components": 3,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "cached_local_point": {
+            "native_words": [
+              3213675434,
+              1061159400,
+              3200645770
+            ],
+            "mac_words": [
+              3213675434,
+              1061159400,
+              3200645771
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              0.0,
+              2.9802322387695312e-08
+            ]
+          },
+          "cached_local_axis": {
+            "native_words": [
+              1047306768,
+              3136620956,
+              1064899106
+            ],
+            "mac_words": [
+              1047306768,
+              3136620942,
+              1064899106
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              0.0,
+              1.6298145055770874e-09,
+              0.0
+            ]
+          },
+          "stop_jacobian": {
+            "native_words": [
+              1061114292,
+              1065051128,
+              832483859
+            ],
+            "mac_words": [
+              1061114212,
+              1065051024,
+              0
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              4.76837158203125e-06,
+              6.198883056640625e-06,
+              4.61864990697336e-09
+            ]
+          },
+          "stop_inverse_jacobian": {
+            "native_words": [
+              988950133,
+              980606696,
+              966977951
+            ],
+            "mac_words": [
+              988950032,
+              980606592,
+              966977883
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              1.1757947504520416e-08,
+              6.05359673500061e-09,
+              1.979060471057892e-09
+            ]
+          },
+          "stop_mass": {
+            "native_words": [
+              1134562608
+            ],
+            "mac_words": [
+              1134562723
+            ],
+            "exact_components": 0,
+            "components": 1,
+            "absolute_difference": [
+              0.003509521484375
+            ]
+          }
+        }
+      }
+    ],
+    "v66": [
+      {
+        "wheel": 3,
+        "comparisons": {
+          "quaternion": {
+            "native_words": [
+              3126583376,
+              3186507929,
+              979705444,
+              1065239295
+            ],
+            "mac_words": [
+              3126583321,
+              3186507969,
+              979706848,
+              1065239294
+            ],
+            "exact_components": 0,
+            "components": 4,
+            "absolute_difference": [
+              3.2014213502407074e-09,
+              2.980232238769531e-07,
+              8.172355592250824e-08,
+              5.960464477539063e-08
+            ]
+          },
+          "center": {
+            "native_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "mac_words": [
+              1091226162,
+              1073882215,
+              1093278681
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              9.5367431640625e-07,
+              0.0,
+              0.0
+            ]
+          },
+          "world_point": {
+            "native_words": [
+              1089879956,
+              1067708032,
+              1092616192
+            ],
+            "mac_words": [
+              1089879957,
+              1067708032,
+              1092616192
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              4.76837158203125e-07,
+              0.0,
+              0.0
+            ]
+          },
+          "cached_local_point": {
+            "native_words": [
+              3213676184,
+              3208643649,
+              3200741776
+            ],
+            "mac_words": [
+              3213676190,
+              3208643644,
+              3200741747
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              7.152557373046875e-07,
+              2.980232238769531e-07,
+              8.642673492431641e-07
+            ]
+          },
+          "cached_local_axis": {
+            "native_words": [
+              1047306768,
+              3136620956,
+              1064899106
+            ],
+            "mac_words": [
+              1047306807,
+              3136621069,
+              1064899102
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              5.811452865600586e-07,
+              1.3154931366443634e-08,
+              2.384185791015625e-07
+            ]
+          },
+          "stop_jacobian": {
+            "native_words": [
+              3208688877,
+              1065002711,
+              2979011024
+            ],
+            "mac_words": [
+              3208688871,
+              1065002711,
+              838092479
+            ],
+            "exact_components": 1,
+            "components": 3,
+            "absolute_difference": [
+              3.5762786865234375e-07,
+              0.0,
+              1.130326365839096e-08
+            ]
+          },
+          "stop_inverse_jacobian": {
+            "native_words": [
+              3136495980,
+              980479381,
+              3114511243
+            ],
+            "mac_words": [
+              3136495966,
+              980479375,
+              3114511260
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              1.6298145055770874e-09,
+              3.4924596548080444e-10,
+              4.94765117764473e-10
+            ]
+          },
+          "stop_mass": {
+            "native_words": [
+              1134544052
+            ],
+            "mac_words": [
+              1134544061
+            ],
+            "exact_components": 0,
+            "components": 1,
+            "absolute_difference": [
+              0.000274658203125
+            ]
+          }
+        }
+      },
+      {
+        "wheel": 2,
+        "comparisons": {
+          "quaternion": {
+            "native_words": [
+              3126583376,
+              3186507929,
+              979705444,
+              1065239295
+            ],
+            "mac_words": [
+              3126583321,
+              3186507969,
+              979706848,
+              1065239294
+            ],
+            "exact_components": 0,
+            "components": 4,
+            "absolute_difference": [
+              3.2014213502407074e-09,
+              2.980232238769531e-07,
+              8.172355592250824e-08,
+              5.960464477539063e-08
+            ]
+          },
+          "center": {
+            "native_words": [
+              1091226161,
+              1073882215,
+              1093278681
+            ],
+            "mac_words": [
+              1091226162,
+              1073882215,
+              1093278681
+            ],
+            "exact_components": 2,
+            "components": 3,
+            "absolute_difference": [
+              9.5367431640625e-07,
+              0.0,
+              0.0
+            ]
+          },
+          "world_point": {
+            "native_words": [
+              1089873904,
+              1077016768,
+              1092616192
+            ],
+            "mac_words": [
+              1089873810,
+              1077016384,
+              1092616192
+            ],
+            "exact_components": 1,
+            "components": 3,
+            "absolute_difference": [
+              4.482269287109375e-05,
+              9.1552734375e-05,
+              0.0
+            ]
+          },
+          "cached_local_point": {
+            "native_words": [
+              3213675434,
+              1061159400,
+              3200645770
+            ],
+            "mac_words": [
+              3213675810,
+              1061157867,
+              3200645397
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              4.482269287109375e-05,
+              9.137392044067383e-05,
+              1.1116266250610352e-05
+            ]
+          },
+          "cached_local_axis": {
+            "native_words": [
+              1047306768,
+              3136620956,
+              1064899106
+            ],
+            "mac_words": [
+              1047306807,
+              3136621069,
+              1064899102
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              5.811452865600586e-07,
+              1.3154931366443634e-08,
+              2.384185791015625e-07
+            ]
+          },
+          "stop_jacobian": {
+            "native_words": [
+              1061114292,
+              1065051128,
+              832483859
+            ],
+            "mac_words": [
+              1061112750,
+              1065051891,
+              2983602103
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              9.191036224365234e-05,
+              4.547834396362305e-05,
+              1.0851384679710918e-08
+            ]
+          },
+          "stop_inverse_jacobian": {
+            "native_words": [
+              988950133,
+              980606696,
+              966977951
+            ],
+            "mac_words": [
+              988948183,
+              980607427,
+              966976667
+            ],
+            "exact_components": 0,
+            "components": 3,
+            "absolute_difference": [
+              2.270098775625229e-07,
+              4.2549800127744675e-08,
+              3.7369318306446075e-08
+            ]
+          },
+          "stop_mass": {
+            "native_words": [
+              1134562608
+            ],
+            "mac_words": [
+              1134563466
+            ],
+            "exact_components": 0,
+            "components": 1,
+            "absolute_difference": [
+              0.02618408203125
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "conclusion": "V64 body center and rear world contact points match Native float32. V66 wheel2 world point already differs by about 0.000102 scene units. Prior V66 mass differences are confounded by these input differences.",
+  "goal_complete": false
+}

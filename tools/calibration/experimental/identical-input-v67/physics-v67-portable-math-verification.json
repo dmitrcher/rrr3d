@@ -1,0 +1,44 @@
+{
+  "scope": "Identical original Native inputs, exact float32 words; preparation/frame/solver subsets, not complete physics parity.",
+  "results": [
+    {
+      "source": "verify-prepared.cpp",
+      "optimization": "-O0",
+      "passed": 262,
+      "failed": 0
+    },
+    {
+      "source": "verify-prepared.cpp",
+      "optimization": "-O2",
+      "passed": 262,
+      "failed": 0
+    },
+    {
+      "source": "verify-frame.cpp",
+      "optimization": "-O0",
+      "passed": 420,
+      "failed": 0
+    },
+    {
+      "source": "verify-frame.cpp",
+      "optimization": "-O2",
+      "passed": 420,
+      "failed": 0
+    },
+    {
+      "source": "verify-stop.cpp",
+      "optimization": "-O0",
+      "passed": 240,
+      "failed": 0,
+      "generic_mismatches": 6
+    },
+    {
+      "source": "verify-stop.cpp",
+      "optimization": "-O2",
+      "passed": 240,
+      "failed": 0,
+      "generic_mismatches": 6
+    }
+  ],
+  "goal_complete": false
+}

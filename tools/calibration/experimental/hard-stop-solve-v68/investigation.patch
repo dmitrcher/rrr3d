@@ -1,0 +1,30 @@
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -461,0 +462 @@
++            w->mNativeHardStopV68 = {};
+@@ -592,0 +594,12 @@
++                const char* solveFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_HARD_STOP_SOLVE_V68");
++                if(source_stop && solveFlag && std::strcmp(solveFlag,"1")==0
++                    && w->mContactBody->IsStatic() && w->mSteerAngle==0 && !settings->mEnableSuspensionForcePoint) {
++                    using namespace motorrock_native_spring_v53;
++                    // Original hard rows form the geometric term after scaling
++                    // effective mass by the unchanged 0.7 bias coefficient.
++                    float error_rate=div(sub(w->mSuspensionLength,settings->mSuspensionMinLength),inDeltaTime);
++                    w->mNativeHardStopV68.enabled=true;
++                    w->mNativeHardStopV68.native_jv=true;
++                    w->mNativeHardStopV68.position_term=mul(error_rate,mul(w->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass(),0.7f));
++                }
++
+@@ -743,0 +757,2 @@
++    if(wheel.mNativeHardStopV68.enabled)
++        return wheel.mSuspensionMaxUpPart.SolveNativeSplitSpringV53(body,*wheel.mContactBody,axis,wheel.mNativeHardStopV68,0.0f,FLT_MAX);
+@@ -972 +987,4 @@
+-   if (UsesSourceSuspensionStop() && w->mSuspensionMaxUpPart.IsActive()) w->mSuspensionMaxUpPart.SetHardVelocityBias(0.0f);
++   if (UsesSourceSuspensionStop() && w->mSuspensionMaxUpPart.IsActive()) {
++    w->mSuspensionMaxUpPart.SetHardVelocityBias(0.0f);
++    if(w->mNativeHardStopV68.enabled)w->mSuspensionMaxUpPart.PrepareNativeFinalSpringV53(w->mNativeHardStopV68);
++   }
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.h
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.h
+@@ -175,0 +176 @@
++	motorrock_native_spring_v53::State mNativeHardStopV68; ///< Default-off original hard-stop arithmetic.

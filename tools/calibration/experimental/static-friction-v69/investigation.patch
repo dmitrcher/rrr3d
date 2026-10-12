@@ -1,0 +1,41 @@
+--- a/sdk/Jolt/Physics/Collision/ContactListener.h
++++ b/sdk/Jolt/Physics/Collision/ContactListener.h
+@@ -56,0 +57 @@
++    float mNativeStaticFriction2V69 = -1.0f; ///< Negative preserves legacy dynamic-only threshold.
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -446,0 +447 @@
++        float mNativeStaticFrictionCoefficientV69 = 0.0f;
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -182,0 +183 @@
++                mNativeStaticFrictionCoefficientV69 = inSettings.mNativeStaticFriction2V69>=0.0f?inSettings.mNativeStaticFriction2V69:mNativeFrictionCoefficient;
+@@ -1781 +1782,2 @@
+-                    if (std::abs(target) > limit)
++                    const float static_limit = A::Mul(wcp.mNativeStaticFrictionCoefficientV69,total);
++                    if (std::abs(target) > static_limit)
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -425 +425,2 @@
+-    bool sourcePairLimits = false) noexcept
++    bool sourcePairLimits = false, float secondaryMaterial = 2.0F,
++    float secondarySurface = -1.0F) noexcept
+@@ -449 +450,2 @@
+-        2.0F, SourceCombineMode::Minimum, otherFriction, otherMode);
++        secondaryMaterial, SourceCombineMode::Minimum,
++        secondarySurface>=0.0F?secondarySurface:otherFriction, otherMode);
+@@ -1669,0 +1672,12 @@
++            const char* staticFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_STATIC_FRICTION_V69");
++            if(staticFlag && std::strcmp(staticFlag,"1")==0) {
++                // Keep the original material's static V=3.2 separate from
++                // dynamic V=2 and its SDK pair cap. Border static=0.1;
++                // primary scalar material combination retains the SDK's
++                // static>=dynamic validation before the polar average.
++                const float staticSurface=surface==CollisionSurface::TrackBorder?0.1F:other.GetFriction();
++                const auto staticMaterial=sourceVehicleBodyFriction(
++                    toJolt(Quat{pose[0],pose[1],pose[2],pose[3]}),toJolt(Vec3{normal[0],normal[1],normal[2]}),
++                    car.GetFriction(),other.GetFriction(),sourceFrictionCombineMode(other),true,false,3.2F,staticSurface);
++                settings.mNativeStaticFriction2V69=staticMaterial.second;
++            }
+@@ -1675,0 +1690 @@
++            if(settings.mNativeStaticFriction2V69>=0.0F)settings.mNativeStaticFriction2V69=0.0F;

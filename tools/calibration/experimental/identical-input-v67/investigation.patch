@@ -1,0 +1,28 @@
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -638,0 +639,25 @@
++    // Read-only selected-frame preparation snapshot; no output unless requested.
++    const char* prepTracePath=std::getenv("RRR3D_WHEEL_PREP_TRACE_FILE_V67");
++    const char* prepTraceStep=std::getenv("RRR3D_WHEEL_PREP_TRACE_STEP_V67");
++    if(prepTracePath && *prepTracePath && prepTraceStep && GetSourceSimulationCounterV59()==std::strtoul(prepTraceStep,nullptr,10)) {
++        FILE* file=std::fopen(prepTracePath,"a");
++        if(file) {
++            const auto q=mBody->GetRotation();const auto c=mBody->GetCenterOfMassPosition();
++            const auto inertia=mBody->GetInverseInertia();const uint perm[3]={0,2,1};
++            for(uint index=0;index<mWheels.size();++index) {
++                const Wheel* wheel=mWheels[index];if(!wheel->mContactBody)continue;
++                const auto p=wheel->mContactPosition,n=wheel->mContactNormal;
++                const auto localPoint=wheel->mSourceLocalContactPointV58,localAxis=wheel->mSourceLocalContactAxisV58;
++                std::fprintf(file,"{\"step\":%u,\"wheel\":%u,\"lost\":%s,\"cache_valid\":%s,\"quaternion\":[%.9g,%.9g,%.9g,%.9g],\"center\":[%.9g,%.9g,%.9g],\"world_point\":[%.9g,%.9g,%.9g],\"world_axis\":[%.9g,%.9g,%.9g],\"cached_local_point\":[%.9g,%.9g,%.9g],\"cached_local_axis\":[%.9g,%.9g,%.9g],\"inverse_mass\":%.9g,\"inverse_inertia\":[",GetSourceSimulationCounterV59(),index,wheel->mSourceContactLost?"true":"false",wheel->mSourceLocalContactValidV58?"true":"false",-q.GetX(),-q.GetZ(),-q.GetY(),q.GetW(),float(c.GetX()),float(c.GetZ()),float(c.GetY()),float(p.GetX()),float(p.GetZ()),float(p.GetY()),n.GetX(),n.GetZ(),n.GetY(),localPoint.GetX(),localPoint.GetY(),localPoint.GetZ(),localAxis.GetX(),localAxis.GetY(),localAxis.GetZ(),mBody->GetMotionPropertiesUnchecked()->GetInverseMass());
++                for(uint row=0;row<3;++row)for(uint col=0;col<3;++col)std::fprintf(file,"%s%.9g",row||col?",":"",inertia.GetColumn3(perm[col])[perm[row]]);
++                std::fprintf(file,"]");
++                const auto part=[&](const char* name,const AxisConstraintPart& constraint) {
++                    if(!constraint.IsActive()) {std::fprintf(file,",\"%s\":{\"active\":false}",name);return;}
++                    const auto j=constraint.GetDiagnosticR1CrossAxis(),v=constraint.GetDiagnosticInvI1R1CrossAxis();
++                    std::fprintf(file,",\"%s\":{\"active\":true,\"mass\":%.9g,\"bias\":%.9g,\"jacobian\":[%.9g,%.9g,%.9g],\"inverse_jacobian\":[%.9g,%.9g,%.9g]}",name,constraint.GetDiagnosticEffectiveMass(),constraint.GetDiagnosticVelocityBias(),j.GetX(),j.GetZ(),j.GetY(),v.GetX(),v.GetZ(),v.GetY());
++                };
++                part("spring",wheel->mSuspensionPart);part("stop",wheel->mSuspensionMaxUpPart);std::fprintf(file,"}\n");
++            }
++            std::fclose(file);
++        }
++    }

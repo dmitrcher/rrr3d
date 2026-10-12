@@ -1,0 +1,47 @@
+{
+  "scope": "Original saved hard-stop inputs, five solver rounds at five frames; result hook precedes body velocity update.",
+  "solves": 80,
+  "sources": [
+    {
+      "scope": "border61",
+      "path": "outputs/native-border-wheel-v62/0-private-run0.jsonl",
+      "sha256": "628380ceecb452ff2f4df5d9810522b8d825800d305192a2a14d04a32901a63b"
+    },
+    {
+      "scope": "border62",
+      "path": "outputs/native-border-next-wheel-v63/0-private-run0.jsonl",
+      "sha256": "81bfbbb77165f655f9e8ceb1e7b31feb56aadae4bb7dd218c43ea7b4a01a19ff"
+    },
+    {
+      "scope": "xCar39",
+      "path": "outputs/native-drop-wheel-v63/0-private-run0.jsonl",
+      "sha256": "1b8f1e0c849faec5a6d1e4ebbc1ca351ce661ea641b65f7a85d67a29af6ad442"
+    },
+    {
+      "scope": "xCar40",
+      "path": "outputs/native-drop-wheel-v63/1-private-run0.jsonl",
+      "sha256": "321f7ac5bc523916de9ca183c61fb63c37c82aea55d3fe1a0b4ed7f00699c2ee"
+    },
+    {
+      "scope": "guseniza39",
+      "path": "outputs/native-drop-wheel-v63/2-private-run0.jsonl",
+      "sha256": "c7651773b92052af17ad7504f0feae1b47a60a1a45a4f6cb939e5046aeb7a78c"
+    }
+  ],
+  "runs": [
+    {
+      "optimization": "O0",
+      "passed": 240,
+      "failed": 0,
+      "generic_mismatches": 6
+    },
+    {
+      "optimization": "O2",
+      "passed": 240,
+      "failed": 0,
+      "generic_mismatches": 6
+    }
+  ],
+  "generic_scope": "Generic grouped mass*(JV-bias), using original JV and bias approximated as float32(0.7*original geometric bias); does not model Jolt dot order or preparation.",
+  "goal_complete": false
+}

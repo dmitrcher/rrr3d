@@ -1,0 +1,54 @@
+{
+  "cases": 608,
+  "samples_per_run": 255864,
+  "two_repeats_exact": true,
+  "old_exact_retained": true,
+  "new_exact_cases": [
+    "contact-free-triangle-depth3-speed1",
+    "contact-free-triangle-depth4-speed0",
+    "contact-locked-triangle-depth0-speed2",
+    "contact-locked-triangle-depth1-speed2",
+    "contact-locked-triangle-depth2-speed2",
+    "contact-locked-triangle-depth3-speed1",
+    "contact-locked-triangle-depth3-speed2",
+    "contact-locked-triangle-depth4-speed0",
+    "contact-locked-triangle-depth4-speed1",
+    "contact-locked-triangle-depth4-speed2",
+    "contact-locked-triangle-depth5-speed0",
+    "contact-locked-triangle-depth5-speed1",
+    "contact-locked-triangle-depth5-speed2",
+    "skin-tilted-triangle-angle0-skin0-thin0",
+    "skin-tilted-triangle-angle0-skin0-thin1",
+    "skin-tilted-triangle-angle0-skin1-thin0",
+    "skin-tilted-triangle-angle0-skin1-thin1",
+    "skin-tilted-triangle-angle0-skin2-thin0",
+    "skin-tilted-triangle-angle0-skin2-thin1"
+  ],
+  "changes": {
+    "position_max": {
+      "same": 580,
+      "improved": 28
+    },
+    "velocity_max": {
+      "same": 562,
+      "improved": 46
+    },
+    "orientation_max_degrees": {
+      "same": 591,
+      "improved": 17
+    },
+    "angular_momentum_max": {
+      "same": 591,
+      "improved": 17
+    },
+    "wheel_contact_mismatches": {
+      "same": 607,
+      "improved": 1
+    },
+    "wheel_normal_force_max": {
+      "same": 606,
+      "improved": 2
+    }
+  },
+  "goal_complete": false
+}

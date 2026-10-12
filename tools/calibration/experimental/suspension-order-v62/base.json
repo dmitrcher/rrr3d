@@ -1,0 +1,36 @@
+{
+  "base": "Exact active v60 sources; v61 quaternion and contact frame corrections plus v62 suspension stop order and material stage. Experiments default off.",
+  "goal_complete": false,
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "51315b0e32bd282b1eae05a9c2eade1bc82c6b46e617a2268c635c33b00f186d",
+      "after_sha256": "f041b88a70cad1368ddf4a4d43ca67759d47db5086dd36720ef98415d2fd6693"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+      "before_sha256": "46be4702c6488eb4bffb917c89177f2a1cb75e6fd5e707e663a1faf270001e04",
+      "after_sha256": "81eb5658ba2a2248a750b6cb371cbbfa7e94cf167722912b2adecb91ec7af265"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h",
+      "before_sha256": "bc9af31a068dafbef5455efc1c722ce0b2824c3b7c7497760ead0aed6e7bc3db",
+      "after_sha256": "10ee09f15684ceec77fecf61ceb5c168bbbdb473105f98c7e61154c9c3baa2a6"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "f966ef7247438fc9059b421cb2149cae826a0c3aef7ff4c5a43ec67b92393cbb",
+      "after_sha256": "60bfb3c58d8b478d1ed9f6293f01d31b8385551ccf18fc761e4337fb1da3af3f"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "e042f9317213a750bec97124eaee1d1a05fc2e739905fb781d08d0178a6a32a3",
+      "after_sha256": "a2dd33cf9a4839497bcf9a4d96fab4607338f42b3a1dc3a130f3a560aadf2370"
+    }
+  ]
+}

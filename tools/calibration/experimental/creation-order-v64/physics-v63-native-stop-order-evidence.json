@@ -1,0 +1,609 @@
+{
+  "scope": "Original unchanged PhysX SDK; first landing and following step. All physical samples are compared with the retained Golden.",
+  "cases": [
+    {
+      "case": "xCar/suspension-drop",
+      "counter": 39,
+      "two_repeats_whole_sample_exact_to_original_Golden": true,
+      "samples": 600,
+      "rows_per_iteration": 16,
+      "rows": [
+        {
+          "ordinal": 0,
+          "kind": "hard_stop",
+          "effective_mass": 403.5046081542969,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.533281922340393
+        },
+        {
+          "ordinal": 1,
+          "kind": "spring",
+          "effective_mass": 239.6699981689453,
+          "softness": 0.4060291051864624,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533280372619629
+        },
+        {
+          "ordinal": 2,
+          "kind": "hard_stop",
+          "effective_mass": 405.5462341308594,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.533281922340393
+        },
+        {
+          "ordinal": 3,
+          "kind": "spring",
+          "effective_mass": 240.3887939453125,
+          "softness": 0.407246857881546,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533280372619629
+        },
+        {
+          "ordinal": 4,
+          "kind": "hard_stop",
+          "effective_mass": 487.2044372558594,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.95333731174469
+        },
+        {
+          "ordinal": 5,
+          "kind": "spring",
+          "effective_mass": 266.9055480957031,
+          "softness": 0.4521693289279938,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.953335762023926
+        },
+        {
+          "ordinal": 6,
+          "kind": "hard_stop",
+          "effective_mass": 490.203857421875,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -2.0133044719696045
+        },
+        {
+          "ordinal": 7,
+          "kind": "spring",
+          "effective_mass": 267.80322265625,
+          "softness": 0.4536901116371155,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -8.01330280303955
+        },
+        {
+          "ordinal": 8,
+          "kind": "tire",
+          "effective_mass": 766.9644775390625,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 9,
+          "kind": "tire",
+          "effective_mass": 1307.644287109375,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 10,
+          "kind": "tire",
+          "effective_mass": 766.9835205078125,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 11,
+          "kind": "tire",
+          "effective_mass": 1312.83203125,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 12,
+          "kind": "tire",
+          "effective_mass": 1079.1513671875,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 13,
+          "kind": "tire",
+          "effective_mass": 1307.6636962890625,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 14,
+          "kind": "tire",
+          "effective_mass": 1079.1875,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 15,
+          "kind": "tire",
+          "effective_mass": 1312.88671875,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        }
+      ]
+    },
+    {
+      "case": "xCar/suspension-drop",
+      "counter": 40,
+      "two_repeats_whole_sample_exact_to_original_Golden": true,
+      "samples": 600,
+      "rows_per_iteration": 16,
+      "rows": [
+        {
+          "ordinal": 0,
+          "kind": "hard_stop",
+          "effective_mass": 403.4661865234375,
+          "softness": 0.0,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -0.4131682217121124
+        },
+        {
+          "ordinal": 1,
+          "kind": "spring",
+          "effective_mass": 239.65643310546875,
+          "softness": 0.4060061573982239,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -6.4131669998168945
+        },
+        {
+          "ordinal": 2,
+          "kind": "hard_stop",
+          "effective_mass": 405.531982421875,
+          "softness": 0.0,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -0.3754563629627228
+        },
+        {
+          "ordinal": 3,
+          "kind": "spring",
+          "effective_mass": 240.38377380371094,
+          "softness": 0.4072383940219879,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -6.375455379486084
+        },
+        {
+          "ordinal": 4,
+          "kind": "hard_stop",
+          "effective_mass": 487.1796875,
+          "softness": 0.0,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -0.5602248311042786
+        },
+        {
+          "ordinal": 5,
+          "kind": "spring",
+          "effective_mass": 266.8981018066406,
+          "softness": 0.45215675234794617,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -6.560223579406738
+        },
+        {
+          "ordinal": 6,
+          "kind": "hard_stop",
+          "effective_mass": 490.2192687988281,
+          "softness": 0.0,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -0.5825408101081848
+        },
+        {
+          "ordinal": 7,
+          "kind": "spring",
+          "effective_mass": 267.80780029296875,
+          "softness": 0.45369791984558105,
+          "axis": [
+            1.1146417122631647e-11,
+            -1.680078298704757e-11,
+            0.9999998807907104
+          ],
+          "bias": -6.5825395584106445
+        },
+        {
+          "ordinal": 8,
+          "kind": "tire",
+          "effective_mass": 769.1094360351562,
+          "softness": 0.0,
+          "axis": [
+            -1.0490419299458154e-05,
+            0.9999998807907104,
+            1.2284395722872432e-11
+          ],
+          "bias": -0.0033259198535233736
+        },
+        {
+          "ordinal": 9,
+          "kind": "tire",
+          "effective_mass": 1309.5118408203125,
+          "softness": 0.0,
+          "axis": [
+            0.9999998807907104,
+            1.049041748046875e-05,
+            1.1051826120933583e-11
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 10,
+          "kind": "tire",
+          "effective_mass": 769.1207885742188,
+          "softness": 0.0,
+          "axis": [
+            -1.0490419299458154e-05,
+            0.9999998807907104,
+            1.2284395722872432e-11
+          ],
+          "bias": -0.002424678299576044
+        },
+        {
+          "ordinal": 11,
+          "kind": "tire",
+          "effective_mass": 1314.787353515625,
+          "softness": 0.0,
+          "axis": [
+            0.9999998807907104,
+            1.049041748046875e-05,
+            1.1051826120933583e-11
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 12,
+          "kind": "tire",
+          "effective_mass": 1084.3033447265625,
+          "softness": 0.0,
+          "axis": [
+            -1.0490419299458154e-05,
+            0.9999998807907104,
+            1.2284395722872432e-11
+          ],
+          "bias": -0.0045776087790727615
+        },
+        {
+          "ordinal": 13,
+          "kind": "tire",
+          "effective_mass": 1309.481201171875,
+          "softness": 0.0,
+          "axis": [
+            0.9999998807907104,
+            1.049041748046875e-05,
+            1.1051826120933583e-11
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 14,
+          "kind": "tire",
+          "effective_mass": 1084.298095703125,
+          "softness": 0.0,
+          "axis": [
+            -1.0490419299458154e-05,
+            0.9999998807907104,
+            1.2284395722872432e-11
+          ],
+          "bias": 0.0009155370062217116
+        },
+        {
+          "ordinal": 15,
+          "kind": "tire",
+          "effective_mass": 1314.8125,
+          "softness": 0.0,
+          "axis": [
+            0.9999998807907104,
+            1.049041748046875e-05,
+            1.1051826120933583e-11
+          ],
+          "bias": 0.0
+        }
+      ]
+    },
+    {
+      "case": "guseniza/suspension-drop",
+      "counter": 39,
+      "two_repeats_whole_sample_exact_to_original_Golden": true,
+      "samples": 600,
+      "rows_per_iteration": 16,
+      "rows": [
+        {
+          "ordinal": 0,
+          "kind": "hard_stop",
+          "effective_mass": 530.5938720703125,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.533281922340393
+        },
+        {
+          "ordinal": 1,
+          "kind": "spring",
+          "effective_mass": 279.4234313964844,
+          "softness": 0.4733760952949524,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533280372619629
+        },
+        {
+          "ordinal": 2,
+          "kind": "hard_stop",
+          "effective_mass": 530.5967407226562,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.533281922340393
+        },
+        {
+          "ordinal": 3,
+          "kind": "spring",
+          "effective_mass": 279.4242248535156,
+          "softness": 0.4733774662017822,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533280372619629
+        },
+        {
+          "ordinal": 4,
+          "kind": "hard_stop",
+          "effective_mass": 530.5966186523438,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.5333391427993774
+        },
+        {
+          "ordinal": 5,
+          "kind": "spring",
+          "effective_mass": 279.4241638183594,
+          "softness": 0.4733773469924927,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533337593078613
+        },
+        {
+          "ordinal": 6,
+          "kind": "hard_stop",
+          "effective_mass": 530.5982055664062,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -1.5333391427993774
+        },
+        {
+          "ordinal": 7,
+          "kind": "spring",
+          "effective_mass": 279.42462158203125,
+          "softness": 0.47337815165519714,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bias": -7.533337593078613
+        },
+        {
+          "ordinal": 8,
+          "kind": "tire",
+          "effective_mass": 1115.3338623046875,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 9,
+          "kind": "tire",
+          "effective_mass": 1225.589599609375,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 10,
+          "kind": "tire",
+          "effective_mass": 1115.3338623046875,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 11,
+          "kind": "tire",
+          "effective_mass": 1225.595458984375,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 12,
+          "kind": "tire",
+          "effective_mass": 1115.334228515625,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 13,
+          "kind": "tire",
+          "effective_mass": 1225.5950927734375,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 14,
+          "kind": "tire",
+          "effective_mass": 1115.3389892578125,
+          "softness": 0.0,
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bias": 0.0
+        },
+        {
+          "ordinal": 15,
+          "kind": "tire",
+          "effective_mass": 1225.5950927734375,
+          "softness": 0.0,
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "bias": 0.0
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

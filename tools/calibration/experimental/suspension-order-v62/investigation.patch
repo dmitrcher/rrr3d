@@ -1,0 +1,293 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1031,7 +1031,7 @@
+     }
+ 
+ private:
+-    struct SourceBox { sourcebox::PxVec3 half; sourcebox::Cm::Matrix34 transform; float skin; };
++    struct SourceBox { sourcebox::PxVec3 half; sourcebox::Cm::Matrix34 transform; float skin; motorrock::contactframe::Quaternion physicalPose={{0,0,0,1}};bool hasPhysicalPose=false; };
+     bool sourceBox(const JPH::Body& body, SourceBox& box) const
+     {
+         const JPH::Shape* shape = body.GetShape();
+@@ -1097,7 +1097,7 @@
+         box.transform = {{convert(transform.Multiply3x3(JPH::Vec3::sAxisX())),
+                           convert(transform.Multiply3x3(JPH::Vec3::sAxisZ())),
+                           convert(transform.Multiply3x3(JPH::Vec3::sAxisY()))}, convert(JPH::Vec3(transform.GetTranslation()))};
+-        box.skin = geometry.skin;
++        box.skin = geometry.skin;box.physicalPose=physicalPose;box.hasPhysicalPose=hasPhysicalPose;
+         return true;
+     }
+     struct SourceMeshTriangle { std::array<sourcemesh::PxVec3,3> points; unsigned convexEdges=7; };
+@@ -1134,13 +1134,23 @@
+         const auto cv = [](sourcebox::PxVec3 a) { return sourcemesh::PxVec3{a.x,a.y,a.z}; };
+         const sourcemesh::PxVec3 half = cv(full.half);
+         const sourcemesh::Cm::Matrix34 box{{cv(full.transform.m.column0),cv(full.transform.m.column1),cv(full.transform.m.column2)},cv(full.transform.p)};
++        sourcemesh::Cm::Matrix34 nativeMeshInverse=box.getInverseRT();
++        const char* nativeMeshInverseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_INVERSE_TRANSLATION_V61");
++        const bool useNativeMeshInverse=full.hasPhysicalPose && nativeMeshInverseFlag && std::strcmp(nativeMeshInverseFlag,"1")==0;
++        if(useNativeMeshInverse) {
++            // Original geometry's inverse rotation matrix and inverse origin
++            // use different arithmetic for a quaternion that is not unit length.
++            // Verified on identical Native inputs, not a fitted position offset.
++            const auto p=motorrock::derivederror::rotate(full.physicalPose,{{box.p.x,box.p.y,box.p.z}},true);
++            nativeMeshInverse.p={-p[0],-p[1],-p[2]};
++        }
+         sourcemesh::PxVec3 lo(FLT_MAX),hi(-FLT_MAX);
+         for (int mask=0;mask<8;++mask) {
+             const auto point=box.transform({(mask&1)?half.x:-half.x,(mask&2)?half.y:-half.y,(mask&4)?half.z:-half.z});
+             for(int a=0;a<3;++a){lo[a]=std::min(lo[a],point[a]);hi[a]=std::max(hi[a],point[a]);}
+         }
+         sourcemesh::ContactBuffer contacts;
+-        sourcemesh::PxVec3 commonNormal;
++        sourcemesh::PxVec3 commonNormal;bool nativeHullReference=false;
+         motorrock::contactframe::Vector publicTriangleNormal={{0,0,0}};
+         const char* nativeEdgeFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_EDGE");
+         const bool nativeEdge=nativeEdgeFlag && std::strcmp(nativeEdgeFlag,"1")==0;
+@@ -1174,7 +1184,7 @@
+                 sample<<"],\"plane\":["<<plane.n.x<<','<<plane.n.y<<','<<plane.n.z<<','<<plane.d<<"]}";
+                 motorrock::parity::event("physics.source-mesh-input","independent geometry inputs",sample.str());
+             }
+-            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge,t.convexEdges);
++            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge,t.convexEdges,useNativeMeshInverse?&nativeMeshInverse:nullptr);
+             if(edgeStageTrace)for(const auto& e:sourcemesh::nativeedge::stageTraceRecords) {
+                 std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex;
+                 const auto v=[&](const char* name,sourcemesh::PxVec3 p){sample<<",\""<<name<<"\":["<<p.x<<','<<p.y<<','<<p.z<<']';};
+@@ -1187,6 +1197,8 @@
+             const auto normal=contacts.contacts[before].normal;
+             if(before && normal.dot(commonNormal)<.999999f)return false;
+             commonNormal=normal;
++            if(before==0)nativeHullReference=contacts.contacts[before].nativeHullReference;
++            else nativeHullReference &= contacts.contacts[before].nativeHullReference;
+             if(before==0) {
+                 // Public NxTriangle::normal uses vertex differences, a scalar
+                 // cross product and NxVec3 normalization. The private collision
+@@ -1241,7 +1253,7 @@
+                 }
+                 const char* triangleNormalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL");
+                 const auto callbackPlane=triangleNormalFlag && std::strcmp(triangleNormalFlag,"1")==0?publicTriangleNormal:plane;
+-                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane,callbackPlane);
++                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,plane,callbackPlane,nativeHullReference);
+                 const char* solverFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
+                 if(nativeCandidate.callback.modified && solverFrameFlag && std::strcmp(solverFrameFlag,"1")==0) {
+                     output.mNativeSolverTangentActive=true;
+@@ -1632,6 +1644,25 @@
+         settings.mCombinedFriction = source.first;
+         settings.mCombinedFriction2 = source.second;
+         settings.mFrictionDirection1 = source.firstDirection;
++        const char* preCallbackFrictionFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PRE_CALLBACK_FRICTION_V62");
++        if (preCallbackFrictionFlag && std::strcmp(preCallbackFrictionFlag,"1")==0 &&
++            sourceTrackContact && manifold.mNativeErrorFrameActive && car.IsDynamic() && other.IsStatic()) {
++            // Nx combines anisotropic material coefficients before the game
++            // callback changes the contact frame. Use the prepared actor pose
++            // and the original material normal; keep the callback's tangents.
++            motorrock::contactframe::Quaternion raw, pose;
++            for(unsigned j=0;j<4;++j)raw[j]=manifold.mNativeErrorRawQuaternion[j];
++            { std::scoped_lock lock(mutex_);
++              const auto found=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
++              if(found==nativeMaterialActorPoses_.end())std::abort();
++              pose=found->second; }
++            const auto normal=motorrock::derivederror::rotate(raw,{{1,0,0}},false);
++            const auto material=sourceVehicleBodyFriction(
++                toJolt(Quat{pose[0],pose[1],pose[2],pose[3]}),toJolt(Vec3{normal[0],normal[1],normal[2]}),
++                car.GetFriction(),other.GetFriction(),sourceFrictionCombineMode(other),true,materialPairs_);
++            settings.mCombinedFriction=material.first;
++            settings.mCombinedFriction2=material.second;
++        }
+         if (std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+                       first.GetID()) != frictionDisabledBodies_.end() ||
+             std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+--- a/adapter/src/Rock3dEngine/header/physics/SourceMeshManifold.h
++++ b/adapter/src/Rock3dEngine/header/physics/SourceMeshManifold.h
+@@ -72,7 +72,7 @@
+  PxVec3 n;float d;PxPlane(PxVec3 a,float b):n(a),d(b){};PxPlane(PxVec3 a,PxVec3 b,PxVec3 c):n((b-a).cross(c-a).getNormalized()),d(-n.dot(a)){};
+  float distance(PxVec3 v)const{return n.dot(v)+d;}
+ };
+-struct ContactPoint {PxVec3 point,normal;float separation;PxU32 internalFaceIndex1=0;};
++struct ContactPoint {PxVec3 point,normal;float separation;PxU32 internalFaceIndex1=0;bool nativeHullReference=false;};
+ struct ContactBuffer {
+  static constexpr unsigned MAX_CONTACTS=64;std::array<ContactPoint,MAX_CONTACTS> contacts{};unsigned count=0;
+  ContactPoint* contact(){return count<MAX_CONTACTS?&contacts[count++]:nullptr;}
+@@ -1051,7 +1051,7 @@
+  return result;
+ }
+ inline void hullContacts(ContactBuffer& out,PxVec3 half,const Cm::Matrix34& box,
+-                         const std::array<PxVec3,3>& triangle,unsigned index,bool nativeEdge,const Choice& choice) {
++                         const std::array<PxVec3,3>& triangle,unsigned index,bool nativeEdge,const Choice& choice,const Cm::Matrix34* nativeInverse=nullptr) {
+  const auto local=box.rotateTranspose(-choice.axis);
+  int axis=0;if(std::abs(local.y)>std::abs(local.x))axis=1;if(std::abs(local.z)>std::abs(local[axis]))axis=2;
+  const int sign=local[axis]<0?-1:1;int a=axis==0?1:0,b=axis==2?1:2;
+@@ -1067,16 +1067,18 @@
+  for(int i=0;i<4;++i){verts[i][axis]=sign*half[axis];const int j=positiveZ?(5-i)%4:negativeX?(3+i)%4:reverse?(4-i)%4:i;verts[i][a]=signs[j][0]*half[a];verts[i][b]=signs[j][1]*half[b];}
+  PxVec3 normal(0);normal[axis]=float(sign);const PxPlane face(normal,-half[axis]),plane=trianglePlane(triangle);
+  const Cm::Matrix34 world;const PxU8 bi[4]={0,1,2,3},ti[3]={0,1,2};
++ const unsigned before=out.count;
+  contactPolygonPolygonExt(4,verts.data(),bi,box,face,findRotationMatrixFromZ(face.n),
+                          3,triangle.data(),ti,world,plane,findRotationMatrixFromZ(plane.n),
+-                         -box.rotate(face.n),box,box.getInverseRT(),0,index,out,true,PxVec3(0),0,nativeEdge);
++                         -box.rotate(face.n),box,nativeInverse?*nativeInverse:box.getInverseRT(),0,index,out,true,PxVec3(0),0,nativeEdge);
++ for(unsigned i=before;i<out.count;++i)out.contacts[i].nativeHullReference=true;
+ }
+ }
+ 
+ // Experimental face-contact wrapper. SAT/backface validation is supplied by
+ // the caller; edge-axis contacts require a separate generic convex wrapper.
+ inline void faceContacts(ContactBuffer& out,PxVec3 half,const Cm::Matrix34& box,
+-                         const std::array<PxVec3,3>& triangle,unsigned index=0,bool nativeEdge=false,unsigned convexEdges=7)
++                         const std::array<PxVec3,3>& triangle,unsigned index=0,bool nativeEdge=false,unsigned convexEdges=7,const Cm::Matrix34* nativeInverse=nullptr)
+ {
+  if(nativeEdge && boxtrianglesatv60::enabled()) {
+   const auto choice=boxtrianglesatv60::select(half,box,triangle,convexEdges);
+@@ -1089,7 +1091,7 @@
+    PxVec3 faceNormal(0);faceNormal[axis]=local[axis]<0?-1.0f:1.0f;
+    const float hullAlignment=std::abs(box.rotate(faceNormal).dot(choice.axis));
+    const float triangleAlignment=std::abs(trianglePlane(triangle).n.dot(choice.axis));
+-   if(hullAlignment>triangleAlignment){boxtrianglesatv60::hullContacts(out,half,box,triangle,index,nativeEdge,choice);return;}
++   if(hullAlignment>triangleAlignment){boxtrianglesatv60::hullContacts(out,half,box,triangle,index,nativeEdge,choice,nativeInverse);return;}
+   }
+  }
+  const PxPlane plane=trianglePlane(triangle);
+--- a/adapter/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
++++ b/adapter/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h
+@@ -86,24 +86,30 @@
+  return {{add(mul(q[2],x2),mul(q[3],y2)),sub(mul(q[2],y2),mul(q[3],x2)),sub(1,add(mul(q[1],y2),mul(q[0],x2)))}};
+ }
+ struct Result {de::Frames errors;cf::Result callback;cf::Vector normal;cf::Quaternion rawLocal,seed,solverQuaternion;cf::Matrix materialBasis;};
+-inline Result compute(const cf::Matrix& actor,cf::Quaternion actorQuaternion,cf::Vector plane,cf::Vector callbackPlane) {
++inline Result compute(const cf::Matrix& actor,cf::Quaternion actorQuaternion,cf::Vector plane,cf::Vector callbackPlane,bool directRawWorld=false) {
+  // The caller supplies the actor pose quaternion used for this simulation.
+  // Shape geometry keeps its separate cached transform.
+  auto inverse=actorQuaternion;for(int i=0;i<3;++i)inverse[i]=-inverse[i];
+  const auto rawLocal=framev36::multiply(inverse,rawWorld(plane));
+  Result r;r.rawLocal=rawLocal;r.errors.raw=framev36::multiply(actorQuaternion,rawLocal);
++ const char* rawWorldFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_RAW_WORLD_FRAME_V61");
++ if(directRawWorld && rawWorldFlag && std::strcmp(rawWorldFlag,"1")==0)r.errors.raw=rawWorld(plane);
+  const auto materialNormal=de::rotate(r.errors.raw,{{1,0,0}},false);
+  const auto matrix=basis(materialNormal,cf::column(actor,2));
+  r.materialBasis=matrix;r.errors.material=framev36::encode(matrix);for(int i=0;i<3;++i)r.errors.material[i]=-r.errors.material[i];
+  const auto seed=framev36::multiply(inverse,r.errors.material);r.seed=seed;r.solverQuaternion={{0,0,0,1}};
+- r.callback=cf::modify(seed,actor,cf::Matrix{{{1,0,0},{0,1,0},{0,0,1}}},callbackPlane,true);
++ const char* staticFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_HULL_STATIC_FRAME_V61");
++ const bool staticFrame=directRawWorld && staticFrameFlag && std::strcmp(staticFrameFlag,"1")==0;
++ const cf::Matrix identity{{{1,0,0},{0,1,0},{0,0,1}}};
++ r.callback=staticFrame?cf::modify(r.errors.material,identity,actor,callbackPlane,false):cf::modify(seed,actor,identity,callbackPlane,true);
+  if(r.callback.modified) {
+   const char* solverMultiplyFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
+   const auto solverQuaternion=solverMultiplyFlag && std::strcmp(solverMultiplyFlag,"1")==0?
+       framev36::solverMultiply(actorQuaternion,r.callback.local0):framev36::multiply(actorQuaternion,r.callback.local0);
+-  r.solverQuaternion=solverQuaternion;
++  r.solverQuaternion=staticFrame?r.callback.local0:solverQuaternion;
+   const char* normalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_NORMAL");
+-  r.normal=normalFlag && std::strcmp(normalFlag,"1")==0?contactnormalv38::decode(solverQuaternion):materialcandidate::solverNormal(solverQuaternion);
++  r.normal=normalFlag && std::strcmp(normalFlag,"1")==0?contactnormalv38::decode(r.solverQuaternion):materialcandidate::solverNormal(r.solverQuaternion);
++  if(staticFrame)for(int i=0;i<3;++i)r.normal[i]=-r.normal[i];
+  } else r.normal=plane;
+  return r;
+ }
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -3,6 +3,8 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #include <Jolt/Jolt.h>
++#include <cstdio>
++#include <cstdlib>
+ 
+ #include <Jolt/Physics/Vehicle/VehicleConstraint.h>
+ #include <Jolt/Physics/Vehicle/VehicleController.h>
+@@ -658,6 +660,21 @@
+ 	mPitchRollPart.WarmStart(*mBody, Body::sFixedToWorld, inWarmStartImpulseRatio);
+ }
+ 
++
++// Bounded, opt-in read-only wheel solver telemetry. The default path does no I/O.
++static void TraceSourceWheelV62(const Body& body, uint step, uint iteration, int wheel,
++                               const char* phase, float lambda=0, float mass=0)
++{
++    const char* path=std::getenv("RRR3D_WHEEL_SOLVER_TRACE_FILE_V62");
++    const char* target=std::getenv("RRR3D_WHEEL_SOLVER_TRACE_STEP_V62");
++    if(!path || !*path || !target || step!=std::strtoul(target,nullptr,10))return;
++    const Vec3 v=body.GetLinearVelocity(),a=body.GetAngularVelocity();
++    FILE* file=std::fopen(path,"a");
++    if(!file)return;
++    std::fprintf(file,"{\"step\":%u,\"iteration\":%u,\"wheel\":%d,\"phase\":\"%s\",\"lambda\":%.9g,\"mass\":%.9g,\"velocity\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]}\n",step,iteration,wheel,phase,lambda,mass,v.GetX(),v.GetZ(),v.GetY(),-a.GetX(),-a.GetZ(),-a.GetY());
++    std::fclose(file);
++}
++
+ bool VehicleConstraint::SolveVelocityConstraint(float inDeltaTime)
+ {
+ 	const bool source = UsesSourceSpringFinal();
+@@ -665,6 +682,15 @@
+ 	if (source) ++mSourceVelocitySteps;
+ 	bool impulse = false;
+ 
++    const char* batchedStopsFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_STOP_ORDER_V62");
++    const bool batchedStops=source && source_stop && batchedStopsFlag && std::strcmp(batchedStopsFlag,"1")==0;
++    // Original Nx submits all active hard suspension stops before the soft
++    // spring rows. Interleaving a stop with its spring changes the next stop.
++    if(batchedStops)for(uint index=0;index<mWheels.size();++index) {
++        Wheel* wheel=mWheels[mWheels.size()-1-index];
++        if(wheel->mContactBody && wheel->mSuspensionMaxUpPart.IsActive())
++            impulse |= wheel->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody,*wheel->mContactBody,-wheel->mContactNormal,0.0f,FLT_MAX);
++    }
+ 	// Solve suspension
+ 	for (uint index = 0; index < mWheels.size(); ++index)
+ 	{
+@@ -673,19 +699,21 @@
+ 		{
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+ 
+-			if (source_stop && w->mSuspensionMaxUpPart.IsActive())
++			if (source_stop && !batchedStops && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+             const char *local_lost_flag_v58=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
+             const bool cached_frame_v58=local_lost_flag_v58&&std::strcmp(local_lost_flag_v58,"1")==0
+                 && AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()
+                 && w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint&&w->mSourceContactLost&&w->mSourceLocalContactValidV58;
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"spring-before",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
+ 			if (w->mSuspensionPart.IsActive())
+                 impulse |= w->mNativeSpringV53.enabled? w->mSuspensionPart.SolveNativeSplitSpringV53(*mBody, *w->mContactBody,
+                     cached_frame_v58?AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceLocalContactAxisV58):
+                     (AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()&&w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,neg_contact_normal):neg_contact_normal),
+                     w->mNativeSpringV53, 0.0f, FLT_MAX) : w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"spring-after",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
+ 			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+@@ -694,7 +722,9 @@
+ 		}
+ 
+ 	// Solve the horizontal movement of the vehicle
++    TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,-1,"tires-before");
+ 	impulse |= mController->SolveLongitudinalAndLateralConstraints(inDeltaTime);
++    TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,-1,"tires-after");
+ 
+ 	// Apply the pitch / roll constraint to avoid the vehicle from toppling over
+ 	if (mPitchRollPart.IsActive())
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -3,6 +3,7 @@
+ // SPDX-License-Identifier: MIT
+ 
+ #include <Jolt/Jolt.h>
++#include <cstdio>
+ #include <Jolt/Physics/Vehicle/VehicleConstraint.h>
+ 
+ #include <Jolt/Physics/Constraints/ContactConstraintManager.h>
+@@ -1791,6 +1792,15 @@
+                     wcp.mNativeFrictionImpulse = Vec3(A::Add(wcp.mNativeFrictionImpulse.GetX(),friction_delta.GetX()), A::Add(wcp.mNativeFrictionImpulse.GetY(),friction_delta.GetY()), A::Add(wcp.mNativeFrictionImpulse.GetZ(),friction_delta.GetZ()));
+                 }
+                 const Vec3 force(A::Add(friction_delta.GetX(),A::Mul(native.mNormal.GetX(),delta)), A::Add(friction_delta.GetY(),A::Mul(native.mNormal.GetY(),delta)), A::Add(friction_delta.GetZ(),A::Mul(native.mNormal.GetZ(),delta)));
++                const char* forceTrace=std::getenv("RRR3D_CONTACT_FORCE_TRACE_FILE_V62");
++                if(forceTrace && *forceTrace) {
++                    static std::mutex traceMutex;static unsigned traceCount=0;
++                    std::scoped_lock traceLock(traceMutex);
++                    if(traceCount++<256)if(FILE* file=std::fopen(forceTrace,"a")) {
++                        std::fprintf(file,"{\"entry\":%u,\"index\":%u,\"iteration\":%u,\"r\":[%.9g,%.9g,%.9g],\"point\":[%.9g,%.9g,%.9g],\"axis2\":[%.9g,%.9g,%.9g],\"masses\":[%.9g,%.9g],\"coefficient\":%.9g,\"delta\":%.9g,\"friction\":[%.9g,%.9g,%.9g],\"force\":[%.9g,%.9g,%.9g]}\n",traceCount,native_index-1,native.mIteration,native.mR.GetX(),native.mR.GetY(),native.mR.GetZ(),point.GetX(),point.GetY(),point.GetZ(),wcp.mNativeFrictionAxis.GetX(),wcp.mNativeFrictionAxis.GetY(),wcp.mNativeFrictionAxis.GetZ(),wcp.mNativeFrictionMass1,wcp.mNativeFrictionMass,wcp.mNativeFrictionCoefficient,delta,friction_delta.GetX(),friction_delta.GetY(),friction_delta.GetZ(),force.GetX(),force.GetY(),force.GetZ());
++                        std::fclose(file);
++                    }
++                }
+                 const Vec3 linear(A::Mul(force.GetX(),native.mInvMass), A::Mul(force.GetY(),native.mInvMass), A::Mul(force.GetZ(),native.mInvMass));
+                 motion->AddLinearVelocityStep(A::Polar(linear));
+                 motion->AddAngularVelocityStep(A::Axial(native.Tensor(A::Cross(native.mR,force))));

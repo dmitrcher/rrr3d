@@ -1,0 +1,125 @@
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -447,6 +447,12 @@
+ {
+ 	const bool source_stop = UsesSourceSuspensionStop();
+ 	mSourceVelocitySteps = 0;
++    const char* creationOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ROW_CREATION_ORDER_V64");
++    const bool creationOrder=UsesSourceSpringFinal() && source_stop && creationOrderFlag && std::strcmp(creationOrderFlag,"1")==0;
++    if(creationOrder && mSourceSpringCreationOrderV64.size()!=mWheels.size()) {
++        mSourceSpringCreationOrderV64.resize(mWheels.size(),0);
++        mSourceStopCreationOrderV64.resize(mWheels.size(),0);
++    }
+ 	RMat44 body_transform = mBody->GetWorldTransform();
+ 
+ 	for (Wheel *w : mWheels)
+@@ -622,6 +628,17 @@
+ 			w->mLateralPart.Deactivate();
+ 		}
+ 
++    // Nx's prepared generic-row object indices are persistent creation
++    // indices, traversed in descending order. Create spring then stop per
++    // wheel when first activated; a stop first encountered later sorts ahead
++    // of the existing spring group. Keep indices while a row is inactive.
++    if(creationOrder)for(uint index=0;index<mWheels.size();++index) {
++        Wheel* wheel=mWheels[index];
++        if(wheel->mSuspensionPart.IsActive() && !mSourceSpringCreationOrderV64[index])
++            mSourceSpringCreationOrderV64[index]=++mSourceRowCreationCounterV64;
++        if(wheel->mSuspensionMaxUpPart.IsActive() && !mSourceStopCreationOrderV64[index])
++            mSourceStopCreationOrderV64[index]=++mSourceRowCreationCounterV64;
++    }
+ 	CalculatePitchRollConstraintProperties(body_transform);
+ }
+ 
+@@ -682,38 +699,66 @@
+ 	if (source) ++mSourceVelocitySteps;
+ 	bool impulse = false;
+ 
++    const char* creationOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ROW_CREATION_ORDER_V64");
++    const bool creationOrder=source && source_stop && creationOrderFlag && std::strcmp(creationOrderFlag,"1")==0;
++    struct SuspensionRowV64 { uint64 order; uint wheel; bool stop; };
++    Array<SuspensionRowV64> orderedRows;
++    if(creationOrder) {
++        for(uint index=0;index<mWheels.size();++index) {
++            Wheel* wheel=mWheels[index];
++            if(!wheel->mContactBody)continue;
++            if(wheel->mSuspensionMaxUpPart.IsActive())orderedRows.push_back({mSourceStopCreationOrderV64[index],index,true});
++            if(wheel->mSuspensionPart.IsActive())orderedRows.push_back({mSourceSpringCreationOrderV64[index],index,false});
++        }
++        std::sort(orderedRows.begin(),orderedRows.end(),[](const SuspensionRowV64& a,const SuspensionRowV64& b){return a.order>b.order;});
++    }
++    const char* lostStopsFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_STOP_ORDER_V63");
++    const bool lostStops=!creationOrder && source && source_stop && lostStopsFlag && std::strcmp(lostStopsFlag,"1")==0;
+     const char* batchedStopsFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_STOP_ORDER_V62");
+-    const bool batchedStops=source && source_stop && batchedStopsFlag && std::strcmp(batchedStopsFlag,"1")==0;
+-    // Original Nx submits all active hard suspension stops before the soft
+-    // spring rows. Interleaving a stop with its spring changes the next stop.
+-    if(batchedStops)for(uint index=0;index<mWheels.size();++index) {
++    const bool batchedStops=!creationOrder && !lostStops && source && source_stop && batchedStopsFlag && std::strcmp(batchedStopsFlag,"1")==0;
++    // Read-only Native traces distinguish two cases: retained contacts have
++    // separate hard-stop rows before the spring group; current contacts keep
++    // a wheel's hard stop adjacent to its spring. V62's all-stop batching is
++    // retained only as a default-off rejected control, overridden by V63.
++    if(batchedStops || lostStops)for(uint index=0;index<mWheels.size();++index) {
+         Wheel* wheel=mWheels[mWheels.size()-1-index];
+-        if(wheel->mContactBody && wheel->mSuspensionMaxUpPart.IsActive())
++        if(wheel->mContactBody && wheel->mSuspensionMaxUpPart.IsActive()
++            && (batchedStops || wheel->mSourceContactLost)) {
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"retained-stop-before",wheel->mSuspensionMaxUpPart.GetTotalLambda(),wheel->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
+             impulse |= wheel->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody,*wheel->mContactBody,-wheel->mContactNormal,0.0f,FLT_MAX);
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"retained-stop-after",wheel->mSuspensionMaxUpPart.GetTotalLambda(),wheel->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
++        }
+     }
+ 	// Solve suspension
+-	for (uint index = 0; index < mWheels.size(); ++index)
+-	{
+-		Wheel *w = mWheels[source? mWheels.size() - 1 - index : index];
++	for (uint index = 0; index < (creationOrder?orderedRows.size():mWheels.size()); ++index)
++	{
++        const uint wheelIndex=creationOrder?orderedRows[index].wheel:(source?uint(mWheels.size()-1-index):index);
++		Wheel *w = mWheels[wheelIndex];
+ 		if (w->mContactBody != nullptr)
+ 		{
+ 			Vec3 neg_contact_normal = -w->mContactNormal;
+-
+-			if (source_stop && !batchedStops && w->mSuspensionMaxUpPart.IsActive())
++            if(creationOrder && orderedRows[index].stop) {
++                TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"ordered-stop-before",w->mSuspensionMaxUpPart.GetTotalLambda(),w->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
++                impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody,*w->mContactBody,neg_contact_normal,0.0f,FLT_MAX);
++                TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"ordered-stop-after",w->mSuspensionMaxUpPart.GetTotalLambda(),w->mSuspensionMaxUpPart.GetDiagnosticEffectiveMass());
++                continue;
++            }
++
++			if (!creationOrder && source_stop && !batchedStops && !(lostStops && w->mSourceContactLost) && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+             const char *local_lost_flag_v58=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOST_LOCAL_FRAME_V58");
+             const bool cached_frame_v58=local_lost_flag_v58&&std::strcmp(local_lost_flag_v58,"1")==0
+                 && AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()
+                 && w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint&&w->mSourceContactLost&&w->mSourceLocalContactValidV58;
+-            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"spring-before",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"spring-before",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
+ 			if (w->mSuspensionPart.IsActive())
+                 impulse |= w->mNativeSpringV53.enabled? w->mSuspensionPart.SolveNativeSplitSpringV53(*mBody, *w->mContactBody,
+                     cached_frame_v58?AxisConstraintPart::NativeWheelLocalAxisV58(*mBody,w->mSourceLocalContactAxisV58):
+                     (AxisConstraintPart::UsesNativeWheelFrameV57()&&UsesSourceSpringFinal()&&w->mContactBody->IsStatic()&&w->mSteerAngle==0&&!w->mSettings->mEnableSuspensionForcePoint?AxisConstraintPart::NativeWheelFrameAxisV57(*mBody,neg_contact_normal):neg_contact_normal),
+                     w->mNativeSpringV53, 0.0f, FLT_MAX) : w->mSuspensionPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+-            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(mWheels.size()-1-index),"spring-after",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
++            TraceSourceWheelV62(*mBody,GetSourceSimulationCounterV59(),mSourceVelocitySteps,int(wheelIndex),"spring-after",w->mSuspensionPart.GetTotalLambda(),w->mSuspensionPart.GetDiagnosticEffectiveMass());
+ 			if (!source_stop && w->mSuspensionMaxUpPart.IsActive())
+ 				impulse |= w->mSuspensionMaxUpPart.SolveVelocityConstraint(*mBody, *w->mContactBody, neg_contact_normal, 0.0f, FLT_MAX);
+ 
+--- a/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -225,6 +225,10 @@
+ 	Vec3						mUp;										///< Local space up vector for the vehicle
+ 	Vec3						mWorldUp;									///< Vector indicating the world space up direction (used to limit vehicle pitch/roll)
+ 	uint mSourceVelocitySteps = 0;
++    // Default-off Native row-lifetime ordering experiment; no vehicle settings.
++    Array<uint64> mSourceSpringCreationOrderV64;
++    Array<uint64> mSourceStopCreationOrderV64;
++    uint64 mSourceRowCreationCounterV64 = 0;
+ 	Wheels						mWheels;									///< Wheel states of the vehicle
+ 	VehicleAntiRollBars			mAntiRollBars;								///< Anti rollbars of the vehicle
+ 	VehicleController *			mController;								///< Controls the acceleration / deceleration of the vehicle

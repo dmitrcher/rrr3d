@@ -1,0 +1,472 @@
+{
+  "scope": "Bounded read-only Native vs Mac vertical row order at the first two coupled solves. Native spring-solve-result is sampled before velocity application; only solver INPUT snapshots are compared. Row kinds use the first biased iteration, since spring softness becomes zero in the final unbiased pass.",
+  "steps": [
+    {
+      "native_counter": 61,
+      "mac_vehicle_counter": 63,
+      "rows_per_native_iteration": 14,
+      "active_vertical_order_matches": true,
+      "comparisons": [
+        {
+          "iteration": 1,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 319.5367431640625,
+          "mac_mass": 319.540283,
+          "input_velocity_error": 4.775088340201975e-09
+        },
+        {
+          "iteration": 1,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 320.10302734375,
+          "mac_mass": 320.106537,
+          "input_velocity_error": 4.775088340201975e-09
+        },
+        {
+          "iteration": 1,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 66.96664428710938,
+          "mac_mass": 66.9666443,
+          "input_velocity_error": 4.775088340201975e-09
+        },
+        {
+          "iteration": 1,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 66.9914779663086,
+          "mac_mass": 66.9914856,
+          "input_velocity_error": 4.775088340201975e-09
+        },
+        {
+          "iteration": 1,
+          "ordinal": 4,
+          "kind": "spring",
+          "wheel": 1,
+          "native_mass": 65.68959045410156,
+          "mac_mass": 65.6895905,
+          "input_velocity_error": 4.775088340201975e-09
+        },
+        {
+          "iteration": 1,
+          "ordinal": 5,
+          "kind": "spring",
+          "wheel": 0,
+          "native_mass": 65.72249603271484,
+          "mac_mass": 65.722496,
+          "input_velocity_error": 1.956252520400921e-09
+        },
+        {
+          "iteration": 2,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 319.5367431640625,
+          "mac_mass": 319.540283,
+          "input_velocity_error": 1.789820090693832e-07
+        },
+        {
+          "iteration": 2,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 320.10302734375,
+          "mac_mass": 320.106537,
+          "input_velocity_error": 2.3850386483568826e-06
+        },
+        {
+          "iteration": 2,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 66.96664428710938,
+          "mac_mass": 66.9666443,
+          "input_velocity_error": 3.817598006702209e-06
+        },
+        {
+          "iteration": 2,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 66.9914779663086,
+          "mac_mass": 66.9914856,
+          "input_velocity_error": 2.8625647583351063e-06
+        },
+        {
+          "iteration": 2,
+          "ordinal": 4,
+          "kind": "spring",
+          "wheel": 1,
+          "native_mass": 65.68959045410156,
+          "mac_mass": 65.6895905,
+          "input_velocity_error": 9.521877062005011e-07
+        },
+        {
+          "iteration": 2,
+          "ordinal": 5,
+          "kind": "spring",
+          "wheel": 0,
+          "native_mass": 65.72249603271484,
+          "mac_mass": 65.722496,
+          "input_velocity_error": 9.588300709799312e-07
+        },
+        {
+          "iteration": 3,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 319.5367431640625,
+          "mac_mass": 319.540283,
+          "input_velocity_error": 5.15059344254156e-06
+        },
+        {
+          "iteration": 3,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 320.10302734375,
+          "mac_mass": 320.106537,
+          "input_velocity_error": 2.719091193525455e-06
+        },
+        {
+          "iteration": 3,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 66.96664428710938,
+          "mac_mass": 66.9666443,
+          "input_velocity_error": 7.87620281496651e-06
+        },
+        {
+          "iteration": 3,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 66.9914779663086,
+          "mac_mass": 66.9914856,
+          "input_velocity_error": 7.413275068477555e-06
+        },
+        {
+          "iteration": 3,
+          "ordinal": 4,
+          "kind": "spring",
+          "wheel": 1,
+          "native_mass": 65.68959045410156,
+          "mac_mass": 65.6895905,
+          "input_velocity_error": 7.408687505770176e-06
+        },
+        {
+          "iteration": 3,
+          "ordinal": 5,
+          "kind": "spring",
+          "wheel": 0,
+          "native_mass": 65.72249603271484,
+          "mac_mass": 65.722496,
+          "input_velocity_error": 7.408687505770176e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 319.5367431640625,
+          "mac_mass": 319.540283,
+          "input_velocity_error": 3.037814983260405e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 320.10302734375,
+          "mac_mass": 320.106537,
+          "input_velocity_error": 4.2554385210225415e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 66.96664428710938,
+          "mac_mass": 66.9666443,
+          "input_velocity_error": 9.723805798735881e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 66.9914779663086,
+          "mac_mass": 66.9914856,
+          "input_velocity_error": 9.25207001135888e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 4,
+          "kind": "spring",
+          "wheel": 1,
+          "native_mass": 65.68959045410156,
+          "mac_mass": 65.6895905,
+          "input_velocity_error": 9.256654894305424e-06
+        },
+        {
+          "iteration": 4,
+          "ordinal": 5,
+          "kind": "spring",
+          "wheel": 0,
+          "native_mass": 65.72249603271484,
+          "mac_mass": 65.722496,
+          "input_velocity_error": 9.256654894305424e-06
+        },
+        {
+          "iteration": 5,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 319.5367431640625,
+          "mac_mass": 319.540283,
+          "input_velocity_error": 4.783886410156709e-07
+        },
+        {
+          "iteration": 5,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 320.10302734375,
+          "mac_mass": 320.106537,
+          "input_velocity_error": 2.3831600828718097e-06
+        },
+        {
+          "iteration": 5,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 66.96664428710938,
+          "mac_mass": 66.9666443,
+          "input_velocity_error": 5.247622635315764e-06
+        },
+        {
+          "iteration": 5,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 66.9914779663086,
+          "mac_mass": 66.9914856,
+          "input_velocity_error": 5.722288593204373e-06
+        },
+        {
+          "iteration": 5,
+          "ordinal": 4,
+          "kind": "spring",
+          "wheel": 1,
+          "native_mass": 65.68959045410156,
+          "mac_mass": 65.6895905,
+          "input_velocity_error": 6.200305220221208e-06
+        },
+        {
+          "iteration": 5,
+          "ordinal": 5,
+          "kind": "spring",
+          "wheel": 0,
+          "native_mass": 65.72249603271484,
+          "mac_mass": 65.722496,
+          "input_velocity_error": 6.200305220221208e-06
+        }
+      ]
+    },
+    {
+      "native_counter": 62,
+      "mac_vehicle_counter": 64,
+      "rows_per_native_iteration": 8,
+      "active_vertical_order_matches": true,
+      "comparisons": [
+        {
+          "iteration": 1,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 339.0118103027344,
+          "mac_mass": 339.015259,
+          "input_velocity_error": 3.018028852584483e-06
+        },
+        {
+          "iteration": 1,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 341.27545166015625,
+          "mac_mass": 341.278992,
+          "input_velocity_error": 3.018028852584483e-06
+        },
+        {
+          "iteration": 1,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 67.78269958496094,
+          "mac_mass": 67.7826996,
+          "input_velocity_error": 3.018028852584483e-06
+        },
+        {
+          "iteration": 1,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 67.8727035522461,
+          "mac_mass": 67.8727112,
+          "input_velocity_error": 3.018028852584483e-06
+        },
+        {
+          "iteration": 2,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 339.0118103027344,
+          "mac_mass": 339.015259,
+          "input_velocity_error": 8.025021071477306e-05
+        },
+        {
+          "iteration": 2,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 341.27545166015625,
+          "mac_mass": 341.278992,
+          "input_velocity_error": 8.048274822516911e-05
+        },
+        {
+          "iteration": 2,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 67.78269958496094,
+          "mac_mass": 67.7826996,
+          "input_velocity_error": 8.115607695698825e-05
+        },
+        {
+          "iteration": 2,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 67.8727035522461,
+          "mac_mass": 67.8727112,
+          "input_velocity_error": 8.119394955441874e-05
+        },
+        {
+          "iteration": 3,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 339.0118103027344,
+          "mac_mass": 339.015259,
+          "input_velocity_error": 0.4921399861224732
+        },
+        {
+          "iteration": 3,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 341.27545166015625,
+          "mac_mass": 341.278992,
+          "input_velocity_error": 0.0838072834138437
+        },
+        {
+          "iteration": 3,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 67.78269958496094,
+          "mac_mass": 67.7826996,
+          "input_velocity_error": 0.026488346100815997
+        },
+        {
+          "iteration": 3,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 67.8727035522461,
+          "mac_mass": 67.8727112,
+          "input_velocity_error": 0.047919911679512255
+        },
+        {
+          "iteration": 4,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 339.0118103027344,
+          "mac_mass": 339.015259,
+          "input_velocity_error": 0.02750134608800182
+        },
+        {
+          "iteration": 4,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 341.27545166015625,
+          "mac_mass": 341.278992,
+          "input_velocity_error": 0.26800957852222734
+        },
+        {
+          "iteration": 4,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 67.78269958496094,
+          "mac_mass": 67.7826996,
+          "input_velocity_error": 0.1779041367265268
+        },
+        {
+          "iteration": 4,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 67.8727035522461,
+          "mac_mass": 67.8727112,
+          "input_velocity_error": 0.11858207082122739
+        },
+        {
+          "iteration": 5,
+          "ordinal": 0,
+          "kind": "stop",
+          "wheel": 3,
+          "native_mass": 339.0118103027344,
+          "mac_mass": 339.015259,
+          "input_velocity_error": 0.08594709791177507
+        },
+        {
+          "iteration": 5,
+          "ordinal": 1,
+          "kind": "stop",
+          "wheel": 2,
+          "native_mass": 341.27545166015625,
+          "mac_mass": 341.278992,
+          "input_velocity_error": 0.1910941505342803
+        },
+        {
+          "iteration": 5,
+          "ordinal": 2,
+          "kind": "spring",
+          "wheel": 3,
+          "native_mass": 67.78269958496094,
+          "mac_mass": 67.7826996,
+          "input_velocity_error": 0.1910941505342803
+        },
+        {
+          "iteration": 5,
+          "ordinal": 3,
+          "kind": "spring",
+          "wheel": 2,
+          "native_mass": 67.8727035522461,
+          "mac_mass": 67.8727112,
+          "input_velocity_error": 0.18929621734572177
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,182 @@
+{
+  "scope": "Read-only Native rows at integrator counter 61; all 600 physical samples in both runs exactly equal original Golden. The Mac vehicle debug counter 63 refers to this same solve.",
+  "native_order": [
+    {
+      "ordinal": 0,
+      "kind": "hard_stop",
+      "axis": [
+        -5.8741989050759e-09,
+        -2.3283064365386963e-10,
+        1.0000032186508179
+      ],
+      "effective_mass": 319.5367431640625,
+      "prepared_limit_coefficient": 1.2807159423828125,
+      "prepared_bias": -7.695261001586914
+    },
+    {
+      "ordinal": 1,
+      "kind": "hard_stop",
+      "axis": [
+        -5.8741989050759e-09,
+        -2.3283064365386963e-10,
+        1.0000032186508179
+      ],
+      "effective_mass": 320.10302734375,
+      "prepared_limit_coefficient": 2.7808074951171875,
+      "prepared_bias": -7.692375183105469
+    },
+    {
+      "ordinal": 2,
+      "kind": "spring",
+      "axis": [
+        -5.8741989050759e-09,
+        -2.3283064365386963e-10,
+        1.0000032186508179
+      ],
+      "effective_mass": 66.96664428710938,
+      "prepared_limit_coefficient": 1.2807159423828125,
+      "prepared_bias": -7.695261001586914
+    },
+    {
+      "ordinal": 3,
+      "kind": "spring",
+      "axis": [
+        -5.8741989050759e-09,
+        -2.3283064365386963e-10,
+        1.0000032186508179
+      ],
+      "effective_mass": 66.9914779663086,
+      "prepared_limit_coefficient": 2.7808074951171875,
+      "prepared_bias": -7.692375183105469
+    },
+    {
+      "ordinal": 4,
+      "kind": "spring",
+      "axis": [
+        -0.23108799755573273,
+        -0.0002046951267402619,
+        0.9729358553886414
+      ],
+      "effective_mass": 65.68959045410156,
+      "prepared_limit_coefficient": 1.2505645751953125,
+      "prepared_bias": -9.23332405090332
+    },
+    {
+      "ordinal": 5,
+      "kind": "spring",
+      "axis": [
+        -0.23108799755573273,
+        -0.0002046951267402619,
+        0.9729358553886414
+      ],
+      "effective_mass": 65.72249603271484,
+      "prepared_limit_coefficient": 2.7505950927734375,
+      "prepared_bias": -9.233353614807129
+    },
+    {
+      "ordinal": 6,
+      "kind": "tire",
+      "axis": [
+        -0.0015417992835864425,
+        1.0000020265579224,
+        -6.402842700481415e-10
+      ],
+      "effective_mass": 478.26763916015625,
+      "prepared_limit_coefficient": -9.999988555908203,
+      "prepared_bias": -0.015417948365211487
+    },
+    {
+      "ordinal": 7,
+      "kind": "tire",
+      "axis": [
+        1.0000019073486328,
+        0.0015418004477396607,
+        2.3319671527133323e-08
+      ],
+      "effective_mass": 598.36669921875,
+      "prepared_limit_coefficient": -0.015417948365211487,
+      "prepared_bias": 9.999988555908203
+    },
+    {
+      "ordinal": 8,
+      "kind": "tire",
+      "axis": [
+        -0.0015417992835864425,
+        1.0000020265579224,
+        -6.402842700481415e-10
+      ],
+      "effective_mass": 478.1260070800781,
+      "prepared_limit_coefficient": -9.999988555908203,
+      "prepared_bias": -0.015417948365211487
+    },
+    {
+      "ordinal": 9,
+      "kind": "tire",
+      "axis": [
+        1.0000019073486328,
+        0.0015418004477396607,
+        2.3319671527133323e-08
+      ],
+      "effective_mass": 599.5784912109375,
+      "prepared_limit_coefficient": -0.015417948365211487,
+      "prepared_bias": 9.999988555908203
+    },
+    {
+      "ordinal": 10,
+      "kind": "tire",
+      "axis": [
+        -0.0019270488992333412,
+        1.000001072883606,
+        -0.00024731646408326924
+      ],
+      "effective_mass": 380.05499267578125,
+      "prepared_limit_coefficient": -10.0,
+      "prepared_bias": -5.364422122511314e-06
+    },
+    {
+      "ordinal": 11,
+      "kind": "tire",
+      "axis": [
+        0.9729340076446533,
+        0.0019320414867252111,
+        0.23108798265457153
+      ],
+      "effective_mass": 633.1097412109375,
+      "prepared_limit_coefficient": -5.364422122511314e-06,
+      "prepared_bias": 10.0
+    },
+    {
+      "ordinal": 12,
+      "kind": "tire",
+      "axis": [
+        -0.0019270488992333412,
+        1.000001072883606,
+        -0.00024731646408326924
+      ],
+      "effective_mass": 380.0480651855469,
+      "prepared_limit_coefficient": -10.0,
+      "prepared_bias": -5.364422122511314e-06
+    },
+    {
+      "ordinal": 13,
+      "kind": "tire",
+      "axis": [
+        0.9729340076446533,
+        0.0019320414867252111,
+        0.23108798265457153
+      ],
+      "effective_mass": 634.2426147460938,
+      "prepared_limit_coefficient": -5.364422122511314e-06,
+      "prepared_bias": 10.0
+    }
+  ],
+  "old_mac_order": "Per wheel in reverse order: hard stop if active, then spring; after all wheels, tire rows.",
+  "corrected_mac_order": "All hard stops in reverse wheel order, then all springs in reverse wheel order, then tire rows.",
+  "unchanged_vehicle_parameters": true,
+  "default_off_flag": "RRR3D_EXPERIMENT_NATIVE_SUSPENSION_STOP_ORDER_V62",
+  "golden_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+  "native_probe_sha256": "3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262",
+  "native_core_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+  "goal_complete": false,
+  "limits": "The recorded order applies to border-grounded counter 61. General all-stop batching was rejected after Native first-landing traces showed per-wheel interleaving. See creation-order-v64."
+}

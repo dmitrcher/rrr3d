@@ -1,0 +1,26 @@
+[
+  {
+    "transition": "apply",
+    "passed": true,
+    "output": "Installed 5 recorded files. Rebuild required. All v61/v62 experiment flags remain off by default."
+  },
+  {
+    "transition": "idempotent_apply",
+    "passed": true,
+    "output": "Installed 0 recorded files. Rebuild required. All v61/v62 experiment flags remain off by default."
+  },
+  {
+    "transition": "restore",
+    "passed": true,
+    "output": "Restored 5 recorded files. Rebuild required. All v61/v62 experiment flags remain off by default."
+  },
+  {
+    "transition": "idempotent_restore",
+    "passed": true,
+    "output": "Restored 0 recorded files. Rebuild required. All v61/v62 experiment flags remain off by default."
+  },
+  {
+    "transition": "reject_wrong_base_before_any_mutation",
+    "passed": true
+  }
+]

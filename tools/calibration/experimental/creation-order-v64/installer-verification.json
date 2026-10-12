@@ -1,0 +1,25 @@
+{
+  "transitions": [
+    {
+      "arguments": [],
+      "output": "Installed 2 recorded files. Rebuild required. All v64 experiment flags remain off by default."
+    },
+    {
+      "arguments": [],
+      "output": "Installed 0 recorded files. Rebuild required. All v64 experiment flags remain off by default."
+    },
+    {
+      "arguments": [
+        "--restore"
+      ],
+      "output": "Restored 2 recorded files. Rebuild required. All v64 experiment flags remain off by default."
+    },
+    {
+      "arguments": [
+        "--restore"
+      ],
+      "output": "Restored 0 recorded files. Rebuild required. All v64 experiment flags remain off by default."
+    }
+  ],
+  "wrong_base_rejected_before_mutation": true
+}

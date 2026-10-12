@@ -1,0 +1,93 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3319,0 +3320,2 @@
++        std::vector<float> sourceLateralImpulseReportV56;
++        std::vector<bool> sourceImpulseReportValidV56;
+@@ -4502,0 +4505,2 @@
++        runtime.sourceLateralImpulseReportV56.assign(wheelCount,0);
++        runtime.sourceImpulseReportValidV56.assign(wheelCount,false);
+@@ -4525,0 +4530 @@
++                    vehicle.sourceImpulseReportValidV56[i]=false;
+@@ -4717,0 +4723,23 @@
++                namespace nt = motorrock::tirev55;
++                // PhysX flags64 copies the signed curve-scaled tire request
++                // into NxWheelContactData, not the solver's final lambda.
++                // Restrict this experiment to the proved static, zero-steer,
++                // zero-longitudinal-slip branch (no combined friction ellipse).
++                if (tuning_.physxWheelCompat &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_REPORT_V56") &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55") &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") &&
++                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55") &&
++                    wheel->HasContact() && wheel->GetSteerAngle()==0 &&
++                    vehicle.tireAnchorsV55[wheelIndex].valid &&
++                    (source.wheels[wheelIndex].flags & clampedFriction)!=0 &&
++                    longitudinalSlip==0 && vehicle.tireProjectionsV55[wheelIndex]>=0)
++                {
++                    const auto& t=source.wheels[wheelIndex].lateralTire;
++                    float requested=nt::mul(-nt::curve(lateralSlip,t.extremumSlip,t.extremumValue,t.asymptoteSlip,t.asymptoteValue),allowedSuspensionImpulse);
++                    // The retained Windows observable log prints signed zero
++                    // as 0. Private solver signed-zero parity remains unproved.
++                    vehicle.sourceLateralImpulseReportV56[wheelIndex]=requested==0?0:requested;
++                    vehicle.sourceImpulseReportValidV56[wheelIndex]=true;
++                }
+@@ -4926,0 +4955,5 @@
++                if (vehicle.sourceImpulseReportValidV56[index])
++                {
++                    contact.longitudinalImpulse=0;
++                    contact.lateralImpulse=vehicle.sourceLateralImpulseReportV56[index];
++                }
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -92 +92,3 @@
+- std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"mass\":%.9g,\"bias\":%.9g,\"lambda\":%.9g,\"minimum\":%.9g,\"maximum\":%.9g,\"axis\":[%.9g,%.9g,%.9g],\"position\":[%.9g,%.9g,%.9g],\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g],\"linear\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]}\n",event,sequence++,part.GetDiagnosticEffectiveMass(),part.GetDiagnosticVelocityBias(),part.GetTotalLambda(),minimum,maximum,axis.GetX(),axis.GetY(),axis.GetZ(),position.GetX(),position.GetY(),position.GetZ(),r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ(),v.GetX(),v.GetY(),v.GetZ(),w.GetX(),w.GetY(),w.GetZ());std::fclose(fp);
++ std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"mass\":%.9g,\"bias\":%.9g,\"lambda\":%.9g,\"minimum\":%.9g,\"maximum\":%.9g,\"axis\":[%.9g,%.9g,%.9g],\"position\":[%.9g,%.9g,%.9g],\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g],\"linear\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]",event,sequence++,part.GetDiagnosticEffectiveMass(),part.GetDiagnosticVelocityBias(),part.GetTotalLambda(),minimum,maximum,axis.GetX(),axis.GetY(),axis.GetZ(),position.GetX(),position.GetY(),position.GetZ(),r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ(),v.GetX(),v.GetY(),v.GetZ(),w.GetX(),w.GetY(),w.GetZ());
++ Mat44 matrix=body.GetInverseInertia();std::fprintf(fp,",\"inverse_inertia\":[");for(int row=0;row<3;++row)for(int col=0;col<3;++col){if(row||col)std::fprintf(fp,",");std::fprintf(fp,"%.9g",matrix.GetColumn3(col)[row]);}
++ auto q=body.GetRotation();auto iq=body.GetMotionPropertiesUnchecked()->GetInertiaRotation();Vec3 d=body.GetMotionPropertiesUnchecked()->GetInverseInertiaDiagonal();std::fprintf(fp,"],\"rotation\":[%.9g,%.9g,%.9g,%.9g],\"inertia_rotation\":[%.9g,%.9g,%.9g,%.9g],\"inverse_inertia_diagonal\":[%.9g,%.9g,%.9g],\"inverse_mass\":%.9g}\n",q.GetX(),q.GetY(),q.GetZ(),q.GetW(),iq.GetX(),iq.GetY(),iq.GetZ(),iq.GetW(),d.GetX(),d.GetY(),d.GetZ(),body.GetMotionPropertiesUnchecked()->GetInverseMass());std::fclose(fp);
+--- a/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h
+@@ -10,0 +11 @@
++#include <Jolt/Physics/Constraints/ConstraintPart/NativeWheelRowV56.h>
+@@ -681,0 +683,13 @@
++ }
++ void PrepareNativeWheelRowInertiaV56(const Body &body1,const Body &body2,Vec3Arg axis,bool hard) {
++  using namespace motorrock_native_wheel_row_v56;
++  auto vector=[](Vec3Arg v){return motorrock_native_wheel_row_v56::Vector{{v.GetX(),v.GetZ(),v.GetY()}};};
++  auto prepare=[&](const Body &body,Vec3Arg jacobian,Float3 &output){
++   auto m=body.GetInverseInertia();motorrock_native_wheel_row_v56::Matrix source;const unsigned permutation[3]={0,2,1};
++   for(unsigned r=0;r<3;++r)for(unsigned c=0;c<3;++c)source[r*3+c]=m.GetColumn3(permutation[c])[permutation[r]];
++   auto product=multiply(source,vector(jacobian));Vec3(product[0],product[2],product[1]).StoreFloat3(&output);
++   return inverse_mass(vector(axis),vector(jacobian),product,body.GetMotionPropertiesUnchecked()->GetInverseMass());
++  };
++  float k=prepare(body1,GetDiagnosticR1CrossAxis(),mInvI1_R1PlusUxAxis);
++  if(body2.IsDynamic())k=add(k,prepare(body2,GetDiagnosticR2CrossAxis(),mInvI2_R2xAxis));
++  if(hard&&k>0.0f)mEffectiveMass=div(1.0f,k);
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -526,0 +527,2 @@
++                const char *inertia_v56=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56");
++                if(inertia_v56&&std::strcmp(inertia_v56,"1")==0)w->mSuspensionPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,neg_contact_normal,false);
+@@ -551,0 +554,5 @@
++            const char *inertia_v56=std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56");
++            if(inertia_v56&&std::strcmp(inertia_v56,"1")==0){
++             w->mLongitudinalPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,-w->mContactLongitudinal,true);
++             w->mLateralPart.PrepareNativeWheelRowInertiaV56(*mBody,*w->mContactBody,-w->mContactLateral,true);
++            }
+--- /dev/null
++++ b/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeWheelRowV56.h
+@@ -0,0 +1,14 @@
++#pragma once
++#include <array>
++#include "NativeSpringSplitV53.h"
++namespace motorrock_native_wheel_row_v56 {
++using namespace motorrock_native_spring_v53;
++using Vector=std::array<float,3>;using Matrix=std::array<float,9>;
++inline Vector multiply(Matrix matrix,Vector jacobian) {
++ Vector out;for(unsigned i=0;i<3;++i)out[i]=add(add(mul(matrix[i*3],jacobian[0]),mul(matrix[i*3+1],jacobian[1])),mul(matrix[i*3+2],jacobian[2]));return out;
++}
++inline float inverse_mass(Vector axis,Vector jacobian,Vector inverse_jacobian,float inverse_body_mass) {
++ float k=mul(add(add(mul(axis[0],axis[0]),mul(axis[2],axis[2])),mul(axis[1],axis[1])),inverse_body_mass);
++ k=add(k,mul(jacobian[0],inverse_jacobian[0]));k=add(k,mul(jacobian[2],inverse_jacobian[2]));return add(k,mul(jacobian[1],inverse_jacobian[1]));
++}
++}

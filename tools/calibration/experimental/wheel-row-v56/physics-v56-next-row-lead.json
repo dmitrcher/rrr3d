@@ -1,0 +1,49 @@
+{
+  "cases": [
+    {
+      "case": "settle",
+      "counter": 21,
+      "first_divergent_observable_tick": 22,
+      "all600_original_states_unchanged_two_runs": true,
+      "all12_defined_final_prepared_rows_repeat_exact": true,
+      "original_lateral_anchor_velocity_bias": [
+        3.576278459149762e-06,
+        3.576278459149762e-06,
+        0.0,
+        0.0
+      ],
+      "current_mac_lateral_bias": 0
+    },
+    {
+      "case": "spring-soft",
+      "counter": 39,
+      "first_divergent_observable_tick": 40,
+      "all600_original_states_unchanged_two_runs": true,
+      "all12_defined_final_prepared_rows_repeat_exact": true,
+      "original_lateral_anchor_velocity_bias": [
+        -3.576278459149762e-06,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "current_mac_lateral_bias": 0
+    },
+    {
+      "case": "suspension-drop",
+      "counter": 39,
+      "first_divergent_observable_tick": 40,
+      "all600_original_states_unchanged_two_runs": true,
+      "all12_defined_final_prepared_rows_repeat_exact": true,
+      "original_lateral_anchor_velocity_bias": [
+        3.576278459149762e-06,
+        3.576278459149762e-06,
+        0.0,
+        0.0
+      ],
+      "current_mac_lateral_bias": 0
+    }
+  ],
+  "scope": "New actual original rows at the first remaining divergent step. Windows lateral rows have nonzero anchor positional velocity bias; current Mac tire rows use zero. Numerical source root cause, no coefficient fit or error tolerance. Mac trace directly confirms settle; the adapter omits anchor bias for all cases. Next correction requires validating sign, row order and solving arithmetic.",
+  "settle_mac20_lateral_rows_zero_bias_at_next_step": true,
+  "goal_complete": false
+}

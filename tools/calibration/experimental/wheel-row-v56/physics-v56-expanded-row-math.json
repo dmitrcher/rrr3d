@@ -1,0 +1,59 @@
+{
+  "captures": [
+    {
+      "case": "settle",
+      "counter": 20,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "settle",
+      "counter": 30,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "settle",
+      "counter": 60,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "spring-soft",
+      "counter": 38,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "suspension-drop",
+      "counter": 38,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "counter": 25,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "counter": 25,
+      "physical_states_each_repeat": 600,
+      "defined_prepared_words_repeat_exact": true
+    }
+  ],
+  "rows": 84,
+  "checks": [
+    {
+      "optimization": "-O0",
+      "result": "308 original inverse-jacobian/hard-mass float32 words exact"
+    },
+    {
+      "optimization": "-O2",
+      "result": "308 original inverse-jacobian/hard-mass float32 words exact"
+    }
+  ],
+  "scope": "Original inverse-inertia Jacobians and hard wheel effective masses, static contact body; no fit of actuator parameters.",
+  "goal_complete": false
+}

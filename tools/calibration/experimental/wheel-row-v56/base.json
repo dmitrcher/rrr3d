@@ -1,0 +1,44 @@
+{
+  "baseline_commit": "3c9fc034d8ad60d7c761127646d8343084d2aa98",
+  "scope": "Exact v55 adapter and tire SDK/v53 constraint chain. All changes default-off. No Jolt Wheel/settings/Axis object members or virtual methods added; adapter-owned report cache only.",
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_REPORT_V56"
+  ],
+  "separate_required_order_ablation": "RRR3D_EXPERIMENT_NATIVE_TIRE_REVERSE_V55",
+  "trace_variable": "RRR3D_NATIVE_TIRE_V55_TRACE",
+  "report_scope": "Static zero-steer flags64 zero-longitudinal-slip branch only; skips combined ellipse. Canonicalizes observable VC90 output zero, not internal solver signed zero.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "342bc7d8952898bddafe5966461a2c116a1decc5090a4cb1b3ba2d13082a4526",
+      "after_sha256": "dabb6693f1f61661e7768ddaed246141a0624473688bf5736d85ba83db37782e"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "00751dfa099770a73c8b5f7aefecbad25cf43d4cc437c372083596356bf948d9",
+      "after_sha256": "5b1550c6c635894e72433c7864161a842148bdff1cc650f507fed898166ae3a3"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "before_sha256": "0b62ddb18965b5f5a656e4c635087f19361062bff81a0bc4dc029e80059e2233",
+      "after_sha256": "b82ae432b2fda4f655abd0189094f79fb4ed430c4f98d663e8375835964c4b51"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "eb6ffe5ee5bffa4ea7e388345682053943aa4f73c75d759cf8d6def165a87e4f",
+      "after_sha256": "937281dd9052bb1c217188c2900d757123f985b2bbf40edcc599be50e5074845"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeWheelRowV56.h",
+      "before_sha256": null,
+      "after_sha256": "ac61e35adf4c404e0b4edbce89ca00ffb26b99d75c7810e6280ee9e4cdf242ad"
+    }
+  ],
+  "goal_complete": false
+}

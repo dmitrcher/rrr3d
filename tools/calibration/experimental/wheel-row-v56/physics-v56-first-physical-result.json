@@ -1,0 +1,568 @@
+{
+  "cases": {
+    "settle": {
+      "tick": 21,
+      "whole_observable_sample_exact": true,
+      "body_vectors_exact": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "all_four_wheels_all_observables_exact": true,
+      "first_later_difference": 22,
+      "first_later_body_difference": 22,
+      "windows": {
+        "tick": 21,
+        "time": 0.366666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          -3.19653256e-18,
+          -5.36289103e-11,
+          10.6695089
+        ],
+        "velocity": [
+          -1.9179195e-16,
+          -3.21773452e-09,
+          -4.38895941
+        ],
+        "angular_momentum": [
+          0.00206351653,
+          0.0116021093,
+          -5.54745833e-11
+        ],
+        "rotation": [
+          7.12594428e-08,
+          2.77645409e-08,
+          -1.22727165e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773058e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65319373e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773285e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65320055e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773456e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65320623e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773655e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65321192e-07
+          }
+        ]
+      },
+      "candidate": {
+        "tick": 21,
+        "time": 0.366666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          -3.19653256e-18,
+          -5.36289103e-11,
+          10.6695089
+        ],
+        "velocity": [
+          -1.9179195e-16,
+          -3.21773452e-09,
+          -4.38895941
+        ],
+        "angular_momentum": [
+          0.00206351653,
+          0.0116021093,
+          -5.54745833e-11
+        ],
+        "rotation": [
+          7.12594428e-08,
+          2.77645409e-08,
+          -1.22727165e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773058e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65319373e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773285e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65320055e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773456e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65320623e-07
+          },
+          {
+            "angular_speed": -5.62080686e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -3.21773655e-07,
+            "suspension_length": 0.342653781,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 9.65321192e-07
+          }
+        ]
+      }
+    },
+    "spring-soft": {
+      "tick": 39,
+      "whole_observable_sample_exact": true,
+      "body_vectors_exact": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "all_four_wheels_all_observables_exact": true,
+      "first_later_difference": 40,
+      "first_later_body_difference": 40,
+      "windows": {
+        "tick": 39,
+        "time": 0.666666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          6.28507215e-18,
+          1.05445999e-10,
+          10.5733948
+        ],
+        "velocity": [
+          3.77104309e-16,
+          6.32675956e-09,
+          -8.31173038
+        ],
+        "angular_momentum": [
+          -0.00299688196,
+          0.00878637191,
+          -5.7896099e-10
+        ],
+        "rotation": [
+          3.05716128e-08,
+          3.46758675e-08,
+          -2.28391889e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675039e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802608e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675892e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802859e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675324e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802688e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32676176e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.8980295e-06
+          }
+        ]
+      },
+      "candidate": {
+        "tick": 39,
+        "time": 0.666666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          6.28507215e-18,
+          1.05445999e-10,
+          10.5733948
+        ],
+        "velocity": [
+          3.77104309e-16,
+          6.32675956e-09,
+          -8.31173038
+        ],
+        "angular_momentum": [
+          -0.00299688196,
+          0.00878637191,
+          -5.7896099e-10
+        ],
+        "rotation": [
+          3.05716128e-08,
+          3.46758675e-08,
+          -2.28391889e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675039e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802608e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675892e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802859e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32675324e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.89802688e-06
+          },
+          {
+            "angular_speed": -4.49658683e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -6.32676176e-07,
+            "suspension_length": 0.311920673,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 1.8980295e-06
+          }
+        ]
+      }
+    },
+    "suspension-drop": {
+      "tick": 39,
+      "whole_observable_sample_exact": true,
+      "body_vectors_exact": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "all_four_wheels_all_observables_exact": true,
+      "first_later_difference": 40,
+      "first_later_body_difference": 40,
+      "windows": {
+        "tick": 39,
+        "time": 0.666666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          7.16549011e-18,
+          -1.20216975e-10,
+          10.5796633
+        ],
+        "velocity": [
+          -4.2992936e-16,
+          7.21301774e-09,
+          -8.04805183
+        ],
+        "angular_momentum": [
+          -5.05589924e-05,
+          0.0135714328,
+          -3.87413102e-10
+        ],
+        "rotation": [
+          9.62208446e-08,
+          2.33761828e-08,
+          -2.11336076e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.2130058e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390345e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.2130166e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390663e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.21300751e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.1639039e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.21301888e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390731e-06
+          }
+        ]
+      },
+      "candidate": {
+        "tick": 39,
+        "time": 0.666666667,
+        "command": {
+          "acceleration": [
+            0,
+            0,
+            0
+          ],
+          "delta_velocity": [
+            0,
+            0,
+            0
+          ],
+          "wheel_torque": 0,
+          "brake_torque": 0,
+          "steer_radians": 0
+        },
+        "position": [
+          7.16549011e-18,
+          -1.20216975e-10,
+          10.5796633
+        ],
+        "velocity": [
+          -4.2992936e-16,
+          7.21301774e-09,
+          -8.04805183
+        ],
+        "angular_momentum": [
+          -5.05589924e-05,
+          0.0135714328,
+          -3.87413102e-10
+        ],
+        "rotation": [
+          9.62208446e-08,
+          2.33761828e-08,
+          -2.11336076e-15,
+          1
+        ],
+        "wheels": [
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.2130058e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390345e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.2130166e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390663e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.21300751e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.1639039e-06
+          },
+          {
+            "angular_speed": -2.50865924e-06,
+            "height": 10,
+            "contact": true,
+            "engine_longitudinal_slip": 0,
+            "engine_lateral_slip": -7.21301888e-07,
+            "suspension_length": 0.313791841,
+            "engine_normal_force": 9000,
+            "longitudinal_impulse": 0,
+            "lateral_impulse": 2.16390731e-06
+          }
+        ]
+      }
+    }
+  },
+  "report_changes_only_impulse_observables_no_solver_changes_all_six_cases": true,
+  "root_cause": "Mat44 ARM NEON fused multiply-add and source/Jolt axis permutation change the rounding/order of inertia-vector products. Native SSE uses rounded individual F32 products and XYZ additions. Hard effective mass uses source XZY products; generic constraint object layout remains unchanged.",
+  "remaining": [
+    "Anchor positional bias on subsequent contacts is absent in the current Mac tire rows.",
+    "Native ordering for slope/contact rows may differ from simple reverse wheel order.",
+    "Combined longitudinal/lateral friction ellipse, nonzero steering, moving contacts and trajectories remain unproved.",
+    "Report flag proves only static zero-steer flags64 and zero-longitudinal-slip branch; observable zero canonicalization does not certify internal signed zeros."
+  ],
+  "goal_complete": false
+}

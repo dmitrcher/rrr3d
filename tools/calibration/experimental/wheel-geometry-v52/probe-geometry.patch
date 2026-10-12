@@ -1,0 +1,20 @@
+--- a/tools/calibration/mac.cpp
++++ b/tools/calibration/mac.cpp
+@@ -42,10 +42,17 @@
+  world->addAngularVelocity(0,{static_cast<float>(c.angular.x),static_cast<float>(c.angular.y),static_cast<float>(c.angular.z)});
+  for(int tick=0;tick<c.steps;++tick){x=cal::command(c,tick);world->setDiagnosticAcceleration(0,{static_cast<float>(x.acceleration.x),static_cast<float>(x.acceleration.y),static_cast<float>(x.acceleration.z)});
+  if(x.impulse.x||x.impulse.y||x.impulse.z)world->addLinearVelocity(0,{static_cast<float>(x.impulse.x),static_cast<float>(x.impulse.y),static_cast<float>(x.impulse.z)});
++ const auto beforePose=world->vehicle(c.pair?static_cast<std::size_t>(c.watched):0).body;
+  world->step(1.0F/60,phys::VehicleInput{});const auto& a=world->vehicle(c.pair?static_cast<std::size_t>(c.watched):0);cal::Sample s;
+  s.position=cal::V(a.body.position.x,a.body.position.y,a.body.position.z);s.velocity=cal::V(a.linearVelocity.x,a.linearVelocity.y,a.linearVelocity.z);s.momentum=cal::V(a.angularMomentum.x,a.angularMomentum.y,a.angularMomentum.z);
+  s.q[0]=a.body.rotation.x;s.q[1]=a.body.rotation.y;s.q[2]=a.body.rotation.z;s.q[3]=a.body.rotation.w;
+  for(std::size_t i=0;i<a.wheelAngularSpeeds.size();++i){s.wheelSpeed.push_back(a.wheelAngularSpeeds[i]);s.contacts.push_back(a.wheelContacts[i].hasContact?1:0);s.wheelHeight.push_back(a.wheelContacts[i].hasContact?a.wheelContacts[i].position.z:0);const auto& w=a.wheelContacts[i];s.longSlip.push_back(w.longitudinalSlip);s.latSlip.push_back(w.lateralSlip);s.suspension.push_back(w.hasContact?w.suspensionLength:0);s.normalForce.push_back(w.suspensionForce);s.longImpulse.push_back(w.longitudinalImpulse);s.latImpulse.push_back(w.lateralImpulse);}
++ const char* wheelTrace=std::getenv("RRR3D_WHEEL_GEOMETRY_TRACE");
++ if(wheelTrace && std::strcmp(wheelTrace,"1")==0) {
++  std::ostringstream trace;trace.imbue(std::locale::classic());trace<<std::setprecision(9)<<"{\"tick\":"<<tick<<",\"contact_cache_phase\":\"pre_solve_geometry\",\"before_actor_position\":"<<cal::vector(cal::V(beforePose.position.x,beforePose.position.y,beforePose.position.z))<<",\"before_actor_rotation\":["<<beforePose.rotation.x<<','<<beforePose.rotation.y<<','<<beforePose.rotation.z<<','<<beforePose.rotation.w<<"],\"wheels\":[";
++  for(std::size_t i=0;i<a.wheelContacts.size();++i){if(i)trace<<',';const auto& w=a.wheelContacts[i];trace<<"{\"contact\":"<<(w.hasContact?"true":"false");if(w.hasContact)trace<<",\"point\":"<<cal::vector(cal::V(w.position.x,w.position.y,w.position.z))<<",\"normal\":"<<cal::vector(cal::V(w.normal.x,w.normal.y,w.normal.z))<<",\"suspension_length\":"<<w.suspensionLength;trace<<'}';}
++  trace<<"]}";motorrock::parity::event("calibration.wheel-geometry",c.name,trace.str());
++ }
+  for(const auto& contact:a.bodyContacts){std::ostringstream body;
+  body<<std::setprecision(9)<<"{\"tick\":"<<tick<<",\"normal_force_magnitude\":"<<contact.force
+      <<",\"friction_force\":"<<cal::vector(cal::V(contact.frictionForceVector.x,contact.frictionForceVector.y,contact.frictionForceVector.z))<<'}';

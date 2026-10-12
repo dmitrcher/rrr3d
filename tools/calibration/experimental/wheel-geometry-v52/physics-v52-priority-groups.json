@@ -1,0 +1,1355 @@
+{
+  "broad_exact": 65,
+  "broad_remaining": 543,
+  "priority_groups": [
+    {
+      "family": "mobility",
+      "first_tick": 22,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 64,
+      "examples": [
+        "mobility/guseniza/gusWheel1/wheel-drive",
+        "mobility/guseniza/gusWheel1/brake-moving",
+        "mobility/guseniza/gusWheel1/diagonal-slide",
+        "mobility/guseniza/gusWheel1/lateral",
+        "mobility/guseniza/gusWheel2/wheel-drive",
+        "mobility/guseniza/gusWheel2/brake-moving",
+        "mobility/guseniza/gusWheel2/diagonal-slide",
+        "mobility/guseniza/gusWheel2/lateral",
+        "mobility/guseniza/gusWheel3/wheel-drive",
+        "mobility/guseniza/gusWheel3/brake-moving",
+        "mobility/guseniza/gusWheel3/diagonal-slide",
+        "mobility/guseniza/gusWheel3/lateral"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "position",
+        "velocity"
+      ],
+      "count": 52,
+      "examples": [
+        "body-friction-locked-x",
+        "border-pole",
+        "contact-locked-box-depth1-speed2",
+        "contact-locked-box-depth2-speed2",
+        "contact-locked-box-depth3-speed1",
+        "contact-locked-box-depth3-speed2",
+        "contact-locked-box-depth4-speed0",
+        "contact-locked-box-depth4-speed1",
+        "contact-locked-box-depth4-speed2",
+        "contact-locked-box-depth5-speed0",
+        "contact-locked-box-depth5-speed1",
+        "contact-locked-box-depth5-speed2"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 20,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 48,
+      "examples": [
+        "mobility/dirtdevil/wheel1/wheel-drive",
+        "mobility/dirtdevil/wheel1/brake-moving",
+        "mobility/dirtdevil/wheel1/diagonal-slide",
+        "mobility/dirtdevil/wheel1/lateral",
+        "mobility/dirtdevil/wheel2/wheel-drive",
+        "mobility/dirtdevil/wheel2/brake-moving",
+        "mobility/dirtdevil/wheel2/diagonal-slide",
+        "mobility/dirtdevil/wheel2/lateral",
+        "mobility/dirtdevil/wheel3/wheel-drive",
+        "mobility/dirtdevil/wheel3/brake-moving",
+        "mobility/dirtdevil/wheel3/diagonal-slide",
+        "mobility/dirtdevil/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 19,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 36,
+      "examples": [
+        "mobility/marauder/wheel1/wheel-drive",
+        "mobility/marauder/wheel1/brake-moving",
+        "mobility/marauder/wheel1/diagonal-slide",
+        "mobility/marauder/wheel1/lateral",
+        "mobility/marauder/wheel2/wheel-drive",
+        "mobility/marauder/wheel2/brake-moving",
+        "mobility/marauder/wheel2/diagonal-slide",
+        "mobility/marauder/wheel2/lateral",
+        "mobility/marauder/wheel3/wheel-drive",
+        "mobility/marauder/wheel3/brake-moving",
+        "mobility/marauder/wheel3/diagonal-slide",
+        "mobility/marauder/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 20,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 27,
+      "examples": [
+        "settle",
+        "wheel-drive",
+        "coast",
+        "brake",
+        "steer-left",
+        "steer-right",
+        "lateral",
+        "diagonal-slide",
+        "low-speed-slide",
+        "fast-slide",
+        "brake-moving",
+        "coast-moving"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "velocity"
+      ],
+      "count": 25,
+      "examples": [
+        "body-friction-locked-y",
+        "body-friction-locked-diagonal",
+        "body-friction-locked-skew",
+        "contact-locked-triangle-depth1-speed2",
+        "contact-locked-triangle-depth2-speed2",
+        "contact-locked-triangle-depth3-speed1",
+        "contact-locked-triangle-depth3-speed2",
+        "contact-locked-triangle-depth4-speed0",
+        "contact-locked-triangle-depth4-speed1",
+        "contact-locked-triangle-depth4-speed2",
+        "contact-locked-triangle-depth5-speed0",
+        "contact-locked-triangle-depth5-speed1"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity"
+      ],
+      "count": 20,
+      "examples": [
+        "pair-same-head-0",
+        "pair-same-head-1",
+        "pair-same-oblique-0",
+        "pair-same-oblique-1",
+        "pair-head-on-0",
+        "pair-head-on-1",
+        "pair-heavy-peer-0",
+        "pair-heavy-peer-1",
+        "pair-weak-first-0",
+        "pair-weak-first-1",
+        "pair-weak-second-0",
+        "pair-weak-second-1"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 22,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 20,
+      "examples": [
+        "guseniza/settle",
+        "guseniza/wheel-drive",
+        "guseniza/brake-moving",
+        "guseniza/diagonal-slide",
+        "gusenizaBoss/settle",
+        "gusenizaBoss/wheel-drive",
+        "gusenizaBoss/brake-moving",
+        "gusenizaBoss/diagonal-slide",
+        "podushka/settle",
+        "podushka/wheel-drive",
+        "podushka/brake-moving",
+        "podushka/diagonal-slide"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 20,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 16,
+      "examples": [
+        "dirtdevil/settle",
+        "dirtdevil/wheel-drive",
+        "dirtdevil/brake-moving",
+        "dirtdevil/diagonal-slide",
+        "manticora/settle",
+        "manticora/wheel-drive",
+        "manticora/brake-moving",
+        "manticora/diagonal-slide",
+        "manticoraBoss/settle",
+        "manticoraBoss/wheel-drive",
+        "manticoraBoss/brake-moving",
+        "manticoraBoss/diagonal-slide"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 39,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 15,
+      "examples": [
+        "mobility/manticora/wheel1/suspension-drop",
+        "mobility/manticora/wheel2/suspension-drop",
+        "mobility/manticora/wheel3/suspension-drop",
+        "mobility/manticoraBoss/wheel1/suspension-drop",
+        "mobility/manticoraBoss/wheel2/suspension-drop",
+        "mobility/manticoraBoss/wheel3/suspension-drop",
+        "mobility/podushka/engine1/suspension-drop",
+        "mobility/podushka/engine2/suspension-drop",
+        "mobility/podushka/engine3/suspension-drop",
+        "mobility/podushkaBoss/engine1/suspension-drop",
+        "mobility/podushkaBoss/engine2/suspension-drop",
+        "mobility/podushkaBoss/engine3/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 19,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "marauder/settle",
+        "marauder/wheel-drive",
+        "marauder/brake-moving",
+        "marauder/diagonal-slide",
+        "devildriver/settle",
+        "devildriver/wheel-drive",
+        "devildriver/brake-moving",
+        "devildriver/diagonal-slide",
+        "devildriverBoss/settle",
+        "devildriverBoss/wheel-drive",
+        "devildriverBoss/brake-moving",
+        "devildriverBoss/diagonal-slide"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "mobility/marauder/wheel1/suspension-drop",
+        "mobility/marauder/wheel2/suspension-drop",
+        "mobility/marauder/wheel3/suspension-drop",
+        "mobility/dirtdevil/wheel1/suspension-drop",
+        "mobility/dirtdevil/wheel2/suspension-drop",
+        "mobility/dirtdevil/wheel3/suspension-drop",
+        "mobility/devildriver/engine1/suspension-drop",
+        "mobility/devildriver/engine2/suspension-drop",
+        "mobility/devildriver/engine3/suspension-drop",
+        "mobility/devildriverBoss/engine1/suspension-drop",
+        "mobility/devildriverBoss/engine2/suspension-drop",
+        "mobility/devildriverBoss/engine3/suspension-drop"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 16,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "mobility/airblade/wheel1/wheel-drive",
+        "mobility/airblade/wheel1/brake-moving",
+        "mobility/airblade/wheel1/diagonal-slide",
+        "mobility/airblade/wheel1/lateral",
+        "mobility/airblade/wheel2/wheel-drive",
+        "mobility/airblade/wheel2/brake-moving",
+        "mobility/airblade/wheel2/diagonal-slide",
+        "mobility/airblade/wheel2/lateral",
+        "mobility/airblade/wheel3/wheel-drive",
+        "mobility/airblade/wheel3/brake-moving",
+        "mobility/airblade/wheel3/diagonal-slide",
+        "mobility/airblade/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 14,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "mobility/monstertruck/wheel1/wheel-drive",
+        "mobility/monstertruck/wheel1/brake-moving",
+        "mobility/monstertruck/wheel1/diagonal-slide",
+        "mobility/monstertruck/wheel1/lateral",
+        "mobility/monstertruck/wheel2/wheel-drive",
+        "mobility/monstertruck/wheel2/brake-moving",
+        "mobility/monstertruck/wheel2/diagonal-slide",
+        "mobility/monstertruck/wheel2/lateral",
+        "mobility/monstertruck/wheel3/wheel-drive",
+        "mobility/monstertruck/wheel3/brake-moving",
+        "mobility/monstertruck/wheel3/diagonal-slide",
+        "mobility/monstertruck/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 13,
+      "fields": [
+        "position",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "mobility/monstertruckBoss/wheel1/wheel-drive",
+        "mobility/monstertruckBoss/wheel1/brake-moving",
+        "mobility/monstertruckBoss/wheel1/diagonal-slide",
+        "mobility/monstertruckBoss/wheel1/lateral",
+        "mobility/monstertruckBoss/wheel2/wheel-drive",
+        "mobility/monstertruckBoss/wheel2/brake-moving",
+        "mobility/monstertruckBoss/wheel2/diagonal-slide",
+        "mobility/monstertruckBoss/wheel2/lateral",
+        "mobility/monstertruckBoss/wheel3/wheel-drive",
+        "mobility/monstertruckBoss/wheel3/brake-moving",
+        "mobility/monstertruckBoss/wheel3/diagonal-slide",
+        "mobility/monstertruckBoss/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 21,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 12,
+      "examples": [
+        "mobility/tankchetti/wheel1/wheel-drive",
+        "mobility/tankchetti/wheel1/brake-moving",
+        "mobility/tankchetti/wheel1/diagonal-slide",
+        "mobility/tankchetti/wheel1/lateral",
+        "mobility/tankchetti/wheel2/wheel-drive",
+        "mobility/tankchetti/wheel2/brake-moving",
+        "mobility/tankchetti/wheel2/diagonal-slide",
+        "mobility/tankchetti/wheel2/lateral",
+        "mobility/tankchetti/wheel3/wheel-drive",
+        "mobility/tankchetti/wheel3/brake-moving",
+        "mobility/tankchetti/wheel3/diagonal-slide",
+        "mobility/tankchetti/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 10,
+      "examples": [
+        "contact-free-triangle-depth1-speed2",
+        "contact-free-triangle-depth2-speed2",
+        "contact-free-triangle-depth3-speed1",
+        "contact-free-triangle-depth3-speed2",
+        "contact-free-triangle-depth4-speed0",
+        "contact-free-triangle-depth4-speed1",
+        "contact-free-triangle-depth4-speed2",
+        "contact-free-triangle-depth5-speed0",
+        "contact-free-triangle-depth5-speed1",
+        "contact-free-triangle-depth5-speed2"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 10,
+      "examples": [
+        "contact-free-box-depth1-speed2",
+        "contact-free-box-depth2-speed2",
+        "contact-free-box-depth3-speed1",
+        "contact-free-box-depth3-speed2",
+        "contact-free-box-depth4-speed0",
+        "contact-free-box-depth4-speed1",
+        "contact-free-box-depth4-speed2",
+        "contact-free-box-depth5-speed0",
+        "contact-free-box-depth5-speed1",
+        "contact-free-box-depth5-speed2"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 40,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 10,
+      "examples": [
+        "mobility/guseniza/gusWheel1/suspension-drop",
+        "mobility/guseniza/gusWheel2/suspension-drop",
+        "mobility/guseniza/gusWheel3/suspension-drop",
+        "mobility/gusenizaBoss/gusWheel1/suspension-drop",
+        "mobility/gusenizaBoss/gusWheel2/suspension-drop",
+        "mobility/gusenizaBoss/gusWheel3/suspension-drop",
+        "mobility/gusenizaBoss/gusWheel1_boss/suspension-drop",
+        "mobility/xCar/engine1/suspension-drop",
+        "mobility/xCar/engine2/suspension-drop",
+        "mobility/xCar/engine3/suspension-drop"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 8,
+      "examples": [
+        "pair-free-oblique-0",
+        "pair-free-oblique-1",
+        "pair-stock-head-0",
+        "pair-stock-head-1",
+        "pair-stock-oblique-0",
+        "pair-stock-oblique-1",
+        "pair-stock-weak-second-0",
+        "pair-stock-weak-second-1"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 38,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 6,
+      "examples": [
+        "suspension-drop",
+        "spring-hard",
+        "damper-high",
+        "mass-light",
+        "mass-heavy",
+        "target-half"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 39,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 5,
+      "examples": [
+        "manticora/suspension-drop",
+        "manticoraBoss/suspension-drop",
+        "podushka/suspension-drop",
+        "podushkaBoss/suspension-drop",
+        "tankchetti/suspension-drop"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 37,
+      "fields": [
+        "position",
+        "velocity"
+      ],
+      "count": 4,
+      "examples": [
+        "pair-pole-0",
+        "pair-pole-1",
+        "pair-pole-oblique-0",
+        "pair-pole-oblique-1"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 4,
+      "examples": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "devildriver/suspension-drop",
+        "devildriverBoss/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 16,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 4,
+      "examples": [
+        "airblade/settle",
+        "airblade/wheel-drive",
+        "airblade/brake-moving",
+        "airblade/diagonal-slide"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 14,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 4,
+      "examples": [
+        "monstertruck/settle",
+        "monstertruck/wheel-drive",
+        "monstertruck/brake-moving",
+        "monstertruck/diagonal-slide"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 13,
+      "fields": [
+        "position",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 4,
+      "examples": [
+        "monstertruckBoss/settle",
+        "monstertruckBoss/wheel-drive",
+        "monstertruckBoss/brake-moving",
+        "monstertruckBoss/diagonal-slide"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 21,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 4,
+      "examples": [
+        "tankchetti/settle",
+        "tankchetti/wheel-drive",
+        "tankchetti/brake-moving",
+        "tankchetti/diagonal-slide"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 19,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 4,
+      "examples": [
+        "mustang/settle",
+        "mustang/wheel-drive",
+        "mustang/brake-moving",
+        "mustang/diagonal-slide"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 19,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 4,
+      "examples": [
+        "mobility/mustang/wheel3/wheel-drive",
+        "mobility/mustang/wheel3/brake-moving",
+        "mobility/mustang/wheel3/diagonal-slide",
+        "mobility/mustang/wheel3/lateral"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 3,
+      "examples": [
+        "game-clamp-roll",
+        "game-clamp-pitch",
+        "game-clamp-mixed"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 0,
+      "fields": [
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 37,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "mobility/airblade/wheel1/suspension-drop",
+        "mobility/airblade/wheel2/suspension-drop",
+        "mobility/airblade/wheel3/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 40,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "guseniza/suspension-drop",
+        "gusenizaBoss/suspension-drop",
+        "xCar/suspension-drop"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 36,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "mobility/monstertruck/wheel1/suspension-drop",
+        "mobility/monstertruck/wheel2/suspension-drop",
+        "mobility/monstertruck/wheel3/suspension-drop"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 35,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "mobility/monstertruckBoss/wheel1/suspension-drop",
+        "mobility/monstertruckBoss/wheel2/suspension-drop",
+        "mobility/monstertruckBoss/wheel3/suspension-drop"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 39,
+      "fields": [
+        "position",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 3,
+      "examples": [
+        "mobility/buggi/wheel1/suspension-drop",
+        "mobility/buggi/wheel2/suspension-drop",
+        "mobility/buggi/wheel3/suspension-drop"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 38,
+      "fields": [
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 2,
+      "examples": [
+        "spring-soft",
+        "damper-low"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 2,
+      "examples": [
+        "com-forward",
+        "com-low"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 19,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 2,
+      "examples": [
+        "slope-longitudinal",
+        "slope-lateral"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 94,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 2,
+      "examples": [
+        "wall-air-oblique-4",
+        "wall-air-oblique-negative-4"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 1,
+      "fields": [
+        "velocity"
+      ],
+      "count": 2,
+      "examples": [
+        "contact-locked-triangle-depth0-speed2",
+        "skin-tilted-triangle-angle1-skin2-thin0"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 40,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "travel-short"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 36,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "travel-long"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 39,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "radius-small"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 37,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "radius-large"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 13,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "curb-side"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 4,
+      "fields": [
+        "angular_momentum"
+      ],
+      "count": 1,
+      "examples": [
+        "game-air-pitch"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 1,
+      "fields": [
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "game-angular-damping"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 12,
+      "fields": [
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "body-slide-y"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 12,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "body-tilt-pitch"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 10,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "body-tilt-roll"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 377,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-1"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 188,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-2"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 94,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-4"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 47,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-8"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 32,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-12"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 16,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-straight-24"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 32,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-oblique-12"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 53,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-y-straight-8"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 53,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "wall-air-y-oblique-8"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 28,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "pair-stock-pole-0"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 28,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "pair-stock-pole-1"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 62,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "border-air-straight"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 61,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "border-air-oblique"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 50,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "border-front-air-straight"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 49,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "border-front-air-oblique"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 1,
+      "fields": [
+        "position",
+        "velocity"
+      ],
+      "count": 1,
+      "examples": [
+        "contact-locked-box-depth0-speed2"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 1,
+      "fields": [
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "contact-free-triangle-depth0-speed2"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 1,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "contact-free-box-depth0-speed2"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 2,
+      "fields": [
+        "velocity"
+      ],
+      "count": 1,
+      "examples": [
+        "skin-tilted-triangle-angle0-skin0-thin1"
+      ]
+    },
+    {
+      "family": "base",
+      "first_tick": 14,
+      "fields": [
+        "velocity"
+      ],
+      "count": 1,
+      "examples": [
+        "skin-tilted-triangle-angle3-skin2-thin1"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 37,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "airblade/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 36,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "monstertruck/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 35,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "monstertruckBoss/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 39,
+      "fields": [
+        "position",
+        "angular_momentum",
+        "rotation",
+        "wheels"
+      ],
+      "count": 1,
+      "examples": [
+        "buggi/suspension-drop"
+      ]
+    },
+    {
+      "family": "stock-car",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "mustang/suspension-drop"
+      ]
+    },
+    {
+      "family": "mobility",
+      "first_tick": 38,
+      "fields": [
+        "position",
+        "velocity",
+        "angular_momentum",
+        "rotation"
+      ],
+      "count": 1,
+      "examples": [
+        "mobility/mustang/wheel3/suspension-drop"
+      ]
+    }
+  ],
+  "physical_coefficients_changed": false,
+  "next_lead": "Wheel contact query geometry and suspension row preparation",
+  "goal_complete": false
+}

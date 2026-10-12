@@ -1,0 +1,26 @@
+{
+  "names": [
+    "settle",
+    "spring-soft",
+    "suspension-drop",
+    "body-slide-diagonal"
+  ],
+  "repeats": 2,
+  "original_probe_sha256": "3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262",
+  "environment": {
+    "NX_SPRING_ITERATIONS": "4",
+    "NX_WHEEL_AXES": "1",
+    "NX_ANGULAR_MOMENTUM_TRACE": "1"
+  },
+  "captures": [
+    {
+      "file": "run0-windows.jsonl",
+      "sha256": "0ec7b379cf1bc2c7bdd06ffdef5f68c33e05b55d48ded150dee9e38ef1c1ba6e"
+    },
+    {
+      "file": "run1-windows.jsonl",
+      "sha256": "4444dbe59a67554e348ae8c52b9f87f05656d5f9653ae7024615b14df7f050a2"
+    }
+  ],
+  "goal_complete": false
+}

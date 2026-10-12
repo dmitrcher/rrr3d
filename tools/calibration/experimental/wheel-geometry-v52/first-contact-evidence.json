@@ -1,0 +1,534 @@
+{
+  "scope": "Probe-only wheel geometry logging; physical histories unchanged against published v51 broad baseline.",
+  "repeats_exact": true,
+  "physics_preserved": true,
+  "first_contact": {
+    "settle": {
+      "mac": {
+        "tick": 20,
+        "contact_cache_phase": "pre_solve_geometry",
+        "before_actor_position": [
+          0,
+          0,
+          10.833334
+        ],
+        "before_actor_rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.433333367
+          },
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.433333367
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.433333367
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.433333367
+          }
+        ]
+      },
+      "windows": {
+        "tick": 20,
+        "contact_cache_phase": "pre_solve_geometry",
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              0.74999696,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              -0.75000304,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "before_actor_pose_matches_windows_exactly": true
+    },
+    "spring-soft": {
+      "mac": {
+        "tick": 38,
+        "contact_cache_phase": "pre_solve_geometry",
+        "before_actor_position": [
+          0,
+          0,
+          10.8833342
+        ],
+        "before_actor_rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          }
+        ]
+      },
+      "windows": {
+        "tick": 38,
+        "contact_cache_phase": "pre_solve_geometry",
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              0.74999696,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              -0.75000304,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "before_actor_pose_matches_windows_exactly": true
+    },
+    "suspension-drop": {
+      "mac": {
+        "tick": 38,
+        "contact_cache_phase": "pre_solve_geometry",
+        "before_actor_position": [
+          0,
+          0,
+          10.8833342
+        ],
+        "before_actor_rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.10000002,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "suspension_length": 0.483333498
+          }
+        ]
+      },
+      "windows": {
+        "tick": 38,
+        "contact_cache_phase": "pre_solve_geometry",
+        "wheels": [
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              1.100003,
+              -0.75,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              0.74999696,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "contact": true,
+            "point": [
+              -1.1000061,
+              -0.75000304,
+              10
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "longitudinal": [
+              1,
+              0,
+              0
+            ],
+            "lateral": [
+              0,
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "before_actor_pose_matches_windows_exactly": true
+    },
+    "body-slide-diagonal": {
+      "mac": null,
+      "windows": null
+    }
+  },
+  "goal_complete": false
+}

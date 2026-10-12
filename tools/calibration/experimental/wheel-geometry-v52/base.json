@@ -1,0 +1,15 @@
+{
+  "scope": "Preliminary v52 logging only. No physics correction yet.",
+  "prerequisite": "Exact before probe source hash and full experimental v51 runtime chain; before source differs from ordinary production probe.",
+  "path": "tools/calibration/mac.cpp",
+  "before_sha256": "9d50c59217d34bc17d88b745ca43bfc177ae0dda07e6f3268c88c46b2ab62972",
+  "after_sha256": "746f629140848c58e541922114d944a9b088aa80614e4b9b7f34cb06eb83ad1a",
+  "flag": "RRR3D_WHEEL_GEOMETRY_TRACE",
+  "enabled_only_when_exactly_1": true,
+  "default_off": true,
+  "cases": 4,
+  "states_per_run": 1980,
+  "repeats_per_mode": 2,
+  "physics_matches_v51_with_logging_on_and_off": true,
+  "goal_complete": false
+}

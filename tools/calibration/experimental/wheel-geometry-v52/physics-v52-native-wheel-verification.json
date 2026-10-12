@@ -1,0 +1,330 @@
+{
+  "scope": "Additional read-only public wheel contact geometry and angular telemetry from unchanged original Windows probe.",
+  "cases": [
+    "settle",
+    "spring-soft",
+    "suspension-drop",
+    "body-slide-diagonal"
+  ],
+  "repeats_exact": true,
+  "physical_states_preserved_against_original_broad_reference": true,
+  "audit": {
+    "comparison": "Exact float32 physical words between two actual Windows captures, without platform substitution.",
+    "cases": {
+      "settle": {
+        "exact": true,
+        "samples": 600
+      },
+      "spring-soft": {
+        "exact": true,
+        "samples": 600
+      },
+      "suspension-drop": {
+        "exact": true,
+        "samples": 600
+      },
+      "body-slide-diagonal": {
+        "exact": true,
+        "samples": 180
+      }
+    }
+  },
+  "first_contact": {
+    "settle": {
+      "tick": 20,
+      "contact_cache_phase": "pre_solve_geometry",
+      "wheels": [
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            -0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            0.74999696,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            -0.75000304,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    "spring-soft": {
+      "tick": 38,
+      "contact_cache_phase": "pre_solve_geometry",
+      "wheels": [
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            -0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            0.74999696,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            -0.75000304,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    "suspension-drop": {
+      "tick": 38,
+      "contact_cache_phase": "pre_solve_geometry",
+      "wheels": [
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            1.100003,
+            -0.75,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            0.74999696,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "contact": true,
+          "point": [
+            -1.1000061,
+            -0.75000304,
+            10
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "longitudinal": [
+            1,
+            0,
+            0
+          ],
+          "lateral": [
+            0,
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    "body-slide-diagonal": null
+  },
+  "goal_complete": false
+}

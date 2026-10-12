@@ -1,0 +1,248 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -13,6 +13,7 @@
+ #include "physics/NativePublicAngular.h"
+ #include "physics/NativePhysicalPoseV42.h"
+ #include "physics/NativeQuaternionPoseV43.h"
++#include "physics/NativeWheelRayV52.h"
+ 
+ #include <Jolt/Jolt.h>
+ #include <Jolt/Core/Factory.h>
+@@ -706,6 +707,28 @@
+         std::scoped_lock lock(mutex_);
+         shape.SetUserData(sourceMeshMarker | sourceMeshes_.size());
+         sourceMeshes_.push_back(std::move(record));
++    }
++
++    // Exact source vertices, independent of Jolt's mesh compression/order.
++    // This first experiment covers the static identity mesh bodies created by
++    // createTrack; moved/decorated meshes keep their existing query path.
++    bool wheelSourceTriangle(const JPH::Body& body, JPH::SubShapeID subShape,
++                             std::array<motorrock::wheelrayv52::Vector, 3>& points) const
++    {
++        const auto* shape = body.GetShape();
++        if (!body.IsStatic() || shape->GetSubType() != JPH::EShapeSubType::Mesh ||
++            body.GetPosition() != JPH::RVec3::sZero() ||
++            body.GetRotation() != JPH::Quat::sIdentity()) return false;
++        const auto data = shape->GetUserData();
++        if ((data & sourceMeshMarker) == 0) return false;
++        const auto index = data & ~sourceMeshMarker;
++        const auto triangle = static_cast<const JPH::MeshShape*>(shape)->GetTriangleUserData(subShape);
++        std::scoped_lock lock(mutex_);
++        if (index >= sourceMeshes_.size() || triangle >= sourceMeshes_[index]->triangles.size()) return false;
++        const auto& source = sourceMeshes_[index]->triangles[triangle];
++        for (unsigned i = 0; i < 3; ++i)
++            points[i] = {source.points[i].x, source.points[i].y, source.points[i].z};
++        return true;
+     }
+ 
+     bool WantsContactManifoldRefresh(const JPH::Body& first, const JPH::Body& second) const override
+@@ -1839,9 +1862,18 @@
+     : public JPH::VehicleCollisionTester
+ {
+     bool enabled_;
++    const OriginalContactListener& contacts_;
++    std::vector<WheelDescription> sourceWheels_;
++    bool sourceCompat_;
++    static bool flag(const char* name) {
++        const char* value = std::getenv(name);
++        return value && std::strcmp(value, "1") == 0;
++    }
+ public:
+-    explicit OriginalWheelCollisionTester(JPH::ObjectLayer layer, bool enabled)
+-        : VehicleCollisionTester(layer), enabled_(enabled)
++    explicit OriginalWheelCollisionTester(JPH::ObjectLayer layer, bool enabled,
++        const OriginalContactListener& contacts, const VehicleDescription& source, bool compat)
++        : VehicleCollisionTester(layer), enabled_(enabled), contacts_(contacts),
++          sourceWheels_(source.wheels), sourceCompat_(compat)
+     {
+     }
+ 
+@@ -1870,13 +1902,51 @@
+             mBodyFilter != nullptr ? *mBodyFilter : defaultBody;
+         const auto* wheel = vehicle.GetWheel(wheelIndex)->GetSettings();
+         const float rayLength = wheel->mSuspensionMaxLength + wheel->mRadius;
+-        const JPH::RRayCast ray{origin, rayLength * direction};
++        namespace wr = motorrock::wheelrayv52;
++        const bool nativePoint = sourceCompat_ && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT");
++        bool nativeOrigin = sourceCompat_ && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_RAY_ORIGIN");
++        JPH::RVec3 queryOrigin = origin;
++        JPH::Vec3 queryDelta = rayLength * direction;
++        // Only the identity physical wheel pose has been independently traced
++        // here. Do not guess the original private rotated shape pose.
++        if (nativeOrigin) {
++            JPH::BodyLockRead vehicleLock(system.GetBodyLockInterfaceNoLock(), vehicleBody);
++            nativeOrigin = vehicleLock.Succeeded() &&
++                vehicleLock.GetBody().GetRotation() == JPH::Quat::sIdentity() &&
++                wheelIndex < sourceWheels_.size();
++            if (nativeOrigin) {
++            const auto& source = sourceWheels_[wheelIndex];
++            const auto cm = fromJolt(JPH::Vec3(vehicleLock.GetBody().GetCenterOfMassPosition()));
++            const auto local = fromJolt(vehicleLock.GetBody().GetShape()->GetCenterOfMass());
++            const auto actor = motorrock::quaternionposev43::origin({{0,0,0,1}},
++                {{cm.x,cm.y,cm.z}}, {{local.x,local.y,local.z}});
++            const wr::Vector start{wr::add(actor[0], source.position.x),
++                wr::add(actor[1], source.position.y), wr::add(actor[2], source.position.z)};
++            // PhysX forms a world endpoint before subtracting it again. The
++            // float cancellation is part of the original ray length.
++            const float endZ = wr::sub(start[2], wr::add(source.radius, source.suspensionTravel));
++            queryOrigin = toJolt(Vec3{start[0], start[1], start[2]});
++            queryDelta = toJolt(Vec3{0, 0, wr::sub(endZ, start[2])});
++            }
++        }
++        const JPH::RRayCast ray{queryOrigin, queryDelta};
++        const auto nativeStart = fromJolt(JPH::Vec3(queryOrigin));
++        const auto nativeDelta = fromJolt(queryDelta);
++        const wr::Vector rayStart{nativeStart.x, nativeStart.y, nativeStart.z};
++        const wr::Vector rayDelta{nativeDelta.x, nativeDelta.y, nativeDelta.z};
++        const float queryLength = std::sqrt(wr::dotZYX(rayDelta, rayDelta));
++        const float reciprocalLength = queryLength > 0 ? wr::div(1.0F, queryLength) : 0;
++        const wr::Vector unitDirection{wr::mul(rayDelta[0], reciprocalLength),
++            wr::mul(rayDelta[1], reciprocalLength), wr::mul(rayDelta[2], reciprocalLength)};
+ 
+         class Collector final : public JPH::CastRayCollector
+         {
+         public:
+-            Collector(JPH::PhysicsSystem& physics, const JPH::RRayCast& value)
+-                : system(physics), ray(value)
++            Collector(JPH::PhysicsSystem& physics, const JPH::RRayCast& value,
++                      const OriginalContactListener& listener, bool exactPoint,
++                      wr::Vector start, wr::Vector unit, float length)
++                : system(physics), ray(value), contacts(listener), nativePoint(exactPoint),
++                  rayStart(start), unitDirection(unit), queryLength(length)
+             {
+             }
+ 
+@@ -1895,7 +1965,21 @@
+                      collisionSurface(userData) ==
+                          CollisionSurface::TrackBorder))
+                     return;
+-                const auto position = ray.GetPointOnRay(hit.mFraction);
++                auto position = ray.GetPointOnRay(hit.mFraction);
++                if (nativePoint) {
++                    std::array<wr::Vector, 3> points;
++                    if (contacts.wheelSourceTriangle(lock.GetBody(), hit.mSubShapeID2, points)) {
++                        const auto intersection = wr::intersect(rayStart, unitDirection,
++                            points[0], points[1], points[2]);
++                        if (std::isfinite(intersection.distance) && intersection.distance >= 0 &&
++                            intersection.distance <= queryLength && intersection.u >= 0 &&
++                            intersection.v >= 0 && wr::add(intersection.u, intersection.v) <= 1) {
++                            const auto p = wr::interpolate(points[0], points[1], points[2],
++                                intersection.u, intersection.v);
++                            position = toJolt(Vec3{p[0],p[1],p[2]});
++                        }
++                    }
++                }
+                 auto normal = lock.GetBody().GetWorldSpaceSurfaceNormal(
+                     hit.mSubShapeID2, position);
+                 if (normal.Dot(JPH::Vec3::sAxisY()) < 0.0F)
+@@ -1912,11 +1996,15 @@
+ 
+             JPH::PhysicsSystem& system;
+             JPH::RRayCast ray;
++            const OriginalContactListener& contacts;
++            bool nativePoint;
++            wr::Vector rayStart, unitDirection;
++            float queryLength;
+             const JPH::Body* body = nullptr;
+             JPH::SubShapeID subShape;
+             JPH::RVec3 contactPosition;
+             JPH::Vec3 contactNormal;
+-        } collector(system, ray);
++        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength);
+ 
+         JPH::RayCastSettings settings;
+         settings.mBackFaceModeTriangles =
+@@ -1929,8 +2017,13 @@
+         outSubShape = collector.subShape;
+         outPosition = collector.contactPosition;
+         outNormal = collector.contactNormal;
+-        outLength = std::max(
+-            0.0F, rayLength * collector.GetEarlyOutFraction() - wheel->mRadius);
++        if (nativeOrigin) {
++            const auto point = fromJolt(JPH::Vec3(outPosition));
++            outLength = std::max(0.0F, wr::sub(rayStart[2], point.z));
++        } else {
++            outLength = std::max(
++                0.0F, rayLength * collector.GetEarlyOutFraction() - wheel->mRadius);
++        }
+         return true;
+     }
+ 
+@@ -3989,7 +4082,17 @@
+                                   SourceCollisionGroup group) {
+             if (source.empty())
+                 return JPH::BodyID();
+-            JPH::MeshShapeSettings shapeSettings(source);
++            JPH::TriangleList querySource;
++            const char* wheelPointFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT");
++            const bool wheelPoint = tuning_.physxWheelCompat && wheelPointFlag &&
++                std::strcmp(wheelPointFlag, "1") == 0;
++            if (wheelPoint) {
++                querySource = source;
++                for (JPH::uint32 index=0; index<querySource.size(); ++index)
++                    querySource[index].mUserData = index;
++            }
++            JPH::MeshShapeSettings shapeSettings(wheelPoint? querySource : source);
++            shapeSettings.mPerTriangleUserData = wheelPoint;
+             const auto shapeResult = shapeSettings.Create();
+             if (shapeResult.HasError())
+                 throw std::runtime_error(
+@@ -4359,7 +4462,7 @@
+         runtime.constraint->SetVehicleCollisionTester(
+             new OriginalWheelCollisionTester(
+                 sourceObjectLayer(SourceCollisionGroup::Wheel, true),
+-                source.wheelContactsEnabled));
++                source.wheelContactsEnabled, contactListener_, source, tuning_.physxWheelCompat));
+         system_.AddConstraint(runtime.constraint);
+         system_.AddStepListener(runtime.constraint);
+         runtime.controller = static_cast<JPH::WheeledVehicleController*>(
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativeWheelRayV52.h
+@@ -0,0 +1,46 @@
++#pragma once
++#include <array>
++#include <cmath>
++
++// Experimental reconstruction of the original scalar SSE mesh query.
++// Keep each store and the different axis sum orders: reassociation and FMA
++// change the actual contact lever arm on large source triangles.
++namespace motorrock::wheelrayv52 {
++using Vector = std::array<float, 3>;
++inline float add(float a, float b) { volatile float v = a + b; return v; }
++inline float sub(float a, float b) { volatile float v = a - b; return v; }
++inline float mul(float a, float b) { volatile float v = a * b; return v; }
++inline float div(float a, float b) { volatile float v = a / b; return v; }
++inline Vector subtract(Vector a, Vector b) {
++    return {sub(a[0], b[0]), sub(a[1], b[1]), sub(a[2], b[2])};
++}
++inline Vector cross(Vector a, Vector b) {
++    return {sub(mul(a[1], b[2]), mul(a[2], b[1])),
++            sub(mul(a[2], b[0]), mul(a[0], b[2])),
++            sub(mul(a[0], b[1]), mul(a[1], b[0]))};
++}
++inline float dotXZY(Vector a, Vector b) {
++    return add(add(mul(a[0], b[0]), mul(a[2], b[2])), mul(a[1], b[1]));
++}
++inline float dotZYX(Vector a, Vector b) {
++    return add(add(mul(a[2], b[2]), mul(a[1], b[1])), mul(a[0], b[0]));
++}
++struct Intersection { float distance, u, v; };
++inline Intersection intersect(Vector origin, Vector direction,
++                              Vector a, Vector b, Vector c) {
++    const Vector e1 = subtract(b, a), e2 = subtract(c, a);
++    const Vector p = cross(direction, e2), t = subtract(origin, a);
++    const float determinant = dotXZY(p, e1);
++    const Vector q = cross(t, e1);
++    const float reciprocal = div(1.0F, determinant);
++    return {mul(dotXZY(q, e2), reciprocal),
++            mul(dotXZY(t, p), reciprocal),
++            mul(dotZYX(direction, q), reciprocal)};
++}
++inline Vector interpolate(Vector a, Vector b, Vector c, float u, float v) {
++    const float w = sub(sub(1.0F, u), v);
++    return {add(add(mul(a[0], w), mul(c[0], v)), mul(b[0], u)),
++            add(add(mul(b[1], u), mul(a[1], w)), mul(c[1], v)),
++            add(add(mul(a[2], w), mul(b[2], u)), mul(c[2], v))};
++}
++} // namespace motorrock::wheelrayv52

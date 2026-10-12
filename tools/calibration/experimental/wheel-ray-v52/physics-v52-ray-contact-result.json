@@ -1,0 +1,207 @@
+{
+  "scope": "First-contact geometry and first resulting states only; no claim of full vehicle parity.",
+  "cases": {
+    "settle": {
+      "first_contact_tick": 20,
+      "all_four_points_normals_lengths_exact_uint32": true,
+      "before_actor_pose_exact": true,
+      "first_step_position_exact": true,
+      "first_step_velocity_exact": true,
+      "full_physical_state_exact": false,
+      "windows_angular_momentum": [
+        -0.00097464642,
+        0.00321696443,
+        -1.1453323e-10
+      ],
+      "mac_angular_momentum": [
+        -0.000997387921,
+        0.00312175765,
+        -1.05894855e-10
+      ],
+      "windows_rotation": [
+        4.47556303e-08,
+        5.22115151e-09,
+        0,
+        1
+      ],
+      "mac_rotation": [
+        4.32899938e-08,
+        4.4745172e-09,
+        0,
+        1
+      ]
+    },
+    "spring-soft": {
+      "first_contact_tick": 38,
+      "all_four_points_normals_lengths_exact_uint32": true,
+      "before_actor_pose_exact": true,
+      "first_step_position_exact": true,
+      "first_step_velocity_exact": true,
+      "full_physical_state_exact": false,
+      "windows_angular_momentum": [
+        -0.00367612811,
+        0.00268463651,
+        -2.83777862e-10
+      ],
+      "mac_angular_momentum": [
+        -0.00367406965,
+        0.00274599483,
+        -3.06104836e-10
+      ],
+      "windows_rotation": [
+        4.57235458e-08,
+        1.10492397e-08,
+        0,
+        1
+      ],
+      "mac_rotation": [
+        4.67467878e-08,
+        1.20569599e-08,
+        0,
+        1
+      ]
+    },
+    "suspension-drop": {
+      "first_contact_tick": 38,
+      "all_four_points_normals_lengths_exact_uint32": true,
+      "before_actor_pose_exact": true,
+      "first_step_position_exact": true,
+      "first_step_velocity_exact": false,
+      "full_physical_state_exact": false,
+      "windows_angular_momentum": [
+        -0.00413588108,
+        0.00149383943,
+        -2.56672628e-10
+      ],
+      "mac_angular_momentum": [
+        -0.0043160324,
+        0.00123660255,
+        -2.16443141e-10
+      ],
+      "windows_rotation": [
+        8.19130364e-08,
+        8.55473825e-09,
+        0,
+        1
+      ],
+      "mac_rotation": [
+        7.90386423e-08,
+        7.06387882e-09,
+        0,
+        1
+      ]
+    }
+  },
+  "native_spring_descriptor": {
+    "original_600_states_preserved": true,
+    "actual_windows_repeats_exact_defined_fields": true,
+    "body_handle_fields_excluded": [
+      1,
+      2
+    ],
+    "portable_words": [
+      [
+        1,
+        1066192102,
+        1061158912,
+        3210040672,
+        1066192102,
+        1061158912,
+        1092616192,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        1065353216,
+        3163064103,
+        0,
+        0,
+        2139095039,
+        1191753728,
+        1166843904,
+        1,
+        1,
+        1065353216,
+        1065353216
+      ],
+      [
+        1,
+        1066192102,
+        3208642560,
+        3210040672,
+        1066192102,
+        3208642560,
+        1092616192,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        1065353216,
+        3163064103,
+        0,
+        0,
+        2139095039,
+        1191753728,
+        1166843904,
+        1,
+        1,
+        1065353216,
+        1065353216
+      ],
+      [
+        1,
+        3213675776,
+        1061158861,
+        3210040672,
+        3213675776,
+        1061158861,
+        1092616192,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        1065353216,
+        3163064103,
+        0,
+        0,
+        2139095039,
+        1191753728,
+        1166843904,
+        1,
+        1,
+        1065353216,
+        1065353216
+      ],
+      [
+        1,
+        3213675776,
+        3208642611,
+        3210040672,
+        3213675776,
+        3208642611,
+        1092616192,
+        0,
+        0,
+        1065353216,
+        0,
+        0,
+        1065353216,
+        3163064103,
+        0,
+        0,
+        2139095039,
+        1191753728,
+        1166843904,
+        1,
+        1,
+        1065353216,
+        1065353216
+      ]
+    ]
+  },
+  "next_unresolved": "Original spring row preparation and scalar solve/application. Prior v17 final-bias reconstruction was tolerance-tested, not proved bitwise against original internal rows.",
+  "goal_complete": false
+}

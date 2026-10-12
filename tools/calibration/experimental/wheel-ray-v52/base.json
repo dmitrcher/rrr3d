@@ -1,0 +1,37 @@
+{
+  "phase": "v52 wheel ray geometry reconstruction and first-contact ablations",
+  "default_off": true,
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_RAY_ORIGIN",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT"
+  ],
+  "prerequisite": "Full experimental v51 SDK/adapter chain plus v52 probe logging. Exact before adapter SHA required; this is not a replacement of the ordinary production adapter.",
+  "paths": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before_sha256": "21d671e6fcf0b042ff2da4cb8f21954b0836d533aea7986aa109b90156fd7efd",
+      "after_sha256": "b1f385320675b11e11abc73928c1ee07a539756602e1df4633c879abec79e7f9"
+    },
+    "src/Rock3dEngine/header/physics/NativeWheelRayV52.h": {
+      "before_sha256": null,
+      "after_sha256": "8d903bf98826524ee1047617195b435ea7a1e714ce8a5f3d4771a166fb7b4347"
+    }
+  },
+  "origin_scope": "Identity physical vehicle quaternion only. Other rotations retain the existing query.",
+  "point_scope": "Registered static identity source mesh bodies. Jolt chooses the candidate triangle; native scalar intersection/interpolation uses original uncompressed source vertices.",
+  "native_successful_rays": 24,
+  "native_ray_cases": 7,
+  "standalone_optimization_modes": [
+    "-O0",
+    "-O2"
+  ],
+  "retained_exact_cases": 291,
+  "ctest_passed": 53,
+  "coefficients_changed": false,
+  "production_promoted": false,
+  "probe_sha256": "87e77d3e6ee886f77a100a71fff99afda0c707c0c9b5b151ae4a98c29ba68bd5",
+  "app_executable_sha256": "e7eac1a030d423c8151ca9db3e851ef047cbe73508396738e8372ea967fb5bb9",
+  "windows_probe_sha256": "3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262",
+  "windows_physxcore_sha256": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+  "broad_note": "The full v52 candidate broad matrix has not been recertified; last published v51 baseline is 65/608 exact, 543 unresolved.",
+  "goal_complete": false
+}

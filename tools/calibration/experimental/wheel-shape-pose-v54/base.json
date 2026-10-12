@@ -1,0 +1,22 @@
+{
+  "baseline_commit": "0470ee6bcd5d67c1138e359f3b6e3914ac3470fd",
+  "scope": "Default-off v54 adapter prototype on exact v53 after source. Requires separately installed v53 SDK/adapter and v51/v52 dependencies. Original current endpoint branch only (wheel flags64, bit0x20 clear).",
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_SHAPE_POSE_V54"
+  ],
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "3447c066e612d11f0371f6674fb13ee8df3ebdb344915016e05887df48eb57d9",
+      "after_sha256": "cc1b1dd566485543557cca22a27381de1e22cf4fe32f6a35b463321437a1320d"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeWheelPoseV54.h",
+      "before_sha256": null,
+      "after_sha256": "85705e021c6f0a7286a3a518dba4493d052b74ad26b152961a2d08f3b7f9895f"
+    }
+  ],
+  "goal_complete": false
+}

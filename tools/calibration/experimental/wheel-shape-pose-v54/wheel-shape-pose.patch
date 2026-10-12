@@ -1,0 +1,101 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -16,0 +17 @@
++#include "physics/NativeWheelPoseV54.h"
+@@ -1909,0 +1911,2 @@
++        const bool nativePose = nativeOrigin && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_SHAPE_POSE_V54");
++        wr::Vector shapeAxis{0,0,1};
+@@ -1915 +1918 @@
+-                vehicleLock.GetBody().GetRotation() == JPH::Quat::sIdentity() &&
++                (nativePose || vehicleLock.GetBody().GetRotation() == JPH::Quat::sIdentity()) &&
+@@ -1921 +1924,2 @@
+-            const auto actor = motorrock::quaternionposev43::origin({{0,0,0,1}},
++            const auto q = nativePose ? fromJolt(vehicleLock.GetBody().GetRotation()) : Quat{0,0,0,1};
++            const auto actor = motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},
+@@ -1923,7 +1927,20 @@
+-            const wr::Vector start{wr::add(actor[0], source.position.x),
+-                wr::add(actor[1], source.position.y), wr::add(actor[2], source.position.z)};
+-            // PhysX forms a world endpoint before subtracting it again. The
+-            // float cancellation is part of the original ray length.
+-            const float endZ = wr::sub(start[2], wr::add(source.radius, source.suspensionTravel));
+-            queryOrigin = toJolt(Vec3{start[0], start[1], start[2]});
+-            queryDelta = toJolt(Vec3{0, 0, wr::sub(endZ, start[2])});
++            if (nativePose) {
++                namespace wp = motorrock::wheelposev54;
++                // Original shape local orientation is the source wheel's fixed
++                // (.5,.5,.5,.5) frame. Preserve compose -> matrix -> endpoint
++                // stores; rotating the actor suspension axis is not equivalent.
++                const auto shape = wp::pose(wp::compose(
++                    {{actor[0],actor[1],actor[2],q.x,q.y,q.z,q.w}},
++                    {{source.position.x,source.position.y,source.position.z,.5F,.5F,.5F,.5F}}));
++                const auto nativeRay = wp::ray(shape,source.radius,source.suspensionTravel);
++                shapeAxis = nativeRay.axis;
++                queryOrigin = toJolt(Vec3{nativeRay.start[0],nativeRay.start[1],nativeRay.start[2]});
++                const auto delta = wr::subtract(nativeRay.end,nativeRay.start);
++                queryDelta = toJolt(Vec3{delta[0],delta[1],delta[2]});
++            } else {
++                const wr::Vector start{wr::add(actor[0], source.position.x),
++                    wr::add(actor[1], source.position.y), wr::add(actor[2], source.position.z)};
++                const float endZ = wr::sub(start[2], wr::add(source.radius, source.suspensionTravel));
++                queryOrigin = toJolt(Vec3{start[0], start[1], start[2]});
++                queryDelta = toJolt(Vec3{0, 0, wr::sub(endZ, start[2])});
++            }
+@@ -2022 +2039,3 @@
+-            outLength = std::max(0.0F, wr::sub(rayStart[2], point.z));
++            outLength = std::max(0.0F, nativePose ?
++                motorrock::wheelposev54::distance(shapeAxis,rayStart,{{point.x,point.y,point.z}}) :
++                wr::sub(rayStart[2], point.z));
+--- /dev/null
++++ b/adapter/src/Rock3dEngine/header/physics/NativeWheelPoseV54.h
+@@ -0,0 +1,51 @@
++#pragma once
++#include "NativeWheelRayV52.h"
++namespace motorrock::wheelposev54 {
++using namespace motorrock::wheelrayv52;
++using Transform = std::array<float, 7>; // position XYZ, quaternion XYZW
++using Pose = std::array<float, 12>; // row-major rotation, position XYZ
++inline Transform compose(Transform parent, Transform local) {
++    const float x=local[0], y=local[1], z=local[2];
++    const float X=parent[3], Y=parent[4], Z=parent[5], W=parent[6];
++    const float dot=add(add(mul(z,Z),mul(x,X)),mul(y,Y));
++    const Vector cross{mul(sub(mul(z,Y),mul(y,Z)),W),
++                       mul(sub(mul(x,Z),mul(z,X)),W),
++                       mul(sub(mul(y,X),mul(x,Y)),W)};
++    const float scalar=sub(mul(W,W),0.5F);
++    Transform out{};
++    for (int i=0;i<3;++i)
++        out[i]=add(parent[i],mul(add(add(mul(local[i],scalar),cross[i]),mul(parent[3+i],dot)),2.0F));
++    const float a=local[3],b=local[4],c=local[5],d=local[6];
++    out[3]=sub(add(add(mul(a,W),mul(X,d)),mul(Y,c)),mul(Z,b));
++    out[4]=sub(add(add(mul(Z,a),mul(b,W)),mul(d,Y)),mul(X,c));
++    out[5]=sub(add(add(mul(b,X),mul(Z,d)),mul(W,c)),mul(a,Y));
++    out[6]=sub(sub(sub(mul(W,d),mul(a,X)),mul(b,Y)),mul(Z,c));
++    return out;
++}
++inline Pose pose(Transform t) {
++    const float x=t[3],y=t[4],z=t[5],w=t[6];
++    const float xx=mul(mul(x,x),2), yy=mul(mul(y,y),2), zz=mul(mul(z,z),2);
++    const float xy=mul(mul(y,x),2), zw=mul(mul(z,w),2), xz=mul(mul(z,x),2);
++    const float yw=mul(mul(y,w),2), xw=mul(mul(x,w),2), yz=mul(mul(z,y),2);
++    return {sub(sub(1,yy),zz),sub(xy,zw),add(yw,xz),
++            add(zw,xy),sub(sub(1,xx),zz),sub(yz,xw),
++            sub(xz,yw),add(xw,yz),sub(sub(1,xx),yy), t[0],t[1],t[2]};
++}
++struct Ray { Vector start, end, axis, unit; float length; };
++inline Ray ray(Pose p, float radius, float travel) {
++    Ray r{{p[9],p[10],p[11]},{},{p[1],p[4],p[7]},{},0};
++    const float extent=add(travel,radius);
++    Vector delta;
++    for(int i=0;i<3;++i) {
++        r.end[i]=sub(r.start[i],mul(r.axis[i],extent));
++        delta[i]=sub(r.end[i],r.start[i]);
++    }
++    r.length=std::sqrt(dotZYX(delta,delta));
++    const float inv=r.length>0?div(1,r.length):0;
++    for(int i=0;i<3;++i)r.unit[i]=mul(delta[i],inv);
++    return r;
++}
++inline float distance(Vector axis, Vector start, Vector point) {
++    return -dotZYX(axis,subtract(point,start));
++}
++} // namespace motorrock::wheelposev54

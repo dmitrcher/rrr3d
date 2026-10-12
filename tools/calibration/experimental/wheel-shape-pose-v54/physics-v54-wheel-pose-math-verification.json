@@ -1,0 +1,20 @@
+{
+  "two_actual_native_runs_preserve_600_states": true,
+  "two_native_defined_field_repeats_exact": true,
+  "compose_records": 35,
+  "endpoint_records": 84,
+  "normalized_ray_records": 28,
+  "results": [
+    {
+      "optimization": "-O0",
+      "result": "1841 original float32 words exact"
+    },
+    {
+      "optimization": "-O2",
+      "result": "1841 original float32 words exact"
+    }
+  ],
+  "goal_complete": false,
+  "scope": "Seven capture points (settle counters20,30,60; spring-soft38; suspension-drop38; slope-longitudinal25; slope-lateral25), two actual Windows runs each. Validate only defined fields; duplicate getter endpoints are counted separately from the 28 normalized query rays.",
+  "actual_windows_runs": 14
+}

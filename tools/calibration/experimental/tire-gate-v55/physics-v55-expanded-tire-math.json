@@ -1,0 +1,58 @@
+{
+  "original_captures": [
+    {
+      "case": "settle",
+      "counter": 20,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    },
+    {
+      "case": "settle",
+      "counter": 30,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    },
+    {
+      "case": "settle",
+      "counter": 60,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    },
+    {
+      "case": "spring-soft",
+      "counter": 38,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    },
+    {
+      "case": "suspension-drop",
+      "counter": 38,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    },
+    {
+      "case": "slope-longitudinal",
+      "counter": 25,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 2
+    },
+    {
+      "case": "slope-lateral",
+      "counter": 25,
+      "unchanged_full_native_states_two_runs": 600,
+      "update_branches": 0
+    }
+  ],
+  "native_math_verification": [
+    {
+      "optimization": "-O0",
+      "result": "392 original float32 words exact"
+    },
+    {
+      "optimization": "-O2",
+      "result": "392 original float32 words exact"
+    }
+  ],
+  "scope": "56 curves,28 zero-steer bases/anchor choices/projections/scales/curve forces; all Native observable histories unchanged. Final static row bounds and ellipse normalization not included.",
+  "goal_complete": false
+}

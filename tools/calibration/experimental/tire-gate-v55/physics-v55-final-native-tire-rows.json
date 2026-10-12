@@ -1,0 +1,454 @@
+{
+  "scope": "28 actual final lateral prepared rows, including nonzero anchor errors: maximum impulse remains curve-based, bias is F32(anchor_error*F32(1/dt)). Prior experimental static extremum cap substitution rejected and removed. Original wheel flags64 unchanged.",
+  "cases": [
+    {
+      "case": "settle",
+      "counter": 20,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 9.653211918703164e-07,
+          "minimum_impulse": -9.653211918703164e-07,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 320.48712158203125,
+          "inverse_inertia_jacobian": [
+            0.0019063069485127926,
+            -6.342704139683519e-11,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 9.653206234361278e-07,
+          "minimum_impulse": -9.653206234361278e-07,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 320.48712158203125,
+          "inverse_inertia_jacobian": [
+            0.0019063069485127926,
+            -6.342704139683519e-11,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 9.653200550019392e-07,
+          "minimum_impulse": -9.653200550019392e-07,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 320.4876403808594,
+          "inverse_inertia_jacobian": [
+            0.0019063069485127926,
+            -1.9887891680725467e-11,
+            0.0007919848430901766
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 9.653193728809129e-07,
+          "minimum_impulse": -9.653193728809129e-07,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 320.4876403808594,
+          "inverse_inertia_jacobian": [
+            0.0019063069485127926,
+            -1.9887891680725467e-11,
+            0.0007919848430901766
+          ]
+        }
+      ]
+    },
+    {
+      "case": "settle",
+      "counter": 30,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 0.00034818873973563313,
+          "minimum_impulse": -0.00034818873973563313,
+          "anchor_position_error": 2.384185791015625e-06,
+          "velocity_bias": 0.00014305113290902227,
+          "effective_mass": 443.0000915527344,
+          "inverse_inertia_jacobian": [
+            0.0011912198970094323,
+            -1.3797225584255557e-09,
+            -0.0007919911295175552
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 0.0003483266627881676,
+          "minimum_impulse": -0.0003483266627881676,
+          "anchor_position_error": 2.384185791015625e-06,
+          "velocity_bias": 0.00014305113290902227,
+          "effective_mass": 443.0000915527344,
+          "inverse_inertia_jacobian": [
+            0.0011912198970094323,
+            -1.3797225584255557e-09,
+            -0.0007919911295175552
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 0.000348032102920115,
+          "minimum_impulse": -0.000348032102920115,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 443.0045471191406,
+          "inverse_inertia_jacobian": [
+            0.001191200572066009,
+            1.3276928445549174e-09,
+            0.0007919807685539126
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 0.0003481699386611581,
+          "minimum_impulse": -0.0003481699386611581,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 443.0045471191406,
+          "inverse_inertia_jacobian": [
+            0.001191200572066009,
+            1.3276928445549174e-09,
+            0.0007919807685539126
+          ]
+        }
+      ]
+    },
+    {
+      "case": "settle",
+      "counter": 60,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 4.2309427954023704e-05,
+          "minimum_impulse": -4.2309427954023704e-05,
+          "anchor_position_error": 7.987022399902344e-06,
+          "velocity_bias": 0.00047922131489031017,
+          "effective_mass": 380.0518798828125,
+          "inverse_inertia_jacobian": [
+            0.0015423099976032972,
+            -3.1394122856909235e-09,
+            -0.0007919989875517786
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 4.2314928577980027e-05,
+          "minimum_impulse": -4.2314928577980027e-05,
+          "anchor_position_error": 8.046627044677734e-06,
+          "velocity_bias": 0.0004827975935768336,
+          "effective_mass": 380.0520324707031,
+          "inverse_inertia_jacobian": [
+            0.0015423099976032972,
+            -3.1394096211556644e-09,
+            -0.0007919985218904912
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 4.056245961692184e-05,
+          "minimum_impulse": -4.056245961692184e-05,
+          "anchor_position_error": -1.5258764506143052e-05,
+          "velocity_bias": -0.0009155258303508162,
+          "effective_mass": 380.0707092285156,
+          "inverse_inertia_jacobian": [
+            0.001542267156764865,
+            4.713022860869387e-09,
+            0.0007919397321529686
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 4.05672071792651e-05,
+          "minimum_impulse": -4.05672071792651e-05,
+          "anchor_position_error": 1.5258798157447018e-05,
+          "velocity_bias": 0.0009155278094112873,
+          "effective_mass": 380.0635986328125,
+          "inverse_inertia_jacobian": [
+            0.001542267156764865,
+            4.7131338831718494e-09,
+            0.0007919621421024203
+          ]
+        }
+      ]
+    },
+    {
+      "case": "spring-soft",
+      "counter": 38,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 1.8980294953507837e-06,
+          "minimum_impulse": -1.8980294953507837e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 332.72320556640625,
+          "inverse_inertia_jacobian": [
+            0.0018274186877533793,
+            -6.217394654672859e-11,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 1.898026880553516e-06,
+          "minimum_impulse": -1.898026880553516e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 332.72320556640625,
+          "inverse_inertia_jacobian": [
+            0.0018274186877533793,
+            -6.217394654672859e-11,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 1.898028585856082e-06,
+          "minimum_impulse": -1.898028585856082e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 332.7237548828125,
+          "inverse_inertia_jacobian": [
+            0.0018274186877533793,
+            -1.7693181988964746e-11,
+            0.0007919848430901766
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 1.898026084745652e-06,
+          "minimum_impulse": -1.898026084745652e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 332.7237548828125,
+          "inverse_inertia_jacobian": [
+            0.0018274186877533793,
+            -1.7693181988964746e-11,
+            0.0007919848430901766
+          ]
+        }
+      ]
+    },
+    {
+      "case": "suspension-drop",
+      "counter": 38,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 2.163907311114599e-06,
+          "minimum_impulse": -2.163907311114599e-06,
+          "anchor_position_error": 5.960464477539063e-08,
+          "velocity_bias": 3.576278459149762e-06,
+          "effective_mass": 331.9668884277344,
+          "inverse_inertia_jacobian": [
+            0.0018322215182706714,
+            1.9512169657787126e-13,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 2.1639039005094673e-06,
+          "minimum_impulse": -2.1639039005094673e-06,
+          "anchor_position_error": 1.1920928955078125e-07,
+          "velocity_bias": 7.152556918299524e-06,
+          "effective_mass": 331.9668884277344,
+          "inverse_inertia_jacobian": [
+            0.0018322215182706714,
+            1.9512169657787126e-13,
+            -0.0007919870549812913
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 2.1639066289935727e-06,
+          "minimum_impulse": -2.1639066289935727e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 331.9674377441406,
+          "inverse_inertia_jacobian": [
+            0.0018322215182706714,
+            7.988174011153149e-11,
+            0.0007919848430901766
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 2.1639034457621165e-06,
+          "minimum_impulse": -2.1639034457621165e-06,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 331.9674377441406,
+          "inverse_inertia_jacobian": [
+            0.0018322215182706714,
+            7.988174011153149e-11,
+            0.0007919848430901766
+          ]
+        }
+      ]
+    },
+    {
+      "case": "slope-longitudinal",
+      "counter": 25,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 6.156739254947752e-05,
+          "minimum_impulse": -6.156739254947752e-05,
+          "anchor_position_error": 1.1206586350454018e-05,
+          "velocity_bias": 0.0006723951664753258,
+          "effective_mass": 423.4128723144531,
+          "inverse_inertia_jacobian": [
+            0.001370015786960721,
+            1.0765243141364067e-09,
+            -0.0006612724391743541
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 6.156369636300951e-05,
+          "minimum_impulse": -6.156369636300951e-05,
+          "anchor_position_error": -3.5753646443481557e-06,
+          "velocity_bias": -0.0002145218604709953,
+          "effective_mass": 423.4137268066406,
+          "inverse_inertia_jacobian": [
+            0.001370011130347848,
+            1.0765240920918018e-09,
+            -0.0006612729048356414
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 7.719435961917043e-05,
+          "minimum_impulse": -7.719435961917043e-05,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 425.258056640625,
+          "inverse_inertia_jacobian": [
+            0.0012052173260599375,
+            -8.8995633085176e-10,
+            0.0009141150512732565
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 7.718859706074e-05,
+          "minimum_impulse": -7.718859706074e-05,
+          "anchor_position_error": 0.0,
+          "velocity_bias": 0.0,
+          "effective_mass": 425.25640869140625,
+          "inverse_inertia_jacobian": [
+            0.001205218257382512,
+            -8.899607717438585e-10,
+            0.0009141187183558941
+          ]
+        }
+      ]
+    },
+    {
+      "case": "slope-lateral",
+      "counter": 25,
+      "unchanged_native_states_two_runs": 600,
+      "twelve_defined_prepared_rows_repeat_exact": true,
+      "lateral_rows": [
+        {
+          "prepared_row_in_group": 0,
+          "matched_curve_capture_index": 3,
+          "maximum_impulse": 1.1783807277679443,
+          "minimum_impulse": -1.1783807277679443,
+          "anchor_position_error": -0.021020805463194847,
+          "velocity_bias": -1.261248230934143,
+          "effective_mass": 426.51812744140625,
+          "inverse_inertia_jacobian": [
+            0.0012811711058020592,
+            6.819257396273315e-05,
+            -0.0007896288298070431
+          ]
+        },
+        {
+          "prepared_row_in_group": 1,
+          "matched_curve_capture_index": 2,
+          "maximum_impulse": 1.1783689260482788,
+          "minimum_impulse": -1.1783689260482788,
+          "anchor_position_error": -0.020993240177631378,
+          "velocity_bias": -1.2595943212509155,
+          "effective_mass": 426.5406799316406,
+          "inverse_inertia_jacobian": [
+            0.001281157718040049,
+            -6.81873643770814e-05,
+            0.0007895727176219225
+          ]
+        },
+        {
+          "prepared_row_in_group": 2,
+          "matched_curve_capture_index": 1,
+          "maximum_impulse": 1.5141265392303467,
+          "minimum_impulse": -1.5141265392303467,
+          "anchor_position_error": -0.020257432013750076,
+          "velocity_bias": -1.215445876121521,
+          "effective_mass": 426.52935791015625,
+          "inverse_inertia_jacobian": [
+            0.001281164470128715,
+            -6.818951806053519e-05,
+            0.0007895977469161153
+          ]
+        },
+        {
+          "prepared_row_in_group": 3,
+          "matched_curve_capture_index": 0,
+          "maximum_impulse": 1.5141305923461914,
+          "minimum_impulse": -1.5141305923461914,
+          "anchor_position_error": -0.020347069948911667,
+          "velocity_bias": -1.220824122428894,
+          "effective_mass": 426.5172119140625,
+          "inverse_inertia_jacobian": [
+            0.0012811761116608977,
+            6.819258851464838e-05,
+            -0.0007896288298070431
+          ]
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

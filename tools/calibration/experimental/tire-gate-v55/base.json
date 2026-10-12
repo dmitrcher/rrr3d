@@ -1,0 +1,45 @@
+{
+  "baseline_commit": "5f3832ce51e35a34354ec89ba56364275821e300",
+  "scope": "Exact v54 adapter / v53 SDK chain. Four independent default-off tire prototypes; reverse-lateral-order ablation is separate, off and excluded from broad candidate. Wheel/settings/generic constraint object sizes unchanged. Requires NativeWheelRayV52/NativeWheelPoseV54 headers. Does not implement final anchor bias, ellipse or nonzero-steer basis.",
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55"
+  ],
+  "separate_ablation_flag": "RRR3D_EXPERIMENT_NATIVE_TIRE_REVERSE_V55",
+  "trace_variable": "RRR3D_NATIVE_TIRE_V55_TRACE",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "cc1b1dd566485543557cca22a27381de1e22cf4fe32f6a35b463321437a1320d",
+      "after_sha256": "342bc7d8952898bddafe5966461a2c116a1decc5090a4cb1b3ba2d13082a4526"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeTireV55.h",
+      "before_sha256": null,
+      "after_sha256": "bcba07dfdb5bfb5153d8b87705ef1e849a8fa8f5f8182bc9a703e426f6217544"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "d1f6c0b4ccc2416259be0f5458bda73b0a4cbfef5fead2be0b8b7ccb8cc314ad",
+      "after_sha256": "d6bc9c91f724d6b7dcf068e7d5cc214a21ca89dd7bcb56e8cba42a1577009ab0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "02cb5393796d30002f048297c17caf559c863c43d6b9f8552fde03eafc70f5c0",
+      "after_sha256": "00751dfa099770a73c8b5f7aefecbad25cf43d4cc437c372083596356bf948d9"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "b38395ad273ec8756fd297d84fc5f8e57df3ba382f1975dcdd3ca6284021fb09",
+      "after_sha256": "0d6aee479305ec850c325e2e070db09a1e92360af3d248420f96487ad4fa1a15"
+    }
+  ],
+  "goal_complete": false
+}

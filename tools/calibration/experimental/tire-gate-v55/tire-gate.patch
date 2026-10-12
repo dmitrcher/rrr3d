@@ -1,0 +1,148 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -17,0 +18 @@
++#include "physics/NativeTireV55.h"
+@@ -2471,0 +2473 @@
++        vehicle.tireAnchorsV55.assign(vehicle.constraint->GetWheels().size(), {});
+@@ -3314,0 +3317,3 @@
++        struct TireAnchorV55 { Vec3 point{}; JPH::BodyID body; bool valid=false; float lateral=0,longitudinal=0; };
++        std::vector<TireAnchorV55> tireAnchorsV55;
++        std::vector<float> tireProjectionsV55;
+@@ -4495,0 +4501,2 @@
++        runtime.tireAnchorsV55.resize(wheelCount);
++        runtime.tireProjectionsV55.assign(wheelCount,1);
+@@ -4515,0 +4523,14 @@
++                    namespace nt = motorrock::tirev55;
++                    const bool nativeBasis = nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") && wheel->GetSteerAngle()==0;
++                    vehicle.tireProjectionsV55[i]=1;
++                    if (wheel->HasContact() && (nativeBasis || nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55"))) {
++                        const auto* body=constraint.GetVehicleBody();const auto q=fromJolt(body->GetRotation());
++                        const auto cm=fromJolt(JPH::Vec3(body->GetCenterOfMassPosition()));const auto local=fromJolt(body->GetShape()->GetCenterOfMass());
++                        const auto p=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
++                        const auto& sw=source.wheels[i];
++                        const auto pose=motorrock::wheelposev54::pose(motorrock::wheelposev54::compose(
++                            {{p[0],p[1],p[2],q.x,q.y,q.z,q.w}},{{sw.position.x,sw.position.y,sw.position.z,.5F,.5F,.5F,.5F}}));
++                        const auto n=fromJolt(wheel->GetContactNormal());const auto basis=nt::basisZeroSteer(pose,{{n.x,n.y,n.z}});
++                        if(nativeBasis)wheel->SetSourceContactBasisV55(toJolt(Vec3{basis.lateral[0],basis.lateral[1],basis.lateral[2]}),toJolt(Vec3{basis.longitudinal[0],basis.longitudinal[1],basis.longitudinal[2]}));
++                        vehicle.tireProjectionsV55[i]=nt::dotZYX(basis.suspension,{{n.x,n.y,n.z}});
++                    }
+@@ -4522 +4543,4 @@
+-                        forward = relative.Dot(wheel->GetContactLongitudinal());
++                        if(nativeBasis) {
++                            const auto r=fromJolt(relative),axis=fromJolt(wheel->GetContactLongitudinal());
++                            forward=nt::dotZYX({{r.x,r.y,r.z}},{{axis.x,axis.y,axis.z}});
++                        } else forward = relative.Dot(wheel->GetContactLongitudinal());
+@@ -4536,0 +4561,20 @@
++                    if(wheel->HasContact() && nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55")) {
++                        const auto r=fromJolt(relative),axis=fromJolt(wheel->GetContactLateral());
++                        vehicle.sourceLateralSlips[i]=nt::lateralAngle({{r.x,r.y,r.z}},{{axis.x,axis.y,axis.z}});
++                    }
++                    auto& anchor=vehicle.tireAnchorsV55[i];anchor.lateral=anchor.longitudinal=0;
++                    if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55")) {
++                        if(!wheel->HasContact())anchor.valid=false;
++                        else {
++                            JPH::BodyLockRead contact(system_.GetBodyLockInterfaceNoLock(),wheel->GetContactBodyID());
++                            if(!contact.Succeeded() || !contact.GetBody().IsStatic())anchor.valid=false;
++                            else {
++                                const auto p=fromJolt(wheel->GetContactPosition());
++                                const auto lateral=fromJolt(wheel->GetContactLateral()),longitudinal=fromJolt(wheel->GetContactLongitudinal());
++                                if(!anchor.valid || anchor.body!=wheel->GetContactBodyID()) {anchor.point=p;anchor.valid=true;anchor.body=wheel->GetContactBodyID();}
++                                const auto result=nt::anchor({{p.x,p.y,p.z}},{{anchor.point.x,anchor.point.y,anchor.point.z}},{{lateral.x,lateral.y,lateral.z}},{{longitudinal.x,longitudinal.y,longitudinal.z}},sourceSkinWidth,vehicle.sourceWheelAxleSpeeds[i]);
++                                if(result.update)anchor.point=p;
++                                else {anchor.lateral=result.lateral_error;anchor.longitudinal=result.longitudinal_error;}
++                            }
++                        }
++                    }
+@@ -4659,0 +4704,6 @@
++                    if(motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") && vehicle.tireAnchorsV55[wheelIndex].valid) {
++                        // Native clamped row bounds remain curve-based even when anchor positional bias is nonzero.
++                        auto exactCurve=[](const WheelDescription::TireFunction& t,float slip) {return std::abs(motorrock::tirev55::curve(slip,t.extremumSlip,t.extremumValue,t.asymptoteSlip,t.asymptoteValue));};
++                        longitudinalFriction=exactCurve(source.wheels[wheelIndex].longitudinalTire,longitudinalSlip);
++                        lateralFriction=exactCurve(source.wheels[wheelIndex].lateralTire,lateralSlip);
++                    }
+@@ -4660,0 +4711,3 @@
++                }
++                if(motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55")) {
++                    allowedSuspensionImpulse=std::abs(motorrock::tirev55::impulseScale(motorrock::tirev55::div(allowedSuspensionImpulse,deltaTime),vehicle.tireProjectionsV55[wheelIndex],deltaTime));
+--- /dev/null
++++ b/adapter/src/Rock3dEngine/header/physics/NativeTireV55.h
+@@ -0,0 +1,39 @@
++#pragma once
++#include "NativeWheelPoseV54.h"
++#include <cstdlib>
++#include <cstring>
++namespace motorrock::tirev55 {
++using namespace motorrock::wheelrayv52;
++inline bool enabled(const char* n) { const char* s=std::getenv(n);return s&&std::strcmp(s,"1")==0; }
++inline float dotXYZ(Vector a,Vector b) {return add(add(mul(a[0],b[0]),mul(a[1],b[1])),mul(a[2],b[2]));}
++struct Basis { Vector lateral, longitudinal, suspension; };
++inline Basis basisZeroSteer(motorrock::wheelposev54::Pose p,Vector normal) {
++    const Vector shapeX{p[0],p[3],p[6]};const float projection=dotZYX(shapeX,normal);
++    Vector lateral;
++    for(int i=0;i<3;++i)lateral[i]=sub(shapeX[i],mul(normal[i],projection));
++    const float length=std::sqrt(dotXYZ(lateral,lateral));
++    if(length>0){const float inverse=div(1,length);for(auto& v:lateral)v=mul(v,inverse);}
++    return {lateral,cross(lateral,normal),{p[1],p[4],p[7]}};
++}
++inline float lateralAngle(Vector relative,Vector lateral) {
++    const float length=std::sqrt(dotZYX(relative,relative));
++    if(!(length>9.999999747378752e-6F))return 1.5707963705062866F;
++    const float cosine=div(dotZYX(lateral,relative),length);
++    if(cosine>=1)return 1.5707963705062866F;
++    if(cosine<=-1)return -1.5707963705062866F;
++    return std::asin(cosine);
++}
++inline float curve(float slip,float extremumSlip,float extremumValue,float asymptoteSlip,float asymptoteValue) {
++    const float magnitude=std::abs(slip),sign=slip>=0?1.0F:-1.0F;
++    if(magnitude<extremumSlip){const float a=div(magnitude,extremumSlip),a2=mul(a,a),a3=mul(a2,a);return mul(mul(add(sub(a2,a3),a),extremumValue),sign);}
++    if(magnitude<asymptoteSlip){const float a=div(sub(magnitude,extremumSlip),sub(asymptoteSlip,extremumSlip)),a2=mul(a,a),a3=mul(a2,a);return mul(add(mul(sub(mul(a2,3),mul(a3,2)),sub(asymptoteValue,extremumValue)),extremumValue),sign);}
++    return mul(asymptoteValue,sign);
++}
++struct AnchorResult { bool update; float lateral_error,longitudinal_error; };
++inline AnchorResult anchor(Vector point,Vector previous,Vector lateral,Vector longitudinal,float skin,float axle) {
++    const auto d=subtract(point,previous);
++    if(dotXZY(d,d)>mul(skin,skin))return {true,0,0};
++    return {false,dotZYX(lateral,d),axle==0?dotZYX(longitudinal,d):0};
++}
++inline float impulseScale(float force,float projection,float dt) {return mul(mul(force,projection),dt);}
++} // namespace motorrock::tirev55
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.h
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.h
+@@ -121,0 +122,2 @@
++void SetSourceContactBasisV55(Vec3Arg lateral, Vec3Arg longitudinal) { mContactLateral=lateral;mContactLongitudinal=longitudinal; }
++
+--- a/sdk/Jolt/Physics/Vehicle/Wheel.cpp
++++ b/sdk/Jolt/Physics/Vehicle/Wheel.cpp
+@@ -9,0 +10,2 @@
++#include <cstdio>
++#include <cstdlib>
+@@ -85,0 +88,7 @@
++static void TraceTireV55(const char* event,const AxisConstraintPart &part,const Body &body,Vec3Arg axis,Vec3Arg position,float minimum,float maximum) {
++ const char* path=std::getenv("RRR3D_NATIVE_TIRE_V55_TRACE");if(!path||!*path)return;
++ static unsigned sequence=0;if(sequence>=256)return;FILE* fp=std::fopen(path,"a");if(!fp)return;
++ Vec3 r=part.GetDiagnosticR1CrossAxis(),inv=part.GetDiagnosticInvI1R1CrossAxis();Vec3 v=body.GetLinearVelocity(),w=body.GetAngularVelocity();
++ std::fprintf(fp,"{\"event\":\"%s\",\"sequence\":%u,\"mass\":%.9g,\"bias\":%.9g,\"lambda\":%.9g,\"minimum\":%.9g,\"maximum\":%.9g,\"axis\":[%.9g,%.9g,%.9g],\"position\":[%.9g,%.9g,%.9g],\"r_cross_axis\":[%.9g,%.9g,%.9g],\"inv_i_r_cross_axis\":[%.9g,%.9g,%.9g],\"linear\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]}\n",event,sequence++,part.GetDiagnosticEffectiveMass(),part.GetDiagnosticVelocityBias(),part.GetTotalLambda(),minimum,maximum,axis.GetX(),axis.GetY(),axis.GetZ(),position.GetX(),position.GetY(),position.GetZ(),r.GetX(),r.GetY(),r.GetZ(),inv.GetX(),inv.GetY(),inv.GetZ(),v.GetX(),v.GetY(),v.GetZ(),w.GetX(),w.GetY(),w.GetZ());std::fclose(fp);
++}
++
+@@ -88 +97,3 @@
+-	return mLongitudinalPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLongitudinal, inMinImpulse, inMaxImpulse);
++	TraceTireV55("longitudinal-input",mLongitudinalPart,*inConstraint.GetVehicleBody(),-mContactLongitudinal,mContactPosition,inMinImpulse,inMaxImpulse);
++	const bool changed=mLongitudinalPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLongitudinal, inMinImpulse, inMaxImpulse);
++	TraceTireV55("longitudinal-result",mLongitudinalPart,*inConstraint.GetVehicleBody(),-mContactLongitudinal,mContactPosition,inMinImpulse,inMaxImpulse);return changed;
+@@ -93 +104,3 @@
+-	return mLateralPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLateral, inMinImpulse, inMaxImpulse);
++	TraceTireV55("lateral-input",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);
++	const bool changed=mLateralPart.SolveVelocityConstraint(*inConstraint.GetVehicleBody(), *mContactBody, -mContactLateral, inMinImpulse, inMaxImpulse);
++	TraceTireV55("lateral-result",mLateralPart,*inConstraint.GetVehicleBody(),-mContactLateral,mContactPosition,inMinImpulse,inMaxImpulse);return changed;
+--- a/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
++++ b/sdk/Jolt/Physics/Vehicle/WheeledVehicleController.cpp
+@@ -734,3 +734,6 @@
+-	wheel_index = 0;
+-	for (Wheel *w_base : mConstraint.GetWheels())
+-	{
++	const char *reverse_value=std::getenv("RRR3D_EXPERIMENT_NATIVE_TIRE_REVERSE_V55");
++	const bool reverse_lateral=reverse_value&&std::strcmp(reverse_value,"1")==0;
++	for (uint visit=0;visit<mConstraint.GetWheels().size();++visit)
++	{
++		wheel_index=reverse_lateral?uint(mConstraint.GetWheels().size())-1-visit:visit;
++		Wheel *w_base=mConstraint.GetWheels()[wheel_index];

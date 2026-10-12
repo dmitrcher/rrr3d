@@ -1,0 +1,96 @@
+{
+  "scope": "First large mismatch at public zero-based after-solve tick 61; no AI, one car, original inputs and vehicle parameters. SDK counter 60 precedes public frame 61 solve. Read-only tracer does not alter any of 600 retained physical samples.",
+  "checks": [
+    {
+      "file": "native-60-0-physical.jsonl",
+      "samples": 600,
+      "matches_retained_windows": true
+    },
+    {
+      "file": "native-60-1-physical.jsonl",
+      "samples": 600,
+      "matches_retained_windows": true
+    },
+    {
+      "file": "native-61-0-physical.jsonl",
+      "samples": 600,
+      "matches_retained_windows": true
+    },
+    {
+      "file": "native-61-1-physical.jsonl",
+      "samples": 600,
+      "matches_retained_windows": true
+    },
+    {
+      "file": "mac-61-0.jsonl",
+      "samples": 600,
+      "matches_untraced_mac": true
+    },
+    {
+      "file": "mac-61-1.jsonl",
+      "samples": 600,
+      "matches_untraced_mac": true
+    },
+    {
+      "file": "mac-62-0.jsonl",
+      "samples": 600,
+      "matches_untraced_mac": true
+    },
+    {
+      "file": "mac-62-1.jsonl",
+      "samples": 600,
+      "matches_untraced_mac": true
+    }
+  ],
+  "prior_position_velocity_equal_through_tick_60": true,
+  "position_error_at_tick_61": 0.51326121669267,
+  "native_first_prepared_contact_rows": [
+    {
+      "point": [
+        7.999988079071045,
+        1.200574517250061,
+        9.999985694885254
+      ],
+      "constraint_error": -0.8521897196769714
+    },
+    {
+      "point": [
+        7.999988079071045,
+        2.80057692527771,
+        9.999985694885254
+      ],
+      "constraint_error": -0.8495217561721802
+    }
+  ],
+  "mac_first_cached_contact_points": [
+    [
+      6.6333313,
+      1.2020793,
+      10.9021749
+    ],
+    [
+      6.63333082,
+      1.20107865,
+      10.3021755
+    ],
+    [
+      6.6333313,
+      2.80107665,
+      10.2995081
+    ],
+    [
+      6.63333178,
+      2.80207705,
+      10.8995075
+    ]
+  ],
+  "mac_first_contact_separations": [
+    -1.3666687,
+    -1.36666918,
+    -1.3666687,
+    -1.36666822
+  ],
+  "first_geometry_difference_confirmed": true,
+  "hypothesis": "Contact selection before solver differs: original prepares two edge points near x=8,z=10; Mac prepares four backward box-face corners near x=6.633,z=10.30..10.90. Must investigate SAT feature selection and clipping on original identical inputs before tuning any force. Constraint frames/material callback and later friction stages are separate downstream checks.",
+  "goal_complete": false
+}

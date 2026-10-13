@@ -1,0 +1,25 @@
+{
+  "base": "Exact V86 source overlay chain, excluding V88.",
+  "candidate": "Default-off paired native lateral/longitudinal tire rows. Contact-rank traversal with descending wheel construction indices for equal static-contact ranks, as Native captured atphysical20/21/24. Static zero-steer prescribed branch only. Independent default-off source requested tire impulse reporting extends the proved zero-slip report path; it does not alter solver lambdas or forces.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "c57e76047ea2cc074b52e911c66935edbbae7f5fd81c0ae944c05fce7e0c9733",
+      "after_sha256": "45111b5f889a995df66fffa23f48184fad53389c94bcb7bebc633f48b890e886"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "2eb6fd4543fa8ee31870b974a0cdf6ee125daf2f79133e88764c75cd2c082284",
+      "after_sha256": "be8cd07ef0426f8abd5cb04e823027faf8b3e210257b7c4f822b1a98504b5f8f"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "20bb8dc5af687393b1b2f45945a5ac142061757463a959ff97eb79040ba1ea1a",
+      "after_sha256": "0695b0d967e093fe135315b946fad8e0545573e91080ac0f561b2e7b193c0e6b"
+    }
+  ],
+  "goal_complete": false
+}

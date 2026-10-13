@@ -1,0 +1,11 @@
+# V87 paired tire rows and source request reporting
+
+Two independently default-off corrections: native paired lateral/longitudinal row traversal and source NxWheelContactData requested impulses. Equal static contact ranks use descending wheel construction order. Eligibility preserves ordinary Jolt engine/wheel torque solving: source prescribed, static, zero-steer contacts only. The reporting extension uses independent signed source curve requests; applied solver lambdas remain independently captured and verified.
+
+The first paired-order attempt preserved the natural ascending order of equal ranks and regressed first divergence to20. It was rejected. Actual Native captures at20/21/24 show descending wheel pairs. The corrected variant preserves all prior exact states; the high-load lateral full-state first difference moves24→31. Atphysical24 all80continuous body checkpoints (20stops20springs40tires) and480raw body words per repeat match Native in2repeats. 80numeric lambdas match; decimal telemetry cannot certify private signed-zero lambda bits. No injected state or case/frame branches.
+
+Full608cases×2 retain119strict/489open and no lost exact cases. Full-history magnitudes both improve and worsen; compressed regression audits retain the details. All291independent control/candidate gates pass2repeats;53CTests,full signed game build,solo map smoke and rendered AI functional smoke pass. AI smoke is not parity proof. Normal installed game remains at its previous baseline.
+
+Apply after the exact V86 overlay using `apply-experiment.py --sdk-root PATH --adapter-root PATH`, which validates all3files before mutation. `--restore` restores the recorded base. Rebuild required; candidate-environment.json records the full profile with a relative profile path. V88 force-store experiment is excluded.
+
+`verify-live24.py` independently checks the retained Native and Mac private checkpoints. `verify-checkpoint.py --probe PATH` executes a fresh1200-state verification against retained Windows and2Mac focused captures. Next first31 affects one wheel normal force by1ULP while body observables remain exact; direct Native captures identify force storage arithmetic, which is a separate V88 experiment.

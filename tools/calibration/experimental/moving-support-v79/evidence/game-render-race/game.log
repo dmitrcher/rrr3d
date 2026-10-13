@@ -1,0 +1,38 @@
+2026-10-13 15:54:10.849 RRR3d[18141:51628249] Playback device added: id=15; SDL default stream migration remains active
+Original game-data root: "/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/build/macos-arm64-m10/Debug/RRR3d.app/Contents/Resources/game-data"
+MainMenu2 language: english
+MainMenu2 strings: [Single Player] [Multiplayer] [Settings] [Authors] [Exit]
+Original asset audit: 1196 files (553107397 bytes), 248 GUI images, 4 GUI meshes, 338 localized strings
+Serialized GameMode catalog: 6 languages, 2 commentator styles, 3 menu and 11 game music tracks
+Serialized MusicCat catalog: 3 menu, 11 game tracks
+GUI viewport: 640x400 points, 1280x800 drawable pixels
+Original D3D9 display modes (mapped to nearest macOS 60 Hz mode): 1280x720 1280x800 1366x768 1280x960 1440x900 1280x1024 1600x900 1600x1024 1680x1050 1920x1080 3456x2234
+RRR3D renderer backend: bgfx/Metal
+MainMenu2 artwork: Data/GUI/mainFrame.dds, Data/GUI/topPanel5.png, Data/GUI/mainItemSel5.png
+MainMenu2 source: shared specification used by legacy MainMenu2.cpp
+MainMenu2 font: requested Verdana, resolved Verdana
+Input: SDL3 keyboard/mouse/gamepad, 0 gamepad(s)
+Game debug: enabled by Debug build; F1 reset, F2 post effects, F3 fullscreen, F6 AI trace, F7 human AI control, F8 screenshot, F10 overlay, PageUp/PageDown pages
+Original ResourceManager: 322 mesh records (116 loaded), 493 image records (374 loaded), 338 strings (english), 1349/1353 shared requests reused
+Milestone 9 race: Data/Map/World1/map1.r3dMap, 4 laps, 52 original track placements, car world\db\root\ctCar\marauder, Jolt backend with original db.xml parameters
+Original HUD localization (english): lap='Lap', reward='Reward'
+Audio: SDL3/coreaudio, 48 kHz stereo float mixer, default output 'MacBook Pro Speakers'
+Original MusicCat: background decode, source playlist, auto Next and in-process pause/resume
+Original menu tracks: [Frantick - Peter Gunn Theme: Data/Music\Track1.ogg] [Frantick - Bad to the Bone: Data/Music\Track14.ogg] [The Ventures - Peter Gunn Theme: Data/Music\Track15.ogg]
+Original Menu SoundSheme: 9 source UI sounds, one interrupting Effects Source
+Original commentator: 37 serialized comments, 80 available voice files, one queued Voice Source
+Original ResourceManager SoundLib: 126 records (126 loaded), 67/147 shared requests reused
+Original GameMode::Run startup -> MainMenu2
+MainMenu2 selection: Single Player via keyboard
+MainMenu2 selection: Tournament via keyboard
+MainMenu2 selection: Load via keyboard
+ProfileFrame: Are you sure you want to delete this profile?
+ProfileFrame selection: profile1
+MainMenu2 selection: Workshop via keyboard
+MainMenu2 selection: Garage via keyboard
+MainMenu2 selection: Change planet via keyboard
+MainMenu2 selection: Achievements via keyboard
+MainMenu2 selection: Start race via keyboard
+Original GameMode::StartRace -> Menu::msInfo
+MainMenu2 -> original race: Data/Map/World1/map1.r3dMap
+Milestone 9.5 original Single Player/Data/Map/World1/map1.r3dMap/marauder/Jolt/bgfx/Metal smoke test completed after 240 frames; max speed 13.3333, wheel contacts 4, wheel reaction/releases 45.9129/86/4248, AI=1:0/0.000185438/0/0/0;2:0/0.000182344/0/0/0;3:0/0.000191832/0/0/0;4:0/0.975606/0/0/0;5:0/0.975206/0/0/0, ahead=4, playerAI=0.0021314/1, renderer passes cube6/shadow2/scene/HDR64-1/adapt/bloom/composite/HUD/loadingFrame/refraction/sun-shaft8 verified; cube reflection 18, normal map 0, transient draws (trails/debug geometry) 6; 6 cars, both original camera modes and an unshielded surviving player start (minimum life 70), source HudMenu pause/accept/frozen-world, source-owned SoundMotor/wheel Source3d hysteresis/cursor/teardown plus transient Shot/Life/Contact owners and source MusicCat deferred zero-frame start, source UserChat Enter/input/history/fade, source GameModeFrame/TournamentFrame layout, source ProfileFrame/delete dialog, source RaceMain portraits/boss/loadout/stats, source WorkshopFrame/GarageFrame/3D CarFrame/SpaceshipFrame/AngarFrame/AchievmentFrame and render-target resize round-trip passed

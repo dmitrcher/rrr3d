@@ -1,0 +1,36 @@
+{
+  "base": "Exact V76 research overlay chain; root release sources are a different base.",
+  "candidate": "V79 default-off dynamic wheel contact creation ordering; parity incomplete.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "72525ab3e2afa9039bbdd6d7693684d6a29f0bbefc968850793e1b9069daeedd",
+      "after_sha256": "16c808a8f6c82de54082d06661bba0ad5851923c070aced8301ea0d6254bb968"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactOrderV79.h",
+      "before_sha256": null,
+      "after_sha256": "a64664d375e1fb96a4c05b5e5aad9233083f4d7571228c7e6f3d61c9c303c78f"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeEndpointSortV78.h",
+      "before_sha256": null,
+      "after_sha256": "02ff439696124b08005ac5e22f52ca767587e2d2b7829b3c05a22fa29bc39b47"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "3719db2f40b89b2fe3ac20cc69f08f5b540c83d155ad0377271c04c66f35a47e",
+      "after_sha256": "c57e76047ea2cc074b52e911c66935edbbae7f5fd81c0ae944c05fce7e0c9733"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "056a8c28c9daa14b388b651d7ef00614bce0da2b88bbcc196c3668ee36d73a89",
+      "after_sha256": "cae4b704c32ed89af700b23e748e1969daf952afae006ab0db0e1d16bc673a38"
+    }
+  ]
+}

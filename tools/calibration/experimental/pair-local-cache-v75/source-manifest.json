@@ -1,0 +1,579 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "eecb696f1404d7c21a6be0e4d5728b62e7a4aaada8cb5ff91da508e2a9c5c065",
+      "bytes": 3877
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativePairLocalCacheV75.h",
+      "sha256": "0a3e358474e727e990a96e9ae5a86d691e033ee77bab0b9c54b7de35a6ca5a89",
+      "bytes": 3177
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "sha256": "3fe22c922d41a1baebb87a6bd839693a24a7e3a464e2c8b15ba47c0222117eee",
+      "bytes": 343727
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Collision/ContactListener.h",
+      "sha256": "77d4eded9c72e3f7e51f76f43c4a7f9e4c4d859a5324280a30efeaefd8aed842",
+      "bytes": 17382
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "sha256": "e5467b9e580aa4720a153c48356a8eb6eb16d4ac3c84da3e9e96dd6b7c96377d",
+      "bytes": 114215
+    },
+    {
+      "path": "apply-experiment.py",
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc",
+      "bytes": 1447
+    },
+    {
+      "path": "base.json",
+      "sha256": "5a6511b34eeebb781cf84bc9d7b90acc8190917672a31415dbfe11582b4685b7",
+      "bytes": 1308
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "sha256": "dd7ceffc81797f5c6ab02712a7bb9a727eaac656afecd58f93703c31db4dcaca",
+      "bytes": 339461
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Collision/ContactListener.h",
+      "sha256": "1f69d44c4e9c84a8965d60dab5437276f883838f53fa6f3d0e8ff51bdafcbf4b",
+      "bytes": 17315
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "sha256": "2c07c76d65220ed1bc2fd9ea88174fd9608f22761a856259f1a055205e9a2a17",
+      "bytes": 114165
+    },
+    {
+      "path": "evidence/broad/capture-manifest.json",
+      "sha256": "ed24f7b868ce72fda076b692b6e3160c3f0deed58bbe37a95450e4d68aff9aad",
+      "bytes": 6007
+    },
+    {
+      "path": "evidence/focused/manifest.json",
+      "sha256": "9be2826586ec61954b985addd83ce6f1d0a44018cb8919b847b728d603c6126c",
+      "bytes": 10753
+    },
+    {
+      "path": "evidence/focused/report.json",
+      "sha256": "2e88f2e454a87ee7468db8bc87edcbf96877c49b258e81d26e0a14995d75e067",
+      "bytes": 66041
+    },
+    {
+      "path": "evidence/frozen-probes.json",
+      "sha256": "a3c587c2fb0fc949a987b45f94c490dc14dac38e461d5914aef3f32e209fe919",
+      "bytes": 326
+    },
+    {
+      "path": "evidence/game-render/exit.json",
+      "sha256": "a4db065701e5e61ec939b9f94dff7492399bd457579e0c9eeed3ff4ca2afaeae",
+      "bytes": 88
+    },
+    {
+      "path": "evidence/game-render/game.log",
+      "sha256": "97a748fca894734953f2837694b6faf73a9c8f498a34f4561d2f04e0a643e03c",
+      "bytes": 967
+    },
+    {
+      "path": "evidence/game-render/launch.json",
+      "sha256": "355e872e4cbc2c1eff03977c66de48ea62faff3c63d54379ef0063f7409e9f16",
+      "bytes": 5921
+    },
+    {
+      "path": "evidence/game-render-race/exit.json",
+      "sha256": "31c14f9bb48d66d03ec3a81f128d585b625aeb04c3efdad312bf4839c09255d2",
+      "bytes": 87
+    },
+    {
+      "path": "evidence/game-render-race/game-screenshot.png",
+      "sha256": "01fb80a2114668aa7de5dbbab51d862e1e8d3058be81b55a0ebc4aa54572ac15",
+      "bytes": 1307557
+    },
+    {
+      "path": "evidence/game-render-race/game.log",
+      "sha256": "fdbede99ae50c9a88f1d503a652143a382fd27a707336127fc702fe8f761bb3f",
+      "bytes": 4082
+    },
+    {
+      "path": "evidence/game-render-race/launch.json",
+      "sha256": "cc4bbec334d42ddfd547e956c9fb840be696a0049076b307ddb3e34079db9b26",
+      "bytes": 5901
+    },
+    {
+      "path": "evidence/game-smoke/exit.json",
+      "sha256": "c758108ce06ed8cf2bfa757a0b75c4053ea14b8b89ff285d06db423540ba6f49",
+      "bytes": 88
+    },
+    {
+      "path": "evidence/game-smoke/game.log",
+      "sha256": "caa002c6c83a003e5d845116ad42c4b9c2edb3ab0595ab0db8354269b19dfb66",
+      "bytes": 672
+    },
+    {
+      "path": "evidence/game-smoke/launch.json",
+      "sha256": "f4c9f10ee72540f7f4886cd20fc3465e6871f30fcdb1dd868a727996ee77eede",
+      "bytes": 5925
+    },
+    {
+      "path": "evidence/gates/capture-manifest.json",
+      "sha256": "f2f1495ffa71387c4ec1437c279468621aa08cb3380de3c63f597704c68005b2",
+      "bytes": 124301
+    },
+    {
+      "path": "evidence/mac-cache-frame/manifest.json",
+      "sha256": "d6aceaddfce12bdd48f27dc5b6a5572322a19ac84e31d097a4d560a27aaa2ed7",
+      "bytes": 8012
+    },
+    {
+      "path": "evidence/mac-cache-frame/pair-pole-oblique-0-0-native-pair.jsonl",
+      "sha256": "35a081693d41c16cad051bd1d1b8d42f1aa3d6c35aedd87280ed00489d881985",
+      "bytes": 217552
+    },
+    {
+      "path": "evidence/mac-cache-frame/pair-same-head-0-0-native-pair.jsonl",
+      "sha256": "1202209b5101b00f10cb830381314162ebfa1e8d03cbd5dd73d6d94291f739d4",
+      "bytes": 203260
+    },
+    {
+      "path": "evidence/mac-cache-frame/pair-stock-head-0-0-native-pair.jsonl",
+      "sha256": "5368af3cc66e364f7f05122a7ea576d5996b6be6adb275e2100f848501a52fd7",
+      "bytes": 267112
+    },
+    {
+      "path": "evidence/mac-cache-frame/pair-vertical-weak-peer-0-0-native-pair.jsonl",
+      "sha256": "9e53682dd76f223bcbd25ffc8740a21b1b1bc3c4fd73577738804f9acf1cc44d",
+      "bytes": 218548
+    },
+    {
+      "path": "evidence/mac-cache-frame/pair-weak-second-0-0-native-pair.jsonl",
+      "sha256": "4ea33d6dc67ae335661229037f1cdf785c157e5c519f3cc647e9d00c933c3dfc",
+      "bytes": 196776
+    },
+    {
+      "path": "evidence/mac-remaining-frame/capture-manifest.json",
+      "sha256": "152206de974eabd9fbef324b6e2bbc0bf4a737c08875df914f55aa0b067c0233",
+      "bytes": 6228
+    },
+    {
+      "path": "evidence/mac-remaining-frame/pair-stock-oblique-0-0-native-pair.jsonl",
+      "sha256": "29bc0d280cb9c17ff49b16765db965ba0940319604541cae737e33ce52796798",
+      "bytes": 276090
+    },
+    {
+      "path": "evidence/mac-remaining-frame/pair-stock-weak-second-0-0-native-pair.jsonl",
+      "sha256": "ca354db2a0aeac9ae7c85c0580a1a83dba68d432c7df4ac9b60926b052a1ecaf",
+      "bytes": 272084
+    },
+    {
+      "path": "evidence/native-holdout/manifest.json",
+      "sha256": "7076f92f5d440ad1aec620adc6304fdda9bd985317e0b64cd36019f4e51245d9",
+      "bytes": 31322
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-pole-oblique-0-tick37-0-private.jsonl.gz",
+      "sha256": "13b66be63202ab21872190100f3af37154f7e06f2e669bcc4c4befaabf0eeabc",
+      "bytes": 51917
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-pole-oblique-0-tick37-1-private.jsonl.gz",
+      "sha256": "c42351c5a0e8e33bf688096f303446512e7f85035e0629c36dab8bdb1483b9b8",
+      "bytes": 52088
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-pole-oblique-0-tick38-0-private.jsonl.gz",
+      "sha256": "0d7b7d81deffd99044512fbfe8544dd0b853522e31ed8fd42f1cbcc7681e2eb8",
+      "bytes": 52273
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-pole-oblique-0-tick38-1-private.jsonl.gz",
+      "sha256": "f5cc7b80670c85dcc47273adeb2489478b83a56549c33ff2113f0d309f39e02a",
+      "bytes": 52421
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-tilted-first-0-tick38-0-private.jsonl.gz",
+      "sha256": "eef906a8a7c49a63436cec26b257c9496f960da9c78d9fa92c887ef859ec0f3b",
+      "bytes": 51160
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-tilted-first-0-tick38-1-private.jsonl.gz",
+      "sha256": "0792d7cbd880df37e4b45965ff8daa1f6113db328b6badb47135d999c45432f3",
+      "bytes": 51203
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-tilted-first-0-tick39-0-private.jsonl.gz",
+      "sha256": "9a1508d72fdadf0d4b5c9e5c4e7e1fdd62494696b318b0ae990185b6a70b10bd",
+      "bytes": 51757
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-tilted-first-0-tick39-1-private.jsonl.gz",
+      "sha256": "55dd6dd994f7303daedf9f58f6f1a3f959108e8ea11d8e0783c9b22983a5ec85",
+      "bytes": 51901
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+      "sha256": "3ee08d7c94702480c9c4ac59f8ae3723f21272b318a6aa4e1d99ecb387acfd55",
+      "bytes": 113533
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+      "sha256": "8d43c7823a2bb3d7c0174386186583a26dc7d078884c2237d7500a41d0e02965",
+      "bytes": 113272
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-vertical-weak-peer-0-tick39-0-private.jsonl.gz",
+      "sha256": "cd17bbd7ddaafcbb5be7d6ce83d91ed7f13cc11f22b44b0748a493b1d62f6d12",
+      "bytes": 113768
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-vertical-weak-peer-0-tick39-1-private.jsonl.gz",
+      "sha256": "8a5edee6718c9ea2b01834d5ec6242df23c57eeed54cf5147dfdf622f4c856c0",
+      "bytes": 114106
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick38-0-private.jsonl.gz",
+      "sha256": "276731b685974944231f0887d36e99642ca52d333a1e4ae7542b55d27c95f073",
+      "bytes": 52616
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick38-1-private.jsonl.gz",
+      "sha256": "c1f6968aed7774a2bcc903c439eb31fd8d005fad7189d2d326399f1473c39cae",
+      "bytes": 52628
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick39-0-private.jsonl.gz",
+      "sha256": "cd5637238f3d6139d747876633e862e4eecb594973c04c2277646f1f6bb89966",
+      "bytes": 53060
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick39-1-private.jsonl.gz",
+      "sha256": "548dde922c6175681467607d317fea3650bcdf42e56b18a9407febe222fb7fa5",
+      "bytes": 53058
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick40-0-private.jsonl.gz",
+      "sha256": "b74e5f8b69ac26f280da52ddf3cfdd35658dafdcb081e3b6f59ba3645433b411",
+      "bytes": 53372
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick40-1-private.jsonl.gz",
+      "sha256": "8d6432dc9c4538ea6da29679a16f33435ae776ba29f2b909fe61b55d117a3857",
+      "bytes": 53297
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick41-0-private.jsonl.gz",
+      "sha256": "97512af38b6e9512e7af155aa40976acf3c30f9eccc3d1d2ca87368496105b6f",
+      "bytes": 53399
+    },
+    {
+      "path": "evidence/native-holdout/v75-holdout-pair-weak-second-0-tick41-1-private.jsonl.gz",
+      "sha256": "3033194229718b31d180e3205d58fa3131517d53d9ff1a180d0da6cf3ae2cb82",
+      "bytes": 53347
+    },
+    {
+      "path": "evidence/native-remaining/capture-manifest.json",
+      "sha256": "84f64a36e377d68e2c30b0542c7a656623045e35f50c0e2769637f96c5a19368",
+      "bytes": 13234
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-oblique-0-tick39-0-private.jsonl.gz",
+      "sha256": "30114faa03f1f748c69302d55afbd5d359285f0c081f8fbb894381487e733f57",
+      "bytes": 89748
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-oblique-0-tick39-1-private.jsonl.gz",
+      "sha256": "de09080817561fa309bb571a88fea20c18e60a87fa6060f4be18015ef120aade",
+      "bytes": 89769
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-oblique-0-tick40-0-private.jsonl.gz",
+      "sha256": "a1b6f18546baf186d3966e2ca76865540334735457de21c940f14cbefd276b40",
+      "bytes": 90315
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-oblique-0-tick40-1-private.jsonl.gz",
+      "sha256": "abd39494f578cefc493ab116da0174c46f864b159ed52f8c29d0fb5c3565f3fe",
+      "bytes": 90343
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-weak-second-0-tick38-0-private.jsonl.gz",
+      "sha256": "3054577970e148ada13d2b1c70bff6daaca5091f8ce8a186027c459779c9bdf7",
+      "bytes": 55133
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-weak-second-0-tick38-1-private.jsonl.gz",
+      "sha256": "fb24d103db0df43cd43dd3937a86f8722a792a7dfaddd6aadb903430d5bed9ea",
+      "bytes": 55220
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-weak-second-0-tick39-0-private.jsonl.gz",
+      "sha256": "7bb534e2ded789a1b64332ae7054e34e8a715a8f2fcdbe428ea003787ede7ba9",
+      "bytes": 59558
+    },
+    {
+      "path": "evidence/native-remaining/v75-remaining-pair-stock-weak-second-0-tick39-1-private.jsonl.gz",
+      "sha256": "983e66cb6b8d5e8fe308e31cbf4531cf3711353f44199457dd26eed52284bbdc",
+      "bytes": 59560
+    },
+    {
+      "path": "evidence/native-validation/manifest.json",
+      "sha256": "ebedbb3cdb94920b0aed993fadf882cc1e7e8d85e182ad91b2f259e45ba7dfb7",
+      "bytes": 19012
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick38-0-private.jsonl.gz",
+      "sha256": "681e6b7fc5616877310394e8f0ae449c1024648021383f94b176a4a18244fbb1",
+      "bytes": 49291
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick38-1-private.jsonl.gz",
+      "sha256": "12f5d00f79ad339e95009685797c7e21f52a84ce12179fa88e8a758098247023",
+      "bytes": 49387
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick39-0-private.jsonl.gz",
+      "sha256": "90a79ad5f44fe0fa93b0fbc4d67565b68e7478408880e7dd4e169a1e398fa2c8",
+      "bytes": 50290
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick39-1-private.jsonl.gz",
+      "sha256": "e987b3fb07706ff92339f31e98cb43c9553998f9129c5b767d27499656646ec0",
+      "bytes": 50347
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick40-0-private.jsonl.gz",
+      "sha256": "1befcc80200b7acd0ea03fa1261a62d981f15af8103231170b937694a7dcf5ad",
+      "bytes": 50173
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-same-head-0-tick40-1-private.jsonl.gz",
+      "sha256": "a5044e7470c199ebd98b1b0140f2827d07961e8b6388a823b7550c12156b08a3",
+      "bytes": 50273
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick38-0-private.jsonl.gz",
+      "sha256": "0d0023ac0c16ecc171debfc34e30623cedbf6769809a0a1fcf7b676cd2ca4fb0",
+      "bytes": 53044
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick38-1-private.jsonl.gz",
+      "sha256": "5a1c6ac7370dedce884cd21708767579c6feda5d47dedda36dd1f91ade4d22c5",
+      "bytes": 53133
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick39-0-private.jsonl.gz",
+      "sha256": "ef10c28556949843d844fb3f96bd27b6dba27c872c42717de3a2289b8252e782",
+      "bytes": 58056
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick39-1-private.jsonl.gz",
+      "sha256": "437703617f71b6a30c45f75167b984170aef09324e2f4fafef4d182a22bdc660",
+      "bytes": 58085
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick40-0-private.jsonl.gz",
+      "sha256": "e4b910f94c2a38a4c585720c59c0d805f57dfb37dc374a73ac6179e701c0fe61",
+      "bytes": 59080
+    },
+    {
+      "path": "evidence/native-validation/v75-cache-pair-stock-head-0-tick40-1-private.jsonl.gz",
+      "sha256": "968da59ac77f6c26264448be3e111724b9e30eec6387626f2a016ba325266365",
+      "bytes": 59137
+    },
+    {
+      "path": "evidence/physics-v75-all-targets-build.log",
+      "sha256": "fac819991eb2c30b9a59f101add82a16eb30a2cdb7325ef613177f30ad692386",
+      "bytes": 3421
+    },
+    {
+      "path": "evidence/physics-v75-ctest-fresh.log",
+      "sha256": "8699f6a91c2c01af08b010af1b137cf5da692860ebbef534fd09745ab2287cd7",
+      "bytes": 7093
+    },
+    {
+      "path": "evidence/physics-v75-exported-proofs.log",
+      "sha256": "1392b37d0b60b9601c9fc82f4d430d7725ef4223bfcf1f80f8a289586c4c1150",
+      "bytes": 1064
+    },
+    {
+      "path": "evidence/physics-v75-final-broad-audit.json",
+      "sha256": "5978348b28e949d5c127084b6722b9c042564f80f404d3481f100684aaf05f53",
+      "bytes": 5663148
+    },
+    {
+      "path": "evidence/physics-v75-final-practical-error-audit.json",
+      "sha256": "efe004e7a822f063d00cd879860c1020f9beb060434c76b9b0f530a5164b2d1c",
+      "bytes": 854338
+    },
+    {
+      "path": "evidence/physics-v75-game-validation.json",
+      "sha256": "435447725f69f04b55a23b377af37888f309797bbfe55f87414eae1af0a8b8d9",
+      "bytes": 685
+    },
+    {
+      "path": "evidence/physics-v75-guarded-installer-test.json",
+      "sha256": "d6632f77b571a6b32f40feb097e523fcef45f4620df3d2d7edaae30ca172e6ab",
+      "bytes": 141
+    },
+    {
+      "path": "evidence/physics-v75-material-expanded-proof.json",
+      "sha256": "20166331b4d111a0d75808520831bce9f94f155cd2fa18e9fd01c8d9771d4830",
+      "bytes": 550
+    },
+    {
+      "path": "evidence/physics-v75-native-pair-local-cache-holdout-proof.json",
+      "sha256": "0197a98500ad68000ac38ca62f90e9d4f3dfb775f760a578d54f192636b895ff",
+      "bytes": 731
+    },
+    {
+      "path": "evidence/physics-v75-native-pair-local-cache-proof.json",
+      "sha256": "b58206d0693aba018fa6c6bbcf5dbfeb7f086ac3cf23f39b0da51c8c6ec82a2b",
+      "bytes": 673
+    },
+    {
+      "path": "evidence/physics-v75-pair-material-error-proof.json",
+      "sha256": "8dbc9b0795f31e10f3879d3fdad42328f0119d30c86cd27b97e6466bc23fe976",
+      "bytes": 527
+    },
+    {
+      "path": "evidence/physics-v75-prepared-input-audit.json",
+      "sha256": "bd294659b99dd64ed50d3f3301a8d90d2860e3466fb29702f7e5a9f61c7856d6",
+      "bytes": 64479
+    },
+    {
+      "path": "evidence/physics-v75-regression-audit.json",
+      "sha256": "0e7455ea662f7c7d7a51500bda6da764c8e56dab09871bc7bbf34350e8254d51",
+      "bytes": 26963
+    },
+    {
+      "path": "evidence/physics-v75-remaining-prepared-input-audit.json",
+      "sha256": "2c0333d6b7824348cb5a1910326f4faf6af0f1e5bc9b0551ab0b6cdafe095b07",
+      "bytes": 299414
+    },
+    {
+      "path": "evidence/physics-v75-strict-progress.json",
+      "sha256": "748fc7ddc79c83a46d22f21afc8c4b54d6e9ae5b64f63ef4dbe0e3ca2f94c30b",
+      "bytes": 947
+    },
+    {
+      "path": "evidence/storage-cleanup-v75-result.json",
+      "sha256": "af526405198a2b049e013d2131ed04a90bd90f6bc21cf6d183df4bc1124b18a1",
+      "bytes": 16638
+    },
+    {
+      "path": "native-tracer/build.cmd",
+      "sha256": "1dd89bde47b34f6e74849ca20abbff39d9f2f9be8a8175b75db379c74e42ba3e",
+      "bytes": 280
+    },
+    {
+      "path": "native-tracer/trace-box.cpp",
+      "sha256": "2c1ef7d79a6a4f518bfd20880db6d82b2fc967211e7d6376c5ee756d8ba1976b",
+      "bytes": 20087
+    },
+    {
+      "path": "proofs/include/ContactFrameScalar.h",
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b",
+      "bytes": 4208
+    },
+    {
+      "path": "proofs/include/DerivedContactErrorFrame.h",
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5",
+      "bytes": 2270
+    },
+    {
+      "path": "proofs/include/NativeContactCache.h",
+      "sha256": "5f9a9d89b377ae3bd5461aca9d8f0ffe1adb1b4c8beb0700eabf47f3953364f7",
+      "bytes": 5169
+    },
+    {
+      "path": "proofs/include/NativeContactNormalV38.h",
+      "sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8",
+      "bytes": 753
+    },
+    {
+      "path": "proofs/include/NativeMaterialFrameV36.h",
+      "sha256": "10ee09f15684ceec77fecf61ceb5c168bbbdb473105f98c7e61154c9c3baa2a6",
+      "bytes": 7404
+    },
+    {
+      "path": "proofs/include/NativePairLocalCacheV75.h",
+      "sha256": "0a3e358474e727e990a96e9ae5a86d691e033ee77bab0b9c54b7de35a6ca5a89",
+      "bytes": 3177
+    },
+    {
+      "path": "proofs/include/NativePhysicalPoseV42.h",
+      "sha256": "ad34a9c85cbedc73bb45b878a9b1f9ee23dee44a582baefbc6088261f6bf4f75",
+      "bytes": 1016
+    },
+    {
+      "path": "proofs/include/SourceMaterialFrameCandidate.h",
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862",
+      "bytes": 4067
+    },
+    {
+      "path": "proofs/native-box-cache-wrapper.disasm.txt",
+      "sha256": "0a8ddfab2e6978492b60b7650b516f526ec09d9fa10b86bb1ade189575f4a7a8",
+      "bytes": 54187
+    },
+    {
+      "path": "proofs/native-cache-validation.disasm.txt",
+      "sha256": "379186504b71b6e4e60693766fb4727f8a97e1a23d6d349e37341acea78767bd",
+      "bytes": 73664
+    },
+    {
+      "path": "proofs/native-material-error-rotation.disasm.txt",
+      "sha256": "9e5b334a52ba0e4d09c558fe34f16284a268f93adc2f113124c69ab95b9bbdc3",
+      "bytes": 12168
+    },
+    {
+      "path": "proofs/native-material-expanded-fixtures.json",
+      "sha256": "0d451c3282a7a5fc850caefdc67a65f74222a2ef840b28e99f952cbf488ac82d",
+      "bytes": 5253
+    },
+    {
+      "path": "proofs/native-pair-local-cache-fixtures.json",
+      "sha256": "22a4c3b95d5c905610a94eb68707d28aa8350229ca54cb059155054a246c1061",
+      "bytes": 27215
+    },
+    {
+      "path": "proofs/native-pair-local-cache-holdout-fixtures.json",
+      "sha256": "143877d7b1179cd8b3ad4b9ad12647ae36fef1f991b95fe4101d016fc3b2c4c3",
+      "bytes": 78369
+    },
+    {
+      "path": "proofs/pair-material-error-fixtures.json",
+      "sha256": "285b22aad98d3ab3e9da314060275ff7746e57cef8d3d39310c73f1c61dd271f",
+      "bytes": 15515
+    },
+    {
+      "path": "proofs/test-native-material-expanded.cpp",
+      "sha256": "2bedbcd240e4d34adc6cebe248facce04fae5a651d6d601034a0d0c0aa1dcaf9",
+      "bytes": 3259
+    },
+    {
+      "path": "proofs/test-native-pair-local-cache-holdout.cpp",
+      "sha256": "830dd654f7fc0795c6282c7830a06b59fea9c154bee5daccaa90a8800a06e4d6",
+      "bytes": 46102
+    },
+    {
+      "path": "proofs/test-native-pair-local-cache.cpp",
+      "sha256": "ccb4e06d6292d89fa88761fe2fe5bf9082326b341e43128e15ec3bc05e3efc2f",
+      "bytes": 17422
+    },
+    {
+      "path": "proofs/test-pair-material-errors.cpp",
+      "sha256": "06cf57bf89188c20029d685add4debc9e9690e0bbac32964df9e873521e34624",
+      "bytes": 6684
+    },
+    {
+      "path": "verify-proof.py",
+      "sha256": "327a8fa7da9d81372183cf8ffab43546e22fd959b9b77046e8d807ff1e23262a",
+      "bytes": 778
+    }
+  ]
+}

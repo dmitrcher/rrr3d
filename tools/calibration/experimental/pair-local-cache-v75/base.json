@@ -1,0 +1,30 @@
+{
+  "base": "Exact V74 paired preparation research checkpoint",
+  "candidate": "V75 paired local-cache and complete material/error transport; all switches default off; overall parity incomplete",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "dd7ceffc81797f5c6ab02712a7bb9a727eaac656afecd58f93703c31db4dcaca",
+      "after_sha256": "3fe22c922d41a1baebb87a6bd839693a24a7e3a464e2c8b15ba47c0222117eee"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativePairLocalCacheV75.h",
+      "before_sha256": null,
+      "after_sha256": "0a3e358474e727e990a96e9ae5a86d691e033ee77bab0b9c54b7de35a6ca5a89"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/ContactListener.h",
+      "before_sha256": "1f69d44c4e9c84a8965d60dab5437276f883838f53fa6f3d0e8ff51bdafcbf4b",
+      "after_sha256": "77d4eded9c72e3f7e51f76f43c4a7f9e4c4d859a5324280a30efeaefd8aed842"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "2c07c76d65220ed1bc2fd9ea88174fd9608f22761a856259f1a055205e9a2a17",
+      "after_sha256": "e5467b9e580aa4720a153c48356a8eb6eb16d4ac3c84da3e9e96dd6b7c96377d"
+    }
+  ]
+}

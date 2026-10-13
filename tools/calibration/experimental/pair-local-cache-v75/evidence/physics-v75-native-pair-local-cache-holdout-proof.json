@@ -1,0 +1,18 @@
+{
+  "scope": "Continuous pure C++ cache on independently observed original world/pose/threshold inputs. Never inject recorded old cache between steps; compare every ordered22-word record and reuse decision across cold and warm independent holdout inputs.",
+  "fixtures": 32,
+  "records": 144,
+  "results": [
+    {
+      "optimization": "0",
+      "returncode": 0,
+      "stdout": "32/32 original cache transitions exact, all ordered22-float records; no native cache values loaded between steps\n"
+    },
+    {
+      "optimization": "2",
+      "returncode": 0,
+      "stdout": "32/32 original cache transitions exact, all ordered22-float records; no native cache values loaded between steps\n"
+    }
+  ],
+  "goal_complete": false
+}

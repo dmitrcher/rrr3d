@@ -1,0 +1,27 @@
+
+/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+102706c0: 83 3d 7c 52 35 10 00         	cmpl	$0x0, 0x1035527c
+102706c7: 74 32                        	je	0x102706fb <NxCreateCoreSDK+0x914ab>
+102706c9: 83 ec 08                     	subl	$0x8, %esp
+102706cc: 0f ae 5c 24 04               	stmxcsr	0x4(%esp)
+102706d1: 8b 44 24 04                  	movl	0x4(%esp), %eax
+102706d5: 25 80 1f 00 00               	andl	$0x1f80, %eax           # imm = 0x1F80
+102706da: 3d 80 1f 00 00               	cmpl	$0x1f80, %eax           # imm = 0x1F80
+102706df: 75 0f                        	jne	0x102706f0 <NxCreateCoreSDK+0x914a0>
+102706e1: d9 3c 24                     	fnstcw	(%esp)
+102706e4: 66 8b 04 24                  	movw	(%esp), %ax
+102706e8: 66 83 e0 7f                  	andw	$0x7f, %ax
+102706ec: 66 83 f8 7f                  	cmpw	$0x7f, %ax
+102706f0: 8d 64 24 08                  	leal	0x8(%esp), %esp
+102706f4: 75 05                        	jne	0x102706fb <NxCreateCoreSDK+0x914ab>
+102706f6: e9 b5 06 00 00               	jmp	0x10270db0 <NxCreateCoreSDK+0x91b60>
+102706fb: 83 ec 0c                     	subl	$0xc, %esp
+102706fe: dd 14 24                     	fstl	(%esp)
+10270701: e8 e2 0e 00 00               	calll	0x102715e8 <NxCreateCoreSDK+0x92398>
+10270706: e8 0d 00 00 00               	calll	0x10270718 <NxCreateCoreSDK+0x914c8>
+1027070b: 83 c4 0c                     	addl	$0xc, %esp
+1027070e: c3                           	retl

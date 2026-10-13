@@ -1,0 +1,54 @@
+
+/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1014b3d6: f3 0f 10 5c 24 3c            	movss	0x3c(%esp), %xmm3
+1014b3dc: f3 0f 10 54 24 38            	movss	0x38(%esp), %xmm2
+1014b3e2: f3 0f 10 83 f0 01 00 00      	movss	0x1f0(%ebx), %xmm0
+1014b3ea: f3 0f 10 8b ec 01 00 00      	movss	0x1ec(%ebx), %xmm1
+1014b3f2: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+1014b3f6: f3 0f 59 ca                  	mulss	%xmm2, %xmm1
+1014b3fa: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1014b3fe: f3 0f 10 4c 24 34            	movss	0x34(%esp), %xmm1
+1014b404: 0f 28 e1                     	movaps	%xmm1, %xmm4
+1014b407: f3 0f 59 a3 e8 01 00 00      	mulss	0x1e8(%ebx), %xmm4
+1014b40f: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+1014b413: f3 0f 11 44 24 78            	movss	%xmm0, 0x78(%esp)
+1014b419: 0f 28 c3                     	movaps	%xmm3, %xmm0
+1014b41c: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+1014b420: 0f 28 da                     	movaps	%xmm2, %xmm3
+1014b423: f3 0f 59 da                  	mulss	%xmm2, %xmm3
+1014b427: 0f 28 d1                     	movaps	%xmm1, %xmm2
+1014b42a: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1014b42e: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+1014b432: 51                           	pushl	%ecx
+1014b433: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+1014b437: f3 0f 11 04 24               	movss	%xmm0, (%esp)
+1014b43c: e8 ff 60 eb ff               	calll	0x10001540 <.text+0x540>
+1014b441: d9 54 24 1c                  	fsts	0x1c(%esp)
+1014b445: d9 e1                        	fabs
+1014b447: 83 c4 04                     	addl	$0x4, %esp
+1014b44a: d9 05 54 16 33 10            	flds	0x10331654
+1014b450: d9 c9                        	fxch	%st(1)
+1014b452: df f1                        	fcompi	%st(1), %st
+1014b454: dd d8                        	fstp	%st(0)
+1014b456: 76 1b                        	jbe	0x1014b473 <NpCreatePhysicsSDK+0x3e303>
+1014b458: f3 0f 10 44 24 78            	movss	0x78(%esp), %xmm0
+1014b45e: f3 0f 5e 44 24 18            	divss	0x18(%esp), %xmm0
+1014b464: 0f 2f 05 84 15 33 10         	comiss	0x10331584, %xmm0
+1014b46b: f3 0f 11 44 24 18            	movss	%xmm0, 0x18(%esp)
+1014b471: 72 10                        	jb	0x1014b483 <NpCreatePhysicsSDK+0x3e313>
+1014b473: f3 0f 10 05 70 2d 31 10      	movss	0x10312d70, %xmm0
+1014b47b: f3 0f 11 44 24 68            	movss	%xmm0, 0x68(%esp)
+1014b481: eb 2a                        	jmp	0x1014b4ad <NpCreatePhysicsSDK+0x3e33d>
+1014b483: f3 0f 10 0d 94 15 33 10      	movss	0x10331594, %xmm1
+1014b48b: 0f 2f c8                     	comiss	%xmm0, %xmm1
+1014b48e: 72 10                        	jb	0x1014b4a0 <NpCreatePhysicsSDK+0x3e330>
+1014b490: f3 0f 10 05 88 16 33 10      	movss	0x10331688, %xmm0
+1014b498: f3 0f 11 44 24 68            	movss	%xmm0, 0x68(%esp)
+1014b49e: eb 0d                        	jmp	0x1014b4ad <NpCreatePhysicsSDK+0x3e33d>
+1014b4a0: d9 44 24 18                  	flds	0x18(%esp)
+1014b4a4: e8 17 52 12 00               	calll	0x102706c0 <NxCreateCoreSDK+0x91470>
+1014b4a9: d9 5c 24 68                  	fstps	0x68(%esp)

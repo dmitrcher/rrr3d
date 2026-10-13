@@ -1,0 +1,233 @@
+{
+  "scope": "Read-only V100 next-slope19 spring preparation. Two active wheel spring constraints per case/repeat have exact world/local points but one-ULP contact-normal component discrepancy before solver. Source fixture vertices imply cross-product magnitude(-100000,0,1000000) or(0,-100000,1000000). Offline float32 multiply by rounded reciprocal reproduces Native axes; division reproduces Jolt axes. Actual cooking arithmetic/cached local normal and live Mac triangle inputs not yet independently bound. No V101 runtime edit.",
+  "repeats": [
+    {
+      "case": "slope-longitudinal",
+      "repeat": 0,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "bindings": [
+        {
+          "wheel": 1,
+          "Native_axis_words": [
+            3184248988,
+            0,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            3184248987,
+            0,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            3208642560,
+            1092731536
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            3208642560,
+            3210059296
+          ]
+        },
+        {
+          "wheel": 0,
+          "Native_axis_words": [
+            3184248988,
+            0,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            3184248987,
+            0,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            1061158912,
+            1092731536
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            1061158912,
+            3210059296
+          ]
+        }
+      ],
+      "offline_multiply_inverse_reproduces_Native_axis": true,
+      "current_division_reproduces_Mac_axis": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 1,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "bindings": [
+        {
+          "wheel": 1,
+          "Native_axis_words": [
+            3184248988,
+            0,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            3184248987,
+            0,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            3208642560,
+            1092731536
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            3208642560,
+            3210059296
+          ]
+        },
+        {
+          "wheel": 0,
+          "Native_axis_words": [
+            3184248988,
+            0,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            3184248987,
+            0,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            1061158912,
+            1092731536
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            1061158912,
+            3210059296
+          ]
+        }
+      ],
+      "offline_multiply_inverse_reproduces_Native_axis": true,
+      "current_division_reproduces_Mac_axis": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 0,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "bindings": [
+        {
+          "wheel": 0,
+          "Native_axis_words": [
+            0,
+            3184248988,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            0,
+            3184248987,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            1061158912,
+            1092694836
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            1061158912,
+            3210646496
+          ]
+        },
+        {
+          "wheel": 2,
+          "Native_axis_words": [
+            0,
+            3184248988,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            0,
+            3184248987,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            3213675776,
+            1061158861,
+            1092694836
+          ],
+          "local_point_words_exact": [
+            3213675776,
+            1061158861,
+            3210646496
+          ]
+        }
+      ],
+      "offline_multiply_inverse_reproduces_Native_axis": true,
+      "current_division_reproduces_Mac_axis": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 1,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "bindings": [
+        {
+          "wheel": 0,
+          "Native_axis_words": [
+            0,
+            3184248988,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            0,
+            3184248987,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            1066192102,
+            1061158912,
+            1092694836
+          ],
+          "local_point_words_exact": [
+            1066192102,
+            1061158912,
+            3210646496
+          ]
+        },
+        {
+          "wheel": 2,
+          "Native_axis_words": [
+            0,
+            3184248988,
+            1065269954
+          ],
+          "Mac_axis_words": [
+            0,
+            3184248987,
+            1065269954
+          ],
+          "current_world_point_words_exact": [
+            3213675776,
+            1061158861,
+            1092694836
+          ],
+          "local_point_words_exact": [
+            3213675776,
+            1061158861,
+            3210646496
+          ]
+        }
+      ],
+      "offline_multiply_inverse_reproduces_Native_axis": true,
+      "current_division_reproduces_Mac_axis": true
+    }
+  ],
+  "rays_generated_by_current_Jolt_GetWorldSpaceSurfaceNormal": true,
+  "no_runtime_measured_axis_injection": true,
+  "followup": "Bind original cooked triangle normal generation and actual Mac triangle vertices/rotation before changing generic ray normal computation. Preserve actor transformation and mesh ownership. Compare all spring row inputs and downstream checkpoints on identical normals without oracle resets or coefficient fitting.",
+  "goal_complete": false
+}

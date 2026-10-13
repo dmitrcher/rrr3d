@@ -1,0 +1,160 @@
+{
+  "scope": "Actual Native asin caller arguments and stored outputs bound to actual Mac vectors and cosine at physical149; two independent600state repeats. Production candidate header O0/O2; no unmeasured domain certification.",
+  "runs": [
+    {
+      "optimization": "O0",
+      "actual_native_angles_exact": 8,
+      "actual_native_arguments_exact": 8,
+      "default_off_preserves_old_two_word_mismatches": true
+    },
+    {
+      "optimization": "O2",
+      "actual_native_angles_exact": 8,
+      "actual_native_arguments_exact": 8,
+      "default_off_preserves_old_two_word_mismatches": true
+    }
+  ],
+  "live_input_binding": [
+    {
+      "repeat": 0,
+      "actual_vector_words_exact": 24,
+      "actual_asin_argument_words_exact": 4,
+      "actual_world_point_words_exact": 12,
+      "old_angle_word_mismatches": [
+        2
+      ]
+    },
+    {
+      "repeat": 1,
+      "actual_vector_words_exact": 24,
+      "actual_asin_argument_words_exact": 4,
+      "actual_world_point_words_exact": 12,
+      "old_angle_word_mismatches": [
+        2
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "repeat": 0,
+      "wheel": 0,
+      "actual_native_input_words": [
+        3148851883,
+        1068535941,
+        3198882887,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064881540,
+      "actual_native_angle_word": 1068147566,
+      "actual_mac_old_angle_word": 1068147566
+    },
+    {
+      "repeat": 0,
+      "wheel": 1,
+      "actual_native_input_words": [
+        3148311675,
+        1068535941,
+        3198873315,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064882323,
+      "actual_native_angle_word": 1068149229,
+      "actual_mac_old_angle_word": 1068149229
+    },
+    {
+      "repeat": 0,
+      "wheel": 2,
+      "actual_native_input_words": [
+        3148851817,
+        1068532846,
+        3198882942,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064881294,
+      "actual_native_angle_word": 1068147044,
+      "actual_mac_old_angle_word": 1068147043
+    },
+    {
+      "repeat": 0,
+      "wheel": 3,
+      "actual_native_input_words": [
+        3148311577,
+        1068532846,
+        3198873368,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064882078,
+      "actual_native_angle_word": 1068148709,
+      "actual_mac_old_angle_word": 1068148709
+    },
+    {
+      "repeat": 1,
+      "wheel": 0,
+      "actual_native_input_words": [
+        3148851883,
+        1068535941,
+        3198882887,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064881540,
+      "actual_native_angle_word": 1068147566,
+      "actual_mac_old_angle_word": 1068147566
+    },
+    {
+      "repeat": 1,
+      "wheel": 1,
+      "actual_native_input_words": [
+        3148311675,
+        1068535941,
+        3198873315,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064882323,
+      "actual_native_angle_word": 1068149229,
+      "actual_mac_old_angle_word": 1068149229
+    },
+    {
+      "repeat": 1,
+      "wheel": 2,
+      "actual_native_input_words": [
+        3148851817,
+        1068532846,
+        3198882942,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064881294,
+      "actual_native_angle_word": 1068147044,
+      "actual_mac_old_angle_word": 1068147043
+    },
+    {
+      "repeat": 1,
+      "wheel": 3,
+      "actual_native_input_words": [
+        3148311577,
+        1068532846,
+        3198873368,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_cosine_word": 1064882078,
+      "actual_native_angle_word": 1068148709,
+      "actual_mac_old_angle_word": 1068148709
+    }
+  ],
+  "goal_complete": false
+}

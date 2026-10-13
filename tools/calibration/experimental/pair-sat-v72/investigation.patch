@@ -1,0 +1,90 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -817,3 +816,0 @@
+-        sourcebox::contacts(contacts, s0.half, s1.half, s0.transform, s1.transform, axis);
+-        // Native Jolt supports four solver points. Preserve its reduced path
+-        // for larger source patches until their reduction is independently verified.
+@@ -823,4 +820,6 @@
+-        // The original Z-face reference/incident choice differs from PhysX 3.4
+-        // used by this helper. Retain the previous path until verified. Mode 2
+-        // is the deliberately unrestricted diagnostic candidate.
+-        if (nativePairV71 && std::strcmp(pairFlagV71,"1")==0 &&
++        const char* satFlagV72=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_SAT_V72");
++        const bool nativeSATV72=nativePairV71 && satFlagV72 && std::strcmp(satFlagV72,"1")==0;
++        sourcebox::contacts(contacts, s0.half, s1.half, s0.transform, s1.transform, axis,0.0F,nativeSATV72);
++        // Original x87 rounding resolves near-equal face overlaps in V72.
++        // Keep the V71 Z-face fallback when the arithmetic experiment is off.
++        if (nativePairV71 && !nativeSATV72 && std::strcmp(pairFlagV71,"1")==0 &&
+--- a/adapter/src/Rock3dEngine/header/physics/SourceBoxManifold.h
++++ b/adapter/src/Rock3dEngine/header/physics/SourceBoxManifold.h
+@@ -67,0 +68,40 @@
++// PhysX 2.8.4 box face SAT reconstructed from original x86 instructions.
++// A radii retain the final abs(C)+epsilon before its FSTS memory rounding;
++// B radii reload rounded coefficients. Keep the original constants and stores.
++inline float nativeRoundV72(double value) { volatile float rounded=static_cast<float>(value); return rounded; }
++inline float nativeAddV72(float a,float b) { return nativeRoundV72(double(a)+double(b)); }
++inline float nativeMulV72(float a,float b) { return nativeRoundV72(double(a)*double(b)); }
++inline double nativeExtendedAddV72(double a,double b) { volatile double rounded=a+b; return rounded; }
++inline double nativeExtendedMulV72(double a,double b) { volatile double rounded=a*b; return rounded; }
++struct NativeFaceAxesV72 { float rotation[3][3],absolute[3][3],distances[6],overlaps[6]; };
++inline NativeFaceAxesV72 nativeFaceAxesV72(PxVec3 ha,PxVec3 hb,const Cm::Matrix34& a,const Cm::Matrix34& b,float distance) {
++ NativeFaceAxesV72 out{};
++ const PxVec3 aa[]={a.m.column0,a.m.column1,a.m.column2};
++ const PxVec3 bb[]={b.m.column0,b.m.column1,b.m.column2};
++ const float ea[]={ha.x,ha.y,ha.z},eb[]={hb.x,hb.y,hb.z};
++ const float epsilon=1e-6f;
++ const PxVec3 delta{nativeRoundV72(double(b.p.x)-a.p.x),nativeRoundV72(double(b.p.y)-a.p.y),nativeRoundV72(double(b.p.z)-a.p.z)};
++ for(int i=0;i<3;++i) {
++  for(int j=0;j<3;++j) {
++   const float x=nativeMulV72(aa[i].x,bb[j].x),y=nativeMulV72(aa[i].y,bb[j].y),z=nativeMulV72(aa[i].z,bb[j].z);
++   out.rotation[i][j]=i==0?nativeAddV72(nativeAddV72(x,y),z):nativeAddV72(nativeAddV72(z,y),x);
++   out.absolute[i][j]=nativeAddV72(PxAbs(out.rotation[i][j]),epsilon);
++  }
++  out.distances[i]=nativeAddV72(nativeAddV72(nativeMulV72(aa[i].z,delta.z),nativeMulV72(aa[i].x,delta.x)),nativeMulV72(aa[i].y,delta.y));
++  double radius=nativeExtendedAddV72(nativeExtendedMulV72(eb[0],out.absolute[i][0]),nativeExtendedMulV72(eb[1],out.absolute[i][1]));
++  radius=nativeExtendedAddV72(radius,nativeExtendedMulV72(eb[2],nativeExtendedAddV72(PxAbs(out.rotation[i][2]),epsilon)));
++  radius=nativeExtendedAddV72(radius,ea[i]);
++  out.overlaps[i]=nativeAddV72(nativeRoundV72(double(nativeRoundV72(radius))-PxAbs(out.distances[i])),distance);
++ }
++ for(int j=0;j<3;++j) {
++  double projection=nativeExtendedAddV72(nativeExtendedMulV72(bb[j].x,delta.x),nativeExtendedMulV72(bb[j].y,delta.y));
++  projection=nativeExtendedAddV72(projection,nativeExtendedMulV72(bb[j].z,delta.z));
++  out.distances[3+j]=nativeRoundV72(projection);
++  double radius=nativeExtendedAddV72(nativeExtendedMulV72(ea[0],out.absolute[0][j]),nativeExtendedMulV72(ea[1],out.absolute[1][j]));
++  radius=nativeExtendedAddV72(radius,nativeExtendedMulV72(ea[2],out.absolute[2][j]));
++  radius=nativeExtendedAddV72(radius,eb[j]);
++  out.overlaps[3+j]=nativeAddV72(nativeRoundV72(double(nativeRoundV72(radius))-PxAbs(out.distances[3+j])),distance);
++ }
++ return out;
++}
++
+@@ -120 +160 @@
+-									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance);*/
++									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance, bool nativeSATV72);*/
+@@ -125 +165 @@
+-									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance);
++									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance, bool nativeSATV72);
+@@ -424 +464 @@
+-									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance)
++									 const Cm::Matrix34& transform0, const Cm::Matrix34& transform1, PxReal contactDistance, bool nativeSATV72)
+@@ -441,0 +482,9 @@
++	PxReal d0;
++ if(nativeSATV72) {
++  const auto native=nativeFaceAxesV72(extents0,extents1,transform0,transform1,contactDistance);
++  for(int i=0;i<3;++i) {
++   afAD[i]=native.distances[i];
++   for(int j=0;j<3;++j) { aafC[i][j]=native.rotation[i][j];aafAbsC[i][j]=native.absolute[i][j]; }
++  }
++  for(int i=0;i<6;++i) { d1[i]=native.distances[i];overlap[i]=native.overlaps[i];if(PXC_IS_NEGATIVE(overlap[i]))return 0; }
++ } else {
+@@ -452 +501 @@
+-	PxReal d0 = extents0.x + extents1.x*aafAbsC[0][0] + extents1.y*aafAbsC[0][1] + extents1.z*aafAbsC[0][2];
++	d0 = extents0.x + extents1.x*aafAbsC[0][0] + extents1.y*aafAbsC[0][1] + extents1.z*aafAbsC[0][2];
+@@ -496,0 +546,2 @@
++ }
++
+@@ -714,2 +765,2 @@
+- const Cm::Matrix34& ta,const Cm::Matrix34& tb,PxU32& axis,float distance=0) {
+- return doBoxBoxContactGeneration(out,a,b,axis,ta,tb,distance)>0;
++ const Cm::Matrix34& ta,const Cm::Matrix34& tb,PxU32& axis,float distance=0,bool nativeSATV72=false) {
++ return doBoxBoxContactGeneration(out,a,b,axis,ta,tb,distance,nativeSATV72)>0;

@@ -1,0 +1,10 @@
+{
+  "all_passed": true,
+  "checks": [
+    "apply: both source hashes exact",
+    "idempotent apply: both source hashes exact",
+    "restore: both source hashes exact",
+    "idempotent restore: both source hashes exact",
+    "Wrong last header base rejected before any mutation"
+  ]
+}

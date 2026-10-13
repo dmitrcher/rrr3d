@@ -1,0 +1,18 @@
+{
+  "base": "Exact V71 research adapter and its existing SourceBoxManifold helper; V71 SDK unchanged. Apply prior research chain first. Normal main adapter is not this base.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "ecba3b80aef19d29bd3c7911f54f6ee9ae52810a49c60c1399596623a646c5fa",
+      "after_sha256": "6074aca81125ccb0e131b8acc10bf5501ba68ba25d9231f54c344ab52e3ef5de"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/SourceBoxManifold.h",
+      "before_sha256": "8cebd62b7c7b75df6abefd072c0699032050c556ce0563880475420e986c2dd4",
+      "after_sha256": "a0cf0cae47f1fbeefb041ea75a5c1dcfe12f1b770e745c8227056444a641d9f7"
+    }
+  ],
+  "goal_complete": false
+}

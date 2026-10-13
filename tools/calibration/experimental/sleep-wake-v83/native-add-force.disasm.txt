@@ -1,0 +1,139 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10127bc0: 10 68 ac                     	adcb	%ch, -0x54(%eax)
+10127bc3: ea 31 10 6a 01 33 c9         	ljmpl	$-0x36cd, $0x16a1031    # imm = 0xC933
+                                                                        # imm = 0x16A1031
+10127bca: ba dd 01 00 00               	movl	$0x1dd, %edx            # imm = 0x1DD
+10127bcf: e8 ac 94 ed ff               	calll	0x10001080 <.text+0x80>
+10127bd4: 83 c4 0c                     	addl	$0xc, %esp
+10127bd7: 85 ff                        	testl	%edi, %edi
+10127bd9: 74 d1                        	je	0x10127bac <NpCreatePhysicsSDK+0x1aa3c>
+10127bdb: 8b 07                        	movl	(%edi), %eax
+10127bdd: 6a 01                        	pushl	$0x1
+10127bdf: 6a 00                        	pushl	$0x0
+10127be1: 83 c0 18                     	addl	$0x18, %eax
+10127be4: 50                           	pushl	%eax
+10127be5: ff 15 08 50 27 10            	calll	*0x10275008
+10127beb: 8b 0f                        	movl	(%edi), %ecx
+10127bed: 51                           	pushl	%ecx
+10127bee: ff 15 88 50 27 10            	calll	*0x10275088
+10127bf4: 5f                           	popl	%edi
+10127bf5: 5e                           	popl	%esi
+10127bf6: 5b                           	popl	%ebx
+10127bf7: c2 0c 00                     	retl	$0xc
+10127bfa: 83 3d e4 07 35 10 00         	cmpl	$0x0, 0x103507e4
+10127c01: 75 01                        	jne	0x10127c04 <NpCreatePhysicsSDK+0x1aa94>
+10127c03: cc                           	int3
+10127c04: 68 8c f7 31 10               	pushl	$0x1031f78c             # imm = 0x1031F78C
+10127c09: 68 a8 a9 31 10               	pushl	$0x1031a9a8             # imm = 0x1031A9A8
+10127c0e: 68 ac ea 31 10               	pushl	$0x1031eaac             # imm = 0x1031EAAC
+10127c13: 6a 02                        	pushl	$0x2
+10127c15: 33 c9                        	xorl	%ecx, %ecx
+10127c17: ba dc 01 00 00               	movl	$0x1dc, %edx            # imm = 0x1DC
+10127c1c: e8 5f 94 ed ff               	calll	0x10001080 <.text+0x80>
+10127c21: 83 c4 10                     	addl	$0x10, %esp
+10127c24: 5e                           	popl	%esi
+10127c25: 5b                           	popl	%ebx
+10127c26: c2 0c 00                     	retl	$0xc
+10127c29: cc                           	int3
+10127c2a: cc                           	int3
+10127c2b: cc                           	int3
+10127c2c: cc                           	int3
+10127c2d: cc                           	int3
+10127c2e: cc                           	int3
+10127c2f: cc                           	int3
+10127c30: 53                           	pushl	%ebx
+10127c31: 8b d9                        	movl	%ecx, %ebx
+10127c33: 56                           	pushl	%esi
+10127c34: 8b 73 0c                     	movl	0xc(%ebx), %esi
+10127c37: e8 c4 f9 f6 ff               	calll	0x10097600 <AgPmDestroySourceConnection+0x3d90>
+10127c3c: 84 c0                        	testb	%al, %al
+10127c3e: 0f 84 a6 00 00 00            	je	0x10127cea <NpCreatePhysicsSDK+0x1ab7a>
+10127c44: 8b 4b 20                     	movl	0x20(%ebx), %ecx
+10127c47: 57                           	pushl	%edi
+10127c48: 8b 7b 0c                     	movl	0xc(%ebx), %edi
+10127c4b: 85 c9                        	testl	%ecx, %ecx
+10127c4d: 74 53                        	je	0x10127ca2 <NpCreatePhysicsSDK+0x1ab32>
+10127c4f: 8b 01                        	movl	(%ecx), %eax
+10127c51: 8b 50 78                     	movl	0x78(%eax), %edx
+10127c54: ff d2                        	calll	*%edx
+10127c56: 84 c0                        	testb	%al, %al
+10127c58: 78 48                        	js	0x10127ca2 <NpCreatePhysicsSDK+0x1ab32>
+10127c5a: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10127c5e: 8b 4b 20                     	movl	0x20(%ebx), %ecx
+10127c61: 8b 01                        	movl	(%ecx), %eax
+10127c63: 8b 40 2c                     	movl	0x2c(%eax), %eax
+10127c66: 52                           	pushl	%edx
+10127c67: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10127c6b: 6a 00                        	pushl	$0x0
+10127c6d: 52                           	pushl	%edx
+10127c6e: ff d0                        	calll	*%eax
+10127c70: 80 7c 24 18 00               	cmpb	$0x0, 0x18(%esp)
+10127c75: 74 08                        	je	0x10127c7f <NpCreatePhysicsSDK+0x1ab0f>
+10127c77: 8d 73 14                     	leal	0x14(%ebx), %esi
+10127c7a: e8 c1 0d 01 00               	calll	0x10138a40 <NpCreatePhysicsSDK+0x2b8d0>
+10127c7f: 85 ff                        	testl	%edi, %edi
+10127c81: 74 19                        	je	0x10127c9c <NpCreatePhysicsSDK+0x1ab2c>
+10127c83: 8b 0f                        	movl	(%edi), %ecx
+10127c85: 6a 01                        	pushl	$0x1
+10127c87: 6a 00                        	pushl	$0x0
+10127c89: 83 c1 18                     	addl	$0x18, %ecx
+10127c8c: 51                           	pushl	%ecx
+10127c8d: ff 15 08 50 27 10            	calll	*0x10275008
+10127c93: 8b 17                        	movl	(%edi), %edx
+10127c95: 52                           	pushl	%edx
+10127c96: ff 15 88 50 27 10            	calll	*0x10275088
+10127c9c: 5f                           	popl	%edi
+10127c9d: 5e                           	popl	%esi
+10127c9e: 5b                           	popl	%ebx
+10127c9f: c2 0c 00                     	retl	$0xc
+10127ca2: 83 3d e4 07 35 10 00         	cmpl	$0x0, 0x103507e4
+10127ca9: 75 01                        	jne	0x10127cac <NpCreatePhysicsSDK+0x1ab3c>
+10127cab: cc                           	int3
+10127cac: 68 fc f6 31 10               	pushl	$0x1031f6fc             # imm = 0x1031F6FC
+10127cb1: 68 ac ea 31 10               	pushl	$0x1031eaac             # imm = 0x1031EAAC
+10127cb6: 6a 01                        	pushl	$0x1
+10127cb8: 33 c9                        	xorl	%ecx, %ecx
+10127cba: ba c8 01 00 00               	movl	$0x1c8, %edx            # imm = 0x1C8
+10127cbf: e8 bc 93 ed ff               	calll	0x10001080 <.text+0x80>
+10127cc4: 83 c4 0c                     	addl	$0xc, %esp
+10127cc7: 85 ff                        	testl	%edi, %edi
+10127cc9: 74 d1                        	je	0x10127c9c <NpCreatePhysicsSDK+0x1ab2c>
+10127ccb: 8b 07                        	movl	(%edi), %eax
+10127ccd: 6a 01                        	pushl	$0x1
+10127ccf: 6a 00                        	pushl	$0x0
+10127cd1: 83 c0 18                     	addl	$0x18, %eax
+10127cd4: 50                           	pushl	%eax
+10127cd5: ff 15 08 50 27 10            	calll	*0x10275008
+10127cdb: 8b 0f                        	movl	(%edi), %ecx
+10127cdd: 51                           	pushl	%ecx
+10127cde: ff 15 88 50 27 10            	calll	*0x10275088
+10127ce4: 5f                           	popl	%edi
+10127ce5: 5e                           	popl	%esi
+10127ce6: 5b                           	popl	%ebx
+10127ce7: c2 0c 00                     	retl	$0xc
+10127cea: 83 3d e4 07 35 10 00         	cmpl	$0x0, 0x103507e4
+10127cf1: 75 01                        	jne	0x10127cf4 <NpCreatePhysicsSDK+0x1ab84>
+10127cf3: cc                           	int3
+10127cf4: 68 e8 f6 31 10               	pushl	$0x1031f6e8             # imm = 0x1031F6E8
+10127cf9: 68 a8 a9 31 10               	pushl	$0x1031a9a8             # imm = 0x1031A9A8
+10127cfe: 68 ac ea 31 10               	pushl	$0x1031eaac             # imm = 0x1031EAAC
+10127d03: 6a 02                        	pushl	$0x2
+10127d05: 33 c9                        	xorl	%ecx, %ecx
+10127d07: ba c7 01 00 00               	movl	$0x1c7, %edx            # imm = 0x1C7
+10127d0c: e8 6f 93 ed ff               	calll	0x10001080 <.text+0x80>
+10127d11: 83 c4 10                     	addl	$0x10, %esp
+10127d14: 5e                           	popl	%esi
+10127d15: 5b                           	popl	%ebx
+10127d16: c2 0c 00                     	retl	$0xc
+10127d19: cc                           	int3
+10127d1a: cc                           	int3
+10127d1b: cc                           	int3
+10127d1c: cc                           	int3
+10127d1d: cc                           	int3
+10127d1e: cc                           	int3
+10127d1f: cc                           	int3

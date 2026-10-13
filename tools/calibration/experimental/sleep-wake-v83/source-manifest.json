@@ -1,0 +1,470 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3658,
+      "sha256": "551f6ae220f343015bf2f3760d05996534ed6d0ddd01386ba43ac3bb24df0b62"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 353758,
+      "sha256": "9acea8b0d32fbe33a8897051bdb9e4266176645b6dbe96350eef147170810b3d"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 529,
+      "sha256": "ee0146545bf557f25c09e46c328d65c7e42d7f06004ef5e1c365df457b0d0537"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 351219,
+      "sha256": "c006fa2e40825389476a4143963ab2df0b0fda806e16cf6b9ef1ee608da54c53"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 5608,
+      "sha256": "febf1130ba0ebf70173c06a563967bcc4a54b3454aef8fccca3d1649dcd39972"
+    },
+    {
+      "path": "captures/combined-0-sleep.jsonl.gz",
+      "bytes": 118992,
+      "sha256": "aafd01b255ff2bdfdca1255d5394d2d20b877be093c71475be1f79acd7ca8669"
+    },
+    {
+      "path": "captures/combined-0.jsonl.gz",
+      "bytes": 215166,
+      "sha256": "e7398c78cd2b1cdbc450cc0812b48f55d45c1783881c7ea7db0f509b095f41ee"
+    },
+    {
+      "path": "captures/combined-1-sleep.jsonl.gz",
+      "bytes": 118992,
+      "sha256": "aafd01b255ff2bdfdca1255d5394d2d20b877be093c71475be1f79acd7ca8669"
+    },
+    {
+      "path": "captures/combined-1.jsonl.gz",
+      "bytes": 215118,
+      "sha256": "b998953a10ce613b5c760b2b045d3fb4d3618bc0619558dfa72bd352f4059c0c"
+    },
+    {
+      "path": "captures/control-0-sleep.jsonl.gz",
+      "bytes": 69569,
+      "sha256": "73b4593263cb9ec25eef941d59dae7ab358043f41a25076c70455bc7fe2493e2"
+    },
+    {
+      "path": "captures/control-0.jsonl.gz",
+      "bytes": 127460,
+      "sha256": "054840df1fe0345db65dea6d3d367cc412f6bb7e3a93fbeefe3ec1e0c8c68882"
+    },
+    {
+      "path": "captures/control-1-sleep.jsonl.gz",
+      "bytes": 69569,
+      "sha256": "73b4593263cb9ec25eef941d59dae7ab358043f41a25076c70455bc7fe2493e2"
+    },
+    {
+      "path": "captures/control-1.jsonl.gz",
+      "bytes": 127503,
+      "sha256": "009943e72df11e2f8e7c85bec3187760b8750ca1b91a967eafc9dd86e5e92b6d"
+    },
+    {
+      "path": "captures/dormant-0-sleep.jsonl.gz",
+      "bytes": 68901,
+      "sha256": "0aa2a879fb1c15f6e94062cca87babe3839fb10aea2cb9de9a948f42ce5282bd"
+    },
+    {
+      "path": "captures/dormant-0.jsonl.gz",
+      "bytes": 126721,
+      "sha256": "e0c316dcc01b78719fb0db824231745b7e9043d0784797a58cbb7ce5bee4cf0c"
+    },
+    {
+      "path": "captures/dormant-1-sleep.jsonl.gz",
+      "bytes": 68901,
+      "sha256": "0aa2a879fb1c15f6e94062cca87babe3839fb10aea2cb9de9a948f42ce5282bd"
+    },
+    {
+      "path": "captures/dormant-1.jsonl.gz",
+      "bytes": 126760,
+      "sha256": "88ee725f23d69e562522895963390ebbf05eb1345e82123aa59a6c661d76bb66"
+    },
+    {
+      "path": "captures/wake-0-sleep.jsonl.gz",
+      "bytes": 118992,
+      "sha256": "aafd01b255ff2bdfdca1255d5394d2d20b877be093c71475be1f79acd7ca8669"
+    },
+    {
+      "path": "captures/wake-0.jsonl.gz",
+      "bytes": 215072,
+      "sha256": "8e504b7114daa3ba9c5ada8a6e924da3020c583468208b7ba3039199207b0d5a"
+    },
+    {
+      "path": "captures/wake-1-sleep.jsonl.gz",
+      "bytes": 118992,
+      "sha256": "aafd01b255ff2bdfdca1255d5394d2d20b877be093c71475be1f79acd7ca8669"
+    },
+    {
+      "path": "captures/wake-1.jsonl.gz",
+      "bytes": 215125,
+      "sha256": "55a545f892f062385812891d62737dbb9a384c8ea52c11c147ae45330dbbe643"
+    },
+    {
+      "path": "captures/windows-reference.jsonl.gz",
+      "bytes": 269848,
+      "sha256": "9d9755fe802eaf143934166098975fb5b6379e4d6edbc4a7360f846b6facdd6e"
+    },
+    {
+      "path": "evidence/broad/capture-manifest.json",
+      "bytes": 6470,
+      "sha256": "d59b1e399a9fbbc90bd97d682671efa552ff0d1fd1a446f9366517f20a8a51ac"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "282c8f828f0e75c049bc2abd3d1c5ea767d060461a3d0df94da22fe58ae7dee8"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "4fbe990e3123e6dc45187142dfc491dfea7fc222af98d6f32a7d2612630185aa"
+    },
+    {
+      "path": "evidence/focused/manifest.json",
+      "bytes": 7122,
+      "sha256": "5bc36cdc9a0fc670898f0a5a7477153da8fe6c73a57000b041c9962130d16b6c"
+    },
+    {
+      "path": "evidence/focused/report.json",
+      "bytes": 70487,
+      "sha256": "8b8bbbfa195216c6d451ad3da8f9474ca02322099410b7898294fb25660f8e69"
+    },
+    {
+      "path": "evidence/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "f62850418413d3bcd30f580756ee6269e1447d1bc918047e1c758224c16ae480"
+    },
+    {
+      "path": "evidence/game-render-race/game.log",
+      "bytes": 4082,
+      "sha256": "46995fe263a69626a9df0c8b7f80582916ab38d06ba2dda0071ed6a1c921deb9"
+    },
+    {
+      "path": "evidence/game-render-race/launch.json",
+      "bytes": 6364,
+      "sha256": "d87393ab21eb6c6103ce00a6d544a4cc2aea50507f96f7af5b945eec4c6ceeb9"
+    },
+    {
+      "path": "evidence/game-smoke/exit.json",
+      "bytes": 86,
+      "sha256": "4e3c560bc73f5b2867e733cc1541d6bb7401012f3afda2d6ebb8d816546102e6"
+    },
+    {
+      "path": "evidence/game-smoke/game.log",
+      "bytes": 672,
+      "sha256": "caa002c6c83a003e5d845116ad42c4b9c2edb3ab0595ab0db8354269b19dfb66"
+    },
+    {
+      "path": "evidence/game-smoke/launch.json",
+      "bytes": 6356,
+      "sha256": "9f40807d498b9ddfe4930cd7e92da30875c7e49dc78bb33b79a3c96326174d3c"
+    },
+    {
+      "path": "evidence/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "66cf05ab90ed0877142f79ee4ab16fa881948e99edc96e67c57837c4f8d20fa4"
+    },
+    {
+      "path": "evidence/physics-v83-factorial-causal-audit.json",
+      "bytes": 5430,
+      "sha256": "1796a350158a2b5c92441bd223e2ced2d4fc6c36c90eca570c5527fb6f41c85c"
+    },
+    {
+      "path": "evidence/physics-v83-final-broad-audit.json",
+      "bytes": 2285459,
+      "sha256": "594c1bb56fbcae7073cea0027e710c05c5649f5369caf95237a655ff28c1cad4"
+    },
+    {
+      "path": "evidence/physics-v83-final-practical-error-audit.json",
+      "bytes": 943246,
+      "sha256": "d3887799e50709868c40c3d1aca371d81ef96ed3fd024bc0749f1e15312b7576"
+    },
+    {
+      "path": "evidence/physics-v83-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "3d5e3865dc82a50fb040b1d9cb697df6ca084d98eb4495ab2d1cf8b9381f39be"
+    },
+    {
+      "path": "evidence/physics-v83-mac-dormant-restore-causal-audit.json",
+      "bytes": 1172,
+      "sha256": "54674b01818293723842fb17fdd90259266b74269ebf6b836f2d7d7cb3f6f222"
+    },
+    {
+      "path": "evidence/physics-v83-native-zero-force-autowake-proof.json",
+      "bytes": 2754,
+      "sha256": "c19a9a28d264ec5a2e2bbfc2107c149f6baef3cb5b281b34bce377c0bd71aec2"
+    },
+    {
+      "path": "evidence/physics-v83-regression-audit.json",
+      "bytes": 21303,
+      "sha256": "ad57f5a8f989eca4c7e29829ea9064f1c42cfa1fafcf304127526477f53af3ea"
+    },
+    {
+      "path": "evidence/physics-v83-strict-improvement.json",
+      "bytes": 178,
+      "sha256": "227bf4551d2ad0d36380ca9077c0d190c61451fbfbae9934dd74746c535d2765"
+    },
+    {
+      "path": "evidence/portable-checkpoint.log",
+      "bytes": 179,
+      "sha256": "1c899d342754114f0ec536b3a87fc8ebde12078af997c35b5b804d341cb157ab"
+    },
+    {
+      "path": "native-add-force.disasm.txt",
+      "bytes": 8151,
+      "sha256": "2b96c3700dcaf1d6260824b92938c692ab36eee29da0f6def890bc492ec2a4aa"
+    },
+    {
+      "path": "native-autowake.disasm.txt",
+      "bytes": 5836,
+      "sha256": "9c808f0abe4c2ae29c2cf94ace6acd4b445c3925b55bc15076b83a28fbf919dc"
+    },
+    {
+      "path": "native-wake-captures/manifest.json",
+      "bytes": 3154,
+      "sha256": "5e43c3cfcbfac0aec33be558469cd98254a73c729f7959066b5fe7fbed3cf1ac"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-0-physical.jsonl.gz",
+      "bytes": 240604,
+      "sha256": "e781d92488d357c0b14903635c9fe11bc9ed0717ada12911b8c3b77cbedcaeb8"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-0-private.jsonl.gz",
+      "bytes": 1719,
+      "sha256": "03c16dd2db081b881d52557a4418f669acdc030017d210cfa3040d1b902ebb9e"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-1-physical.jsonl.gz",
+      "bytes": 240432,
+      "sha256": "b92ba791a80aef9d47206f3b216d519966534f59861e221519e55c2bcd2ee4ec"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-1-private.jsonl.gz",
+      "bytes": 1711,
+      "sha256": "33bc177d9529fc08f735c734883d49cbd28d8be92fbba9e8e8684fe6edd5364c"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-100-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-0-physical.jsonl.gz",
+      "bytes": 240164,
+      "sha256": "5cddbb6e3bb986895f0adcf76ebb61decd8f1915dab0bf27b094e896e510e272"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-0-private.jsonl.gz",
+      "bytes": 1718,
+      "sha256": "19af45edf219dc0951d6dbeea2af5e8bc88b63b7725859007f37fc59ce7cbccf"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-1-physical.jsonl.gz",
+      "bytes": 240308,
+      "sha256": "65e49401a84c8f2a74868d1e5fcf18475fbd2cc6b4c216abcb21ca2095449e92"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-1-private.jsonl.gz",
+      "bytes": 1708,
+      "sha256": "c347abd43b39c42e29cd46ece49fd3253a7d4a21e0f9b8673bdbe60a23234d03"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-47-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-0-physical.jsonl.gz",
+      "bytes": 240239,
+      "sha256": "06ebc53d6b00f8c312e5a9348d3f34bc2953898677ea588b8b7749d2d4a456c3"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-0-private.jsonl.gz",
+      "bytes": 1716,
+      "sha256": "75543468c048b2665fd0e27245ca4f79fdd2281f0de6aa0b707ab4b2e555a559"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-1-physical.jsonl.gz",
+      "bytes": 240197,
+      "sha256": "ed13a764ac42aedb72dcaf1a42517e635f2006aa2c157127e0f2753f9e7f74f7"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-1-private.jsonl.gz",
+      "bytes": 1720,
+      "sha256": "79d15f89ef25aeddbe67729936a6ad8f152ad06066a050e3028aa37b76bd01cb"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-48-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-0-physical.jsonl.gz",
+      "bytes": 240445,
+      "sha256": "d5ce714d44601a5883a0eb111a08497f6014e00f542fd2b2361e340e613064ae"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-0-private.jsonl.gz",
+      "bytes": 1713,
+      "sha256": "0b5cedc5a4f9ebfbae730b6f049ac92293b72a86e872996159b2bdb9bd461f21"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-1-physical.jsonl.gz",
+      "bytes": 240234,
+      "sha256": "e0efd23bb6eb97eeaa916e79b4b70d4295271bb0be60aa88e9bcdb173f5f17ae"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-1-private.jsonl.gz",
+      "bytes": 1720,
+      "sha256": "c1bf6228daa480081cfba70aa994b67d9d322cbc68bc46d9d838206b4d2b738b"
+    },
+    {
+      "path": "native-wake-captures/wake-sleep-settle-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-wake-counter-backend.disasm.txt",
+      "bytes": 4356,
+      "sha256": "62298dd18803f287c78bb07c2fd464f3cda915cc39470a0f9908c8ff6ada1bc6"
+    },
+    {
+      "path": "native-wake-counter-getter.disasm.txt",
+      "bytes": 669,
+      "sha256": "885a69f18a06d3052b5e37bef8fcce6da6bc8ba2a168fa3574b05ca902cf3b47"
+    },
+    {
+      "path": "native-wake-counter-positive.disasm.txt",
+      "bytes": 3413,
+      "sha256": "5e55f0bc6d218525dab814a8a15bc8678db2d1343fd069954448a652bc06fc4e"
+    },
+    {
+      "path": "run-probe.py",
+      "bytes": 897,
+      "sha256": "fe61187d6eda1c3109bd6d2c901df9380381982d8a35ca34764dcd6fa37fde36"
+    },
+    {
+      "path": "verify-checkpoint.py",
+      "bytes": 2624,
+      "sha256": "ad574e2eeb6d0b71891d16a71c749a0d3da5c79ffb751668d699a2f003262cd4"
+    },
+    {
+      "path": "verify-native-wake.py",
+      "bytes": 2166,
+      "sha256": "f83a1980b6f20da5b7c56248ebf4f5c8097c1147514dda02b1c5699264d6039c"
+    },
+    {
+      "path": "wake-tracer/build.cmd",
+      "bytes": 277,
+      "sha256": "e563aa37a2f025f4ce9de1f0f129e14439aa77e6d722a3ed73813620392de2cd"
+    },
+    {
+      "path": "wake-tracer/trace-wake.cpp",
+      "bytes": 12648,
+      "sha256": "b9817edc9762cd760e03775b346fb06ebb183ec26440d5964961ba1355785a3f"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-wake.py",
+      "bytes": 3090,
+      "sha256": "7e603b6d333da9927acc39d04bcccb5c11e0044cfedcb945dbfa42ed1bebbc60"
+    },
+    {
+      "path": "workspace-reproduction/compare-broad.py",
+      "bytes": 3647,
+      "sha256": "3be780a573e03732d78375abc256d66cdd3f551a2b8b20deaae53fa33cf67d02"
+    },
+    {
+      "path": "workspace-reproduction/compare-regression.py",
+      "bytes": 2233,
+      "sha256": "58c25ab663a4d4d234ae92343b0394df1755f333e040a3e8fa9cca7524ce8994"
+    },
+    {
+      "path": "workspace-reproduction/next-priority.json",
+      "bytes": 7465,
+      "sha256": "bc2fbd7c14adf33af255210c8234afb37054868476e2f51dde9d4cf4aa7aeaac"
+    },
+    {
+      "path": "workspace-reproduction/next-work.md",
+      "bytes": 2696,
+      "sha256": "10e2c7126eca3be7ec0624c07b17ccbbafdb4ea8e20e7a6342e8a53c1860c5f1"
+    },
+    {
+      "path": "workspace-reproduction/practical-error-audit.py",
+      "bytes": 4268,
+      "sha256": "b7e26ef5c3580dcc0251b05ef93ea97ea1b46b4188d9083d6825ab2308419767"
+    },
+    {
+      "path": "workspace-reproduction/run-broad.py",
+      "bytes": 2165,
+      "sha256": "22b8d44bea30837a7ca9d62438533a7713a6d58502be9c8b33d7378b40790b36"
+    },
+    {
+      "path": "workspace-reproduction/run-focused.py",
+      "bytes": 3347,
+      "sha256": "111fe4fd5d8914d890ea15ecf339fac22691c4f5110330bf3ce3c9dddfa27640"
+    },
+    {
+      "path": "workspace-reproduction/run-game-render-race.py",
+      "bytes": 2075,
+      "sha256": "4a326a6a5e2f4646eb7759761a79559d732816ac712709072f0d159e7c0d30f6"
+    },
+    {
+      "path": "workspace-reproduction/run-game-smoke.py",
+      "bytes": 2061,
+      "sha256": "5f8ea4a0e0eba85e48da2eb4f1337a0de31a2ded387fc1c6e2b61c4d13494be6"
+    },
+    {
+      "path": "workspace-reproduction/run-gates.py",
+      "bytes": 5043,
+      "sha256": "f175b45cfa10e7ac219d09413c95dfdeca9d77915820fd37df59058c686e236c"
+    },
+    {
+      "path": "workspace-reproduction/run-trace.py",
+      "bytes": 3061,
+      "sha256": "a2aac90500f6f230c55521ce24bc0e0a61e7290ca8f1d901c27751304e2ab9bf"
+    },
+    {
+      "path": "workspace-reproduction/verify-effects.py",
+      "bytes": 2265,
+      "sha256": "aac209aeb266eaa5403cec8028c4ad1dfb354f451cb0ab89c2f1b2ea300c862b"
+    }
+  ],
+  "goal_complete": false
+}

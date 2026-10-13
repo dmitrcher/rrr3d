@@ -1,0 +1,78 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+101b0d90: 00 cc                        	addb	%cl, %ah
+101b0d92: cc                           	int3
+101b0d93: cc                           	int3
+101b0d94: cc                           	int3
+101b0d95: cc                           	int3
+101b0d96: cc                           	int3
+101b0d97: cc                           	int3
+101b0d98: cc                           	int3
+101b0d99: cc                           	int3
+101b0d9a: cc                           	int3
+101b0d9b: cc                           	int3
+101b0d9c: cc                           	int3
+101b0d9d: cc                           	int3
+101b0d9e: cc                           	int3
+101b0d9f: cc                           	int3
+101b0da0: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101b0da3: 56                           	pushl	%esi
+101b0da4: 8b f1                        	movl	%ecx, %esi
+101b0da6: 8b 86 50 01 00 00            	movl	0x150(%esi), %eax
+101b0dac: c1 e8 14                     	shrl	$0x14, %eax
+101b0daf: 0f 2f 44 24 08               	comiss	0x8(%esp), %xmm0
+101b0db4: 57                           	pushl	%edi
+101b0db5: 76 78                        	jbe	0x101b0e2f <NpCreatePhysicsSDK+0xa3cbf>
+101b0db7: a8 01                        	testb	$0x1, %al
+101b0db9: 75 33                        	jne	0x101b0dee <NpCreatePhysicsSDK+0xa3c7e>
+101b0dbb: 8b 86 ec 00 00 00            	movl	0xec(%esi), %eax
+101b0dc1: 85 c0                        	testl	%eax, %eax
+101b0dc3: 74 1f                        	je	0x101b0de4 <NpCreatePhysicsSDK+0xa3c74>
+101b0dc5: 8b c8                        	movl	%eax, %ecx
+101b0dc7: c1 e9 16                     	shrl	$0x16, %ecx
+101b0dca: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101b0dd1: 8b 11                        	movl	(%ecx), %edx
+101b0dd3: 50                           	pushl	%eax
+101b0dd4: 8b 42 38                     	movl	0x38(%edx), %eax
+101b0dd7: ff d0                        	calll	*%eax
+101b0dd9: 8b 10                        	movl	(%eax), %edx
+101b0ddb: 8b c8                        	movl	%eax, %ecx
+101b0ddd: 8b 42 34                     	movl	0x34(%edx), %eax
+101b0de0: 6a 01                        	pushl	$0x1
+101b0de2: ff d0                        	calll	*%eax
+101b0de4: 81 8e 50 01 00 00 00 00 10 00	orl	$0x100000, 0x150(%esi)  # imm = 0x100000
+101b0dee: 80 7e 54 00                  	cmpb	$0x0, 0x54(%esi)
+101b0df2: 8d 7e 04                     	leal	0x4(%esi), %edi
+101b0df5: 74 16                        	je	0x101b0e0d <NpCreatePhysicsSDK+0xa3c9d>
+101b0df7: 8b 4f 0c                     	movl	0xc(%edi), %ecx
+101b0dfa: 51                           	pushl	%ecx
+101b0dfb: c6 47 50 00                  	movb	$0x0, 0x50(%edi)
+101b0dff: e8 7c c7 ee ff               	calll	0x1009d580 <AgPmDestroySourceConnection+0x9d10>
+101b0e04: 8b 17                        	movl	(%edi), %edx
+101b0e06: 8b 42 28                     	movl	0x28(%edx), %eax
+101b0e09: 8b cf                        	movl	%edi, %ecx
+101b0e0b: ff d0                        	calll	*%eax
+101b0e0d: 8b 8e 48 01 00 00            	movl	0x148(%esi), %ecx
+101b0e13: 8b 91 8c 00 00 00            	movl	0x8c(%ecx), %edx
+101b0e19: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101b0e1c: 5f                           	popl	%edi
+101b0e1d: 89 96 78 01 00 00            	movl	%edx, 0x178(%esi)
+101b0e23: f3 0f 11 86 9c 01 00 00      	movss	%xmm0, 0x19c(%esi)
+101b0e2b: 5e                           	popl	%esi
+101b0e2c: c2 04 00                     	retl	$0x4
+101b0e2f: a8 01                        	testb	$0x1, %al
+101b0e31: 74 33                        	je	0x101b0e66 <NpCreatePhysicsSDK+0xa3cf6>
+101b0e33: 8b 86 ec 00 00 00            	movl	0xec(%esi), %eax
+101b0e39: 85 c0                        	testl	%eax, %eax
+101b0e3b: 74 1f                        	je	0x101b0e5c <NpCreatePhysicsSDK+0xa3cec>
+101b0e3d: 8b c8                        	movl	%eax, %ecx
+101b0e3f: c1 e9 16                     	shrl	$0x16, %ecx
+101b0e42: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101b0e49: 8b 11                        	movl	(%ecx), %edx
+101b0e4b: 50                           	pushl	%eax
+101b0e4c: 8b 42 38                     	movl	0x38(%edx), %eax
+101b0e4f: ff d0                        	calll	*%eax

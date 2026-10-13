@@ -1,0 +1,57 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+101b0e2f: a8 01                        	testb	$0x1, %al
+101b0e31: 74 33                        	je	0x101b0e66 <NpCreatePhysicsSDK+0xa3cf6>
+101b0e33: 8b 86 ec 00 00 00            	movl	0xec(%esi), %eax
+101b0e39: 85 c0                        	testl	%eax, %eax
+101b0e3b: 74 1f                        	je	0x101b0e5c <NpCreatePhysicsSDK+0xa3cec>
+101b0e3d: 8b c8                        	movl	%eax, %ecx
+101b0e3f: c1 e9 16                     	shrl	$0x16, %ecx
+101b0e42: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101b0e49: 8b 11                        	movl	(%ecx), %edx
+101b0e4b: 50                           	pushl	%eax
+101b0e4c: 8b 42 38                     	movl	0x38(%edx), %eax
+101b0e4f: ff d0                        	calll	*%eax
+101b0e51: 8b 10                        	movl	(%eax), %edx
+101b0e53: 8b c8                        	movl	%eax, %ecx
+101b0e55: 8b 42 34                     	movl	0x34(%edx), %eax
+101b0e58: 6a 00                        	pushl	$0x0
+101b0e5a: ff d0                        	calll	*%eax
+101b0e5c: 81 a6 50 01 00 00 ff ff ef ff	andl	$0xffefffff, 0x150(%esi) # imm = 0xFFEFFFFF
+101b0e66: 80 7e 54 01                  	cmpb	$0x1, 0x54(%esi)
+101b0e6a: 8d 7e 04                     	leal	0x4(%esi), %edi
+101b0e6d: 74 54                        	je	0x101b0ec3 <NpCreatePhysicsSDK+0xa3d53>
+101b0e6f: 8b 47 0c                     	movl	0xc(%edi), %eax
+101b0e72: 8b 48 10                     	movl	0x10(%eax), %ecx
+101b0e75: 39 48 0c                     	cmpl	%ecx, 0xc(%eax)
+101b0e78: 72 26                        	jb	0x101b0ea0 <NpCreatePhysicsSDK+0xa3d30>
+101b0e7a: 83 3d e4 07 35 10 00         	cmpl	$0x0, 0x103507e4
+101b0e81: 75 01                        	jne	0x101b0e84 <NpCreatePhysicsSDK+0xa3d14>
+101b0e83: cc                           	int3
+101b0e84: 51                           	pushl	%ecx
+101b0e85: 68 50 d7 32 10               	pushl	$0x1032d750             # imm = 0x1032D750
+101b0e8a: 33 c9                        	xorl	%ecx, %ecx
+101b0e8c: 68 a0 d7 32 10               	pushl	$0x1032d7a0             # imm = 0x1032D7A0
+101b0e91: 6a 02                        	pushl	$0x2
+101b0e93: 8d 51 31                     	leal	0x31(%ecx), %edx
+101b0e96: e8 e5 01 e5 ff               	calll	0x10001080 <.text+0x80>
+101b0e9b: 83 c4 10                     	addl	$0x10, %esp
+101b0e9e: eb 23                        	jmp	0x101b0ec3 <NpCreatePhysicsSDK+0xa3d53>
+101b0ea0: 8b 17                        	movl	(%edi), %edx
+101b0ea2: 8b 42 10                     	movl	0x10(%edx), %eax
+101b0ea5: 8b cf                        	movl	%edi, %ecx
+101b0ea7: ff d0                        	calll	*%eax
+101b0ea9: 84 c0                        	testb	%al, %al
+101b0eab: 74 16                        	je	0x101b0ec3 <NpCreatePhysicsSDK+0xa3d53>
+101b0ead: 8b 17                        	movl	(%edi), %edx
+101b0eaf: 8b 42 24                     	movl	0x24(%edx), %eax
+101b0eb2: 8b cf                        	movl	%edi, %ecx
+101b0eb4: c6 47 50 01                  	movb	$0x1, 0x50(%edi)
+101b0eb8: ff d0                        	calll	*%eax
+101b0eba: 8b 4f 0c                     	movl	0xc(%edi), %ecx
+101b0ebd: 51                           	pushl	%ecx
+101b0ebe: e8 bd c6 ee ff               	calll	0x1009d580 <AgPmDestroySourceConnection+0x9d10>

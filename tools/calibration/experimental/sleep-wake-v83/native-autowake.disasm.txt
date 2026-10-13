@@ -1,0 +1,108 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10138a40: 8b 4e 08                     	movl	0x8(%esi), %ecx
+10138a43: 8b 01                        	movl	(%ecx), %eax
+10138a45: 8b 50 04                     	movl	0x4(%eax), %edx
+10138a48: ff d2                        	calll	*%edx
+10138a4a: 8b 4e 1c                     	movl	0x1c(%esi), %ecx
+10138a4d: 3b 88 90 04 00 00            	cmpl	0x490(%eax), %ecx
+10138a53: 74 27                        	je	0x10138a7c <NpCreatePhysicsSDK+0x2b90c>
+10138a55: 8b 4e 0c                     	movl	0xc(%esi), %ecx
+10138a58: 8b 11                        	movl	(%ecx), %edx
+10138a5a: 8b 42 30                     	movl	0x30(%edx), %eax
+10138a5d: ff d0                        	calll	*%eax
+10138a5f: d9 05 84 16 33 10            	flds	0x10331684
+10138a65: db f1                        	fcomi	%st(1), %st
+10138a67: dd d9                        	fstp	%st(1)
+10138a69: 76 0f                        	jbe	0x10138a7a <NpCreatePhysicsSDK+0x2b90a>
+10138a6b: 8b 4e 0c                     	movl	0xc(%esi), %ecx
+10138a6e: 8b 11                        	movl	(%ecx), %edx
+10138a70: 8b 42 34                     	movl	0x34(%edx), %eax
+10138a73: 51                           	pushl	%ecx
+10138a74: d9 1c 24                     	fstps	(%esp)
+10138a77: ff d0                        	calll	*%eax
+10138a79: c3                           	retl
+10138a7a: dd d8                        	fstp	%st(0)
+10138a7c: c3                           	retl
+10138a7d: cc                           	int3
+10138a7e: cc                           	int3
+10138a7f: cc                           	int3
+10138a80: 8b 48 10                     	movl	0x10(%eax), %ecx
+10138a83: 89 50 28                     	movl	%edx, 0x28(%eax)
+10138a86: 85 c9                        	testl	%ecx, %ecx
+10138a88: 74 0b                        	je	0x10138a95 <NpCreatePhysicsSDK+0x2b925>
+10138a8a: 8b 01                        	movl	(%ecx), %eax
+10138a8c: 52                           	pushl	%edx
+10138a8d: 8b 90 84 00 00 00            	movl	0x84(%eax), %edx
+10138a93: ff d2                        	calll	*%edx
+10138a95: c3                           	retl
+10138a96: cc                           	int3
+10138a97: cc                           	int3
+10138a98: cc                           	int3
+10138a99: cc                           	int3
+10138a9a: cc                           	int3
+10138a9b: cc                           	int3
+10138a9c: cc                           	int3
+10138a9d: cc                           	int3
+10138a9e: cc                           	int3
+10138a9f: cc                           	int3
+10138aa0: 8b 4f 10                     	movl	0x10(%edi), %ecx
+10138aa3: 66 89 77 26                  	movw	%si, 0x26(%edi)
+10138aa7: 85 c9                        	testl	%ecx, %ecx
+10138aa9: 74 0b                        	je	0x10138ab6 <NpCreatePhysicsSDK+0x2b946>
+10138aab: 8b 01                        	movl	(%ecx), %eax
+10138aad: 8b 90 80 00 00 00            	movl	0x80(%eax), %edx
+10138ab3: 56                           	pushl	%esi
+10138ab4: ff d2                        	calll	*%edx
+10138ab6: 8b 4f 0c                     	movl	0xc(%edi), %ecx
+10138ab9: 8b 01                        	movl	(%ecx), %eax
+10138abb: 8b 90 d0 00 00 00            	movl	0xd0(%eax), %edx
+10138ac1: 56                           	pushl	%esi
+10138ac2: ff d2                        	calll	*%edx
+10138ac4: c3                           	retl
+10138ac5: cc                           	int3
+10138ac6: cc                           	int3
+10138ac7: cc                           	int3
+10138ac8: cc                           	int3
+10138ac9: cc                           	int3
+10138aca: cc                           	int3
+10138acb: cc                           	int3
+10138acc: cc                           	int3
+10138acd: cc                           	int3
+10138ace: cc                           	int3
+10138acf: cc                           	int3
+10138ad0: 8b 4e 10                     	movl	0x10(%esi), %ecx
+10138ad3: 66 89 46 24                  	movw	%ax, 0x24(%esi)
+10138ad7: 85 c9                        	testl	%ecx, %ecx
+10138ad9: 74 08                        	je	0x10138ae3 <NpCreatePhysicsSDK+0x2b973>
+10138adb: 8b 11                        	movl	(%ecx), %edx
+10138add: 50                           	pushl	%eax
+10138ade: 8b 42 7c                     	movl	0x7c(%edx), %eax
+10138ae1: ff d0                        	calll	*%eax
+10138ae3: 8b 4e 04                     	movl	0x4(%esi), %ecx
+10138ae6: 8b 49 1c                     	movl	0x1c(%ecx), %ecx
+10138ae9: 8b 11                        	movl	(%ecx), %edx
+10138aeb: 8b 42 04                     	movl	0x4(%edx), %eax
+10138aee: ff d0                        	calll	*%eax
+10138af0: 8b 4e 04                     	movl	0x4(%esi), %ecx
+10138af3: 8b 41 44                     	movl	0x44(%ecx), %eax
+10138af6: 85 c0                        	testl	%eax, %eax
+10138af8: 74 04                        	je	0x10138afe <NpCreatePhysicsSDK+0x2b98e>
+10138afa: 83 48 1c 02                  	orl	$0x2, 0x1c(%eax)
+10138afe: c3                           	retl
+10138aff: cc                           	int3
+10138b00: 8b 4e 10                     	movl	0x10(%esi), %ecx
+10138b03: 8b 01                        	movl	(%ecx), %eax
+10138b05: 8b 90 88 00 00 00            	movl	0x88(%eax), %edx
+10138b0b: ff d2                        	calll	*%edx
+10138b0d: 8b 46 04                     	movl	0x4(%esi), %eax
+10138b10: 8b 48 1c                     	movl	0x1c(%eax), %ecx
+10138b13: 8b 11                        	movl	(%ecx), %edx
+10138b15: 8b 42 04                     	movl	0x4(%edx), %eax
+10138b18: ff d0                        	calll	*%eax
+10138b1a: 8b 4e 04                     	movl	0x4(%esi), %ecx
+10138b1d: 8b 41 44                     	movl	0x44(%ecx), %eax

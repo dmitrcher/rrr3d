@@ -1,0 +1,69 @@
+
+work/v47-final-archive-check/bin/Windows/SpringProbe.exe:	file format coff-i386
+
+Disassembly of section .text:
+
+00401000 <.text>:
+  403730: 56                           	pushl	%esi
+  403731: 8b f1                        	movl	%ecx, %esi
+  403733: 8b 4c 24 08                  	movl	0x8(%esp), %ecx
+  403737: 8b 01                        	movl	(%ecx), %eax
+  403739: 8b 50 04                     	movl	0x4(%eax), %edx
+  40373c: ff d2                        	calll	*%edx
+  40373e: 8b 10                        	movl	(%eax), %edx
+  403740: 8b c8                        	movl	%eax, %ecx
+  403742: 8b 82 b8 00 00 00            	movl	0xb8(%edx), %eax
+  403748: ff d0                        	calll	*%eax
+  40374a: 80 7e 0c 00                  	cmpb	$0x0, 0xc(%esi)
+  40374e: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+  403752: d8 49 08                     	fmuls	0x8(%ecx)
+  403755: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+  403759: d8 4e 04                     	fmuls	0x4(%esi)
+  40375c: dc 0d 58 e6 42 00            	fmull	0x42e658
+  403762: d9 5c 24 08                  	fstps	0x8(%esp)
+  403766: d9 44 24 08                  	flds	0x8(%esp)
+  40376a: d9 e1                        	fabs
+  40376c: d9 5c 24 08                  	fstps	0x8(%esp)
+  403770: d9 44 24 08                  	flds	0x8(%esp)
+  403774: d9 5c 24 08                  	fstps	0x8(%esp)
+  403778: d9 ee                        	fldz
+  40377a: 74 5b                        	je	0x4037d7 <.text+0x27d7>
+  40377c: d8 56 08                     	fcoms	0x8(%esi)
+  40377f: df e0                        	fnstsw	%ax
+  403781: d9 44 24 08                  	flds	0x8(%esp)
+  403785: f6 c4 05                     	testb	$0x5, %ah
+  403788: 7a 18                        	jp	0x4037a2 <.text+0x27a2>
+  40378a: d9 01                        	flds	(%ecx)
+  40378c: d9 46 08                     	flds	0x8(%esi)
+  40378f: d8 ca                        	fmul	%st(2), %st
+  403791: d9 5c 24 08                  	fstps	0x8(%esp)
+  403795: d9 44 24 08                  	flds	0x8(%esp)
+  403799: de d9                        	fcompp
+  40379b: df e0                        	fnstsw	%ax
+  40379d: f6 c4 05                     	testb	$0x5, %ah
+  4037a0: 7b 33                        	jnp	0x4037d5 <.text+0x27d5>
+  4037a2: dd d9                        	fstp	%st(1)
+  4037a4: dc 0d 50 e6 42 00            	fmull	0x42e650
+  4037aa: d9 5c 24 08                  	fstps	0x8(%esp)
+  4037ae: d9 44 24 08                  	flds	0x8(%esp)
+  4037b2: d9 01                        	flds	(%ecx)
+  4037b4: de d9                        	fcompp
+  4037b6: df e0                        	fnstsw	%ax
+  4037b8: f6 c4 41                     	testb	$0x41, %ah
+  4037bb: 8d 44 24 08                  	leal	0x8(%esp), %eax
+  4037bf: 74 02                        	je	0x4037c3 <.text+0x27c3>
+  4037c1: 8b c1                        	movl	%ecx, %eax
+  4037c3: d9 00                        	flds	(%eax)
+  4037c5: b0 01                        	movb	$0x1, %al
+  4037c7: d9 5c 24 08                  	fstps	0x8(%esp)
+  4037cb: 5e                           	popl	%esi
+  4037cc: d9 44 24 04                  	flds	0x4(%esp)
+  4037d0: d9 19                        	fstps	(%ecx)
+  4037d2: c2 20 00                     	retl	$0x20
+  4037d5: dd d8                        	fstp	%st(0)
+  4037d7: d9 5c 24 08                  	fstps	0x8(%esp)
+  4037db: b0 01                        	movb	$0x1, %al
+  4037dd: d9 44 24 08                  	flds	0x8(%esp)
+  4037e1: 5e                           	popl	%esi
+  4037e2: d9 19                        	fstps	(%ecx)
+  4037e4: c2 20 00                     	retl	$0x20

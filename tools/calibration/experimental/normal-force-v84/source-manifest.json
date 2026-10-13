@@ -1,0 +1,730 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3206,
+      "sha256": "842bfaf6213eeb124a28e9e9cc376a078a26aacb4b7d5465bea0076aa0b4d5f3"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeNormalForceV84.h",
+      "bytes": 1523,
+      "sha256": "9aa6876b713207b6d62363eefb65e26893627572fc0e6d62eb4b2dfd0fb7f522"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 355457,
+      "sha256": "2a080017e51c7c20497639c7490502a445c5bd80dc317fb4ae7a839aac74e917"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 773,
+      "sha256": "fb236aa49341adfd9f5664723238ebed9538f13068457a41f0d543251762ecbd"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 353758,
+      "sha256": "9acea8b0d32fbe33a8897051bdb9e4266176645b6dbe96350eef147170810b3d"
+    },
+    {
+      "path": "callback-tracer/build.cmd",
+      "bytes": 289,
+      "sha256": "e444483e430f07a8ceb48ea72859be434016c16c25f9414c4a033043ac894242"
+    },
+    {
+      "path": "callback-tracer/trace-callback.cpp",
+      "bytes": 9420,
+      "sha256": "a83f548b735d93b8d6e308e988872144aa2ac7a3d510e7666cf90daf8a6baae8"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 5659,
+      "sha256": "dff68a7bbc336447613152505fe40b75fdb9265a7e57cfc0fc0c0d3cc788f723"
+    },
+    {
+      "path": "captures/control-0.jsonl.gz",
+      "bytes": 1520696,
+      "sha256": "ad1ae54f8cedd16520944ad9d29de84068b023777fe628e5251778c94b063221"
+    },
+    {
+      "path": "captures/control-1.jsonl.gz",
+      "bytes": 1520770,
+      "sha256": "dded4eb1d043fdcee196a1caedc7ffd782a0bed8e502b0a361e81a39b4d78c8d"
+    },
+    {
+      "path": "captures/force-0.jsonl.gz",
+      "bytes": 1521025,
+      "sha256": "44f6214397909e93a637909de6d482bcc4d5eb784607fdb817aea07b03ff2ba8"
+    },
+    {
+      "path": "captures/force-1.jsonl.gz",
+      "bytes": 1521164,
+      "sha256": "08cd20c231afbe2b979164d144075b72379f45d301cb5591ea57e454ccc8dfc8"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-0-prep.jsonl",
+      "bytes": 2980,
+      "sha256": "f52b25d34a4cf1a814eb8827bc5176d8b52b4afd3ead8bb6eef682dee1b922ec"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-0-solver.jsonl",
+      "bytes": 10289,
+      "sha256": "d0e3deaf145488662e54914e711d942278e2088d7f7cf96157724e71bd262a78"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-0-tire.jsonl",
+      "bytes": 208668,
+      "sha256": "8bb08c7fe700d5c3e05c5f23c2b5746cc325bbcb2a859501891c62244a1da546"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-0.jsonl",
+      "bytes": 946699,
+      "sha256": "5f64437e6eeca4c760793f1181109b14f1be51771432644b98ad254ed23f839d"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-1-prep.jsonl",
+      "bytes": 2980,
+      "sha256": "f52b25d34a4cf1a814eb8827bc5176d8b52b4afd3ead8bb6eef682dee1b922ec"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-1-solver.jsonl",
+      "bytes": 10289,
+      "sha256": "d0e3deaf145488662e54914e711d942278e2088d7f7cf96157724e71bd262a78"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-1-tire.jsonl",
+      "bytes": 208668,
+      "sha256": "8bb08c7fe700d5c3e05c5f23c2b5746cc325bbcb2a859501891c62244a1da546"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-1.jsonl",
+      "bytes": 946699,
+      "sha256": "e9bd1185bd6ad62f3bd433a5a065f505640ae4377e055a733c7c9255ce983679"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/force-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/manifest.json",
+      "bytes": 6335,
+      "sha256": "f44403fa7133c670bb8ecc95e496e3f5975f8d7ed10def301e6be2fc5902d03d"
+    },
+    {
+      "path": "captures/mac-kernel-detailed/report.json",
+      "bytes": 9006,
+      "sha256": "e2ec01295e335fad0190d830a413f932723a71e646e017477358265ddad23f56"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-0-physical.jsonl.gz",
+      "bytes": 274068,
+      "sha256": "35e6dd1b9dec03ca66c96fdb0e113c422fc74cf1266886c1aece239924a1f160"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-0-private.jsonl.gz",
+      "bytes": 4120,
+      "sha256": "f6eb7f3bc4125118ed5be6036ba5fdb94952cccef66ecb93902c0c3d85414eda"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-1-physical.jsonl.gz",
+      "bytes": 274162,
+      "sha256": "43e5d8e241eadb3e68db71600986700e821075965e2156ee57b90c070d407016"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-1-private.jsonl.gz",
+      "bytes": 4128,
+      "sha256": "684da65fb905c8b3b21dac1d2379d1925a6ae99ca3f0b790fbecfa89e926851c"
+    },
+    {
+      "path": "captures/native-callback/force-devildriver-engine3-lateral-20-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback/manifest.json",
+      "bytes": 1748,
+      "sha256": "462857640ff8ebb3a952767e58623e838b045235bcd17b5d2a04a2cc83af6b4d"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-0-physical.jsonl.gz",
+      "bytes": 214290,
+      "sha256": "6b16c885cc22217c1cbd55c170932ef9c990c793ad4d8e96d7f465484340d18d"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-0-private.jsonl.gz",
+      "bytes": 4451,
+      "sha256": "a750e02c5c51a4415a82ae125a91e15d0df7882465fff0af2cfdeff1a3566eff"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-1-physical.jsonl.gz",
+      "bytes": 214105,
+      "sha256": "23cbb85511d2c80068eec56bfce810b3851ffdafe63da68b590c0d21a0a45cbc"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-1-private.jsonl.gz",
+      "bytes": 4461,
+      "sha256": "cddc75047e3ebb0d37b5d0292f25ff8e3b5b1e90353d8acec28f0112465d1356"
+    },
+    {
+      "path": "captures/native-callback-branches/force-oil-slide-27-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-0-physical.jsonl.gz",
+      "bytes": 240487,
+      "sha256": "ac5d0525efa66d82bf52d92defdcf894972fdb91c28a3b43dc42a5761e77165a"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-0-private.jsonl.gz",
+      "bytes": 4450,
+      "sha256": "1f51e0a9a1c9fbe7a80e84e2f52fb958281e596a0be1c8cde654c959abf5df89"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-1-physical.jsonl.gz",
+      "bytes": 240354,
+      "sha256": "aa2261d1199d22120ee6f51e4e283fa03060405fef105c3598f94877aa637676"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-1-private.jsonl.gz",
+      "bytes": 4451,
+      "sha256": "32c4ba946ec96df800015de2ff2e9cde6c8739eb674912553124c8021ea6ac7f"
+    },
+    {
+      "path": "captures/native-callback-branches/force-settle-27-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-0-physical.jsonl.gz",
+      "bytes": 314407,
+      "sha256": "3cd617ab8edb9d7bb1e65329484a752842bc53fd01636e0fae92842201a3b362"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-0-private.jsonl.gz",
+      "bytes": 4840,
+      "sha256": "e12cff3d828ac901d72489bc5fd5552f3fdec2e846395f84c70eb4660bee1866"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-1-physical.jsonl.gz",
+      "bytes": 314153,
+      "sha256": "d1408f8f529f59a623e5d68af154926c8452a9403a830e8be4a6a2db15294bdc"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-1-private.jsonl.gz",
+      "bytes": 4830,
+      "sha256": "c98169ba4c4a387aa30d3ce4de121fcc2e378378b48007b3aaaa48ff5e60c224"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-lateral-27-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-0-physical.jsonl.gz",
+      "bytes": 315269,
+      "sha256": "5329788dfe044b7e5319039664c3a932e4f7b43a0071c8e2110f5a0c8d1da2db"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-0-private.jsonl.gz",
+      "bytes": 5071,
+      "sha256": "eca8f3faa2eed24a8a08c1333d67d091a887ef595193b7e5c92bbaf5ad1a88c3"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-1-physical.jsonl.gz",
+      "bytes": 315256,
+      "sha256": "8c5a2bfc9c40da40fb3dfd1b086be6c236380313890d900b11fc5dc3d6b01eb1"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-1-private.jsonl.gz",
+      "bytes": 5068,
+      "sha256": "03dc5b36182b7e39dc8611a46835ecda4e48abdba358ceec3514b8fe0d4bca4b"
+    },
+    {
+      "path": "captures/native-callback-branches/force-slope-longitudinal-27-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-0-physical.jsonl.gz",
+      "bytes": 197013,
+      "sha256": "0db7d219904b099291c44d67c84601b96b7e6b1e818c536a6a6ccbc12c8baf85"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-0-private.jsonl.gz",
+      "bytes": 4466,
+      "sha256": "e008f6bd321554f9fb6a61a8169b79d096d1c71fbcf2c2697e4d0267e994a4db"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-1-physical.jsonl.gz",
+      "bytes": 197069,
+      "sha256": "a231744804522c4d887250bb8860a5112be2c2fbaf5624f161e50cbf0cb5aedf"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-1-private.jsonl.gz",
+      "bytes": 4461,
+      "sha256": "4e9ce3b6fc6e0e4c9a58b8c16ee7b2ece9f259c0b13152bf905b2f20adeb3c49"
+    },
+    {
+      "path": "captures/native-callback-branches/force-tire-overload-27-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-callback-branches/manifest.json",
+      "bytes": 3666,
+      "sha256": "c5098714ae3f66fcd8bebbe37962b936db96b9675529a0efd0e3e7b9064ad45b"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-0-physical.jsonl.gz",
+      "bytes": 274130,
+      "sha256": "0d5c2a2ba5430c0fbe902409004101f5ecb7dbae1ed04d48c0f4edc496bcd748"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-0-private.jsonl.gz",
+      "bytes": 2741,
+      "sha256": "6036835b70b813534ef0e9f3167dee12487e226e9698fb747ae4ad5014819ec3"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-1-physical.jsonl.gz",
+      "bytes": 274076,
+      "sha256": "c7cad618d8c2b5eb755ea5c6a3e30e3a6a6118a4813c8cc71244f82f1a01d610"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-1-private.jsonl.gz",
+      "bytes": 2744,
+      "sha256": "24430af795d3fb23945bb02fac6b7e6c5912f62c2a968e8160dcdfa4eccd5f2e"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-0-physical.jsonl.gz",
+      "bytes": 274125,
+      "sha256": "1a4076e52afacd744805c6907cd91edb1a3187d60bea64604dda9eeb702bc9f4"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-0-private.jsonl.gz",
+      "bytes": 3254,
+      "sha256": "1692a62827fd4eac3250e32597e472a822898c4c8617df992dd07ace0ffa5490"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-1-physical.jsonl.gz",
+      "bytes": 274145,
+      "sha256": "29011f074ae17f7354a1699c15e983b48c0e45f08b5532bcbf3b878ac266618e"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-1-private.jsonl.gz",
+      "bytes": 3255,
+      "sha256": "80c084c1ded6736e88d81fa1eb57d97f8f3bf33e9e66bc1c842b7acfd89a678c"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-20-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-0-physical.jsonl.gz",
+      "bytes": 274119,
+      "sha256": "44d2f1026e349d8be0d3a915611bbd0edbceb5152d26f6db2b8fb8722ca502c5"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-0-private.jsonl.gz",
+      "bytes": 3464,
+      "sha256": "17b879079836f27095cfb33bb501caa102bc7f1dc51880241313c2ad46bb98f0"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-1-physical.jsonl.gz",
+      "bytes": 274073,
+      "sha256": "86bf1fce60bb0368ad500f7f36fed460105ec25b4bf6993244e87368327ee7d8"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-1-private.jsonl.gz",
+      "bytes": 3468,
+      "sha256": "e797efb464eea2d6a3ac9df97d40b0ae5ffda806c0331ab3a29722fe9d7f8405"
+    },
+    {
+      "path": "captures/native-force/force-devildriver-engine3-lateral-21-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-force/manifest.json",
+      "bytes": 2816,
+      "sha256": "dc246795477af30bbbfc632d98cca3ead9b255f645a1bb335ded787ac6bad3ce"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-0-physical.jsonl.gz",
+      "bytes": 274213,
+      "sha256": "b8920f256836e0804b404594952a06fe74a61ea4f5c4e6178ab1a79e9f90384b"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-0-private.jsonl.gz",
+      "bytes": 20945,
+      "sha256": "27b17d62b5014291a17a69255bd63f2e6422c93a3e3ab08e1bf389b5c7c6b69e"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-1-physical.jsonl.gz",
+      "bytes": 274131,
+      "sha256": "70ca5edfe04e2794928841cf1802ae21a5f093674d0af4ea8391f7bae99e944e"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-1-private.jsonl.gz",
+      "bytes": 20964,
+      "sha256": "bc488a6115560ec7b2a02d4a085deb2924a81a65606a82542b6c2d251a4f11d5"
+    },
+    {
+      "path": "captures/native-kernel/force-devildriver-engine3-lateral-21-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-kernel/manifest.json",
+      "bytes": 1740,
+      "sha256": "9dcddf737cf5205e06a8330f1dbf80d1f48f996498e8f2dfe25695612d393b38"
+    },
+    {
+      "path": "captures/windows-reference.jsonl.gz",
+      "bytes": 2011174,
+      "sha256": "8a89661cacc9f54fb655b92b05e3f86b67d16f4a54533dea14dc08d451f726fe"
+    },
+    {
+      "path": "evidence/broad/capture-manifest.json",
+      "bytes": 6522,
+      "sha256": "471f28f69153d0b7a17efd454e916af731b80b380fe493ee7798b29c5cf26727"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "b91a83a36f1ee90038c7a963951d41b33bd6f8d7c460ea1716120fcf2071514e"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "9a78ec1a74a3d927c28c136a0bbffe16c06a7c14830a6678afa48a636887f282"
+    },
+    {
+      "path": "evidence/focused/manifest.json",
+      "bytes": 6615,
+      "sha256": "2918b9d3526021f5038afb90e43596f0421df323d70cec52986459677bc63375"
+    },
+    {
+      "path": "evidence/focused/report.json",
+      "bytes": 203806,
+      "sha256": "e56eed4398d69b894177c406b4d6827bb0e344ff8a180bbb87dbfd281374c305"
+    },
+    {
+      "path": "evidence/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "39d6b23ee170255d8832a315aa3d44eae8390faa0ac99df2c5620541dca80444"
+    },
+    {
+      "path": "evidence/game-render-race/game.log",
+      "bytes": 4082,
+      "sha256": "fc0a63f295cb16598b0fad9b0e2735497ea861c095c794ca5b56d424b7e21763"
+    },
+    {
+      "path": "evidence/game-render-race/launch.json",
+      "bytes": 6417,
+      "sha256": "30868a61ef5d19c2620bad41695741a8f96250400d56b8b9b30bf480eb451d86"
+    },
+    {
+      "path": "evidence/game-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "606d7727625c74e5b6f42dbc50712c8d40e89f7e65745db63ca10e40ce8ab13f"
+    },
+    {
+      "path": "evidence/game-smoke/game.log",
+      "bytes": 672,
+      "sha256": "caa002c6c83a003e5d845116ad42c4b9c2edb3ab0595ab0db8354269b19dfb66"
+    },
+    {
+      "path": "evidence/game-smoke/launch.json",
+      "bytes": 6409,
+      "sha256": "bb1618407be4279561202b487add8950172fcbe728fa308daaf3c101e1c63fbd"
+    },
+    {
+      "path": "evidence/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "49c19521ee77c06fbb57041298245a2d966e41edec61ee55e76b56cd2ac9f24d"
+    },
+    {
+      "path": "evidence/physics-v84-final-broad-audit.json",
+      "bytes": 2286259,
+      "sha256": "288146f228dac298a5c7d1ccf7b141ef813879ce91a2e4d3823cde17944e225d"
+    },
+    {
+      "path": "evidence/physics-v84-final-practical-error-audit.json",
+      "bytes": 943364,
+      "sha256": "21f6f7fffb0c430034f675b90ce1d6dbde96ebc98e626aa5c3a31b673de30058"
+    },
+    {
+      "path": "evidence/physics-v84-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v84-native-force-proof.json",
+      "bytes": 840,
+      "sha256": "9582b625cd041b8a1599009d0b8b4c1c3fc9e57a4bd45daa527f97fc6a118efc"
+    },
+    {
+      "path": "evidence/physics-v84-regression-audit.json",
+      "bytes": 69160,
+      "sha256": "05f9010fb6270eb3bc5d28eed97e6517235342fdfbc0ded06b163976d5e32242"
+    },
+    {
+      "path": "evidence/physics-v84-strict-improvement.json",
+      "bytes": 178,
+      "sha256": "7eff2503c258c5050e68ba571fb82489de4d7605eee94658cad808e638d9b073"
+    },
+    {
+      "path": "force-tracer/build.cmd",
+      "bytes": 280,
+      "sha256": "0ace46b103201a58374008e37802f42d262e1226820549edfff98f6b5eb0d4ac"
+    },
+    {
+      "path": "force-tracer/trace-force.cpp",
+      "bytes": 8472,
+      "sha256": "b6289e84bdffa8dad7190cd2eeb3f2206c584d8f83357cbfa77474638d34d3c3"
+    },
+    {
+      "path": "kernel-tracer/build.cmd",
+      "bytes": 281,
+      "sha256": "00f567f6249b4b7c8cdef37cbab0c566ca3e0c0c4e3c143fc1b0a05d840c0aaf"
+    },
+    {
+      "path": "kernel-tracer/trace-wheel.cpp",
+      "bytes": 12117,
+      "sha256": "6850d1473c04cad82851536a600fd098795786c84947ecab09c759e63b5458b6"
+    },
+    {
+      "path": "native-callback.disasm.txt",
+      "bytes": 3620,
+      "sha256": "a2f9be20321f86e320c3c8e5ba3d308441b4997cb8d18b6a20705a8274480097"
+    },
+    {
+      "path": "native-force-scaling.disasm.txt",
+      "bytes": 915,
+      "sha256": "779fe7fce5928efd2f8259ef2ecc48a9998bdcad38bc9065b8e872d168a6483f"
+    },
+    {
+      "path": "next-work.md",
+      "bytes": 3173,
+      "sha256": "f74a055174dd03eb2953d9f8a0af847e9464dcb01f3d251d27d5cb6e85972d87"
+    },
+    {
+      "path": "proofs/native-callback-fixtures-all.json",
+      "bytes": 16139,
+      "sha256": "5c65eaabe7b40205ddae311ab686a13c3b3b7833fc5392d6e22a3a06b7fbbc6e"
+    },
+    {
+      "path": "proofs/native-callback-fixtures.inc",
+      "bytes": 3815,
+      "sha256": "5db10193a9fed74f4720a708f4fe9c86f15e08dc3cd20bd6848a680cbea12f7a"
+    },
+    {
+      "path": "proofs/native-force-fixtures.inc",
+      "bytes": 2215,
+      "sha256": "c4c88154c62704bbaba82378380fcb1b2f600373e82ded60ddabe9ef1143d3f4"
+    },
+    {
+      "path": "proofs/native-force-fixtures.json",
+      "bytes": 7897,
+      "sha256": "a0d8befc0f35c492ebfdbb15e0d90ec9c55d858239e1d86ff5fc81e8d1fe4039"
+    },
+    {
+      "path": "proofs/physics/NativeNormalForceV84.h",
+      "bytes": 1523,
+      "sha256": "9aa6876b713207b6d62363eefb65e26893627572fc0e6d62eb4b2dfd0fb7f522"
+    },
+    {
+      "path": "proofs/physics/NativeTireV55.h",
+      "bytes": 2376,
+      "sha256": "bcba07dfdb5bfb5153d8b87705ef1e849a8fa8f5f8182bc9a703e426f6217544"
+    },
+    {
+      "path": "proofs/physics/NativeWheelPoseV54.h",
+      "bytes": 2355,
+      "sha256": "85705e021c6f0a7286a3a518dba4493d052b74ad26b152961a2d08f3b7f9895f"
+    },
+    {
+      "path": "proofs/physics/NativeWheelRayV52.h",
+      "bytes": 2097,
+      "sha256": "8d903bf98826524ee1047617195b435ea7a1e714ce8a5f3d4771a166fb7b4347"
+    },
+    {
+      "path": "proofs/verify-force.cpp",
+      "bytes": 1859,
+      "sha256": "5eca16e67b0a14911199f5ff270035a3d84e2fe3dfd3f133b99038421fc98990"
+    },
+    {
+      "path": "run-probe.py",
+      "bytes": 914,
+      "sha256": "acc96e2834e4211a93964efe6d6a4cade1ae60078df8d60c074bd9e8b77f7b27"
+    },
+    {
+      "path": "verify-checkpoint.py",
+      "bytes": 2415,
+      "sha256": "8084c171d2ed33f8eb0b62265c9d54593b1fa7b47a5fe2b8bc54cf8ae639b34e"
+    },
+    {
+      "path": "verify-native-force.py",
+      "bytes": 3488,
+      "sha256": "c25d70d035e02166f0a6673bddab9ad24d5dd91296b860b017c932dc104c6756"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-branches.py",
+      "bytes": 3141,
+      "sha256": "20ce6be73a22761f7c31d611255214ee4808f4e636fd53da1cdb3a1a4f217995"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-callback.py",
+      "bytes": 3123,
+      "sha256": "7ad7678b5bb453dd76a159dda036f3e44961ec12e42aefdef0c5949b909ef9db"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-force.py",
+      "bytes": 3117,
+      "sha256": "1bd3151f404a0954fea49184b9a480c3790487f1d8f7489d7058235011d58bd2"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-kernel.py",
+      "bytes": 3115,
+      "sha256": "7c0952da0ca163fe0ca65c5b17e5caef39edcce8d0657c0ab81efc218075aac5"
+    },
+    {
+      "path": "workspace-reproduction/compare-broad.py",
+      "bytes": 3649,
+      "sha256": "162217a17d58f47f07f9441662802ad691195309879221fc3773756f7889fb5f"
+    },
+    {
+      "path": "workspace-reproduction/compare-regression.py",
+      "bytes": 2172,
+      "sha256": "0fddba3585c71b8532b3f16ceedff1a8716e1309adb7b3de1704b3e95c90235c"
+    },
+    {
+      "path": "workspace-reproduction/practical-error-audit.py",
+      "bytes": 4270,
+      "sha256": "19b0c22e2735f1a192cad70599dfda4e1c0658706cd202918ed7018f4405bfc7"
+    },
+    {
+      "path": "workspace-reproduction/run-broad.py",
+      "bytes": 2219,
+      "sha256": "fc4f3b4e0c5b0dc78f5f8752d943a86334c06ccdd7aa03842b22a270bb5fb355"
+    },
+    {
+      "path": "workspace-reproduction/run-focused.py",
+      "bytes": 3345,
+      "sha256": "24145db9837eba72f28560d0a4b3da695b2b86e5b211bc98df0c5070696a23a8"
+    },
+    {
+      "path": "workspace-reproduction/run-game-render-race.py",
+      "bytes": 2176,
+      "sha256": "aba5f579e878676882122c06e807cf02dc11acad5279600e4e3964f129f7709e"
+    },
+    {
+      "path": "workspace-reproduction/run-game-smoke.py",
+      "bytes": 2162,
+      "sha256": "0f714360993fcad10311254689e2f9598a659e442ce21de5b02ea43ff2df07c8"
+    },
+    {
+      "path": "workspace-reproduction/run-gates.py",
+      "bytes": 5126,
+      "sha256": "0b2964d70d2f2feafb26fc1171e9547ac5910fa60e0f745354c6a161b30d52ad"
+    },
+    {
+      "path": "workspace-reproduction/run-mac-kernel-detailed.py",
+      "bytes": 3404,
+      "sha256": "f3c8e108ba7b5cd1784c5bcec327ffcadfa86c503fbf359bec101c9aa0b2ef29"
+    },
+    {
+      "path": "workspace-reproduction/run-mac-kernel.py",
+      "bytes": 3322,
+      "sha256": "200241cc12a7c353e7467abb5136fe4c0aa9e941cd9b584fce6e62e2e1ed30a9"
+    },
+    {
+      "path": "workspace-reproduction/test-exported-installer.py",
+      "bytes": 1663,
+      "sha256": "d6d66902895e284870f459169540817826bdf9b7d6ec485611a7aa006c75acc9"
+    },
+    {
+      "path": "workspace-reproduction/verify-checkpoint.py",
+      "bytes": 2415,
+      "sha256": "8084c171d2ed33f8eb0b62265c9d54593b1fa7b47a5fe2b8bc54cf8ae639b34e"
+    },
+    {
+      "path": "workspace-reproduction/verify-native-force.py",
+      "bytes": 3488,
+      "sha256": "c25d70d035e02166f0a6673bddab9ad24d5dd91296b860b017c932dc104c6756"
+    }
+  ],
+  "goal_complete": false
+}

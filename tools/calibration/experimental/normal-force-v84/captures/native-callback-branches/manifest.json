@@ -1,0 +1,91 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\callback-v84\\TraceCallbackV84.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\callback-v84\\TraceCallbackV84.exe:\r\n2662ea8f4a76a6824e36ef32b0cb24d8dcd8e66fc0bede2d42c8df62d6a05d1f\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "force",
+      "name": "slope-longitudinal",
+      "repeat": 0,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "d611ac27a5b0c73f47d92c31a893710747778491f4151bf2fe4608399e91f95e"
+    },
+    {
+      "kind": "force",
+      "name": "slope-longitudinal",
+      "repeat": 1,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "7df6425d2b4e5aa22a78c0063039cd1854875e2e4381f44ee970fd4d44dab6f0"
+    },
+    {
+      "kind": "force",
+      "name": "slope-lateral",
+      "repeat": 0,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "293ad2196e43b3fa9acb7030b3ead517447478dddb13159d2a5267d7309173fd"
+    },
+    {
+      "kind": "force",
+      "name": "slope-lateral",
+      "repeat": 1,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "816f4a69b77c57550af47ba0bd551b32c12c84de574d07b62a2081ee99927a8d"
+    },
+    {
+      "kind": "force",
+      "name": "oil-slide",
+      "repeat": 0,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "a81439c12aa8e8a9d208a29e8b27ee257d71a30edd6dc660db6821b679f319c3"
+    },
+    {
+      "kind": "force",
+      "name": "oil-slide",
+      "repeat": 1,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "5443015c649fde7c2625cfdc9022260a82c89d36e355c6b914a9e80f29c57c59"
+    },
+    {
+      "kind": "force",
+      "name": "tire-overload",
+      "repeat": 0,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4af2dfadfd32609bdce4ed6a59526248e9d32543706cdfdc33defcef502184ec"
+    },
+    {
+      "kind": "force",
+      "name": "tire-overload",
+      "repeat": 1,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "8784e2974f21610598c41a38bb85db9d2d8e5625d486e799fe01f3536b24d51f"
+    },
+    {
+      "kind": "force",
+      "name": "settle",
+      "repeat": 0,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "6ced2acf497b1da167f01a69fa6fcc377f38d42a4d7a4ca5d2989b9f28b2357c"
+    },
+    {
+      "kind": "force",
+      "name": "settle",
+      "repeat": 1,
+      "sample_tick": 27,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "d5e2a2a883ad02128a612951855cff6f87f8afede21a355c65de3de3f891342b"
+    }
+  ],
+  "goal_complete": false
+}

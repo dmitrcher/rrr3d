@@ -1,0 +1,39 @@
+{
+  "scope": "Native physical44 first4spring rows map to Mac prepared wheels0,1,2,3 by exact row data; all28mass/jacobian/inverse-jacobian float32words match. Mac executes wheel3,2,1,0. This isolates an observed ordering difference; other unobserved inputs/lifecycle still require auditing.",
+  "native_spring_order": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "mac_spring_order": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "checks": [
+    {
+      "wheel": 0,
+      "mass_and_jacobian_and_inverse_jacobian_words": 7,
+      "raw_exact": true
+    },
+    {
+      "wheel": 1,
+      "mass_and_jacobian_and_inverse_jacobian_words": 7,
+      "raw_exact": true
+    },
+    {
+      "wheel": 2,
+      "mass_and_jacobian_and_inverse_jacobian_words": 7,
+      "raw_exact": true
+    },
+    {
+      "wheel": 3,
+      "mass_and_jacobian_and_inverse_jacobian_words": 7,
+      "raw_exact": true
+    }
+  ],
+  "no_case_or_frame_patch_implemented": true,
+  "goal_complete": false
+}

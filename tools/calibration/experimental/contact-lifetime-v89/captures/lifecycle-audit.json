@@ -1,0 +1,264 @@
+{
+  "scope": "Read-only Original Windows contact lifecycle; one-car no-AI high-load lateral fixture. Two normalized lifecycle repetitions exact. No application physics changes; current accepted source/probes remain V88.",
+  "case": "mobility/devildriver/engine3/lateral",
+  "golden_preserved_captures": 18,
+  "golden_preserved_states": 10800,
+  "source_local_wheel_position_words": [
+    [
+      1067869798,
+      1064514355,
+      3196730737
+    ],
+    [
+      1067869798,
+      3211998003,
+      3196730737
+    ],
+    [
+      3215353446,
+      1064514355,
+      3196730737
+    ],
+    [
+      3215353446,
+      3211998003,
+      3196730737
+    ]
+  ],
+  "lifecycle": [
+    {
+      "tick": 35,
+      "queue": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "spring_handles_before_prepare": [
+        {
+          "wheel": 0,
+          "spring": 2883592,
+          "stop": 0
+        },
+        {
+          "wheel": 1,
+          "spring": 2883593,
+          "stop": 0
+        },
+        {
+          "wheel": 2,
+          "spring": 2883594,
+          "stop": 0
+        },
+        {
+          "wheel": 3,
+          "spring": 2883595,
+          "stop": 0
+        }
+      ],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 36,
+      "queue": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "spring_handles_before_prepare": [
+        {
+          "wheel": 0,
+          "spring": 2883592,
+          "stop": 0
+        },
+        {
+          "wheel": 1,
+          "spring": 2883593,
+          "stop": 0
+        },
+        {
+          "wheel": 2,
+          "spring": 2883594,
+          "stop": 0
+        },
+        {
+          "wheel": 3,
+          "spring": 2883595,
+          "stop": 0
+        }
+      ],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 37,
+      "queue": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "spring_handles_before_prepare": [
+        {
+          "wheel": 0,
+          "spring": 2883592,
+          "stop": 0
+        },
+        {
+          "wheel": 1,
+          "spring": 2883593,
+          "stop": 0
+        },
+        {
+          "wheel": 2,
+          "spring": 2883594,
+          "stop": 0
+        },
+        {
+          "wheel": 3,
+          "spring": 2883595,
+          "stop": 0
+        }
+      ],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 38,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 39,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 40,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 41,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 42,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 43,
+      "queue": [],
+      "spring_handles_before_prepare": [],
+      "created_springs": [],
+      "contact_managers_created": 0
+    },
+    {
+      "tick": 44,
+      "queue": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "spring_handles_before_prepare": [
+        {
+          "wheel": 3,
+          "spring": 0,
+          "stop": 0
+        },
+        {
+          "wheel": 2,
+          "spring": 0,
+          "stop": 0
+        },
+        {
+          "wheel": 1,
+          "spring": 0,
+          "stop": 0
+        },
+        {
+          "wheel": 0,
+          "spring": 0,
+          "stop": 0
+        }
+      ],
+      "created_springs": [
+        {
+          "wheel": 3,
+          "handle": 2883593
+        },
+        {
+          "wheel": 2,
+          "handle": 2883585
+        },
+        {
+          "wheel": 1,
+          "handle": 2883584
+        },
+        {
+          "wheel": 0,
+          "handle": 2883592
+        }
+      ],
+      "contact_managers_created": 4
+    },
+    {
+      "tick": 45,
+      "queue": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "spring_handles_before_prepare": [
+        {
+          "wheel": 3,
+          "spring": 2883593,
+          "stop": 0
+        },
+        {
+          "wheel": 2,
+          "spring": 2883585,
+          "stop": 0
+        },
+        {
+          "wheel": 1,
+          "spring": 2883584,
+          "stop": 0
+        },
+        {
+          "wheel": 0,
+          "spring": 2883592,
+          "stop": 0
+        }
+      ],
+      "created_springs": [],
+      "contact_managers_created": 0
+    }
+  ],
+  "two_repeats_exact": true,
+  "separate_live44_prepared_row_proof": "physics-v88-next-row-order-proof.json",
+  "confirmed": "Spring handles are nonzero through37, queue empty38through43, four zero pre-prepare handles and four new springs at44. Initial queue0through3, landing queue3through0. Native solver subsequently traverses springs0through3 instead of3through0.",
+  "limitations": [
+    "Generic constraint-remove breakpoint RVA91310 was not reached in observed window; actual cleanup route not yet certified.",
+    "Captures alone do not explain static mesh broadphase pair publication order, empty-node recycling or all solver object allocator semantics.",
+    "Do not replace the order with a fixed frame, case, alternating landing counter, or fitted vehicle coefficient."
+  ],
+  "next": "Capture actual static mesh SAP pair creation/removal and node recycling with bounded endpoint observer, extend geometry/lifetime model only after same-input ordering proof; then independently test row lifetime reset and tire ordering.",
+  "goal_complete": false
+}

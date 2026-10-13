@@ -1,0 +1,59 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\wheel-queue-v77\\TraceWheelQueueV77.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\wheel-queue-v77\\TraceWheelQueueV77.exe:\r\n9c681668380970e8f4f08275b5266c6a228aa948f1abbb4a8c7094e7b1a4dba2\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 0,
+      "sample_tick": 20,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "30314240b6d2958688f3ac6f3e8d5ad1d850ca8a9a58ac7b688206416ff4b463"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 1,
+      "sample_tick": 20,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "d818ed4b76b57fe746ea8f29fe2b3fb3992eea4f5009d86faa42ecc4915a607b"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 0,
+      "sample_tick": 43,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "10535469996410e3be125230bedbc36082d01d6882278dad6e73ce4a9c27b906"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 1,
+      "sample_tick": 43,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "7b8c80de6f5d07b6c448b5659eb6653a251200bc8de011cb273db19ca48395b5"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 0,
+      "sample_tick": 44,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "792ffaa387738d0c7b9b7670f92834571451819ee6a01bad85629db41f589b26"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 1,
+      "sample_tick": 44,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "38cdf69266e9b46d5753ffe85255623ed86fdabd98b70adfd977d1395380b03a"
+    }
+  ],
+  "goal_complete": false
+}

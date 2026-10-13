@@ -1,0 +1,455 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+101ae390: 83 ec 30                     	subl	$0x30, %esp
+101ae393: 56                           	pushl	%esi
+101ae394: 57                           	pushl	%edi
+101ae395: 8b f9                        	movl	%ecx, %edi
+101ae397: 57                           	pushl	%edi
+101ae398: e8 c3 54 e5 ff               	calll	0x10003860 <.text+0x2860>
+101ae39d: 8b f0                        	movl	%eax, %esi
+101ae39f: 8b 44 24 3c                  	movl	0x3c(%esp), %eax
+101ae3a3: f3 0f 10 48 04               	movss	0x4(%eax), %xmm1
+101ae3a8: f3 0f 5c 4e 28               	subss	0x28(%esi), %xmm1
+101ae3ad: f3 0f 10 50 08               	movss	0x8(%eax), %xmm2
+101ae3b2: f3 0f 5c 56 2c               	subss	0x2c(%esi), %xmm2
+101ae3b7: f3 0f 10 7e 0c               	movss	0xc(%esi), %xmm7
+101ae3bc: f3 0f 10 66 18               	movss	0x18(%esi), %xmm4
+101ae3c1: f3 0f 10 00                  	movss	(%eax), %xmm0
+101ae3c5: f3 0f 5c 46 24               	subss	0x24(%esi), %xmm0
+101ae3ca: f3 0f 10 36                  	movss	(%esi), %xmm6
+101ae3ce: f3 0f 10 6e 1c               	movss	0x1c(%esi), %xmm5
+101ae3d3: f3 0f 59 e2                  	mulss	%xmm2, %xmm4
+101ae3d7: f3 0f 59 ea                  	mulss	%xmm2, %xmm5
+101ae3db: 0f 28 df                     	movaps	%xmm7, %xmm3
+101ae3de: f3 0f 59 d9                  	mulss	%xmm1, %xmm3
+101ae3e2: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101ae3e6: 0f 28 e6                     	movaps	%xmm6, %xmm4
+101ae3e9: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101ae3ed: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101ae3f1: f3 0f 10 66 10               	movss	0x10(%esi), %xmm4
+101ae3f6: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+101ae3fa: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae3fe: f3 0f 10 6e 04               	movss	0x4(%esi), %xmm5
+101ae403: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+101ae407: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae40b: f3 0f 10 6e 14               	movss	0x14(%esi), %xmm5
+101ae410: f3 0f 59 e9                  	mulss	%xmm1, %xmm5
+101ae414: f3 0f 10 4e 20               	movss	0x20(%esi), %xmm1
+101ae419: f3 0f 59 ca                  	mulss	%xmm2, %xmm1
+101ae41d: f3 0f 10 50 10               	movss	0x10(%eax), %xmm2
+101ae422: f3 0f 58 e9                  	addss	%xmm1, %xmm5
+101ae426: f3 0f 10 4e 08               	movss	0x8(%esi), %xmm1
+101ae42b: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101ae42f: f3 0f 10 40 0c               	movss	0xc(%eax), %xmm0
+101ae434: f3 0f 58 e9                  	addss	%xmm1, %xmm5
+101ae438: f3 0f 10 48 14               	movss	0x14(%eax), %xmm1
+101ae43d: f3 0f 11 5c 24 2c            	movss	%xmm3, 0x2c(%esp)
+101ae443: f3 0f 10 5e 18               	movss	0x18(%esi), %xmm3
+101ae448: f3 0f 11 64 24 30            	movss	%xmm4, 0x30(%esp)
+101ae44e: f3 0f 11 6c 24 34            	movss	%xmm5, 0x34(%esp)
+101ae454: 0f 28 e9                     	movaps	%xmm1, %xmm5
+101ae457: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+101ae45b: 0f 28 e0                     	movaps	%xmm0, %xmm4
+101ae45e: f3 0f 59 e6                  	mulss	%xmm6, %xmm4
+101ae462: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae466: 0f 28 da                     	movaps	%xmm2, %xmm3
+101ae469: f3 0f 59 df                  	mulss	%xmm7, %xmm3
+101ae46d: f3 0f 58 e3                  	addss	%xmm3, %xmm4
+101ae471: f3 0f 10 5e 04               	movss	0x4(%esi), %xmm3
+101ae476: f3 0f 11 64 24 20            	movss	%xmm4, 0x20(%esp)
+101ae47c: 0f 28 e0                     	movaps	%xmm0, %xmm4
+101ae47f: f3 0f 59 e3                  	mulss	%xmm3, %xmm4
+101ae483: f3 0f 10 5e 1c               	movss	0x1c(%esi), %xmm3
+101ae488: 0f 28 e9                     	movaps	%xmm1, %xmm5
+101ae48b: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+101ae48f: f3 0f 10 5e 10               	movss	0x10(%esi), %xmm3
+101ae494: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae498: 0f 28 ea                     	movaps	%xmm2, %xmm5
+101ae49b: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+101ae49f: f3 0f 10 5e 08               	movss	0x8(%esi), %xmm3
+101ae4a4: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+101ae4a8: f3 0f 10 5e 20               	movss	0x20(%esi), %xmm3
+101ae4ad: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+101ae4b1: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101ae4b5: f3 0f 10 4e 14               	movss	0x14(%esi), %xmm1
+101ae4ba: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+101ae4be: f3 0f 10 8f 70 01 00 00      	movss	0x170(%edi), %xmm1
+101ae4c6: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+101ae4ca: 8d 87 70 01 00 00            	leal	0x170(%edi), %eax
+101ae4d0: f3 0f 11 44 24 28            	movss	%xmm0, 0x28(%esp)
+101ae4d6: f3 0f 10 05 70 15 33 10      	movss	0x10331570, %xmm0
+101ae4de: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae4e2: 0f 57 c8                     	xorps	%xmm0, %xmm1
+101ae4e5: f3 0f 11 64 24 24            	movss	%xmm4, 0x24(%esp)
+101ae4eb: f3 0f 11 4c 24 08            	movss	%xmm1, 0x8(%esp)
+101ae4f1: f3 0f 10 48 04               	movss	0x4(%eax), %xmm1
+101ae4f6: 8d 4c 24 3c                  	leal	0x3c(%esp), %ecx
+101ae4fa: 51                           	pushl	%ecx
+101ae4fb: 0f 57 c8                     	xorps	%xmm0, %xmm1
+101ae4fe: 8d 54 24 18                  	leal	0x18(%esp), %edx
+101ae502: 52                           	pushl	%edx
+101ae503: f3 0f 11 4c 24 14            	movss	%xmm1, 0x14(%esp)
+101ae509: f3 0f 10 48 08               	movss	0x8(%eax), %xmm1
+101ae50e: 50                           	pushl	%eax
+101ae50f: 8d 44 24 14                  	leal	0x14(%esp), %eax
+101ae513: 50                           	pushl	%eax
+101ae514: 0f 57 c8                     	xorps	%xmm0, %xmm1
+101ae517: 8d 4c 24 30                  	leal	0x30(%esp), %ecx
+101ae51b: 8d 44 24 3c                  	leal	0x3c(%esp), %eax
+101ae51f: f3 0f 11 4c 24 20            	movss	%xmm1, 0x20(%esp)
+101ae525: e8 26 c2 03 00               	calll	0x101ea750 <NxCreateCoreSDK+0xb500>
+101ae52a: 33 d2                        	xorl	%edx, %edx
+101ae52c: 83 c4 10                     	addl	$0x10, %esp
+101ae52f: 3b c2                        	cmpl	%edx, %eax
+101ae531: 75 0a                        	jne	0x101ae53d <NpCreatePhysicsSDK+0xa13cd>
+101ae533: 5f                           	popl	%edi
+101ae534: 32 c0                        	xorb	%al, %al
+101ae536: 5e                           	popl	%esi
+101ae537: 83 c4 30                     	addl	$0x30, %esp
+101ae53a: c2 14 00                     	retl	$0x14
+101ae53d: f3 0f 10 46 04               	movss	0x4(%esi), %xmm0
+101ae542: f3 0f 10 64 24 18            	movss	0x18(%esp), %xmm4
+101ae548: f3 0f 10 5c 24 14            	movss	0x14(%esp), %xmm3
+101ae54e: f3 0f 10 6c 24 1c            	movss	0x1c(%esp), %xmm5
+101ae554: f3 0f 10 56 14               	movss	0x14(%esi), %xmm2
+101ae559: 8b 4c 24 48                  	movl	0x48(%esp), %ecx
+101ae55d: f3 0f 59 c4                  	mulss	%xmm4, %xmm0
+101ae561: f3 0f 59 f3                  	mulss	%xmm3, %xmm6
+101ae565: f3 0f 58 c6                  	addss	%xmm6, %xmm0
+101ae569: f3 0f 59 d5                  	mulss	%xmm5, %xmm2
+101ae56d: 0f 28 cd                     	movaps	%xmm5, %xmm1
+101ae570: f3 0f 59 4e 08               	mulss	0x8(%esi), %xmm1
+101ae575: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101ae579: f3 0f 10 4e 10               	movss	0x10(%esi), %xmm1
+101ae57e: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+101ae582: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101ae586: 0f 28 d3                     	movaps	%xmm3, %xmm2
+101ae589: f3 0f 59 56 0c               	mulss	0xc(%esi), %xmm2
+101ae58e: f3 0f 59 5e 18               	mulss	0x18(%esi), %xmm3
+101ae593: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101ae597: f3 0f 10 56 1c               	movss	0x1c(%esi), %xmm2
+101ae59c: f3 0f 59 d4                  	mulss	%xmm4, %xmm2
+101ae5a0: f3 0f 10 66 20               	movss	0x20(%esi), %xmm4
+101ae5a5: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+101ae5a9: f3 0f 58 d4                  	addss	%xmm4, %xmm2
+101ae5ad: f3 0f 58 d3                  	addss	%xmm3, %xmm2
+101ae5b1: f3 0f 10 5e 24               	movss	0x24(%esi), %xmm3
+101ae5b6: f3 0f 58 d8                  	addss	%xmm0, %xmm3
+101ae5ba: f3 0f 10 46 28               	movss	0x28(%esi), %xmm0
+101ae5bf: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101ae5c3: f3 0f 10 4e 2c               	movss	0x2c(%esi), %xmm1
+101ae5c8: f3 0f 11 41 08               	movss	%xmm0, 0x8(%ecx)
+101ae5cd: f3 0f 10 44 24 3c            	movss	0x3c(%esp), %xmm0
+101ae5d3: 0f 2f 44 24 40               	comiss	0x40(%esp), %xmm0
+101ae5d8: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101ae5dc: f3 0f 11 59 04               	movss	%xmm3, 0x4(%ecx)
+101ae5e1: f3 0f 11 49 0c               	movss	%xmm1, 0xc(%ecx)
+101ae5e6: f3 0f 11 41 24               	movss	%xmm0, 0x24(%ecx)
+101ae5eb: 0f 87 42 ff ff ff            	ja	0x101ae533 <NpCreatePhysicsSDK+0xa13c3>
+101ae5f1: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101ae5f4: 53                           	pushl	%ebx
+101ae5f5: 8b 9f b4 00 00 00            	movl	0xb4(%edi), %ebx
+101ae5fb: 89 19                        	movl	%ebx, (%ecx)
+101ae5fd: 8a 5c 24 48                  	movb	0x48(%esp), %bl
+101ae601: 89 51 1c                     	movl	%edx, 0x1c(%ecx)
+101ae604: 89 51 20                     	movl	%edx, 0x20(%ecx)
+101ae607: f3 0f 11 41 28               	movss	%xmm0, 0x28(%ecx)
+101ae60c: f3 0f 11 41 2c               	movss	%xmm0, 0x2c(%ecx)
+101ae611: c7 41 34 13 00 00 00         	movl	$0x13, 0x34(%ecx)
+101ae618: f6 c3 44                     	testb	$0x44, %bl
+101ae61b: 0f 84 bc 00 00 00            	je	0x101ae6dd <NpCreatePhysicsSDK+0xa156d>
+101ae621: f3 0f 10 4c 84 14            	movss	0x14(%esp,%eax,4), %xmm1
+101ae627: 48                           	decl	%eax
+101ae628: 0f 2f c8                     	comiss	%xmm0, %xmm1
+101ae62b: c7 41 34 57 00 00 00         	movl	$0x57, 0x34(%ecx)
+101ae632: f3 0f 11 44 24 14            	movss	%xmm0, 0x14(%esp)
+101ae638: f3 0f 11 44 24 10            	movss	%xmm0, 0x10(%esp)
+101ae63e: f3 0f 11 44 24 0c            	movss	%xmm0, 0xc(%esp)
+101ae644: 76 07                        	jbe	0x101ae64d <NpCreatePhysicsSDK+0xa14dd>
+101ae646: ba 01 00 00 00               	movl	$0x1, %edx
+101ae64b: eb 03                        	jmp	0x101ae650 <NpCreatePhysicsSDK+0xa14e0>
+101ae64d: 83 ca ff                     	orl	$-0x1, %edx
+101ae650: f3 0f 10 56 14               	movss	0x14(%esi), %xmm2
+101ae655: f3 0f 2a c2                  	cvtsi2ss	%edx, %xmm0
+101ae659: f3 0f 11 44 84 0c            	movss	%xmm0, 0xc(%esp,%eax,4)
+101ae65f: f3 0f 10 46 04               	movss	0x4(%esi), %xmm0
+101ae664: f3 0f 10 64 24 10            	movss	0x10(%esp), %xmm4
+101ae66a: f3 0f 10 6c 24 14            	movss	0x14(%esp), %xmm5
+101ae670: f3 0f 10 5c 24 0c            	movss	0xc(%esp), %xmm3
+101ae676: f3 0f 59 c4                  	mulss	%xmm4, %xmm0
+101ae67a: 0f 28 cd                     	movaps	%xmm5, %xmm1
+101ae67d: f3 0f 59 4e 08               	mulss	0x8(%esi), %xmm1
+101ae682: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101ae686: f3 0f 10 0e                  	movss	(%esi), %xmm1
+101ae68a: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+101ae68e: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101ae692: f3 0f 10 4e 10               	movss	0x10(%esi), %xmm1
+101ae697: f3 0f 59 d5                  	mulss	%xmm5, %xmm2
+101ae69b: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+101ae69f: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101ae6a3: 0f 28 d3                     	movaps	%xmm3, %xmm2
+101ae6a6: f3 0f 59 56 0c               	mulss	0xc(%esi), %xmm2
+101ae6ab: f3 0f 59 5e 18               	mulss	0x18(%esi), %xmm3
+101ae6b0: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101ae6b4: f3 0f 10 56 1c               	movss	0x1c(%esi), %xmm2
+101ae6b9: f3 0f 59 d4                  	mulss	%xmm4, %xmm2
+101ae6bd: f3 0f 10 66 20               	movss	0x20(%esi), %xmm4
+101ae6c2: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+101ae6c6: f3 0f 58 d4                  	addss	%xmm4, %xmm2
+101ae6ca: f3 0f 58 d3                  	addss	%xmm3, %xmm2
+101ae6ce: f3 0f 11 41 10               	movss	%xmm0, 0x10(%ecx)
+101ae6d3: f3 0f 11 49 14               	movss	%xmm1, 0x14(%ecx)
+101ae6d8: f3 0f 11 51 18               	movss	%xmm2, 0x18(%ecx)
+101ae6dd: 84 db                        	testb	%bl, %bl
+101ae6df: 5b                           	popl	%ebx
+101ae6e0: 79 12                        	jns	0x101ae6f4 <NpCreatePhysicsSDK+0xa1584>
+101ae6e2: 81 49 34 80 00 00 00         	orl	$0x80, 0x34(%ecx)
+101ae6e9: 66 8b 97 4a 01 00 00         	movw	0x14a(%edi), %dx
+101ae6f0: 66 89 51 30                  	movw	%dx, 0x30(%ecx)
+101ae6f4: 5f                           	popl	%edi
+101ae6f5: b0 01                        	movb	$0x1, %al
+101ae6f7: 5e                           	popl	%esi
+101ae6f8: 83 c4 30                     	addl	$0x30, %esp
+101ae6fb: c2 14 00                     	retl	$0x14
+101ae6fe: cc                           	int3
+101ae6ff: cc                           	int3
+101ae700: 56                           	pushl	%esi
+101ae701: e8 5a 51 e5 ff               	calll	0x10003860 <.text+0x2860>
+101ae706: f3 0f 10 58 08               	movss	0x8(%eax), %xmm3
+101ae70b: f3 0f 10 60 04               	movss	0x4(%eax), %xmm4
+101ae710: f3 0f 2a 4c 24 08            	cvtsi2ssl	0x8(%esp), %xmm1
+101ae716: f3 0f 59 8e 74 01 00 00      	mulss	0x174(%esi), %xmm1
+101ae71e: f3 0f 2a 54 24 0c            	cvtsi2ssl	0xc(%esp), %xmm2
+101ae724: f3 0f 59 96 78 01 00 00      	mulss	0x178(%esi), %xmm2
+101ae72c: f3 0f 2a 44 24 04            	cvtsi2ssl	0x4(%esp), %xmm0
+101ae732: f3 0f 59 86 70 01 00 00      	mulss	0x170(%esi), %xmm0
+101ae73a: f3 0f 10 68 0c               	movss	0xc(%eax), %xmm5
+101ae73f: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+101ae743: f3 0f 59 da                  	mulss	%xmm2, %xmm3
+101ae747: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101ae74b: f3 0f 10 20                  	movss	(%eax), %xmm4
+101ae74f: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101ae753: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+101ae757: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101ae75b: f3 0f 10 60 14               	movss	0x14(%eax), %xmm4
+101ae760: f3 0f 59 e2                  	mulss	%xmm2, %xmm4
+101ae764: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae768: f3 0f 10 68 10               	movss	0x10(%eax), %xmm5
+101ae76d: f3 0f 59 e9                  	mulss	%xmm1, %xmm5
+101ae771: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+101ae775: f3 0f 10 68 20               	movss	0x20(%eax), %xmm5
+101ae77a: f3 0f 59 ea                  	mulss	%xmm2, %xmm5
+101ae77e: f3 0f 10 50 18               	movss	0x18(%eax), %xmm2
+101ae783: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101ae787: f3 0f 10 40 1c               	movss	0x1c(%eax), %xmm0
+101ae78c: f3 0f 59 c1                  	mulss	%xmm1, %xmm0
+101ae790: f3 0f 10 48 28               	movss	0x28(%eax), %xmm1
+101ae795: f3 0f 58 ea                  	addss	%xmm2, %xmm5
+101ae799: f3 0f 10 50 2c               	movss	0x2c(%eax), %xmm2
+101ae79e: f3 0f 58 e8                  	addss	%xmm0, %xmm5
+101ae7a2: f3 0f 10 40 24               	movss	0x24(%eax), %xmm0
+101ae7a7: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+101ae7ab: f3 0f 58 cc                  	addss	%xmm4, %xmm1
+101ae7af: f3 0f 58 d5                  	addss	%xmm5, %xmm2
+101ae7b3: f3 0f 11 07                  	movss	%xmm0, (%edi)
+101ae7b7: f3 0f 11 4f 04               	movss	%xmm1, 0x4(%edi)
+101ae7bc: f3 0f 11 57 08               	movss	%xmm2, 0x8(%edi)
+101ae7c1: c2 0c 00                     	retl	$0xc
+101ae7c4: cc                           	int3
+101ae7c5: cc                           	int3
+101ae7c6: cc                           	int3
+101ae7c7: cc                           	int3
+101ae7c8: cc                           	int3
+101ae7c9: cc                           	int3
+101ae7ca: cc                           	int3
+101ae7cb: cc                           	int3
+101ae7cc: cc                           	int3
+101ae7cd: cc                           	int3
+101ae7ce: cc                           	int3
+101ae7cf: cc                           	int3
+101ae7d0: 56                           	pushl	%esi
+101ae7d1: 57                           	pushl	%edi
+101ae7d2: 8b f1                        	movl	%ecx, %esi
+101ae7d4: 56                           	pushl	%esi
+101ae7d5: e8 86 50 e5 ff               	calll	0x10003860 <.text+0x2860>
+101ae7da: d9 40 24                     	flds	0x24(%eax)
+101ae7dd: 8b 7c 24 0c                  	movl	0xc(%esp), %edi
+101ae7e1: d9 1f                        	fstps	(%edi)
+101ae7e3: 83 c0 24                     	addl	$0x24, %eax
+101ae7e6: d9 40 04                     	flds	0x4(%eax)
+101ae7e9: 51                           	pushl	%ecx
+101ae7ea: d9 5f 04                     	fstps	0x4(%edi)
+101ae7ed: d9 40 08                     	flds	0x8(%eax)
+101ae7f0: d9 5f 08                     	fstps	0x8(%edi)
+101ae7f3: f3 0f 10 96 70 01 00 00      	movss	0x170(%esi), %xmm2
+101ae7fb: f3 0f 10 8e 74 01 00 00      	movss	0x174(%esi), %xmm1
+101ae803: f3 0f 10 86 78 01 00 00      	movss	0x178(%esi), %xmm0
+101ae80b: 0f 28 da                     	movaps	%xmm2, %xmm3
+101ae80e: f3 0f 59 da                  	mulss	%xmm2, %xmm3
+101ae812: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101ae815: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+101ae819: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101ae81c: f3 0f 58 da                  	addss	%xmm2, %xmm3
+101ae820: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101ae824: f3 0f 58 d9                  	addss	%xmm1, %xmm3
+101ae828: f3 0f 11 1c 24               	movss	%xmm3, (%esp)
+101ae82d: e8 0e 2d e5 ff               	calll	0x10001540 <.text+0x540>
+101ae832: d9 5f 0c                     	fstps	0xc(%edi)
+101ae835: 83 c4 04                     	addl	$0x4, %esp
+101ae838: 5f                           	popl	%edi
+101ae839: 5e                           	popl	%esi
+101ae83a: c2 04 00                     	retl	$0x4
+101ae83d: cc                           	int3
+101ae83e: cc                           	int3
+101ae83f: cc                           	int3
+101ae840: 56                           	pushl	%esi
+101ae841: 57                           	pushl	%edi
+101ae842: 8b f9                        	movl	%ecx, %edi
+101ae844: 57                           	pushl	%edi
+101ae845: e8 16 50 e5 ff               	calll	0x10003860 <.text+0x2860>
+101ae84a: 8b f0                        	movl	%eax, %esi
+101ae84c: 8d 4e 24                     	leal	0x24(%esi), %ecx
+101ae84f: 8d 87 70 01 00 00            	leal	0x170(%edi), %eax
+101ae855: 8b 7c 24 0c                  	movl	0xc(%esp), %edi
+101ae859: 51                           	pushl	%ecx
+101ae85a: e8 a1 39 e5 ff               	calll	0x10002200 <.text+0x1200>
+101ae85f: 5f                           	popl	%edi
+101ae860: 5e                           	popl	%esi
+101ae861: c2 04 00                     	retl	$0x4
+101ae864: cc                           	int3
+101ae865: cc                           	int3
+101ae866: cc                           	int3
+101ae867: cc                           	int3
+101ae868: cc                           	int3
+101ae869: cc                           	int3
+101ae86a: cc                           	int3
+101ae86b: cc                           	int3
+101ae86c: cc                           	int3
+101ae86d: cc                           	int3
+101ae86e: cc                           	int3
+101ae86f: cc                           	int3
+101ae870: 83 ec 0c                     	subl	$0xc, %esp
+101ae873: 53                           	pushl	%ebx
+101ae874: 8b 5c 24 14                  	movl	0x14(%esp), %ebx
+101ae878: d9 03                        	flds	(%ebx)
+101ae87a: 56                           	pushl	%esi
+101ae87b: 57                           	pushl	%edi
+101ae87c: 8b f9                        	movl	%ecx, %edi
+101ae87e: d9 9f 70 01 00 00            	fstps	0x170(%edi)
+101ae884: 8b c7                        	movl	%edi, %eax
+101ae886: d9 43 04                     	flds	0x4(%ebx)
+101ae889: d9 9f 74 01 00 00            	fstps	0x174(%edi)
+101ae88f: d9 43 08                     	flds	0x8(%ebx)
+101ae892: d9 9f 78 01 00 00            	fstps	0x178(%edi)
+101ae898: e8 93 f3 ff ff               	calll	0x101adc30 <NpCreatePhysicsSDK+0xa0ac0>
+101ae89d: 8b b7 28 01 00 00            	movl	0x128(%edi), %esi
+101ae8a3: 85 f6                        	testl	%esi, %esi
+101ae8a5: 74 05                        	je	0x101ae8ac <NpCreatePhysicsSDK+0xa173c>
+101ae8a7: e8 24 27 00 00               	calll	0x101b0fd0 <NpCreatePhysicsSDK+0xa3e60>
+101ae8ac: 8b 07                        	movl	(%edi), %eax
+101ae8ae: 8b 90 f0 01 00 00            	movl	0x1f0(%eax), %edx
+101ae8b4: 8b cf                        	movl	%edi, %ecx
+101ae8b6: ff d2                        	calll	*%edx
+101ae8b8: 8b 03                        	movl	(%ebx), %eax
+101ae8ba: 8b bf bc 00 00 00            	movl	0xbc(%edi), %edi
+101ae8c0: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+101ae8c3: 8b 53 08                     	movl	0x8(%ebx), %edx
+101ae8c6: 89 44 24 0c                  	movl	%eax, 0xc(%esp)
+101ae8ca: 8b c7                        	movl	%edi, %eax
+101ae8cc: 25 00 00 3c 00               	andl	$0x3c0000, %eax         # imm = 0x3C0000
+101ae8d1: 89 4c 24 10                  	movl	%ecx, 0x10(%esp)
+101ae8d5: 89 54 24 14                  	movl	%edx, 0x14(%esp)
+101ae8d9: 3d 00 00 08 00               	cmpl	$0x80000, %eax          # imm = 0x80000
+101ae8de: 75 2b                        	jne	0x101ae90b <NpCreatePhysicsSDK+0xa179b>
+101ae8e0: 8b cf                        	movl	%edi, %ecx
+101ae8e2: c1 e9 16                     	shrl	$0x16, %ecx
+101ae8e5: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101ae8ec: 8b 11                        	movl	(%ecx), %edx
+101ae8ee: 8b 42 2c                     	movl	0x2c(%edx), %eax
+101ae8f1: 57                           	pushl	%edi
+101ae8f2: ff d0                        	calll	*%eax
+101ae8f4: 8b 10                        	movl	(%eax), %edx
+101ae8f6: 8b 52 10                     	movl	0x10(%edx), %edx
+101ae8f9: 8d 4c 24 0c                  	leal	0xc(%esp), %ecx
+101ae8fd: 51                           	pushl	%ecx
+101ae8fe: 8b c8                        	movl	%eax, %ecx
+101ae900: ff d2                        	calll	*%edx
+101ae902: 5f                           	popl	%edi
+101ae903: 5e                           	popl	%esi
+101ae904: 5b                           	popl	%ebx
+101ae905: 83 c4 0c                     	addl	$0xc, %esp
+101ae908: c2 04 00                     	retl	$0x4
+101ae90b: 68 74 00 33 10               	pushl	$0x10330074             # imm = 0x10330074
+101ae910: 68 94 fe 32 10               	pushl	$0x1032fe94             # imm = 0x1032FE94
+101ae915: 6a 01                        	pushl	$0x1
+101ae917: e8 74 0e ee ff               	calll	0x1008f790 <.text+0x8e790>
+101ae91c: 83 c4 0c                     	addl	$0xc, %esp
+101ae91f: 5f                           	popl	%edi
+101ae920: 5e                           	popl	%esi
+101ae921: 5b                           	popl	%ebx
+101ae922: 83 c4 0c                     	addl	$0xc, %esp
+101ae925: c2 04 00                     	retl	$0x4
+101ae928: cc                           	int3
+101ae929: cc                           	int3
+101ae92a: cc                           	int3
+101ae92b: cc                           	int3
+101ae92c: cc                           	int3
+101ae92d: cc                           	int3
+101ae92e: cc                           	int3
+101ae92f: cc                           	int3
+101ae930: 83 ec 3c                     	subl	$0x3c, %esp
+101ae933: 56                           	pushl	%esi
+101ae934: 8d 44 24 04                  	leal	0x4(%esp), %eax
+101ae938: 50                           	pushl	%eax
+101ae939: 51                           	pushl	%ecx
+101ae93a: e8 21 ee e5 ff               	calll	0x1000d760 <.text+0xc760>
+101ae93f: 8b 74 24 44                  	movl	0x44(%esp), %esi
+101ae943: 8d 4c 24 1c                  	leal	0x1c(%esp), %ecx
+101ae947: 51                           	pushl	%ecx
+101ae948: 8d 54 24 14                  	leal	0x14(%esp), %edx
+101ae94c: 52                           	pushl	%edx
+101ae94d: 8d 44 24 0c                  	leal	0xc(%esp), %eax
+101ae951: 50                           	pushl	%eax
+101ae952: 56                           	pushl	%esi
+101ae953: e8 08 d1 fe ff               	calll	0x1019ba60 <NpCreatePhysicsSDK+0x8e8f0>
+101ae958: f3 0f 10 4e 18               	movss	0x18(%esi), %xmm1
+101ae95d: 83 c4 10                     	addl	$0x10, %esp
+101ae960: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101ae963: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+101ae967: 0f 2f d0                     	comiss	%xmm0, %xmm2
+101ae96a: 5e                           	popl	%esi
+101ae96b: 76 08                        	jbe	0x101ae975 <NpCreatePhysicsSDK+0xa1805>
+101ae96d: b0 01                        	movb	$0x1, %al
+101ae96f: 83 c4 3c                     	addl	$0x3c, %esp
+101ae972: c2 04 00                     	retl	$0x4
+101ae975: 32 c0                        	xorb	%al, %al
+101ae977: 83 c4 3c                     	addl	$0x3c, %esp
+101ae97a: c2 04 00                     	retl	$0x4
+101ae97d: cc                           	int3
+101ae97e: cc                           	int3
+101ae97f: cc                           	int3
+101ae980: 83 ec 3c                     	subl	$0x3c, %esp
+101ae983: 8d 04 24                     	leal	(%esp), %eax
+101ae986: 50                           	pushl	%eax
+101ae987: 51                           	pushl	%ecx
+101ae988: e8 d3 ed e5 ff               	calll	0x1000d760 <.text+0xc760>
+101ae98d: 8b 54 24 40                  	movl	0x40(%esp), %edx
+101ae991: 8d 04 24                     	leal	(%esp), %eax
+101ae994: e8 e7 b4 09 00               	calll	0x10249e80 <NxCreateCoreSDK+0x6ac30>
+101ae999: 83 c4 3c                     	addl	$0x3c, %esp
+101ae99c: c2 04 00                     	retl	$0x4
+101ae99f: cc                           	int3
+101ae9a0: 83 ec 3c                     	subl	$0x3c, %esp
+101ae9a3: 56                           	pushl	%esi
+101ae9a4: 8b f1                        	movl	%ecx, %esi
+101ae9a6: f6 86 50 01 00 00 08         	testb	$0x8, 0x150(%esi)
+101ae9ad: 74 7f                        	je	0x101aea2e <NpCreatePhysicsSDK+0xa18be>
+101ae9af: 83 be 5c 01 00 00 00         	cmpl	$0x0, 0x15c(%esi)
+101ae9b6: 53                           	pushl	%ebx
+101ae9b7: 8b 5c 24 48                  	movl	0x48(%esp), %ebx
+101ae9bb: 74 2c                        	je	0x101ae9e9 <NpCreatePhysicsSDK+0xa1879>
+101ae9bd: f3 0f 10 05 44 ff 34 10      	movss	0x1034ff44, %xmm0

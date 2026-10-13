@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all300samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\wheel-query-v80\\TraceWheelQueryV80.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\wheel-query-v80\\TraceWheelQueryV80.exe:\r\nae762d87ceae18a68c5d0e3b6fc7974c349821017796c69558b48f71f5f00c8b\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "creation",
+      "name": "pair-stock-pole-1",
+      "repeat": 0,
+      "sample_tick": 29,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "8266141e1133e6f867bea51da65babad098fc097d4a49907d4d7aacaab602bd8"
+    },
+    {
+      "kind": "creation",
+      "name": "pair-stock-pole-1",
+      "repeat": 1,
+      "sample_tick": 29,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "ab7c5e3fb0e82f0724aa32fdccd018fd05d9eadd6c78d625fb2198f2cb8ae5af"
+    }
+  ],
+  "goal_complete": false
+}

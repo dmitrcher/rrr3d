@@ -1,0 +1,7 @@
+# Separate object existence from active solver rows
+
+V103 rejected, preserveV102 baseline465strict143open. Correct generic Native group-reset branch is measured; prototype presence predicate is wrong. Original roll9 four spring handles exist while all Source spring rows inactive and Native reset count0. Native creates spring objects for positive suspension travel independently of current coefficients/active solver mass; independently bind actual descriptor travel and object allocation/deletion rules, then track object presence/creation order separately. Do not repeatedly reset indices when a solver row is inactive.
+
+Longitudinal21 already binds springs3,1,0,2 and20uninterrupted exact checkpoints per repeat. At24 all spring properties/inputs/first iteration results exact; corresponding8tire properties80words exact, but Native tire order3,2,1,0 versus Mac3,1,0,2. Actual tire handles retain0..3front; rear reuse4/5 and allocate6/7; spring objects recreate8..11. Need actual generic create/delete allocator lifetime before changing V87. Current tire observer records API create/delete and four tire-return sites, both slopes and settle two600histories each Golden exact. No next-version edit.
+
+Next candidate must include failed roll fixture in focused controls and use explicit original object data. Full608x2, magnitudes,291gates,53CTest/gamefunctionals remain required. Preserve rejected snapshots and reports, never relabel failed prototype accepted. Published sources/tags/archives/frozen probes immutable.

@@ -1,0 +1,95 @@
+{
+  "status": "REJECTED prototype; do not promote or replace V102 baseline",
+  "strict_exact_cases": 465,
+  "open_cases": 143,
+  "all_previous_465_exact_preserved": true,
+  "new_exact_cases": [],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "longitudinal_first_difference_before": 21,
+  "longitudinal_first_difference_after": 24,
+  "longitudinal_position_max_before": 0.0009732082310140417,
+  "longitudinal_position_max_after": 0.00026836106122319443,
+  "body_wheel_roll_regression": {
+    "name": "body-wheel-contact-roll",
+    "samples": 180,
+    "seconds": 3.0,
+    "pair": false,
+    "current": {
+      "angular_momentum_max": 56.847744991906104,
+      "wheel_contact_mismatches": 0,
+      "wheel_suspension_max": 0.000606864700000001,
+      "wheel_normal_force_max": 1941.05566,
+      "position_max": 0.009849148511615398,
+      "position_rms": 0.005707088850282087,
+      "position_final": 0.009849148511615398,
+      "velocity_max": 0.056471030201261964,
+      "speed_max": 0.0006735091171652385,
+      "speed_final": 3.8612615700373e-06,
+      "orientation_max_degrees": 0.022472308996171895,
+      "orientation_final_degrees": 0.0008560773019340022
+    },
+    "previous_v73": {
+      "angular_momentum_max": 0.004652305751652713,
+      "wheel_contact_mismatches": 0,
+      "wheel_suspension_max": 1.0132999999981629e-06,
+      "wheel_normal_force_max": 1.0522499999997308,
+      "position_max": 6.060000000071564e-09,
+      "position_rms": 4.515062383565744e-09,
+      "position_final": 9.000000016079479e-10,
+      "velocity_max": 5.308488943587575e-06,
+      "speed_max": 1.616895603184787e-06,
+      "speed_final": 7.226219622680219e-12,
+      "orientation_max_degrees": 4.4948403688853474e-05,
+      "orientation_final_degrees": 6.4717048379332845e-06
+    },
+    "previous_v102": {
+      "angular_momentum_max": 1.8599999999403816e-09,
+      "wheel_contact_mismatches": 0,
+      "wheel_suspension_max": 3.0000000039720476e-08,
+      "wheel_normal_force_max": 7.34343485e-05,
+      "position_max": 3.6400000000750665e-12,
+      "position_rms": 5.376212944688092e-13,
+      "position_final": 0.0,
+      "velocity_max": 3.76938827e-11,
+      "speed_max": 0.0,
+      "speed_final": 0.0,
+      "orientation_max_degrees": 5.4306728076698334e-11,
+      "orientation_final_degrees": 2.6012270369210933e-11
+    }
+  },
+  "changed_histories": [
+    "slope-longitudinal",
+    "curb-side",
+    "body-wheel-contact-roll"
+  ],
+  "unchanged_histories": 605,
+  "magnitude_regressions": {
+    "position_max": [
+      "body-wheel-contact-roll"
+    ],
+    "velocity_max": [
+      "curb-side",
+      "body-wheel-contact-roll"
+    ],
+    "orientation_max_degrees": [
+      "curb-side",
+      "body-wheel-contact-roll"
+    ],
+    "angular_momentum_max": [
+      "curb-side",
+      "body-wheel-contact-roll"
+    ],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [
+      "curb-side",
+      "body-wheel-contact-roll"
+    ],
+    "wheel_normal_force_max": [
+      "curb-side",
+      "body-wheel-contact-roll"
+    ]
+  },
+  "rejection_cause": "Solver row inactive does not mean Native spring object absent. Original four handles remain present at roll9; prototype resets all row indices repeatedly.",
+  "goal_complete": false
+}

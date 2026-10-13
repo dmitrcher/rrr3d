@@ -1,0 +1,2673 @@
+{
+  "scope": "Read-only same-history causal lifetime comparison. Mac callback counter directly labels physical tick before increment; solver trace counter is tick+1. All136 current worldpoints exact against Native, old static anchors differ after Mac invalidation38/recreation44.",
+  "native_same_input_formula_o0_o2_pass": true,
+  "two_repeats_exact": true,
+  "current_points_exact": 136,
+  "first_previous_anchor_difference_excluding_initialization": 45,
+  "first_bias_difference": 44,
+  "at58": [
+    {
+      "physical_tick": 58,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00023728520318400115,
+      "mac_lateral_error": -0.000126121202,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0002512922801543027,
+      "mac_lateral_error": -0.000162957309,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.000289917312329635,
+      "mac_lateral_error": -0.000152585228,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00030517386039718986,
+      "mac_lateral_error": -0.00025939889,
+      "lateral_error_float32_exact": false
+    }
+  ],
+  "comparisons": [
+    {
+      "physical_tick": 19,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        0,
+        0,
+        0
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 19,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        0,
+        0,
+        0
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 19,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        0,
+        0,
+        0
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 19,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        0,
+        0,
+        0
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 20,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 20,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 20,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 20,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -5.960464477539063e-08,
+      "mac_lateral_error": -5.96046448e-08,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 21,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 21,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 21,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 21,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -5.960464477539063e-08,
+      "mac_lateral_error": -5.96046448e-08,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 22,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 22,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 22,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -1.1920928955078125e-07,
+      "mac_lateral_error": -1.1920929e-07,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 22,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -5.960464477539063e-08,
+      "mac_lateral_error": -5.96046448e-08,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 23,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 23,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 23,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -1.1920928955078125e-07,
+      "mac_lateral_error": -1.1920929e-07,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 23,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -5.960464477539063e-08,
+      "mac_lateral_error": -5.96046448e-08,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 24,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 24,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 24,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 24,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -5.960464477539063e-08,
+      "mac_lateral_error": -5.96046448e-08,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 25,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 1.525878360553179e-05,
+      "mac_lateral_error": 1.52587836e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 25,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 0.0,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 25,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -2.6941295800497755e-05,
+      "mac_lateral_error": -2.69412958e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 25,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 3.993514837929979e-06,
+      "mac_lateral_error": 3.99351484e-06,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 26,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 7.061980999978346e-10,
+      "mac_lateral_error": 7.061981e-10,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 26,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -3.051792009500787e-05,
+      "mac_lateral_error": -3.05179201e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 26,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 2.1219428163021803e-05,
+      "mac_lateral_error": 2.12194282e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 26,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": 5.423674338089768e-06,
+      "mac_lateral_error": 5.42367434e-06,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 27,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -4.577645086101256e-05,
+      "mac_lateral_error": -4.57764509e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 27,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00010681195271899924,
+      "mac_lateral_error": -0.000106811953,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 27,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -4.601505133905448e-05,
+      "mac_lateral_error": -4.60150513e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 27,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -4.917409751215018e-05,
+      "mac_lateral_error": -4.91740975e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 28,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -4.577607978717424e-05,
+      "mac_lateral_error": -4.57760798e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 28,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00010681158892111853,
+      "mac_lateral_error": -0.000106811589,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 28,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -7.855882722651586e-05,
+      "mac_lateral_error": -7.85588272e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 28,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -9.953966218745336e-05,
+      "mac_lateral_error": -9.95396622e-05,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 29,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00012206970859551802,
+      "mac_lateral_error": -0.000122069709,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 29,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00016784618492238224,
+      "mac_lateral_error": -0.000167846185,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 29,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0001558065414428711,
+      "mac_lateral_error": -0.000155806541,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 29,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00017887353897094727,
+      "mac_lateral_error": -0.000178873539,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 30,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00036621157778427005,
+      "mac_lateral_error": -0.000366211578,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 30,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00036621172330342233,
+      "mac_lateral_error": -0.000366211723,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 30,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00031054019927978516,
+      "mac_lateral_error": -0.000310540199,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 30,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0003335482906550169,
+      "mac_lateral_error": -0.000333548291,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 31,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00041198666440322995,
+      "mac_lateral_error": -0.000411986664,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 31,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.000457763351732865,
+      "mac_lateral_error": -0.000457763352,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 31,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00041973553015850484,
+      "mac_lateral_error": -0.00041973553,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 31,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00042754411697387695,
+      "mac_lateral_error": -0.000427544117,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 32,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0004730211803689599,
+      "mac_lateral_error": -0.00047302118,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 32,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005035392241552472,
+      "mac_lateral_error": -0.000503539224,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 32,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005043736309744418,
+      "mac_lateral_error": -0.000504373631,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 32,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005108707118779421,
+      "mac_lateral_error": -0.000510870712,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 33,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00059509213315323,
+      "mac_lateral_error": -0.000595092133,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 33,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00064086850034073,
+      "mac_lateral_error": -0.0006408685,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 33,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0006048675859346986,
+      "mac_lateral_error": -0.000604867586,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 33,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0006099339807406068,
+      "mac_lateral_error": -0.000609933981,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 34,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005950921913608909,
+      "mac_lateral_error": -0.000595092191,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 34,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0006408691988326609,
+      "mac_lateral_error": -0.000640869199,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 34,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.000635146745480597,
+      "mac_lateral_error": -0.000635146745,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 34,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0006228087586350739,
+      "mac_lateral_error": -0.000622808759,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 35,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005798328784294426,
+      "mac_lateral_error": -0.000579832878,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 35,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005950920167379081,
+      "mac_lateral_error": -0.000595092017,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 35,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005669585079886019,
+      "mac_lateral_error": -0.000566958508,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 35,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0006145831430330873,
+      "mac_lateral_error": -0.000614583143,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 36,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005950921913608909,
+      "mac_lateral_error": -0.000595092191,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 36,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005645740893669426,
+      "mac_lateral_error": -0.000564574089,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 36,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005421625101007521,
+      "mac_lateral_error": -0.00054216251,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 36,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005118240951560438,
+      "mac_lateral_error": -0.000511824095,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 37,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005340570933185518,
+      "mac_lateral_error": -0.000534057093,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 37,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005340573843568563,
+      "mac_lateral_error": -0.000534057384,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 37,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005164143512956798,
+      "mac_lateral_error": -0.000516414351,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 37,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0005012745968997478,
+      "mac_lateral_error": -0.000501274597,
+      "lateral_error_float32_exact": true
+    },
+    {
+      "physical_tick": 44,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        -0.949999988,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.00011116305540781468,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 44,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30000305,
+        0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -8.833434549160302e-05,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 44,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.30000305,
+        -0.949996948,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -0.0001373299746774137,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 44,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.29998469,
+        0.949981689,
+        10
+      ],
+      "previous_float32_exact": true,
+      "native_lateral_error": -4.5775959733873606e-05,
+      "mac_lateral_error": 0,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 45,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00016593995678704232,
+      "mac_lateral_error": -5.47769232e-05,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 45,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00014233627007342875,
+      "mac_lateral_error": -5.40019355e-05,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 45,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00018310591985937208,
+      "mac_lateral_error": -4.57759743e-05,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 45,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00018310594896320254,
+      "mac_lateral_error": -0.000137329989,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 46,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003383169532753527,
+      "mac_lateral_error": -0.000227153927,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 46,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00031483234488405287,
+      "mac_lateral_error": -0.000226498028,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 46,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003814706578850746,
+      "mac_lateral_error": -0.000244140712,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 46,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00028991757426410913,
+      "mac_lateral_error": -0.000244141615,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 47,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003443359164521098,
+      "mac_lateral_error": -0.00023317289,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 47,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00032126891892403364,
+      "mac_lateral_error": -0.000232934588,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 47,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00039672880666330457,
+      "mac_lateral_error": -0.00025939889,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 47,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00028991608996875584,
+      "mac_lateral_error": -0.000244140116,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 48,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00048261904157698154,
+      "mac_lateral_error": -0.00037145603,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 48,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004457238828763366,
+      "mac_lateral_error": -0.000357389566,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 48,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005035404465161264,
+      "mac_lateral_error": -0.000366210559,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 48,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004730225191451609,
+      "mac_lateral_error": -0.00042724653,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 49,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005081894341856241,
+      "mac_lateral_error": -0.000397026422,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 49,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004891157150268555,
+      "mac_lateral_error": -0.000400781399,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 49,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005493166972883046,
+      "mac_lateral_error": -0.00041198681,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 49,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004882807261310518,
+      "mac_lateral_error": -0.000442504737,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 50,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005276798037812114,
+      "mac_lateral_error": -0.00041651685,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 50,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005252361297607422,
+      "mac_lateral_error": -0.000436901842,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 50,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005187984788790345,
+      "mac_lateral_error": -0.000381468737,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 50,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00048828081344254315,
+      "mac_lateral_error": -0.000442504766,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 51,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005414484767243266,
+      "mac_lateral_error": -0.000430285669,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 51,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005556344985961914,
+      "mac_lateral_error": -0.000467300299,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 51,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005950928898528218,
+      "mac_lateral_error": -0.000457763439,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 51,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005950927734375,
+      "mac_lateral_error": -0.000549316581,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 52,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.000495433690957725,
+      "mac_lateral_error": -0.000384270708,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 52,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005109308985993266,
+      "mac_lateral_error": -0.000422596582,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 52,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004882809880655259,
+      "mac_lateral_error": -0.00035095113,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 52,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00047302208258770406,
+      "mac_lateral_error": -0.000427246065,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 53,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00047731483937241137,
+      "mac_lateral_error": -0.000366151333,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 53,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004315376281738281,
+      "mac_lateral_error": -0.000343202963,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 53,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0005035402136854827,
+      "mac_lateral_error": -0.000366209191,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 53,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00047302147140726447,
+      "mac_lateral_error": -0.000427246006,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 54,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004073991731274873,
+      "mac_lateral_error": -0.000296235085,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 54,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00040793372318148613,
+      "mac_lateral_error": -0.000319598679,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 54,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00047302275197580457,
+      "mac_lateral_error": -0.000335690449,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 54,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004272439982742071,
+      "mac_lateral_error": -0.000381469115,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 55,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003153676516376436,
+      "mac_lateral_error": -0.000204203461,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 55,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003921975439880043,
+      "mac_lateral_error": -0.000303862442,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 55,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004882831126451492,
+      "mac_lateral_error": -0.000350950577,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 55,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004882810462731868,
+      "mac_lateral_error": -0.00044250628,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 56,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003529801615513861,
+      "mac_lateral_error": -0.000241816044,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 56,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003526205837260932,
+      "mac_lateral_error": -0.00026428554,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 56,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.000411987624829635,
+      "mac_lateral_error": -0.000274655235,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 56,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00041198564576916397,
+      "mac_lateral_error": -0.000366210821,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 57,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00035303860204294324,
+      "mac_lateral_error": -0.000241875052,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 57,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00035202474100515246,
+      "mac_lateral_error": -0.000263690046,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 57,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0003814693191088736,
+      "mac_lateral_error": -0.000244138209,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 57,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0004272459773346782,
+      "mac_lateral_error": -0.000381470541,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 3,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        -0.949999988079071,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30004883,
+        -0.950111151,
+        9.99999905
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00023728520318400115,
+      "mac_lateral_error": -0.000126121202,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 2,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        -1.3000030517578125,
+        0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        -1.30003357,
+        0.949908614,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.0002512922801543027,
+      "mac_lateral_error": -0.000162957309,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 1,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.3000030517578125,
+        -0.9499969482421875,
+        10.0
+      ],
+      "mac_previous": [
+        1.29990077,
+        -0.950134277,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.000289917312329635,
+      "mac_lateral_error": -0.000152585228,
+      "lateral_error_float32_exact": false
+    },
+    {
+      "physical_tick": 58,
+      "wheel": 0,
+      "current_point_float32_exact": true,
+      "native_previous": [
+        1.2999846935272217,
+        0.949981689453125,
+        10.0
+      ],
+      "mac_previous": [
+        1.30003226,
+        0.949935913,
+        10
+      ],
+      "previous_float32_exact": false,
+      "native_lateral_error": -0.00030517386039718986,
+      "mac_lateral_error": -0.00025939889,
+      "lateral_error_float32_exact": false
+    }
+  ],
+  "goal_complete": false
+}

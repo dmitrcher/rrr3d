@@ -1,0 +1,16 @@
+{
+  "scope": "Existing source anchor arithmetic on identical actual Native inputs. Does not certify Mac lifetime inputs.",
+  "records": 136,
+  "two_repeats_exact": true,
+  "checks": [
+    {
+      "optimization": "O0",
+      "result": "136 Native same-input anchors exact"
+    },
+    {
+      "optimization": "O2",
+      "result": "136 Native same-input anchors exact"
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,19 @@
+{
+  "base": "Exact verified V87 source overlay chain.",
+  "candidate": "Default-off source force store: impulse multiplied by rounded inverse step. No new coefficient or case/frame condition.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "0695b0d967e093fe135315b946fad8e0545573e91080ac0f561b2e7b193c0e6b",
+      "after_sha256": "9a158ce77a31aa8e23623726151f971c74fbaaaf53fcf4a97d1ad3e619b138c2"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeSuspensionForceV88.h",
+      "before_sha256": null,
+      "after_sha256": "ed01814d8fa4e1a10c14a153cbd845faa952b3ceec8137ab2674843878250a04"
+    }
+  ],
+  "goal_complete": false
+}

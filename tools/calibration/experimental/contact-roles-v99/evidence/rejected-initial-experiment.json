@@ -1,0 +1,8 @@
+{
+  "rejected": "before-car variant and any conclusions based on it",
+  "reason": "Moved mesh creation but removed its old if guard; fallback else-if created an additional box for obstacle7/8/9. Actor population differs. Control still exactly reproduces1980Golden states per repeat.",
+  "Original_reference_unchanged": true,
+  "Mac_V98_source_unchanged": true,
+  "replacement": "Separate control-inventory/before-car-only with runtime inventory equality guard",
+  "goal_complete": false
+}

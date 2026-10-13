@@ -1,0 +1,189 @@
+{
+  "scope": "V99 next149 read-only lead; no V100 runtime edit. Original Windows captures two unchanged600state histories. All20 body-contact checkpoints exact, first published149 difference only wheel2 lateral slip/requested impulse. Actual Native relative/lateral vectors supplied to existing Mac angle helper in standalone diagnostic; Mac live identical angle-input vectors not yet independently traced.",
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "native_captured_angles": 8,
+      "current_float_asin_mismatches": [
+        2,
+        6
+      ],
+      "double_asin_then_float_all_exact": true
+    },
+    {
+      "optimization": "O2",
+      "native_captured_angles": 8,
+      "current_float_asin_mismatches": [
+        2,
+        6
+      ],
+      "double_asin_then_float_all_exact": true
+    }
+  ],
+  "fixtures": [
+    {
+      "repeat": 0,
+      "native_wheel_index": 0,
+      "world_point_words": [
+        1089765711,
+        1084498432,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148851883,
+        1068535941,
+        3198882887,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068147566
+    },
+    {
+      "repeat": 0,
+      "native_wheel_index": 1,
+      "world_point_words": [
+        1089766064,
+        1080575040,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148311675,
+        1068535941,
+        3198873315,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068149229
+    },
+    {
+      "repeat": 0,
+      "native_wheel_index": 2,
+      "world_point_words": [
+        1085152054,
+        1084498048,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148851817,
+        1068532846,
+        3198882942,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068147044
+    },
+    {
+      "repeat": 0,
+      "native_wheel_index": 3,
+      "world_point_words": [
+        1085152215,
+        1080573888,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148311577,
+        1068532846,
+        3198873368,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068148709
+    },
+    {
+      "repeat": 1,
+      "native_wheel_index": 0,
+      "world_point_words": [
+        1089765711,
+        1084498432,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148851883,
+        1068535941,
+        3198882887,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068147566
+    },
+    {
+      "repeat": 1,
+      "native_wheel_index": 1,
+      "world_point_words": [
+        1089766064,
+        1080575040,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148311675,
+        1068535941,
+        3198873315,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068149229
+    },
+    {
+      "repeat": 1,
+      "native_wheel_index": 2,
+      "world_point_words": [
+        1085152054,
+        1084498048,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148851817,
+        1068532846,
+        3198882942,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068147044
+    },
+    {
+      "repeat": 1,
+      "native_wheel_index": 3,
+      "world_point_words": [
+        1085152215,
+        1080573888,
+        1092616192
+      ],
+      "native_relative_and_lateral_axis_words": [
+        3148311577,
+        1068532846,
+        3198873368,
+        3100270817,
+        1065353216,
+        0
+      ],
+      "actual_native_lateral_angle_word": 1068148709
+    }
+  ],
+  "actual_body_contact_binding": [
+    {
+      "repeat": 0,
+      "body6_tensor9_lever3_mass1_bias1_exact_checkpoints": 20
+    },
+    {
+      "repeat": 1,
+      "body6_tensor9_lever3_mass1_bias1_exact_checkpoints": 20
+    }
+  ],
+  "compiler_source_evidence": {
+    "SDK_NxMath_asin_float": "NxMath.h:735 uses ::asinf(float)",
+    "MSVC2008_x86_CPP_asinf": "math.h:392 inline float asinf(float) returns float(asin(double(value)))",
+    "source_files_saved_locally": [
+      "work/creation-order-v99/next-NxMath.h",
+      "work/creation-order-v99/next-MSVC2008-math.h"
+    ]
+  },
+  "followup": "Bind actual asin argument/call arithmetic and live Mac relative/axis inputs; use generic compiler-compatible transcendental precision, not case/frame adjustments. Then V100 focused/broad and gates.",
+  "goal_complete": false
+}

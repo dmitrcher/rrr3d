@@ -1,0 +1,127 @@
+{
+  "status": "Accepted reproducible research checkpoint; full parity incomplete",
+  "strict_exact_cases": 429,
+  "open_cases": 179,
+  "all_previous_398_exact_preserved": true,
+  "new_exact_cases": [
+    "border-air-oblique",
+    "border-front-air-oblique",
+    "border-front-air-straight",
+    "border-pole",
+    "contact-free-triangle-depth0-speed2",
+    "contact-free-triangle-depth1-speed2",
+    "contact-free-triangle-depth2-speed2",
+    "contact-free-triangle-depth3-speed2",
+    "contact-free-triangle-depth4-speed1",
+    "contact-free-triangle-depth4-speed2",
+    "contact-free-triangle-depth5-speed0",
+    "contact-free-triangle-depth5-speed1",
+    "contact-free-triangle-depth5-speed2",
+    "skin-tilted-triangle-angle1-skin0-thin0",
+    "skin-tilted-triangle-angle1-skin0-thin1",
+    "skin-tilted-triangle-angle1-skin1-thin0",
+    "skin-tilted-triangle-angle1-skin1-thin1",
+    "skin-tilted-triangle-angle1-skin2-thin0",
+    "skin-tilted-triangle-angle1-skin2-thin1",
+    "skin-tilted-triangle-angle2-skin0-thin0",
+    "skin-tilted-triangle-angle2-skin0-thin1",
+    "skin-tilted-triangle-angle2-skin1-thin0",
+    "skin-tilted-triangle-angle2-skin1-thin1",
+    "skin-tilted-triangle-angle2-skin2-thin0",
+    "skin-tilted-triangle-angle2-skin2-thin1",
+    "skin-tilted-triangle-angle4-skin0-thin0",
+    "skin-tilted-triangle-angle4-skin0-thin1",
+    "skin-tilted-triangle-angle4-skin1-thin0",
+    "skin-tilted-triangle-angle4-skin1-thin1",
+    "skin-tilted-triangle-angle4-skin2-thin0",
+    "skin-tilted-triangle-angle4-skin2-thin1"
+  ],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "source_files": [
+    {
+      "path": "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "before_sha256": "8bb16ff9b9c7aeaede199ea4155032185923c514559d5a60ab1af6fecbf426d3",
+      "after_sha256": "620f46919f6c32cbe16cb748679b4bac7df59df7edbe8d5c82062273062d2f85",
+      "location": "adapter"
+    },
+    {
+      "path": "tools/calibration/mac.cpp",
+      "before_sha256": "746f629140848c58e541922114d944a9b088aa80614e4b9b7f34cb06eb83ad1a",
+      "after_sha256": "b9058fb673ecbef6f81bd35f3f56dfd2c469e1d4d47c629a5ae1a6159d7107ac",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeContactCache.h",
+      "before_sha256": "5f9a9d89b377ae3bd5461aca9d8f0ffe1adb1b4c8beb0700eabf47f3953364f7",
+      "after_sha256": "6858d18fafd55caf6225d4370ef9917f0b67f64cf9bb5c3a16561076e24f4a55",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "66f1d17e43d8089b0b4c4db427a8b6b33f20a7e70cb553937d032517941abc21",
+      "after_sha256": "ae868cb1436f0489ea2b2b418c91a01bdae485431bad8a98e354e9be4c7fcd21",
+      "location": "adapter"
+    }
+  ],
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "05ac60f7d9325b91f17f1e45274cb275cf82cf263890ea81fd3e3d7bebf26cd1",
+    "rrr3d_physics_spring_probe": "dead6ed1f6d3b316f4fad39de33884e05de6ee93e36104a566e51e335df4ce32"
+  },
+  "changed_histories": [
+    "border-air-straight",
+    "border-air-oblique",
+    "border-grounded",
+    "border-pole",
+    "border-front-air-straight",
+    "border-front-air-oblique",
+    "border-front-grounded",
+    "contact-free-triangle-depth0-speed2",
+    "contact-free-triangle-depth1-speed2",
+    "contact-free-triangle-depth2-speed2",
+    "contact-free-triangle-depth3-speed2",
+    "contact-free-triangle-depth4-speed1",
+    "contact-free-triangle-depth4-speed2",
+    "contact-free-triangle-depth5-speed0",
+    "contact-free-triangle-depth5-speed1",
+    "contact-free-triangle-depth5-speed2",
+    "skin-tilted-triangle-angle1-skin0-thin0",
+    "skin-tilted-triangle-angle2-skin0-thin0",
+    "skin-tilted-triangle-angle4-skin0-thin0",
+    "skin-tilted-triangle-angle1-skin1-thin0",
+    "skin-tilted-triangle-angle2-skin1-thin0",
+    "skin-tilted-triangle-angle4-skin1-thin0",
+    "skin-tilted-triangle-angle1-skin2-thin0",
+    "skin-tilted-triangle-angle2-skin2-thin0",
+    "skin-tilted-triangle-angle4-skin2-thin0",
+    "skin-tilted-triangle-angle1-skin0-thin1",
+    "skin-tilted-triangle-angle2-skin0-thin1",
+    "skin-tilted-triangle-angle4-skin0-thin1",
+    "skin-tilted-triangle-angle1-skin1-thin1",
+    "skin-tilted-triangle-angle2-skin1-thin1",
+    "skin-tilted-triangle-angle4-skin1-thin1",
+    "skin-tilted-triangle-angle1-skin2-thin1",
+    "skin-tilted-triangle-angle2-skin2-thin1",
+    "skin-tilted-triangle-angle4-skin2-thin1"
+  ],
+  "unchanged_histories": 574,
+  "magnitude_regressions_explicit": {
+    "position_max": [
+      "border-grounded"
+    ],
+    "velocity_max": [
+      "border-grounded"
+    ],
+    "orientation_max_degrees": [],
+    "angular_momentum_max": [
+      "border-grounded"
+    ],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [],
+    "wheel_normal_force_max": [
+      "border-grounded"
+    ]
+  },
+  "front_grounded_first_difference_windows": 149,
+  "goal_complete": false
+}

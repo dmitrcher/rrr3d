@@ -1,0 +1,60 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all300samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\frame-trace-v71\\TraceContactFrameV71.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\frame-trace-v71\\TraceContactFrameV71.exe:\r\n645c082444221367a7b5802d81549831a7c8163c051860a43d9b76948e9055ae\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\frame-trace-v71\\TraceWheelFrameV71.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\frame-trace-v71\\TraceWheelFrameV71.exe:\r\nc1db3aa96d2299ce39ad206b9e880f4a78d3402a612dce5a7f84b27b041e5954\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "wheel",
+      "name": "pair-stock-pole-1",
+      "repeat": 0,
+      "sample_tick": 28,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "37e65a35e6cc7c86c33e0549145049ddf2497af7119ed0967f44780dfd8f06f8"
+    },
+    {
+      "kind": "wheel",
+      "name": "pair-stock-pole-1",
+      "repeat": 1,
+      "sample_tick": 28,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "e6c09d63d42fb66fda56acc6980949897f0eb1de6dec4462f77e991d2306b080"
+    },
+    {
+      "kind": "contact",
+      "name": "pair-same-head-0",
+      "repeat": 0,
+      "sample_tick": 38,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "0e7a1741df1e856a917b0fc224007cc0dd45f91b91a7cc1fb00938675435086f"
+    },
+    {
+      "kind": "contact",
+      "name": "pair-same-head-0",
+      "repeat": 1,
+      "sample_tick": 38,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "38b0052c0e7db140a5ab2cc81c4b329c74eaf621669137498146fe746696b810"
+    },
+    {
+      "kind": "contact",
+      "name": "pair-stock-head-0",
+      "repeat": 0,
+      "sample_tick": 38,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "cd17377dfa837c2bcae6e1069cd9cdbf5b6efb52ea7f8864454c29964504e81d"
+    },
+    {
+      "kind": "contact",
+      "name": "pair-stock-head-0",
+      "repeat": 1,
+      "sample_tick": 38,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "596d52412895672970d576f1b70a0da37c8abc607a935ca3ce6290f942763dd4"
+    }
+  ],
+  "goal_complete": false
+}

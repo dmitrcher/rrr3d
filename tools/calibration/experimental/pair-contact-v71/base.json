@@ -1,0 +1,30 @@
+{
+  "base": "Exact V70 research adapter and V69 SDK checkpoint, not the normal main adapter or a clean Jolt source.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "edd50c7534d4e63ced51d4f458970a8c9f9dda89ba55ba4c7899156f716d37a2",
+      "after_sha256": "ecba3b80aef19d29bd3c7911f54f6ee9ae52810a49c60c1399596623a646c5fa"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/ContactListener.h",
+      "before_sha256": "e41d48771f001d4aa3a9a9da979ce117b190d7721358ad5714d8a09f07e6e84b",
+      "after_sha256": "8eb943cdb00aeb974bf48842b4b7f94907cbf364a9033973bbb561e7ef107303"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.h",
+      "before_sha256": "27a971938a16d2fb3394ed574c6aacb2541f1f98e9b2791cc0f371a8f682b183",
+      "after_sha256": "c00328eb4741c5fc12ca329a633e74c91518d533135221488840a2749fdda867"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "a6823c814b3014715b68f2dcc934d6cca8ce384329162bd935bd3f3be1bf21c3",
+      "after_sha256": "4e024d51a22061a5afa6f6151fbdc5c15761476ecf70d297358ecbf3a4c9530f"
+    }
+  ],
+  "goal_complete": false
+}

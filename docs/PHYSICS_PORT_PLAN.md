@@ -259,3 +259,6 @@ Steam, network и video runtime.
 
 
 V70 (13 October 2026): peer-vehicle suspension query defect localized and corrected in a default-off investigation. Stock-pole maximum position error1.10 -> 0.000033; all124 missed wheel contacts removed.606other trajectories unchanged,84/608 exact, 524 open. Angular momentum residual regresses0.28 ->0.38; continue dynamic support/pair solver audit. See [V70 checkpoint](PHYSICS_WHEEL_VEHICLE_QUERY_V70_2026-10-13.md).
+
+
+V71 (13 October2026): dynamic pair full-box side contacts,8-point patches and separate static/dynamic friction. Stock-oblique peer orientation61.5575 ->0.00004515degree; stock-head position0.412 ->0.0030. Full608two repeats,30pair changes/578unchanged, no worsened maxima,84exact/524open. Z-face mode2 rejected; verified mode1 preserves previous path there. Native frame-synchronized190/190 identical-input transitions. See [V71 checkpoint](PHYSICS_PAIR_CONTACT_V71_2026-10-13.md).

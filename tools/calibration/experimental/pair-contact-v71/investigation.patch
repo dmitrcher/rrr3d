@@ -1,0 +1,58 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -787 +787,8 @@
+-        if (first.GetMotionType() != JPH::EMotionType::Static && second.GetMotionType() != JPH::EMotionType::Static) return false;
++        if (first.GetMotionType() != JPH::EMotionType::Static && second.GetMotionType() != JPH::EMotionType::Static) {
++            const char* pairFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_MANIFOLD_V71");
++            std::size_t firstCar, secondCar;
++            if (!pairFlag || (std::strcmp(pairFlag,"1") != 0 && std::strcmp(pairFlag,"2") != 0) ||
++                !first.IsDynamic() || !second.IsDynamic() ||
++                !vehicleIndex(first.GetUserData(),firstCar) ||
++                !vehicleIndex(second.GetUserData(),secondCar)) return false;
++        }
+@@ -813 +820,9 @@
+-        if (contacts.count > 4) return false;
++        const char* pairFlagV71=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_MANIFOLD_V71");
++        const bool nativePairV71=first.IsDynamic() && second.IsDynamic() && pairFlagV71 &&
++            (std::strcmp(pairFlagV71,"1")==0 || std::strcmp(pairFlagV71,"2")==0);
++        // The original Z-face reference/incident choice differs from PhysX 3.4
++        // used by this helper. Retain the previous path until verified. Mode 2
++        // is the deliberately unrestricted diagnostic candidate.
++        if (nativePairV71 && std::strcmp(pairFlagV71,"1")==0 &&
++            (axis==sourcebox::AXIS_A2+1 || axis==sourcebox::AXIS_B2+1)) return false;
++        if (contacts.count > (nativePairV71?64u:4u)) return false;
+@@ -1652,0 +1668,13 @@
++        const char* pairStaticFlagV71=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_STATIC_FRICTION_V71");
++        if (pairStaticFlagV71 && std::strcmp(pairStaticFlagV71,"1")==0 && firstIsVehicle && secondIsVehicle && settings.mUseSourceBlockPGS) {
++            // Native pair material uses static V=3.2; its dynamic V=2 pair
++            // cap belongs only to the sliding limit. Preserve frame selection.
++            const bool selectSecond=std::abs(2.0F-other.GetFriction())>std::abs(2.0F-car.GetFriction());
++            const auto staticPair=sourceVehicleBodyFriction(
++                selectSecond?other.GetRotation():car.GetRotation(),manifold.mWorldSpaceNormal,
++                selectSecond?other.GetFriction():car.GetFriction(),
++                0.5F*((selectSecond?car.GetFriction():other.GetFriction())+3.2F),
++                SourceCombineMode::Minimum,false,false,3.2F);
++            settings.mNativeStaticFriction1V71=staticPair.first;
++            settings.mNativeStaticFriction2V69=staticPair.second;
++        }
+--- a/sdk/Jolt/Physics/Collision/ContactListener.h
++++ b/sdk/Jolt/Physics/Collision/ContactListener.h
+@@ -56,0 +57 @@
++    float mNativeStaticFriction1V71 = -1.0f; // Pair static threshold; negative preserves baseline.
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.h
+@@ -443,0 +444 @@
++        float mPairStaticFriction1V71=-1.0f, mPairStaticFriction2V71=-1.0f;
+--- a/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
++++ b/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp
+@@ -160,0 +161,2 @@
++    mPairStaticFriction1V71=inSettings.mNativeStaticFriction1V71;
++    mPairStaticFriction2V71=inSettings.mNativeStaticFriction2V69;
+@@ -1851 +1853,6 @@
+-				lambda2 = Clamp(wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t2), -limit2, limit2);
++                if (wcp.mPairStaticFriction1V71 >= 0.0f) {
++                    const float target1=wcp.mFrictionConstraint1.TemplatedSolveVelocityConstraintGetTotalLambda<Type1,Type2>(ioMotionProperties1,ioMotionProperties2,t1);
++                    lambda1=std::abs(target1)>wcp.mPairStaticFriction1V71*normal_lambda?Clamp(target1,-limit1,limit1):target1;
++                }
++                const float target2=wcp.mFrictionConstraint2.TemplatedSolveVelocityConstraintGetTotalLambda<Type1, Type2>(ioMotionProperties1, ioMotionProperties2, t2);
++                lambda2=wcp.mPairStaticFriction1V71>=0.0f && std::abs(target2)<=wcp.mPairStaticFriction2V71*normal_lambda?target2:Clamp(target2,-limit2,limit2);

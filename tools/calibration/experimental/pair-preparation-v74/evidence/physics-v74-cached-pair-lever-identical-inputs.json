@@ -1,0 +1,17 @@
+{
+  "scope": "Retain actual Windows tick39 cached local0/local1 points in their original order, reconstruct both solver levers from independently observed tick40 actor quaternions. No expected data in live physics.",
+  "fixtures": 16,
+  "results": [
+    {
+      "optimization": "0",
+      "returncode": 0,
+      "stdout": "16/16 Native ordered two-body lever pairs exact\n"
+    },
+    {
+      "optimization": "2",
+      "returncode": 0,
+      "stdout": "16/16 Native ordered two-body lever pairs exact\n"
+    }
+  ],
+  "goal_complete": false
+}

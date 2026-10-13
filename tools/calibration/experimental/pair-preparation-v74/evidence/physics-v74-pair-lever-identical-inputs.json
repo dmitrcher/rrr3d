@@ -1,0 +1,17 @@
+{
+  "scope": "Actual Native point transport and solver lever reconstruction, fresh local0/local1 from observed worldpoint and cached geometry matrix, then solver-body physical matrix. No expected data fed to live physics.",
+  "fixtures": 64,
+  "results": [
+    {
+      "optimization": "0",
+      "returncode": 0,
+      "stdout": "64/64 Native ordered two-body lever pairs exact\n"
+    },
+    {
+      "optimization": "2",
+      "returncode": 0,
+      "stdout": "64/64 Native ordered two-body lever pairs exact\n"
+    }
+  ],
+  "goal_complete": false
+}

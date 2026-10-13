@@ -1,0 +1,35 @@
+{
+  "scope": "Read-only original Native box SAT inputs/overlaps/cache selection, synchronized by completed physical samples. All300physicalstates preserve independent original Golden.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\box-frame-v72\\TraceBoxFrameV72.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\box-frame-v72\\TraceBoxFrameV72.exe:\r\n5631e600bf3a5d170d0b9ec6c6222b8719320c74b10761a7429d90004c7c4fc0\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "case": "pair-vertical-weak-peer-0",
+      "tick": 38,
+      "repeat": 0,
+      "golden_physics_exact": true,
+      "private_logical_sha256": "6f091eb8a9fad45ee2ba437a4a7593504418713d6ae3ebb9f0f804b6f4ae7dff",
+      "functions": {
+        "box-axis-selected": 1,
+        "box-overlap-before-cache": 1,
+        "box-generation-entry": 1
+      }
+    },
+    {
+      "case": "pair-vertical-weak-peer-0",
+      "tick": 38,
+      "repeat": 1,
+      "golden_physics_exact": true,
+      "private_logical_sha256": "37cee281b2c2cabf8df9a327cf9c4aac1e8e85fa92575e3da9f2c3cba2c8de4f",
+      "functions": {
+        "box-axis-selected": 1,
+        "box-overlap-before-cache": 1,
+        "box-generation-entry": 1
+      }
+    }
+  ],
+  "goal_complete": false
+}

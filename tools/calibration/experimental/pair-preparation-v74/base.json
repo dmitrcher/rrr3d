@@ -1,0 +1,48 @@
+{
+  "base": "Accepted V73 research adapter and V71/V72 SDK",
+  "candidate": "V74 unaccepted paired preparation investigation; all new flags off by default",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "470dcb28d15b2be11898964ca9c46c65ff04b6a165a4754930d921b5216d6966",
+      "after_sha256": "dd7ceffc81797f5c6ab02712a7bb9a727eaac656afecd58f93703c31db4dcaca"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/SourceBoxManifold.h",
+      "before_sha256": "a0cf0cae47f1fbeefb041ea75a5c1dcfe12f1b770e745c8227056444a641d9f7",
+      "after_sha256": "ab21bbf514fcb7510a2e99cc9a94564caad3eeac8b472ddaa45dc85a5e30c699"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/ContactListener.h",
+      "before_sha256": "8eb943cdb00aeb974bf48842b4b7f94907cbf364a9033973bbb561e7ef107303",
+      "after_sha256": "1f69d44c4e9c84a8965d60dab5437276f883838f53fa6f3d0e8ff51bdafcbf4b"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.h",
+      "before_sha256": "c00328eb4741c5fc12ca329a633e74c91518d533135221488840a2749fdda867",
+      "after_sha256": "698fd65b080995fbaf75c022d9d0aea31f73f32fb24f436b1b972d897089e8b0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "4e024d51a22061a5afa6f6151fbdc5c15761476ecf70d297358ecbf3a4c9530f",
+      "after_sha256": "2c07c76d65220ed1bc2fd9ea88174fd9608f22761a856259f1a055205e9a2a17"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativePairContactArithmeticV73.h",
+      "before_sha256": "aa146791d88d32464af300792d6a99147d5551d17dda13c39f907973bcf98bd8",
+      "after_sha256": "aa146791d88d32464af300792d6a99147d5551d17dda13c39f907973bcf98bd8"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativePairPreparationV74.h",
+      "before_sha256": null,
+      "after_sha256": "04e549881d49482c43f1a470a21e6910406135f12990d1ad57a0d4a5dfcb7917"
+    }
+  ]
+}

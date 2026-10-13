@@ -1,0 +1,146 @@
+{
+  "scope": "Independent original 8-point vertical fixture. Default ARM fusion reproduces the same two live coordinate discrepancies; explicit store-before-add behind the clipping flag removes them. Full ordered geometry floatwords compared.",
+  "results": [
+    {
+      "optimization": "0",
+      "mode": "fused",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [
+            {
+              "index": 8,
+              "mac": 1036663687,
+              "native": 1036663685
+            },
+            {
+              "index": 22,
+              "mac": 3153099600,
+              "native": 3153099648
+            }
+          ],
+          "all_words_exact": false
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [
+            {
+              "index": 8,
+              "mac": 1036663687,
+              "native": 1036663685
+            },
+            {
+              "index": 22,
+              "mac": 3153099600,
+              "native": 3153099648
+            }
+          ],
+          "all_words_exact": false
+        }
+      ]
+    },
+    {
+      "optimization": "0",
+      "mode": "unfused_flag",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        }
+      ]
+    },
+    {
+      "optimization": "0",
+      "mode": "compiler_unfused",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        }
+      ]
+    },
+    {
+      "optimization": "2",
+      "mode": "fused",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [
+            {
+              "index": 8,
+              "mac": 1036663687,
+              "native": 1036663685
+            },
+            {
+              "index": 22,
+              "mac": 3153099600,
+              "native": 3153099648
+            }
+          ],
+          "all_words_exact": false
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [
+            {
+              "index": 8,
+              "mac": 1036663687,
+              "native": 1036663685
+            },
+            {
+              "index": 22,
+              "mac": 3153099600,
+              "native": 3153099648
+            }
+          ],
+          "all_words_exact": false
+        }
+      ]
+    },
+    {
+      "optimization": "2",
+      "mode": "unfused_flag",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        }
+      ]
+    },
+    {
+      "optimization": "2",
+      "mode": "compiler_unfused",
+      "history": [
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-0-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        },
+        {
+          "file": "v74-box-pair-vertical-weak-peer-0-tick38-1-private.jsonl.gz",
+          "differences": [],
+          "all_words_exact": true
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

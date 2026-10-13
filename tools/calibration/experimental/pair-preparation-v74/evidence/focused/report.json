@@ -1,0 +1,1774 @@
+{
+  "scope": "34 paired observable trajectories: fixed scripted commands, no AI; identical source parameters. V74 paired frame/inertia preparation independently and together over V73 cached paired solver; original source dimensions, parameters unchanged.",
+  "cases": {
+    "pair-same-head-0": {
+      "control": {
+        "position_max": 7.773000000000849e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.190025184332666e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.342589468977434e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.342589468977434e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.342589468977434e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.342589468977434e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-head-1": {
+      "control": {
+        "position_max": 7.773000000000849e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.671428949617597e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.68264530881701e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.68264530881701e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.68264530881701e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 8.002299999999678e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.68264530881701e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-oblique-0": {
+      "control": {
+        "position_max": 1.3400000000274304e-05,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4499999993020443e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-oblique-1": {
+      "control": {
+        "position_max": 0.00010690014986649546,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.9158029647555467e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-head-on-0": {
+      "control": {
+        "position_max": 8.145599999999538e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.5075001272193395e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-head-on-1": {
+      "control": {
+        "position_max": 8.145599999999538e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.5075001272193395e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.939499999999079e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8567739943190757e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-heavy-peer-0": {
+      "control": {
+        "position_max": 4.800000006355276e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.1940268004780969e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-heavy-peer-1": {
+      "control": {
+        "position_max": 1.5000000019860238e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.200000000996149e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 0.0,
+        "orientation_max": 0.0,
+        "first_difference": null,
+        "exact": true,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-first-0": {
+      "control": {
+        "position_max": 9.600000012710552e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0670562312545504e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0235843885931153e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0235843885931153e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0235843885931153e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0235843885931153e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-first-1": {
+      "control": {
+        "position_max": 7.010000000196026e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.0457947982222845e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 6.56000000015533e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.228691513692371e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 6.56000000015533e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.228691513692371e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 6.56000000015533e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.228691513692371e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 6.56000000015533e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.228691513692371e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-second-0": {
+      "control": {
+        "position_max": 4.800000006355276e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.4048168335241057e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 4.800000006355276e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.944525906177158e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 4.800000006355276e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.944525906177158e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.936331841321597e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.936331841321597e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-second-1": {
+      "control": {
+        "position_max": 9.82999999954437e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.3863572659809336e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 8.639999999893178e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.6704142720342752e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 8.639999999893178e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.6704142720342752e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 3.8000000007754053e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4386853058529044e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 3.8000000007754053e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4386853058529044e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-first-0": {
+      "control": {
+        "position_max": 1.0000000010279564e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.7535247364647456e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.0000000010279564e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.399999998736746e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.0000000010279564e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.399999998736746e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.0000000010279564e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.399999998736746e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.0000000010279564e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.399999998736746e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-first-1": {
+      "control": {
+        "position_max": 5.97000000046588e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.042404643065286e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 4.620000000066238e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.482038489339409e-08,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 4.620000000066238e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.482038489339409e-08,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 4.620000000066238e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.482038489339409e-08,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 4.620000000066238e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.482038489339409e-08,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-second-0": {
+      "control": {
+        "position_max": 1.200000001588819e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.3994748368702415e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.910929658507884e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.910929658507884e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.910929658507884e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.910929658507884e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-second-1": {
+      "control": {
+        "position_max": 8.000000009666941e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.3974579225131325e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.9109437336991473e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.9109437336991473e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.9109435964109558e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.9109435964109558e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-pole-0": {
+      "control": {
+        "position_max": 1.4404050738705786e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.600350544894066e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "kernel": {
+        "position_max": 1.4271807218779044e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.6039185629313356e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "frame": {
+        "position_max": 2.7487587792696635e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.6000047416357955e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "inertia": {
+        "position_max": 1.4271807218779044e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.6039185629313356e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "both": {
+        "position_max": 2.7487587792696635e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.6000047416357955e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-1": {
+      "control": {
+        "position_max": 1.4404050738705786e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 4.801432873880672e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "kernel": {
+        "position_max": 1.4271807218779044e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 4.802939618779578e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "frame": {
+        "position_max": 2.7487587792696635e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 4.80000355789808e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "inertia": {
+        "position_max": 1.4271807218779044e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 4.802939618779578e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "both": {
+        "position_max": 2.7487587792696635e-09,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 4.80000355789808e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-oblique-0": {
+      "control": {
+        "position_max": 1.2520000000071363e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.959422090308437e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "kernel": {
+        "position_max": 1.1930000000104357e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 6.245446340712635e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "frame": {
+        "position_max": 2.3900000001297883e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.613862200773584e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "inertia": {
+        "position_max": 1.1930000000104357e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 6.245446340712635e-07,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "both": {
+        "position_max": 2.3900000001297883e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 3.613862200773584e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-oblique-1": {
+      "control": {
+        "position_max": 1.3408594259659177e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.8243730431360525e-06,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "kernel": {
+        "position_max": 1.2859428448452445e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4287029085136678e-06,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "frame": {
+        "position_max": 2.9860006701632944e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.076799888934586e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "inertia": {
+        "position_max": 1.2859428448452445e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4287029085136678e-06,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "both": {
+        "position_max": 2.9860006701632944e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.076799888934586e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-free-oblique-0": {
+      "control": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.002009756452849435,
+        "velocity_max": 1.4500000002399573e-06,
+        "orientation_max": 0.00013672077235316515,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0009000033333149565,
+        "velocity_max": 5.322593359334357e-07,
+        "orientation_max": 6.330067529035814e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0009000033333149565,
+        "velocity_max": 5.322593358761327e-07,
+        "orientation_max": 6.330067528357313e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0009000033333149565,
+        "velocity_max": 5.322593359334357e-07,
+        "orientation_max": 6.330067529035814e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0009000033333149565,
+        "velocity_max": 5.322593358761327e-07,
+        "orientation_max": 6.330067528357313e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-free-oblique-1": {
+      "control": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.002797291547246052,
+        "velocity_max": 4.785394443732946e-07,
+        "orientation_max": 0.00013765514683815877,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0012935107266541985,
+        "velocity_max": 2.400000023198471e-07,
+        "orientation_max": 5.0743713410226204e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0011804613505075692,
+        "velocity_max": 2.4000000219276377e-07,
+        "orientation_max": 5.074371134165784e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0012935107266541985,
+        "velocity_max": 2.400000023198471e-07,
+        "orientation_max": 5.0743713410226204e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0011804613505075692,
+        "velocity_max": 2.4000000219276377e-07,
+        "orientation_max": 5.074371134165784e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-head-0": {
+      "control": {
+        "position_max": 5.3868066363507874e-06,
+        "angular_momentum_max": 0.35224981790458026,
+        "velocity_max": 0.0001913622848488176,
+        "orientation_max": 0.00666169698736454,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 5.483524425734922e-06,
+        "angular_momentum_max": 0.3522420306407056,
+        "velocity_max": 0.00019145323853742602,
+        "orientation_max": 0.006622582198913444,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.67258471549115e-06,
+        "angular_momentum_max": 0.03167669898421295,
+        "velocity_max": 1.7127076840301446e-05,
+        "orientation_max": 0.007631622931754008,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 5.475290597988837e-06,
+        "angular_momentum_max": 0.3522457844904482,
+        "velocity_max": 0.00019145359344550236,
+        "orientation_max": 0.006619723813824516,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.629001733972447e-06,
+        "angular_momentum_max": 0.03170059720122309,
+        "velocity_max": 1.712668551667026e-05,
+        "orientation_max": 0.0076447170631686635,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-head-1": {
+      "control": {
+        "position_max": 5.040603707301451e-06,
+        "angular_momentum_max": 0.34157472772424036,
+        "velocity_max": 0.00019134808612201705,
+        "orientation_max": 0.006603897221582501,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 5.143835157181823e-06,
+        "angular_momentum_max": 0.3414075566262325,
+        "velocity_max": 0.00019144368505246632,
+        "orientation_max": 0.0066668428613333285,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.67258471549115e-06,
+        "angular_momentum_max": 0.03017432496399446,
+        "velocity_max": 1.7132120741262452e-05,
+        "orientation_max": 0.007380330280678097,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 5.135056682165563e-06,
+        "angular_momentum_max": 0.34140767181595183,
+        "velocity_max": 0.0001914440399782534,
+        "orientation_max": 0.006663890629056919,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.629001733972447e-06,
+        "angular_momentum_max": 0.03010752185031105,
+        "velocity_max": 1.713341054161526e-05,
+        "orientation_max": 0.007366368286820996,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-oblique-0": {
+      "control": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.00074868888727325,
+        "velocity_max": 6.789304672720436e-07,
+        "orientation_max": 8.217187510428238e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0004938742965593782,
+        "velocity_max": 4.800003182982854e-07,
+        "orientation_max": 2.1372751786124345e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0004999535261419034,
+        "velocity_max": 1.5430000000144287e-09,
+        "orientation_max": 4.05963609082982e-06,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.000495013658804014,
+        "velocity_max": 7.560000000149392e-10,
+        "orientation_max": 3.293482045967445e-06,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.0000000116860974e-07,
+        "angular_momentum_max": 0.0004959085600211719,
+        "velocity_max": 1.2219999999960388e-09,
+        "orientation_max": 3.6350002471488746e-06,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-oblique-1": {
+      "control": {
+        "position_max": 1.5000000019860238e-08,
+        "angular_momentum_max": 0.0004981526873379439,
+        "velocity_max": 4.811453768722168e-07,
+        "orientation_max": 4.5147996511608515e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.900000001081592e-09,
+        "angular_momentum_max": 0.00026265941809017266,
+        "velocity_max": 2.4186874237779546e-07,
+        "orientation_max": 5.920708022832656e-06,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.900000001081592e-09,
+        "angular_momentum_max": 0.0006182516523727579,
+        "velocity_max": 2.4187265407113804e-07,
+        "orientation_max": 5.2404739181056494e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.900000001081592e-09,
+        "angular_momentum_max": 0.0006138749408168043,
+        "velocity_max": 2.418685790639544e-07,
+        "orientation_max": 5.233842241345899e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.900000001081592e-09,
+        "angular_momentum_max": 0.0006180605609174944,
+        "velocity_max": 2.4187081928669354e-07,
+        "orientation_max": 5.239881270227221e-05,
+        "first_difference": 39,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-weak-second-0": {
+      "control": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.001185759250455558,
+        "velocity_max": 5.331041179543058e-07,
+        "orientation_max": 2.991275480757008e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0012634512259048572,
+        "velocity_max": 5.367019662248434e-07,
+        "orientation_max": 8.136599312275301e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0010478916926916601,
+        "velocity_max": 5.374941865261014e-07,
+        "orientation_max": 8.875982466991361e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.001365364786509439,
+        "velocity_max": 9.7882787088069e-07,
+        "orientation_max": 6.674997053918779e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 0.0,
+        "angular_momentum_max": 0.0010069488566276051,
+        "velocity_max": 9.776932038287296e-07,
+        "orientation_max": 2.2699780430009467e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-weak-second-1": {
+      "control": {
+        "position_max": 3.800000002163184e-09,
+        "angular_momentum_max": 0.0012253836135487268,
+        "velocity_max": 4.803009470708454e-07,
+        "orientation_max": 8.658990667320024e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 3.0000000039720476e-08,
+        "angular_momentum_max": 0.0011089183917520275,
+        "velocity_max": 2.473863378444079e-07,
+        "orientation_max": 6.690471553394336e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 3.0000000039720476e-08,
+        "angular_momentum_max": 0.0012741903311240053,
+        "velocity_max": 2.532291455394771e-07,
+        "orientation_max": 7.202391231761116e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 3.0000000039720476e-08,
+        "angular_momentum_max": 0.000897765002820238,
+        "velocity_max": 2.437211520142112e-07,
+        "orientation_max": 5.264128044522528e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 3.0000000039720476e-08,
+        "angular_momentum_max": 0.0009641681856033347,
+        "velocity_max": 2.446425963291359e-07,
+        "orientation_max": 6.761191403100032e-05,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-pole-0": {
+      "control": {
+        "position_max": 3.2869105036083055e-05,
+        "angular_momentum_max": 0.38230504759658157,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "kernel": {
+        "position_max": 3.2869105036083055e-05,
+        "angular_momentum_max": 0.38230504759658157,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "frame": {
+        "position_max": 3.2869105036083055e-05,
+        "angular_momentum_max": 0.38230504759658157,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "inertia": {
+        "position_max": 3.2869105036083055e-05,
+        "angular_momentum_max": 0.38230504759658157,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "both": {
+        "position_max": 3.2869105036083055e-05,
+        "angular_momentum_max": 0.38230504759658157,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      }
+    },
+    "pair-stock-pole-1": {
+      "control": {
+        "position_max": 2.3883216977006774e-05,
+        "angular_momentum_max": 0.38531668786461754,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "kernel": {
+        "position_max": 2.3883216977006774e-05,
+        "angular_momentum_max": 0.38531668786461754,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "frame": {
+        "position_max": 2.3883216977006774e-05,
+        "angular_momentum_max": 0.38531668786461754,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "inertia": {
+        "position_max": 2.3883216977006774e-05,
+        "angular_momentum_max": 0.38531668786461754,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      },
+      "both": {
+        "position_max": 2.3883216977006774e-05,
+        "angular_momentum_max": 0.38531668786461754,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      }
+    },
+    "pair-vertical-locked-0": {
+      "control": {
+        "position_max": 2.101282780079287e-05,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.4449192328773826e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.941654802258916e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.941654802258916e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.941654802258916e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.941654802258916e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-locked-1": {
+      "control": {
+        "position_max": 7.369100000001461e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 5.138390689753751e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.651079363259852e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.651079363259852e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.651079363259852e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 7.379500000001104e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 9.651079363259852e-07,
+        "orientation_max": 0.0,
+        "first_difference": 40,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-weak-peer-0": {
+      "control": {
+        "position_max": 6.000000007944095e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 5.368659047633914e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.966178506931959e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.7900000004456018e-07,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 7.966178506931959e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.1200000003819266e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.697702726512347e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.1200000003819266e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 2.697702726512347e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-weak-peer-1": {
+      "control": {
+        "position_max": 6.000000007944095e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.431295217817229e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "kernel": {
+        "position_max": 1.015894188423118e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.5344044448851472e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "frame": {
+        "position_max": 1.015894188423118e-06,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 1.5344044448851472e-06,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "inertia": {
+        "position_max": 1.1200000003819266e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 5.324443631255603e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "both": {
+        "position_max": 1.1200000003819266e-08,
+        "angular_momentum_max": 0.0,
+        "velocity_max": 5.324443631255603e-07,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    }
+  },
+  "goal_complete": false
+}

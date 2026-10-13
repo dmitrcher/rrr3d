@@ -1,0 +1,59 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\endpoint-table-v102\\TraceEndpointTableV102.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\endpoint-table-v102\\TraceEndpointTableV102.exe:\r\ne1e34c0da6f8f0c155e4444ec776fe048d84e1fba5960acbce86223fc5b43e46\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "endpoint",
+      "name": "slope-lateral",
+      "repeat": 0,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "f78dfc66e7750da57ef81c8c15ceec2579585a0b52cb58f87da5b73b9860b9c7"
+    },
+    {
+      "kind": "endpoint",
+      "name": "slope-lateral",
+      "repeat": 1,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "50fb016e417a7fd1cb72c6ecb9d77e3096e29a559968eb5cdc0cb12f2522c642"
+    },
+    {
+      "kind": "endpoint",
+      "name": "slope-longitudinal",
+      "repeat": 0,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "887a3e9124a48342c7bf656be82414afcab75dec035a3dafd94fc8f4a585dde6"
+    },
+    {
+      "kind": "endpoint",
+      "name": "slope-longitudinal",
+      "repeat": 1,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "ccc7dbf32c33c79db9fc03df5f551c9034cf6a21397f43782d73ce7180b7a660"
+    },
+    {
+      "kind": "endpoint",
+      "name": "settle",
+      "repeat": 0,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "bfb66fcd3eba503b2d3ba9f3b6c36330eab4a924e56a139c84023e3dac1141e9"
+    },
+    {
+      "kind": "endpoint",
+      "name": "settle",
+      "repeat": 1,
+      "sample_tick": 19,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "3cd927576d989c41257d0811b49176de121bb51e94ff57c306f02bf2fc6c2db7"
+    }
+  ],
+  "goal_complete": false
+}

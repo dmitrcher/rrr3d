@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\endpoint-window-v90\\TraceEndpointWindowV90.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\endpoint-window-v90\\TraceEndpointWindowV90.exe:\r\nec98b750c4060b1337144b1aaaabd6cf05d0706aa3f729f45b1c7e8dd579764b\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "endpoint",
+      "name": "slope-longitudinal",
+      "repeat": 0,
+      "sample_tick": 21,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4d724874e33214280604f8f476bc20771e939084687d1dc4d5e272726574cb8f"
+    },
+    {
+      "kind": "endpoint",
+      "name": "slope-longitudinal",
+      "repeat": 1,
+      "sample_tick": 21,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "b3fe36c167a7042bc12f11f7968cb90b96d2b3078a643307a124366164399590"
+    }
+  ],
+  "goal_complete": false
+}

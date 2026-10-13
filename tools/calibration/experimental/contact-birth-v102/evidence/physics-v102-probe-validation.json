@@ -1,0 +1,50 @@
+{
+  "status": "Accepted causal research checkpoint; side-slope600 exact; longitudinal remains open with explicit magnitude regressions",
+  "strict_exact_cases": 465,
+  "open_cases": 143,
+  "all_previous_464_exact_preserved": true,
+  "new_exact_cases": [
+    "slope-lateral"
+  ],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "source_files": [
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeContactOrderV79.h",
+      "location": "adapter",
+      "before_sha256": "4591dc0d3ee399d500d87e39465821a2b6c54f296322a6ead4b62b2df50e122f",
+      "after_sha256": "ac5a8eb7a288538e46b393f3ded1e9809a1937084dedad84afa71793c9e3ec75"
+    }
+  ],
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "c0aaef6e99498de93f91004004db09841ad70798d48e1a7af31efa0045305301",
+    "rrr3d_physics_spring_probe": "f61cd3719bd1b4a3a166851de207d981e540a1dd14afb7f5371c5c98e684be09"
+  },
+  "changed_histories": [
+    "slope-longitudinal",
+    "slope-lateral"
+  ],
+  "unchanged_histories": 606,
+  "magnitude_regressions_explicit": {
+    "position_max": [],
+    "velocity_max": [
+      "slope-longitudinal"
+    ],
+    "orientation_max_degrees": [
+      "slope-longitudinal"
+    ],
+    "angular_momentum_max": [
+      "slope-longitudinal"
+    ],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [
+      "slope-longitudinal"
+    ],
+    "wheel_normal_force_max": [
+      "slope-longitudinal"
+    ]
+  },
+  "longitudinal_first_difference_after": 21,
+  "lateral_all_600_states_exact": true,
+  "goal_complete": false
+}

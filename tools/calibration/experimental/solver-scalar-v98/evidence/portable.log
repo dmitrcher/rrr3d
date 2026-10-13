@@ -1,0 +1,27 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_native_quaternion_words_exact": 16,
+      "actual_input_words_bound": 32,
+      "fixtures": 4,
+      "default_off_preserves_old_four_scalar_mismatches": true,
+      "unmeasured_input_domain_certified": false
+    },
+    {
+      "optimization": "O2",
+      "actual_native_quaternion_words_exact": 16,
+      "actual_input_words_bound": 32,
+      "fixtures": 4,
+      "default_off_preserves_old_four_scalar_mismatches": true,
+      "unmeasured_input_domain_certified": false
+    }
+  ],
+  "goal_complete": false,
+  "fresh_probe_checkpoint": {
+    "states": 1980,
+    "cases": 4,
+    "all_observed_float_words_exact_original_windows": true,
+    "probe_sha256": "56d0e89d318507bffabfa4eeb05201cbd9d26c1849284488fd1f00d8d93434f6"
+  }
+}

@@ -1,0 +1,42 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10074b70: 11 44 24 34                  	adcl	%eax, 0x34(%esp)
+10074b74: f3 0f 10 47 24               	movss	0x24(%edi), %xmm0
+10074b79: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+10074b7d: f3 0f 59 f0                  	mulss	%xmm0, %xmm6
+10074b81: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+10074b85: f3 0f 10 47 20               	movss	0x20(%edi), %xmm0
+10074b8a: 0f 28 d0                     	movaps	%xmm0, %xmm2
+10074b8d: f3 0f 59 50 58               	mulss	0x58(%eax), %xmm2
+10074b92: f3 0f 11 54 24 74            	movss	%xmm2, 0x74(%esp)
+10074b98: f3 0f 10 50 5c               	movss	0x5c(%eax), %xmm2
+10074b9d: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+10074ba1: f3 0f 11 54 24 78            	movss	%xmm2, 0x78(%esp)
+10074ba7: f3 0f 10 50 60               	movss	0x60(%eax), %xmm2
+10074bac: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+10074bb0: f3 0f 11 5c 24 3c            	movss	%xmm3, 0x3c(%esp)
+10074bb6: f3 0f 10 58 54               	movss	0x54(%eax), %xmm3
+10074bbb: f3 0f 11 54 24 7c            	movss	%xmm2, 0x7c(%esp)
+10074bc1: f3 0f 10 50 50               	movss	0x50(%eax), %xmm2
+10074bc6: 0f 28 c7                     	movaps	%xmm7, %xmm0
+10074bc9: f3 0f 59 40 4c               	mulss	0x4c(%eax), %xmm0
+10074bce: 8b 84 24 ac 00 00 00         	movl	0xac(%esp), %eax
+10074bd5: 8b 40 0c                     	movl	0xc(%eax), %eax
+10074bd8: f3 0f 58 44 24 74            	addss	0x74(%esp), %xmm0
+10074bde: f3 0f 59 df                  	mulss	%xmm7, %xmm3
+10074be2: f3 0f 58 5c 24 7c            	addss	0x7c(%esp), %xmm3
+10074be8: f3 0f 59 d7                  	mulss	%xmm7, %xmm2
+10074bec: f3 0f 58 54 24 78            	addss	0x78(%esp), %xmm2
+10074bf2: f3 0f 58 de                  	addss	%xmm6, %xmm3
+10074bf6: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+10074bfa: f3 0f 58 d5                  	addss	%xmm5, %xmm2
+10074bfe: f3 0f 11 5c 24 48            	movss	%xmm3, 0x48(%esp)
+10074c04: f3 0f 10 5f 10               	movss	0x10(%edi), %xmm3
+10074c09: f3 0f 11 44 24 40            	movss	%xmm0, 0x40(%esp)
+10074c0f: f3 0f 11 54 24 44            	movss	%xmm2, 0x44(%esp)
+10074c15: 85 c0                        	testl	%eax, %eax
+10074c17: 0f 84 5b 01 00 00            	je	0x10074d78 <.text+0x73d78>

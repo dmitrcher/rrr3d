@@ -1,0 +1,333 @@
+{
+  "scope": "Read-only next-cause analysis on V98. Native body order differs from current Mac cache/reference helper order; no next-version runtime edit or measured normal/mass supplied to simulation.",
+  "repeats": [
+    {
+      "repeat": 0,
+      "all_four_geometry_points12_words_exact": true,
+      "first_incoming_body6_words_exact": true,
+      "inverse_tensor9_words_exact": true,
+      "native_static_body_slot": 0,
+      "native_dynamic_body_slot": 1,
+      "mac_cache_dynamic_input_slot": 0,
+      "same_input_body1_local_x_words_exact": 4,
+      "same_input_normal_only_mass_words_exact": 4
+    },
+    {
+      "repeat": 1,
+      "all_four_geometry_points12_words_exact": true,
+      "first_incoming_body6_words_exact": true,
+      "inverse_tensor9_words_exact": true,
+      "native_static_body_slot": 0,
+      "native_dynamic_body_slot": 1,
+      "mac_cache_dynamic_input_slot": 0,
+      "same_input_body1_local_x_words_exact": 4,
+      "same_input_normal_only_mass_words_exact": 4
+    }
+  ],
+  "fixtures": [
+    {
+      "repeat": 0,
+      "contact": 0,
+      "actual_native_local_x_word": 1069547517,
+      "old_body0_xyz_word": 1069547518,
+      "actual_body1_yzx_word": 1069547517,
+      "native_mass": 725.2559814453125,
+      "mac_mass": 725.255371,
+      "same_inputs_normal_only_mass": 725.2559814453125,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033330917358398,
+          0.8160768747329712,
+          10.2765474319458
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "contact": 1,
+      "actual_native_local_x_word": 1069547516,
+      "old_body0_xyz_word": 1069547516,
+      "actual_body1_yzx_word": 1069547516,
+      "native_mass": 725.2591552734375,
+      "mac_mass": 725.258423,
+      "same_inputs_normal_only_mass": 725.2591552734375,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033332824707031,
+          0.8170267343521118,
+          10.876546859741211
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "contact": 2,
+      "actual_native_local_x_word": 1069547523,
+      "old_body0_xyz_word": 1069547522,
+      "actual_body1_yzx_word": 1069547523,
+      "native_mass": 725.2593383789062,
+      "mac_mass": 725.258667,
+      "same_inputs_normal_only_mass": 725.2593383789062,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033333778381348,
+          2.417024612426758,
+          10.874013900756836
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "contact": 3,
+      "actual_native_local_x_word": 1069547516,
+      "old_body0_xyz_word": 1069547516,
+      "actual_body1_yzx_word": 1069547516,
+      "native_mass": 725.2562255859375,
+      "mac_mass": 725.255493,
+      "same_inputs_normal_only_mass": 725.2562255859375,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033330917358398,
+          2.416074752807617,
+          10.274014472961426
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "contact": 0,
+      "actual_native_local_x_word": 1069547517,
+      "old_body0_xyz_word": 1069547518,
+      "actual_body1_yzx_word": 1069547517,
+      "native_mass": 725.2559814453125,
+      "mac_mass": 725.255371,
+      "same_inputs_normal_only_mass": 725.2559814453125,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033330917358398,
+          0.8160768747329712,
+          10.2765474319458
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "contact": 1,
+      "actual_native_local_x_word": 1069547516,
+      "old_body0_xyz_word": 1069547516,
+      "actual_body1_yzx_word": 1069547516,
+      "native_mass": 725.2591552734375,
+      "mac_mass": 725.258423,
+      "same_inputs_normal_only_mass": 725.2591552734375,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033332824707031,
+          0.8170267343521118,
+          10.876546859741211
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "contact": 2,
+      "actual_native_local_x_word": 1069547523,
+      "old_body0_xyz_word": 1069547522,
+      "actual_body1_yzx_word": 1069547523,
+      "native_mass": 725.2593383789062,
+      "mac_mass": 725.258667,
+      "same_inputs_normal_only_mass": 725.2593383789062,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033333778381348,
+          2.417024612426758,
+          10.874013900756836
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "contact": 3,
+      "actual_native_local_x_word": 1069547516,
+      "old_body0_xyz_word": 1069547516,
+      "actual_body1_yzx_word": 1069547516,
+      "native_mass": 725.2562255859375,
+      "mac_mass": 725.255493,
+      "same_inputs_normal_only_mass": 725.2562255859375,
+      "native_prepared_reference_quaternion_words": [
+        3125772201,
+        0,
+        2147483648,
+        1065353211
+      ],
+      "actual_mac_cache_input": {
+        "actor_matrix_position": [
+          1.0,
+          -9.841276948918676e-08,
+          -3.4181796308985213e-06,
+          9.300137548962084e-08,
+          0.9999987483024597,
+          -0.001583088538609445,
+          3.4183310617663665e-06,
+          0.001583088538609445,
+          0.9999987483024597,
+          6.533332347869873,
+          1.6165509223937988,
+          10.575285911560059
+        ],
+        "world_point": [
+          8.033330917358398,
+          2.416074752807617,
+          10.274014472961426
+        ]
+      }
+    }
+  ],
+  "source_creation_order_observation": {
+    "windows_reference": "floor, car(s), obstacle",
+    "mac_backend": "track including border, decorations, cars",
+    "effect_of_creation_order_is_not_yet_experimentally_bound": true
+  },
+  "normal_only_values_are_offline_diagnostics": true,
+  "original_Windows600_states_each_exact_Golden": true,
+  "goal_complete": false
+}

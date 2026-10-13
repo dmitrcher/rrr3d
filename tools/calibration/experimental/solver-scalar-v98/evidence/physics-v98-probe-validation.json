@@ -1,0 +1,36 @@
+{
+  "status": "Accepted reproducible research checkpoint; full parity incomplete",
+  "strict_exact_cases": 398,
+  "open_cases": 210,
+  "all_previous_396_exact_preserved": true,
+  "new_exact_cases": [
+    "body-slide-y",
+    "body-tilt-roll"
+  ],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "body_roll_all180_states_exact_Windows": true,
+  "body_slide_y_all180_states_exact_Windows": true,
+  "body_pitch_first_remaining_difference": 166,
+  "source_after_sha256": "1962eccb4639fc968d120b36b90a8a87d2a77c00745646d83c4d28d38a312e51",
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "56d0e89d318507bffabfa4eeb05201cbd9d26c1849284488fd1f00d8d93434f6",
+    "rrr3d_physics_spring_probe": "ee278bf0a2730659ea6f6a06a2060146a329fa82b75eda6279f30d75803c9283"
+  },
+  "changed_histories": [
+    "body-slide-y",
+    "body-tilt-pitch",
+    "body-tilt-roll"
+  ],
+  "unchanged_histories": 605,
+  "magnitude_regressions_explicit": {
+    "position_max": [],
+    "velocity_max": [],
+    "orientation_max_degrees": [],
+    "angular_momentum_max": [],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [],
+    "wheel_normal_force_max": []
+  },
+  "goal_complete": false
+}

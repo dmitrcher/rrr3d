@@ -1,0 +1,496 @@
+{
+  "scope": "Verified V98 Native solver scalar source/evidence;398strict210open",
+  "files": [
+    {
+      "path": "NEXT.md",
+      "bytes": 2006,
+      "sha256": "f3b4c80fe91987a7159d50788f5c069a76b07690fa2694fc8d62c9512e9cf8fd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3802,
+      "sha256": "e705d6081a38c9cf26c578ec76fa7c3cc01e6cd528481235ed7c5f44c5349422"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h",
+      "bytes": 8435,
+      "sha256": "1962eccb4639fc968d120b36b90a8a87d2a77c00745646d83c4d28d38a312e51"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 470,
+      "sha256": "6bd0d691bcd77415fa54b66b30d196bbbd3070fd3c978b8f9aef93ca59afca93"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/NativeMaterialFrameV36.h",
+      "bytes": 8151,
+      "sha256": "a9b91d1138296f020d1a2c2b09700ea6dad24af6ba035af5e9a18b5d52186105"
+    },
+    {
+      "path": "capture-compression.json",
+      "bytes": 6362,
+      "sha256": "afccd7f51ce20403996e9aa5402dae69830a394ff0675f1ea8c451f7782c68a4"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-0-physical.jsonl.gz",
+      "bytes": 122217,
+      "sha256": "d9082187caf44970d075dc6252ceea4d19f1eb026b6b4b9b88127ee1b938f275"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-0-prep.jsonl.gz",
+      "bytes": 52,
+      "sha256": "738b21ec6bd59ba3025206bc46d110d1ff65ceb64f1a7305a16a15ff3c39ab14"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-0-solver.jsonl.gz",
+      "bytes": 351,
+      "sha256": "28ab06fb44042d8854fd2eaf9a7ecb48ca5b6021d4807de1b25a36e27f0f2e71"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-1-physical.jsonl.gz",
+      "bytes": 122256,
+      "sha256": "e178dd41778f7a99112814131d6114c47b61f056f25fed3e88cb4ddae4ad7634"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-1-prep.jsonl.gz",
+      "bytes": 52,
+      "sha256": "b4b44a8ffb7999e02726588889e53786b294c1a6cba083fb71bfc1a02caeb64e"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-1-solver.jsonl.gz",
+      "bytes": 351,
+      "sha256": "1bcc03c3526fedc2567348966518916e171a7e2953c1c8dc59158abf798c2d46"
+    },
+    {
+      "path": "captures/mac-candidate132/body-tilt-roll-132-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate132/manifest.json",
+      "bytes": 7665,
+      "sha256": "268bd1c213cc85e3afb2ba83465243aaa0a8dc9fbe4e344e3c50afc3132ba790"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0-combined.jsonl.gz",
+      "bytes": 352,
+      "sha256": "610deab20d3abd9b79cfb77e8fbb675e4eedfe7785b4c5f6c7b71d5d580f2d7c"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0-physical.jsonl.gz",
+      "bytes": 511390,
+      "sha256": "1469e800c4c625167a6c45b61613fb9c393b07c8147848308578608563377ace"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0-prep.jsonl.gz",
+      "bytes": 747,
+      "sha256": "d416feadad6ad3b3a09e24a4a0c37331872b34219b6df4439726c041dca22875"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0-solver.jsonl.gz",
+      "bytes": 1227,
+      "sha256": "5d5b1c0b0890ef86bc4cd08cb1074c7a1e2dfd10a0bebd767a10e16e72b5a639"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0-tire.jsonl.gz",
+      "bytes": 1990,
+      "sha256": "2cffa8eb41f48c222c1948ba6a6e7e7cae9aeb5433505e0086758d6a49d7d158"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1-combined.jsonl.gz",
+      "bytes": 352,
+      "sha256": "db881978d8bc35b463e37e0bd1e09854358479087438f54fd9424e647041f7f1"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1-physical.jsonl.gz",
+      "bytes": 511406,
+      "sha256": "3fe03f997b83b95b1d7889a70f289df131d0a122f8c0a0f081954a86a39546c4"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1-prep.jsonl.gz",
+      "bytes": 747,
+      "sha256": "159a8c6968aeb694fc788b92faa9e4d2610282b5d950a0aba9bf09c3a8525c8c"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1-solver.jsonl.gz",
+      "bytes": 1227,
+      "sha256": "f12b29f4c299c6d2b97c835b35ca5428ae1a3060a2a3e99a24f70b18e92145fa"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1-tire.jsonl.gz",
+      "bytes": 1990,
+      "sha256": "01c5fba18225ff40a90bcebdc0213302d19c995b8eda6d1d1ee37cf18d58f028"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-48-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0-combined.jsonl.gz",
+      "bytes": 363,
+      "sha256": "8e7fcf87cb52c02f09264875ed2b82ba2e07fd768c927047241f15eb21e38257"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0-physical.jsonl.gz",
+      "bytes": 513664,
+      "sha256": "561ff1c2b33fe98c3d676dd7d9e2ee73c0ea220e8053b45703250a68db33225d"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0-prep.jsonl.gz",
+      "bytes": 758,
+      "sha256": "cd0be4e2e7e25782879c23da36e5d3c4632443009ffac063c9cd2bdfb80e0eed"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0-solver.jsonl.gz",
+      "bytes": 1384,
+      "sha256": "a033a301635176cc88eba4b10b49af5b76a1263e141597614e92aa2ff1ba5a48"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0-tire.jsonl.gz",
+      "bytes": 2081,
+      "sha256": "fd9026b3c5c43ebe417625f03b4175d8a9f394aef55be95d1af250086baad4c4"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1-combined.jsonl.gz",
+      "bytes": 363,
+      "sha256": "dea5d067adff1fa85edfc10be72458fdeadd3db5c77328dccc0f85c097f1ae94"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1-physical.jsonl.gz",
+      "bytes": 513577,
+      "sha256": "03a835fc056f54208f9ecf5ec463a81c723ce2bd7ae351a86959197d682f342f"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1-prep.jsonl.gz",
+      "bytes": 758,
+      "sha256": "c47de369622422ab901d74a8c4053694ea4838c6f90d8cb41ec9778dde0a8203"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1-solver.jsonl.gz",
+      "bytes": 1384,
+      "sha256": "5b80c5f74c1a5884571dc06827fe95106020b739bc021dbb2d455a5cccfbfb0d"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1-tire.jsonl.gz",
+      "bytes": 2081,
+      "sha256": "6d5aa9aa2944cff20540a150b32415e157dbbc431977661ebe2ee193a65240b3"
+    },
+    {
+      "path": "captures/mac-next-border49/border-front-grounded-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-border49/manifest.json",
+      "bytes": 8111,
+      "sha256": "f3d1701feb924f7577e64c49697f80fa6b2b4d0ea1a0d63e630adcd2d82b6eec"
+    },
+    {
+      "path": "captures/native-input132/manifest.json",
+      "bytes": 1396,
+      "sha256": "47a60dacb328e1c65a201d9b593da24ab86db8cc46f38112dc34c0006ff63d5b"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-0-physical.jsonl.gz",
+      "bytes": 144543,
+      "sha256": "9fd4af2805aff14cc5fae204eef2ab32cf4f6ae2012cf36b16379b5cf3b28cbd"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-0-private.jsonl.gz",
+      "bytes": 36903,
+      "sha256": "392375d1480c8d9d0d9fad9b5a8b2d14d4d8849edc18200245ffbf202ecc7e8a"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-1-physical.jsonl.gz",
+      "bytes": 144574,
+      "sha256": "ded002ccf802862579fe36919e48caadc384eb155f0d8c4cfd3a0336f1a2d452"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-1-private.jsonl.gz",
+      "bytes": 36942,
+      "sha256": "acea4795e910902788e5f693139e5a262393c2355ec8e89901464e0ef7ce50f3"
+    },
+    {
+      "path": "captures/native-input132/v97-solver-frame132-body-tilt-roll-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-border49/manifest.json",
+      "bytes": 1414,
+      "sha256": "5fd5caa205fd5ddbbdab536f97bf248c9a9ab3a5470a5d655f4248fff7e169e8"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-0-physical.jsonl.gz",
+      "bytes": 503219,
+      "sha256": "46a4ce89296257309e5eae51c774fb2b8e4c493ccc5f80269006faae6551472f"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-0-private.jsonl.gz",
+      "bytes": 59913,
+      "sha256": "bb5f4a05e92d3af69415d77485f5c1469663751cf28ee62e0412c4e57501fe36"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-1-physical.jsonl.gz",
+      "bytes": 503002,
+      "sha256": "8a09b3d53a2a1c1249e760273706da3d9a03a034fcba32281b1cdb89b4033405"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-1-private.jsonl.gz",
+      "bytes": 60005,
+      "sha256": "3eceda053098e206d2e1b20dfa80fa13f00db6ba083e67518820924be58f52f0"
+    },
+    {
+      "path": "captures/native-next-border49/v98-next-border49-border-front-grounded-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compose-probe.cpp",
+      "bytes": 296,
+      "sha256": "7002e91f8a12637bcc74d6f56274d50b9ae376d1d15aac5222ac2f1f877a9918"
+    },
+    {
+      "path": "context/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "context/DerivedContactErrorFrame.h",
+      "bytes": 2270,
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5"
+    },
+    {
+      "path": "context/NativeContactNormalV38.h",
+      "bytes": 753,
+      "sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8"
+    },
+    {
+      "path": "context/SourceMaterialFrameCandidate.h",
+      "bytes": 4067,
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    },
+    {
+      "path": "evidence/actual-native-input-binding.json",
+      "bytes": 2931,
+      "sha256": "012b569f2b7437eabdd85bc20c3c96cfa57119ed2be4ef95eaebd2f77f74961a"
+    },
+    {
+      "path": "evidence/actual-native-scalar.disasm.txt",
+      "bytes": 1491,
+      "sha256": "77287170d80aeeedc0091d836248c41516bfa85305f88848ae0974b5dbb4c18c"
+    },
+    {
+      "path": "evidence/broad-capture-manifest.json",
+      "bytes": 7529,
+      "sha256": "8ca6c225bb671c286fe7332e64e4aa20fe12e2d813a1c7598bbb9c0b39038505"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "25a81088c8dfe01634c3ef7d61f0baa07fc30628704c5c03c8cbd542b9e1e815"
+    },
+    {
+      "path": "evidence/checkpoint-expected.jsonl.gz",
+      "bytes": 370562,
+      "sha256": "c30d16543befe48f21c50d8a7aa9342502a39f2bf0359fe94cfaefd26d438bd6"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "0b1ab93666f3bc21dbc44b2be4f89b73f51e8673f53a5a62757ea53b1741b1af"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 75011,
+      "sha256": "82e1dcbb0eacd4742ed0ccb78ca14f4601a32f6690b8ea55c34c2f722f66d043"
+    },
+    {
+      "path": "evidence/gates-capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "5ebbae64ac9ca0f62fabc849c4b6b30785edef1bd4b343315a078d5d9de78e0c"
+    },
+    {
+      "path": "evidence/gates.log",
+      "bytes": 598,
+      "sha256": "70f190603589f24defc2d5636719d83cc4982a50545fec8a514c36699e458e06"
+    },
+    {
+      "path": "evidence/installer-test.log",
+      "bytes": 455,
+      "sha256": "2fe69e7459ddf979da780f628af980939ad186967a264fde67928f380d9d1b71"
+    },
+    {
+      "path": "evidence/live-132-proof.json",
+      "bytes": 860,
+      "sha256": "b6943247268ec186ae0b07e78c46c7001115cbe1a0ba32600261acb314bba5d3"
+    },
+    {
+      "path": "evidence/next-body1-lever.disasm.txt",
+      "bytes": 2374,
+      "sha256": "b2b4d31c2d00bec6e5fde0ed9c4faa8c9093019f00f90ba45e9f0a2e7d698f40"
+    },
+    {
+      "path": "evidence/next-border49-role-proof.json",
+      "bytes": 9529,
+      "sha256": "c7fc41d3a5128ca6d9422b0fe3ca6e17bab92cb8eff0bd5d795da6ffe09ea20b"
+    },
+    {
+      "path": "evidence/physics-v98-build-and-functional-audit.json",
+      "bytes": 586,
+      "sha256": "e80823064940a30cba4ef19d5027988b00e62217330da31ed0a325dbe17036b9"
+    },
+    {
+      "path": "evidence/physics-v98-final-broad-audit.json",
+      "bytes": 1555934,
+      "sha256": "1102fda65b192734528136de8ace89f42ec9f2be92723757c1b930c7f6e7d96e"
+    },
+    {
+      "path": "evidence/physics-v98-final-practical-error-audit.json",
+      "bytes": 1126199,
+      "sha256": "9fbaecf262bad4f9295bc4714179c0a961e2ce51e463dca8c0429262a6b9fac6"
+    },
+    {
+      "path": "evidence/physics-v98-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "3d5e3865dc82a50fb040b1d9cb697df6ca084d98eb4495ab2d1cf8b9381f39be"
+    },
+    {
+      "path": "evidence/physics-v98-portable-validation.json",
+      "bytes": 796,
+      "sha256": "3b0afd593a1a7372fd47b68e0c4cd9d8d8898aaeaa54255761725dca2d035841"
+    },
+    {
+      "path": "evidence/physics-v98-probe-validation.json",
+      "bytes": 1207,
+      "sha256": "f9a3191a34989c36be8d273ffa9a8b8db758b0228c63a3920086d6740b855d2f"
+    },
+    {
+      "path": "evidence/physics-v98-regression-audit.json",
+      "bytes": 24870,
+      "sha256": "8f2fc4a673515cf2a6819240dcd33bab9749c811d0744c0faee31d30894364dd"
+    },
+    {
+      "path": "evidence/portable.log",
+      "bytes": 796,
+      "sha256": "3b0afd593a1a7372fd47b68e0c4cd9d8d8898aaeaa54255761725dca2d035841"
+    },
+    {
+      "path": "evidence/same-input-arithmetic-proof.json",
+      "bytes": 2910,
+      "sha256": "4c91ca9070be6593c3ed0ff331f1e8b2127e27e52a0e0064ce798bda345f23c4"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 6631,
+      "sha256": "e4939745d3495e715ea98d743ad46a9bd5714df2c3069d344f17d48856c626a5"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-candidate132.py",
+      "bytes": 3817,
+      "sha256": "0f843f2b262821c6e3142e02efbeb1aa918bbe1964e45e3ba1f3e175c99e58e5"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-next-border49.py",
+      "bytes": 3836,
+      "sha256": "c8ea4196a9ef1b0f4a0fadc23770f813f7417ba98d6605b705b31e80acd37a16"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next-border49.py",
+      "bytes": 2597,
+      "sha256": "71f131e5fa063317c8790ef3319d46ce94e8db76ac100a5f9d04eb92645b61fa"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3651,
+      "sha256": "ed945e9b5d59654b138b923107c200e7173afabb4e24224486379d19c90c983e"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2172,
+      "sha256": "be66facac8d53efaf1172c3ea66b79d94fd2fae2679baf3baa08ce6ce9ab3d67"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4272,
+      "sha256": "4975fd130541fc0f4fb407ec3abd8124c466fa065c7a3dc278fd750855c712b7"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-live132.py",
+      "bytes": 1787,
+      "sha256": "61b9141508df0db8549e0a48a60ebfa599a6add31db03cd2ed538252707c0155"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-next-border49.py",
+      "bytes": 4356,
+      "sha256": "96e52c1165e1bbeca69c98a78ba142201860ebb7e804bbbcab828ad7ddfb86e1"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2416,
+      "sha256": "40022e132d7a943730bcb0736d7565a1f26fc98bfcd3b8927109a38546fca2e3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 3840,
+      "sha256": "054fbad09afe5b5676a3b503e6424298f7f5b95813122cc9db6461a59aa8000d"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2084,
+      "sha256": "818de57bb292bc1d0e9af103a2f1d648c07ff1ddcb4b187c9f92d5874f6fe0e6"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2059,
+      "sha256": "1440484eee563011bf2f4ee6410ae8f6d6c5abe9b0e124903f86f1acbafdefe0"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 6112,
+      "sha256": "35c9ffe097c1360e358102a46ca3dd3831ed26b1ad1a6f5eb020de5da218a5e4"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3483,
+      "sha256": "07c69ab3259d69b4f9001c4b41e7b329043e1c215b9dc320a9eb294f9d626871"
+    }
+  ],
+  "goal_complete": false
+}

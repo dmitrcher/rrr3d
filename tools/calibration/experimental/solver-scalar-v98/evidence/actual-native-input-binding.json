@@ -1,0 +1,116 @@
+{
+  "scope": "Read-only actual Native actor0 compose input at RVA74c1d, original180states exact Golden per repeat; two contacts times two repeats. Mac V97 unchanged.",
+  "fixtures": [
+    {
+      "repeat": 0,
+      "contact": 0,
+      "actual_actor_words": [
+        1063006570,
+        3112684605,
+        3105778584,
+        1057133659
+      ],
+      "actual_local_words": [
+        3191028243,
+        1043544639,
+        1060070090,
+        1060070145
+      ],
+      "native_solver_words": [
+        1056959590,
+        3204450761,
+        1056959597,
+        1056967116
+      ],
+      "old_scalar": 0.5001494288444519,
+      "native_scalar": 0.5001494884490967,
+      "actual_source_scalar": 0.5001494884490967,
+      "all_eight_input_words_exact_mac": true
+    },
+    {
+      "repeat": 0,
+      "contact": 1,
+      "actual_actor_words": [
+        1063006570,
+        3112684605,
+        3105778584,
+        1057133659
+      ],
+      "actual_local_words": [
+        3191028243,
+        1043544639,
+        1060070090,
+        1060070145
+      ],
+      "native_solver_words": [
+        1056959590,
+        3204450761,
+        1056959597,
+        1056967116
+      ],
+      "old_scalar": 0.5001494288444519,
+      "native_scalar": 0.5001494884490967,
+      "actual_source_scalar": 0.5001494884490967,
+      "all_eight_input_words_exact_mac": true
+    },
+    {
+      "repeat": 1,
+      "contact": 0,
+      "actual_actor_words": [
+        1063006570,
+        3112684605,
+        3105778584,
+        1057133659
+      ],
+      "actual_local_words": [
+        3191028243,
+        1043544639,
+        1060070090,
+        1060070145
+      ],
+      "native_solver_words": [
+        1056959590,
+        3204450761,
+        1056959597,
+        1056967116
+      ],
+      "old_scalar": 0.5001494288444519,
+      "native_scalar": 0.5001494884490967,
+      "actual_source_scalar": 0.5001494884490967,
+      "all_eight_input_words_exact_mac": true
+    },
+    {
+      "repeat": 1,
+      "contact": 1,
+      "actual_actor_words": [
+        1063006570,
+        3112684605,
+        3105778584,
+        1057133659
+      ],
+      "actual_local_words": [
+        3191028243,
+        1043544639,
+        1060070090,
+        1060070145
+      ],
+      "native_solver_words": [
+        1056959590,
+        3204450761,
+        1056959597,
+        1056967116
+      ],
+      "old_scalar": 0.5001494288444519,
+      "native_scalar": 0.5001494884490967,
+      "actual_source_scalar": 0.5001494884490967,
+      "all_eight_input_words_exact_mac": true
+    }
+  ],
+  "actual_input_words_bound": 32,
+  "scalar_order_native": "(local.z*actor.z + local.y*actor.y) + local.x*actor.x, individual float32 rounding",
+  "old_scalar_order": "(local.x*actor.x + local.z*actor.z) + local.y*actor.y",
+  "first_incoming_body_tensor_lever_inverse_mass_exact": true,
+  "all_four_native_scalar_words_reproduced": true,
+  "runtime_fix_installed": false,
+  "goal_complete": false
+}

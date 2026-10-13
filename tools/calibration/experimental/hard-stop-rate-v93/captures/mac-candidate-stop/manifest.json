@@ -1,0 +1,89 @@
+{
+  "scope": "Actual live stop preparation with identical scenario inputs. No injected row/body state.",
+  "probe_sha256": "a2e673d41527051db2e69eb35f6a03ed2307a9efd83cc67a57a67df5423f371e",
+  "mode": "candidate",
+  "captures": [
+    {
+      "name": "mobility/marauder/wheel1/wheel-drive",
+      "tick": 22,
+      "sdk_counter": 23,
+      "repeat": 0,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 587,
+      "physical_sha256": "07507a27291308ec52802f820e4e80e05c2c9758f864e2b6c146574a44426bf8"
+    },
+    {
+      "name": "mobility/marauder/wheel1/wheel-drive",
+      "tick": 22,
+      "sdk_counter": 23,
+      "repeat": 1,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 587,
+      "physical_sha256": "5cd5c2361b9a147f2a41a9ba492662845b4d2aeab2ffa7ea5300a1534118514d"
+    },
+    {
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "tick": 22,
+      "sdk_counter": 23,
+      "repeat": 0,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 245,
+      "physical_sha256": "e7dc4704ef624f44b45ba54650597705cf060072d3d0ee2156a71fb426257ea8"
+    },
+    {
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "tick": 22,
+      "sdk_counter": 23,
+      "repeat": 1,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 245,
+      "physical_sha256": "8e4def1b9e487b25f2ee17bf64bfd84839ec0f84e5b2f3aa96c0dbb27db78621"
+    },
+    {
+      "name": "mobility/manticora/wheel3/lateral",
+      "tick": 23,
+      "sdk_counter": 24,
+      "repeat": 0,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 23,
+      "physical_sha256": "7b1d8d8e1f7fd93ec24f72a158242e2dc33298ebda3405c8c56c392882167dc9"
+    },
+    {
+      "name": "mobility/manticora/wheel3/lateral",
+      "tick": 23,
+      "sdk_counter": 24,
+      "repeat": 1,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": 23,
+      "physical_sha256": "be548452ba3244ec358c3904069295f9fa250e5f35c3bc67216c41293eb0f046"
+    },
+    {
+      "name": "wheel-drive",
+      "tick": 24,
+      "sdk_counter": 25,
+      "repeat": 0,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": null,
+      "physical_sha256": "534c3b16218b42dbe22028f21fb934a0fb4a839277bc7f161ad4bc895a790b84"
+    },
+    {
+      "name": "wheel-drive",
+      "tick": 24,
+      "sdk_counter": 25,
+      "repeat": 1,
+      "states": 600,
+      "preserves_v92_float32": false,
+      "first_difference_windows": null,
+      "physical_sha256": "03f7fd090d9d423f6cb6eca429d7ce26be75bd541a7436f02c0d7eb71f9b2060"
+    }
+  ],
+  "repeats_exact": true,
+  "goal_complete": false
+}

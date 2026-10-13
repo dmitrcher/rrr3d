@@ -1,0 +1,75 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\kernel-v93\\TraceKernelV93.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\kernel-v93\\TraceKernelV93.exe:\r\n4143c5e588fbacc75556ab32ff759d8162c1bcd520c13466b94d5c26d148eccd\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/wheel-drive",
+      "repeat": 0,
+      "sample_tick": 22,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "20e76536dd08ff2bcd9d0cb19ccf020d6d3259684a55000328e07469bc17c841"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/wheel-drive",
+      "repeat": 1,
+      "sample_tick": 22,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "e9f3fce2a4682bbd8ec68b45193d01f7853e578c7c904c8a8839d7cd2109387b"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "repeat": 0,
+      "sample_tick": 22,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "5d9161c6735586a4715bffd286ce0e778ad7740e36be2b8a0a025885265b5a52"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "repeat": 1,
+      "sample_tick": 22,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "6f526e23769f91aea29dfc0db5a17feefa70f971d989be9c9dea203d4274262c"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/manticora/wheel3/lateral",
+      "repeat": 0,
+      "sample_tick": 23,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "1661fcdd96a99ba83617ecaacf0f400a11c1f63d325ef576fa477d085594a16c"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/manticora/wheel3/lateral",
+      "repeat": 1,
+      "sample_tick": 23,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "1a29d3b6a9be7585e7bdfaa99a8deec03b75ad79a73d0df0c5d8d57b52f062d6"
+    },
+    {
+      "kind": "force",
+      "name": "wheel-drive",
+      "repeat": 0,
+      "sample_tick": 24,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "e3619dac81cf95042588d8ec307e78a4e51dc60c038adf2e5941854f93bbf685"
+    },
+    {
+      "kind": "force",
+      "name": "wheel-drive",
+      "repeat": 1,
+      "sample_tick": 24,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "2b434a93edff63c25fd58dc8b6ddd2bd995157379664f137eb06276b2be3dbe9"
+    }
+  ],
+  "goal_complete": false
+}

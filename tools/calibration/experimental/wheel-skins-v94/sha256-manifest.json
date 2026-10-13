@@ -1,0 +1,876 @@
+{
+  "scope": "V94 six-file guarded overlay, Native/Windows SSE proofs and repeatable evidence; full parity incomplete",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3791,
+      "sha256": "a8841cf39aaa24ad89e3e6051d720e969a03e4275f63e77dc5dca145e64cb633"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21483,
+      "sha256": "8bb16ff9b9c7aeaede199ea4155032185923c514559d5a60ab1af6fecbf426d3"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 363613,
+      "sha256": "46b9c35879efbdf97a6b6a7e553afaad68179bda849b1d37adf2c097e901ac80"
+    },
+    {
+      "path": "after/adapter/src/Rock3dGame/source/stub/OriginalRace.cpp",
+      "bytes": 327708,
+      "sha256": "7852da8a84ca82c0049b0c047d9b00ecd3382bfca99d7bcd44c1ba30310d33c2"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeWheelSkinErrorV94.h",
+      "bytes": 311,
+      "sha256": "ddb7d647072d0810ef59a6611a9f056661872146d8057c86d4dc04eb8cd9d449"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "bytes": 53465,
+      "sha256": "622f5881a2cc1abec7479217ff2e7b38caf773b1bb7415daf93ffd0cb9ae95c4"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Vehicle/Wheel.h",
+      "bytes": 12645,
+      "sha256": "c685f378f2bd6595fe6ee425d872c0310dbf8222f560ff6281401fd1434f72d1"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1896,
+      "sha256": "f5605b57538f9ae2816a2b1da16823ed2765d82d55cd2c12c27f255e68653307"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21403,
+      "sha256": "8456746c465a8c1ddd06e928de85766d28d26ea754f23fa3dd5ee56fc4e2ff0a"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 361926,
+      "sha256": "6703a5eb355d8649d1d970bf14abc13471f644cc6904bc0ebfda7578cbacce3d"
+    },
+    {
+      "path": "before/adapter/src/Rock3dGame/source/stub/OriginalRace.cpp",
+      "bytes": 327581,
+      "sha256": "b14c63aa4bff87c0bf49db2c5749b87ae2e751d3d40bc0630e294eb57af9615d"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "bytes": 52723,
+      "sha256": "354601bd70433e895a164df3a1244d5ef8207db83638049053f4525b411d09e3"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Vehicle/Wheel.h",
+      "bytes": 12184,
+      "sha256": "b055d7ea6619748c6fcbe81a18430378770aa7066ec063b186a328e12d1e79ff"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 6286,
+      "sha256": "6aa72e75ad9882cc9251d02753b2c2df0f3f3dc0b5c186499016298af898b5b4"
+    },
+    {
+      "path": "captures/focused/control-0-order.jsonl.gz",
+      "bytes": 29526,
+      "sha256": "35305d75fef7f1ccc65a6b9ec0ffef7f2fd876f17773e8a01917a7c8c6780f99"
+    },
+    {
+      "path": "captures/focused/control-0.jsonl.gz",
+      "bytes": 1966537,
+      "sha256": "7dda53f96293fc89adcc3fe3296a28a2c131622bffc08cd2f466791e1f56e1ba"
+    },
+    {
+      "path": "captures/focused/control-1-order.jsonl.gz",
+      "bytes": 29526,
+      "sha256": "2b75f7ba0aa48fe4c2d29dec05187cf7012599f7734504ccaa1a880adb37144b"
+    },
+    {
+      "path": "captures/focused/control-1.jsonl.gz",
+      "bytes": 1966491,
+      "sha256": "3c1813946974b916bc6691c837578b9695ffd189945b93ee4eaf0a43b5fde53d"
+    },
+    {
+      "path": "captures/focused/manifest.json",
+      "bytes": 7403,
+      "sha256": "2c382e002bc6dd16dbf507be8deaad68cd53fe12d0b861b27536628934fdc5e4"
+    },
+    {
+      "path": "captures/focused/report.json",
+      "bytes": 64028,
+      "sha256": "86da29b0ce74a9696cceb8798c0e179f15c46f9a808b9c4e034deeeceb8d1701"
+    },
+    {
+      "path": "captures/focused/skins-0-order.jsonl.gz",
+      "bytes": 29524,
+      "sha256": "e3c946d176c25fe050a63a04451cd38806eaf86d374cabbde651f609cf021354"
+    },
+    {
+      "path": "captures/focused/skins-0.jsonl.gz",
+      "bytes": 1964874,
+      "sha256": "8fff72bcc9473d81bc922aec489e3174173d891748fac2e1b990bb17e96e6d3a"
+    },
+    {
+      "path": "captures/focused/skins-1-order.jsonl.gz",
+      "bytes": 29524,
+      "sha256": "85c4e8092845bd61a673dc1b57ea5e86c0805ee03106db0bbbce34789c7ecb8a"
+    },
+    {
+      "path": "captures/focused/skins-1.jsonl.gz",
+      "bytes": 1965001,
+      "sha256": "2af4bf693d6407e08b9c0e591f568c79f9a1e80424efd5c9bdce3b5becf42b6e"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-0-physical.jsonl.gz",
+      "bytes": 136397,
+      "sha256": "2c04fe421fcfddc1c3089da9e27c4ffafce446046f60880522cc8f4a2e72e34a"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-0-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "5a3288278680137dad2ad3232a0cc456791e7e23d4add06be81a3a3cbb206202"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-0-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "880f428a44be39b1f0a97e401fe411b673980959973c2f15458bb2d8b8015854"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-0-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "11663d08c25b03e5365b60604964e1b8f95a3a762b235c5d31898e0feca3713b"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-0-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "8aad9e4ada426e603204eb18f71264a9fa27333e21872960df59bd169330309f"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-1-physical.jsonl.gz",
+      "bytes": 136405,
+      "sha256": "324ac40cd3d3b7b60cd7c5671e31cfa087662cb41658b3571ba77322806ce827"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-1-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "2b4ee192f14f54c5ccc21040f798215c913f1ff65ab4d0be354016321cf1c54e"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-1-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "344a92ef69eeee58976d1f187f69e4dceafa6ea6e1218f7c716133e9dce84aaf"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-1-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "92712f4e81061bcf9011b3f53abc7eccc42732d9bbe0c6d6dfa8cea9de967194"
+    },
+    {
+      "path": "captures/mac-candidate-stop/0-22-1-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "8f5f06aa2616a873e47ee112923ac2e3b38e1828ddc16885b5de1bcf1132a976"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-0-physical.jsonl.gz",
+      "bytes": 137294,
+      "sha256": "cbce5515a7f4be5bad19dc91f1ad69af98e6c3235b41c6fe52dc595e47c17243"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-0-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "568b05acc71e009d9b7b638d25b7064b7a19be5e8d562f5ad1499549ba849372"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-0-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "de328b00911672c347b6c734b6dc80185581cf4c6bd150364f9960bc674caf4c"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-0-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "56e93a36cf6abf4c587f008f3ff6d0063aaddac19b44956f05878c855276d9a3"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-0-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "4829de2e81a705bc1a7e852bd60ae6794cfab808f6c0f6c3206f2b30ca770358"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-1-physical.jsonl.gz",
+      "bytes": 137309,
+      "sha256": "4d9b5ef7a458d4bc469542e11246c96d768a81c3f7b4aca3c89444aa7b9b22ad"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-1-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "c5499e9878f2cec530acf8ff16d85c780674db70d8f520295cf71304c2daad7f"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-1-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "deb21fa6730aab31e03570646659438ea8c4fd0deb97eef8cc4e6088f4ad449d"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-1-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "7a4689c185c3164db11db9134c54a24d4e6c570841bfa63f01e8887a165497e3"
+    },
+    {
+      "path": "captures/mac-candidate-stop/1-22-1-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "7e1e1d0df0f56b218d7f5609d619395b5f9b2bd165b9b0faf8e4182e844b08f2"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-0-physical.jsonl.gz",
+      "bytes": 128807,
+      "sha256": "89fd39acb3f4ec401724f2d88da4c9bc48f7f3ddb38c3d866f279130b36cd641"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-0-prep.jsonl.gz",
+      "bytes": 812,
+      "sha256": "38a291618493b7f4d5fc2ef6e2a708c8d086d7190dedc842dfefd52d2b63cf56"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-0-solver.jsonl.gz",
+      "bytes": 2295,
+      "sha256": "d073871ed70a11a47fb392a1b2ff51ba0e66749bee38347025288c91245a58ee"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-0-stop.jsonl.gz",
+      "bytes": 358,
+      "sha256": "6d69ef1c6f237eba79f5d4b15774d296c8f6d576d308d09e1dd2030ee46f5161"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-0-tire.jsonl.gz",
+      "bytes": 2384,
+      "sha256": "e4454fd027ea9381a7f12b7c858d7c73a54cf62f96438d1ae52be90b69435967"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-1-physical.jsonl.gz",
+      "bytes": 128813,
+      "sha256": "2f1ca0dbc261ff86529ced6f3e2faa7e21838aa4391beb4cae0710605c6a9cdc"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-1-prep.jsonl.gz",
+      "bytes": 812,
+      "sha256": "7ce2cfa1df1481cb228472f5b242d534871a57c35a8f87db8c9bb7cc6a42d61f"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-1-solver.jsonl.gz",
+      "bytes": 2295,
+      "sha256": "198e769e0f314d01b1f268fcadf47a96ff8a3691f58386c2166347f6be0fa749"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-1-stop.jsonl.gz",
+      "bytes": 358,
+      "sha256": "bb703f8c78bfd29ecececcaf1a0f9eac0dcff65c2921b34efe284da3d270d907"
+    },
+    {
+      "path": "captures/mac-candidate-stop/2-23-1-tire.jsonl.gz",
+      "bytes": 2384,
+      "sha256": "7899d94f5b6ddb386fd1ae80004cb8e2ad272b7a64cd5e63ca782d6cff34cfdf"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-0-physical.jsonl.gz",
+      "bytes": 124372,
+      "sha256": "733f2e0255d19ece57d8e96b099ca85e656e8bcbf46c434af286e709edb25ba0"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-0-prep.jsonl.gz",
+      "bytes": 648,
+      "sha256": "2ae845cdf814678238c89c8dd88a92ebf447cc57d56892b3049adcea38d0e264"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-0-solver.jsonl.gz",
+      "bytes": 1255,
+      "sha256": "37129e9dc0699940941994b443faafcd3709c2dc6cd1a66b86ef36c64e5e7ff0"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-0-tire.jsonl.gz",
+      "bytes": 2048,
+      "sha256": "8c36f287dd48cfc729781330ca1306c1b049774111c4dad78703fd4777f1fc82"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-1-physical.jsonl.gz",
+      "bytes": 124385,
+      "sha256": "d564a75cf7367af745349fff678db071f8967c5af2a8d7b27c6c7c5bee2957f6"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-1-prep.jsonl.gz",
+      "bytes": 648,
+      "sha256": "e84744534648f4da289445725bae8500ac66b0d95ebd6c0088dfcde31ee164f4"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-1-solver.jsonl.gz",
+      "bytes": 1255,
+      "sha256": "bba7f7d1ea561e1508ccf1992e3bd2852fd894c9e77326cc74a1a177574d9746"
+    },
+    {
+      "path": "captures/mac-candidate-stop/3-24-1-tire.jsonl.gz",
+      "bytes": 2048,
+      "sha256": "fcd3a46331285b6f8a227d3c1cbb28f2aa75efc5d58e44f2f8381ee93bf5a19d"
+    },
+    {
+      "path": "captures/mac-candidate-stop/manifest.json",
+      "bytes": 2788,
+      "sha256": "7f95609c6a294036a4fae9cd6286dcd53fa2e511c4466cbdc3c69af29fd69d27"
+    },
+    {
+      "path": "captures/mac-next-brake245/manifest.json",
+      "bytes": 7506,
+      "sha256": "2684b828b41f86bbf9857d5d7ab234edaec4c6eee02d72d080850fb0ac14490c"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 137293,
+      "sha256": "95c567e65aca3806eab71074b9a4c9ae291837cb2330f23d30795f33302f8e5b"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-0-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "a59f791b354e24bfcee816abd1488106d2a953fca5197611abb1ea7210831697"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-0-solver.jsonl.gz",
+      "bytes": 1257,
+      "sha256": "1d40ead4bb4adf913de5b16213212f258961143262c3ac0985809139b9b669c8"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-0-tire.jsonl.gz",
+      "bytes": 3031,
+      "sha256": "98554dc014bef106117caf3d53dd4620f723717488080a8a3488b7456ca6f17d"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 137295,
+      "sha256": "00ad072d9ffdf9499c578b2157e7f6576e413778fe0fa9fdf3d8688191787e55"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-1-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "43b0006b9835881df0236f6a4d82e8b283a026d1aafe02ad7b3e639fee045a10"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-1-solver.jsonl.gz",
+      "bytes": 1257,
+      "sha256": "1c4bfc9057ab53abf75e70884adf899b615113fe44d8c8ded291115c5df40e3b"
+    },
+    {
+      "path": "captures/mac-next-brake245/marauder-wheel1-brake-245-1-tire.jsonl.gz",
+      "bytes": 3031,
+      "sha256": "2ba4af66aa8014d1640630e0632773c099b2f24f799012d96e3a7a36d8b2d4c4"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-0-physical.jsonl.gz",
+      "bytes": 136421,
+      "sha256": "975c81b8d5487e11a30e2d8b2d62cbceb7ca56ffa81f7ca9fd49df8d8e3a1bf2"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-0-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "8405cf7e05654bb960ee0dadce8ca8abca7135ebd303acec8f4effa4ebeca975"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-0-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "e0945f85d6b3be0bcfc54c5dad14b68f935b3a72f7b8fb40da3e00606fb9bd12"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-0-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "bdb6466e79630c91f96cd179ecabdeb29d7bc2851d9f961adb15d04612a48902"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-0-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "06cb12197144235dea2ac6a523d7c26dac195452dbd6ce8dfcc4f865a496d78d"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-1-physical.jsonl.gz",
+      "bytes": 136447,
+      "sha256": "27b4ca7329bf99c875a63c7be302d0cf55eef42c00bf0f3c11cf7f547b497ff8"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-1-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "23fd67b9de5dab0b5a2bc21a319a66924217b9ec787b2d05fd29908730da048c"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-1-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "3a01266a8504454f9308961a4eb024283a84e887f2aae45fee667d7f83effef6"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-1-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "9c021c34e491234995eb8e11ce196385b7064ba0caed9809a17770e53e963453"
+    },
+    {
+      "path": "captures/mac-readonly-stop/0-22-1-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "e280298f021c1d21d32ff80634a20f4541e86e852140181cab4d6344d1692fad"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-0-physical.jsonl.gz",
+      "bytes": 137287,
+      "sha256": "4bb461054d80a447b10e7a5eee9184f20bb58040afb1dd441e2cfe5c96ad53a7"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-0-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "48e72e0b18ddaa3b734d30c36fc2210ace076468ce93543e4c141e2ddd35c193"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-0-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "53e7f358c84df4da67a67901e0c28e031737df2d6c82757c7d0be93ebcf7c2b1"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-0-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "3804b9db3a84ffe17b269b9ce90e6af790cd4b6d8213de0ebb76b366a0cb6d36"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-0-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "c46bb0459653e9c58a3b3eb6a4cf1e730911fa6d8f7e6669c270c997c854f275"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-1-physical.jsonl.gz",
+      "bytes": 137298,
+      "sha256": "1379cb5a83934f39b364dd12f2fe239de7419177c744d402bb74188ad4793dd8"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-1-prep.jsonl.gz",
+      "bytes": 798,
+      "sha256": "7bb248ec47888843511c05370b5f5849c17ce6bd2c63106495a7c890d473ddfb"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-1-solver.jsonl.gz",
+      "bytes": 2357,
+      "sha256": "491ea18f6d1386c63f219d6665dd22b0182e455dc2cb109baf80390ec4927993"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-1-stop.jsonl.gz",
+      "bytes": 352,
+      "sha256": "3de5190ed3f49dfc8c9016e501ce33c607b25725fb5253f0781eb19fb2ba59ea"
+    },
+    {
+      "path": "captures/mac-readonly-stop/1-22-1-tire.jsonl.gz",
+      "bytes": 1935,
+      "sha256": "5500d3f06015b29e06262d914c809d003e0c74eb7f2fde2153fb17172aba4fe6"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-0-physical.jsonl.gz",
+      "bytes": 129358,
+      "sha256": "ebacdfb139f1e04808fd959c32708b366296a8ad1452b2ef9ceef860bdacd9b6"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-0-prep.jsonl.gz",
+      "bytes": 812,
+      "sha256": "38a291618493b7f4d5fc2ef6e2a708c8d086d7190dedc842dfefd52d2b63cf56"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-0-solver.jsonl.gz",
+      "bytes": 2276,
+      "sha256": "cbf4a0152e776938a361556c111bbf22c3393a49f5bb2c3fd31972c2d05c3ac5"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-0-stop.jsonl.gz",
+      "bytes": 360,
+      "sha256": "f061fe60db9dd86035dba79ccf87122ec6b7d35bfdd48e896cea0a4c2b36ffaf"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-0-tire.jsonl.gz",
+      "bytes": 2381,
+      "sha256": "7d2d913f0aa4eed5f989f97550a23c54ad75b8fe8392c558014ecc5708afeaa3"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-1-physical.jsonl.gz",
+      "bytes": 129352,
+      "sha256": "292bc94d7b4a07b20284b8e92938cec15c5364cbd79fd66fc40908360857dab0"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-1-prep.jsonl.gz",
+      "bytes": 812,
+      "sha256": "a17cd91a90cd1ffb324df8d23754235c948d31e0afe4bef97e7cf15e6ff9cced"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-1-solver.jsonl.gz",
+      "bytes": 2276,
+      "sha256": "e38c3ceb008fc6da1e7538d9a2f2545d5891077f9ee1c7f4d80881ec043ea04d"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-1-stop.jsonl.gz",
+      "bytes": 360,
+      "sha256": "45e011eae4aefde340b0aea900354538a0cfdad025de569a7a4f4430e8e9ee6a"
+    },
+    {
+      "path": "captures/mac-readonly-stop/2-23-1-tire.jsonl.gz",
+      "bytes": 2381,
+      "sha256": "8c26a1274c2e13a6a9d8021a384227b9a92ceb6b56aaf8f9374d75dea2f95cb1"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-0-physical.jsonl.gz",
+      "bytes": 124349,
+      "sha256": "f6a8bb57c8ceafb082f4c431f39c59bbc3b96d07bdc30a1e6976dcee67751203"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-0-prep.jsonl.gz",
+      "bytes": 648,
+      "sha256": "3db5e743af4e22af3ae4d8d6fa238826c6342d0bad7bacef07434fdc13b30715"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-0-solver.jsonl.gz",
+      "bytes": 1255,
+      "sha256": "088a97da3a468f6dfb310860762013ed60b2d11b04f115881ea97323a968e90f"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-0-tire.jsonl.gz",
+      "bytes": 2048,
+      "sha256": "ad51b1a9f5ba3ba7830e8307c6e58e87e4dbe04959a2cdef9e129008cf9b97b4"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-1-physical.jsonl.gz",
+      "bytes": 124323,
+      "sha256": "b73be7b829297345f394585c3e69a624454b535dbdcdfc8e2d6b5cae1277bb94"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-1-prep.jsonl.gz",
+      "bytes": 648,
+      "sha256": "aa8df0421be7ec8285624729d33db092062d5d7458774c05b4175acad89f6dec"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-1-solver.jsonl.gz",
+      "bytes": 1255,
+      "sha256": "fb49ee3fd272f862679646c1f46d0c1dfae877a48c14f5ac0b922853d782bb5a"
+    },
+    {
+      "path": "captures/mac-readonly-stop/3-24-1-tire.jsonl.gz",
+      "bytes": 2048,
+      "sha256": "aceacc2988a4789fd069443bea193db8ed2b7564f0dc06fe4c6091dd28c7d89b"
+    },
+    {
+      "path": "captures/mac-readonly-stop/manifest.json",
+      "bytes": 2775,
+      "sha256": "23fb8b2897278f186ed80e633653caaf33459c8df30a0fde8ddcc2152e4debf1"
+    },
+    {
+      "path": "captures/native-next-brake245/force-marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 303116,
+      "sha256": "b5cc3318acd6802fcfa1f2741585d392afc1c70de88d51f850e2f638f5521cac"
+    },
+    {
+      "path": "captures/native-next-brake245/force-marauder-wheel1-brake-245-0-private.jsonl.gz",
+      "bytes": 25353,
+      "sha256": "4a79ea6c6491c957633666fdf93cdd61adb651ad9d1baf9312dd34061340fd05"
+    },
+    {
+      "path": "captures/native-next-brake245/force-marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 303127,
+      "sha256": "322e782055e14fb8f6bb4196677557fea50b21323f2a94a61b9aea567332854a"
+    },
+    {
+      "path": "captures/native-next-brake245/force-marauder-wheel1-brake-245-1-private.jsonl.gz",
+      "bytes": 25355,
+      "sha256": "ef4fbf7f6325d114e4a33a66ef82f665cd54d1bb66cc7ec4169d89cbb81ff01d"
+    },
+    {
+      "path": "captures/native-next-brake245/manifest.json",
+      "bytes": 1744,
+      "sha256": "35bc4b5d6c905043170f7139409b0890802589812392ea5fb797c4ffbec7e2ea"
+    },
+    {
+      "path": "captures/native-stop-prep/0-22-0-physical.jsonl.gz",
+      "bytes": 311678,
+      "sha256": "b76c93cb952062037075a77903f95081c8a70dbdc762abb0ee8f975d537bf6ae"
+    },
+    {
+      "path": "captures/native-stop-prep/0-22-0-private.jsonl.gz",
+      "bytes": 28219,
+      "sha256": "6177662e0477c260313d173ec4d56ff75a10d45a8d3253b736ec27a1f2418afd"
+    },
+    {
+      "path": "captures/native-stop-prep/0-22-1-physical.jsonl.gz",
+      "bytes": 311616,
+      "sha256": "67275590827a9651f664deef0e444480d642a6cb08d0588de0d228cbacee368e"
+    },
+    {
+      "path": "captures/native-stop-prep/0-22-1-private.jsonl.gz",
+      "bytes": 28225,
+      "sha256": "5f290acf7bbb54d90d01b22b4a47d4e9407f887ab29ba554e5782de61ffb7847"
+    },
+    {
+      "path": "captures/native-stop-prep/1-22-0-physical.jsonl.gz",
+      "bytes": 301524,
+      "sha256": "f6094dc999497a4670e4ace63399f60bb72283766aaf5d5ce161e7cc0215ec7b"
+    },
+    {
+      "path": "captures/native-stop-prep/1-22-0-private.jsonl.gz",
+      "bytes": 28177,
+      "sha256": "bfa2d6f25d8b14798ab1f8f18639f881a1d60c7eafcd0d96dd4d86dfd678e1ec"
+    },
+    {
+      "path": "captures/native-stop-prep/1-22-1-physical.jsonl.gz",
+      "bytes": 301578,
+      "sha256": "623a8f23e0b4569d1cfaa4535cba9f63cf9d7a0deb773c4d34e9b7c8a62b15a9"
+    },
+    {
+      "path": "captures/native-stop-prep/1-22-1-private.jsonl.gz",
+      "bytes": 28173,
+      "sha256": "5c638cc922c7805e614c6c261271b2085af8bd6d9245440e0d82f9bdc3477f03"
+    },
+    {
+      "path": "captures/native-stop-prep/2-23-0-physical.jsonl.gz",
+      "bytes": 289918,
+      "sha256": "e9af7a7944b7a11cfd2b2dd01c7d1bbab80e68552f4813fa60c0fb6c60db43c1"
+    },
+    {
+      "path": "captures/native-stop-prep/2-23-0-private.jsonl.gz",
+      "bytes": 29394,
+      "sha256": "42ecf464c55e57e59546b423b050de1290cff4080e325ba3b3638a39317010a3"
+    },
+    {
+      "path": "captures/native-stop-prep/2-23-1-physical.jsonl.gz",
+      "bytes": 289877,
+      "sha256": "d8978927acfb2a22d52d78bf8260544889e74fb2299018c6bf693ae6e8d37da8"
+    },
+    {
+      "path": "captures/native-stop-prep/2-23-1-private.jsonl.gz",
+      "bytes": 29429,
+      "sha256": "e955845c3adcbab31c048b26e94dd0c82b96a92a1fffce09a2b6bff87d9c2d20"
+    },
+    {
+      "path": "captures/native-stop-prep/3-24-0-physical.jsonl.gz",
+      "bytes": 279816,
+      "sha256": "ebe8b43c0a2b86ec27b7a9ae67e518895d0ef428976f10ae74fbe8ed4ad16806"
+    },
+    {
+      "path": "captures/native-stop-prep/3-24-0-private.jsonl.gz",
+      "bytes": 20444,
+      "sha256": "7ee2fc5fd2af731e5e06c1daab66fcdb53224985798adfa0160354fa87a1a19d"
+    },
+    {
+      "path": "captures/native-stop-prep/3-24-1-physical.jsonl.gz",
+      "bytes": 279793,
+      "sha256": "b87b4f62a260a765eacce808815645385d1ae808e136dc6a3474d786bca9ed2b"
+    },
+    {
+      "path": "captures/native-stop-prep/3-24-1-private.jsonl.gz",
+      "bytes": 20447,
+      "sha256": "b367a4b45073459e01f3999fe1bacac64662002c642bed06999f2a06b23dc431"
+    },
+    {
+      "path": "captures/native-stop-prep/manifest.json",
+      "bytes": 3306,
+      "sha256": "487db13423b016bb7b952ebd984e79813c2270062e8784b235d6faab93952262"
+    },
+    {
+      "path": "captures/windows-reference.jsonl.gz",
+      "bytes": 2578745,
+      "sha256": "3168f446c5da36d82c8bcf6fa5f63504f87d4fa9e139e900dba45384539c4c35"
+    },
+    {
+      "path": "evidence/candidate-live-kernel-proof.json",
+      "bytes": 1774,
+      "sha256": "d84f76e6d10f7e6449954b5d9017a9c77b6f98189b585cbd06221fdee501209e"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "41282b5f5d453e74fdfc790a375932894253a573e06208f5cc4fde6b7a9ec7ac"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 64028,
+      "sha256": "86da29b0ce74a9696cceb8798c0e179f15c46f9a808b9c4e034deeeceb8d1701"
+    },
+    {
+      "path": "evidence/game-render-race-exit.json",
+      "bytes": 88,
+      "sha256": "a89a5fabe8af20a2c1d539fea6c35f22add18fcdbc39771dd64d1b1169c149ca"
+    },
+    {
+      "path": "evidence/game-render-race-launch.json",
+      "bytes": 7392,
+      "sha256": "4747a4b25583c23dcee67ade95d544d8e64f1ede0248a0d8ddc4b68f17b45e4b"
+    },
+    {
+      "path": "evidence/game-smoke-exit.json",
+      "bytes": 88,
+      "sha256": "78f2d65b3f7fc83ddee013de0bbae393b2d1e11cf94d3072c43f055d9f2d6484"
+    },
+    {
+      "path": "evidence/game-smoke-launch.json",
+      "bytes": 7367,
+      "sha256": "11d5c229b5377682de010a80aec8981ca6f6e4e9215e048d3c0782dcfb4a8234"
+    },
+    {
+      "path": "evidence/gates-capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "42453781c5ec0e4b1187dd14a85c9a7c59de014b6cf19affe88a06f0dbba4bb7"
+    },
+    {
+      "path": "evidence/next-brake245-proof.json",
+      "bytes": 4584,
+      "sha256": "b96b364d17c476c1280e2552f09b649586abc0d9b9386937879908cffb5c7b8d"
+    },
+    {
+      "path": "evidence/physics-v94-final-broad-audit.json",
+      "bytes": 1749643,
+      "sha256": "d1752210d205901e633da92827c17951c0b4eb16c5389e4238fb8268bcf17ea8"
+    },
+    {
+      "path": "evidence/physics-v94-final-practical-error-audit.json",
+      "bytes": 1146155,
+      "sha256": "8aba98d3a2d1f5f06ebc9f14b59a1ec87e470d220113ed82e0d656dc166c4da4"
+    },
+    {
+      "path": "evidence/physics-v94-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "2ee5d658d16a7d325e2b0b045b0197768981a89cfeee70f0c977a1421fd8b1f2"
+    },
+    {
+      "path": "evidence/physics-v94-probe-validation.json",
+      "bytes": 4349,
+      "sha256": "266dea3f8bc53a2fcb83b631ad896c92469b9ad164e7887feed092ed88d18e9d"
+    },
+    {
+      "path": "evidence/physics-v94-regression-audit.json",
+      "bytes": 51403,
+      "sha256": "10c852d5a8fcb4d9c103031b8e8bee93fdb6445ce02ff28c3ffbe246e9ea6c0f"
+    },
+    {
+      "path": "evidence/skin-arithmetic-proof.json",
+      "bytes": 659,
+      "sha256": "f6643cd4b617f01c1944830c89e28779e5a27bd719a4fcfe81affb872f12e67f"
+    },
+    {
+      "path": "next-work.md",
+      "bytes": 1979,
+      "sha256": "81ca9e5d9872ce570c734022234da165db410d66f241a1f743e92878395f0bbf"
+    },
+    {
+      "path": "proofs/NativeWheelSkinErrorV94.h",
+      "bytes": 311,
+      "sha256": "ddb7d647072d0810ef59a6611a9f056661872146d8057c86d4dc04eb8cd9d449"
+    },
+    {
+      "path": "proofs/native-stop-update.disasm.txt",
+      "bytes": 19620,
+      "sha256": "2a47a483e80c61d87044086f53000c076ca8a21f3f968f46af46737fccb47b71"
+    },
+    {
+      "path": "proofs/skin-fixtures-bound.json",
+      "bytes": 383312,
+      "sha256": "40cd087b465902131b1f4a389db2a30d3d67862195985ed16eef6dc4f6aa1f7d"
+    },
+    {
+      "path": "proofs/skin-fixtures.inc",
+      "bytes": 99905,
+      "sha256": "fb6ee905a592ab1b2dcc7b6b39aab92fe3115c39282ee84bac285bf27c860cef"
+    },
+    {
+      "path": "proofs/skin-fixtures.json",
+      "bytes": 306676,
+      "sha256": "59099f719b4acf66c016f3624a7a807efa43b3182034e5b3a7c01a445c0ab641"
+    },
+    {
+      "path": "proofs/verify-skin.cpp",
+      "bytes": 125648,
+      "sha256": "97503b24c79449e4ae9c0cfaccdf5a6e6bff8e7913f46d0c9ea821247921a6a8"
+    },
+    {
+      "path": "proofs/verify-sse.cpp",
+      "bytes": 553,
+      "sha256": "6a887989d91ca97540bd420529e9934d66adc617a2d01a50649844405d5bc09c"
+    },
+    {
+      "path": "proofs/windows-sse-O0.txt",
+      "bytes": 24836,
+      "sha256": "ab5b93297c945cbe24e9525c965284db349b5d48129d81b6100bb0f1667c5161"
+    },
+    {
+      "path": "proofs/windows-sse-O2.txt",
+      "bytes": 24836,
+      "sha256": "ab5b93297c945cbe24e9525c965284db349b5d48129d81b6100bb0f1667c5161"
+    },
+    {
+      "path": "verify-checkpoint.py",
+      "bytes": 2408,
+      "sha256": "681adb7a7e80cf887eb60ecbb591c21b0ccb89e02685f28a0dddcd8430c566bb"
+    },
+    {
+      "path": "verify-live-kernel.py",
+      "bytes": 3183,
+      "sha256": "1ff0788611c4f08c77b611762a1a951d81ea6377cea69d4e8ce458d3981eea71"
+    },
+    {
+      "path": "verify-native-skins.py",
+      "bytes": 3664,
+      "sha256": "d61df49cc3a22b1b6d909796fa330a5f038032fdb79b8ef65fc8399788272bc2"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "workspace-reproduction/capture-mac-next-brake245.py",
+      "bytes": 3212,
+      "sha256": "51d1a5636000f779a9cd5bbc11fcd0a426ca25b56ab4e5aa240a594fe5dfb766"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-next-force245.py",
+      "bytes": 3132,
+      "sha256": "ff64d959ea272728114b3db0e5ed97502a189c7b2393b3af55d1bfb3e8cc1879"
+    },
+    {
+      "path": "workspace-reproduction/compare-broad.py",
+      "bytes": 3648,
+      "sha256": "69652d940e9a3be2fb03bcb758bdfae9c127308d699fb7e130e9e4552e336e89"
+    },
+    {
+      "path": "workspace-reproduction/compare-regression.py",
+      "bytes": 2175,
+      "sha256": "5abd72483d6f5c69618b16e72bb2de9c4f89a4a25267c1ce9d9db236af8fe0e8"
+    },
+    {
+      "path": "workspace-reproduction/practical-error-audit.py",
+      "bytes": 4269,
+      "sha256": "5e5a65cf866710f0ff3ad3e1aae19e784049973d7c135ec2192ede6afa4403e1"
+    },
+    {
+      "path": "workspace-reproduction/run-broad.py",
+      "bytes": 2413,
+      "sha256": "a32d484d5deb7263f2e7f98f1854c5f4693df5976ecdcd05352a9d4564746661"
+    },
+    {
+      "path": "workspace-reproduction/run-game-render-race.py",
+      "bytes": 2081,
+      "sha256": "67a3aa09484700e28682538c398d1fc004eba5f1fd3b67a773b01a5df82e0c9f"
+    },
+    {
+      "path": "workspace-reproduction/run-game-smoke.py",
+      "bytes": 2056,
+      "sha256": "5bffb4a17069aa7729967b87bf4ca7ca2ba99cbcb01049a65873032c1c4952cf"
+    },
+    {
+      "path": "workspace-reproduction/run-gates.py",
+      "bytes": 5864,
+      "sha256": "fa9f79893a74510142a46dd23101c3b9c039dcda220f82b2560b3ec09935aad0"
+    },
+    {
+      "path": "workspace-reproduction/verify-next-brake.py",
+      "bytes": 3737,
+      "sha256": "381263d730cb4cb25d6915338f22fdaa7b1cf75800ec7f75043095c41b3e61a8"
+    }
+  ],
+  "goal_complete": false
+}

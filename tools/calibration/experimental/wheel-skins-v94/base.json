@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "6703a5eb355d8649d1d970bf14abc13471f644cc6904bc0ebfda7578cbacce3d",
+      "after_sha256": "46b9c35879efbdf97a6b6a7e553afaad68179bda849b1d37adf2c097e901ac80"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "before_sha256": "8456746c465a8c1ddd06e928de85766d28d26ea754f23fa3dd5ee56fc4e2ff0a",
+      "after_sha256": "8bb16ff9b9c7aeaede199ea4155032185923c514559d5a60ab1af6fecbf426d3"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dGame/source/stub/OriginalRace.cpp",
+      "before_sha256": "b14c63aa4bff87c0bf49db2c5749b87ae2e751d3d40bc0630e294eb57af9615d",
+      "after_sha256": "7852da8a84ca82c0049b0c047d9b00ecd3382bfca99d7bcd44c1ba30310d33c2"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "b055d7ea6619748c6fcbe81a18430378770aa7066ec063b186a328e12d1e79ff",
+      "after_sha256": "c685f378f2bd6595fe6ee425d872c0310dbf8222f560ff6281401fd1434f72d1"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "354601bd70433e895a164df3a1244d5ef8207db83638049053f4525b411d09e3",
+      "after_sha256": "622f5881a2cc1abec7479217ff2e7b38caf773b1bb7415daf93ffd0cb9ae95c4"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeWheelSkinErrorV94.h",
+      "before_sha256": null,
+      "after_sha256": "ddb7d647072d0810ef59a6611a9f056661872146d8057c86d4dc04eb8cd9d449"
+    }
+  ],
+  "scope": "Default-off Native hard-stop separate skin arithmetic and live shape metadata bridge. Explicit wheel skin source parameter preserved; no scene constants/engine coefficients changed.",
+  "goal_complete": false
+}

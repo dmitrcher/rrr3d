@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\kernel-v84\\TraceKernelV84.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\kernel-v84\\TraceKernelV84.exe:\r\n43e334960754a97c4857e459b64b862ba2ecbdcf16a6a185d40baaebe471d7cc\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "repeat": 0,
+      "sample_tick": 245,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "423277b10b583564e41ccf26aaffe5b71db9955dcae72365ae02746f24d9a417"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/marauder/wheel1/brake-moving",
+      "repeat": 1,
+      "sample_tick": 245,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "142dc204d25d40e5b3a38d4024d1d33aca7c390ed79796f0f15fa03ce1828579"
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,140 @@
+{
+  "scope": "Actual physical step245 Marauder wheel1 moving-brake, after every observable step0..244 matched Windows. Two preserved Native captures and two frozen V94 Mac captures. First body divergence is first-iteration longitudinal tire row after four exact spring updates and one exact lateral update. Native tire bounds differ for only the first wheel; no active hard stops. Upstream bound inputs/branch cause still need measurement; this is a lead, not a coefficient-fit fix.",
+  "checks": [
+    {
+      "repeat": 0,
+      "first_different_body_checkpoint": 5,
+      "prior_complete_body_checkpoints_exact": 5,
+      "incoming_six_body_words_at_first_difference_exact": true,
+      "all_eight_tire_mass_and_geometry_bias_words_exact": true,
+      "tire_bounds": [
+        {
+          "row": 0,
+          "kind": "lateral-input",
+          "native_maximum": 182.08583068847656,
+          "mac_maximum": 194.427475,
+          "maximum_float32_exact": false
+        },
+        {
+          "row": 1,
+          "kind": "longitudinal-input",
+          "native_maximum": 232.10446166992188,
+          "mac_maximum": 247.836334,
+          "maximum_float32_exact": false
+        },
+        {
+          "row": 2,
+          "kind": "lateral-input",
+          "native_maximum": 187.50540161132812,
+          "mac_maximum": 187.505402,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 3,
+          "kind": "longitudinal-input",
+          "native_maximum": 0.20116166770458221,
+          "mac_maximum": 0.201161668,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 4,
+          "kind": "lateral-input",
+          "native_maximum": 212.81716918945312,
+          "mac_maximum": 212.817169,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 5,
+          "kind": "longitudinal-input",
+          "native_maximum": 586.8275146484375,
+          "mac_maximum": 586.827515,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 6,
+          "kind": "lateral-input",
+          "native_maximum": 215.58294677734375,
+          "mac_maximum": 215.582947,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 7,
+          "kind": "longitudinal-input",
+          "native_maximum": 0.4944232106208801,
+          "mac_maximum": 0.494423211,
+          "maximum_float32_exact": true
+        }
+      ],
+      "native_first_different_lambda": -232.10446166992188,
+      "mac_first_different_lambda": -247.836334
+    },
+    {
+      "repeat": 1,
+      "first_different_body_checkpoint": 5,
+      "prior_complete_body_checkpoints_exact": 5,
+      "incoming_six_body_words_at_first_difference_exact": true,
+      "all_eight_tire_mass_and_geometry_bias_words_exact": true,
+      "tire_bounds": [
+        {
+          "row": 0,
+          "kind": "lateral-input",
+          "native_maximum": 182.08583068847656,
+          "mac_maximum": 194.427475,
+          "maximum_float32_exact": false
+        },
+        {
+          "row": 1,
+          "kind": "longitudinal-input",
+          "native_maximum": 232.10446166992188,
+          "mac_maximum": 247.836334,
+          "maximum_float32_exact": false
+        },
+        {
+          "row": 2,
+          "kind": "lateral-input",
+          "native_maximum": 187.50540161132812,
+          "mac_maximum": 187.505402,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 3,
+          "kind": "longitudinal-input",
+          "native_maximum": 0.20116166770458221,
+          "mac_maximum": 0.201161668,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 4,
+          "kind": "lateral-input",
+          "native_maximum": 212.81716918945312,
+          "mac_maximum": 212.817169,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 5,
+          "kind": "longitudinal-input",
+          "native_maximum": 586.8275146484375,
+          "mac_maximum": 586.827515,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 6,
+          "kind": "lateral-input",
+          "native_maximum": 215.58294677734375,
+          "mac_maximum": 215.582947,
+          "maximum_float32_exact": true
+        },
+        {
+          "row": 7,
+          "kind": "longitudinal-input",
+          "native_maximum": 0.4944232106208801,
+          "mac_maximum": 0.494423211,
+          "maximum_float32_exact": true
+        }
+      ],
+      "native_first_different_lambda": -232.10446166992188,
+      "mac_first_different_lambda": -247.836334
+    }
+  ],
+  "goal_complete": false
+}

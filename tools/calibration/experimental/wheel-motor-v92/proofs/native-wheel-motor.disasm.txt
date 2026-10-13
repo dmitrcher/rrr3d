@@ -1,0 +1,50 @@
+101486e0: 51                           	pushl	%ecx
+101486e1: 8b 8e e8 02 00 00            	movl	0x2e8(%esi), %ecx
+101486e7: 0f 57 d2                     	xorps	%xmm2, %xmm2
+101486ea: f3 0f 10 2d 88 15 33 10      	movss	0x10331588, %xmm5
+101486f2: f6 c1 10                     	testb	$0x10, %cl
+101486f5: 0f 85 bd 00 00 00            	jne	0x101487b8 <NpCreatePhysicsSDK+0x3b648>
+101486fb: 8b 86 28 01 00 00            	movl	0x128(%esi), %eax
+10148701: 85 c0                        	testl	%eax, %eax
+10148703: 74 15                        	je	0x1014871a <NpCreatePhysicsSDK+0x3b5aa>
+10148705: 80 78 54 00                  	cmpb	$0x0, 0x54(%eax)
+10148709: 75 0f                        	jne	0x1014871a <NpCreatePhysicsSDK+0x3b5aa>
+1014870b: 0f 28 c2                     	movaps	%xmm2, %xmm0
+1014870e: f3 0f 11 86 1c 02 00 00      	movss	%xmm0, 0x21c(%esi)
+10148716: 59                           	popl	%ecx
+10148717: c2 04 00                     	retl	$0x4
+1014871a: f3 0f 10 86 24 02 00 00      	movss	0x224(%esi), %xmm0
+10148722: 0f 2e c5                     	ucomiss	%xmm5, %xmm0
+10148725: 9f                           	lahf
+10148726: f6 c4 44                     	testb	$0x44, %ah
+10148729: 7b 2e                        	jnp	0x10148759 <NpCreatePhysicsSDK+0x3b5e9>
+1014872b: f3 0f 10 86 c8 02 00 00      	movss	0x2c8(%esi), %xmm0
+10148733: 0f 2e c2                     	ucomiss	%xmm2, %xmm0
+10148736: 9f                           	lahf
+10148737: f6 c4 44                     	testb	$0x44, %ah
+1014873a: 7a 05                        	jp	0x10148741 <NpCreatePhysicsSDK+0x3b5d1>
+1014873c: f6 c1 40                     	testb	$0x40, %cl
+1014873f: 74 18                        	je	0x10148759 <NpCreatePhysicsSDK+0x3b5e9>
+10148741: f3 0f 10 86 00 03 00 00      	movss	0x300(%esi), %xmm0
+10148749: f3 0f 5e 86 a0 02 00 00      	divss	0x2a0(%esi), %xmm0
+10148751: f3 0f 11 86 1c 02 00 00      	movss	%xmm0, 0x21c(%esi)
+10148759: f3 0f 10 9e e4 02 00 00      	movss	0x2e4(%esi), %xmm3
+10148761: f3 0f 10 86 ec 02 00 00      	movss	0x2ec(%esi), %xmm0
+10148769: f3 0f 10 8e f0 02 00 00      	movss	0x2f0(%esi), %xmm1
+10148771: f3 0f 59 c4                  	mulss	%xmm4, %xmm0
+10148775: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+10148779: f3 0f 58 86 1c 02 00 00      	addss	0x21c(%esi), %xmm0
+10148781: 0f 2f c2                     	comiss	%xmm2, %xmm0
+10148784: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+10148788: f3 0f 11 86 1c 02 00 00      	movss	%xmm0, 0x21c(%esi)
+10148790: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+10148794: 76 09                        	jbe	0x1014879f <NpCreatePhysicsSDK+0x3b62f>
+10148796: f3 0f 5c c1                  	subss	%xmm1, %xmm0
+1014879a: 0f 2f d0                     	comiss	%xmm0, %xmm2
+1014879d: eb 07                        	jmp	0x101487a6 <NpCreatePhysicsSDK+0x3b636>
+1014879f: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101487a3: 0f 2f c2                     	comiss	%xmm2, %xmm0
+101487a6: f3 0f 11 86 1c 02 00 00      	movss	%xmm0, 0x21c(%esi)
+101487ae: 76 08                        	jbe	0x101487b8 <NpCreatePhysicsSDK+0x3b648>
+101487b0: f3 0f 11 96 1c 02 00 00      	movss	%xmm2, 0x21c(%esi)
+101487b8: f3 0f 10 86 1c 02 00 00      	movss	0x21c(%esi), %xmm0

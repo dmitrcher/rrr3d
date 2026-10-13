@@ -1,0 +1,9 @@
+Next V93 should investigate the shared early Marauder wheel1/wheel2 contact-solver divergence, not fit motor power.
+
+V92 corrects independently proven Native motor multiply order. Largest earlier Dirtdevil wheel1 drive discrepancy is eliminated through physical580; first remaining581 affects velocity/angular/rotation/wheels. The formula is certified on56actual Native inputs O0/O2, including both cached/free and contact preparation phases. Live Mac48inputwords exact Native before correction; old4word output errors eliminated by actual candidate12motor traces. Brake outputs also exact. Source coefficients and fixture descriptions unchanged.
+
+Remaining largest position is now Marauder wheel1 drive (~.015215 sourceunits) and wheel2 drive (~.011280). Their first difference22 occurs before torque begins120, so upstream contact dynamics is causal; motor changes cannot fix that onset. Marauder wheel1 brake-moving shares22, Manticora wheel3 lateral first23. Prioritize Native row preparation/apply captures at21/22 on identical body input, comparing spring and stop order, Jacobians, effective mass, tire geometry bias/bounds and individual continuous body updates. Do not assume the first differing row without actual checkpoints. SDK remainsV90headers; noV93source edit yet.
+
+Do not claim universal trajectory improvement: fullV92 versusV91 preliminary repeat0 maxima worsen position7/velocity5/orientation3/angular7/suspension7/normalforce7 on already-open cases; all contact mismatch counts unchanged. Full matrix acceptance and exact-count results live in separate validation reports. Original Windows EXE/DLL/Golden immutable. Normal installed game remainsV73; research Source/probes V92 switches defaultoff.
+
+HealthyGit only work/sync-rrr3d. Active source Git corrupted, neverreset/use there. Goalactive, caffeinate56141authorizedON. No subagents. Neverrerunone-shotfreeze/export/capture/package/compaction orrewritepublishedtags/manifests.

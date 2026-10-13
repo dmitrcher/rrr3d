@@ -1,0 +1,71 @@
+{
+  "scope": "Read-only V101 next-cause: corrected normals and per-wheel spring properties match, but actual first side-slope spring order differs Native0/2 versus Mac2/0. Longitudinal order1/0 retained. No frame/case order correction implemented.",
+  "repeats": [
+    {
+      "case": "slope-longitudinal",
+      "repeat": 0,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "Native_first_spring_wheel_order": [
+        1,
+        0
+      ],
+      "Mac_first_spring_wheel_order": [
+        1,
+        0
+      ],
+      "each_wheel_current_Jacobian_inverseJacobian_mass_previously_bound_exact": true,
+      "first_incoming_linear_velocity3_words_exact": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 1,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "Native_first_spring_wheel_order": [
+        1,
+        0
+      ],
+      "Mac_first_spring_wheel_order": [
+        1,
+        0
+      ],
+      "each_wheel_current_Jacobian_inverseJacobian_mass_previously_bound_exact": true,
+      "first_incoming_linear_velocity3_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 0,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "Native_first_spring_wheel_order": [
+        0,
+        2
+      ],
+      "Mac_first_spring_wheel_order": [
+        2,
+        0
+      ],
+      "each_wheel_current_Jacobian_inverseJacobian_mass_previously_bound_exact": true,
+      "first_incoming_linear_velocity3_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 1,
+      "physical_tick": 19,
+      "sdk_counter": 20,
+      "Native_first_spring_wheel_order": [
+        0,
+        2
+      ],
+      "Mac_first_spring_wheel_order": [
+        2,
+        0
+      ],
+      "each_wheel_current_Jacobian_inverseJacobian_mass_previously_bound_exact": true,
+      "first_incoming_linear_velocity3_words_exact": true
+    }
+  ],
+  "source_priority": "Inspect generic Native static broadphase pair creation/recycling and SourceContactOrderV79/V90 ranks on actual inputs; do not reverse per-case or fit spring/mass. Also longitudinal nextfirst21 remains open.",
+  "goal_complete": false
+}

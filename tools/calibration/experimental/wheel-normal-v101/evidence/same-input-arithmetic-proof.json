@@ -1,0 +1,412 @@
+{
+  "scope": "Actual SDK local vertices/cross/length/reciprocal/normal14fixtures, cooked vertex normals and direct ray normals allbound; actual Mac vertices match first slope/flat observations. Candidate helperO0O2 reproduces112words. Identity actor domain currently measured; arbitrary transformed body arithmetic not certified.",
+  "runs": [
+    {
+      "optimization": "O0",
+      "Native_actual_calculation_words_exact": 112,
+      "Native_local_cooked_and_ray_normals_exact": 42,
+      "fixtures": 14
+    },
+    {
+      "optimization": "O2",
+      "Native_actual_calculation_words_exact": 112,
+      "Native_local_cooked_and_ray_normals_exact": 42,
+      "fixtures": 14
+    }
+  ],
+  "fixtures": [
+    {
+      "case": "settle",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "settle",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192,
+          3287941120,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "lateral",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "lateral",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192,
+          3287941120,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "slope-longitudinal",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          3256877056,
+          1140457472,
+          3287941120,
+          1114636288,
+          1140457472,
+          1140457472,
+          1114636288
+        ],
+        "calculation_words": [
+          3351465984,
+          0,
+          1232348160,
+          1232427961,
+          897944888,
+          3184248988,
+          0,
+          1065269954
+        ]
+      }
+    },
+    {
+      "case": "slope-longitudinal",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          3256877056,
+          1140457472,
+          1140457472,
+          1114636288,
+          3287941120,
+          1140457472,
+          3256877056
+        ],
+        "calculation_words": [
+          3351465984,
+          0,
+          1232348160,
+          1232427961,
+          897944888,
+          3184248988,
+          0,
+          1065269954
+        ]
+      }
+    },
+    {
+      "case": "slope-lateral",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          3256877056,
+          1140457472,
+          3287941120,
+          3256877056,
+          1140457472,
+          1140457472,
+          1114636288
+        ],
+        "calculation_words": [
+          0,
+          3351465984,
+          1232348160,
+          1232427961,
+          897944888,
+          0,
+          3184248988,
+          1065269954
+        ]
+      }
+    },
+    {
+      "case": "slope-lateral",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          3256877056,
+          1140457472,
+          1140457472,
+          1114636288,
+          3287941120,
+          1140457472,
+          1114636288
+        ],
+        "calculation_words": [
+          0,
+          3351465984,
+          1232348160,
+          1232427961,
+          897944888,
+          0,
+          3184248988,
+          1065269954
+        ]
+      }
+    },
+    {
+      "case": "curb-side",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "curb-side",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192,
+          3287941120,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "body-tilt-roll",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "body-tilt-roll",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192,
+          3287941120,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "border-front-grounded",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 0,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    },
+    {
+      "case": "border-front-grounded",
+      "event": "calibration.local-triangle-normal-v101",
+      "sample": {
+        "triangle": 1,
+        "vertices_words": [
+          3287941120,
+          3287941120,
+          1092616192,
+          1140457472,
+          1140457472,
+          1092616192,
+          3287941120,
+          1140457472,
+          1092616192
+        ],
+        "calculation_words": [
+          0,
+          0,
+          1232348160,
+          1232348160,
+          897988541,
+          0,
+          0,
+          1065353216
+        ]
+      }
+    }
+  ],
+  "goal_complete": false
+}

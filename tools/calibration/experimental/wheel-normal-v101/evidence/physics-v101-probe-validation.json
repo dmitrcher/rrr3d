@@ -1,0 +1,60 @@
+{
+  "status": "Accepted causal research checkpoint; slope trajectories remain open with explicit magnitude regressions",
+  "strict_exact_cases": 464,
+  "open_cases": 144,
+  "all_previous_464_exact_preserved": true,
+  "new_exact_cases": [],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "source_files": [
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "location": "adapter",
+      "before_sha256": "af8ecb1397c1f30bf99baa6d78e677820ea4f9024296dd4ecd78d4e09264d57f",
+      "after_sha256": "6bd88767ffd32d33653f62a2b13b8f1be3e9e39cc12f381ff9b5ed9a6c3c6fdb"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeTriangleNormalV101.h",
+      "location": "adapter",
+      "before_sha256": null,
+      "after_sha256": "93d617f2a04ce91e3ca1056957dfcd7ee2ea4cfdda9a23bf86920b8835563e14"
+    }
+  ],
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "3c8708b6c23156ed853697f962fa76e0daf4ad0103ec9f0f34c0f927d621b619",
+    "rrr3d_physics_spring_probe": "c400b73eeaedac838ba1091b80abc3dfbcf9ccf5fd07589c22fd3ad353820bc4"
+  },
+  "changed_histories": [
+    "slope-longitudinal",
+    "slope-lateral"
+  ],
+  "unchanged_histories": 606,
+  "magnitude_regressions_explicit": {
+    "position_max": [
+      "slope-longitudinal",
+      "slope-lateral"
+    ],
+    "velocity_max": [
+      "slope-longitudinal",
+      "slope-lateral"
+    ],
+    "orientation_max_degrees": [
+      "slope-lateral"
+    ],
+    "angular_momentum_max": [
+      "slope-longitudinal",
+      "slope-lateral"
+    ],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [
+      "slope-lateral"
+    ],
+    "wheel_normal_force_max": [
+      "slope-lateral"
+    ]
+  },
+  "longitudinal_first_difference_before": 19,
+  "longitudinal_first_difference_after": 21,
+  "lateral_first_difference_after": 19,
+  "goal_complete": false
+}

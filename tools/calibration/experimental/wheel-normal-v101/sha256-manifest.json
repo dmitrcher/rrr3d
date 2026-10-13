@@ -1,0 +1,671 @@
+{
+  "scope": "V101 causal mesh-normal checkpoint;464strict144open; explicit slope magnitude regressions",
+  "files": [
+    {
+      "path": "NEXT.md",
+      "bytes": 2509,
+      "sha256": "19fca692bc064cb455449cc96d760cb27a08cea2d7af65dce87eccdb324db1cf"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4033,
+      "sha256": "fe9cc119a15068a13168d926cabd13306ba603ca201bebc8bfdfd22b7ed9c9de"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeTriangleNormalV101.h",
+      "bytes": 861,
+      "sha256": "93d617f2a04ce91e3ca1056957dfcd7ee2ea4cfdda9a23bf86920b8835563e14"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 373159,
+      "sha256": "6bd88767ffd32d33653f62a2b13b8f1be3e9e39cc12f381ff9b5ed9a6c3c6fdb"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 770,
+      "sha256": "e5ff47c68e2f39d6a9daa47d8c18122e52a1a2a5df255e6542e930161c293065"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 370464,
+      "sha256": "af8ecb1397c1f30bf99baa6d78e677820ea4f9024296dd4ecd78d4e09264d57f"
+    },
+    {
+      "path": "capture-compression.json",
+      "bytes": 10854,
+      "sha256": "18c205b87e90870b7cf8bfdd437f3933b44a651868910d159b8407adc274c3b2"
+    },
+    {
+      "path": "captures/mac-candidate-input/manifest.json",
+      "bytes": 9005,
+      "sha256": "c8dedde9f38faa4849cf152360159cd834ea6c94a0dc12cc54809c9e7e6d297e"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-0-normal.jsonl.gz",
+      "bytes": 192,
+      "sha256": "161a0a84bb4f882126fd44c00eb641f9c9c58de8de7eae13140817ed62c2fdba"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-0-physical.jsonl.gz",
+      "bytes": 107756,
+      "sha256": "c1d1e089af8c7c66dfa5334c0e934c85d95823ed68248dda285e1f51c41e2036"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-1-normal.jsonl.gz",
+      "bytes": 192,
+      "sha256": "3d11c9237e6f2cee7e5bd7dae21225156e95eeb79eaac48e44ad6791101286fa"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-1-physical.jsonl.gz",
+      "bytes": 107776,
+      "sha256": "8aac59b614813bbcb749ff177f4862907e33408c6c752c8da608145b4577bef7"
+    },
+    {
+      "path": "captures/mac-candidate-input/settle-25-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-0-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "7b0822f056a1c571c448637f9a9017056989689c2474c95d27a1b7d64f6f7b98"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-0-physical.jsonl.gz",
+      "bytes": 131087,
+      "sha256": "efbf200d21dcd0c2990544e753a9e971ec4c68a5342281b85fb53ecc0b326721"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-1-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "fe9575da9f93a8a7ba3255e7133c1c6dfb169a4f4339c557c35d0c2647442873"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-1-physical.jsonl.gz",
+      "bytes": 131050,
+      "sha256": "b37e94dc2838e4a9564aeedba77391e3811d0b879b35da00a994b463760ca74f"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-lateral-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-0-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "528c5f20b7238e247ece9da34a1b9acadda52478cfcd1175857d6cb20635d32c"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-0-physical.jsonl.gz",
+      "bytes": 130234,
+      "sha256": "196932998c8e68e1a0c90663a7be1e4b10be04ba1e331d2cb044161ccbb66af5"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-1-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "bf7fffb6ade6f1f68adfdbefef63528e2c44234729b7431326eb37c37ade1d0c"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-1-physical.jsonl.gz",
+      "bytes": 130249,
+      "sha256": "fb1d7616fea46fe30d3b2120047ed5ea1f0801af12505a6390df9030d316a573"
+    },
+    {
+      "path": "captures/mac-candidate-input/slope-longitudinal-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/manifest.json",
+      "bytes": 8890,
+      "sha256": "82c2e698488246ba816eb1e0e95a95f09cdb24d2efbf6bcb95a10d3b6a6d149b"
+    },
+    {
+      "path": "captures/mac-input/settle-25-0-normal.jsonl.gz",
+      "bytes": 192,
+      "sha256": "9cc40ace08a4c92222791d250884034f1876c2b8122e5399dc50779cc6307b1d"
+    },
+    {
+      "path": "captures/mac-input/settle-25-0-physical.jsonl.gz",
+      "bytes": 107744,
+      "sha256": "cc2bd157ef7fdf561993320bc7265d0d72eafc6b162e4d83627384affb60ac8f"
+    },
+    {
+      "path": "captures/mac-input/settle-25-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/settle-25-1-normal.jsonl.gz",
+      "bytes": 192,
+      "sha256": "712824d7cb77134ed21a0ba0a40cda1a184cd6b2646d1ec12dd558088b9f12eb"
+    },
+    {
+      "path": "captures/mac-input/settle-25-1-physical.jsonl.gz",
+      "bytes": 107723,
+      "sha256": "4ebfa04fd8a8550f82564072ce7492c84dbccd9c601a664b129e21630d33cea1"
+    },
+    {
+      "path": "captures/mac-input/settle-25-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-0-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "d93938201eb322a3cce74e474d77b1e506926b066c4542f81a226064a4ae95f7"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-0-physical.jsonl.gz",
+      "bytes": 131451,
+      "sha256": "a1fb594562ce978c7b16a49d3b748606bb62e12870cb77ec9b395a735a401d97"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-1-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "40b3cf8704adf102cbb690c5c604b3afb898ea5f8fccffce2c4d85175122c954"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-1-physical.jsonl.gz",
+      "bytes": 131454,
+      "sha256": "a935734e6556d5dcdddd6da99cce2c2fca5844060af979d22eff71a6b863b4a7"
+    },
+    {
+      "path": "captures/mac-input/slope-lateral-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-0-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "8b84668a526489560a9b11b1aaf6e779baae3ccd222acc91f0d0e084f3cd7ce3"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-0-physical.jsonl.gz",
+      "bytes": 130538,
+      "sha256": "0058acf64e5d5e4abf6e56b07e93e1810963f6f127ce419251c14d9c8f14e40e"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-1-normal.jsonl.gz",
+      "bytes": 199,
+      "sha256": "8f0d7eeead9e4afce4ea50087f896c620c709ac5fc793d9ae6d2f43decfc6d8d"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-1-physical.jsonl.gz",
+      "bytes": 130598,
+      "sha256": "3bb374bddaf41bf7abbdeb5feb1e4ba5c845f4060c90e0d53969502559def224"
+    },
+    {
+      "path": "captures/mac-input/slope-longitudinal-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/manifest.json",
+      "bytes": 7890,
+      "sha256": "d237acee37b1a1bb1630f3aa8f6685a5cf76b5b2adf85b639a9347cd6eae9b20"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0-combined.jsonl.gz",
+      "bytes": 271,
+      "sha256": "a4dcfc8187592f64ad02e81343086d1c463e01c4567b60e82d00a03c39c773f9"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0-physical.jsonl.gz",
+      "bytes": 131046,
+      "sha256": "7d976727219f200311910a5901cb9a2cd6b2224dedfb93f09397b8c9fde18de9"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0-prep.jsonl.gz",
+      "bytes": 441,
+      "sha256": "eecc3e4d47fe3c5b84d511c39702621d7b9f986c64ab83a4b1de5e857d6fa2a1"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0-solver.jsonl.gz",
+      "bytes": 674,
+      "sha256": "6553b4bd53501d8ae3d11722faa00d5e7ce70661b9a45b2deac8652c7fb33515"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0-tire.jsonl.gz",
+      "bytes": 1045,
+      "sha256": "93bd54cae09e38f37031a15267a2ad7c9deeaa8efcfa72030bc8e428ca2bf96d"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1-combined.jsonl.gz",
+      "bytes": 271,
+      "sha256": "6d77bfd8aeceb7f785bcc4bc94de7efae0a751239ef91bca2dec1c9c6fd5b149"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1-physical.jsonl.gz",
+      "bytes": 131072,
+      "sha256": "83a5e88778691a30cdf147409fb9cfe17aacf91bf0742d1ea40ef3cce4bcf592"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1-prep.jsonl.gz",
+      "bytes": 441,
+      "sha256": "b411487538fc3a60c55f60b77c4c01e53af2c6959155d964d5ca8ecb97577eef"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1-solver.jsonl.gz",
+      "bytes": 674,
+      "sha256": "0e94731f38386bdef2625f35fbe4705cfb9c327e4b9d126ac5cc3736b5c0ab5f"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1-tire.jsonl.gz",
+      "bytes": 1045,
+      "sha256": "aa23dd9d7d5e263fd350b07cb7eae2fcec4e5f21fd8547a4d823e7fdd98effec"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-lateral/slope-lateral-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/manifest.json",
+      "bytes": 7890,
+      "sha256": "55830ff9bf2248d5bafeb15a38733f30958ca56d63fad63909bcbcb9ca24f77f"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0-combined.jsonl.gz",
+      "bytes": 253,
+      "sha256": "68b839c07f11e720aa56cd12f853b223a33952060ba4157e045189c01712027d"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0-physical.jsonl.gz",
+      "bytes": 130225,
+      "sha256": "554557a285fbb89964db882314a1523e9b9c8679da6c7c8994025485456afad2"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0-prep.jsonl.gz",
+      "bytes": 414,
+      "sha256": "8e351fb8fdab5749271bb0b7fca47bddce15c772b4d0f7874ee3807554b19bc8"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0-solver.jsonl.gz",
+      "bytes": 696,
+      "sha256": "c22e8e457a65897fce4a0966d32ad31bb8d5a7155c69331108481ff5cb103850"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0-tire.jsonl.gz",
+      "bytes": 998,
+      "sha256": "56988d32dba936426d3a795dfff4ed6a95f07865bb5211b576066e0c91345ac2"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1-combined.jsonl.gz",
+      "bytes": 253,
+      "sha256": "ead376b1f5fc5d89c9a5e58afa430203c87e10a37d0622e11dee5179d5bddaea"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1-physical.jsonl.gz",
+      "bytes": 130243,
+      "sha256": "c5719dc6ad71bda0bd21b0d86a0c8cac5476ac2793408c4371a5bca07d0c2834"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1-prep.jsonl.gz",
+      "bytes": 414,
+      "sha256": "b8e07085d93a7198ef29c34b75afa5ec7a37601f11b52fb18ecf6f3c1d0a8772"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1-solver.jsonl.gz",
+      "bytes": 696,
+      "sha256": "25f66efbfea5dfafcb36f8921d3a26b4297da99c9653a92f3ba2e012ec448163"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1-tire.jsonl.gz",
+      "bytes": 998,
+      "sha256": "6e6047e3957122bf66b89092ba120b120ed000fb209151a4c368db45edf4bebd"
+    },
+    {
+      "path": "captures/mac-spring-candidate19/slope-longitudinal/slope-longitudinal-19-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-api/0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-api/1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-api/control-0.jsonl.gz",
+      "bytes": 2148865,
+      "sha256": "b21a9242638167342a1e0f6666eb5c6e1bc5d4856683906675bafca871b4a972"
+    },
+    {
+      "path": "captures/native-api/control-1.jsonl.gz",
+      "bytes": 2149939,
+      "sha256": "713f3507f06a4656b01b84938ebc841e689fc52c3143b582a7ce92037c13b062"
+    },
+    {
+      "path": "captures/native-api/report.json",
+      "bytes": 14437,
+      "sha256": "d46203a405d95a436c91918d6965f5a659930b008751f93793a466a2621d3e46"
+    },
+    {
+      "path": "context/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "context/DerivedContactErrorFrame.h",
+      "bytes": 2270,
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5"
+    },
+    {
+      "path": "context/NativeContactNormalV38.h",
+      "bytes": 753,
+      "sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8"
+    },
+    {
+      "path": "context/NativeWheelPoseV54.h",
+      "bytes": 2355,
+      "sha256": "85705e021c6f0a7286a3a518dba4493d052b74ad26b152961a2d08f3b7f9895f"
+    },
+    {
+      "path": "context/NativeWheelRayV52.h",
+      "bytes": 2097,
+      "sha256": "8d903bf98826524ee1047617195b435ea7a1e714ce8a5f3d4771a166fb7b4347"
+    },
+    {
+      "path": "context/SourceMaterialFrameCandidate.h",
+      "bytes": 4067,
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    },
+    {
+      "path": "evidence/broad-capture-manifest.json",
+      "bytes": 7750,
+      "sha256": "cee013c641760ccac6571df7d691caab2c54f542b866d580f89ae41934c11c3a"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "ea54bcca1433fad8397e203e28f521f670a6bd8562801b2212f34253dec22972"
+    },
+    {
+      "path": "evidence/checkpoint-expected.jsonl.gz",
+      "bytes": 351738,
+      "sha256": "d8b29f1d6aa30a911177aa52154cd655661daae3b62c0bd0e5a4ffb5187798c4"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "f13dc5f00c13dbc0b104b965bbdae0a3e959246c762303f2fa88874f1a9fe1aa"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 14845,
+      "sha256": "503ef770ae76e5169609081e5e62e184bb712916c90d9b7d8c91560f60e1c969"
+    },
+    {
+      "path": "evidence/gates-capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "862bd0900f2e233d72459af467be0a973dcbfb4aeba1cf4efee0a63e0f720cea"
+    },
+    {
+      "path": "evidence/gates.log",
+      "bytes": 598,
+      "sha256": "70f190603589f24defc2d5636719d83cc4982a50545fec8a514c36699e458e06"
+    },
+    {
+      "path": "evidence/installer.log",
+      "bytes": 455,
+      "sha256": "1dd62d3d45aba31347ea0107b775a7388901286cb519614a7991164e55e320ac"
+    },
+    {
+      "path": "evidence/live-normal-proof.json",
+      "bytes": 3005,
+      "sha256": "5806d5786a8b42975c0fb99fc2aa1a5e0ec650662cac15d73aa821fb50f81d86"
+    },
+    {
+      "path": "evidence/native-api-report.json",
+      "bytes": 14437,
+      "sha256": "d46203a405d95a436c91918d6965f5a659930b008751f93793a466a2621d3e46"
+    },
+    {
+      "path": "evidence/next-slope19-order-lead.json",
+      "bytes": 2149,
+      "sha256": "01206534f3830132090c5b6c171635732da03484832a83e5582bedc6ce44c5e9"
+    },
+    {
+      "path": "evidence/physics-v101-build-and-functional-audit.json",
+      "bytes": 548,
+      "sha256": "12e94f9dc594febb49e8d550e625d2bf413af6f562302ad0ee7d08b5c25cd3f5"
+    },
+    {
+      "path": "evidence/physics-v101-final-broad-audit.json",
+      "bytes": 1081962,
+      "sha256": "0837e83fea56e4ebc7582428abad839160bd97319849c2b7bf5ca30c2546158b"
+    },
+    {
+      "path": "evidence/physics-v101-final-practical-error-audit.json",
+      "bytes": 1113079,
+      "sha256": "240f366f75cf442ec9649e6a4a62c97f2019aae8b39c09b606b4f5feb4cd8fd7"
+    },
+    {
+      "path": "evidence/physics-v101-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v101-portable-validation.json",
+      "bytes": 746,
+      "sha256": "3450fcd9171e28485170411c1f7d3b606cc9172b48d88e775d0189e7a2db392f"
+    },
+    {
+      "path": "evidence/physics-v101-probe-validation.json",
+      "bytes": 1872,
+      "sha256": "651ee275f03108a91aa90ae0ab8406f7b038fb347b14bd0ef062f2dd314644f2"
+    },
+    {
+      "path": "evidence/physics-v101-regression-audit.json",
+      "bytes": 24924,
+      "sha256": "3d875dc7bd583e54b2041105b0134a52d7477c81274b08837092fd3f1c0c1ac4"
+    },
+    {
+      "path": "evidence/rejected-initial-runner-validation.json",
+      "bytes": 267,
+      "sha256": "543d7f33220c80d1ad674eb826f0b229c061f42674f79e721ecf7bca64dd512f"
+    },
+    {
+      "path": "evidence/same-input-arithmetic-proof.json",
+      "bytes": 8709,
+      "sha256": "453b327136fc1b676a55c618b070659c40d2de8450d96fc2a8d69a1b2675be5e"
+    },
+    {
+      "path": "native-normal-control/Catalog.h",
+      "bytes": 94492,
+      "sha256": "bf0378e34d275f4916f0b1dd0ace48598b233266246847f6a67e22255feffbe5"
+    },
+    {
+      "path": "native-normal-control/EulerAngles.h",
+      "bytes": 3911,
+      "sha256": "a2001d363ee0a15f18101d8dfd33c10829277f012a4645b846c778c445b36183"
+    },
+    {
+      "path": "native-normal-control/Fixture.h",
+      "bytes": 21318,
+      "sha256": "9541f613fd95f105bc11e102146a45615c0fa78093b634859715b2205529789f"
+    },
+    {
+      "path": "native-normal-control/ParityTrace.h",
+      "bytes": 3948,
+      "sha256": "3bbda19aa98414c4f9815c5872551c620333676c6287cd9e31c152fbae4fc0a0"
+    },
+    {
+      "path": "native-normal-control/SpringProbeCases.h",
+      "bytes": 8170,
+      "sha256": "ed2e7f00229c68d5aad9031f3d3692bc58a2634b3a66b085301876c99dae1f99"
+    },
+    {
+      "path": "native-normal-control/WindowsReferenceGeometry.h",
+      "bytes": 13926,
+      "sha256": "3196fdb8d5b93ac456f6912406fef238bcf7f9ff229461dcf84323d9d6563877"
+    },
+    {
+      "path": "native-normal-control/build-manifest.json",
+      "bytes": 365,
+      "sha256": "8f1774c1ea937dc042f12b70c0f2b8ae046be83d9a11b43acf537faa2215cd48"
+    },
+    {
+      "path": "native-normal-control/build.cmd",
+      "bytes": 795,
+      "sha256": "7364fc184a4e97729784d7cb0bc35d7d5ba7f6ffe853769dd0edffdad740d76e"
+    },
+    {
+      "path": "native-normal-control/build.log",
+      "bytes": 1958,
+      "sha256": "c0f7552104143e972375d90ebabacfb2ff5aef9ef339404035360333b08cc9c7"
+    },
+    {
+      "path": "native-normal-control/control-normals.cpp",
+      "bytes": 20700,
+      "sha256": "4d140ca9da44020aca501d0b84f3f1a94a403e37e926cbc749e2066dbdfce6c3"
+    },
+    {
+      "path": "native-normal-control/experimental/IsolationProbeCases.h",
+      "bytes": 5610,
+      "sha256": "53c6e499f14efcad893a90ed7f2f39011ec0ddc6cca0bc28bf05b1e3c679fdb6"
+    },
+    {
+      "path": "native-normal-control/experimental/SpringProbeCases.h",
+      "bytes": 8170,
+      "sha256": "ed2e7f00229c68d5aad9031f3d3692bc58a2634b3a66b085301876c99dae1f99"
+    },
+    {
+      "path": "native-normal-control/normal-trace.inc",
+      "bytes": 2161,
+      "sha256": "a32356784743e87d8c5d3513cfc1383ee811c134be2c247e9520f53d8b06ee9b"
+    },
+    {
+      "path": "normal-probe.cpp",
+      "bytes": 455,
+      "sha256": "021bea1be8c371f2ca77b7778e17feb816be67b1f9067ccfa8392aea399e6d07"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 6842,
+      "sha256": "955600d0412b43650e8716dbf84e77f86e488def892308f1d4a175fa425e3094"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-candidate.py",
+      "bytes": 2728,
+      "sha256": "ee5fcdf3b0de2c1d7ef0b59878760355f98bdd8ff38d9fcc0eeab8fcf5c24141"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-input.py",
+      "bytes": 2678,
+      "sha256": "23cc4a651c80d56f8cbe9ec8a3717a0d6b3ebcc7c72d74bfef8549c9dda79839"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-spring19.py",
+      "bytes": 4137,
+      "sha256": "d4a55ceb2de2a71c74abbe7b02a2ef689c5615df0188c812c0a278108ac02212"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-api.py",
+      "bytes": 3192,
+      "sha256": "a2e6c62ae0b09dbbb892e82b015f1736b7f0c24f9bed96c3330fc0f9b47c3f40"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3651,
+      "sha256": "7321e3b670f2a38d78229dff3d572bd0ff9aaee283fa02de505860c75ca2bb7b"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2180,
+      "sha256": "77c7c1439ac776e8b8dfcbe22244aea3cdfca39a401396719d4a360d4608ab4f"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4275,
+      "sha256": "077fbc4fc7e8b0441bc2b152f6b7d35681a8a67a613651e6cbe9423032917cc4"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-live-normal.py",
+      "bytes": 2523,
+      "sha256": "3976b8ad7218a8e64fd9e74cacb56a788d08f186cf08651c2af169828daf90f9"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2417,
+      "sha256": "00cf5a35624ecf4f9c2471d043df1b633fa009d67db0610790e4b33147718dc4"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 3685,
+      "sha256": "5ab3390d0aa333d6a28a7714d37b2cfab38d6e1453d5b95c730c056d1d0b66f3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2084,
+      "sha256": "7554fd54dbbcf8874878c7dc95599e05cb5d5570b8bc2a85a0a94a6ea4536bb3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2059,
+      "sha256": "1d66a120094207e330569f5139045e9f9f38f0f3cd51e5edf4d63c46ec922962"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 6327,
+      "sha256": "286d379f39b7aa348f3c03f463aca85c078696a8993b9851a720607f2ef99121"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3017,
+      "sha256": "96c246f6b143405f12af650f97851ea4a0935263c111c9522226f502c19617b9"
+    }
+  ],
+  "goal_complete": false
+}

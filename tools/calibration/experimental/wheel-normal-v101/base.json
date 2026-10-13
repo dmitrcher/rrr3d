@@ -1,0 +1,18 @@
+{
+  "scope": "V101 default-off native local mesh normal arithmetic before existing body rotation; optional read-only actual triangle input tracing. No SDK/coefficient/oracle/case-frame changes.",
+  "files": [
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "location": "adapter",
+      "before_sha256": "af8ecb1397c1f30bf99baa6d78e677820ea4f9024296dd4ecd78d4e09264d57f",
+      "after_sha256": "6bd88767ffd32d33653f62a2b13b8f1be3e9e39cc12f381ff9b5ed9a6c3c6fdb"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeTriangleNormalV101.h",
+      "location": "adapter",
+      "before_sha256": null,
+      "after_sha256": "93d617f2a04ce91e3ca1056957dfcd7ee2ea4cfdda9a23bf86920b8835563e14"
+    }
+  ],
+  "goal_complete": false
+}

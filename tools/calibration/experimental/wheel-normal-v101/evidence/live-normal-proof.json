@@ -1,0 +1,104 @@
+{
+  "scope": "Actual candidate source vertices and normals exact independently captured Windows cooked/API/ray data. Both slope physical19 spring axes/local/worldpoints/Jacobian/inverseJacobian/currentmass exact on8active constraints. Downstream whole slope histories remain open; solver order/bias are not certified here.",
+  "normal_repeats": [
+    {
+      "case": "slope-longitudinal",
+      "repeat": 0,
+      "physical_tick": 19,
+      "actual_source_vertex_words_exact": 18,
+      "actual_Native_normal_words_exact": 6,
+      "contacts": 2
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 1,
+      "physical_tick": 19,
+      "actual_source_vertex_words_exact": 18,
+      "actual_Native_normal_words_exact": 6,
+      "contacts": 2
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 0,
+      "physical_tick": 19,
+      "actual_source_vertex_words_exact": 18,
+      "actual_Native_normal_words_exact": 6,
+      "contacts": 2
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 1,
+      "physical_tick": 19,
+      "actual_source_vertex_words_exact": 18,
+      "actual_Native_normal_words_exact": 6,
+      "contacts": 2
+    },
+    {
+      "case": "settle",
+      "repeat": 0,
+      "physical_tick": 25,
+      "actual_source_vertex_words_exact": 36,
+      "actual_Native_normal_words_exact": 12,
+      "contacts": 4
+    },
+    {
+      "case": "settle",
+      "repeat": 1,
+      "physical_tick": 25,
+      "actual_source_vertex_words_exact": 36,
+      "actual_Native_normal_words_exact": 12,
+      "contacts": 4
+    }
+  ],
+  "spring_bindings": [
+    {
+      "case": "slope-longitudinal",
+      "repeat": 0,
+      "wheel": 1,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 0,
+      "wheel": 0,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 1,
+      "wheel": 1,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-longitudinal",
+      "repeat": 1,
+      "wheel": 0,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 0,
+      "wheel": 0,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 0,
+      "wheel": 2,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 1,
+      "wheel": 0,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    },
+    {
+      "case": "slope-lateral",
+      "repeat": 1,
+      "wheel": 2,
+      "normal3_localpoint3_worldpoint3_Jacobian3_inverseJacobian3_mass1_words_exact": true
+    }
+  ],
+  "goal_complete": false
+}

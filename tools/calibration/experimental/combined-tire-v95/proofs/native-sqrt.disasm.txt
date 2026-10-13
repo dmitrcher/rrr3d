@@ -1,0 +1,50 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10001540: 55                           	pushl	%ebp
+10001541: 8b ec                        	movl	%esp, %ebp
+10001543: 83 e4 f8                     	andl	$-0x8, %esp
+10001546: d9 45 08                     	flds	0x8(%ebp)
+10001549: d9 fa                        	fsqrt
+1000154b: 8b e5                        	movl	%ebp, %esp
+1000154d: 5d                           	popl	%ebp
+1000154e: c3                           	retl
+1000154f: cc                           	int3
+10001550: f3 0f 10 09                  	movss	(%ecx), %xmm1
+10001554: 0f 57 c0                     	xorps	%xmm0, %xmm0
+10001557: 0f 2e c8                     	ucomiss	%xmm0, %xmm1
+1000155a: 9f                           	lahf
+1000155b: f6 c4 44                     	testb	$0x44, %ah
+1000155e: 7a 22                        	jp	0x10001582 <.text+0x582>
+10001560: f3 0f 10 49 04               	movss	0x4(%ecx), %xmm1
+10001565: 0f 2e c8                     	ucomiss	%xmm0, %xmm1
+10001568: 9f                           	lahf
+10001569: f6 c4 44                     	testb	$0x44, %ah
+1000156c: 7a 14                        	jp	0x10001582 <.text+0x582>
+1000156e: f3 0f 10 49 08               	movss	0x8(%ecx), %xmm1
+10001573: 0f 2e c8                     	ucomiss	%xmm0, %xmm1
+10001576: 9f                           	lahf
+10001577: f6 c4 44                     	testb	$0x44, %ah
+1000157a: 7a 06                        	jp	0x10001582 <.text+0x582>
+1000157c: b8 01 00 00 00               	movl	$0x1, %eax
+10001581: c3                           	retl
+10001582: 33 c0                        	xorl	%eax, %eax
+10001584: c3                           	retl
+10001585: cc                           	int3
+10001586: cc                           	int3
+10001587: cc                           	int3
+10001588: cc                           	int3
+10001589: cc                           	int3
+1000158a: cc                           	int3
+1000158b: cc                           	int3
+1000158c: cc                           	int3
+1000158d: cc                           	int3
+1000158e: cc                           	int3
+1000158f: cc                           	int3
+10001590: 83 ec 10                     	subl	$0x10, %esp
+10001593: f3 0f 10 16                  	movss	(%esi), %xmm2
+10001597: f3 0f 10 4e 04               	movss	0x4(%esi), %xmm1
+1000159c: f3 0f 10 46 08               	movss	0x8(%esi), %xmm0

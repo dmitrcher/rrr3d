@@ -1,0 +1,20 @@
+{
+  "scope": "Physical245 Marauder moving-brake; four suspension rows and eight tire rows over five uninterrupted iterations. Corrected combined tire ellipse closes first clipped longitudinal divergence, with no reset/oracle or parameter fitting. Decimal private signed-zero lambda bit parity not claimed. Full608 regression acceptance pending.",
+  "checks": [
+    {
+      "repeat": 0,
+      "continuous_body_checkpoints_exact": 60,
+      "body_float32_words_exact": 360,
+      "numeric_lambdas_exact": 60,
+      "all_eight_tire_bounds_and_masses_and_geometry_biases_exact": true
+    },
+    {
+      "repeat": 1,
+      "continuous_body_checkpoints_exact": 60,
+      "body_float32_words_exact": 360,
+      "numeric_lambdas_exact": 60,
+      "all_eight_tire_bounds_and_masses_and_geometry_biases_exact": true
+    }
+  ],
+  "goal_complete": false
+}

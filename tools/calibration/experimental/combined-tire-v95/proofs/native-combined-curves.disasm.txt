@@ -1,0 +1,50 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1014b7c1: f6 83 e8 02 00 00 04         	testb	$0x4, 0x2e8(%ebx)
+1014b7c8: 0f 57 05 70 15 33 10         	xorps	0x10331570, %xmm0
+1014b7cf: f3 0f 11 44 24 68            	movss	%xmm0, 0x68(%esp)
+1014b7d5: 74 0b                        	je	0x1014b7e2 <NpCreatePhysicsSDK+0x3e672>
+1014b7d7: f3 0f 10 84 24 f8 00 00 00   	movss	0xf8(%esp), %xmm0
+1014b7e0: eb 06                        	jmp	0x1014b7e8 <NpCreatePhysicsSDK+0x3e678>
+1014b7e2: f3 0f 10 44 24 6c            	movss	0x6c(%esp), %xmm0
+1014b7e8: f3 0f 11 84 24 f8 00 00 00   	movss	%xmm0, 0xf8(%esp)
+1014b7f1: d9 84 24 f8 00 00 00         	flds	0xf8(%esp)
+1014b7f8: 51                           	pushl	%ecx
+1014b7f9: 8d b3 b4 02 00 00            	leal	0x2b4(%ebx), %esi
+1014b7ff: d9 1c 24                     	fstps	(%esp)
+1014b802: e8 e9 d5 ec ff               	calll	0x10018df0 <.text+0x17df0>
+1014b807: 0f 57 05 70 15 33 10         	xorps	0x10331570, %xmm0
+1014b80e: f3 0f 10 8b bc 02 00 00      	movss	0x2bc(%ebx), %xmm1
+1014b816: f3 0f 10 1d 84 15 33 10      	movss	0x10331584, %xmm3
+1014b81e: f3 0f 11 8c 24 04 01 00 00   	movss	%xmm1, 0x104(%esp)
+1014b827: f3 0f 11 44 24 6c            	movss	%xmm0, 0x6c(%esp)
+1014b82d: f3 0f 11 83 18 02 00 00      	movss	%xmm0, 0x218(%ebx)
+1014b835: f3 0f 5e c1                  	divss	%xmm1, %xmm0
+1014b839: f3 0f 10 4c 24 68            	movss	0x68(%esp), %xmm1
+1014b83f: f3 0f 5e 8b d4 02 00 00      	divss	0x2d4(%ebx), %xmm1
+1014b847: 0f 28 d0                     	movaps	%xmm0, %xmm2
+1014b84a: f3 0f 59 c9                  	mulss	%xmm1, %xmm1
+1014b84e: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+1014b852: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+1014b856: 0f 2f cb                     	comiss	%xmm3, %xmm1
+1014b859: f3 0f 11 4c 24 18            	movss	%xmm1, 0x18(%esp)
+1014b85f: 76 30                        	jbe	0x1014b891 <NpCreatePhysicsSDK+0x3e721>
+1014b861: d9 44 24 18                  	flds	0x18(%esp)
+1014b865: 51                           	pushl	%ecx
+1014b866: d9 1c 24                     	fstps	(%esp)
+1014b869: e8 d2 5c eb ff               	calll	0x10001540 <.text+0x540>
+1014b86e: d9 e8                        	fld1
+1014b870: f3 0f 10 1d 84 15 33 10      	movss	0x10331584, %xmm3
+1014b878: de f1                        	fdivp	%st, %st(1)
+1014b87a: 83 c4 04                     	addl	$0x4, %esp
+1014b87d: d9 44 24 6c                  	flds	0x6c(%esp)
+1014b881: d8 c9                        	fmul	%st(1), %st
+1014b883: d9 9b 18 02 00 00            	fstps	0x218(%ebx)
+1014b889: d8 4c 24 68                  	fmuls	0x68(%esp)
+1014b88d: d9 5c 24 68                  	fstps	0x68(%esp)
+1014b891: f3 0f 10 54 24 70            	movss	0x70(%esp), %xmm2
+1014b897: f3 0f 10 83 00 02 00 00      	movss	0x200(%ebx), %xmm0

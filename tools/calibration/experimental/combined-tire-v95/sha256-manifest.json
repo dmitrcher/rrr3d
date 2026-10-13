@@ -1,0 +1,641 @@
+{
+  "scope": "Verified V95 combined tire source/evidence; full parity incomplete",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4082,
+      "sha256": "2fbd97812b51c154e76e2cfe660f199de71b766215d33aec054ba18ee9701569"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeCombinedTireV95.h",
+      "bytes": 987,
+      "sha256": "a808f0033ba45530ea259a15aface07ff6d447b0b1d0787d0a38c092c1b15af3"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 367311,
+      "sha256": "66f1d17e43d8089b0b4c4db427a8b6b33f20a7e70cb553937d032517941abc21"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 705,
+      "sha256": "66735a39551bf353c8bb8d0e84865babd79c72fedf1388c3f1280e435bcd96e6"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 363613,
+      "sha256": "46b9c35879efbdf97a6b6a7e553afaad68179bda849b1d37adf2c097e901ac80"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 6338,
+      "sha256": "5099fc852c7de446b4109f0767a27c21be88dc3a68464735e11c4f845176c979"
+    },
+    {
+      "path": "captures/focused/combined-0-order.jsonl.gz",
+      "bytes": 37380,
+      "sha256": "f00979bfefbcef776c15b163000c25b9881f367bff4744184646c390be310264"
+    },
+    {
+      "path": "captures/focused/combined-0.jsonl.gz",
+      "bytes": 2509864,
+      "sha256": "78912313cad3100116a23c04177a499b86305543b5483679db247012690265d4"
+    },
+    {
+      "path": "captures/focused/combined-1-order.jsonl.gz",
+      "bytes": 37380,
+      "sha256": "7b7b0fbd876c5017e581cd5e9943ed7ffa4c2cf5105338236e15ecf09645af70"
+    },
+    {
+      "path": "captures/focused/combined-1.jsonl.gz",
+      "bytes": 2509886,
+      "sha256": "516fd201f97d37ef86cf9c736a8cf675806a603dbb66072a66f85386fb67dc4b"
+    },
+    {
+      "path": "captures/focused/control-0-order.jsonl.gz",
+      "bytes": 37379,
+      "sha256": "9e3aa418f2e4c05abb81c743c69d815328e79a03e81a8bc13cc57f196a68ab4e"
+    },
+    {
+      "path": "captures/focused/control-0.jsonl.gz",
+      "bytes": 2510150,
+      "sha256": "85f98ec272a9e7bd299b2bcf66fe92c2af400d65e1dea2175a8ccfd76119ebdc"
+    },
+    {
+      "path": "captures/focused/control-1-order.jsonl.gz",
+      "bytes": 37379,
+      "sha256": "f39b013cb9b74afa8adf5f489429ac16ad2e96124e10171a8a5b7f680c2cb847"
+    },
+    {
+      "path": "captures/focused/control-1.jsonl.gz",
+      "bytes": 2510037,
+      "sha256": "86d8ae064021a04357d1ff492fa859f9fd731046db340dbea13aaf304709ce8d"
+    },
+    {
+      "path": "captures/focused/manifest.json",
+      "bytes": 7463,
+      "sha256": "25c62151e74bb999b51a14a9a899f270f3ffd0d19ff89356d5f94b5be0644531"
+    },
+    {
+      "path": "captures/focused/report.json",
+      "bytes": 90022,
+      "sha256": "7bf774119a75ea2d9aa6e6271f15b2f09fd2e4ec396b6ea4176bce06baab15e9"
+    },
+    {
+      "path": "captures/mac-candidate245/manifest.json",
+      "bytes": 7522,
+      "sha256": "7031f24b6e016437c6317215b4e929dad0dc3ffabdc5482b82ad08b1457e766c"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-0-combined.jsonl.gz",
+      "bytes": 436,
+      "sha256": "0c6109cf5a121ff2d55d8ae2a780d5d951d07c6cfadf86e94857ec826101f561"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 137300,
+      "sha256": "06db4909df43172a5f51528cbf45bb470e9dd8d15f55fc390a9559eef2da8e9e"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-0-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "ed0d85fbbc4c168f7b7ccac27b0f723327cd8baeb88d084c508ca08d53e86ca2"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-0-solver.jsonl.gz",
+      "bytes": 1258,
+      "sha256": "5d46a553b0c09bdce1930a6f580445a6065a6c9e8a3ddc4e26faa7ad06b6ae4e"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-0-tire.jsonl.gz",
+      "bytes": 3043,
+      "sha256": "6eabc134503e1d1487db93f86121843aa5d786c73a73af9602d10a34cb752132"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-1-combined.jsonl.gz",
+      "bytes": 436,
+      "sha256": "2e5c2134bd08bdbce8a21bd7ba543738195b9f5b3afcee971b1042fbd31bfbb8"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 137327,
+      "sha256": "7a594915165379800beb0d1d5ebd0ca7230c79bf3c9f62bf944d6f2e0fd8fcf4"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-1-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "db6e2823358ab2a6917af0b6645b78a7062cb5e8d320534ab1690a5677e345df"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-1-solver.jsonl.gz",
+      "bytes": 1258,
+      "sha256": "5d428d4e76571dd28fab7c67f8adf0fdd5fdf7fd637a3f214730eeab739a7f6e"
+    },
+    {
+      "path": "captures/mac-candidate245/marauder-wheel1-brake-245-1-tire.jsonl.gz",
+      "bytes": 3043,
+      "sha256": "001582e007fcda4a2d33c9a837da250306b190b3d1253adac7e4862f22a6a926"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-0-physical.jsonl.gz",
+      "bytes": 121056,
+      "sha256": "16866c5ba4658f6d9f651b8c6032bafa39cf6717a0162ada5fc83c879051c2e0"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-0-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "8c885c2bbf72acfe3e368500896c1870a8aadf7416d69fa9e115d3cf63a92345"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-0-solver.jsonl.gz",
+      "bytes": 345,
+      "sha256": "616e9896ad957b4955be62ed5718e924969d275220d02b644d99c4bb33661ea2"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-1-physical.jsonl.gz",
+      "bytes": 121134,
+      "sha256": "7426fce12848a8bdedacf666b8b176e4d95def1e3bf5f2ed12d9c0e3a5e708c4"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-1-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "b609ff19e036e602c430249801e1f15ae343365765a1c35e0c5c43e9a0818c78"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/body-tilt-roll-10-1-solver.jsonl.gz",
+      "bytes": 345,
+      "sha256": "99c3ce0cd512804eb2b37bda18fa8b39300239875f4cd7c3d6eb7cb04bb82877"
+    },
+    {
+      "path": "captures/mac-next-tilt-contact10/manifest.json",
+      "bytes": 7496,
+      "sha256": "34f692a17ed4fb6c7ab0badb7e4b79ee00fdf347fb4e941995774fddb0ec9e0f"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-0-physical.jsonl.gz",
+      "bytes": 25650,
+      "sha256": "842871e857059c0cb9b51e86408b1d65a6c33c997c2a7cffff2ac2dfde9fb53c"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-0-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "8c885c2bbf72acfe3e368500896c1870a8aadf7416d69fa9e115d3cf63a92345"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-0-solver.jsonl.gz",
+      "bytes": 345,
+      "sha256": "616e9896ad957b4955be62ed5718e924969d275220d02b644d99c4bb33661ea2"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-1-physical.jsonl.gz",
+      "bytes": 25645,
+      "sha256": "d81c8147dd50a78d41c8edbc779a6341811040ba493fd239fe8362f2f38a3eb4"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-1-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "b609ff19e036e602c430249801e1f15ae343365765a1c35e0c5c43e9a0818c78"
+    },
+    {
+      "path": "captures/mac-next-tilt10/body-tilt-roll-10-1-solver.jsonl.gz",
+      "bytes": 345,
+      "sha256": "99c3ce0cd512804eb2b37bda18fa8b39300239875f4cd7c3d6eb7cb04bb82877"
+    },
+    {
+      "path": "captures/mac-next-tilt10/manifest.json",
+      "bytes": 7496,
+      "sha256": "2f97d79d142f46e8a0f2509e7b5908322f21659c42c2b2941caa802e384accd0"
+    },
+    {
+      "path": "captures/mac-readonly245/manifest.json",
+      "bytes": 7506,
+      "sha256": "64c54686dadd0f3e88b150c850c2c2bfae24f21ef84cdc86abf37e6d0a9ea373"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-0-combined.jsonl.gz",
+      "bytes": 436,
+      "sha256": "0c6109cf5a121ff2d55d8ae2a780d5d951d07c6cfadf86e94857ec826101f561"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 137330,
+      "sha256": "977fe5c54d378f8899d52e08aabcd5bb460b3873f9fb9c43b3a2cf2c5599332e"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-0-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "ed0d85fbbc4c168f7b7ccac27b0f723327cd8baeb88d084c508ca08d53e86ca2"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-0-solver.jsonl.gz",
+      "bytes": 1257,
+      "sha256": "95b0fba82158bde048bd6f7d792c12bf6dc647c0f07e5ee036ab867a74ba1695"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-0-tire.jsonl.gz",
+      "bytes": 3031,
+      "sha256": "3a391ee1531954b7b4f0f245ec976d9805d5145c8848e2f63ad69527a5291e12"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-1-combined.jsonl.gz",
+      "bytes": 436,
+      "sha256": "2e5c2134bd08bdbce8a21bd7ba543738195b9f5b3afcee971b1042fbd31bfbb8"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 137301,
+      "sha256": "fa5080e3c99ebe6408c40db9a4afb17483afc628ca5bdbb26bbcf830c0e5b467"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-1-prep.jsonl.gz",
+      "bytes": 783,
+      "sha256": "db6e2823358ab2a6917af0b6645b78a7062cb5e8d320534ab1690a5677e345df"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-1-solver.jsonl.gz",
+      "bytes": 1257,
+      "sha256": "e74c95197e37e4772cce0dd7383fdd46c6fceae56935fd14932fb34a544988c0"
+    },
+    {
+      "path": "captures/mac-readonly245/marauder-wheel1-brake-245-1-tire.jsonl.gz",
+      "bytes": 3031,
+      "sha256": "ef345c75ec3365e39a8aeee70ceb4a6ff9ca2b1b2e6c6c0d558c0dee7025f82c"
+    },
+    {
+      "path": "captures/native-force245/force-marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 302386,
+      "sha256": "22b54ae837c05367eb9ea2d918ac687d1113bb1266a60d200fbc4531f07b0549"
+    },
+    {
+      "path": "captures/native-force245/force-marauder-wheel1-brake-245-0-private.jsonl.gz",
+      "bytes": 4234,
+      "sha256": "5f6fccd74aa3eeaef2fa22225a668e92c329a9f28e49ba23b814d775756b5efa"
+    },
+    {
+      "path": "captures/native-force245/force-marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 302455,
+      "sha256": "ae8c5d03fd19518bf6e1f45f73524a35d23c52c781cce1f570439b5df8242db9"
+    },
+    {
+      "path": "captures/native-force245/force-marauder-wheel1-brake-245-1-private.jsonl.gz",
+      "bytes": 4253,
+      "sha256": "6c0183b6e835134b57c5e1597b8a2d1e23703f5d61cf9799c578304aa1e70489"
+    },
+    {
+      "path": "captures/native-force245/manifest.json",
+      "bytes": 1740,
+      "sha256": "6f3529801987ad7ce776cb2a8d50800b6228d045b87462764230eadcd9d85a28"
+    },
+    {
+      "path": "captures/native-kernel245/force-marauder-wheel1-brake-245-0-physical.jsonl.gz",
+      "bytes": 303116,
+      "sha256": "b5cc3318acd6802fcfa1f2741585d392afc1c70de88d51f850e2f638f5521cac"
+    },
+    {
+      "path": "captures/native-kernel245/force-marauder-wheel1-brake-245-0-private.jsonl.gz",
+      "bytes": 25353,
+      "sha256": "4a79ea6c6491c957633666fdf93cdd61adb651ad9d1baf9312dd34061340fd05"
+    },
+    {
+      "path": "captures/native-kernel245/force-marauder-wheel1-brake-245-1-physical.jsonl.gz",
+      "bytes": 303127,
+      "sha256": "322e782055e14fb8f6bb4196677557fea50b21323f2a94a61b9aea567332854a"
+    },
+    {
+      "path": "captures/native-kernel245/force-marauder-wheel1-brake-245-1-private.jsonl.gz",
+      "bytes": 25355,
+      "sha256": "ef4fbf7f6325d114e4a33a66ef82f665cd54d1bb66cc7ec4169d89cbb81ff01d"
+    },
+    {
+      "path": "captures/native-kernel245/manifest.json",
+      "bytes": 1744,
+      "sha256": "35bc4b5d6c905043170f7139409b0890802589812392ea5fb797c4ffbec7e2ea"
+    },
+    {
+      "path": "captures/native-next-tilt-contact10/manifest.json",
+      "bytes": 1393,
+      "sha256": "9d5251ff2fda546754c56fa7507c1683db17977a76fb63b62246cee69f97b1be"
+    },
+    {
+      "path": "captures/native-next-tilt-contact10/v95-tilt-contact10-body-tilt-roll-0-physical.jsonl.gz",
+      "bytes": 142966,
+      "sha256": "a107766b2e5e9a0bacb58f89137af127b0907a50f77ee1bb5ba29fc6db4f1d67"
+    },
+    {
+      "path": "captures/native-next-tilt-contact10/v95-tilt-contact10-body-tilt-roll-0-private.jsonl.gz",
+      "bytes": 66007,
+      "sha256": "17c995c4bdaf9bbe9ce53ec7ea83c26847372c09c55ae68cd59785268c0e6c30"
+    },
+    {
+      "path": "captures/native-next-tilt-contact10/v95-tilt-contact10-body-tilt-roll-1-physical.jsonl.gz",
+      "bytes": 143054,
+      "sha256": "d450006cf31f3398de8f0175ca62acd635166264187d62588a5dd4390f17cb6e"
+    },
+    {
+      "path": "captures/native-next-tilt-contact10/v95-tilt-contact10-body-tilt-roll-1-private.jsonl.gz",
+      "bytes": 66077,
+      "sha256": "45d10e15b52020f99f09bf6780266af392eba990c1ea2eba8a69366950b871fc"
+    },
+    {
+      "path": "captures/native-next-tilt10/force-body-tilt-roll-10-0-physical.jsonl.gz",
+      "bytes": 142550,
+      "sha256": "ce71bc4b54fe22833cbaa5a9081a64d1e075b89a133a1cfa26283b16afa1eb22"
+    },
+    {
+      "path": "captures/native-next-tilt10/force-body-tilt-roll-10-0-private.jsonl.gz",
+      "bytes": 929,
+      "sha256": "04b0c6ea1b39332768c192284a854ebfb1dbe132204177615c52d7aef06002b3"
+    },
+    {
+      "path": "captures/native-next-tilt10/force-body-tilt-roll-10-1-physical.jsonl.gz",
+      "bytes": 142616,
+      "sha256": "0441bc9e17e96303f5357a421c82372157f63973baea0434c7243c819b3001e8"
+    },
+    {
+      "path": "captures/native-next-tilt10/force-body-tilt-roll-10-1-private.jsonl.gz",
+      "bytes": 936,
+      "sha256": "8ae74ada19249949425df87552b1668bd4492ff49da110547e41863db25972d2"
+    },
+    {
+      "path": "captures/native-next-tilt10/manifest.json",
+      "bytes": 1696,
+      "sha256": "03b6cbb972cdf0d695327dbe3f9b9e89bf519621ffb5c9887ae65e6d3b0c233c"
+    },
+    {
+      "path": "captures/windows-reference.jsonl.gz",
+      "bytes": 3592942,
+      "sha256": "99b8a4c7e3b530af10d4ce32e377090cc47ee9f27722c61ff161110e6ed6e90c"
+    },
+    {
+      "path": "evidence/candidate-live-kernel-proof.json",
+      "bytes": 844,
+      "sha256": "4fc6958a9c469e8cc5a3bff9ac25ddbdd6c4864553e129309121d106f416bc6d"
+    },
+    {
+      "path": "evidence/combined-arithmetic-proof.json",
+      "bytes": 870,
+      "sha256": "85476e94fd2f8ba1d1e55baa428d0a7c343b6e0ee9a86146476a6d448d639609"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "5a93138831529ed990340d6ce389b6be43002f8a5961a4bfe1f62c2c19bab9bb"
+    },
+    {
+      "path": "evidence/game-render-race-exit.json",
+      "bytes": 88,
+      "sha256": "3b5eb47ce62f568575c471b2c7bebe141cbb56b7056194f0196b738bb2bbddd5"
+    },
+    {
+      "path": "evidence/game-render-race-launch.json",
+      "bytes": 7448,
+      "sha256": "fbe85d1081b1548501bac7709e572b69158af41d9cb364fcbbae8e6e362f3eb6"
+    },
+    {
+      "path": "evidence/game-smoke-exit.json",
+      "bytes": 88,
+      "sha256": "f35c762e838467ae3ab9b6b841a5c6bc0e0b0aa924b401aacca872b5b06afc70"
+    },
+    {
+      "path": "evidence/game-smoke-launch.json",
+      "bytes": 7423,
+      "sha256": "93b762fc23142fb8a7cf8ed9c76d435b19983d0cdab60008d0bb59be2a0f79b1"
+    },
+    {
+      "path": "evidence/gates-capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "fdd5f4eff64567805fe6d576cc0352d4f99aafdb9c253a4ce4f5049575498618"
+    },
+    {
+      "path": "evidence/mac-live-input-proof.json",
+      "bytes": 5408,
+      "sha256": "6c25d5afe216087e0ae1e1a96d32c7b607e14d0961109517765b5653ee9e6b0d"
+    },
+    {
+      "path": "evidence/native-control-and-fixture-proof.json",
+      "bytes": 2908,
+      "sha256": "137926f2b0dfe744a19ce5a5ce7707cb47b0a427d703860e6ee9e16cafaaf6f3"
+    },
+    {
+      "path": "evidence/next-tilt10-mass-lead.json",
+      "bytes": 1419,
+      "sha256": "039b5fca5cca98fe27f80cecfc5989b3c0939b4fd43b9d16ddbd9bc6251c9173"
+    },
+    {
+      "path": "evidence/physics-v95-final-broad-audit.json",
+      "bytes": 1571842,
+      "sha256": "664560a510e17d5e7316107560cc70380fe052c40bb287d91259f8e04c1cfe46"
+    },
+    {
+      "path": "evidence/physics-v95-final-practical-error-audit.json",
+      "bytes": 1128732,
+      "sha256": "603d05bfe3defefaaf6497243b27627a8fd0d6eb377f2fe46fd7ca2ed2f1305f"
+    },
+    {
+      "path": "evidence/physics-v95-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v95-probe-validation.json",
+      "bytes": 2282,
+      "sha256": "cf35835fdce576b46f9a8679260bea02c36003b38c5a7390aaaf85af5d020c87"
+    },
+    {
+      "path": "evidence/physics-v95-regression-audit.json",
+      "bytes": 29020,
+      "sha256": "f84b8f38988bbd4344f8104cee7ea4878e8e32ea5f5a1deca80f941acb4fa3b7"
+    },
+    {
+      "path": "force-tracer/build.cmd",
+      "bytes": 280,
+      "sha256": "b6e96b88de1cbc452aaddcd934f760ce0170679c8a3a0c7e59de306e9f73c67d"
+    },
+    {
+      "path": "force-tracer/trace-force.cpp",
+      "bytes": 8804,
+      "sha256": "de5b5d6bb9f7e2d0878ce5006a0f9578b6dbacce75e39516597a4b7633d9bae3"
+    },
+    {
+      "path": "next-work.md",
+      "bytes": 2527,
+      "sha256": "314bfbd8ef4085620c9f845e3155852cfc890abf91507ac6bd7826890c499b56"
+    },
+    {
+      "path": "proofs/NativeCombinedTireV95.h",
+      "bytes": 987,
+      "sha256": "a808f0033ba45530ea259a15aface07ff6d447b0b1d0787d0a38c092c1b15af3"
+    },
+    {
+      "path": "proofs/build-x87.cmd",
+      "bytes": 405,
+      "sha256": "1600841dc69c5001e97d7fb04ad3f860f85be77acfabc3bb9fc869452751b85d"
+    },
+    {
+      "path": "proofs/combined-fixtures-bound.json",
+      "bytes": 451508,
+      "sha256": "ef97073978b7fa907eb6a0b42f3ef1842b9f3c73cfe69dad6bc37088bbd5f80c"
+    },
+    {
+      "path": "proofs/combined-fixtures.inc",
+      "bytes": 101440,
+      "sha256": "9c59b7155da642ca0d930c3d7f46d01d69c48591f200be932cda2ce6c06792f4"
+    },
+    {
+      "path": "proofs/combined-fixtures.json",
+      "bytes": 285649,
+      "sha256": "f3b29ad61e809873442fba0b2175a93b562acda647fbd22426441b3ff139e809"
+    },
+    {
+      "path": "proofs/native-combined-curves.disasm.txt",
+      "bytes": 2884,
+      "sha256": "6a6d0e365094bbe48211bbcca01a2c74821a447f11e080fffcf9510cef143e69"
+    },
+    {
+      "path": "proofs/native-combined-fixtures.json",
+      "bytes": 2313,
+      "sha256": "7daea29c5dfbad6be7221bd10797cfc76edb7031012681b82410330ab0bee3fc"
+    },
+    {
+      "path": "proofs/native-sqrt.disasm.txt",
+      "bytes": 2475,
+      "sha256": "7c19b0cde8cefc6aed29894d69ef4ccf3ed2dc664e1a4658d3eba03b4c29258b"
+    },
+    {
+      "path": "proofs/verify-combined.cpp",
+      "bytes": 78422,
+      "sha256": "3eb3b17dc3f55eaf648dd0846f007e5041960a054ea79d30a81fbd3cdd52f579"
+    },
+    {
+      "path": "proofs/verify-x87.cpp",
+      "bytes": 1340,
+      "sha256": "1c0e9f500e454cbe164e8826a496935cf8ae984ab2a6918cd4b135901d5eb53a"
+    },
+    {
+      "path": "proofs/windows-x87-O0.txt",
+      "bytes": 67171,
+      "sha256": "3dfb1b0bd33b741ffacce1e09fe7c4019bc4c102e415354f39f88528e92763f7"
+    },
+    {
+      "path": "proofs/windows-x87-O2.txt",
+      "bytes": 67171,
+      "sha256": "3dfb1b0bd33b741ffacce1e09fe7c4019bc4c102e415354f39f88528e92763f7"
+    },
+    {
+      "path": "verify-checkpoint.py",
+      "bytes": 2431,
+      "sha256": "95cef778fdac509c1c31a4405bce39f20c538cf89ddb1ade7a7d199045d07b2e"
+    },
+    {
+      "path": "verify-live-kernel.py",
+      "bytes": 2526,
+      "sha256": "47365d59bd3ddc19732d1aa777fa310a220a1c07478912072c5b7efbce40d4c2"
+    },
+    {
+      "path": "verify-native-combined.py",
+      "bytes": 3477,
+      "sha256": "fd4f9b477748695f997d5f5e593848ee5bf19974dcec44db63dc89186c75c250"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "workspace-reproduction/capture-mac-candidate245.py",
+      "bytes": 3652,
+      "sha256": "51443bfb47d2b098e7019ad4582be885c4c9179cb9b4dd57eb07141e9fc187f3"
+    },
+    {
+      "path": "workspace-reproduction/capture-mac-next-tilt-contact10.py",
+      "bytes": 3728,
+      "sha256": "74b5306ba43e33873e64041aa34ed69d38437afb14ce3c619192ede19e8a31d7"
+    },
+    {
+      "path": "workspace-reproduction/capture-mac-next-tilt10.py",
+      "bytes": 3574,
+      "sha256": "6c3447aff2afefc309ea013a818c88dff93591d2d85a6c7cbbf8f48e149c9bce"
+    },
+    {
+      "path": "workspace-reproduction/capture-mac-readonly245.py",
+      "bytes": 3478,
+      "sha256": "639c95e28e8dffff0ec674c5ae818e4aae618106e14712fc0fae498ed185347d"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-force.py",
+      "bytes": 3111,
+      "sha256": "869232b667d06a598000c6c2e3d1ff63ad4a0437a6994e17a204e61ec6000264"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-next-tilt-contact10.py",
+      "bytes": 2589,
+      "sha256": "5bd425c080fbdfef7224ac9c69dc445bf5b0ed18659453aec10d728accef7e97"
+    },
+    {
+      "path": "workspace-reproduction/capture-native-next-tilt10.py",
+      "bytes": 3092,
+      "sha256": "103231c2ea446caa7a3b89141cd5e1c1e4e9681f7ab630ca8e2a43edbff0b832"
+    },
+    {
+      "path": "workspace-reproduction/compare-broad.py",
+      "bytes": 3650,
+      "sha256": "339e0d55e54cf2add4b2848cc8a547e0a8cad7df3ea99eb727265cbe6942c96c"
+    },
+    {
+      "path": "workspace-reproduction/compare-regression.py",
+      "bytes": 2174,
+      "sha256": "4a7be1716196641c42fb7efca95fbfd8756a83a798c1d8231297bcce0c9b3ea4"
+    },
+    {
+      "path": "workspace-reproduction/practical-error-audit.py",
+      "bytes": 4271,
+      "sha256": "7c327a74dbdc8151edac8588350c5928041808d3719b58ed6f071577c54e1541"
+    },
+    {
+      "path": "workspace-reproduction/run-broad.py",
+      "bytes": 2415,
+      "sha256": "b5284a5491f9e5a816d35fc6f899f03be6aad8fd24438c9769e0c7aae59fad03"
+    },
+    {
+      "path": "workspace-reproduction/run-focused.py",
+      "bytes": 3832,
+      "sha256": "df7764fe6bf9ae12597340dded3b6aeb38ed18b34331808178196a260f8e0eb0"
+    },
+    {
+      "path": "workspace-reproduction/run-game-render-race.py",
+      "bytes": 2083,
+      "sha256": "040813c768c427b78cb004c3738fa04f4390ef286507c2740a76fbbadcbf4c09"
+    },
+    {
+      "path": "workspace-reproduction/run-game-smoke.py",
+      "bytes": 2058,
+      "sha256": "1cf911713a14136a9a18b0355d424e84a0cef9c1cd440826eb34234a955bbdf5"
+    },
+    {
+      "path": "workspace-reproduction/run-gates.py",
+      "bytes": 5948,
+      "sha256": "ef2ee4bb9d655af7f6cf28a32f1468221acfcdf7f45d2f38d7e1140475552812"
+    },
+    {
+      "path": "workspace-reproduction/test-exported-installer.py",
+      "bytes": 1664,
+      "sha256": "3201c46964207c406ee381a20ca0b5505959bce847f18ad81895f0e8403f0a74"
+    },
+    {
+      "path": "workspace-reproduction/verify-live-kernel.py",
+      "bytes": 2611,
+      "sha256": "7550d660d0b4d36f768ef79eabd7012b66a6bafb6a5f187805205c56af1c29ae"
+    },
+    {
+      "path": "workspace-reproduction/verify-mac-inputs.py",
+      "bytes": 1941,
+      "sha256": "38ff83d6bf3e8051cba5d40565af78339c7db9bd838c498aa70d2d684f619249"
+    }
+  ],
+  "goal_complete": false
+}

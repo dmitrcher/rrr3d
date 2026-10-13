@@ -1,0 +1,9 @@
+# Next first divergence: body-tilt-roll contact polygon order
+
+V96 material seed corrects the earlier orientation/mass cause: first full-state divergence advances from physical10 to49 in uninterrupted180-step same-input no-AI trajectories. See evidence/next-frame49-contact-order-proof.json and both actual Native/Mac captures.
+
+At49 Native geometry-dispatch-after already publishes two points in the reverse order to Mac source manifold. Actual world points, individual separations, solver levers, tensor, frame quaternion, effective masses and scaled biases all match when bound by the actual lever; Native first6body input words also match. Subsequent solver body words diverge after processing the first point. The diagnostic mapping [1,0] is measurement only and is not implemented in physics.
+
+Investigate source box polygon vertex enumeration and face selection before contact caching or solver math. The Mac dominant support face becomes negative Y near a45degree roll: callback actor column2 has absY.715248168 versus absZ.698870182. SourceMeshManifold.h currently has reconstructed face vertex order and earlier experimental winding exceptions. Actual Native polygon indices/table and traversal must be captured before changing these rules. Do not sort by measured output, reverse only a frame/case, or fit engine/mass/grip. Cached point order changes follow the earlier geometry publication; a cache-only change would hide the input cause.
+
+The whole goal remains all physical effects, slopes, collisions and multiactor scenarios. V96 does not close the complete roll trajectory; its late180-step position/velocity/angular maxima increase slightly versusV95 while its exact prefix grows. Keep first divergence and full-run magnitudes separately visible. Preserve published releases, Windows Original EXE/DLL and frozen probes.

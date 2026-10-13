@@ -1,0 +1,24 @@
+{
+  "native_seed_fixtures": 16,
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "native_seed64_words_exact": true,
+      "all31_composed_stage_words_exact": true,
+      "default_off_original_actual_seed_solver_exact": true
+    },
+    {
+      "optimization": "O2",
+      "native_seed64_words_exact": true,
+      "all31_composed_stage_words_exact": true,
+      "default_off_original_actual_seed_solver_exact": true
+    }
+  ],
+  "goal_complete": false,
+  "fresh_probe_checkpoint": {
+    "states": 1980,
+    "cases": 4,
+    "all_observed_float_words_exact_saved_v96": true,
+    "probe_sha256": "da437b49ff53c86f8da21e8dc31107f8e27496b54119b6c566d317041b3b77af"
+  }
+}

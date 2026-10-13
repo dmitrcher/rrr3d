@@ -1,0 +1,78 @@
+{
+  "scope": "Actual current Native58/Mac58 continuous kernel; scalar physical data, no injected states. Observed row order maps spring0through3 then pairedtires0through3.",
+  "checks": [
+    {
+      "repeat": 0,
+      "rows": 60,
+      "first_difference": {
+        "row": 4,
+        "iteration": 1,
+        "kind": "lateral-result",
+        "wheel": 0,
+        "body_components_different": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "native_body": [
+          2.6273346520611085e-07,
+          0.007017402444034815,
+          0.5947161316871643,
+          0.008181761018931866,
+          -0.0006568047683686018,
+          0.004191990941762924
+        ],
+        "mac_body": [
+          2.31491242e-07,
+          0.00594987161,
+          0.594716132,
+          0.00811287295,
+          -0.000656574906,
+          0.00353657012
+        ],
+        "native_lambda": 14.385931015014648,
+        "mac_lambda": 12.2508774
+      },
+      "different_checkpoints": 56
+    },
+    {
+      "repeat": 1,
+      "rows": 60,
+      "first_difference": {
+        "row": 4,
+        "iteration": 1,
+        "kind": "lateral-result",
+        "wheel": 0,
+        "body_components_different": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "native_body": [
+          2.6273346520611085e-07,
+          0.007017402444034815,
+          0.5947161316871643,
+          0.008181761018931866,
+          -0.0006568047683686018,
+          0.004191990941762924
+        ],
+        "mac_body": [
+          2.31491242e-07,
+          0.00594987161,
+          0.594716132,
+          0.00811287295,
+          -0.000656574906,
+          0.00353657012
+        ],
+        "native_lambda": 14.385931015014648,
+        "mac_lambda": 12.2508774
+      },
+      "different_checkpoints": 56
+    }
+  ],
+  "goal_complete": false
+}

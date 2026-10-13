@@ -1,0 +1,346 @@
+100334d0: 8b 54 24 10                  	movl	0x10(%esp), %edx
+100334d4: 8d 0c 76                     	leal	(%esi,%esi,2), %ecx
+100334d7: 8d 04 8a                     	leal	(%edx,%ecx,4), %eax
+100334da: 0f b7 48 06                  	movzwl	0x6(%eax), %ecx
+100334de: 33 d2                        	xorl	%edx, %edx
+100334e0: 3b cd                        	cmpl	%ebp, %ecx
+100334e2: 0f b7 48 04                  	movzwl	0x4(%eax), %ecx
+100334e6: 0f 94 c2                     	sete	%dl
+100334e9: 33 db                        	xorl	%ebx, %ebx
+100334eb: 8d 3c b5 00 00 00 00         	leal	(,%esi,4), %edi
+100334f2: 03 d2                        	addl	%edx, %edx
+100334f4: 3b cd                        	cmpl	%ebp, %ecx
+100334f6: 0f b7 48 02                  	movzwl	0x2(%eax), %ecx
+100334fa: 0f 94 c3                     	sete	%bl
+100334fd: 0b d3                        	orl	%ebx, %edx
+100334ff: 33 db                        	xorl	%ebx, %ebx
+10033501: 03 d2                        	addl	%edx, %edx
+10033503: 3b cd                        	cmpl	%ebp, %ecx
+10033505: 0f b7 08                     	movzwl	(%eax), %ecx
+10033508: 0f 94 c3                     	sete	%bl
+1003350b: 0b d3                        	orl	%ebx, %edx
+1003350d: 33 db                        	xorl	%ebx, %ebx
+1003350f: 03 d2                        	addl	%edx, %edx
+10033511: 3b cd                        	cmpl	%ebp, %ecx
+10033513: 0f 94 c3                     	sete	%bl
+10033516: 8b cf                        	movl	%edi, %ecx
+10033518: 83 e1 1f                     	andl	$0x1f, %ecx
+1003351b: 0b d3                        	orl	%ebx, %edx
+1003351d: 8b df                        	movl	%edi, %ebx
+1003351f: 8b 7c 24 14                  	movl	0x14(%esp), %edi
+10033523: c1 eb 05                     	shrl	$0x5, %ebx
+10033526: 8b 3c 9f                     	movl	(%edi,%ebx,4), %edi
+10033529: d3 ef                        	shrl	%cl, %edi
+1003352b: 83 e7 0f                     	andl	$0xf, %edi
+1003352e: f7 d7                        	notl	%edi
+10033530: 23 d7                        	andl	%edi, %edx
+10033532: 75 12                        	jne	0x10033546 <.text+0x32546>
+10033534: 0f b7 70 08                  	movzwl	0x8(%eax), %esi
+10033538: 85 f6                        	testl	%esi, %esi
+1003353a: 75 94                        	jne	0x100334d0 <.text+0x324d0>
+1003353c: 5f                           	popl	%edi
+1003353d: 5e                           	popl	%esi
+1003353e: 5d                           	popl	%ebp
+1003353f: 5b                           	popl	%ebx
+10033540: 83 c4 0c                     	addl	$0xc, %esp
+10033543: c2 08 00                     	retl	$0x8
+10033546: 8b 44 24 20                  	movl	0x20(%esp), %eax
+1003354a: 8b 40 04                     	movl	0x4(%eax), %eax
+1003354d: 03 f6                        	addl	%esi, %esi
+1003354f: 03 f6                        	addl	%esi, %esi
+10033551: 8b ce                        	movl	%esi, %ecx
+10033553: c1 ee 05                     	shrl	$0x5, %esi
+10033556: 8d 04 b0                     	leal	(%eax,%esi,4), %eax
+10033559: 83 e1 1f                     	andl	$0x1f, %ecx
+1003355c: be 0f 00 00 00               	movl	$0xf, %esi
+10033561: d3 e6                        	shll	%cl, %esi
+10033563: f7 d2                        	notl	%edx
+10033565: d3 e2                        	shll	%cl, %edx
+10033567: f7 d6                        	notl	%esi
+10033569: 0b d6                        	orl	%esi, %edx
+1003356b: 21 10                        	andl	%edx, (%eax)
+1003356d: 5f                           	popl	%edi
+1003356e: 5e                           	popl	%esi
+1003356f: 5d                           	popl	%ebp
+10033570: 5b                           	popl	%ebx
+10033571: 83 c4 0c                     	addl	$0xc, %esp
+10033574: c2 08 00                     	retl	$0x8
+10033577: cc                           	int3
+10033578: cc                           	int3
+10033579: cc                           	int3
+1003357a: cc                           	int3
+1003357b: cc                           	int3
+1003357c: cc                           	int3
+1003357d: cc                           	int3
+1003357e: cc                           	int3
+1003357f: cc                           	int3
+10033580: 83 ec 1c                     	subl	$0x1c, %esp
+10033583: 53                           	pushl	%ebx
+10033584: 8b 5c 24 28                  	movl	0x28(%esp), %ebx
+10033588: 55                           	pushl	%ebp
+10033589: 8b 6c 24 28                  	movl	0x28(%esp), %ebp
+1003358d: 56                           	pushl	%esi
+1003358e: 57                           	pushl	%edi
+1003358f: 8b f8                        	movl	%eax, %edi
+10033591: 83 c8 ff                     	orl	$-0x1, %eax
+10033594: 89 44 24 18                  	movl	%eax, 0x18(%esp)
+10033598: 89 44 24 1c                  	movl	%eax, 0x1c(%esp)
+1003359c: 8b 47 44                     	movl	0x44(%edi), %eax
+1003359f: 8b 08                        	movl	(%eax), %ecx
+100335a1: 8b c5                        	movl	%ebp, %eax
+100335a3: c1 e0 05                     	shll	$0x5, %eax
+100335a6: 0f b7 44 08 1c               	movzwl	0x1c(%eax,%ecx), %eax
+100335ab: 33 d2                        	xorl	%edx, %edx
+100335ad: 89 54 24 14                  	movl	%edx, 0x14(%esp)
+100335b1: 89 54 24 10                  	movl	%edx, 0x10(%esp)
+100335b5: 89 4c 24 28                  	movl	%ecx, 0x28(%esp)
+100335b9: 3b c2                        	cmpl	%edx, %eax
+100335bb: 0f 84 98 00 00 00            	je	0x10033659 <.text+0x32659>
+100335c1: 8b 57 14                     	movl	0x14(%edi), %edx
+100335c4: 8d 0c 85 00 00 00 00         	leal	(,%eax,4), %ecx
+100335cb: 8b f1                        	movl	%ecx, %esi
+100335cd: 83 e1 1f                     	andl	$0x1f, %ecx
+100335d0: c1 ee 05                     	shrl	$0x5, %esi
+100335d3: 8b 14 b2                     	movl	(%edx,%esi,4), %edx
+100335d6: 8b 77 34                     	movl	0x34(%edi), %esi
+100335d9: d3 ea                        	shrl	%cl, %edx
+100335db: 8d 0c 40                     	leal	(%eax,%eax,2), %ecx
+100335de: 8d 34 8e                     	leal	(%esi,%ecx,4), %esi
+100335e1: 33 c9                        	xorl	%ecx, %ecx
+100335e3: 83 e2 0f                     	andl	$0xf, %edx
+100335e6: 89 54 24 20                  	movl	%edx, 0x20(%esp)
+100335ea: 0f b7 56 06                  	movzwl	0x6(%esi), %edx
+100335ee: 3b d3                        	cmpl	%ebx, %edx
+100335f0: 0f b7 56 04                  	movzwl	0x4(%esi), %edx
+100335f4: 0f 94 c1                     	sete	%cl
+100335f7: 89 44 24 24                  	movl	%eax, 0x24(%esp)
+100335fb: 33 c0                        	xorl	%eax, %eax
+100335fd: 8b 6c 24 20                  	movl	0x20(%esp), %ebp
+10033601: 03 c9                        	addl	%ecx, %ecx
+10033603: 3b d3                        	cmpl	%ebx, %edx
+10033605: 0f b7 56 02                  	movzwl	0x2(%esi), %edx
+10033609: 0f 94 c0                     	sete	%al
+1003360c: 0b c8                        	orl	%eax, %ecx
+1003360e: 33 c0                        	xorl	%eax, %eax
+10033610: 03 c9                        	addl	%ecx, %ecx
+10033612: 3b d3                        	cmpl	%ebx, %edx
+10033614: 0f b7 16                     	movzwl	(%esi), %edx
+10033617: 0f 94 c0                     	sete	%al
+1003361a: 0b c8                        	orl	%eax, %ecx
+1003361c: 33 c0                        	xorl	%eax, %eax
+1003361e: 03 c9                        	addl	%ecx, %ecx
+10033620: 3b d3                        	cmpl	%ebx, %edx
+10033622: 0f 94 c0                     	sete	%al
+10033625: 8b d5                        	movl	%ebp, %edx
+10033627: f7 d2                        	notl	%edx
+10033629: 0b c8                        	orl	%eax, %ecx
+1003362b: 8b 44 24 24                  	movl	0x24(%esp), %eax
+1003362f: 23 ca                        	andl	%edx, %ecx
+10033631: 8b d1                        	movl	%ecx, %edx
+10033633: 0f 85 ce 00 00 00            	jne	0x10033707 <.text+0x32707>
+10033639: 85 ed                        	testl	%ebp, %ebp
+1003363b: 74 04                        	je	0x10033641 <.text+0x32641>
+1003363d: 89 44 24 18                  	movl	%eax, 0x18(%esp)
+10033641: 0f b7 46 08                  	movzwl	0x8(%esi), %eax
+10033645: ff 44 24 14                  	incl	0x14(%esp)
+10033649: 85 c0                        	testl	%eax, %eax
+1003364b: 0f 85 70 ff ff ff            	jne	0x100335c1 <.text+0x325c1>
+10033651: 8b 6c 24 30                  	movl	0x30(%esp), %ebp
+10033655: 8b 4c 24 28                  	movl	0x28(%esp), %ecx
+10033659: 8b d3                        	movl	%ebx, %edx
+1003365b: c1 e2 05                     	shll	$0x5, %edx
+1003365e: 0f b7 44 0a 1c               	movzwl	0x1c(%edx,%ecx), %eax
+10033663: 89 44 24 30                  	movl	%eax, 0x30(%esp)
+10033667: 85 c0                        	testl	%eax, %eax
+10033669: 0f 84 89 00 00 00            	je	0x100336f8 <.text+0x326f8>
+1003366f: 8b 57 14                     	movl	0x14(%edi), %edx
+10033672: 8d 0c 85 00 00 00 00         	leal	(,%eax,4), %ecx
+10033679: 8b f1                        	movl	%ecx, %esi
+1003367b: 83 e1 1f                     	andl	$0x1f, %ecx
+1003367e: c1 ee 05                     	shrl	$0x5, %esi
+10033681: 8b 34 b2                     	movl	(%edx,%esi,4), %esi
+10033684: d3 ee                        	shrl	%cl, %esi
+10033686: 8d 0c 40                     	leal	(%eax,%eax,2), %ecx
+10033689: 8b 47 34                     	movl	0x34(%edi), %eax
+1003368c: 0f b7 54 88 06               	movzwl	0x6(%eax,%ecx,4), %edx
+10033691: 8d 04 88                     	leal	(%eax,%ecx,4), %eax
+10033694: 33 c9                        	xorl	%ecx, %ecx
+10033696: 83 e6 0f                     	andl	$0xf, %esi
+10033699: 3b d5                        	cmpl	%ebp, %edx
+1003369b: 0f b7 50 04                  	movzwl	0x4(%eax), %edx
+1003369f: 0f 94 c1                     	sete	%cl
+100336a2: 33 db                        	xorl	%ebx, %ebx
+100336a4: 03 c9                        	addl	%ecx, %ecx
+100336a6: 3b d5                        	cmpl	%ebp, %edx
+100336a8: 0f b7 50 02                  	movzwl	0x2(%eax), %edx
+100336ac: 0f 94 c3                     	sete	%bl
+100336af: 0b cb                        	orl	%ebx, %ecx
+100336b1: 33 db                        	xorl	%ebx, %ebx
+100336b3: 03 c9                        	addl	%ecx, %ecx
+100336b5: 3b d5                        	cmpl	%ebp, %edx
+100336b7: 0f b7 10                     	movzwl	(%eax), %edx
+100336ba: 0f 94 c3                     	sete	%bl
+100336bd: 0b cb                        	orl	%ebx, %ecx
+100336bf: 33 db                        	xorl	%ebx, %ebx
+100336c1: 03 c9                        	addl	%ecx, %ecx
+100336c3: 3b d5                        	cmpl	%ebp, %edx
+100336c5: 0f 94 c3                     	sete	%bl
+100336c8: 8b d6                        	movl	%esi, %edx
+100336ca: f7 d2                        	notl	%edx
+100336cc: 0b cb                        	orl	%ebx, %ecx
+100336ce: 23 ca                        	andl	%edx, %ecx
+100336d0: 8b d1                        	movl	%ecx, %edx
+100336d2: 75 55                        	jne	0x10033729 <.text+0x32729>
+100336d4: 85 f6                        	testl	%esi, %esi
+100336d6: 74 08                        	je	0x100336e0 <.text+0x326e0>
+100336d8: 8b 4c 24 30                  	movl	0x30(%esp), %ecx
+100336dc: 89 4c 24 1c                  	movl	%ecx, 0x1c(%esp)
+100336e0: 0f b7 40 08                  	movzwl	0x8(%eax), %eax
+100336e4: ff 44 24 10                  	incl	0x10(%esp)
+100336e8: 89 44 24 30                  	movl	%eax, 0x30(%esp)
+100336ec: 85 c0                        	testl	%eax, %eax
+100336ee: 0f 85 7b ff ff ff            	jne	0x1003366f <.text+0x3266f>
+100336f4: 8b 5c 24 34                  	movl	0x34(%esp), %ebx
+100336f8: 8b 74 24 18                  	movl	0x18(%esp), %esi
+100336fc: 83 fe ff                     	cmpl	$-0x1, %esi
+100336ff: 74 4c                        	je	0x1003374d <.text+0x3274d>
+10033701: 89 5c 24 30                  	movl	%ebx, 0x30(%esp)
+10033705: eb 4e                        	jmp	0x10033755 <.text+0x32755>
+10033707: 8b 77 04                     	movl	0x4(%edi), %esi
+1003370a: 03 c0                        	addl	%eax, %eax
+1003370c: 03 c0                        	addl	%eax, %eax
+1003370e: 8b c8                        	movl	%eax, %ecx
+10033710: c1 e9 05                     	shrl	$0x5, %ecx
+10033713: 8d 34 8e                     	leal	(%esi,%ecx,4), %esi
+10033716: 8b c8                        	movl	%eax, %ecx
+10033718: 83 e1 1f                     	andl	$0x1f, %ecx
+1003371b: d3 e2                        	shll	%cl, %edx
+1003371d: 09 16                        	orl	%edx, (%esi)
+1003371f: 5f                           	popl	%edi
+10033720: 5e                           	popl	%esi
+10033721: 5d                           	popl	%ebp
+10033722: 5b                           	popl	%ebx
+10033723: 83 c4 1c                     	addl	$0x1c, %esp
+10033726: c2 08 00                     	retl	$0x8
+10033729: 8b 4c 24 30                  	movl	0x30(%esp), %ecx
+1003372d: 8b 77 04                     	movl	0x4(%edi), %esi
+10033730: 03 c9                        	addl	%ecx, %ecx
+10033732: 03 c9                        	addl	%ecx, %ecx
+10033734: 8b c1                        	movl	%ecx, %eax
+10033736: 83 e1 1f                     	andl	$0x1f, %ecx
+10033739: c1 e8 05                     	shrl	$0x5, %eax
+1003373c: d3 e2                        	shll	%cl, %edx
+1003373e: 8d 04 86                     	leal	(%esi,%eax,4), %eax
+10033741: 09 10                        	orl	%edx, (%eax)
+10033743: 5f                           	popl	%edi
+10033744: 5e                           	popl	%esi
+10033745: 5d                           	popl	%ebp
+10033746: 5b                           	popl	%ebx
+10033747: 83 c4 1c                     	addl	$0x1c, %esp
+1003374a: c2 08 00                     	retl	$0x8
+1003374d: 8b 74 24 1c                  	movl	0x1c(%esp), %esi
+10033751: 89 6c 24 30                  	movl	%ebp, 0x30(%esp)
+10033755: 83 fe ff                     	cmpl	$-0x1, %esi
+10033758: 0f 85 97 01 00 00            	jne	0x100338f5 <.text+0x328f5>
+1003375e: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+10033762: 39 4c 24 14                  	cmpl	%ecx, 0x14(%esp)
+10033766: 77 06                        	ja	0x1003376e <.text+0x3276e>
+10033768: 89 5c 24 1c                  	movl	%ebx, 0x1c(%esp)
+1003376c: eb 06                        	jmp	0x10033774 <.text+0x32774>
+1003376e: 89 6c 24 1c                  	movl	%ebp, 0x1c(%esp)
+10033772: 8b eb                        	movl	%ebx, %ebp
+10033774: 0f b7 47 40                  	movzwl	0x40(%edi), %eax
+10033778: ba ff ff 00 00               	movl	$0xffff, %edx           # imm = 0xFFFF
+1003377d: 89 6c 24 34                  	movl	%ebp, 0x34(%esp)
+10033781: 66 3b c2                     	cmpw	%dx, %ax
+10033784: 74 1b                        	je	0x100337a1 <.text+0x327a1>
+10033786: 8b 77 34                     	movl	0x34(%edi), %esi
+10033789: 0f b7 c8                     	movzwl	%ax, %ecx
+1003378c: 8d 57 34                     	leal	0x34(%edi), %edx
+1003378f: 8d 04 49                     	leal	(%ecx,%ecx,2), %eax
+10033792: 66 8b 44 86 08               	movw	0x8(%esi,%eax,4), %ax
+10033797: 89 54 24 30                  	movl	%edx, 0x30(%esp)
+1003379b: 66 89 47 40                  	movw	%ax, 0x40(%edi)
+1003379f: eb 17                        	jmp	0x100337b8 <.text+0x327b8>
+100337a1: 39 57 3c                     	cmpl	%edx, 0x3c(%edi)
+100337a4: 73 16                        	jae	0x100337bc <.text+0x327bc>
+100337a6: 8d 77 34                     	leal	0x34(%edi), %esi
+100337a9: 89 74 24 30                  	movl	%esi, 0x30(%esp)
+100337ad: e8 0e f8 ff ff               	calll	0x10032fc0 <.text+0x31fc0>
+100337b2: 8b 4f 3c                     	movl	0x3c(%edi), %ecx
+100337b5: 49                           	decl	%ecx
+100337b6: 8b d6                        	movl	%esi, %edx
+100337b8: 85 c9                        	testl	%ecx, %ecx
+100337ba: 75 2c                        	jne	0x100337e8 <.text+0x327e8>
+100337bc: 80 7f 48 00                  	cmpb	$0x0, 0x48(%edi)
+100337c0: 0f 85 a3 01 00 00            	jne	0x10033969 <.text+0x32969>
+100337c6: 68 08 0b 33 10               	pushl	$0x10330b08             # imm = 0x10330B08
+100337cb: 68 7c fe 32 10               	pushl	$0x1032fe7c             # imm = 0x1032FE7C
+100337d0: 6a 03                        	pushl	$0x3
+100337d2: e8 b9 bf 05 00               	calll	0x1008f790 <.text+0x8e790>
+100337d7: 83 c4 0c                     	addl	$0xc, %esp
+100337da: c6 47 48 01                  	movb	$0x1, 0x48(%edi)
+100337de: 5f                           	popl	%edi
+100337df: 5e                           	popl	%esi
+100337e0: 5d                           	popl	%ebp
+100337e1: 5b                           	popl	%ebx
+100337e2: 83 c4 1c                     	addl	$0x1c, %esp
+100337e5: c2 08 00                     	retl	$0x8
+100337e8: 8b 77 44                     	movl	0x44(%edi), %esi
+100337eb: 8b 36                        	movl	(%esi), %esi
+100337ed: 8b c5                        	movl	%ebp, %eax
+100337ef: 8b 2a                        	movl	(%edx), %ebp
+100337f1: c1 e0 05                     	shll	$0x5, %eax
+100337f4: 0f b7 74 06 1c               	movzwl	0x1c(%esi,%eax), %esi
+100337f9: 8d 1c 49                     	leal	(%ecx,%ecx,2), %ebx
+100337fc: 03 db                        	addl	%ebx, %ebx
+100337fe: 03 db                        	addl	%ebx, %ebx
+10033800: 66 89 74 2b 08               	movw	%si, 0x8(%ebx,%ebp)
+10033805: 8b 77 44                     	movl	0x44(%edi), %esi
+10033808: 8b 36                        	movl	(%esi), %esi
+1003380a: 66 89 4c 06 1c               	movw	%cx, 0x1c(%esi,%eax)
+1003380f: 8b 02                        	movl	(%edx), %eax
+10033811: 0f b7 74 24 34               	movzwl	0x34(%esp), %esi
+10033816: 66 89 74 03 0a               	movw	%si, 0xa(%ebx,%eax)
+1003381b: 8b 12                        	movl	(%edx), %edx
+1003381d: 66 8b 44 24 1c               	movw	0x1c(%esp), %ax
+10033822: 8d 2c 8d 00 00 00 00         	leal	(,%ecx,4), %ebp
+10033829: 66 89 04 13                  	movw	%ax, (%ebx,%edx)
+1003382d: 8d 77 14                     	leal	0x14(%edi), %esi
+10033830: 8b c5                        	movl	%ebp, %eax
+10033832: 89 74 24 34                  	movl	%esi, 0x34(%esp)
+10033836: e8 c5 be 05 00               	calll	0x1008f700 <.text+0x8e700>
+1003383b: 8b cd                        	movl	%ebp, %ecx
+1003383d: 83 e1 1f                     	andl	$0x1f, %ecx
+10033840: 8b c5                        	movl	%ebp, %eax
+10033842: c1 e8 05                     	shrl	$0x5, %eax
+10033845: ba 01 00 00 00               	movl	$0x1, %edx
+1003384a: d3 e2                        	shll	%cl, %edx
+1003384c: 8b 0e                        	movl	(%esi), %ecx
+1003384e: 03 c0                        	addl	%eax, %eax
+10033850: 03 c0                        	addl	%eax, %eax
+10033852: 89 44 24 28                  	movl	%eax, 0x28(%esp)
+10033856: 89 54 24 24                  	movl	%edx, 0x24(%esp)
+1003385a: 03 c1                        	addl	%ecx, %eax
+1003385c: f7 d2                        	notl	%edx
+1003385e: 21 10                        	andl	%edx, (%eax)
+10033860: 83 c7 04                     	addl	$0x4, %edi
+10033863: 8b c5                        	movl	%ebp, %eax
+10033865: 8b f7                        	movl	%edi, %esi
+10033867: 89 7c 24 1c                  	movl	%edi, 0x1c(%esp)
+1003386b: e8 90 be 05 00               	calll	0x1008f700 <.text+0x8e700>
+10033870: 8b 17                        	movl	(%edi), %edx
+10033872: 8b 44 24 28                  	movl	0x28(%esp), %eax
+10033876: 8b 4c 24 24                  	movl	0x24(%esp), %ecx
+1003387a: 09 0c 10                     	orl	%ecx, (%eax,%edx)
+1003387d: 03 c2                        	addl	%edx, %eax
+1003387f: 45                           	incl	%ebp
+10033880: 83 c3 02                     	addl	$0x2, %ebx
+10033883: 89 5c 24 18                  	movl	%ebx, 0x18(%esp)
+10033887: c7 44 24 14 03 00 00 00      	movl	$0x3, 0x14(%esp)
+1003388f: 8b 74 24 34                  	movl	0x34(%esp), %esi
+10033893: 8b c5                        	movl	%ebp, %eax
+10033895: e8 66 be 05 00               	calll	0x1008f700 <.text+0x8e700>
+1003389a: 8b dd                        	movl	%ebp, %ebx
+1003389c: 8b cd                        	movl	%ebp, %ecx
+1003389e: c1 eb 05                     	shrl	$0x5, %ebx

@@ -1,0 +1,31 @@
+{
+  "base": "Exact verified V88 overlays and adapter source.",
+  "candidate": "Default-off Native static-contact adjacency node recycling and recreated row ordering, first isolated one-mesh/one-vehicle integration.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "9a158ce77a31aa8e23623726151f971c74fbaaaf53fcf4a97d1ad3e619b138c2",
+      "after_sha256": "fe16450abd697af0d0063efdbd4ce7e254a5b96053f3af4610f40a529d4f0d92"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactOrderV79.h",
+      "before_sha256": "a64664d375e1fb96a4c05b5e5aad9233083f4d7571228c7e6f3d61c9c303c78f",
+      "after_sha256": "4591dc0d3ee399d500d87e39465821a2b6c54f296322a6ead4b62b2df50e122f"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactNodesV90.h",
+      "before_sha256": null,
+      "after_sha256": "82bb4a20b3135a1f89f4c976af46c8873f4a850dfd539956fa8c21231b9c6f7a"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "45111b5f889a995df66fffa23f48184fad53389c94bcb7bebc633f48b890e886",
+      "after_sha256": "61a9fb0d2268f04e2417b6dafad0fbe342f26acf8249b0cdb9706b444a0bfafc"
+    }
+  ],
+  "goal_complete": false
+}

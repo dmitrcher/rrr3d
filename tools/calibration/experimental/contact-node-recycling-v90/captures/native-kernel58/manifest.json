@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\kernel-v84\\TraceKernelV84.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\kernel-v84\\TraceKernelV84.exe:\r\n43e334960754a97c4857e459b64b862ba2ecbdcf16a6a185d40baaebe471d7cc\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 0,
+      "sample_tick": 58,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "06a1c72e1f26fe42a8c3533369772627a84e0ec65306e67cf318d3d72dfdb377"
+    },
+    {
+      "kind": "force",
+      "name": "mobility/devildriver/engine3/lateral",
+      "repeat": 1,
+      "sample_tick": 58,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "2798365bc97d01ea0e0299c09bad0673c3fba9c29508b3b239566d72f16ccbbb"
+    }
+  ],
+  "goal_complete": false
+}

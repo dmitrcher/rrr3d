@@ -1,0 +1,430 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3119,
+      "sha256": "e4dad43e8cf9d4d256f3aaf3fa8fbd41bdddf0e0381421bd378573dfbf926f4f"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeLongitudinalSlipV81.h",
+      "bytes": 642,
+      "sha256": "304e3c9284b165ff32988002c4eccf4c4f5088edc580231222eca80f65e90153"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 351219,
+      "sha256": "c006fa2e40825389476a4143963ab2df0b0fda806e16cf6b9ef1ee608da54c53"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 770,
+      "sha256": "106270a306ea9d27327651d51a39c5e1c06c66f0707a969427b8f3c456694862"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 350405,
+      "sha256": "950bf805af155efe8c9833183346d78e31cebd8a1774a67c0316384f8637592c"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 5489,
+      "sha256": "0c283c16e810d9e4344c9b5ba1d3805b670d3125463d2ff8937df27c89fd6dbf"
+    },
+    {
+      "path": "captures/candidate-0.jsonl.gz",
+      "bytes": 684048,
+      "sha256": "510506861db362670dba0fac0eb879df1518f1e332b7151a35a3957a69b6b099"
+    },
+    {
+      "path": "captures/candidate-1.jsonl.gz",
+      "bytes": 684025,
+      "sha256": "5537770f41308ed060bf48cf90f34082bfd5f6ff565a3fa31767737f7149e6d5"
+    },
+    {
+      "path": "captures/control-0.jsonl.gz",
+      "bytes": 683863,
+      "sha256": "c2e30b9210de68183e5936e675be4696449e5c36948f4dc52779bc574e1a5303"
+    },
+    {
+      "path": "captures/control-1.jsonl.gz",
+      "bytes": 683982,
+      "sha256": "8f84035f27a1cf452c1eb363cb526c3219f07a04cf2d45b985e51f91c76b0ff0"
+    },
+    {
+      "path": "captures/windows-reference.jsonl.gz",
+      "bytes": 900005,
+      "sha256": "2b629c740cd946483fd65c30b16c1914c927a8e6b749d0dcf085519b4813c2a8"
+    },
+    {
+      "path": "evidence/broad/capture-manifest.json",
+      "bytes": 6345,
+      "sha256": "e5aa686145bdab28ffcd76452de2b77f43c5672e6083c5b65bda2f16981aa5be"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "3500e4f04043315b378412f753090c7ae19166de1d722bc7652a1a052e5bd47b"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "0e2ec339d2beb747687f2fb98e20019f60b9ea7d2130bd9f23c6fe460e0160e2"
+    },
+    {
+      "path": "evidence/focused/manifest.json",
+      "bytes": 6447,
+      "sha256": "2bac48b2c187cd36e2e859ca335fb573a08b4a48f2b234f96461da856ad7fcbf"
+    },
+    {
+      "path": "evidence/focused/report.json",
+      "bytes": 97694,
+      "sha256": "c1ad0e2e2189fe8b7eba00a6ed98e2b669d886dce454b682268d9e833083fc98"
+    },
+    {
+      "path": "evidence/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "39bcdab0b268db531dd812fd92cd6b0c7d377fb10bc0d7a38be641043aa55964"
+    },
+    {
+      "path": "evidence/game-render-race/game.log",
+      "bytes": 4082,
+      "sha256": "5e2a7c3ea021e7ea4cc18d6e84593b1e535d599d52d2ba24de13fe369a7a614b"
+    },
+    {
+      "path": "evidence/game-render-race/launch.json",
+      "bytes": 6241,
+      "sha256": "c12f531b8d83ed27ca93db881589461a3b4270423ab3d51825e42854989b6472"
+    },
+    {
+      "path": "evidence/game-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "80eacfec9953024fd2a88f465f40b69686077b6659c556a2f514ce2043b50cd9"
+    },
+    {
+      "path": "evidence/game-smoke/game.log",
+      "bytes": 672,
+      "sha256": "caa002c6c83a003e5d845116ad42c4b9c2edb3ab0595ab0db8354269b19dfb66"
+    },
+    {
+      "path": "evidence/game-smoke/launch.json",
+      "bytes": 6233,
+      "sha256": "df63fd0f28c8d3a0bc6791968eb58d702842bd8077d5cae343f094672c6d729a"
+    },
+    {
+      "path": "evidence/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "b2f2ae48e6ed418c585381267d26e1a494ec5c9f77340a4a8a27deb3b07fcb96"
+    },
+    {
+      "path": "evidence/physics-v82-final-broad-audit.json",
+      "bytes": 2285459,
+      "sha256": "594c1bb56fbcae7073cea0027e710c05c5649f5369caf95237a655ff28c1cad4"
+    },
+    {
+      "path": "evidence/physics-v82-final-practical-error-audit.json",
+      "bytes": 943218,
+      "sha256": "571fe53f31da72e4ecd133f98b121d430e2ed4e4c724a9b72dc8b47384f254d2"
+    },
+    {
+      "path": "evidence/physics-v82-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v82-regression-audit.json",
+      "bytes": 21219,
+      "sha256": "268ab2c3d5d9d471678bf3670c1782c3c63656bc961cf5aa8a8a99ecdad871fe"
+    },
+    {
+      "path": "evidence/physics-v82-slip-only-change-audit.json",
+      "bytes": 134976,
+      "sha256": "42bc078c28a154578b97d625103146908545f558802b64f3379d70cf48feef06"
+    },
+    {
+      "path": "evidence/physics-v82-strict-improvement.json",
+      "bytes": 205,
+      "sha256": "27f7299481b00f459b905d94716672a04bca5f5b4addfc00a44301db444ada7a"
+    },
+    {
+      "path": "evidence/portable-checkpoint.log",
+      "bytes": 156,
+      "sha256": "ff7d2a2185bc12bba6cc6e2182e00647e0f2eae7a9a1767b1b54b2b0e7ddca43"
+    },
+    {
+      "path": "evidence/slip-maxima-check-initial.log",
+      "bytes": 364,
+      "sha256": "72aea07e95037a40cfbe1ceef45e91cc155bbff0c9f889940799e78aaff4eb14"
+    },
+    {
+      "path": "proofs/include/NativeLongitudinalSlipV81.h",
+      "bytes": 642,
+      "sha256": "304e3c9284b165ff32988002c4eccf4c4f5088edc580231222eca80f65e90153"
+    },
+    {
+      "path": "proofs/include/NativeWheelRayV52.h",
+      "bytes": 2097,
+      "sha256": "8d903bf98826524ee1047617195b435ea7a1e714ce8a5f3d4771a166fb7b4347"
+    },
+    {
+      "path": "proofs/native-captures/manifest.json",
+      "bytes": 3686,
+      "sha256": "20aabe52af3af045b623dafdd9e52bcb11d6947dc91dbd574b992038ed17af7d"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-0-physical.jsonl.gz",
+      "bytes": 268300,
+      "sha256": "5fb241dd42dbcecce2caf3b9dfd246fc6dbd95fef2252bbc22e9b266f9e15ca7"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-0-private.jsonl.gz",
+      "bytes": 2219,
+      "sha256": "5d0d0b3a162ddb0a18ad2274e0810754e11630838189ac39612c3a1062c4d545"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-1-physical.jsonl.gz",
+      "bytes": 268210,
+      "sha256": "8b7de910ad199a12e59ae86fadf7558b95e6d78ab1cfc8a170b1b93a9ad6fbbd"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-1-private.jsonl.gz",
+      "bytes": 2219,
+      "sha256": "45305332eb8cc44df85712433d4483dad576345951196a74045f3752ebf35cb9"
+    },
+    {
+      "path": "proofs/native-captures/slip-brake-moving-100-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-0-physical.jsonl.gz",
+      "bytes": 74019,
+      "sha256": "d0ac978cde9f3446f8194dfe27a7dca1c925a21da9d2a6d7f96cb9d2cfe78611"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-0-private.jsonl.gz",
+      "bytes": 2093,
+      "sha256": "3b3bfa5210ed9266ee1f498558769cae270a39aaf3ee0f41aac1507b4912a0c6"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-1-physical.jsonl.gz",
+      "bytes": 73956,
+      "sha256": "436de82c346b50e97ef95c48db50aab62f43d16f00854584f4acfd843b0636a0"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-1-private.jsonl.gz",
+      "bytes": 2090,
+      "sha256": "28dc98aeddc8abc7fa1fa1f0c7c6037076c63afebdb0109473781913498f4d48"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-29-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-0-physical.jsonl.gz",
+      "bytes": 73978,
+      "sha256": "60dab3a999f9d95ce96be77b9c9d9f1114ca882f955b2a5b20487819e76e523b"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-0-private.jsonl.gz",
+      "bytes": 2160,
+      "sha256": "3622808758deebf2bea53e5854708de3a7ef1dee9f6232dd59f3e739cf5eb524"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-1-physical.jsonl.gz",
+      "bytes": 73980,
+      "sha256": "b66c4b1fccc52b50976c9b00e288901e151b64727260f24906bee2424478cf80"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-1-private.jsonl.gz",
+      "bytes": 2151,
+      "sha256": "f9ce75b08206f985680e580e464f60519485d0a85d62e262e5d477d7fee8a78f"
+    },
+    {
+      "path": "proofs/native-captures/slip-pair-stock-pole-1-32-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-0-physical.jsonl.gz",
+      "bytes": 284911,
+      "sha256": "4d45d20f33bef2f7b40ff106a4a047e315d6c247ae6a6d8ef507b1ee17b18d2b"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-0-private.jsonl.gz",
+      "bytes": 2044,
+      "sha256": "4ae5420621dd5136aea2ed701d29aef44e7e40e39b8b7463c016779eb2c193b0"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-1-physical.jsonl.gz",
+      "bytes": 284928,
+      "sha256": "e6a50b39a4ec08a0c4173720afc9f54ee0518e9db99d86fe23e6b73a92b6aa35"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-1-private.jsonl.gz",
+      "bytes": 2039,
+      "sha256": "1d34b83b7f08b3fbda2b5dd7b3bb704b5759317689812e1977e3613287978631"
+    },
+    {
+      "path": "proofs/native-captures/slip-reverse-drive-30-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-0-physical.jsonl.gz",
+      "bytes": 279908,
+      "sha256": "7119d2feddc4b44aaeb912c4b2485473c5a1cf080ecf0eed38fe500c6f9e78d1"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-0-private.jsonl.gz",
+      "bytes": 2045,
+      "sha256": "37e5f928feca1b8438dcab630678b098c3befd0233c1830b91eab934acfde0c7"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-1-physical.jsonl.gz",
+      "bytes": 279856,
+      "sha256": "820f3cfe3a1411b00a67f2f92d3ec2e5088820fd39c88a878ccc1065336a20d6"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-1-private.jsonl.gz",
+      "bytes": 2056,
+      "sha256": "57dd65c37ac5363a8f896530876b1db2cfeaac9b1c419170af3dd251adbd4683"
+    },
+    {
+      "path": "proofs/native-captures/slip-wheel-drive-30-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "proofs/native-longitudinal-slip.disasm.txt",
+      "bytes": 3000,
+      "sha256": "3783b788f4bde5bca602e67f7e077bfd6d84b8c7a392a052dfabbd7857c8182b"
+    },
+    {
+      "path": "proofs/native-proof.json",
+      "bytes": 593,
+      "sha256": "79d97bf4027d78f178a9511a6ea592337732ce30698ac83e3ffb18f24875957c"
+    },
+    {
+      "path": "proofs/slip-fixtures.json",
+      "bytes": 7159,
+      "sha256": "191a51475ec146d76497874becd3b10353e287bfc55403e8c3ddde94ee804380"
+    },
+    {
+      "path": "proofs/slip-tracer/build.cmd",
+      "bytes": 284,
+      "sha256": "6315c5f1a2afdc118c006f4f777e70cf5787bd5a8fe5852f6a457a5bb9a46816"
+    },
+    {
+      "path": "proofs/slip-tracer/trace-wheel.cpp",
+      "bytes": 11762,
+      "sha256": "05c03572b61c2e9f41f2957307aaead5f6a3435d2d3721659de970483c500d44"
+    },
+    {
+      "path": "proofs/verify-math.py",
+      "bytes": 734,
+      "sha256": "f2f6d51f748ac6b2933740cd5fe6ca65972508259228271c017e5a05d875278b"
+    },
+    {
+      "path": "proofs/verify-slip.cpp",
+      "bytes": 454,
+      "sha256": "8510c80b6af66c38ee7f95b802903bdfd0b8f9808e4de6bdab9ad2f258150ebf"
+    },
+    {
+      "path": "run-probe.py",
+      "bytes": 911,
+      "sha256": "a0412fcfc50b767e9af02fe1c438deed7b969280b47a402698d8824436cb51b3"
+    },
+    {
+      "path": "verify-checkpoint.py",
+      "bytes": 3013,
+      "sha256": "57d783a32a88b9ef60edc965513fa87e21767f3583cad03d828d0ca7418779f5"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "workspace-reproduction/compare-broad.py",
+      "bytes": 3654,
+      "sha256": "78b20a1300c606ca627ec1c618401c951c7a18c5c73e2b6292ab301ab53ff69e"
+    },
+    {
+      "path": "workspace-reproduction/compare-regression.py",
+      "bytes": 2243,
+      "sha256": "6e61c1817ddb25e3436e0cc986eea60c5c8fdb4fbd21aa50bb3195544b1112b4"
+    },
+    {
+      "path": "workspace-reproduction/next-work.md",
+      "bytes": 1839,
+      "sha256": "d4c046d0809a63d73121a8b4092bdf1ef2693c8ff7e7bae1687b32a6efd1e479"
+    },
+    {
+      "path": "workspace-reproduction/practical-error-audit.py",
+      "bytes": 4275,
+      "sha256": "ba4eab00b2e46ca4a6d3d20c072182a274b526994e799c34df1f68795b9e4aca"
+    },
+    {
+      "path": "workspace-reproduction/run-broad.py",
+      "bytes": 2051,
+      "sha256": "284c73b996047ddce522dd140afa872488cf65ada54754391c22485e07b148f3"
+    },
+    {
+      "path": "workspace-reproduction/run-focused.py",
+      "bytes": 3224,
+      "sha256": "1ae35320c656678cade362643f1e58f3267002b522c859fcb390c4c8542d2846"
+    },
+    {
+      "path": "workspace-reproduction/run-game-render-race.py",
+      "bytes": 1850,
+      "sha256": "e3a0edb2835bceac7777ae6c456e3fe7f66d9c6567457c4fd8a609603ce8f4df"
+    },
+    {
+      "path": "workspace-reproduction/run-game-smoke.py",
+      "bytes": 1836,
+      "sha256": "25f655afbcbbb1f112fa9dcfad4e5ac37bd8092f38e77e8d487c4916236726af"
+    },
+    {
+      "path": "workspace-reproduction/run-gates.py",
+      "bytes": 4844,
+      "sha256": "b731f23acb063dc86ca34ac8a9cc9e9d950506b83332925c217ffe04c5d9cb3e"
+    },
+    {
+      "path": "workspace-reproduction/slip-only-audit.py",
+      "bytes": 3205,
+      "sha256": "0b43a68210da14f8894e469bffa3cebd8bf9745bda7aa469706c4a51354eb3e7"
+    }
+  ],
+  "goal_complete": false
+}

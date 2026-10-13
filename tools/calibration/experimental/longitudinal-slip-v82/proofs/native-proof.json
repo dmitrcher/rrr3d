@@ -1,0 +1,17 @@
+{
+  "scope": "Original forward/axle/radius input words and negativeRolling/rawSlip/normalizedSlip outputs; five capture conditions repeated twice. Source frames aligned by original AFTER_SOLVE counter. Offline only; no live fix yet.",
+  "fixtures": 40,
+  "raw_words_per_optimization": 120,
+  "checks": [
+    {
+      "optimization": "O0",
+      "all_words_exact": true
+    },
+    {
+      "optimization": "O2",
+      "all_words_exact": true
+    }
+  ],
+  "source_formula": "(forward - radius*axle) / max(abs(radius*axle),1); current Mac uses the opposite subtraction",
+  "goal_complete": false
+}

@@ -1,0 +1,91 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\wheel-slip-v81\\TraceWheelSlipV81.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\wheel-slip-v81\\TraceWheelSlipV81.exe:\r\n082dfaa12b83a818dea64af1fe633669b3ade42c6840a0bd13bd1bd276cd5517\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "slip",
+      "name": "pair-stock-pole-1",
+      "repeat": 0,
+      "sample_tick": 29,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4e997223cd3d159b3effea7e54936c816f5152d4c3c3bb0f90717508fedf6878"
+    },
+    {
+      "kind": "slip",
+      "name": "pair-stock-pole-1",
+      "repeat": 1,
+      "sample_tick": 29,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "16c3e986bce42f561457a196a26051245905313a7b3c3c79282caf6f596fdcb8"
+    },
+    {
+      "kind": "slip",
+      "name": "pair-stock-pole-1",
+      "repeat": 0,
+      "sample_tick": 32,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "7600e42858199188cd8284c394d8f4b2d35c1a69a951092d5d697835504eb672"
+    },
+    {
+      "kind": "slip",
+      "name": "pair-stock-pole-1",
+      "repeat": 1,
+      "sample_tick": 32,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "429fa7d8e0bf0ddd1a9a04952e067a78d12bda67586149486e47076ec5e9d9a7"
+    },
+    {
+      "kind": "slip",
+      "name": "wheel-drive",
+      "repeat": 0,
+      "sample_tick": 30,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "57cedae145b3e963e66b419995e60577cb90f16b7edf5434cea352c31efc23b1"
+    },
+    {
+      "kind": "slip",
+      "name": "wheel-drive",
+      "repeat": 1,
+      "sample_tick": 30,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4b7d2201c0dfba6ceef093e261d9aefe7798212d90897e26267508627117d042"
+    },
+    {
+      "kind": "slip",
+      "name": "brake-moving",
+      "repeat": 0,
+      "sample_tick": 100,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "68b599799de67671dd48a0e1567dee3f6f83ee2d10b8ea36d513d6528d655a20"
+    },
+    {
+      "kind": "slip",
+      "name": "brake-moving",
+      "repeat": 1,
+      "sample_tick": 100,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "32e4d73c78221850907d1fb305b9ad9984e891476394b13cb203de804eba68cd"
+    },
+    {
+      "kind": "slip",
+      "name": "reverse-drive",
+      "repeat": 0,
+      "sample_tick": 30,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4e77870270de0b0156d297abc045343c26d776ffb4b0980cf1f784104d4460dd"
+    },
+    {
+      "kind": "slip",
+      "name": "reverse-drive",
+      "repeat": 1,
+      "sample_tick": 30,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "15d60c8536f2a74ba4d93f22dd3f6d979f5fe892110742cb2d1904a5e53ac740"
+    }
+  ],
+  "goal_complete": false
+}

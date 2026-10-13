@@ -1,0 +1,18 @@
+{
+  "base": "Exact V80 research overlay chain; root release sources are a different base.",
+  "candidate": "V82 default-off source longitudinal slip reporting and explicit Jolt force sign conversion; parity incomplete.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "950bf805af155efe8c9833183346d78e31cebd8a1774a67c0316384f8637592c",
+      "after_sha256": "c006fa2e40825389476a4143963ab2df0b0fda806e16cf6b9ef1ee608da54c53"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeLongitudinalSlipV81.h",
+      "before_sha256": null,
+      "after_sha256": "304e3c9284b165ff32988002c4eccf4c4f5088edc580231222eca80f65e90153"
+    }
+  ]
+}

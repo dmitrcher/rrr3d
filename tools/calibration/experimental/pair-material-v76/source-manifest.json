@@ -1,0 +1,475 @@
+{
+  "scope": "All V76 source and verification files, excluding this manifest itself; numerical checkpoint, goal incomplete",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5323,
+      "sha256": "8d6f9c3babe5bd5339fabf5d680906d39eddede5d5a22f876a31bc4bc88182ab"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativePairQuaternionV76.h",
+      "bytes": 1455,
+      "sha256": "4597d9f7e5ceb225e08f73e0b71fab543886de8dec96e68234081ffeac0dea7f"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/SourceBoxManifold.h",
+      "bytes": 30864,
+      "sha256": "e60d406c2e2358f5cc7eb2d1c07b3c381d56ef6214b5da273dbedf7bf1517138"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 344660,
+      "sha256": "72525ab3e2afa9039bbdd6d7693684d6a29f0bbefc968850793e1b9069daeedd"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1122,
+      "sha256": "fa53300395ec1f676c11d8d9edb970a7e3d1df8818ddb17f6e31adba073d4ea1"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/SourceBoxManifold.h",
+      "bytes": 29696,
+      "sha256": "ab21bbf514fcb7510a2e99cc9a94564caad3eeac8b472ddaa45dc85a5e30c699"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 343727,
+      "sha256": "3fe22c922d41a1baebb87a6bd839693a24a7e3a464e2c8b15ba47c0222117eee"
+    },
+    {
+      "path": "box-tracer/build.cmd",
+      "bytes": 281,
+      "sha256": "586cc02fcdfa6c4482a88b61a25faef06aacd6e712a67789406c7a0d0a286fca"
+    },
+    {
+      "path": "box-tracer/trace-box.cpp",
+      "bytes": 20752,
+      "sha256": "40e594db065bd41a3d869bcd593ddb102553fb06468837780f0307c5b5e3af9f"
+    },
+    {
+      "path": "candidate-environment.json",
+      "bytes": 5327,
+      "sha256": "e6e724a3427b8474a44cb7cb642ad31b43139c32fdca8d6b6e777e96cd894cad"
+    },
+    {
+      "path": "evidence/broad/capture-manifest.json",
+      "bytes": 5454,
+      "sha256": "8caa292dc16839677c97bfc7bd298d342e168717a169f65a2b95c196135c680e"
+    },
+    {
+      "path": "evidence/focused/manifest.json",
+      "bytes": 8315,
+      "sha256": "fe06a92a4d304367f0e176986340163a39470b19ee6e0dd3396d30d6c6053325"
+    },
+    {
+      "path": "evidence/focused/report.json",
+      "bytes": 41654,
+      "sha256": "35b1a18b73a34e93fc4ae26d61bb9aa9e3f45189133eb74a8cd6f85949c621b4"
+    },
+    {
+      "path": "evidence/focused-inverse/manifest.json",
+      "bytes": 7481,
+      "sha256": "24873374b32f11d4bb249777d1b1b4120c1ef1b84b6229bac2e0414929176e16"
+    },
+    {
+      "path": "evidence/focused-inverse/report.json",
+      "bytes": 21385,
+      "sha256": "f2501a2fe3de56b6acd49f9b24168135cd5c717b60f36adb74b3de2180c47a8e"
+    },
+    {
+      "path": "evidence/game-render-race/exit.json",
+      "bytes": 75,
+      "sha256": "e074c37c9c1aacd0bf2f37b0e79d7057553be2f3e3e304130e3825934861a026"
+    },
+    {
+      "path": "evidence/game-render-race/game.log",
+      "bytes": 4082,
+      "sha256": "c9a76dd90fe825c0dbed3b0374ab9c14bc24e8fadfaf21162848906226c09442"
+    },
+    {
+      "path": "evidence/game-render-race/launch.json",
+      "bytes": 5404,
+      "sha256": "8a67c0e0b0f07866256787c9eb97e9533f689eb5f22bc3bcb8679afe6248f765"
+    },
+    {
+      "path": "evidence/game-smoke/exit.json",
+      "bytes": 74,
+      "sha256": "9693d51eecef1d3bc98027ed2c9c679ee69005e47e866dae579db666ccd6cdb6"
+    },
+    {
+      "path": "evidence/game-smoke/game.log",
+      "bytes": 672,
+      "sha256": "caa002c6c83a003e5d845116ad42c4b9c2edb3ab0595ab0db8354269b19dfb66"
+    },
+    {
+      "path": "evidence/game-smoke/launch.json",
+      "bytes": 5396,
+      "sha256": "12d7044730e01c05009d4f77462011800ee720e08ce2a8fbd0aa1e4f84928304"
+    },
+    {
+      "path": "evidence/gates/capture-manifest.json",
+      "bytes": 73473,
+      "sha256": "62b50aaf98c5569a3d807945c63f400421011bded914c092b071e77d293c2bde"
+    },
+    {
+      "path": "evidence/mac-box-inverse/manifest.json",
+      "bytes": 6228,
+      "sha256": "324eb1172a7f6a5774499fd2eef57bdfe9d280174cfa45c0c2e69f6832ca808c"
+    },
+    {
+      "path": "evidence/mac-moving-support/manifest.json",
+      "bytes": 5019,
+      "sha256": "84e946cc3b75c3eae34f5d8640ef2406266bef4e8b2bb8efd58b0a695d6379bf"
+    },
+    {
+      "path": "evidence/native-box-inverse/manifest.json",
+      "bytes": 7876,
+      "sha256": "d0ed43dc0405dd508337a30a311efaf6fa808f1a995e3a2631ddb9a265617111"
+    },
+    {
+      "path": "evidence/native-local-getter/manifest.json",
+      "bytes": 13966,
+      "sha256": "0172922dcf1beb05ef127433ee904fe00e2784eba2d7ec5ca827d07e2421918c"
+    },
+    {
+      "path": "evidence/physics-v76-build-all.log",
+      "bytes": 3352,
+      "sha256": "b05d2ed259843e272aea1c714d0462741aaa697d5b5c564383c22fd3f3ffc47e"
+    },
+    {
+      "path": "evidence/physics-v76-contact-geometry-input-audit.json",
+      "bytes": 372,
+      "sha256": "ade3fd151304280b377196b3bd5b205100f3755e49fdab962aea062459b9c2b7"
+    },
+    {
+      "path": "evidence/physics-v76-ctest-fresh.log",
+      "bytes": 7093,
+      "sha256": "3701db3fed58b511a313856c73f7569ea45bf4bd43e3b6ec9d4b7acc8f7c7099"
+    },
+    {
+      "path": "evidence/physics-v76-exported-math-proof.log",
+      "bytes": 1620,
+      "sha256": "ff242558d2beb6754d1805a546e999f159705451b09b72c855be57ac87dba817"
+    },
+    {
+      "path": "evidence/physics-v76-final-broad-audit.json",
+      "bytes": 2296048,
+      "sha256": "e2c048958d0bad54199d23c0d20d5296a6248a19f67f6930cb8c0cbafe8cd2b2"
+    },
+    {
+      "path": "evidence/physics-v76-final-practical-error-audit.json",
+      "bytes": 943837,
+      "sha256": "b4fe420cb3067fb5f3afca2aed47e07f7dc9481809d84ad2f4e7e4945917eb2b"
+    },
+    {
+      "path": "evidence/physics-v76-game-validation.json",
+      "bytes": 383,
+      "sha256": "8b9dcaf6ef3ba460dfa18bebdfb30ccfc6d46168ab17bc510b60dd2b6320abe1"
+    },
+    {
+      "path": "evidence/physics-v76-guarded-installer-test.json",
+      "bytes": 116,
+      "sha256": "099dce4b8db540f070cf6a4f78595058c95e21ba8fdf5b6fae8e770bcd7ce293"
+    },
+    {
+      "path": "evidence/physics-v76-inverse-prepared-input-audit.json",
+      "bytes": 11598,
+      "sha256": "72b4eddc04fbfe400593ac4f596ea7ff920fcc1b6322c8c9fed3f139a5147ac8"
+    },
+    {
+      "path": "evidence/physics-v76-material-expanded-proof.json",
+      "bytes": 548,
+      "sha256": "6f350dfc15e302936663cc0c8e6fde1d18d5f1aa7750ee69eb734388f2423df3"
+    },
+    {
+      "path": "evidence/physics-v76-native-box-inverse-proof.json",
+      "bytes": 27757,
+      "sha256": "57d897b72b90d8e6e33777e3cbb7b15752fdf1cb01e88001f45f0154a3894df6"
+    },
+    {
+      "path": "evidence/physics-v76-pair-material-error-proof.json",
+      "bytes": 439,
+      "sha256": "a66276f447dde60c649c5e6cfb13ed6a575287be43e374620bb4facde42d57ed"
+    },
+    {
+      "path": "evidence/physics-v76-portable-probe-test.json",
+      "bytes": 198,
+      "sha256": "fa49b31ffeaa3c49f4b5cae82292fcce3ab4fcbf6efd7c0cf76cf53e120d27f9"
+    },
+    {
+      "path": "evidence/physics-v76-practical-regression-summary.json",
+      "bytes": 3034,
+      "sha256": "26f0c211006cc0b0e79a8fd863e52c3c9cd94de40eee13b9470d9b329d86ee7d"
+    },
+    {
+      "path": "evidence/physics-v76-regression-audit.json",
+      "bytes": 22916,
+      "sha256": "80d008b24191ca3071c13d4f6026749bc7263c1d9e5860a3525b9286183ef88e"
+    },
+    {
+      "path": "evidence/physics-v76-strict-improvement.json",
+      "bytes": 345,
+      "sha256": "4a9d95cd0e356d6c9de9dd3b3b7ed0a1dc118661d75c3fdce7a51b2974b9a923"
+    },
+    {
+      "path": "evidence/storage-cleanup-v76-result.json",
+      "bytes": 13548,
+      "sha256": "86c7cb8e3ae5adf49b211a1f3dcddc6b1aeaa4ad3ba44badabb5be783ce8eba3"
+    },
+    {
+      "path": "fixtures/native-box-inverse/v76-box-inverse-pair-stock-oblique-0-tick40-0-private.jsonl.gz",
+      "bytes": 97833,
+      "sha256": "099ac3d6ce8f139c35d505895e9ed067d085dc71b6302f27840f1a2f3eb6d040"
+    },
+    {
+      "path": "fixtures/native-box-inverse/v76-box-inverse-pair-stock-oblique-0-tick40-1-private.jsonl.gz",
+      "bytes": 97941,
+      "sha256": "91f71cc1b6282e5b5d1b1fa0597dfa44f4873a3ea5a10f2551d3e7b36dea3de7"
+    },
+    {
+      "path": "fixtures/native-box-inverse/v76-box-inverse-pair-stock-weak-second-0-tick39-0-private.jsonl.gz",
+      "bytes": 66635,
+      "sha256": "d418aad443b8af695fd04a14593ca694884915bacea986fbc42425db6ed5b455"
+    },
+    {
+      "path": "fixtures/native-box-inverse/v76-box-inverse-pair-stock-weak-second-0-tick39-1-private.jsonl.gz",
+      "bytes": 65078,
+      "sha256": "552fd22d4a736f0848b9e848d99368caf1d1cb511bbe93d3a57d43a966adc4da"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-oblique-0-tick39-0-private.jsonl.gz",
+      "bytes": 96831,
+      "sha256": "a377218145bdec2ccd4beb31874ecde96d736051c438106bab694ba4206fdde2"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-oblique-0-tick39-1-private.jsonl.gz",
+      "bytes": 96785,
+      "sha256": "b3638039ab0f183bb5604e19e4e0053dad8ef99b8cc8d02b5582bb61046cf4b4"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-oblique-0-tick40-0-private.jsonl.gz",
+      "bytes": 97457,
+      "sha256": "a00cb758f2ea7301320ca7a7f6bb2e6d79146abc2ea4223c85ba734b0a790183"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-oblique-0-tick40-1-private.jsonl.gz",
+      "bytes": 97585,
+      "sha256": "e8c2676f41f827a44999c8eee20d7dee3442dc4cc3b013d9f30ae265dde03636"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-weak-second-0-tick38-0-private.jsonl.gz",
+      "bytes": 60750,
+      "sha256": "6d5cb9f602c041352999c72e0f045dc999a7955288aee3ba733392b5686d073c"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-weak-second-0-tick38-1-private.jsonl.gz",
+      "bytes": 60742,
+      "sha256": "5a9002256adfcac150772c33be9ecb98f52ac972a24ef00582fd3e712f4da3fd"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-weak-second-0-tick39-0-private.jsonl.gz",
+      "bytes": 64564,
+      "sha256": "fb705a207a7c37db6ca3d12c4a981d8cbfdbdfb42c8497a6384137040daa25c5"
+    },
+    {
+      "path": "fixtures/native-local-getter/v76-getter-pair-stock-weak-second-0-tick39-1-private.jsonl.gz",
+      "bytes": 64461,
+      "sha256": "697ed8af84b97b5cd495964b5dbe3f1af1409976f9a40cb97d3d198fcf57e79c"
+    },
+    {
+      "path": "measurements/capture-box-inverse.py",
+      "bytes": 2905,
+      "sha256": "068fe2696213fe0c320fcff9bb7eb8643f906497fa5af322cdc3d031b776b246"
+    },
+    {
+      "path": "measurements/capture-focused-inverse.py",
+      "bytes": 4804,
+      "sha256": "e153c4a628aa94d3811f9c5ed4ff30a0aef19a97f595b219f0e7b9ff53680c56"
+    },
+    {
+      "path": "measurements/capture-focused.py",
+      "bytes": 4910,
+      "sha256": "f9714d80cc2de3843478363c260ed6817150d18a919d81a83f35d5731bd2840b"
+    },
+    {
+      "path": "measurements/capture-local-getter.py",
+      "bytes": 2913,
+      "sha256": "fd700a016cf2375a535d6fde4ddeda02e6afa1a649a05d0dc83fd8b7f6fc82e4"
+    },
+    {
+      "path": "measurements/capture-mac-box-inverse.py",
+      "bytes": 3423,
+      "sha256": "b129a9f9146eb9603495d6724a0bc44c2bbfb40a893e9f63f3922ec41cba206a"
+    },
+    {
+      "path": "measurements/capture-mac-moving-support.py",
+      "bytes": 3382,
+      "sha256": "95dda6f38e5f5cf9568b207547f1e35907827e30e7daa098c388db1450f94cb7"
+    },
+    {
+      "path": "measurements/compare-broad.py",
+      "bytes": 3650,
+      "sha256": "91c539be83d997f5856b3a330ea22ad649aaf950551826d9b57d26b9f79b6ebc"
+    },
+    {
+      "path": "measurements/compare-inverse-prepared-inputs.py",
+      "bytes": 3259,
+      "sha256": "00eb3e0ec063bb2260a85d4bfc5d83e0b9118776a3b1227fee1c2c0baecead9d"
+    },
+    {
+      "path": "measurements/compare-regression.py",
+      "bytes": 2365,
+      "sha256": "5845000e1dc7d92645e3ea6a923ab9ca53427d4db585a9a287de8585910bb855"
+    },
+    {
+      "path": "measurements/practical-error-audit.py",
+      "bytes": 4271,
+      "sha256": "9b05ff74bba669d446ade235943afef9d950f2bdc369aee38fdd637405b2312a"
+    },
+    {
+      "path": "measurements/run-broad.py",
+      "bytes": 1869,
+      "sha256": "7765778736bcb0a1b57174d7e8c6bd5350cbd5dc821ff5278eb1eb50013b8849"
+    },
+    {
+      "path": "measurements/run-game-render-race.py",
+      "bytes": 1518,
+      "sha256": "43d9b076432c2560ca8b2d6d68607ee1f68a715ae20d7ca50e7d2e6de0e7c1cc"
+    },
+    {
+      "path": "measurements/run-game-smoke.py",
+      "bytes": 1504,
+      "sha256": "62b2ecfbde97706c2e1ee8d92586cc1998cab1e605f71f727d01b3bfff304632"
+    },
+    {
+      "path": "measurements/run-gates.py",
+      "bytes": 4551,
+      "sha256": "071fb63d35b9e04a036150fde5965f97ccc43bb40bc5819da522415f46d7ac23"
+    },
+    {
+      "path": "profile.json",
+      "bytes": 5327,
+      "sha256": "e6e724a3427b8474a44cb7cb642ad31b43139c32fdca8d6b6e777e96cd894cad"
+    },
+    {
+      "path": "proofs/box-face-contacts.disasm.txt",
+      "bytes": 95436,
+      "sha256": "d60b717aa432652d3132a9761f673ec18b4b7d348377cfd3445d37d2e9091bc8"
+    },
+    {
+      "path": "proofs/box-inverse-fixtures.json",
+      "bytes": 38234,
+      "sha256": "8cbb6dbb138d8fdbb049e0b48a539e6320e54f0ff58ee1d15d47236e4bcd30b9"
+    },
+    {
+      "path": "proofs/contact-local-raw-quaternion.disasm.txt",
+      "bytes": 10631,
+      "sha256": "0c59e8aba8c11f3dab84b4bc0c841d301170ca3b0e368fd0be3b102cd613e21e"
+    },
+    {
+      "path": "proofs/getter73e40.disasm.txt",
+      "bytes": 8602,
+      "sha256": "92e512ae5f87d960bb4bfae1ed9a8b197f0e3c460e6c4666d6651470e040ede4"
+    },
+    {
+      "path": "proofs/include/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "proofs/include/DerivedContactErrorFrame.h",
+      "bytes": 2270,
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5"
+    },
+    {
+      "path": "proofs/include/NativeContactNormalV38.h",
+      "bytes": 753,
+      "sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8"
+    },
+    {
+      "path": "proofs/include/NativeMaterialFrameV36.h",
+      "bytes": 7404,
+      "sha256": "10ee09f15684ceec77fecf61ceb5c168bbbdb473105f98c7e61154c9c3baa2a6"
+    },
+    {
+      "path": "proofs/include/NativePairQuaternionV76.h",
+      "bytes": 1455,
+      "sha256": "4597d9f7e5ceb225e08f73e0b71fab543886de8dec96e68234081ffeac0dea7f"
+    },
+    {
+      "path": "proofs/include/NativePhysicalPoseV42.h",
+      "bytes": 1016,
+      "sha256": "ad34a9c85cbedc73bb45b878a9b1f9ee23dee44a582baefbc6088261f6bf4f75"
+    },
+    {
+      "path": "proofs/include/SourceBoxManifold.h",
+      "bytes": 30864,
+      "sha256": "e60d406c2e2358f5cc7eb2d1c07b3c381d56ef6214b5da273dbedf7bf1517138"
+    },
+    {
+      "path": "proofs/include/SourceMaterialFrameCandidate.h",
+      "bytes": 4067,
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    },
+    {
+      "path": "proofs/material-expanded-fixtures.json",
+      "bytes": 8081,
+      "sha256": "9d5b2d4d843ba9eb844b4ff4f6ebfa730e65b643c89b3a99ceeb3aad6514664e"
+    },
+    {
+      "path": "proofs/material-world-quaternions.disasm.txt",
+      "bytes": 17133,
+      "sha256": "6aa18f432df34855b323e959f063b9b2a660838fd89d5df682e334e43ac9cdb1"
+    },
+    {
+      "path": "proofs/pair-material-error-fixtures.json",
+      "bytes": 30191,
+      "sha256": "b488f0827075e3481dc30e500c64e7c63a9b5739b55070a2ffee1aa58bbc48eb"
+    },
+    {
+      "path": "proofs/test-material-expanded.cpp",
+      "bytes": 4658,
+      "sha256": "f33243c2dad245ed8c78d084f2307bf137c6586fec1884dd8200d03d8a3c5fa2"
+    },
+    {
+      "path": "proofs/test-native-box-inverse.cpp",
+      "bytes": 9441,
+      "sha256": "6a1d015fa41c026046c762bc3caf9927b80e4ef404408673c0a7a233cefd31f8"
+    },
+    {
+      "path": "proofs/test-pair-material-errors.cpp",
+      "bytes": 12884,
+      "sha256": "4b1b91785980b0d6328fd83d531d9a93b3ba6f98400fdd7adec636e2e7ad7db5"
+    },
+    {
+      "path": "proofs/verify-math.py",
+      "bytes": 2000,
+      "sha256": "0ddff6c258b5b227367246b06dbf4cba0cf035eb78ed855a21d3e9e8a453534a"
+    },
+    {
+      "path": "run-probe.py",
+      "bytes": 920,
+      "sha256": "e178928ce5074168107155fb118f52a399c64e250fc3960fec38298cf645cf51"
+    },
+    {
+      "path": "tracer/build.cmd",
+      "bytes": 283,
+      "sha256": "1d873668e94a908fa07cdc55690fbb0053f78b8cb0310b60dfccef92126da449"
+    },
+    {
+      "path": "tracer/trace-box.cpp",
+      "bytes": 20428,
+      "sha256": "cb0bf6f14d43d42d7865a743cc8b7c67bd0f96db4772c9763265b8cc08229ac3"
+    },
+    {
+      "path": "windows-source-v14.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    }
+  ]
+}

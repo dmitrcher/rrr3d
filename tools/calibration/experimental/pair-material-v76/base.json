@@ -1,0 +1,24 @@
+{
+  "base": "Exact V75 research adapter and unchanged SDK from pair-local-cache-v75; requires prior overlay chain",
+  "candidate": "V76 original paired raw-local/material-local quaternion associations and box inverse translation; all switches default off; overall parity incomplete",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "3fe22c922d41a1baebb87a6bd839693a24a7e3a464e2c8b15ba47c0222117eee",
+      "after_sha256": "72525ab3e2afa9039bbdd6d7693684d6a29f0bbefc968850793e1b9069daeedd"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativePairQuaternionV76.h",
+      "before_sha256": null,
+      "after_sha256": "4597d9f7e5ceb225e08f73e0b71fab543886de8dec96e68234081ffeac0dea7f"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/SourceBoxManifold.h",
+      "before_sha256": "ab21bbf514fcb7510a2e99cc9a94564caad3eeac8b472ddaa45dc85a5e30c699",
+      "after_sha256": "e60d406c2e2358f5cc7eb2d1c07b3c381d56ef6214b5da273dbedf7bf1517138"
+    }
+  ]
+}

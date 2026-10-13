@@ -2,71 +2,87 @@
   "original_binary": "work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll",
   "image_base": "0x10000000",
   "table_rva": "0x33e304",
-  "scope": "Driver dispatch read from original PE table. Pair traces hooked only type3; active earlier row types require dedicated captures, not assumed equivalent.",
+  "scope": "Original PE driver dispatch table. Types0/8 contain null pointers, not negative function addresses. Frame-synchronized first pair contacts execute type3 (RVA1e7e50); their observed immediate transitions are certified separately on saved Native inputs.",
   "entries": [
     {
       "type": 0,
-      "function_rva": "-0x10000000"
+      "function_rva": null,
+      "raw_pointer": "0x0"
     },
     {
       "type": 1,
-      "function_rva": "0x1e5370"
+      "function_rva": "0x1e5370",
+      "raw_pointer": "0x101e5370"
     },
     {
       "type": 2,
-      "function_rva": "0x1e7400"
+      "function_rva": "0x1e7400",
+      "raw_pointer": "0x101e7400"
     },
     {
       "type": 3,
-      "function_rva": "0x1e7e50"
+      "function_rva": "0x1e7e50",
+      "raw_pointer": "0x101e7e50"
     },
     {
       "type": 4,
-      "function_rva": "0x1e50a0"
+      "function_rva": "0x1e50a0",
+      "raw_pointer": "0x101e50a0"
     },
     {
       "type": 5,
-      "function_rva": "0x1e6c40"
+      "function_rva": "0x1e6c40",
+      "raw_pointer": "0x101e6c40"
     },
     {
       "type": 6,
-      "function_rva": "0x1e6810"
+      "function_rva": "0x1e6810",
+      "raw_pointer": "0x101e6810"
     },
     {
       "type": 7,
-      "function_rva": "0x1e6100"
+      "function_rva": "0x1e6100",
+      "raw_pointer": "0x101e6100"
     },
     {
       "type": 8,
-      "function_rva": "-0x10000000"
+      "function_rva": null,
+      "raw_pointer": "0x0"
     },
     {
       "type": 9,
-      "function_rva": "0x1e7230"
+      "function_rva": "0x1e7230",
+      "raw_pointer": "0x101e7230"
     },
     {
       "type": 10,
-      "function_rva": "0x1e7c10"
+      "function_rva": "0x1e7c10",
+      "raw_pointer": "0x101e7c10"
     },
     {
       "type": 11,
-      "function_rva": "0x1e86c0"
+      "function_rva": "0x1e86c0",
+      "raw_pointer": "0x101e86c0"
     },
     {
       "type": 12,
-      "function_rva": "0x1e5740"
+      "function_rva": "0x1e5740",
+      "raw_pointer": "0x101e5740"
     },
     {
       "type": 13,
-      "function_rva": "0x1e7170"
+      "function_rva": "0x1e7170",
+      "raw_pointer": "0x101e7170"
     },
     {
       "type": 14,
-      "function_rva": "0x1e7110"
+      "function_rva": "0x1e7110",
+      "raw_pointer": "0x101e7110"
     },
     {
       "type": 15,
-      "function_rva": "0x1e6f20"
+      "function_rva": "0x1e6f20",
+      "raw_pointer": "0x101e6f20"
     }
   ]
 }

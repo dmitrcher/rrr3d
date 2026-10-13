@@ -1,0 +1,380 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+100327e0: 83 ec 38                     	subl	$0x38, %esp
+100327e3: 8b 48 08                     	movl	0x8(%eax), %ecx
+100327e6: 53                           	pushl	%ebx
+100327e7: 8b 5c 24 40                  	movl	0x40(%esp), %ebx
+100327eb: 55                           	pushl	%ebp
+100327ec: 56                           	pushl	%esi
+100327ed: 8b 30                        	movl	(%eax), %esi
+100327ef: 49                           	decl	%ecx
+100327f0: 57                           	pushl	%edi
+100327f1: 33 ff                        	xorl	%edi, %edi
+100327f3: 89 4c 24 4c                  	movl	%ecx, 0x4c(%esp)
+100327f7: 89 7c 24 14                  	movl	%edi, 0x14(%esp)
+100327fb: 85 c9                        	testl	%ecx, %ecx
+100327fd: 0f 8e 21 04 00 00            	jle	0x10032c24 <.text+0x31c24>
+10032803: 3b cf                        	cmpl	%edi, %ecx
+10032805: 0f 8e f1 03 00 00            	jle	0x10032bfc <.text+0x31bfc>
+1003280b: eb 0b                        	jmp	0x10032818 <.text+0x31818>
+1003280d: 8d 49 00                     	leal	(%ecx), %ecx
+10032810: 8b 4c 24 4c                  	movl	0x4c(%esp), %ecx
+10032814: 8b 7c 24 14                  	movl	0x14(%esp), %edi
+10032818: 8b c1                        	movl	%ecx, %eax
+1003281a: 2b c7                        	subl	%edi, %eax
+1003281c: 83 f8 05                     	cmpl	$0x5, %eax
+1003281f: 0f 82 24 03 00 00            	jb	0x10032b49 <.text+0x31b49>
+10032825: 8d 04 0f                     	leal	(%edi,%ecx), %eax
+10032828: 99                           	cltd
+10032829: 2b c2                        	subl	%edx, %eax
+1003282b: 8b 14 fe                     	movl	(%esi,%edi,8), %edx
+1003282e: d1 f8                        	sarl	%eax
+10032830: 8b 2c c6                     	movl	(%esi,%eax,8), %ebp
+10032833: 3b d5                        	cmpl	%ebp, %edx
+10032835: 75 13                        	jne	0x1003284a <.text+0x3184a>
+10032837: ba 00 00 00 80               	movl	$0x80000000, %edx       # imm = 0x80000000
+1003283c: 85 54 fe 04                  	testl	%edx, 0x4(%esi,%edi,8)
+10032840: 74 33                        	je	0x10032875 <.text+0x31875>
+10032842: 85 54 c6 04                  	testl	%edx, 0x4(%esi,%eax,8)
+10032846: 74 09                        	je	0x10032851 <.text+0x31851>
+10032848: eb 2b                        	jmp	0x10032875 <.text+0x31875>
+1003284a: 0f 92 c2                     	setb	%dl
+1003284d: 84 d2                        	testb	%dl, %dl
+1003284f: 74 24                        	je	0x10032875 <.text+0x31875>
+10032851: 8b 6c fe 04                  	movl	0x4(%esi,%edi,8), %ebp
+10032855: 8b 14 fe                     	movl	(%esi,%edi,8), %edx
+10032858: 89 6c 24 34                  	movl	%ebp, 0x34(%esp)
+1003285c: 8b 2c c6                     	movl	(%esi,%eax,8), %ebp
+1003285f: 89 2c fe                     	movl	%ebp, (%esi,%edi,8)
+10032862: 8b 6c c6 04                  	movl	0x4(%esi,%eax,8), %ebp
+10032866: 89 6c fe 04                  	movl	%ebp, 0x4(%esi,%edi,8)
+1003286a: 89 14 c6                     	movl	%edx, (%esi,%eax,8)
+1003286d: 8b 54 24 34                  	movl	0x34(%esp), %edx
+10032871: 89 54 c6 04                  	movl	%edx, 0x4(%esi,%eax,8)
+10032875: 8b 14 fe                     	movl	(%esi,%edi,8), %edx
+10032878: 8b 2c ce                     	movl	(%esi,%ecx,8), %ebp
+1003287b: 3b d5                        	cmpl	%ebp, %edx
+1003287d: 75 13                        	jne	0x10032892 <.text+0x31892>
+1003287f: ba 00 00 00 80               	movl	$0x80000000, %edx       # imm = 0x80000000
+10032884: 85 54 fe 04                  	testl	%edx, 0x4(%esi,%edi,8)
+10032888: 74 33                        	je	0x100328bd <.text+0x318bd>
+1003288a: 85 54 ce 04                  	testl	%edx, 0x4(%esi,%ecx,8)
+1003288e: 74 09                        	je	0x10032899 <.text+0x31899>
+10032890: eb 2b                        	jmp	0x100328bd <.text+0x318bd>
+10032892: 0f 92 c2                     	setb	%dl
+10032895: 84 d2                        	testb	%dl, %dl
+10032897: 74 24                        	je	0x100328bd <.text+0x318bd>
+10032899: 8b 6c fe 04                  	movl	0x4(%esi,%edi,8), %ebp
+1003289d: 8b 14 fe                     	movl	(%esi,%edi,8), %edx
+100328a0: 89 6c 24 3c                  	movl	%ebp, 0x3c(%esp)
+100328a4: 8b 2c ce                     	movl	(%esi,%ecx,8), %ebp
+100328a7: 89 2c fe                     	movl	%ebp, (%esi,%edi,8)
+100328aa: 8b 6c ce 04                  	movl	0x4(%esi,%ecx,8), %ebp
+100328ae: 89 6c fe 04                  	movl	%ebp, 0x4(%esi,%edi,8)
+100328b2: 89 14 ce                     	movl	%edx, (%esi,%ecx,8)
+100328b5: 8b 54 24 3c                  	movl	0x3c(%esp), %edx
+100328b9: 89 54 ce 04                  	movl	%edx, 0x4(%esi,%ecx,8)
+100328bd: 8b 14 c6                     	movl	(%esi,%eax,8), %edx
+100328c0: 8b 2c ce                     	movl	(%esi,%ecx,8), %ebp
+100328c3: 3b d5                        	cmpl	%ebp, %edx
+100328c5: 75 13                        	jne	0x100328da <.text+0x318da>
+100328c7: ba 00 00 00 80               	movl	$0x80000000, %edx       # imm = 0x80000000
+100328cc: 85 54 c6 04                  	testl	%edx, 0x4(%esi,%eax,8)
+100328d0: 74 33                        	je	0x10032905 <.text+0x31905>
+100328d2: 85 54 ce 04                  	testl	%edx, 0x4(%esi,%ecx,8)
+100328d6: 74 09                        	je	0x100328e1 <.text+0x318e1>
+100328d8: eb 2b                        	jmp	0x10032905 <.text+0x31905>
+100328da: 0f 92 c2                     	setb	%dl
+100328dd: 84 d2                        	testb	%dl, %dl
+100328df: 74 24                        	je	0x10032905 <.text+0x31905>
+100328e1: 8b 6c c6 04                  	movl	0x4(%esi,%eax,8), %ebp
+100328e5: 8b 14 c6                     	movl	(%esi,%eax,8), %edx
+100328e8: 89 6c 24 44                  	movl	%ebp, 0x44(%esp)
+100328ec: 8b 2c ce                     	movl	(%esi,%ecx,8), %ebp
+100328ef: 89 2c c6                     	movl	%ebp, (%esi,%eax,8)
+100328f2: 8b 6c ce 04                  	movl	0x4(%esi,%ecx,8), %ebp
+100328f6: 89 6c c6 04                  	movl	%ebp, 0x4(%esi,%eax,8)
+100328fa: 89 14 ce                     	movl	%edx, (%esi,%ecx,8)
+100328fd: 8b 54 24 44                  	movl	0x44(%esp), %edx
+10032901: 89 54 ce 04                  	movl	%edx, 0x4(%esi,%ecx,8)
+10032905: 8b 14 c6                     	movl	(%esi,%eax,8), %edx
+10032908: 89 54 24 20                  	movl	%edx, 0x20(%esp)
+1003290c: 8b 54 c6 04                  	movl	0x4(%esi,%eax,8), %edx
+10032910: 8d 6c ce f8                  	leal	-0x8(%esi,%ecx,8), %ebp
+10032914: 89 54 24 24                  	movl	%edx, 0x24(%esp)
+10032918: 8b 55 00                     	movl	(%ebp), %edx
+1003291b: 89 14 c6                     	movl	%edx, (%esi,%eax,8)
+1003291e: 8b 55 04                     	movl	0x4(%ebp), %edx
+10032921: 89 54 c6 04                  	movl	%edx, 0x4(%esi,%eax,8)
+10032925: 8b 44 24 20                  	movl	0x20(%esp), %eax
+10032929: 8b 54 24 24                  	movl	0x24(%esp), %edx
+1003292d: 89 45 00                     	movl	%eax, (%ebp)
+10032930: 89 6c 24 18                  	movl	%ebp, 0x18(%esp)
+10032934: 89 55 04                     	movl	%edx, 0x4(%ebp)
+10032937: 8d 41 ff                     	leal	-0x1(%ecx), %eax
+1003293a: 8d 9b 00 00 00 00            	leal	(%ebx), %ebx
+10032940: 8b 55 00                     	movl	(%ebp), %edx
+10032943: 8b 4c fe 08                  	movl	0x8(%esi,%edi,8), %ecx
+10032947: 47                           	incl	%edi
+10032948: 3b d1                        	cmpl	%ecx, %edx
+1003294a: 75 12                        	jne	0x1003295e <.text+0x3195e>
+1003294c: b9 00 00 00 80               	movl	$0x80000000, %ecx       # imm = 0x80000000
+10032951: 85 4d 04                     	testl	%ecx, 0x4(%ebp)
+10032954: 74 0f                        	je	0x10032965 <.text+0x31965>
+10032956: 85 4c fe 04                  	testl	%ecx, 0x4(%esi,%edi,8)
+1003295a: 74 e7                        	je	0x10032943 <.text+0x31943>
+1003295c: eb 07                        	jmp	0x10032965 <.text+0x31965>
+1003295e: 0f 92 c1                     	setb	%cl
+10032961: 84 c9                        	testb	%cl, %cl
+10032963: 75 de                        	jne	0x10032943 <.text+0x31943>
+10032965: 8b 4c c6 f8                  	movl	-0x8(%esi,%eax,8), %ecx
+10032969: 48                           	decl	%eax
+1003296a: 3b ca                        	cmpl	%edx, %ecx
+1003296c: 75 12                        	jne	0x10032980 <.text+0x31980>
+1003296e: b9 00 00 00 80               	movl	$0x80000000, %ecx       # imm = 0x80000000
+10032973: 85 4c c6 04                  	testl	%ecx, 0x4(%esi,%eax,8)
+10032977: 74 0e                        	je	0x10032987 <.text+0x31987>
+10032979: 85 4d 04                     	testl	%ecx, 0x4(%ebp)
+1003297c: 74 e7                        	je	0x10032965 <.text+0x31965>
+1003297e: eb 07                        	jmp	0x10032987 <.text+0x31987>
+10032980: 0f 92 c1                     	setb	%cl
+10032983: 84 c9                        	testb	%cl, %cl
+10032985: 75 de                        	jne	0x10032965 <.text+0x31965>
+10032987: 3b f8                        	cmpl	%eax, %edi
+10032989: 7d 22                        	jge	0x100329ad <.text+0x319ad>
+1003298b: 8b 2c c6                     	movl	(%esi,%eax,8), %ebp
+1003298e: 8b 0c fe                     	movl	(%esi,%edi,8), %ecx
+10032991: 8b 54 fe 04                  	movl	0x4(%esi,%edi,8), %edx
+10032995: 89 2c fe                     	movl	%ebp, (%esi,%edi,8)
+10032998: 8b 6c c6 04                  	movl	0x4(%esi,%eax,8), %ebp
+1003299c: 89 6c fe 04                  	movl	%ebp, 0x4(%esi,%edi,8)
+100329a0: 8b 6c 24 18                  	movl	0x18(%esp), %ebp
+100329a4: 89 0c c6                     	movl	%ecx, (%esi,%eax,8)
+100329a7: 89 54 c6 04                  	movl	%edx, 0x4(%esi,%eax,8)
+100329ab: eb 93                        	jmp	0x10032940 <.text+0x31940>
+100329ad: 8b 04 fe                     	movl	(%esi,%edi,8), %eax
+100329b0: 8b 4c fe 04                  	movl	0x4(%esi,%edi,8), %ecx
+100329b4: 89 14 fe                     	movl	%edx, (%esi,%edi,8)
+100329b7: 8b 55 04                     	movl	0x4(%ebp), %edx
+100329ba: 89 54 fe 04                  	movl	%edx, 0x4(%esi,%edi,8)
+100329be: 89 4d 04                     	movl	%ecx, 0x4(%ebp)
+100329c1: 89 45 00                     	movl	%eax, (%ebp)
+100329c4: 8b 44 24 4c                  	movl	0x4c(%esp), %eax
+100329c8: 8b cf                        	movl	%edi, %ecx
+100329ca: 2b 4c 24 14                  	subl	0x14(%esp), %ecx
+100329ce: 2b c7                        	subl	%edi, %eax
+100329d0: 3b c8                        	cmpl	%eax, %ecx
+100329d2: 8b 43 08                     	movl	0x8(%ebx), %eax
+100329d5: 0f 8e b0 00 00 00            	jle	0x10032a8b <.text+0x31a8b>
+100329db: 39 43 04                     	cmpl	%eax, 0x4(%ebx)
+100329de: 75 3d                        	jne	0x10032a1d <.text+0x31a1d>
+100329e0: 8d 04 85 80 00 00 00         	leal	0x80(,%eax,4), %eax
+100329e7: 50                           	pushl	%eax
+100329e8: ff 15 68 07 35 10            	calll	*0x10350768
+100329ee: 8b e8                        	movl	%eax, %ebp
+100329f0: 8b 03                        	movl	(%ebx), %eax
+100329f2: 83 c4 04                     	addl	$0x4, %esp
+100329f5: 85 c0                        	testl	%eax, %eax
+100329f7: 74 1e                        	je	0x10032a17 <.text+0x31a17>
+100329f9: 8b 53 08                     	movl	0x8(%ebx), %edx
+100329fc: 03 d2                        	addl	%edx, %edx
+100329fe: 03 d2                        	addl	%edx, %edx
+10032a00: 52                           	pushl	%edx
+10032a01: 50                           	pushl	%eax
+10032a02: 55                           	pushl	%ebp
+10032a03: e8 88 d8 00 00               	calll	0x10040290 <.text+0x3f290>
+10032a08: 8b 03                        	movl	(%ebx), %eax
+10032a0a: 83 c4 0c                     	addl	$0xc, %esp
+10032a0d: 50                           	pushl	%eax
+10032a0e: ff 15 6c 07 35 10            	calll	*0x1035076c
+10032a14: 83 c4 04                     	addl	$0x4, %esp
+10032a17: 83 43 08 20                  	addl	$0x20, 0x8(%ebx)
+10032a1b: 89 2b                        	movl	%ebp, (%ebx)
+10032a1d: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10032a20: 8b 44 24 14                  	movl	0x14(%esp), %eax
+10032a24: 8b 13                        	movl	(%ebx), %edx
+10032a26: 89 04 8a                     	movl	%eax, (%edx,%ecx,4)
+10032a29: ff 43 04                     	incl	0x4(%ebx)
+10032a2c: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10032a2f: 8b 43 08                     	movl	0x8(%ebx), %eax
+10032a32: 3b c8                        	cmpl	%eax, %ecx
+10032a34: 75 3d                        	jne	0x10032a73 <.text+0x31a73>
+10032a36: 8d 04 85 80 00 00 00         	leal	0x80(,%eax,4), %eax
+10032a3d: 50                           	pushl	%eax
+10032a3e: ff 15 68 07 35 10            	calll	*0x10350768
+10032a44: 8b e8                        	movl	%eax, %ebp
+10032a46: 8b 03                        	movl	(%ebx), %eax
+10032a48: 83 c4 04                     	addl	$0x4, %esp
+10032a4b: 85 c0                        	testl	%eax, %eax
+10032a4d: 74 1e                        	je	0x10032a6d <.text+0x31a6d>
+10032a4f: 8b 4b 08                     	movl	0x8(%ebx), %ecx
+10032a52: 03 c9                        	addl	%ecx, %ecx
+10032a54: 03 c9                        	addl	%ecx, %ecx
+10032a56: 51                           	pushl	%ecx
+10032a57: 50                           	pushl	%eax
+10032a58: 55                           	pushl	%ebp
+10032a59: e8 32 d8 00 00               	calll	0x10040290 <.text+0x3f290>
+10032a5e: 8b 13                        	movl	(%ebx), %edx
+10032a60: 83 c4 0c                     	addl	$0xc, %esp
+10032a63: 52                           	pushl	%edx
+10032a64: ff 15 6c 07 35 10            	calll	*0x1035076c
+10032a6a: 83 c4 04                     	addl	$0x4, %esp
+10032a6d: 83 43 08 20                  	addl	$0x20, 0x8(%ebx)
+10032a71: 89 2b                        	movl	%ebp, (%ebx)
+10032a73: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10032a76: 8b 13                        	movl	(%ebx), %edx
+10032a78: 8d 47 ff                     	leal	-0x1(%edi), %eax
+10032a7b: 89 04 8a                     	movl	%eax, (%edx,%ecx,4)
+10032a7e: ff 43 04                     	incl	0x4(%ebx)
+10032a81: 47                           	incl	%edi
+10032a82: 89 7c 24 14                  	movl	%edi, 0x14(%esp)
+10032a86: e9 ab 00 00 00               	jmp	0x10032b36 <.text+0x31b36>
+10032a8b: 39 43 04                     	cmpl	%eax, 0x4(%ebx)
+10032a8e: 75 3d                        	jne	0x10032acd <.text+0x31acd>
+10032a90: 8d 04 85 80 00 00 00         	leal	0x80(,%eax,4), %eax
+10032a97: 50                           	pushl	%eax
+10032a98: ff 15 68 07 35 10            	calll	*0x10350768
+10032a9e: 8b e8                        	movl	%eax, %ebp
+10032aa0: 8b 03                        	movl	(%ebx), %eax
+10032aa2: 83 c4 04                     	addl	$0x4, %esp
+10032aa5: 85 c0                        	testl	%eax, %eax
+10032aa7: 74 1e                        	je	0x10032ac7 <.text+0x31ac7>
+10032aa9: 8b 4b 08                     	movl	0x8(%ebx), %ecx
+10032aac: 03 c9                        	addl	%ecx, %ecx
+10032aae: 03 c9                        	addl	%ecx, %ecx
+10032ab0: 51                           	pushl	%ecx
+10032ab1: 50                           	pushl	%eax
+10032ab2: 55                           	pushl	%ebp
+10032ab3: e8 d8 d7 00 00               	calll	0x10040290 <.text+0x3f290>
+10032ab8: 8b 13                        	movl	(%ebx), %edx
+10032aba: 83 c4 0c                     	addl	$0xc, %esp
+10032abd: 52                           	pushl	%edx
+10032abe: ff 15 6c 07 35 10            	calll	*0x1035076c
+10032ac4: 83 c4 04                     	addl	$0x4, %esp
+10032ac7: 83 43 08 20                  	addl	$0x20, 0x8(%ebx)
+10032acb: 89 2b                        	movl	%ebp, (%ebx)
+10032acd: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10032ad0: 8b 13                        	movl	(%ebx), %edx
+10032ad2: 8d 47 01                     	leal	0x1(%edi), %eax
+10032ad5: 89 04 8a                     	movl	%eax, (%edx,%ecx,4)
+10032ad8: ff 43 04                     	incl	0x4(%ebx)
+10032adb: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10032ade: 8b 43 08                     	movl	0x8(%ebx), %eax
+10032ae1: 3b c8                        	cmpl	%eax, %ecx
+10032ae3: 75 3d                        	jne	0x10032b22 <.text+0x31b22>
+10032ae5: 8d 04 85 80 00 00 00         	leal	0x80(,%eax,4), %eax
+10032aec: 50                           	pushl	%eax
+10032aed: ff 15 68 07 35 10            	calll	*0x10350768
+10032af3: 8b e8                        	movl	%eax, %ebp
+10032af5: 8b 03                        	movl	(%ebx), %eax
+10032af7: 83 c4 04                     	addl	$0x4, %esp
+10032afa: 85 c0                        	testl	%eax, %eax
+10032afc: 74 1e                        	je	0x10032b1c <.text+0x31b1c>
+10032afe: 8b 4b 08                     	movl	0x8(%ebx), %ecx
+10032b01: 03 c9                        	addl	%ecx, %ecx
+10032b03: 03 c9                        	addl	%ecx, %ecx
+10032b05: 51                           	pushl	%ecx
+10032b06: 50                           	pushl	%eax
+10032b07: 55                           	pushl	%ebp
+10032b08: e8 83 d7 00 00               	calll	0x10040290 <.text+0x3f290>
+10032b0d: 8b 13                        	movl	(%ebx), %edx
+10032b0f: 83 c4 0c                     	addl	$0xc, %esp
+10032b12: 52                           	pushl	%edx
+10032b13: ff 15 6c 07 35 10            	calll	*0x1035076c
+10032b19: 83 c4 04                     	addl	$0x4, %esp
+10032b1c: 83 43 08 20                  	addl	$0x20, 0x8(%ebx)
+10032b20: 89 2b                        	movl	%ebp, (%ebx)
+10032b22: 8b 43 04                     	movl	0x4(%ebx), %eax
+10032b25: 8b 54 24 4c                  	movl	0x4c(%esp), %edx
+10032b29: 8b 0b                        	movl	(%ebx), %ecx
+10032b2b: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10032b2e: ff 43 04                     	incl	0x4(%ebx)
+10032b31: 4f                           	decl	%edi
+10032b32: 89 7c 24 4c                  	movl	%edi, 0x4c(%esp)
+10032b36: 8b 44 24 14                  	movl	0x14(%esp), %eax
+10032b3a: 39 44 24 4c                  	cmpl	%eax, 0x4c(%esp)
+10032b3e: 0f 8f cc fc ff ff            	jg	0x10032810 <.text+0x31810>
+10032b44: e9 b3 00 00 00               	jmp	0x10032bfc <.text+0x31bfc>
+10032b49: 3b f9                        	cmpl	%ecx, %edi
+10032b4b: 8b c7                        	movl	%edi, %eax
+10032b4d: 0f 8d a9 00 00 00            	jge	0x10032bfc <.text+0x31bfc>
+10032b53: 8d 14 fe                     	leal	(%esi,%edi,8), %edx
+10032b56: 89 54 24 18                  	movl	%edx, 0x18(%esp)
+10032b5a: 8d 9b 00 00 00 00            	leal	(%ebx), %ebx
+10032b60: 8d 68 01                     	leal	0x1(%eax), %ebp
+10032b63: 3b e9                        	cmpl	%ecx, %ebp
+10032b65: 8b f8                        	movl	%eax, %edi
+10032b67: 89 6c 24 1c                  	movl	%ebp, 0x1c(%esp)
+10032b6b: 7f 52                        	jg	0x10032bbf <.text+0x31bbf>
+10032b6d: 03 c0                        	addl	%eax, %eax
+10032b6f: 03 c0                        	addl	%eax, %eax
+10032b71: 03 c0                        	addl	%eax, %eax
+10032b73: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+10032b77: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10032b7b: 8b 04 31                     	movl	(%ecx,%esi), %eax
+10032b7e: 8d 14 ed 00 00 00 00         	leal	(,%ebp,8), %edx
+10032b85: 8b 0c 32                     	movl	(%edx,%esi), %ecx
+10032b88: 3b c1                        	cmpl	%ecx, %eax
+10032b8a: 75 17                        	jne	0x10032ba3 <.text+0x31ba3>
+10032b8c: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10032b90: b8 00 00 00 80               	movl	$0x80000000, %eax       # imm = 0x80000000
+10032b95: 85 44 31 04                  	testl	%eax, 0x4(%ecx,%esi)
+10032b99: 74 15                        	je	0x10032bb0 <.text+0x31bb0>
+10032b9b: 85 44 32 04                  	testl	%eax, 0x4(%edx,%esi)
+10032b9f: 74 09                        	je	0x10032baa <.text+0x31baa>
+10032ba1: eb 0d                        	jmp	0x10032bb0 <.text+0x31bb0>
+10032ba3: 0f 92 c0                     	setb	%al
+10032ba6: 84 c0                        	testb	%al, %al
+10032ba8: 74 06                        	je	0x10032bb0 <.text+0x31bb0>
+10032baa: 8b fd                        	movl	%ebp, %edi
+10032bac: 89 54 24 14                  	movl	%edx, 0x14(%esp)
+10032bb0: 45                           	incl	%ebp
+10032bb1: 3b 6c 24 4c                  	cmpl	0x4c(%esp), %ebp
+10032bb5: 7e c0                        	jle	0x10032b77 <.text+0x31b77>
+10032bb7: 8b 6c 24 1c                  	movl	0x1c(%esp), %ebp
+10032bbb: 8b 4c 24 4c                  	movl	0x4c(%esp), %ecx
+10032bbf: 8b 14 fe                     	movl	(%esi,%edi,8), %edx
+10032bc2: 8b 44 fe 04                  	movl	0x4(%esi,%edi,8), %eax
+10032bc6: 89 54 24 28                  	movl	%edx, 0x28(%esp)
+10032bca: 8b 54 24 18                  	movl	0x18(%esp), %edx
+10032bce: 89 44 24 2c                  	movl	%eax, 0x2c(%esp)
+10032bd2: 8b 02                        	movl	(%edx), %eax
+10032bd4: 89 04 fe                     	movl	%eax, (%esi,%edi,8)
+10032bd7: 8b 42 04                     	movl	0x4(%edx), %eax
+10032bda: 89 44 fe 04                  	movl	%eax, 0x4(%esi,%edi,8)
+10032bde: 8b 44 24 28                  	movl	0x28(%esp), %eax
+10032be2: 89 02                        	movl	%eax, (%edx)
+10032be4: 8b 44 24 2c                  	movl	0x2c(%esp), %eax
+10032be8: 89 42 04                     	movl	%eax, 0x4(%edx)
+10032beb: 8b c5                        	movl	%ebp, %eax
+10032bed: 83 c2 08                     	addl	$0x8, %edx
+10032bf0: 3b c1                        	cmpl	%ecx, %eax
+10032bf2: 89 54 24 18                  	movl	%edx, 0x18(%esp)
+10032bf6: 0f 8c 64 ff ff ff            	jl	0x10032b60 <.text+0x31b60>
+10032bfc: 8b 43 04                     	movl	0x4(%ebx), %eax
+10032bff: 85 c0                        	testl	%eax, %eax
+10032c01: 74 21                        	je	0x10032c24 <.text+0x31c24>
+10032c03: 8b 0b                        	movl	(%ebx), %ecx
+10032c05: 48                           	decl	%eax
+10032c06: 89 43 04                     	movl	%eax, 0x4(%ebx)
+10032c09: 8b 14 81                     	movl	(%ecx,%eax,4), %edx
+10032c0c: 48                           	decl	%eax
+10032c0d: 89 43 04                     	movl	%eax, 0x4(%ebx)
+10032c10: 8b 04 81                     	movl	(%ecx,%eax,4), %eax
+10032c13: 89 54 24 4c                  	movl	%edx, 0x4c(%esp)
+10032c17: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+10032c1b: 8b ca                        	movl	%edx, %ecx
+10032c1d: 8b f8                        	movl	%eax, %edi
+10032c1f: e9 df fb ff ff               	jmp	0x10032803 <.text+0x31803>
+10032c24: 5f                           	popl	%edi
+10032c25: 5e                           	popl	%esi
+10032c26: 5d                           	popl	%ebp
+10032c27: 5b                           	popl	%ebx
+10032c28: 83 c4 38                     	addl	$0x38, %esp
+10032c2b: c2 04 00                     	retl	$0x4
+10032c2e: cc                           	int3
+10032c2f: cc                           	int3

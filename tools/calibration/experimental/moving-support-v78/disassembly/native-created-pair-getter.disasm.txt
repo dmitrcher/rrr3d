@@ -1,0 +1,133 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+1008cc10: 83 ec 1c                     	subl	$0x1c, %esp
+1008cc13: 55                           	pushl	%ebp
+1008cc14: 8b e9                        	movl	%ecx, %ebp
+1008cc16: 80 7d 04 00                  	cmpb	$0x0, 0x4(%ebp)
+1008cc1a: 0f 84 01 01 00 00            	je	0x1008cd21 <.text+0x8bd21>
+1008cc20: 33 c9                        	xorl	%ecx, %ecx
+1008cc22: 8d 45 60                     	leal	0x60(%ebp), %eax
+1008cc25: 89 44 24 18                  	movl	%eax, 0x18(%esp)
+1008cc29: 89 4c 24 0c                  	movl	%ecx, 0xc(%esp)
+1008cc2d: 89 4c 24 10                  	movl	%ecx, 0x10(%esp)
+1008cc31: 39 48 04                     	cmpl	%ecx, 0x4(%eax)
+1008cc34: 76 04                        	jbe	0x1008cc3a <.text+0x8bc3a>
+1008cc36: 8b 00                        	movl	(%eax), %eax
+1008cc38: 8b 08                        	movl	(%eax), %ecx
+1008cc3a: 8d 44 24 04                  	leal	0x4(%esp), %eax
+1008cc3e: 89 4c 24 14                  	movl	%ecx, 0x14(%esp)
+1008cc42: 50                           	pushl	%eax
+1008cc43: 8d 4c 24 0c                  	leal	0xc(%esp), %ecx
+1008cc47: 8d 55 78                     	leal	0x78(%ebp), %edx
+1008cc4a: 51                           	pushl	%ecx
+1008cc4b: 8d 44 24 14                  	leal	0x14(%esp), %eax
+1008cc4f: 89 54 24 24                  	movl	%edx, 0x24(%esp)
+1008cc53: e8 a8 3f fa ff               	calll	0x10030c00 <.text+0x2fc00>
+1008cc58: 84 c0                        	testb	%al, %al
+1008cc5a: 0f 84 b8 00 00 00            	je	0x1008cd18 <.text+0x8bd18>
+1008cc60: 53                           	pushl	%ebx
+1008cc61: 8b 5c 24 28                  	movl	0x28(%esp), %ebx
+1008cc65: 56                           	pushl	%esi
+1008cc66: 57                           	pushl	%edi
+1008cc67: 83 c3 08                     	addl	$0x8, %ebx
+1008cc6a: 8d 9b 00 00 00 00            	leal	(%ebx), %ebx
+1008cc70: 0f b7 54 24 14               	movzwl	0x14(%esp), %edx
+1008cc75: 8b 85 e4 00 00 00            	movl	0xe4(%ebp), %eax
+1008cc7b: 8b 75 0c                     	movl	0xc(%ebp), %esi
+1008cc7e: 8b 4d 18                     	movl	0x18(%ebp), %ecx
+1008cc81: c1 e2 05                     	shll	$0x5, %edx
+1008cc84: 0f b7 54 02 1e               	movzwl	0x1e(%edx,%eax), %edx
+1008cc89: 4e                           	decl	%esi
+1008cc8a: 23 f2                        	andl	%edx, %esi
+1008cc8c: 6b f6 34                     	imull	$0x34, %esi, %esi
+1008cc8f: 8b fa                        	movl	%edx, %edi
+1008cc91: 0f b7 54 24 10               	movzwl	0x10(%esp), %edx
+1008cc96: d3 ef                        	shrl	%cl, %edi
+1008cc98: 8b 4d 24                     	movl	0x24(%ebp), %ecx
+1008cc9b: c1 e2 05                     	shll	$0x5, %edx
+1008cc9e: 0f b7 44 02 1e               	movzwl	0x1e(%edx,%eax), %eax
+1008cca3: 03 34 b9                     	addl	(%ecx,%edi,4), %esi
+1008cca6: 8b 7d 0c                     	movl	0xc(%ebp), %edi
+1008cca9: 8b 4d 18                     	movl	0x18(%ebp), %ecx
+1008ccac: 4f                           	decl	%edi
+1008ccad: 23 f8                        	andl	%eax, %edi
+1008ccaf: 6b ff 34                     	imull	$0x34, %edi, %edi
+1008ccb2: 8b d0                        	movl	%eax, %edx
+1008ccb4: d3 ea                        	shrl	%cl, %edx
+1008ccb6: 8b 4d 24                     	movl	0x24(%ebp), %ecx
+1008ccb9: 03 3c 91                     	addl	(%ecx,%edx,4), %edi
+1008ccbc: 80 7d 06 00                  	cmpb	$0x0, 0x6(%ebp)
+1008ccc0: 74 18                        	je	0x1008ccda <.text+0x8bcda>
+1008ccc2: 8b 16                        	movl	(%esi), %edx
+1008ccc4: 8b 42 28                     	movl	0x28(%edx), %eax
+1008ccc7: 8b ce                        	movl	%esi, %ecx
+1008ccc9: ff d0                        	calll	*%eax
+1008cccb: 89 43 f8                     	movl	%eax, -0x8(%ebx)
+1008ccce: 8b 17                        	movl	(%edi), %edx
+1008ccd0: 8b 42 28                     	movl	0x28(%edx), %eax
+1008ccd3: 8b cf                        	movl	%edi, %ecx
+1008ccd5: ff d0                        	calll	*%eax
+1008ccd7: 89 43 fc                     	movl	%eax, -0x4(%ebx)
+1008ccda: 80 7d 07 00                  	cmpb	$0x0, 0x7(%ebp)
+1008ccde: 74 17                        	je	0x1008ccf7 <.text+0x8bcf7>
+1008cce0: 8b 16                        	movl	(%esi), %edx
+1008cce2: 8b 42 18                     	movl	0x18(%edx), %eax
+1008cce5: 8b ce                        	movl	%esi, %ecx
+1008cce7: ff d0                        	calll	*%eax
+1008cce9: 89 03                        	movl	%eax, (%ebx)
+1008cceb: 8b 17                        	movl	(%edi), %edx
+1008cced: 8b 42 18                     	movl	0x18(%edx), %eax
+1008ccf0: 8b cf                        	movl	%edi, %ecx
+1008ccf2: ff d0                        	calll	*%eax
+1008ccf4: 89 43 04                     	movl	%eax, 0x4(%ebx)
+1008ccf7: 8d 4c 24 10                  	leal	0x10(%esp), %ecx
+1008ccfb: 51                           	pushl	%ecx
+1008ccfc: 8d 54 24 18                  	leal	0x18(%esp), %edx
+1008cd00: 52                           	pushl	%edx
+1008cd01: 8d 44 24 20                  	leal	0x20(%esp), %eax
+1008cd05: 83 c3 10                     	addl	$0x10, %ebx
+1008cd08: e8 f3 3e fa ff               	calll	0x10030c00 <.text+0x2fc00>
+1008cd0d: 84 c0                        	testb	%al, %al
+1008cd0f: 0f 85 5b ff ff ff            	jne	0x1008cc70 <.text+0x8bc70>
+1008cd15: 5f                           	popl	%edi
+1008cd16: 5e                           	popl	%esi
+1008cd17: 5b                           	popl	%ebx
+1008cd18: b0 01                        	movb	$0x1, %al
+1008cd1a: 5d                           	popl	%ebp
+1008cd1b: 83 c4 1c                     	addl	$0x1c, %esp
+1008cd1e: c2 04 00                     	retl	$0x4
+1008cd21: 32 c0                        	xorb	%al, %al
+1008cd23: 5d                           	popl	%ebp
+1008cd24: 83 c4 1c                     	addl	$0x1c, %esp
+1008cd27: c2 04 00                     	retl	$0x4
+1008cd2a: cc                           	int3
+1008cd2b: cc                           	int3
+1008cd2c: cc                           	int3
+1008cd2d: cc                           	int3
+1008cd2e: cc                           	int3
+1008cd2f: cc                           	int3
+1008cd30: 53                           	pushl	%ebx
+1008cd31: 55                           	pushl	%ebp
+1008cd32: 8b 6c 24 0c                  	movl	0xc(%esp), %ebp
+1008cd36: 56                           	pushl	%esi
+1008cd37: 89 45 08                     	movl	%eax, 0x8(%ebp)
+1008cd3a: 57                           	pushl	%edi
+1008cd3b: 8d 75 0c                     	leal	0xc(%ebp), %esi
+1008cd3e: 8b c5                        	movl	%ebp, %eax
+1008cd40: c7 45 00 98 04 33 10         	movl	$0x10330498, (%ebp)     # imm = 0x10330498
+1008cd47: c6 45 04 01                  	movb	$0x1, 0x4(%ebp)
+1008cd4b: c6 45 05 01                  	movb	$0x1, 0x5(%ebp)
+1008cd4f: c6 45 06 01                  	movb	$0x1, 0x6(%ebp)
+1008cd53: c6 45 07 01                  	movb	$0x1, 0x7(%ebp)
+1008cd57: e8 84 44 fa ff               	calll	0x100311e0 <.text+0x301e0>
+1008cd5c: 33 db                        	xorl	%ebx, %ebx
+1008cd5e: 89 5d 34                     	movl	%ebx, 0x34(%ebp)
+1008cd61: 89 5d 38                     	movl	%ebx, 0x38(%ebp)
+1008cd64: 8d b5 e4 00 00 00            	leal	0xe4(%ebp), %esi
+1008cd6a: 8d 7d 44                     	leal	0x44(%ebp), %edi
+1008cd6d: 8b d6                        	movl	%esi, %edx
+1008cd6f: 89 5d 3c                     	movl	%ebx, 0x3c(%ebp)

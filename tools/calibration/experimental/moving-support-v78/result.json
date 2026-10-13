@@ -1,0 +1,52 @@
+{
+  "scope": "Original initialization sort and dynamic-support first-contact ordering only",
+  "sort_operations": 36,
+  "raw_output_words_per_implementation": 1440,
+  "python_exact": true,
+  "cpp_checks": [
+    {
+      "optimization": "O0",
+      "output": "36 Native sort operations; 1440 raw words exact"
+    },
+    {
+      "optimization": "O2",
+      "output": "36 Native sort operations; 1440 raw words exact"
+    }
+  ],
+  "six_scenarios_two_repeats_exact": true,
+  "original_physical_golden_samples_unchanged": 3600,
+  "pipeline": [
+    {
+      "capture": "creation-pair-stock-pole-1-28-0-private.jsonl.gz",
+      "predicted_bounds_ids": [
+        8,
+        10,
+        7,
+        9
+      ],
+      "crossing_order_exact": true,
+      "storage_export_order_exact": true
+    },
+    {
+      "capture": "creation-pair-stock-pole-1-28-1-private.jsonl.gz",
+      "predicted_bounds_ids": [
+        8,
+        10,
+        7,
+        9
+      ],
+      "crossing_order_exact": true,
+      "storage_export_order_exact": true
+    }
+  ],
+  "hardcoded_wheel_permutation": false,
+  "live_physics_modified": false,
+  "full_suite_strict_cases_unchanged": 116,
+  "full_suite_total_cases": 608,
+  "goal_complete": false,
+  "remaining": [
+    "Reconstruct endpoint merging/update and pair storage as generic persistent state.",
+    "Integrate original contact creation order in default-off Mac research profile.",
+    "Verify first divergence, trajectories and full regressions before promotion."
+  ]
+}

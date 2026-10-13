@@ -1,0 +1,69 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10030c00: 56                           	pushl	%esi
+10030c01: 33 f6                        	xorl	%esi, %esi
+10030c03: 57                           	pushl	%edi
+10030c04: 39 70 08                     	cmpl	%esi, 0x8(%eax)
+10030c07: 75 1f                        	jne	0x10030c28 <.text+0x2fc28>
+10030c09: 8b 50 0c                     	movl	0xc(%eax), %edx
+10030c0c: 8d 64 24 00                  	leal	(%esp), %esp
+10030c10: ff 00                        	incl	(%eax)
+10030c12: 8b 08                        	movl	(%eax), %ecx
+10030c14: 3b 4a 04                     	cmpl	0x4(%edx), %ecx
+10030c17: 73 48                        	jae	0x10030c61 <.text+0x2fc61>
+10030c19: 89 70 04                     	movl	%esi, 0x4(%eax)
+10030c1c: 8b 3a                        	movl	(%edx), %edi
+10030c1e: 8b 0c 8f                     	movl	(%edi,%ecx,4), %ecx
+10030c21: 89 48 08                     	movl	%ecx, 0x8(%eax)
+10030c24: 3b ce                        	cmpl	%esi, %ecx
+10030c26: 74 e8                        	je	0x10030c10 <.text+0x2fc10>
+10030c28: 8b 48 08                     	movl	0x8(%eax), %ecx
+10030c2b: 8b 78 08                     	movl	0x8(%eax), %edi
+10030c2e: 8b d1                        	movl	%ecx, %edx
+10030c30: f7 da                        	negl	%edx
+10030c32: 23 d1                        	andl	%ecx, %edx
+10030c34: 69 d2 31 b5 7c 07            	imull	$0x77cb531, %edx, %edx  # imm = 0x77CB531
+10030c3a: c1 ea 1b                     	shrl	$0x1b, %edx
+10030c3d: 8b 0c 95 20 d6 32 10         	movl	0x1032d620(,%edx,4), %ecx
+10030c44: 8b 50 04                     	movl	0x4(%eax), %edx
+10030c47: 8d 34 0a                     	leal	(%edx,%ecx), %esi
+10030c4a: 8b 10                        	movl	(%eax), %edx
+10030c4c: d3 ef                        	shrl	%cl, %edi
+10030c4e: c1 e2 05                     	shll	$0x5, %edx
+10030c51: 03 d6                        	addl	%esi, %edx
+10030c53: 46                           	incl	%esi
+10030c54: d1 ef                        	shrl	%edi
+10030c56: 89 78 08                     	movl	%edi, 0x8(%eax)
+10030c59: 89 70 04                     	movl	%esi, 0x4(%eax)
+10030c5c: 83 fa ff                     	cmpl	$-0x1, %edx
+10030c5f: 75 07                        	jne	0x10030c68 <.text+0x2fc68>
+10030c61: 5f                           	popl	%edi
+10030c62: 32 c0                        	xorb	%al, %al
+10030c64: 5e                           	popl	%esi
+10030c65: c2 08 00                     	retl	$0x8
+10030c68: 8b 40 10                     	movl	0x10(%eax), %eax
+10030c6b: 8b 00                        	movl	(%eax), %eax
+10030c6d: 8b 7c 24 0c                  	movl	0xc(%esp), %edi
+10030c71: 8b ca                        	movl	%edx, %ecx
+10030c73: c1 e9 02                     	shrl	$0x2, %ecx
+10030c76: 8d 34 49                     	leal	(%ecx,%ecx,2), %esi
+10030c79: 66 8b 74 b0 0a               	movw	0xa(%eax,%esi,4), %si
+10030c7e: 8d 0c 49                     	leal	(%ecx,%ecx,2), %ecx
+10030c81: 83 e2 03                     	andl	$0x3, %edx
+10030c84: 8d 14 4a                     	leal	(%edx,%ecx,2), %edx
+10030c87: 66 8b 04 50                  	movw	(%eax,%edx,2), %ax
+10030c8b: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+10030c8f: 66 89 37                     	movw	%si, (%edi)
+10030c92: 5f                           	popl	%edi
+10030c93: 66 89 01                     	movw	%ax, (%ecx)
+10030c96: b0 01                        	movb	$0x1, %al
+10030c98: 5e                           	popl	%esi
+10030c99: c2 08 00                     	retl	$0x8
+10030c9c: cc                           	int3
+10030c9d: cc                           	int3
+10030c9e: cc                           	int3
+10030c9f: cc                           	int3

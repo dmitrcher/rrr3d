@@ -1,0 +1,28 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10074d33: 0f 28 fc                     	movaps	%xmm4, %xmm7
+10074d36: f3 0f 10 64 24 1c            	movss	0x1c(%esp), %xmm4
+10074d3c: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+10074d40: f3 0f 10 68 78               	movss	0x78(%eax), %xmm5
+10074d45: f3 0f 59 c5                  	mulss	%xmm5, %xmm0
+10074d49: f3 0f 10 68 74               	movss	0x74(%eax), %xmm5
+10074d4e: f3 0f 59 dd                  	mulss	%xmm5, %xmm3
+10074d52: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+10074d56: f3 0f 10 58 70               	movss	0x70(%eax), %xmm3
+10074d5b: f3 0f 59 d3                  	mulss	%xmm3, %xmm2
+10074d5f: f3 0f 10 9c 24 d0 00 00 00   	movss	0xd0(%esp), %xmm3
+10074d68: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+10074d6c: f3 0f 5c e0                  	subss	%xmm0, %xmm4
+10074d70: 0f 28 d7                     	movaps	%xmm7, %xmm2
+10074d73: 0f 28 ee                     	movaps	%xmm6, %xmm5
+10074d76: eb 0f                        	jmp	0x10074d87 <.text+0x73d87>
+10074d78: f3 0f 10 57 0c               	movss	0xc(%edi), %xmm2
+10074d7d: f3 0f 10 6f 14               	movss	0x14(%edi), %xmm5
+10074d82: f3 0f 10 67 18               	movss	0x18(%edi), %xmm4
+10074d87: 8b 4b 04                     	movl	0x4(%ebx), %ecx
+10074d8a: 8b 43 08                     	movl	0x8(%ebx), %eax
+10074d8d: 83 e9 80                     	subl	$-0x80, %ecx

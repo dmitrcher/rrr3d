@@ -1,0 +1,31 @@
+{
+  "status": "Accepted reproducible research checkpoint; full parity incomplete",
+  "strict_exact_cases": 396,
+  "open_cases": 212,
+  "all_previous_396_exact_preserved": true,
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "first_body_roll_difference_before": 49,
+  "first_body_roll_difference_now": 132,
+  "body_roll_position_max_before": 0.0013443344706210642,
+  "body_roll_position_max_now": 1.026109155242777e-06,
+  "source_after_sha256": "c4a9fc8bbe9cd204d89e27a8b03b0bdc7c06d8fa355e468d77c75e3741ba10e3",
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "622e8a9cd5c2cfae87594fd43d1de60add8dccb38504688e0cb69b00c349163d",
+    "rrr3d_physics_spring_probe": "577097d4f2cba62474ffad9ab75869b8fc9cd00310dffc14874ed280f41d6617"
+  },
+  "changed_histories": [
+    "body-tilt-roll"
+  ],
+  "unchanged_histories": 607,
+  "magnitude_regressions_explicit": {
+    "position_max": [],
+    "velocity_max": [],
+    "orientation_max_degrees": [],
+    "angular_momentum_max": [],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [],
+    "wheel_normal_force_max": []
+  },
+  "goal_complete": false
+}

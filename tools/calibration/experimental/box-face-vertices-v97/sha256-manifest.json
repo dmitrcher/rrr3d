@@ -1,0 +1,616 @@
+{
+  "scope": "Verified V97 Native box face table source/evidence;396strict212open",
+  "files": [
+    {
+      "path": "NEXT.md",
+      "bytes": 1257,
+      "sha256": "8e06d4f6f1af1cbf5b7fa043e5c6cd2e3aea584067220d31a75fcffd4a14aacc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3490,
+      "sha256": "70eb1d1c0bdf44cc4656bdf926765997f6b6fbe7815784e1dc6bcc9f29d66a0a"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+      "bytes": 44907,
+      "sha256": "c4a9fc8bbe9cd204d89e27a8b03b0bdc7c06d8fa355e468d77c75e3741ba10e3"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 534,
+      "sha256": "f80b0bf729ee16e27c6ab4c0202743f2ce2c0b664b3ba74d3e485520108e8225"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+      "bytes": 43916,
+      "sha256": "81eb5658ba2a2248a750b6cb371cbbfa7e94cf167722912b2adecb91ec7af265"
+    },
+    {
+      "path": "capture-compression.json",
+      "bytes": 2930,
+      "sha256": "26ccc8cb35b564d2a748492b7957a8926b5c1fc00ee4140a60ed06263e43c958"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-0-physical.jsonl.gz",
+      "bytes": 122360,
+      "sha256": "f3689a0a1f7c407deba7d284570166a405e3cb382714ccec4dd68ef5d8c85514"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-0-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "33daa6ad2b975bb3bfb964bf54333f72cfb2b05736aa3b8f5f8501f5770edb19"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-0-solver.jsonl.gz",
+      "bytes": 349,
+      "sha256": "8484077b76256bc6fc268c782bd1a5ebaeecd22d1cb5fd64d4b63ea81f999d93"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-1-physical.jsonl.gz",
+      "bytes": 122339,
+      "sha256": "8423a58af63bb2b20ad7349a4a1dfc238f63b3d7d3d843d91880b813ec43ab22"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-1-prep.jsonl.gz",
+      "bytes": 51,
+      "sha256": "294d55b18f83f89d724c7678361db836b1050425e68cf026e4ab23f6280acc52"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-1-solver.jsonl.gz",
+      "bytes": 349,
+      "sha256": "cd82448113afb691b7931a39f654bf135a236b9480b2877623709a04bfcec45a"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/body-tilt-roll-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-candidate-frame49/manifest.json",
+      "bytes": 7599,
+      "sha256": "1179cc45df2a7da31ff5c41fa36a821646395ce38b7aea147031064bb97a690a"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-0-physical.jsonl.gz",
+      "bytes": 122283,
+      "sha256": "9ad02963af416b3e9e51e2c74df56645ff165cae039fcdb7d923caea9250de7a"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-0-prep.jsonl.gz",
+      "bytes": 52,
+      "sha256": "f838cf715c9b2117e6875d299234546d7eed37e56fcb96fdfe217326030aee59"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-0-solver.jsonl.gz",
+      "bytes": 349,
+      "sha256": "a9ae709d9909c315e0395d9a48ccb2c43baf1c4a8eeace20f62d7d9f90637794"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-1-physical.jsonl.gz",
+      "bytes": 122243,
+      "sha256": "678a9489f5f75f9c7212e1350c21fc0738e98e62e32154de17c40924a67e0080"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-1-prep.jsonl.gz",
+      "bytes": 52,
+      "sha256": "301e6019c980c59af2130c5c549ecdc29f86d1db041fe831dacb67af59e5898a"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-1-solver.jsonl.gz",
+      "bytes": 349,
+      "sha256": "cf0dece86f94607a58337c353241e8b523655fb37b2548e3af391eb449157f54"
+    },
+    {
+      "path": "captures/mac-next-frame132/body-tilt-roll-132-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-frame132/manifest.json",
+      "bytes": 7604,
+      "sha256": "f50aaef599eaa783934c90e3a0ac1a86d94767fea41c5cfd85a112aae0d79673"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/manifest.json",
+      "bytes": 1396,
+      "sha256": "f3e54925ccb2b09af24f52c70933aaed1560ff953408b490d2fa78b0632d9b1c"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-0-physical.jsonl.gz",
+      "bytes": 144618,
+      "sha256": "b26039ad7c454133b9043ff74a208aeaffe92969471e6085ccb93de36356231c"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-0-private.jsonl.gz",
+      "bytes": 36658,
+      "sha256": "5877bfde35bfc541e3c8eb520573786f660c33d9116df56566262d276fefd9f2"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-1-physical.jsonl.gz",
+      "bytes": 144593,
+      "sha256": "5a8b00c153fc43f00dc79b07e748c1f849726e7cc634b2fbc3eba53b820799d0"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-1-private.jsonl.gz",
+      "bytes": 37106,
+      "sha256": "089a47701d64572cd51220985509144291b5041c5105a172273516e4144b97cd"
+    },
+    {
+      "path": "captures/native-next-tilt-contact132/v97-tilt-contact132-body-tilt-roll-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/manifest.json",
+      "bytes": 2065,
+      "sha256": "4882077efbe3d092e61635e6baf49237ddd0959a757333413dc24070a3ba15e3"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-0-physical.jsonl.gz",
+      "bytes": 148142,
+      "sha256": "1719ed98444a36dfbdfeccb5feb7542d659199a805c8d956af5f4852ce625eed"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-0-private.jsonl.gz",
+      "bytes": 3365,
+      "sha256": "4e66ad6e425bfed89e5c0e86aa154080ff34f8f9cc79caed1b1694f74217da40"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-1-physical.jsonl.gz",
+      "bytes": 148013,
+      "sha256": "1695bc0b13e942c6a4e3745c8420f5099e91f16bfbf5c34453fe4ed85096dc5f"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-1-private.jsonl.gz",
+      "bytes": 3370,
+      "sha256": "f195248454871e29ac54c9cc77421152ddbf8155f4f876966c97efe301bfd8f3"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-pitch-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-0-physical.jsonl.gz",
+      "bytes": 142611,
+      "sha256": "7898d9de39a5ef94d9cc6edc748190c54bd726ef77aea965009153b5297fc6fd"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-0-private.jsonl.gz",
+      "bytes": 4253,
+      "sha256": "b30c0852f06727f9ddd9b27822f81f7e98dfafeaa4b0ef1d7b6756f65d984e14"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-1-physical.jsonl.gz",
+      "bytes": 142595,
+      "sha256": "1110d627f47368c7e1beac343ff4d56b1d28119c62d6e10708d544cf8ce362e4"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-1-private.jsonl.gz",
+      "bytes": 4245,
+      "sha256": "146c270622fe789affab53879772918569094c239e7efdb6989235cc1528c663"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-10-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-0-physical.jsonl.gz",
+      "bytes": 143052,
+      "sha256": "3d4db04b623a6018ef1cef69a10e702284db79955d31310a7afde90eb52c67fe"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-0-private.jsonl.gz",
+      "bytes": 3375,
+      "sha256": "3fdea0e1afdd8c0e534f4762a12b44d2d6dc6bd08e43ed552ce801be441eb105"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-1-physical.jsonl.gz",
+      "bytes": 142955,
+      "sha256": "52e4bdacc44ecf53ceb932c8e51c79d1e8b6e169fe84b2d5fc46e0ebdb60a8fc"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-1-private.jsonl.gz",
+      "bytes": 3371,
+      "sha256": "9b10b6a51b55657a2bec0b26c3b50c6208b90f5e37fe419df1ca203c85482665"
+    },
+    {
+      "path": "captures/native-polygons/v97-body-tilt-roll-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons-upper/manifest.json",
+      "bytes": 1409,
+      "sha256": "a1af83c7443619a2a3ca780bfc40eaa38a02d9325484960559b5e779d6f8e9ef"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-0-physical.jsonl.gz",
+      "bytes": 143535,
+      "sha256": "1222b29be0b84e1fd21330b46575edca9c65e4cc3451c3e14f040b46f69c82b3"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-0-private.jsonl.gz",
+      "bytes": 3833,
+      "sha256": "9b76c57ab5682b4049ee1f4eaa57216a8966f54c98ab62c90db8870a0449a64c"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-1-physical.jsonl.gz",
+      "bytes": 143365,
+      "sha256": "98a6f86a85740d5b3c9c407b67d856c45624de563a5ada95abe65253c3665a7f"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-1-private.jsonl.gz",
+      "bytes": 3831,
+      "sha256": "7322fee6f4cf22d31181c13b110b97c0f69c59a0e0e41b167a2b7a16e38b2667"
+    },
+    {
+      "path": "captures/native-polygons-upper/v97-body-tilt-roll-145-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons-upper179/manifest.json",
+      "bytes": 1409,
+      "sha256": "0bcb4a7fc0f527c6b027f6ff12cc97b565e1f1222cf86bb71075fd4aef90c6cf"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-0-physical.jsonl.gz",
+      "bytes": 143676,
+      "sha256": "f4930bb6856310e72399d4e0ca378513082ff658d7d9d3d0bda74604351fc2e4"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-0-private.jsonl.gz",
+      "bytes": 3337,
+      "sha256": "aebffb3562a45869c3a5a82818fea012b3b2cf9db4f4429f16f6b1377a182df3"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-1-physical.jsonl.gz",
+      "bytes": 143702,
+      "sha256": "01a11f0a75ae3cd3493b53045bdeece88b939a9f07bd6b461718a87cee212b31"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-1-private.jsonl.gz",
+      "bytes": 3335,
+      "sha256": "8d0c8209eeeb3e98fa5c233b045252f6870782a7ca2a570d79dfc3c787697ede"
+    },
+    {
+      "path": "captures/native-polygons-upper179/v97-body-tilt-roll-179-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-solver-frame132/manifest.json",
+      "bytes": 1396,
+      "sha256": "47a60dacb328e1c65a201d9b593da24ab86db8cc46f38112dc34c0006ff63d5b"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-0-physical.jsonl.gz",
+      "bytes": 144543,
+      "sha256": "9fd4af2805aff14cc5fae204eef2ab32cf4f6ae2012cf36b16379b5cf3b28cbd"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-0-private.jsonl.gz",
+      "bytes": 36903,
+      "sha256": "392375d1480c8d9d0d9fad9b5a8b2d14d4d8849edc18200245ffbf202ecc7e8a"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-1-physical.jsonl.gz",
+      "bytes": 144574,
+      "sha256": "ded002ccf802862579fe36919e48caadc384eb155f0d8c4cfd3a0336f1a2d452"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-1-private.jsonl.gz",
+      "bytes": 36942,
+      "sha256": "acea4795e910902788e5f693139e5a262393c2355ec8e89901464e0ef7ce50f3"
+    },
+    {
+      "path": "captures/native-solver-frame132/v97-solver-frame132-body-tilt-roll-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/broad-capture-manifest.json",
+      "bytes": 7476,
+      "sha256": "b5f4de36ead36d7715e6380c142d099307c4810f623f1e2ea7ca7ee1bfa8f8ec"
+    },
+    {
+      "path": "evidence/build-all.log",
+      "bytes": 3352,
+      "sha256": "f5eed7b3d650ddc3b446598df10219da033d02680812d509fb46c1e95f553b05"
+    },
+    {
+      "path": "evidence/checkpoint-expected.jsonl.gz",
+      "bytes": 370073,
+      "sha256": "2262b86617b37ebc476a713ee542cca8f2981be84b00b9411acc09915ee2e77f"
+    },
+    {
+      "path": "evidence/ctest.log",
+      "bytes": 7093,
+      "sha256": "d01461581d37d8aa3438b0d33cf600f35b0d1868e673e498cf3c386b4ef14fc2"
+    },
+    {
+      "path": "evidence/face-arithmetic-proof.json",
+      "bytes": 558,
+      "sha256": "eddf3c2874439229b61623f57113b11b500b9fe85130c3fd7b9b9f3457f649f8"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 76976,
+      "sha256": "8e502c972e2e2d8170209353f85008153479a8638941f582807e73146837f8c2"
+    },
+    {
+      "path": "evidence/gates-capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "e497c4ef292dc683798283e25de65a4007d49dc83fde35315afdc5656daa8469"
+    },
+    {
+      "path": "evidence/gates.log",
+      "bytes": 598,
+      "sha256": "70f190603589f24defc2d5636719d83cc4982a50545fec8a514c36699e458e06"
+    },
+    {
+      "path": "evidence/installer-test.log",
+      "bytes": 455,
+      "sha256": "2fe69e7459ddf979da780f628af980939ad186967a264fde67928f380d9d1b71"
+    },
+    {
+      "path": "evidence/live-frame49-proof.json",
+      "bytes": 661,
+      "sha256": "927100277329bd3d84bce146fadf51c925eec0b4ba315f825b898ecb00c77bed"
+    },
+    {
+      "path": "evidence/native-face-table-fixtures.json",
+      "bytes": 9924,
+      "sha256": "172075705831dbbe237bddfd9f9a42150861fcfe362f9ba351a04565a28bf759"
+    },
+    {
+      "path": "evidence/native-face-vertex-fixtures.json",
+      "bytes": 15117,
+      "sha256": "e6b06016db061f029c7595b307a1835fbff96f4f524a713b7358e2c73f5afcaf"
+    },
+    {
+      "path": "evidence/native-observer-build.log",
+      "bytes": 90,
+      "sha256": "08dcbd3043c330804e15e69f4019d933ccb7017a6cbcc68b0d227a8e21d68653"
+    },
+    {
+      "path": "evidence/native-solver-frame-build.log",
+      "bytes": 88,
+      "sha256": "570f23017e2f4a765fd81ae2b6d4d1267773aac85423619b26c27a38835c6bf0"
+    },
+    {
+      "path": "evidence/next-solver-scalar.disasm.txt",
+      "bytes": 1491,
+      "sha256": "77287170d80aeeedc0091d836248c41516bfa85305f88848ae0974b5dbb4c18c"
+    },
+    {
+      "path": "evidence/next132-solver-compose-proof.json",
+      "bytes": 2931,
+      "sha256": "012b569f2b7437eabdd85bc20c3c96cfa57119ed2be4ef95eaebd2f77f74961a"
+    },
+    {
+      "path": "evidence/physics-v97-build-and-functional-audit.json",
+      "bytes": 555,
+      "sha256": "536e1005f876432bcb25d5d88b12de8dfe38750e3b227048e5ec07eb5fd63d0e"
+    },
+    {
+      "path": "evidence/physics-v97-final-broad-audit.json",
+      "bytes": 1570060,
+      "sha256": "bfd500113e49321022956c37be9054a42907c93720e98fd7ca479c2cc67fd015"
+    },
+    {
+      "path": "evidence/physics-v97-final-practical-error-audit.json",
+      "bytes": 1126538,
+      "sha256": "f44d6658abde75c91fc700234dfd6e2acc073a027e897250199e7275acc1b078"
+    },
+    {
+      "path": "evidence/physics-v97-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "3d5e3865dc82a50fb040b1d9cb697df6ca084d98eb4495ab2d1cf8b9381f39be"
+    },
+    {
+      "path": "evidence/physics-v97-portable-validation.json",
+      "bytes": 657,
+      "sha256": "f62f060991c295dc1fab7857adbb893abc1cec7950fae9e19d2ffbccd49a3ef0"
+    },
+    {
+      "path": "evidence/physics-v97-probe-validation.json",
+      "bytes": 1143,
+      "sha256": "e3ecd44a3fe52aabbf9188bcfb2e51967e33c7824a7518405a88504b49925418"
+    },
+    {
+      "path": "evidence/physics-v97-regression-audit.json",
+      "bytes": 24666,
+      "sha256": "b3d8e77384700c0ac37417c03ce80615f9d47ce9c138b94333c08f2387173d5e"
+    },
+    {
+      "path": "evidence/portable.log",
+      "bytes": 657,
+      "sha256": "f62f060991c295dc1fab7857adbb893abc1cec7950fae9e19d2ffbccd49a3ef0"
+    },
+    {
+      "path": "face-probe.cpp",
+      "bytes": 408,
+      "sha256": "79b433bb883cf34d49835469165a885737494fa64566c7713cdb637172e23871"
+    },
+    {
+      "path": "polygon-tracer/build.cmd",
+      "bytes": 286,
+      "sha256": "630eeac624bc829956b4b1a9ce205551c4bc83f898998f8bbca4cdca334da1c6"
+    },
+    {
+      "path": "polygon-tracer/trace-polygon.cpp",
+      "bytes": 19144,
+      "sha256": "7243feb9519e2acb20de120c9b16c5b3ddbb58c3e049ee8448278f3a88ea64a9"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7187,
+      "sha256": "a3630df0655944c45ed97fd8753a591445b05d1506d8866d86284de3d3908095"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-frame49.py",
+      "bytes": 3813,
+      "sha256": "937d0ef0c9dafd30349505e11009c2ca86160e01b0d09d0a203ed2115e0258c1"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-next-frame132.py",
+      "bytes": 3811,
+      "sha256": "b72bae0aa04e1f4c0f09f88cd7cac0b54f6875c91c96a3bee115de80d92c5741"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next-frame132.py",
+      "bytes": 2590,
+      "sha256": "db376cec504fe769482c0dd2ed467d8c9b9cf181720aee7194aa3c150cdd5dbf"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-polygons.py",
+      "bytes": 2741,
+      "sha256": "9eead81e9a237393dcffc0c938bbf9a6508ebdb9f66bbf864ccf7bb51d910eb6"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-solver-frame132.py",
+      "bytes": 2584,
+      "sha256": "715c423f7806eacccdde67ebe163a8211385f14c7fe29a387dc0d80fc6931a8a"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-upper.py",
+      "bytes": 2703,
+      "sha256": "e5ce2dbc73b73925b80cb09cb43a9743636d1ee7727a7a494bc48a1f1590b8ca"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-upper179.py",
+      "bytes": 2706,
+      "sha256": "0547815f94010eed74da4fe4b557d98ba5d11c3d1af1727fa8d1da16726a6be0"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3645,
+      "sha256": "748c2aaccf43afe0b33a5036df9cf0014b914aef934d7deccda5c5a7dd8615fd"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2170,
+      "sha256": "d723e98e73bf5fdc54a1a3b08b47cb01609dd63ebbc9fbf72790590521595bde"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4266,
+      "sha256": "8827b204ca4e74cd9772c532be8a6bd45ceab398fc1fab25b7a2f2df5b6f6d28"
+    },
+    {
+      "path": "reproduction-host-scripts/prepare-candidate.py",
+      "bytes": 4088,
+      "sha256": "3dd9e3daf6db493e8cab789a17cda3cbacc55b034956ccf4c974de1941083fa8"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-next132.py",
+      "bytes": 2870,
+      "sha256": "3c93a3674cab109dbede2bbd5ffe9c2d3d6b937f20a22bc4ad19eac51a5d3276"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2410,
+      "sha256": "5a245dcd0c78cd234881001d56e048b7e256f458dab1f6cebdad158dc85c2a83"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 3836,
+      "sha256": "9e941508a9d77a18313f312b4c49ab9e2ed8c7b1a7809b16c38a16977c3c93ed"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2078,
+      "sha256": "d3c3894158ffd3c7ee9e79c3821207dd85bbecfa849fd836e6c8552cf31eacba"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2053,
+      "sha256": "a512e861d35bad3ae81b97a4ed04ac352ba73a832f9446d8e442ea032f581808"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 6053,
+      "sha256": "1181e84fea8e61017145a784e72572c0e02651bab6c454d207c01536e4519c71"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-face-arithmetic.py",
+      "bytes": 1827,
+      "sha256": "bc6975f19a0e14e91df2def6e2bcea84b2e7c334e1ee3822d890d95001db16fd"
+    },
+    {
+      "path": "solver-frame-tracer/build.cmd",
+      "bytes": 286,
+      "sha256": "11b60b9d946cc1c134befdf41bd86e4ca8ff2ad23d80b92b8548dcd31551ec85"
+    },
+    {
+      "path": "solver-frame-tracer/trace-frame.cpp",
+      "bytes": 18624,
+      "sha256": "d668bcc4be2528e82e4ce62ec685b635239174547b3f211426455d37f4921348"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3158,
+      "sha256": "35eaff93682bf2a5252f9e5fc1cb3c5854dca83b224e3af50e389f57183ce4fd"
+    }
+  ],
+  "goal_complete": false
+}

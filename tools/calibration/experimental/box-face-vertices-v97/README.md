@@ -1,0 +1,17 @@
+# V97: Native box face vertex table
+
+The Mac reconstructed negative-Y box face began at a different corner from Windows. That changed contact publication order at physical step49 even though the points were geometrically identical. This default-off correction uses the actual PhysXCore six-face byte table at RVA312774 and actual eight box corners in both hull and triangle reference paths. No engine, mass, inertia, grip or suspension coefficient changes, measured state injection, case/frame dispatch or sorting is implemented.
+
+Enable `RRR3D_EXPERIMENT_NATIVE_BOX_FACE_VERTICES_V97=1` on the verified V96 research environment recorded in probe-environment.json. The ordinary installed game remains V73; these are research sources and Mac ARM64 probes. Source snapshots cover one adapter header, SourceMeshManifold.h. NativeMaterialFrameV36.h V96, JoltVehiclePhysics.cpp V95 and SDK V94 remain unchanged.
+
+Twelve actual polygon calls across original Windows repeats and six static table rows produce eighteen fixtures:216float words exact in the exported production helper with Mac O0/O2. Four face selections are dynamically observed; the other two are bound from the actual DLL table plus actual eight corners. Original captured180state histories and EXE/DLL hashes remain unchanged. At49, actual contact publication order and all10uninterrupted solver body checkpoints60words,10masses,10scaled biases and30lever words match Windows per repeat. No oracle values are supplied to simulation.
+
+Body-roll first divergence advances49→132: states0..131 exact. Its180-step position maximum improves0.0013443344706210642→0.000001026109155242777 source units. Full608matrix repeats255864states exactly:396whole scenarios exact,212open. All396previous exact scenarios retained,607complete histories unchanged; only body roll changes. No measured full-run maximum worsens. No new complete scenario closes. All291independent control/candidate physics gates pass twice; clean initial53/53CTest, full signed game build, solo600 and rendered240functional checks pass.
+
+At132 actual Native compose inputs now independently match Mac, but the solver quaternion scalar adds products in a different order. This next arithmetic cause is recorded in NEXT.md; no next-version runtime edit is included. Full physical and rendered race parity remains unfinished.
+
+## Reproduce
+
+`python3 verify.py` compiles the actual exported production header O0/O2 and checks all216Native corner words plus the default-off flag. `python3 verify.py --probe /absolute/path/to/rrr3d_physics_calibration` starts a fresh process for1980fixed-input/no-AI states across four fixtures and checks every observable float word against savedV97. Body-roll180 remains open; three600-state control fixtures are exact Windows.
+
+`python3 apply-experiment.py --sdk-root /path/to/jolt --adapter-root /path/to/rrr3d` installs the one recorded adapter header. Both root arguments are required by the generic installer, while no SDK file changes here. `--restore` restores the exact base. Both operations are idempotent and reject a different base before mutations. Rebuild required. Host scripts retain absolute paths as capture provenance. Capture copies are losslessly gzip-compressed; capture-compression.json records logical hashes. Historical tags, frozen manifests, archives and sources remain immutable. Accepted status is in evidence/physics-v97-probe-validation.json; sha256-manifest.json covers every exported file except itself.

@@ -1,0 +1,128 @@
+{
+  "stage": "V77 moving-support onset causal investigation; no physics implementation changed",
+  "case": "pair-stock-pole-1",
+  "first_divergent_physical_tick": 28,
+  "windows_tick_source": "completed closed AFTER_SOLVE sample records; no integrator-counter arithmetic",
+  "mac_trace_step": 29,
+  "mac_phase_evidence": "all four wheel prep centers/quaternions equal AFTER_SOLVE tick27",
+  "no_ai": true,
+  "fixed_commands_and_dt": true,
+  "original_golden_sha256": "4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f",
+  "native_captures": [
+    {
+      "directory": "outputs/moving-support-v77/native-creation",
+      "count": 6,
+      "all_300_states_golden_exact": true,
+      "immutable_original_exe_dll_hashes_verified_before_after": true
+    },
+    {
+      "directory": "outputs/moving-support-v77/native-enqueue",
+      "count": 2,
+      "all_300_states_golden_exact": true,
+      "immutable_original_exe_dll_hashes_verified_before_after": true
+    },
+    {
+      "directory": "outputs/moving-support-v77/native-kernel",
+      "count": 4,
+      "all_300_states_golden_exact": true,
+      "immutable_original_exe_dll_hashes_verified_before_after": true
+    },
+    {
+      "directory": "outputs/moving-support-v77/native-manager",
+      "count": 2,
+      "all_300_states_golden_exact": true,
+      "immutable_original_exe_dll_hashes_verified_before_after": true
+    },
+    {
+      "directory": "outputs/moving-support-v77/native-queue",
+      "count": 2,
+      "all_300_states_golden_exact": true,
+      "immutable_original_exe_dll_hashes_verified_before_after": true
+    }
+  ],
+  "manager_creation_order_two_repeats_exact": [
+    {
+      "tick": 28,
+      "shape0_handle": 2621440,
+      "shape1_handle": 2621447,
+      "wheel_world_xy": [
+        1.100000023841858,
+        -0.75
+      ]
+    },
+    {
+      "tick": 28,
+      "shape0_handle": 2621440,
+      "shape1_handle": 2621449,
+      "wheel_world_xy": [
+        -1.100000023841858,
+        -0.75
+      ]
+    },
+    {
+      "tick": 28,
+      "shape0_handle": 2621440,
+      "shape1_handle": 2621446,
+      "wheel_world_xy": [
+        1.100000023841858,
+        0.75
+      ]
+    },
+    {
+      "tick": 28,
+      "shape0_handle": 2621440,
+      "shape1_handle": 2621448,
+      "wheel_world_xy": [
+        -1.100000023841858,
+        0.75
+      ]
+    }
+  ],
+  "creation_order_mac_wheel_indices": [
+    1,
+    3,
+    0,
+    2
+  ],
+  "spring_solve_order_mac_wheel_indices": [
+    2,
+    0,
+    3,
+    1
+  ],
+  "live_mac_spring_order": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "same_input_kernel_proofs": [
+    {
+      "optimization": "O0",
+      "result": "1920 words checked, 0 mismatches",
+      "records": 120,
+      "words": 1920,
+      "all_raw_float32_words_exact": true
+    },
+    {
+      "optimization": "O2",
+      "result": "1920 words checked, 0 mismatches",
+      "records": 120,
+      "words": 1920,
+      "all_raw_float32_words_exact": true
+    }
+  ],
+  "continuous_order_replay_report": "outputs/physics-v77-wheel-order-replay.json",
+  "confirmed_cause": "Changing only the traversal order of the same original prepared rows reproduces all20 live Mac spring impulse/velocity/angular transitions on the first-divergent tick. Native order reproduces all60 Native body transitions,720rawwords,without per-row body resets.",
+  "source_rule_recovered": [
+    "RVA14c3db appends a wheel when its contact first beats the old contact-distance sentinel.",
+    "RVA173e95 traverses the shared pending-wheel queue twice, tires then springs.",
+    "RVA7f8b4 traverses the generic constraints in descending creation order.",
+    "Contact managers are themselves created in the differing order at physical tick28 by RVA14170 caller18bbef."
+  ],
+  "remaining_work": "Recover the original broadphase/contact-manager creation order rule, implement generic queue ordering rather than a captured permutation, then run focused trajectories, full608 and291independentgates.",
+  "rejected_measurements": "The early creation-tracer spring_object lookup reused a V52 frontend handle layout that does not resolve these spring backend objects. Those created-object fields are invalid and unused. Final enqueue/kernel/manager tracers removed this lookup. Spring descriptors, backend wheel positions and generic solver-row entries remain independently verified.",
+  "full_suite_strict_count_unchanged": 116,
+  "open_cases": 492,
+  "goal_complete": false
+}

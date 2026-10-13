@@ -1,0 +1,20 @@
+--- a/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -821,0 +822,9 @@
++        const char* axisCacheFlagV73=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_CACHE_V73");
++        const bool axisCacheV73=nativeSATV72 && axisCacheFlagV73 && std::strcmp(axisCacheFlagV73,"1")==0;
++        const std::uint64_t pairKeyV73=std::uint64_t(first.GetID().GetIndexAndSequenceNumber()) |
++            (std::uint64_t(second.GetID().GetIndexAndSequenceNumber())<<32);
++        if(axisCacheV73){
++            std::scoped_lock lock(mutex_);
++            const auto previous=nativePairBoxAxesV73_.find(pairKeyV73);
++            if(previous!=nativePairBoxAxesV73_.end() && previous->second.second+1>=traceStep_)axis=previous->second.first;
++        }
+@@ -822,0 +832,5 @@
++        if(axisCacheV73){
++            std::scoped_lock lock(mutex_);
++            if(contacts.count)nativePairBoxAxesV73_[pairKeyV73]={axis,traceStep_};
++            else nativePairBoxAxesV73_.erase(pairKeyV73);
++        }
+@@ -1125,0 +1140 @@
++    std::map<std::uint64_t,std::pair<sourcebox::PxU32,std::uint64_t>> nativePairBoxAxesV73_;

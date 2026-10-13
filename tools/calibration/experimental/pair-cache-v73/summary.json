@@ -1,0 +1,200 @@
+{
+  "scope": "Accepted V73 pair SAT previous-face cache; no parameter refit.",
+  "source": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "6074aca81125ccb0e131b8acc10bf5501ba68ba25d9231f54c344ab52e3ef5de",
+      "after_sha256": "470dcb28d15b2be11898964ca9c46c65ff04b6a165a4754930d921b5216d6966"
+    }
+  ],
+  "full_matrix": {
+    "cases": 608,
+    "samples_per_repeat": 255864,
+    "repeats": 2,
+    "exact": 84,
+    "remaining": 524,
+    "two_repeats_exact": true,
+    "unchanged_trajectories": 606,
+    "changed": [
+      "pair-stock-head-0",
+      "pair-stock-head-1"
+    ],
+    "maxima": {
+      "position_max": {
+        "improved": [
+          "pair-stock-head-0",
+          "pair-stock-head-1"
+        ],
+        "worsened": [],
+        "same": 606
+      },
+      "velocity_max": {
+        "improved": [
+          "pair-stock-head-0",
+          "pair-stock-head-1"
+        ],
+        "worsened": [],
+        "same": 606
+      },
+      "orientation_max_degrees": {
+        "improved": [
+          "pair-stock-head-0",
+          "pair-stock-head-1"
+        ],
+        "worsened": [],
+        "same": 606
+      },
+      "angular_momentum_max": {
+        "improved": [
+          "pair-stock-head-0",
+          "pair-stock-head-1"
+        ],
+        "worsened": [],
+        "same": 606
+      },
+      "wheel_contact_mismatches": {
+        "improved": [],
+        "worsened": [],
+        "same": 608
+      },
+      "wheel_suspension_max": {
+        "improved": [],
+        "worsened": [],
+        "same": 608
+      },
+      "wheel_normal_force_max": {
+        "improved": [],
+        "worsened": [],
+        "same": 608
+      }
+    }
+  },
+  "improvements": {
+    "pair-stock-head-0": {
+      "name": "pair-stock-head-0",
+      "samples": 300,
+      "seconds": 5.0,
+      "pair": true,
+      "current": {
+        "angular_momentum_max": 0.35224981790458026,
+        "wheel_contact_mismatches": 0,
+        "wheel_suspension_max": 0,
+        "wheel_normal_force_max": 0,
+        "position_max": 5.3868066363507874e-06,
+        "position_rms": 3.791100272086687e-06,
+        "position_final": 5.3868066363507874e-06,
+        "velocity_max": 0.0001913622848488176,
+        "speed_max": 2.394647717451903e-06,
+        "speed_final": 2.4126760456155694e-07,
+        "orientation_max_degrees": 0.00666169698736454,
+        "orientation_final_degrees": 0.00666169698736454
+      },
+      "previous_v72": {
+        "angular_momentum_max": 1.453370439000628,
+        "wheel_contact_mismatches": 0,
+        "wheel_suspension_max": 0,
+        "wheel_normal_force_max": 0,
+        "position_max": 0.00300170383454185,
+        "position_rms": 0.0016170104856203962,
+        "position_final": 0.00300170383454185,
+        "velocity_max": 0.0016303248339770368,
+        "speed_max": 0.0014858185030504067,
+        "speed_final": 7.534180407420266e-05,
+        "orientation_max_degrees": 0.23765755683108614,
+        "orientation_final_degrees": 0.23765755683108614
+      }
+    },
+    "pair-stock-head-1": {
+      "name": "pair-stock-head-1",
+      "samples": 300,
+      "seconds": 5.0,
+      "pair": true,
+      "current": {
+        "angular_momentum_max": 0.34157472772424036,
+        "wheel_contact_mismatches": 0,
+        "wheel_suspension_max": 0,
+        "wheel_normal_force_max": 0,
+        "position_max": 5.040603707301451e-06,
+        "position_rms": 3.563820507007956e-06,
+        "position_final": 5.040603707301451e-06,
+        "velocity_max": 0.00019134808612201705,
+        "speed_max": 2.378762108179444e-06,
+        "speed_final": 2.3787411960185523e-06,
+        "orientation_max_degrees": 0.006603897221582501,
+        "orientation_final_degrees": 0.006603897221582501
+      },
+      "previous_v72": {
+        "angular_momentum_max": 2.356667387445718,
+        "wheel_contact_mismatches": 0,
+        "wheel_suspension_max": 0,
+        "wheel_normal_force_max": 0,
+        "position_max": 0.0030047360999436883,
+        "position_rms": 0.0016181837294190827,
+        "position_final": 0.0030047360999436883,
+        "velocity_max": 0.001630762300853641,
+        "speed_max": 0.0014863124626085522,
+        "speed_final": 7.438820795879764e-05,
+        "orientation_max_degrees": 0.26868649446447684,
+        "orientation_final_degrees": 0.26868649446447684
+      }
+    }
+  },
+  "gates": {
+    "cases": 291,
+    "repeats_each_mode": 2,
+    "all_exact": true
+  },
+  "ctest": {
+    "tests": 53,
+    "all_passed": true
+  },
+  "standalone_proofs": {
+    "warm_cache_axis_and_geometry_batches": 4,
+    "pair_kernel_transitions": 190,
+    "pair_material_quaternions": 14,
+    "pair_inverse_inertia_tensors": 28,
+    "compiler_optimizations": [
+      "O0",
+      "O2"
+    ]
+  },
+  "frozen": {
+    "scope": "Cache-only V73 frozen CLIs, V71/V72 SDK restored; rejected paired solver SDK excluded.",
+    "source": [
+      {
+        "location": "adapter",
+        "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+        "before_sha256": "6074aca81125ccb0e131b8acc10bf5501ba68ba25d9231f54c344ab52e3ef5de",
+        "after_sha256": "470dcb28d15b2be11898964ca9c46c65ff04b6a165a4754930d921b5216d6966"
+      }
+    ],
+    "sdk": [
+      {
+        "file": "ContactConstraintManager.cpp",
+        "sha256": "4e024d51a22061a5afa6f6151fbdc5c15761476ecf70d297358ecbf3a4c9530f"
+      },
+      {
+        "file": "ContactConstraintManager.h",
+        "sha256": "c00328eb4741c5fc12ca329a633e74c91518d533135221488840a2749fdda867"
+      },
+      {
+        "file": "../Collision/ContactListener.h",
+        "sha256": "8eb943cdb00aeb974bf48842b4b7f94907cbf364a9033973bbb561e7ef107303"
+      }
+    ],
+    "probes": [
+      {
+        "name": "rrr3d_physics_calibration",
+        "sha256": "b4ca205492f7de9980b4ba830c1e67e2aac8369a24b64d5ea9aea9eb802b8d8c"
+      },
+      {
+        "name": "rrr3d_physics_spring_probe",
+        "sha256": "5c88311cb21e88bfae34224b6bae56e7c5b50e6fb5917308d54ff93744730419"
+      }
+    ],
+    "goal_complete": false,
+    "portable_launcher_samples_exact": 600
+  },
+  "goal_complete": false
+}

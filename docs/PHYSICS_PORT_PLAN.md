@@ -256,3 +256,6 @@ Steam, network и video runtime.
 ## Проверенный этап v69 — 12 октября 2026
 
 Разделены статический и динамический пороги трения исходного Native contact-прототипа. Большая ошибка бордюра устранена до малых численных отличий; 84 из 608 сценариев точны float32, 524 остаются открытыми. Два полных повтора, 291 независимый сценарий и 53 CTest проходят. Главный следующий приоритет — контакты двух динамических машин. [Метод, результаты и границы v69](PHYSICS_STATIC_FRICTION_V69_2026-10-12.md).
+
+
+V70 (13 October 2026): peer-vehicle suspension query defect localized and corrected in a default-off investigation. Stock-pole maximum position error1.10 -> 0.000033; all124 missed wheel contacts removed.606other trajectories unchanged,84/608 exact, 524 open. Angular momentum residual regresses0.28 ->0.38; continue dynamic support/pair solver audit. See [V70 checkpoint](PHYSICS_WHEEL_VEHICLE_QUERY_V70_2026-10-13.md).

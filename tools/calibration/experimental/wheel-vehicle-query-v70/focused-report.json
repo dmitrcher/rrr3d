@@ -1,0 +1,686 @@
+{
+  "scope": "34 paired observable trajectories: fixed scripted commands, no AI; identical source parameters. V70 enables wheel rays on peer car boxes.",
+  "cases": {
+    "pair-same-head-0": {
+      "control": {
+        "position_max": 0.04577462339355696,
+        "velocity_max": 0.010629337645624697,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.04577462339355696,
+        "velocity_max": 0.010629337645624697,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-head-1": {
+      "control": {
+        "position_max": 0.0457936178241227,
+        "velocity_max": 0.010628379167375225,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.0457936178241227,
+        "velocity_max": 0.010628379167375225,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-oblique-0": {
+      "control": {
+        "position_max": 0.00348408056164136,
+        "velocity_max": 0.006804140257190069,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.00348408056164136,
+        "velocity_max": 0.006804140257190069,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-same-oblique-1": {
+      "control": {
+        "position_max": 0.003378734670329748,
+        "velocity_max": 0.00680298575410573,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.003378734670329748,
+        "velocity_max": 0.00680298575410573,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-head-on-0": {
+      "control": {
+        "position_max": 0.04572042020823234,
+        "velocity_max": 0.010627006075726132,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.04572042020823234,
+        "velocity_max": 0.010627006075726132,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-head-on-1": {
+      "control": {
+        "position_max": 0.045783111812624004,
+        "velocity_max": 0.010627006075726132,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.045783111812624004,
+        "velocity_max": 0.010627006075726132,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-heavy-peer-0": {
+      "control": {
+        "position_max": 0.10655119900658076,
+        "velocity_max": 0.02450666201545469,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.10655119900658076,
+        "velocity_max": 0.02450666201545469,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-heavy-peer-1": {
+      "control": {
+        "position_max": 0.05325662243412479,
+        "velocity_max": 0.012253022312807359,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.05325662243412479,
+        "velocity_max": 0.012253022312807359,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-first-0": {
+      "control": {
+        "position_max": 0.09522179463834145,
+        "velocity_max": 0.18545178590981107,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.09522179463834145,
+        "velocity_max": 0.18545178590981107,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-first-1": {
+      "control": {
+        "position_max": 0.09523922826252136,
+        "velocity_max": 0.185451403032253,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.09523922826252136,
+        "velocity_max": 0.185451403032253,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-second-0": {
+      "control": {
+        "position_max": 0.04632997230252116,
+        "velocity_max": 0.09273218484209711,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.04632997230252116,
+        "velocity_max": 0.09273218484209711,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-weak-second-1": {
+      "control": {
+        "position_max": 0.046337694006388194,
+        "velocity_max": 0.09273175298690611,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.046337694006388194,
+        "velocity_max": 0.09273175298690611,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-first-0": {
+      "control": {
+        "position_max": 0.03389526242677461,
+        "velocity_max": 0.1811464093292938,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.03389526242677461,
+        "velocity_max": 0.1811464093292938,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-first-1": {
+      "control": {
+        "position_max": 0.033866238802331076,
+        "velocity_max": 0.18114619891227826,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.033866238802331076,
+        "velocity_max": 0.18114619891227826,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-second-0": {
+      "control": {
+        "position_max": 0.13908221308312652,
+        "velocity_max": 0.12239862651650062,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.13908221308312652,
+        "velocity_max": 0.12239862651650062,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-tilted-second-1": {
+      "control": {
+        "position_max": 0.13907037799088773,
+        "velocity_max": 0.12239825116377498,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.13907037799088773,
+        "velocity_max": 0.12239825116377498,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-pole-0": {
+      "control": {
+        "position_max": 0.0012780004101311476,
+        "velocity_max": 9.562762312652359e-05,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 0.0012780004101311476,
+        "velocity_max": 9.562762312652359e-05,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-1": {
+      "control": {
+        "position_max": 0.0012817004089477888,
+        "velocity_max": 9.572861173537645e-05,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 0.0012817004089477888,
+        "velocity_max": 9.572861173537645e-05,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-oblique-0": {
+      "control": {
+        "position_max": 0.26098681664134404,
+        "velocity_max": 0.05969871204433921,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 0.26098681664134404,
+        "velocity_max": 0.05969871204433921,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-pole-oblique-1": {
+      "control": {
+        "position_max": 0.2609729824268196,
+        "velocity_max": 0.05969865906166073,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 0.2609729824268196,
+        "velocity_max": 0.05969865906166073,
+        "orientation_max": 0.0,
+        "first_difference": 37,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      }
+    },
+    "pair-free-oblique-0": {
+      "control": {
+        "position_max": 0.03312327467340557,
+        "velocity_max": 0.007389444139048477,
+        "orientation_max": 2.188348386950593,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.03312327467340557,
+        "velocity_max": 0.007389444139048477,
+        "orientation_max": 2.188348386950593,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-free-oblique-1": {
+      "control": {
+        "position_max": 0.03300569813174586,
+        "velocity_max": 0.007389312662895415,
+        "orientation_max": 1.0660234443602314,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.03300569813174586,
+        "velocity_max": 0.007389312662895415,
+        "orientation_max": 1.0660234443602314,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-head-0": {
+      "control": {
+        "position_max": 0.412060839373702,
+        "velocity_max": 0.09632489411850771,
+        "orientation_max": 48.61589197104238,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.412060839373702,
+        "velocity_max": 0.09632489411850771,
+        "orientation_max": 48.61589197104238,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-head-1": {
+      "control": {
+        "position_max": 0.4122172382584712,
+        "velocity_max": 0.09632560409231102,
+        "orientation_max": 48.352410613324416,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.4122172382584712,
+        "velocity_max": 0.09632560409231102,
+        "orientation_max": 48.352410613324416,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-oblique-0": {
+      "control": {
+        "position_max": 0.19256042083660438,
+        "velocity_max": 0.04750929681978209,
+        "orientation_max": 29.716262954452542,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.19256042083660438,
+        "velocity_max": 0.04750929681978209,
+        "orientation_max": 29.716262954452542,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-oblique-1": {
+      "control": {
+        "position_max": 0.19257980429969931,
+        "velocity_max": 0.04750815210799304,
+        "orientation_max": 61.557487922297994,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.19257980429969931,
+        "velocity_max": 0.04750815210799304,
+        "orientation_max": 61.557487922297994,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-weak-second-0": {
+      "control": {
+        "position_max": 0.1562147726009594,
+        "velocity_max": 0.0358405561696367,
+        "orientation_max": 48.531772326727555,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.1562147726009594,
+        "velocity_max": 0.0358405561696367,
+        "orientation_max": 48.531772326727555,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-weak-second-1": {
+      "control": {
+        "position_max": 0.15619726401189524,
+        "velocity_max": 0.03583841518613932,
+        "orientation_max": 64.5446930803871,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.15619726401189524,
+        "velocity_max": 0.03583841518613932,
+        "orientation_max": 64.5446930803871,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-stock-pole-0": {
+      "control": {
+        "position_max": 1.0990124001137072,
+        "velocity_max": 2.186174990002821,
+        "orientation_max": 0.08490746884416175,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 3.2869105036083055e-05,
+        "velocity_max": 2.407253972113967e-05,
+        "orientation_max": 0.07968012721351482,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      }
+    },
+    "pair-stock-pole-1": {
+      "control": {
+        "position_max": 1.0994892001136591,
+        "velocity_max": 2.1861741500028207,
+        "orientation_max": 0.08547096777945883,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 124,
+        "first_body_contact": 37
+      },
+      "vehicle_query": {
+        "position_max": 2.3883216977006774e-05,
+        "velocity_max": 2.268214206450402e-05,
+        "orientation_max": 0.07928297950208793,
+        "first_difference": 28,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": null
+      }
+    },
+    "pair-vertical-locked-0": {
+      "control": {
+        "position_max": 0.04602919969480278,
+        "velocity_max": 0.010663047159969342,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.04602919969480278,
+        "velocity_max": 0.010663047159969342,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-locked-1": {
+      "control": {
+        "position_max": 0.04589415824670873,
+        "velocity_max": 0.010662284109488142,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.04589415824670873,
+        "velocity_max": 0.010662284109488142,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-weak-peer-0": {
+      "control": {
+        "position_max": 0.18816202488991401,
+        "velocity_max": 0.04299940625634058,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.18816202488991401,
+        "velocity_max": 0.04299940625634058,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    },
+    "pair-vertical-weak-peer-1": {
+      "control": {
+        "position_max": 0.18807346835647396,
+        "velocity_max": 0.04299893898948724,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      },
+      "vehicle_query": {
+        "position_max": 0.18807346835647396,
+        "velocity_max": 0.04299893898948724,
+        "orientation_max": 0.0,
+        "first_difference": 38,
+        "exact": false,
+        "wheel_contact_mismatches": 0,
+        "first_body_contact": 38
+      }
+    }
+  },
+  "goal_complete": false
+}

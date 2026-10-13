@@ -1,0 +1,29 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -705,2 +705,4 @@
+-    bool wheelSourceBoxV59(const JPH::Body &body,motorrock::wheelboxrayv59::Box &output) const {
+-        if(!body.IsStatic())return false;
++    bool wheelSourceBoxV59(const JPH::Body &body,motorrock::wheelboxrayv59::Box &output,
++                           bool allowVehicleV70=false) const {
++        std::size_t vehicle=0;
++        if(!body.IsStatic() && !(allowVehicleV70 && body.IsDynamic() && vehicleIndex(body.GetUserData(),vehicle)))return false;
+@@ -2058 +2060 @@
+-                      wr::Vector start, wr::Vector unit, float length,bool exactBox)
++                      wr::Vector start, wr::Vector unit, float length,bool exactBox,bool vehicleV70)
+@@ -2060 +2062 @@
+-                  rayStart(start), unitDirection(unit), queryLength(length),nativeBox(exactBox)
++                  rayStart(start), unitDirection(unit), queryLength(length),nativeBox(exactBox),nativeVehicleV70(vehicleV70)
+@@ -2074 +2076 @@
+-                    if(contacts.wheelSourceBoxV59(lock.GetBody(),full))return;
++                    if(contacts.wheelSourceBoxV59(lock.GetBody(),full,nativeVehicleV70))return;
+@@ -2078 +2080 @@
+-                if (vehicleIndex(userData, vehicle) ||
++                if ((!nativeVehicleV70 && vehicleIndex(userData, vehicle)) ||
+@@ -2118,0 +2121 @@
++            bool nativeVehicleV70;
+@@ -2123 +2126 @@
+-        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"));
++        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"),sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_VEHICLE_QUERY_V70"));
+@@ -2145 +2148 @@
+-                if(!contacts_.wheelSourceBoxV59(lock.GetBody(),box))continue;
++                if(!contacts_.wheelSourceBoxV59(lock.GetBody(),box,collector.nativeVehicleV70))continue;

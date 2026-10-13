@@ -1,0 +1,43 @@
+{
+  "base": "Exact V85 overlay chain, before V87; requires both adapter and SDK snapshots.",
+  "candidate": "Two independently default-off fixes: direct source hard-stop displacement and native solver-body inverse-inertia for diagonal local tensors. Unchanged coefficients and generic arithmetic; non-diagonal fallback preserved.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "d8d9ada0e8c11cae859498095ba9e5a70fee8119760f7fe63347ec157b7d330d",
+      "after_sha256": "b055d7ea6619748c6fcbe81a18430378770aa7066ec063b186a328e12d1e79ff"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "cae4b704c32ed89af700b23e748e1969daf952afae006ab0db0e1d16bc673a38",
+      "after_sha256": "697e962d3d6a9fa763ab58b913bea511d925d8bf0d6bfb22739daee071a26212"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "2a080017e51c7c20497639c7490502a445c5bd80dc317fb4ae7a839aac74e917",
+      "after_sha256": "20bb8dc5af687393b1b2f45945a5ac142061757463a959ff97eb79040ba1ea1a"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "before_sha256": "59f9c165ab6675d0a913144e995ac607691eb87d222b35406a5992c115e5379a",
+      "after_sha256": "40fa80378427c228998afeed74e439ceecfe9baad3f1bb54d853db258c8db34a"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeWheelSolverInertiaV86.h",
+      "before_sha256": null,
+      "after_sha256": "cdc04e9bc54a30a59f05317d31d60fb6fb939ecc2b702315c0b13b1c9a69d8a0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "a5a71cfbc5ad0447769d596c5c0ef63db260f85f41352945704bc0591d1bd6d3",
+      "after_sha256": "9b834eb00980553a5f09a30786f123dbc1c3ebc01a7714dee3e2c04008d205dc"
+    }
+  ],
+  "goal_complete": false
+}

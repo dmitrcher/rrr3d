@@ -1,0 +1,11 @@
+# V86 native hard-stop geometry and wheel solver inertia
+
+Two independent, default-off arithmetic corrections use the source signed suspension travel plus unchanged scene slop, and PhysX scalar SSE solver-body inertia operation order for diagonal local tensors. The source scene slop is passed explicitly through wheel settings. No engine power, friction, spring, damping, radius or bias coefficient tuning. Non-diagonal local tensors retain the previous path.
+
+Actual Native captured outputs reproduce 17 geometry/tensor words at O0/O2; the old radius coordinate roundtrip fails all four captured hard-stop rates. The unchanged generic native solver reproduces 80 captured hard-stop/spring/tire rows, 1040 raw words at O0/O2. This latter same-input proof does not certify continuous full-step parity.
+
+Live first24: the first four stop and four spring body checkpoints are exact after both fixes; the following tire pass differs. V86 alone leaves the whole-state first difference at24. Two full 608-case repeats retain119 strict cases,489 open, no lost exact cases. 228whole trajectories unchanged,380changed. Full-history error maxima both improve and worsen; see the compressed regression audit. 291independent control/candidate gates pass twice each;53CTests,full signed game build,solo map smoke and rendered AI functional smoke pass. AI smoke is not parity proof.
+
+Apply only after the verified V85 overlay chain using `apply-experiment.py --sdk-root PATH --adapter-root PATH`; all six files are validated before mutation. `--restore` restores the exact V85 base, deleting the new header. Rebuild required. Research profile includes the older V66/V68 frame/solver flags as dependencies. V87 tire order/report corrections are excluded. Installed ordinary game baseline is unchanged.
+
+To reproduce actual C++ proofs compile `proofs/verify-geometry.cpp` and `proofs/verify-stop.cpp` with `-std=c++17 -ffp-contract=off -Iproofs` at O0 and O2, then execute. Source quaternion comes from unchanged Windows prior physical23, local tensor from the independently calculated Mac body, expected world tensor and rows from Native read-only captures. Original full600-state native observer runs remain Golden exact. Closed full-matrix reports preserve regressions and first differences.

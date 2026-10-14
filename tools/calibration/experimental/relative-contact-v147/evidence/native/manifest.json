@@ -1,0 +1,37 @@
+{
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\control-wake-v133\\WorldProbeV133.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\control-wake-v133\\WorldProbeV133.exe:\r\n3148e303225de65e706398c02b7855711b6a45ceaab141fa38446fd38910b89f\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\control-wake-v133\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\control-wake-v133\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\relative-contact-v147\\TraceRelativeV147.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\relative-contact-v147\\TraceRelativeV147.exe:\r\nfd661483847d3f04eb3036f2f7ee048dd64bc7b460e76f2b918918c8acceadb6\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\control-wake-v133\\track0.words": "SHA256 hash of C:\\MotorRock\\calibration-probes\\control-wake-v133\\track0.words:\r\n84def079e86575581ee15bdeb6793b0a6360c6f0545886803a6bf0e2e628e9f5\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "original_public_states_preserved": 900,
+  "tracks": [
+    0,
+    16,
+    48
+  ],
+  "repeats": 2,
+  "goal_complete": false,
+  "fixtures": {
+    "0": {
+      "sha256": "84def079e86575581ee15bdeb6793b0a6360c6f0545886803a6bf0e2e628e9f5",
+      "checked_after_capture": true,
+      "matches_original_v133_fixture": true,
+      "immediate_pre_capture_hash_recorded": true
+    },
+    "16": {
+      "sha256": "868885a10f6a3f2553a30706802f24ce98dfc0a36f59a7ba9ba848d5e546e4d4",
+      "checked_after_capture": true,
+      "matches_original_v133_fixture": true,
+      "immediate_pre_capture_hash_recorded": false
+    },
+    "48": {
+      "sha256": "1d22e05654720b008a4f789fdc550be6c0a24f718c59599bfc925235e50149a8",
+      "checked_after_capture": true,
+      "matches_original_v133_fixture": true,
+      "immediate_pre_capture_hash_recorded": false
+    }
+  },
+  "note": "Original inherited manifest listed only track0. Finalized from actual six captures; tracks16/48 hashes were checked after capture against original V133 fixture hashes, rather than immediately before this capture."
+}

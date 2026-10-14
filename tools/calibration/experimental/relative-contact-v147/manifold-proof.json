@@ -1,0 +1,569 @@
+{
+  "scope": "Offline one contact group at map0 physical342. Source box position/quaternion equal original input words; raw mesh vertices from Source. The known first-triangle patch grouping is supplied explicitly for causal isolation and is not a general runtime grouping algorithm.",
+  "checks": [
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": false,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399296,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975990,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": false,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399296,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975990,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": false,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 25,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975992,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": false,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 25,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399488,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975992,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": true,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 2,
+          "actual": 1087909195,
+          "expected": 1087909196
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975995,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": true,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 2,
+          "actual": 1087909195,
+          "expected": 1087909196
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975995,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": true,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 27,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399424,
+          "expected": 3182399552
+        }
+      ]
+    },
+    {
+      "optimization": "-O0",
+      "relative_quaternion_transforms": true,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 28,
+      "differences": []
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": false,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399296,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975990,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": false,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399296,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975990,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": false,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 25,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975992,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": false,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 25,
+      "differences": [
+        {
+          "contact": 1,
+          "field": 6,
+          "actual": 3187976075,
+          "expected": 3187975997
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399488,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975992,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": true,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 2,
+          "actual": 1087909195,
+          "expected": 1087909196
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975995,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": true,
+      "shared_plane": false,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 21,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 2,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399360,
+          "expected": 3182399552
+        },
+        {
+          "contact": 3,
+          "field": 2,
+          "actual": 1087909195,
+          "expected": 1087909196
+        },
+        {
+          "contact": 3,
+          "field": 4,
+          "actual": 3209017030,
+          "expected": 3209017028
+        },
+        {
+          "contact": 3,
+          "field": 5,
+          "actual": 1025787097,
+          "expected": 1025787013
+        },
+        {
+          "contact": 3,
+          "field": 6,
+          "actual": 3187975995,
+          "expected": 3187975997
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": true,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": false,
+      "exact_words": 27,
+      "differences": [
+        {
+          "contact": 2,
+          "field": 6,
+          "actual": 3182399424,
+          "expected": 3182399552
+        }
+      ]
+    },
+    {
+      "optimization": "-O2",
+      "relative_quaternion_transforms": true,
+      "shared_plane": true,
+      "recompute_plane_distance_at_current_vertex": true,
+      "exact_words": 28,
+      "differences": []
+    }
+  ],
+  "all_enabled_exact_both_optimization_levels": true,
+  "goal_complete": false
+}

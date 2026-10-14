@@ -1,0 +1,84 @@
+{
+  "status": "Accepted causal research checkpoint; object presence and callback queue corrected; no new complete scenario",
+  "strict_exact_cases": 465,
+  "open_cases": 143,
+  "all_previous_465_exact_preserved": true,
+  "new_exact_cases": [],
+  "two_fresh_repeat_histories_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_histories": 607,
+  "changed_histories": [
+    "slope-longitudinal"
+  ],
+  "all_complete_trajectory_maxima_no_new_regressions": true,
+  "longitudinal_first_difference_before": 21,
+  "longitudinal_first_difference_after": 24,
+  "longitudinal_maxima_before": {
+    "angular_momentum_max": 0.14542823164308202,
+    "wheel_contact_mismatches": 0,
+    "wheel_suspension_max": 6.002099999999344e-05,
+    "wheel_normal_force_max": 1.538090000000011,
+    "position_max": 0.0009732082310140417,
+    "position_rms": 0.0003914604851614562,
+    "position_final": 0.0009732082310140417,
+    "velocity_max": 0.00032563837659595456,
+    "speed_max": 0.0003255919993350176,
+    "speed_final": 0.00011683725017164193,
+    "orientation_max_degrees": 0.004233358855382983,
+    "orientation_final_degrees": 0.003990254516568262
+  },
+  "longitudinal_maxima_after": {
+    "angular_momentum_max": 0.04194999877257701,
+    "wheel_contact_mismatches": 0,
+    "wheel_suspension_max": 1.615299999999098e-05,
+    "wheel_normal_force_max": 0.5551800000002913,
+    "position_max": 0.00026836106122319443,
+    "position_rms": 8.129644687309819e-05,
+    "position_final": 0.000268278901491444,
+    "velocity_max": 0.00010033069270680871,
+    "speed_max": 0.00010020241398933649,
+    "speed_final": 9.601815068904784e-05,
+    "orientation_max_degrees": 0.0007351549041747193,
+    "orientation_final_degrees": 0.00031435857012756667
+  },
+  "body_wheel_roll_and_curb_all_states_retained_v102": true,
+  "source_files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "622f5881a2cc1abec7479217ff2e7b38caf773b1bb7415daf93ffd0cb9ae95c4",
+      "after_sha256": "063a4040fa55cb735a98e498d4f7a3cdf38413499157fd4025717be194a9dd22"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "61a9fb0d2268f04e2417b6dafad0fbe342f26acf8249b0cdb9706b444a0bfafc",
+      "after_sha256": "c020a93115ebac38b623a7d651974f329ab8cae72b08302d0bf6110eff431eee"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/NativeWheelObjectLifetimeV104.h",
+      "before_sha256": null,
+      "after_sha256": "3a0e817fdb7d946b3109bb96b6648234e827e48441ba5599c1ef2ebf1a8d1cbb"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "6bd88767ffd32d33653f62a2b13b8f1be3e9e39cc12f381ff9b5ed9a6c3c6fdb",
+      "after_sha256": "62c9792c9f697846d5b253bd1643cde8614ab5be611080591702aa442c7b8325"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/NativeWheelCallbackQueueV105.h",
+      "before_sha256": null,
+      "after_sha256": "6541e44270a5580029551f9727601de9a6c64f605ee1c4c566a9af554e7a272a"
+    }
+  ],
+  "frozen_probe_hashes": {
+    "rrr3d_physics_calibration": "0224a8732f543971c305f6a23db30d6758f7f0185437fb827d11ac5f7104d457",
+    "rrr3d_physics_spring_probe": "a95f3c33a5965c90b6dba0ab0641e170259c5df3e74a45cd343e8ccbf4258067"
+  },
+  "V103_rejected_proxy_reapplied": false,
+  "V104_intermediate_curb_fallback_regression_fixed_by_V105": true,
+  "goal_complete": false
+}

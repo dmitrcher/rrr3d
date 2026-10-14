@@ -1,0 +1,23 @@
+{
+  "scope": "Prototype V103 REJECTED: actual Native spring-object presence differs from Source solver-row IsActive and creation-index assignment. Original roll180 states two repeats Golden exact; current Mac180 repeats exactly frozen prototype. No change to original Windows. Generic group-reset branch itself is bound128inputs, but adapter lifetime predicate is wrong.",
+  "repeats": [
+    {
+      "repeat": 0,
+      "physical_tick": 9,
+      "Native_spring_objects_present_for_all_four_wheels": true,
+      "Native_group_resets_at9": 0,
+      "all_Mac_spring_solver_rows_inactive": true,
+      "Source_inactive_row_proxy_incorrectly_classifies_objects_absent": true
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 9,
+      "Native_spring_objects_present_for_all_four_wheels": true,
+      "Native_group_resets_at9": 0,
+      "all_Mac_spring_solver_rows_inactive": true,
+      "Source_inactive_row_proxy_incorrectly_classifies_objects_absent": true
+    }
+  ],
+  "next": "Track Native object allocation/existence independently of solver active mass; bind positive-travel creation even with zero coefficients, deletion/recreation, and reserve inactive object ordering. Preserve tire object lifetimes separately. No next-version runtime edit.",
+  "goal_complete": false
+}

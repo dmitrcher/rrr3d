@@ -1,0 +1,84 @@
+{
+  "scope": "Original Windows physical24 and current V103 fresh600step repeats: four springs and first tire pair exact; all corresponding tire row properties exact; second tire wheel selected differs. Original tire handles persist while actor-wide spring/stop objects recreate. Existing V87 sorts tires using broadphase pair ranks instead of the measured cached tire-object lifetime. Need generic actual tire create/delete/allocator binding before V104 edit; no case/frame dispatch or coefficient fitting. No V104 runtime edit.",
+  "repeats": [
+    {
+      "repeat": 0,
+      "physical_tick": 24,
+      "first_four_springs_all_prepared_properties_inputs_lambda_exact": true,
+      "all_eight_tire_rows_mass_axis3_jacobian3_inverse_jacobian3_exact": true,
+      "Mac_tire_wheels_bound_by_actual_world_contact_points": [
+        3,
+        1,
+        0,
+        2
+      ],
+      "Native_tire_wheel_order_bound_by_unique_mass_and_geometry": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "first_two_tire_inputs_and_result_lambdas_exact": true,
+      "actual_Native_tire_handle_indices_at21": {
+        "2": [
+          5,
+          4
+        ],
+        "0": [
+          0,
+          1
+        ],
+        "1": [
+          2,
+          3
+        ],
+        "3": [
+          6,
+          7
+        ]
+      },
+      "front_tire_handles_retained19_20_21": true,
+      "descending_cached_tire_object_indices_predict_actual_Native_order": true
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 24,
+      "first_four_springs_all_prepared_properties_inputs_lambda_exact": true,
+      "all_eight_tire_rows_mass_axis3_jacobian3_inverse_jacobian3_exact": true,
+      "Mac_tire_wheels_bound_by_actual_world_contact_points": [
+        3,
+        1,
+        0,
+        2
+      ],
+      "Native_tire_wheel_order_bound_by_unique_mass_and_geometry": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "first_two_tire_inputs_and_result_lambdas_exact": true,
+      "actual_Native_tire_handle_indices_at21": {
+        "2": [
+          5,
+          4
+        ],
+        "0": [
+          0,
+          1
+        ],
+        "1": [
+          2,
+          3
+        ],
+        "3": [
+          6,
+          7
+        ]
+      },
+      "front_tire_handles_retained19_20_21": true,
+      "descending_cached_tire_object_indices_predict_actual_Native_order": true
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,60 @@
+{
+  "scope": "Original fixture explicitly zero spring/damper,travel5; actual Native creates all four spring objects at0 and retains handles1..12. Backend field2a4 travel5 matches fixture and adapter SourceWheel.suspensionTravel->mSuspensionMaxLength. IsActive/mass cannot represent object presence. No next-version source edit.",
+  "repeats": [
+    {
+      "repeat": 0,
+      "spring_objects_created_at_physical0": [
+        {
+          "wheel": 0,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883592
+        },
+        {
+          "wheel": 1,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883593
+        },
+        {
+          "wheel": 2,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883594
+        },
+        {
+          "wheel": 3,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883595
+        }
+      ],
+      "fixture_Fixture_h123_spring_and_damper_zero_travel5": true,
+      "all_objects_retained_through12": true
+    },
+    {
+      "repeat": 1,
+      "spring_objects_created_at_physical0": [
+        {
+          "wheel": 0,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883592
+        },
+        {
+          "wheel": 1,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883593
+        },
+        {
+          "wheel": 2,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883594
+        },
+        {
+          "wheel": 3,
+          "Native_suspension_travel_field2a4": 5.0,
+          "Native_spring_handle": 2883595
+        }
+      ],
+      "fixture_Fixture_h123_spring_and_damper_zero_travel5": true,
+      "all_objects_retained_through12": true
+    }
+  ],
+  "goal_complete": false
+}

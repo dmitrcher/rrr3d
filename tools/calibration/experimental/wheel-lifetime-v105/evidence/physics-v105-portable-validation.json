@@ -1,0 +1,30 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_Native_query_inputs_exact": 128,
+      "actual_Native_positive_travel_branch_hits_exact": 1184,
+      "actual_Native_callback_prepare_frames_exact": 254,
+      "zero_travel_and_arbitrary_callback_domains_certified": false
+    },
+    {
+      "optimization": "O2",
+      "actual_Native_query_inputs_exact": 128,
+      "actual_Native_positive_travel_branch_hits_exact": 1184,
+      "actual_Native_callback_prepare_frames_exact": 254,
+      "zero_travel_and_arbitrary_callback_domains_certified": false
+    }
+  ],
+  "goal_complete": false,
+  "fresh_probe_checkpoint": {
+    "states": 1980,
+    "cases": 4,
+    "all_observed_float_words_exact_original_windows": true,
+    "probe_sha256": "0224a8732f543971c305f6a23db30d6758f7f0185437fb827d11ac5f7104d457"
+  },
+  "fresh_rejected_fixture_retained_v102": {
+    "states": 180,
+    "all_observable_float_words_exact_accepted_v102": true,
+    "all_words_exact_Windows_claimed": false
+  }
+}

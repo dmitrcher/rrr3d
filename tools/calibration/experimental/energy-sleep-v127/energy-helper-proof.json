@@ -1,0 +1,34 @@
+{
+  "scope": "Actual Native per-step input -> standalone scalar energy/accumulation/wake model; no runtime state correction. General scene interaction counts and sleep commit still unimplemented.",
+  "checks": [
+    {
+      "repeat": 0,
+      "optimization": "O0",
+      "frames": 548,
+      "failure_count": 0,
+      "failures": []
+    },
+    {
+      "repeat": 0,
+      "optimization": "O2",
+      "frames": 548,
+      "failure_count": 0,
+      "failures": []
+    },
+    {
+      "repeat": 1,
+      "optimization": "O0",
+      "frames": 548,
+      "failure_count": 0,
+      "failures": []
+    },
+    {
+      "repeat": 1,
+      "optimization": "O2",
+      "frames": 548,
+      "failure_count": 0,
+      "failures": []
+    }
+  ],
+  "goal_complete": false
+}

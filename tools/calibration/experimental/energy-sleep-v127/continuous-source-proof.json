@@ -1,0 +1,16 @@
+{
+  "scope": "Continuously evolving standalone scalar state driven ONLY by actual Source private pose/mass and source geometry-derived mesh/wheel interaction counts. No Native wake/accumulator resets or recorded expected values enter model. Full scene count integration and live sleep commit remain open.",
+  "checks": [
+    {
+      "optimization": "O0",
+      "frames": 80,
+      "failures": []
+    },
+    {
+      "optimization": "O2",
+      "frames": 80,
+      "failures": []
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,20 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3440,6 +3440,17 @@
+                         p.x, p.y, p.z, v.x, v.y, v.z, a.x, a.y, a.z);
+                 }
+                 std::fclose(file);
++                const char* posePath=std::getenv("RRR3D_SLEEP_POSE_TRACE_FILE_V127");
++                if(posePath && *posePath)if(FILE* poseFile=std::fopen(posePath,"a")) {
++                    for(std::size_t index=0;index<vehicles_.size();++index) {
++                        const auto& vehicle=vehicles_[index];
++                        JPH::BodyLockRead lock(system_.GetBodyLockInterface(),vehicle.body);if(!lock.Succeeded())continue;
++                        const auto& body=lock.GetBody();const auto c=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));const auto q=fromJolt(body.GetRotation());
++                        const auto diag=body.GetMotionProperties()->GetLocalSpaceInverseInertia();
++                        std::fprintf(poseFile,"{\"phase\":\"%s\",\"vehicle\":%zu,\"step\":%u,\"center\":[%.9g,%.9g,%.9g],\"rotation\":[%.9g,%.9g,%.9g,%.9g],\"inverse_mass\":%.9g,\"inverse_inertia\":[%.9g,%.9g,%.9g]}\n",phase,index,vehicle.constraint->GetSourceSimulationCounterV59(),c.x,c.y,c.z,q.x,q.y,q.z,q.w,body.GetMotionProperties()->GetInverseMass(),diag(0,0),diag(2,2),diag(1,1));
++                    }
++                    std::fclose(poseFile);
++                }
+             };
+             traceSleepV83("before-update");
+             system_.Update(delta, 1, &tempAllocator_, &jobs_);

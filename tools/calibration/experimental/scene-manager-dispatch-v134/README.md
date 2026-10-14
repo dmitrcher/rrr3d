@@ -1,0 +1,15 @@
+# V134: original scene contact dispatch investigation
+
+Goal remains incomplete. Experimental flag defaults off. Ordinary installed game is unchanged.
+
+The V133 original GameCar wake fixtures expose awake-drive differences not covered by the older resting SDK torque fixtures. Native readonly manager observation proves wheel0 manager removal/recreation changes preparation order at210. The previous Source adapter disabled its geometric manager model for large placed-mesh/decor scenes and fell back to fixed callback order.
+
+V134 extends the existing Source broadphase endpoint/node and dense manager model to the one-car original placed-mesh/decor scene. Mesh bounds come from cooked local bounds and actor pose; registered mesh order and obstaclesAfterVehicles creation phase are retained. Dynamic decoration/children share parent actor IDs. No measured frame/wheel ordering or coefficient fitting is injected. Compound filters, sensor/disabled groups, dynamic bounds, death plane, general islands and exact manager activation are still not fully certified.
+
+Two repeated900-state awake-drive captures per map have identical inputs/fixtures and repeat exactly. First difference on maps0/16/48/64 moves from210/242/213/238 to301/244/293/238. At210 all60 intermediate original solver body inputs and four spring mass/Jacobian/inverse-Jacobian rows match. At301 prepared rows still match but solve order differs. These are exact prefixes, not full-map parity.
+
+Rejected V135 tried dispatching by the first potential manager instead of the selected ray-hit manager. It improves maps0/48 to314/347 but regresses map16 to20 and introduces a body error at238 on map64. Native20 has exact starting body motion and spring coefficients but solve order3,2,1,0; candidate0,2,1,3. Native query order at20 is0,1,2,3. No wheel-query calls were observed on0..19, despite Source geometric potential pairs already existing. This points to missing manager activation/filtering or callback lifetime, not evidence for any coefficient change. V135 is removed from active Source and retained only as rejected research evidence.
+
+Restored V134 build passes53 CTest checks. Default-off900 physical states and900 commands exactly preserve V133. Guarded one-file overlay is verified against the V133 research base; SDK is unchanged. Full608-case matrix: all608 cases and255864 physical states match the immutable Windows float32 contract, with two exactly equal captures. Windows reference SHA256 remains4bcc66c8f4f28ccb77a07759175573cc56d72035636642617fae4e75addecc1f. This isolated regression matrix does not cover the remaining awake-drive divergences. No production promotion is authorized by these partial moving-fixture results.
+
+Next: bind actual active manager traversal and wheel-query enqueue/retention to geometry, including rejected map16 initial contact20 and map0 change301. Keep selected-hit and first-potential hypotheses distinct; do not introduce per-map/frame exceptions. Original MotorProgress/FP context, production wake-event transport and rendered-race validation remain open.

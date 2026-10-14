@@ -1,0 +1,95 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -5222,7 +5222,10 @@
+             && description_.collisionMeshes.size()==2
+             && description_.collisionMeshes[0].surface==CollisionSurface::TrackPlane
+             && description_.collisionMeshes[1].surface==CollisionSurface::TrackBorder;
+-        sourceStaticPairOrderV108_=sourceStaticPairOrderV108_ || multiStaticMeshV109;
++        const bool generalSceneV134=vehicles_.size()==1
++            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SCENE_DISPATCH_V134")
++            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126");
++        sourceStaticPairOrderV108_=sourceStaticPairOrderV108_ || multiStaticMeshV109 || generalSceneV134;
+         sourceContactOrderV79_.useRecycledNodesV90(sourceStaticGroundOrderV90_ || sourceStaticPairOrderV108_);
+         sourceContactOrderV79_.trackPairEventsV108(sourceStaticPairOrderV108_);
+         sourceStaticBodyShapesV108_.clear();
+@@ -5244,13 +5247,46 @@
+             }
+             shapes.push_back(ground);
+         };
+-        if(sourceStaticGroundOrderV90_ || sourceStaticPairOrderV108_)
++        std::vector<JPH::BodyID> generalMeshBodiesV134;
++        const auto addGeneralMeshV134=[&](JPH::BodyID id) {
++            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);order::Shape shape;shape.actor=0;
++            shape.enabled=lock.GetBody().IsInBroadPhase();
++            if(!contactListener_.sleepShapeBoundsV128(lock.GetBody(),shape.bounds))throw std::runtime_error("General scene order: missing original mesh bounds");
++            sourceStaticBodyShapesV108_[id.GetIndexAndSequenceNumber()]=static_cast<unsigned>(shapes.size()+1);shapes.push_back(shape);
++        };
++        if(generalSceneV134) {
++            auto& meshBodies=generalMeshBodiesV134;
++            const auto collect=[&](JPH::BodyID id) {
++                if(id.IsInvalid())return;JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);
++                if(lock.Succeeded() && lock.GetBody().GetShape()->GetSubType()==JPH::EShapeSubType::Mesh)meshBodies.push_back(id);
++            };
++            for(auto id:trackBodies_)collect(id);
++            for(const auto& d:decorations_)for(auto id:d.meshBodies)collect(id);
++            const auto meshKey=[&](JPH::BodyID id) {JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);return lock.GetBody().GetShape()->GetUserData();};
++            std::sort(meshBodies.begin(),meshBodies.end(),[&](auto a,auto b){return meshKey(a)<meshKey(b);});
++            for(auto id:meshBodies) {
++                bool before=false;{JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);
++                before=!description_.obstaclesAfterVehicles || collisionSurface(lock.GetBody().GetUserData())==CollisionSurface::TrackPlane;}
++                if(before)addGeneralMeshV134(id);
++            }
++        } else if(sourceStaticGroundOrderV90_ || sourceStaticPairOrderV108_)
+             addStaticMeshV109(description_.collisionMeshes.front());
+-        if(multiStaticMeshV109 && !description_.obstaclesAfterVehicles)
++        if(!generalSceneV134 && multiStaticMeshV109 && !description_.obstaclesAfterVehicles)
+             addStaticMeshV109(description_.collisionMeshes[1]);
+         const auto addStaticBoxesV108=[&]() {
+             if(!sourceStaticPairOrderV108_)return;
+-            for(const auto& decoration:decorations_) {
++            for(unsigned decorIndex=0;decorIndex<decorations_.size();++decorIndex) {
++                const auto& decoration=decorations_[decorIndex];
++                if(generalSceneV134) {
++                    const unsigned actor=description_.decorations[decorIndex].dynamic?unsigned(vehicles_.size()+decorIndex+1):0;
++                    const auto add=[&](JPH::BodyID id) {
++                        if(id.IsInvalid())return;JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);if(!lock.Succeeded())throw std::runtime_error("General scene order: missing decoration");
++                        order::Shape shape;shape.actor=actor;shape.enabled=lock.GetBody().IsInBroadPhase();
++                        if(!contactListener_.sleepShapeBoundsV128(lock.GetBody(),shape.bounds))throw std::runtime_error("General scene order: unsupported decoration bounds");
++                        sourceStaticBodyShapesV108_[id.GetIndexAndSequenceNumber()]=static_cast<unsigned>(shapes.size()+1);shapes.push_back(shape);
++                    };
++                    add(decoration.shapeBody);for(auto id:decoration.childShapeBodies)add(id);continue;
++                }
+                 JPH::BodyLockRead lock(system_.GetBodyLockInterface(),decoration.shapeBody);
+                 if(!lock.Succeeded())throw std::runtime_error("Native static manager order: missing box");
+                 motorrock::wheelboxrayv59::Box box;
+@@ -5291,7 +5327,11 @@
+                 shapes.push_back(w);
+             }
+         }
+-        if(multiStaticMeshV109 && description_.obstaclesAfterVehicles)
++        if(generalSceneV134 && description_.obstaclesAfterVehicles)for(auto id:generalMeshBodiesV134) {
++            bool after=false;{JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);after=collisionSurface(lock.GetBody().GetUserData())!=CollisionSurface::TrackPlane;}
++            if(after)addGeneralMeshV134(id);
++        }
++        if(!generalSceneV134 && multiStaticMeshV109 && description_.obstaclesAfterVehicles)
+             addStaticMeshV109(description_.collisionMeshes[1]);
+         if(description_.obstaclesAfterVehicles)addStaticBoxesV108();
+         const bool initializing=!sourceContactOrderV79_.initialized();
+@@ -5593,6 +5633,17 @@
+                             else {const auto it=sourceStaticBodyShapesV108_.find(current->GetContactBodyID().GetIndexAndSequenceNumber());if(it!=sourceStaticBodyShapesV108_.end())support=it->second;}
+                             if(support)dispatch[wheel]=sourceWheelManagerOrderV108_.order(sourceContactBodyShapesV79_[vehicleIndexValue]+1+wheel,support);
+                         }
++                    }
++                    if(const char* path=std::getenv("RRR3D_SCENE_DISPATCH_TRACE_FILE_V134"))if(*path)if(FILE* file=std::fopen(path,"a")) {
++                        std::fprintf(file,"{\"step\":%u,\"selected_ranks\":[",constraint.GetSourceSimulationCounterV59());
++                        for(unsigned i=0;i<dispatch.size();++i)std::fprintf(file,"%s%llu",i?",":"",static_cast<unsigned long long>(dispatch[i]));
++                        std::fprintf(file,"],\"first_manager_ranks\":[");
++                        for(unsigned wheel=0;wheel<constraint.GetWheels().size();++wheel) {
++                            const unsigned shape=sourceContactBodyShapesV79_[vehicleIndexValue]+1+wheel;unsigned rank=0,index=0;
++                            for(const auto& pair:sourceWheelManagerOrderV108_.entries()){++index;if(pair.first==shape || pair.second==shape){rank=index;break;}}
++                            std::fprintf(file,"%s%u",wheel?",":"",rank);
++                        }
++                        std::fprintf(file,"]}\n");std::fclose(file);
+                     }
+                     constraint.SetSourceCallbackDispatchOrderV108(dispatch);
+                     const char* path=std::getenv("RRR3D_CONTACT_ORDER_TRACE_FILE_V79");

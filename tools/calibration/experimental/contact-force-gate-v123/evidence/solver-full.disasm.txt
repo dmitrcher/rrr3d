@@ -1,0 +1,545 @@
+101e7e50: 8b 44 24 04                  	movl	0x4(%esp), %eax
+101e7e54: 81 ec a8 00 00 00            	subl	$0xa8, %esp
+101e7e5a: 53                           	pushl	%ebx
+101e7e5b: 0f b6 58 01                  	movzbl	0x1(%eax), %ebx
+101e7e5f: 56                           	pushl	%esi
+101e7e60: 57                           	pushl	%edi
+101e7e61: 8d 70 48                     	leal	0x48(%eax), %esi
+101e7e64: 8d 7b 01                     	leal	0x1(%ebx), %edi
+101e7e67: 8d 4e b8                     	leal	-0x48(%esi), %ecx
+101e7e6a: e8 71 c3 e9 ff               	calll	0x100841e0 <.text+0x831e0>
+101e7e6f: f3 0f 10 1d d8 15 33 10      	movss	0x103315d8, %xmm3
+101e7e77: f3 0f 10 56 f8               	movss	-0x8(%esi), %xmm2
+101e7e7c: f3 0f 10 66 fc               	movss	-0x4(%esi), %xmm4
+101e7e81: f3 0f 10 0e                  	movss	(%esi), %xmm1
+101e7e85: f3 0f 10 76 04               	movss	0x4(%esi), %xmm6
+101e7e8a: 0f 28 c2                     	movaps	%xmm2, %xmm0
+101e7e8d: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+101e7e91: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101e7e95: 8b 46 c0                     	movl	-0x40(%esi), %eax
+101e7e98: 0f 28 ec                     	movaps	%xmm4, %xmm5
+101e7e9b: f3 0f 11 54 24 40            	movss	%xmm2, 0x40(%esp)
+101e7ea1: 0f 28 d4                     	movaps	%xmm4, %xmm2
+101e7ea4: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101e7ea8: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+101e7eac: f3 0f 11 64 24 70            	movss	%xmm4, 0x70(%esp)
+101e7eb2: 0f 28 e1                     	movaps	%xmm1, %xmm4
+101e7eb5: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101e7eb9: f3 0f 11 64 24 3c            	movss	%xmm4, 0x3c(%esp)
+101e7ebf: 0f 28 e6                     	movaps	%xmm6, %xmm4
+101e7ec2: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101e7ec6: 0f 28 f9                     	movaps	%xmm1, %xmm7
+101e7ec9: f3 0f 59 fb                  	mulss	%xmm3, %xmm7
+101e7ecd: 0f 28 c6                     	movaps	%xmm6, %xmm0
+101e7ed0: f3 0f 59 f7                  	mulss	%xmm7, %xmm6
+101e7ed4: f3 0f 59 c5                  	mulss	%xmm5, %xmm0
+101e7ed8: f3 0f 59 d5                  	mulss	%xmm5, %xmm2
+101e7edc: 0f 28 d9                     	movaps	%xmm1, %xmm3
+101e7edf: f3 0f 59 df                  	mulss	%xmm7, %xmm3
+101e7ee3: 0f 28 fb                     	movaps	%xmm3, %xmm7
+101e7ee6: f3 0f 58 5c 24 40            	addss	0x40(%esp), %xmm3
+101e7eec: f3 0f 58 fa                  	addss	%xmm2, %xmm7
+101e7ef0: f3 0f 58 54 24 40            	addss	0x40(%esp), %xmm2
+101e7ef6: f3 0f 59 cd                  	mulss	%xmm5, %xmm1
+101e7efa: f3 0f 10 2d 84 15 33 10      	movss	0x10331584, %xmm5
+101e7f02: f3 0f 5c ef                  	subss	%xmm7, %xmm5
+101e7f06: 0f 28 fe                     	movaps	%xmm6, %xmm7
+101e7f09: f3 0f 11 74 24 58            	movss	%xmm6, 0x58(%esp)
+101e7f0f: f3 0f 10 74 24 70            	movss	0x70(%esp), %xmm6
+101e7f15: f3 0f 58 fe                  	addss	%xmm6, %xmm7
+101e7f19: f3 0f 5c 74 24 58            	subss	0x58(%esp), %xmm6
+101e7f1f: f3 0f 11 7c 24 14            	movss	%xmm7, 0x14(%esp)
+101e7f25: f3 0f 10 7c 24 3c            	movss	0x3c(%esp), %xmm7
+101e7f2b: f3 0f 5c f8                  	subss	%xmm0, %xmm7
+101e7f2f: f3 0f 58 44 24 3c            	addss	0x3c(%esp), %xmm0
+101e7f35: f3 0f 11 7c 24 18            	movss	%xmm7, 0x18(%esp)
+101e7f3b: f3 0f 10 3d 84 15 33 10      	movss	0x10331584, %xmm7
+101e7f43: f3 0f 11 74 24 1c            	movss	%xmm6, 0x1c(%esp)
+101e7f49: 0f 28 f7                     	movaps	%xmm7, %xmm6
+101e7f4c: f3 0f 5c f3                  	subss	%xmm3, %xmm6
+101e7f50: f3 0f 11 44 24 28            	movss	%xmm0, 0x28(%esp)
+101e7f56: 0f 28 c7                     	movaps	%xmm7, %xmm0
+101e7f59: f3 0f 10 78 18               	movss	0x18(%eax), %xmm7
+101e7f5e: f3 0f 5c c2                  	subss	%xmm2, %xmm0
+101e7f62: 0f 28 d9                     	movaps	%xmm1, %xmm3
+101e7f65: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101e7f69: f3 0f 5c cc                  	subss	%xmm4, %xmm1
+101e7f6d: f3 0f 11 5c 24 24            	movss	%xmm3, 0x24(%esp)
+101e7f73: f3 0f 11 44 24 30            	movss	%xmm0, 0x30(%esp)
+101e7f79: f3 0f 10 46 dc               	movss	-0x24(%esi), %xmm0
+101e7f7e: f3 0f 11 4c 24 2c            	movss	%xmm1, 0x2c(%esp)
+101e7f84: f3 0f 10 4e e0               	movss	-0x20(%esi), %xmm1
+101e7f89: 0f 28 d8                     	movaps	%xmm0, %xmm3
+101e7f8c: f3 0f 59 df                  	mulss	%xmm7, %xmm3
+101e7f90: f3 0f 11 74 24 20            	movss	%xmm6, 0x20(%esp)
+101e7f96: f3 0f 10 70 14               	movss	0x14(%eax), %xmm6
+101e7f9b: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101e7f9e: f3 0f 59 d6                  	mulss	%xmm6, %xmm2
+101e7fa2: f3 0f 5c d3                  	subss	%xmm3, %xmm2
+101e7fa6: f3 0f 10 5e d8               	movss	-0x28(%esi), %xmm3
+101e7fab: 0f 28 e3                     	movaps	%xmm3, %xmm4
+101e7fae: f3 0f 59 e7                  	mulss	%xmm7, %xmm4
+101e7fb2: f3 0f 10 78 10               	movss	0x10(%eax), %xmm7
+101e7fb7: f3 0f 59 cf                  	mulss	%xmm7, %xmm1
+101e7fbb: f3 0f 59 c7                  	mulss	%xmm7, %xmm0
+101e7fbf: f3 0f 10 38                  	movss	(%eax), %xmm7
+101e7fc3: f3 0f 59 de                  	mulss	%xmm6, %xmm3
+101e7fc7: f3 0f 5c e1                  	subss	%xmm1, %xmm4
+101e7fcb: f3 0f 5c c3                  	subss	%xmm3, %xmm0
+101e7fcf: f3 0f 58 fa                  	addss	%xmm2, %xmm7
+101e7fd3: f3 0f 10 48 04               	movss	0x4(%eax), %xmm1
+101e7fd8: f3 0f 58 cc                  	addss	%xmm4, %xmm1
+101e7fdc: f3 0f 11 8c 24 88 00 00 00   	movss	%xmm1, 0x88(%esp)
+101e7fe5: f3 0f 10 48 08               	movss	0x8(%eax), %xmm1
+101e7fea: 8b 46 bc                     	movl	-0x44(%esi), %eax
+101e7fed: f3 0f 10 58 14               	movss	0x14(%eax), %xmm3
+101e7ff2: f3 0f 10 70 18               	movss	0x18(%eax), %xmm6
+101e7ff7: f3 0f 58 c8                  	addss	%xmm0, %xmm1
+101e7ffb: f3 0f 10 46 cc               	movss	-0x34(%esi), %xmm0
+101e8000: f3 0f 11 8c 24 8c 00 00 00   	movss	%xmm1, 0x8c(%esp)
+101e8009: f3 0f 10 4e d0               	movss	-0x30(%esi), %xmm1
+101e800e: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101e8011: f3 0f 59 d3                  	mulss	%xmm3, %xmm2
+101e8015: 0f 28 d8                     	movaps	%xmm0, %xmm3
+101e8018: f3 0f 59 de                  	mulss	%xmm6, %xmm3
+101e801c: f3 0f 5c d3                  	subss	%xmm3, %xmm2
+101e8020: f3 0f 10 5e c8               	movss	-0x38(%esi), %xmm3
+101e8025: 0f 28 e3                     	movaps	%xmm3, %xmm4
+101e8028: f3 0f 59 e6                  	mulss	%xmm6, %xmm4
+101e802c: f3 0f 10 70 10               	movss	0x10(%eax), %xmm6
+101e8031: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+101e8035: f3 0f 59 ce                  	mulss	%xmm6, %xmm1
+101e8039: f3 0f 10 76 2c               	movss	0x2c(%esi), %xmm6
+101e803e: f3 0f 5c e1                  	subss	%xmm1, %xmm4
+101e8042: f3 0f 10 48 14               	movss	0x14(%eax), %xmm1
+101e8047: f3 0f 59 d9                  	mulss	%xmm1, %xmm3
+101e804b: f3 0f 10 08                  	movss	(%eax), %xmm1
+101e804f: f3 0f 5c c3                  	subss	%xmm3, %xmm0
+101e8053: f3 0f 10 58 08               	movss	0x8(%eax), %xmm3
+101e8058: f3 0f 58 d8                  	addss	%xmm0, %xmm3
+101e805c: f3 0f 5c 9c 24 8c 00 00 00   	subss	0x8c(%esp), %xmm3
+101e8065: f3 0f 58 ca                  	addss	%xmm2, %xmm1
+101e8069: f3 0f 10 50 04               	movss	0x4(%eax), %xmm2
+101e806e: f3 0f 58 d4                  	addss	%xmm4, %xmm2
+101e8072: f3 0f 5c 94 24 88 00 00 00   	subss	0x88(%esp), %xmm2
+101e807b: f3 0f 5c cf                  	subss	%xmm7, %xmm1
+101e807f: f3 0f 10 7e 24               	movss	0x24(%esi), %xmm7
+101e8084: 0f 28 e1                     	movaps	%xmm1, %xmm4
+101e8087: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+101e808b: 0f 28 c3                     	movaps	%xmm3, %xmm0
+101e808e: f3 0f 59 44 24 18            	mulss	0x18(%esp), %xmm0
+101e8094: f3 0f 58 e0                  	addss	%xmm0, %xmm4
+101e8098: 0f 28 c2                     	movaps	%xmm2, %xmm0
+101e809b: f3 0f 59 44 24 14            	mulss	0x14(%esp), %xmm0
+101e80a1: f3 0f 58 e0                  	addss	%xmm0, %xmm4
+101e80a5: f3 0f 10 46 34               	movss	0x34(%esi), %xmm0
+101e80aa: f3 0f 5c c4                  	subss	%xmm4, %xmm0
+101e80ae: f3 0f 59 46 08               	mulss	0x8(%esi), %xmm0
+101e80b3: f3 0f 5c 46 18               	subss	0x18(%esi), %xmm0
+101e80b8: 0f 28 e7                     	movaps	%xmm7, %xmm4
+101e80bb: f3 0f 58 e0                  	addss	%xmm0, %xmm4
+101e80bf: 0f 2f e6                     	comiss	%xmm6, %xmm4
+101e80c2: 76 0e                        	jbe	0x101e80d2 <NxCreateCoreSDK+0x8e82>
+101e80c4: 0f 28 c6                     	movaps	%xmm6, %xmm0
+101e80c7: f3 0f 5c c7                  	subss	%xmm7, %xmm0
+101e80cb: f3 0f 11 76 24               	movss	%xmm6, 0x24(%esi)
+101e80d0: eb 1d                        	jmp	0x101e80ef <NxCreateCoreSDK+0x8e9f>
+101e80d2: f3 0f 10 76 30               	movss	0x30(%esi), %xmm6
+101e80d7: 0f 2f f4                     	comiss	%xmm4, %xmm6
+101e80da: 76 0e                        	jbe	0x101e80ea <NxCreateCoreSDK+0x8e9a>
+101e80dc: 0f 28 c6                     	movaps	%xmm6, %xmm0
+101e80df: f3 0f 5c c7                  	subss	%xmm7, %xmm0
+101e80e3: f3 0f 11 76 24               	movss	%xmm6, 0x24(%esi)
+101e80e8: eb 05                        	jmp	0x101e80ef <NxCreateCoreSDK+0x8e9f>
+101e80ea: f3 0f 11 66 24               	movss	%xmm4, 0x24(%esi)
+101e80ef: f3 0f 10 74 24 14            	movss	0x14(%esp), %xmm6
+101e80f5: f3 0f 10 7c 24 18            	movss	0x18(%esp), %xmm7
+101e80fb: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+101e80ff: f3 0f 59 f0                  	mulss	%xmm0, %xmm6
+101e8103: f3 0f 59 f8                  	mulss	%xmm0, %xmm7
+101e8107: f3 0f 10 46 24               	movss	0x24(%esi), %xmm0
+101e810c: 0f 28 e5                     	movaps	%xmm5, %xmm4
+101e810f: f3 0f 11 6c 24 60            	movss	%xmm5, 0x60(%esp)
+101e8115: 0f 28 ee                     	movaps	%xmm6, %xmm5
+101e8118: f3 0f 11 74 24 64            	movss	%xmm6, 0x64(%esp)
+101e811e: 0f 28 f7                     	movaps	%xmm7, %xmm6
+101e8121: f3 0f 11 7c 24 68            	movss	%xmm7, 0x68(%esp)
+101e8127: 0f 57 ff                     	xorps	%xmm7, %xmm7
+101e812a: 0f 2f c7                     	comiss	%xmm7, %xmm0
+101e812d: f3 0f 11 64 24 48            	movss	%xmm4, 0x48(%esp)
+101e8133: f3 0f 11 6c 24 4c            	movss	%xmm5, 0x4c(%esp)
+101e8139: f3 0f 11 74 24 50            	movss	%xmm6, 0x50(%esp)
+101e813f: f3 0f 11 44 24 0c            	movss	%xmm0, 0xc(%esp)
+101e8145: 0f 86 74 02 00 00            	jbe	0x101e83bf <NxCreateCoreSDK+0x916f>
+101e814b: f3 0f 10 46 d4               	movss	-0x2c(%esi), %xmm0
+101e8150: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+101e8153: 9f                           	lahf
+101e8154: f3 0f 11 44 24 74            	movss	%xmm0, 0x74(%esp)
+101e815a: f6 c4 44                     	testb	$0x44, %ah
+101e815d: 7a 2e                        	jp	0x101e818d <NxCreateCoreSDK+0x8f3d>
+101e815f: f3 0f 10 46 f4               	movss	-0xc(%esi), %xmm0
+101e8164: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+101e8167: 9f                           	lahf
+101e8168: f6 c4 44                     	testb	$0x44, %ah
+101e816b: 7a 20                        	jp	0x101e818d <NxCreateCoreSDK+0x8f3d>
+101e816d: f3 0f 10 46 e4               	movss	-0x1c(%esi), %xmm0
+101e8172: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+101e8175: 9f                           	lahf
+101e8176: f6 c4 44                     	testb	$0x44, %ah
+101e8179: 7a 12                        	jp	0x101e818d <NxCreateCoreSDK+0x8f3d>
+101e817b: f3 0f 10 46 14               	movss	0x14(%esi), %xmm0
+101e8180: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+101e8183: 9f                           	lahf
+101e8184: f6 c4 44                     	testb	$0x44, %ah
+101e8187: 0f 8b 32 02 00 00            	jnp	0x101e83bf <NxCreateCoreSDK+0x916f>
+101e818d: f3 0f 10 7c 24 24            	movss	0x24(%esp), %xmm7
+101e8193: f3 0f 10 74 24 20            	movss	0x20(%esp), %xmm6
+101e8199: f3 0f 10 2d 70 15 33 10      	movss	0x10331570, %xmm5
+101e81a1: 0f 28 e1                     	movaps	%xmm1, %xmm4
+101e81a4: f3 0f 59 64 24 1c            	mulss	0x1c(%esp), %xmm4
+101e81aa: 0f 28 c7                     	movaps	%xmm7, %xmm0
+101e81ad: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+101e81b1: f3 0f 58 e0                  	addss	%xmm0, %xmm4
+101e81b5: 0f 28 c6                     	movaps	%xmm6, %xmm0
+101e81b8: f3 0f 59 c2                  	mulss	%xmm2, %xmm0
+101e81bc: f3 0f 58 e0                  	addss	%xmm0, %xmm4
+101e81c0: f3 0f 10 44 24 28            	movss	0x28(%esp), %xmm0
+101e81c6: f3 0f 59 66 0c               	mulss	0xc(%esi), %xmm4
+101e81cb: f3 0f 59 c1                  	mulss	%xmm1, %xmm0
+101e81cf: f3 0f 10 4c 24 30            	movss	0x30(%esp), %xmm1
+101e81d5: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+101e81d9: f3 0f 10 5e ec               	movss	-0x14(%esi), %xmm3
+101e81de: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101e81e2: f3 0f 10 4c 24 2c            	movss	0x2c(%esp), %xmm1
+101e81e8: f3 0f 59 ca                  	mulss	%xmm2, %xmm1
+101e81ec: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101e81f0: f3 0f 59 46 10               	mulss	0x10(%esi), %xmm0
+101e81f5: f3 0f 10 4e f0               	movss	-0x10(%esi), %xmm1
+101e81fa: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101e81fd: f3 0f 59 4c 24 30            	mulss	0x30(%esp), %xmm1
+101e8203: f3 0f 59 d7                  	mulss	%xmm7, %xmm2
+101e8207: 0f 57 c5                     	xorps	%xmm5, %xmm0
+101e820a: f3 0f 5c 46 20               	subss	0x20(%esi), %xmm0
+101e820f: 0f 57 e5                     	xorps	%xmm5, %xmm4
+101e8212: f3 0f 10 6e e8               	movss	-0x18(%esi), %xmm5
+101e8217: f3 0f 5c 66 1c               	subss	0x1c(%esi), %xmm4
+101e821c: 0f 28 fb                     	movaps	%xmm3, %xmm7
+101e821f: f3 0f 59 5c 24 2c            	mulss	0x2c(%esp), %xmm3
+101e8225: f3 0f 59 fe                  	mulss	%xmm6, %xmm7
+101e8229: 0f 28 f5                     	movaps	%xmm5, %xmm6
+101e822c: f3 0f 59 74 24 1c            	mulss	0x1c(%esp), %xmm6
+101e8232: f3 0f 59 6c 24 28            	mulss	0x28(%esp), %xmm5
+101e8238: f3 0f 58 d7                  	addss	%xmm7, %xmm2
+101e823c: f3 0f 58 d6                  	addss	%xmm6, %xmm2
+101e8240: f3 0f 58 cb                  	addss	%xmm3, %xmm1
+101e8244: f3 0f 11 54 24 5c            	movss	%xmm2, 0x5c(%esp)
+101e824a: f3 0f 58 cd                  	addss	%xmm5, %xmm1
+101e824e: f3 0f 58 d4                  	addss	%xmm4, %xmm2
+101e8252: f3 0f 11 44 24 7c            	movss	%xmm0, 0x7c(%esp)
+101e8258: f3 0f 11 8c 24 80 00 00 00   	movss	%xmm1, 0x80(%esp)
+101e8261: f3 0f 58 c8                  	addss	%xmm0, %xmm1
+101e8265: f3 0f 10 46 e4               	movss	-0x1c(%esi), %xmm0
+101e826a: f3 0f 59 44 24 0c            	mulss	0xc(%esp), %xmm0
+101e8270: f3 0f 11 54 24 44            	movss	%xmm2, 0x44(%esp)
+101e8276: d9 44 24 44                  	flds	0x44(%esp)
+101e827a: 51                           	pushl	%ecx
+101e827b: d9 1c 24                     	fstps	(%esp)
+101e827e: f3 0f 11 64 24 58            	movss	%xmm4, 0x58(%esp)
+101e8284: f3 0f 11 4c 24 3c            	movss	%xmm1, 0x3c(%esp)
+101e828a: f3 0f 11 44 24 7c            	movss	%xmm0, 0x7c(%esp)
+101e8290: e8 7b 92 e1 ff               	calll	0x10001510 <.text+0x510>
+101e8295: d9 5c 24 38                  	fstps	0x38(%esp)
+101e8299: d9 44 24 3c                  	flds	0x3c(%esp)
+101e829d: d9 1c 24                     	fstps	(%esp)
+101e82a0: e8 6b 92 e1 ff               	calll	0x10001510 <.text+0x510>
+101e82a5: d9 5c 24 70                  	fstps	0x70(%esp)
+101e82a9: 83 c4 04                     	addl	$0x4, %esp
+101e82ac: d9 44 24 0c                  	flds	0xc(%esp)
+101e82b0: d8 4c 24 74                  	fmuls	0x74(%esp)
+101e82b4: d9 44 24 34                  	flds	0x34(%esp)
+101e82b8: df f1                        	fcompi	%st(1), %st
+101e82ba: dd d8                        	fstp	%st(0)
+101e82bc: 76 1f                        	jbe	0x101e82dd <NxCreateCoreSDK+0x908d>
+101e82be: f3 0f 10 5e f4               	movss	-0xc(%esi), %xmm3
+101e82c3: f3 0f 59 5c 24 0c            	mulss	0xc(%esp), %xmm3
+101e82c9: f3 0f 5e 5c 24 34            	divss	0x34(%esp), %xmm3
+101e82cf: f3 0f 59 5c 24 44            	mulss	0x44(%esp), %xmm3
+101e82d5: f3 0f 5c 5c 24 5c            	subss	0x5c(%esp), %xmm3
+101e82db: eb 06                        	jmp	0x101e82e3 <NxCreateCoreSDK+0x9093>
+101e82dd: f3 0f 10 5c 24 54            	movss	0x54(%esp), %xmm3
+101e82e3: f3 0f 10 4c 24 6c            	movss	0x6c(%esp), %xmm1
+101e82e9: 0f 2f 4c 24 78               	comiss	0x78(%esp), %xmm1
+101e82ee: 76 20                        	jbe	0x101e8310 <NxCreateCoreSDK+0x90c0>
+101e82f0: f3 0f 10 46 14               	movss	0x14(%esi), %xmm0
+101e82f5: f3 0f 59 44 24 0c            	mulss	0xc(%esp), %xmm0
+101e82fb: f3 0f 5e c1                  	divss	%xmm1, %xmm0
+101e82ff: f3 0f 59 44 24 38            	mulss	0x38(%esp), %xmm0
+101e8305: f3 0f 5c 84 24 80 00 00 00   	subss	0x80(%esp), %xmm0
+101e830e: eb 06                        	jmp	0x101e8316 <NxCreateCoreSDK+0x90c6>
+101e8310: f3 0f 10 44 24 7c            	movss	0x7c(%esp), %xmm0
+101e8316: f3 0f 10 4c 24 28            	movss	0x28(%esp), %xmm1
+101e831c: f3 0f 10 54 24 24            	movss	0x24(%esp), %xmm2
+101e8322: 0f 57 ff                     	xorps	%xmm7, %xmm7
+101e8325: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101e8329: 0f 28 e1                     	movaps	%xmm1, %xmm4
+101e832c: f3 0f 10 4c 24 2c            	movss	0x2c(%esp), %xmm1
+101e8332: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101e8336: 0f 28 e9                     	movaps	%xmm1, %xmm5
+101e8339: f3 0f 10 4c 24 30            	movss	0x30(%esp), %xmm1
+101e833f: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101e8343: f3 0f 10 44 24 1c            	movss	0x1c(%esp), %xmm0
+101e8349: 0f 28 f1                     	movaps	%xmm1, %xmm6
+101e834c: f3 0f 10 4c 24 20            	movss	0x20(%esp), %xmm1
+101e8352: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+101e8356: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+101e835a: f3 0f 59 d3                  	mulss	%xmm3, %xmm2
+101e835e: f3 0f 10 5e e8               	movss	-0x18(%esi), %xmm3
+101e8363: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+101e8367: f3 0f 58 d8                  	addss	%xmm0, %xmm3
+101e836b: f3 0f 58 44 24 60            	addss	0x60(%esp), %xmm0
+101e8371: f3 0f 11 5e e8               	movss	%xmm3, -0x18(%esi)
+101e8376: f3 0f 58 cd                  	addss	%xmm5, %xmm1
+101e837a: 0f 28 d9                     	movaps	%xmm1, %xmm3
+101e837d: f3 0f 58 5e ec               	addss	-0x14(%esi), %xmm3
+101e8382: f3 0f 58 4c 24 64            	addss	0x64(%esp), %xmm1
+101e8388: f3 0f 58 d6                  	addss	%xmm6, %xmm2
+101e838c: f3 0f 11 5e ec               	movss	%xmm3, -0x14(%esi)
+101e8391: 0f 28 da                     	movaps	%xmm2, %xmm3
+101e8394: f3 0f 58 54 24 68            	addss	0x68(%esp), %xmm2
+101e839a: f3 0f 58 5e f0               	addss	-0x10(%esi), %xmm3
+101e839f: 0f 28 e0                     	movaps	%xmm0, %xmm4
+101e83a2: 0f 28 e9                     	movaps	%xmm1, %xmm5
+101e83a5: 0f 28 f2                     	movaps	%xmm2, %xmm6
+101e83a8: f3 0f 11 5e f0               	movss	%xmm3, -0x10(%esi)
+101e83ad: f3 0f 11 64 24 48            	movss	%xmm4, 0x48(%esp)
+101e83b3: f3 0f 11 6c 24 4c            	movss	%xmm5, 0x4c(%esp)
+101e83b9: f3 0f 11 74 24 50            	movss	%xmm6, 0x50(%esp)
+101e83bf: 0f 28 c4                     	movaps	%xmm4, %xmm0
+101e83c2: f3 0f 59 c4                  	mulss	%xmm4, %xmm0
+101e83c6: 0f 28 ce                     	movaps	%xmm6, %xmm1
+101e83c9: f3 0f 59 ce                  	mulss	%xmm6, %xmm1
+101e83cd: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101e83d1: 0f 28 cd                     	movaps	%xmm5, %xmm1
+101e83d4: f3 0f 59 cd                  	mulss	%xmm5, %xmm1
+101e83d8: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+101e83dc: 0f 2e c7                     	ucomiss	%xmm7, %xmm0
+101e83df: 9f                           	lahf
+101e83e0: f6 c4 44                     	testb	$0x44, %ah
+101e83e3: 0f 8b b4 02 00 00            	jnp	0x101e869d <NxCreateCoreSDK+0x944d>
+101e83e9: 8a 46 ba                     	movb	-0x46(%esi), %al
+101e83ec: c0 e8 04                     	shrb	$0x4, %al
+101e83ef: 24 01                        	andb	$0x1, %al
+101e83f1: 0f 28 d5                     	movaps	%xmm5, %xmm2
+101e83f4: 0f b6 c8                     	movzbl	%al, %ecx
+101e83f7: 8b 46 bc                     	movl	-0x44(%esi), %eax
+101e83fa: 0f 28 de                     	movaps	%xmm6, %xmm3
+101e83fd: f3 0f 10 70 2c               	movss	0x2c(%eax), %xmm6
+101e8402: f3 0f 2a c1                  	cvtsi2ss	%ecx, %xmm0
+101e8406: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101e840a: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+101e840e: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e8411: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+101e8415: 0f 28 c1                     	movaps	%xmm1, %xmm0
+101e8418: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+101e841c: f3 0f 58 00                  	addss	(%eax), %xmm0
+101e8420: f3 0f 11 00                  	movss	%xmm0, (%eax)
+101e8424: 0f 28 e2                     	movaps	%xmm2, %xmm4
+101e8427: f3 0f 59 e6                  	mulss	%xmm6, %xmm4
+101e842b: f3 0f 58 60 04               	addss	0x4(%eax), %xmm4
+101e8430: f3 0f 11 60 04               	movss	%xmm4, 0x4(%eax)
+101e8435: 0f 28 eb                     	movaps	%xmm3, %xmm5
+101e8438: f3 0f 59 ee                  	mulss	%xmm6, %xmm5
+101e843c: f3 0f 58 68 08               	addss	0x8(%eax), %xmm5
+101e8441: f3 0f 11 68 08               	movss	%xmm5, 0x8(%eax)
+101e8446: 8b 46 bc                     	movl	-0x44(%esi), %eax
+101e8449: f3 0f 10 76 cc               	movss	-0x34(%esi), %xmm6
+101e844e: f3 0f 10 66 d0               	movss	-0x30(%esi), %xmm4
+101e8453: 0f 28 c6                     	movaps	%xmm6, %xmm0
+101e8456: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+101e845a: f3 0f 59 f1                  	mulss	%xmm1, %xmm6
+101e845e: 0f 28 ec                     	movaps	%xmm4, %xmm5
+101e8461: f3 0f 59 ea                  	mulss	%xmm2, %xmm5
+101e8465: f3 0f 5c c5                  	subss	%xmm5, %xmm0
+101e8469: f3 0f 10 6e c8               	movss	-0x38(%esi), %xmm5
+101e846e: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+101e8472: f3 0f 10 48 5c               	movss	0x5c(%eax), %xmm1
+101e8477: 0f 28 fd                     	movaps	%xmm5, %xmm7
+101e847a: f3 0f 59 ea                  	mulss	%xmm2, %xmm5
+101e847e: f3 0f 10 50 40               	movss	0x40(%eax), %xmm2
+101e8483: f3 0f 5c ee                  	subss	%xmm6, %xmm5
+101e8487: f3 0f 10 70 54               	movss	0x54(%eax), %xmm6
+101e848c: f3 0f 59 cd                  	mulss	%xmm5, %xmm1
+101e8490: f3 0f 11 8c 24 b0 00 00 00   	movss	%xmm1, 0xb0(%esp)
+101e8499: f3 0f 10 48 4c               	movss	0x4c(%eax), %xmm1
+101e849e: f3 0f 59 fb                  	mulss	%xmm3, %xmm7
+101e84a2: f3 0f 10 58 44               	movss	0x44(%eax), %xmm3
+101e84a7: f3 0f 5c e7                  	subss	%xmm7, %xmm4
+101e84ab: f3 0f 10 78 58               	movss	0x58(%eax), %xmm7
+101e84b0: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+101e84b4: f3 0f 11 8c 24 94 00 00 00   	movss	%xmm1, 0x94(%esp)
+101e84bd: f3 0f 10 48 50               	movss	0x50(%eax), %xmm1
+101e84c2: f3 0f 59 cc                  	mulss	%xmm4, %xmm1
+101e84c6: f3 0f 11 8c 24 98 00 00 00   	movss	%xmm1, 0x98(%esp)
+101e84cf: f3 0f 10 48 3c               	movss	0x3c(%eax), %xmm1
+101e84d4: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101e84d8: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101e84dc: f3 0f 58 94 24 94 00 00 00   	addss	0x94(%esp), %xmm2
+101e84e5: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+101e84e9: f3 0f 10 40 14               	movss	0x14(%eax), %xmm0
+101e84ee: f3 0f 58 9c 24 98 00 00 00   	addss	0x98(%esp), %xmm3
+101e84f7: f3 0f 58 9c 24 b0 00 00 00   	addss	0xb0(%esp), %xmm3
+101e8500: f3 0f 59 f5                  	mulss	%xmm5, %xmm6
+101e8504: f3 0f 59 fd                  	mulss	%xmm5, %xmm7
+101e8508: f3 0f 10 68 48               	movss	0x48(%eax), %xmm5
+101e850d: f3 0f 58 d7                  	addss	%xmm7, %xmm2
+101e8511: f3 0f 58 c2                  	addss	%xmm2, %xmm0
+101e8515: f3 0f 11 40 14               	movss	%xmm0, 0x14(%eax)
+101e851a: f3 0f 10 40 18               	movss	0x18(%eax), %xmm0
+101e851f: f3 0f 59 ec                  	mulss	%xmm4, %xmm5
+101e8523: f3 0f 58 cd                  	addss	%xmm5, %xmm1
+101e8527: f3 0f 58 ce                  	addss	%xmm6, %xmm1
+101e852b: f3 0f 58 48 10               	addss	0x10(%eax), %xmm1
+101e8530: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+101e8534: f3 0f 11 40 18               	movss	%xmm0, 0x18(%eax)
+101e8539: f3 0f 11 48 10               	movss	%xmm1, 0x10(%eax)
+101e853e: 8a 56 ba                     	movb	-0x46(%esi), %dl
+101e8541: c0 ea 05                     	shrb	$0x5, %dl
+101e8544: 80 e2 01                     	andb	$0x1, %dl
+101e8547: 0f b6 c2                     	movzbl	%dl, %eax
+101e854a: f3 0f 2a c0                  	cvtsi2ss	%eax, %xmm0
+101e854e: 8b 46 c0                     	movl	-0x40(%esi), %eax
+101e8551: f3 0f 10 6c 24 4c            	movss	0x4c(%esp), %xmm5
+101e8557: f3 0f 10 74 24 50            	movss	0x50(%esp), %xmm6
+101e855d: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+101e8561: f3 0f 59 f0                  	mulss	%xmm0, %xmm6
+101e8565: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e8568: f3 0f 59 4c 24 48            	mulss	0x48(%esp), %xmm1
+101e856e: f3 0f 10 40 2c               	movss	0x2c(%eax), %xmm0
+101e8573: 0f 28 d1                     	movaps	%xmm1, %xmm2
+101e8576: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101e857a: 0f 28 dd                     	movaps	%xmm5, %xmm3
+101e857d: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+101e8581: 0f 28 e6                     	movaps	%xmm6, %xmm4
+101e8584: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+101e8588: f3 0f 10 00                  	movss	(%eax), %xmm0
+101e858c: f3 0f 5c c2                  	subss	%xmm2, %xmm0
+101e8590: f3 0f 11 00                  	movss	%xmm0, (%eax)
+101e8594: f3 0f 10 40 04               	movss	0x4(%eax), %xmm0
+101e8599: f3 0f 5c c3                  	subss	%xmm3, %xmm0
+101e859d: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+101e85a2: f3 0f 10 40 08               	movss	0x8(%eax), %xmm0
+101e85a7: f3 0f 5c c4                  	subss	%xmm4, %xmm0
+101e85ab: f3 0f 11 40 08               	movss	%xmm0, 0x8(%eax)
+101e85b0: 8b 46 c0                     	movl	-0x40(%esi), %eax
+101e85b3: f3 0f 10 66 dc               	movss	-0x24(%esi), %xmm4
+101e85b8: f3 0f 10 56 e0               	movss	-0x20(%esi), %xmm2
+101e85bd: 0f 28 da                     	movaps	%xmm2, %xmm3
+101e85c0: f3 0f 59 dd                  	mulss	%xmm5, %xmm3
+101e85c4: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+101e85c8: 0f 28 c4                     	movaps	%xmm4, %xmm0
+101e85cb: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+101e85cf: f3 0f 5c c3                  	subss	%xmm3, %xmm0
+101e85d3: f3 0f 10 5e d8               	movss	-0x28(%esi), %xmm3
+101e85d8: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+101e85dc: f3 0f 10 48 4c               	movss	0x4c(%eax), %xmm1
+101e85e1: 0f 28 fb                     	movaps	%xmm3, %xmm7
+101e85e4: f3 0f 59 fe                  	mulss	%xmm6, %xmm7
+101e85e8: f3 0f 10 70 5c               	movss	0x5c(%eax), %xmm6
+101e85ed: f3 0f 5c d7                  	subss	%xmm7, %xmm2
+101e85f1: f3 0f 10 78 48               	movss	0x48(%eax), %xmm7
+101e85f6: f3 0f 59 ca                  	mulss	%xmm2, %xmm1
+101e85fa: f3 0f 11 8c 24 a0 00 00 00   	movss	%xmm1, 0xa0(%esp)
+101e8603: f3 0f 10 48 50               	movss	0x50(%eax), %xmm1
+101e8608: f3 0f 59 ca                  	mulss	%xmm2, %xmm1
+101e860c: f3 0f 59 dd                  	mulss	%xmm5, %xmm3
+101e8610: f3 0f 10 68 58               	movss	0x58(%eax), %xmm5
+101e8615: f3 0f 5c dc                  	subss	%xmm4, %xmm3
+101e8619: f3 0f 11 8c 24 a4 00 00 00   	movss	%xmm1, 0xa4(%esp)
+101e8622: f3 0f 10 48 3c               	movss	0x3c(%eax), %xmm1
+101e8627: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101e862b: 0f 28 e3                     	movaps	%xmm3, %xmm4
+101e862e: f3 0f 59 60 54               	mulss	0x54(%eax), %xmm4
+101e8633: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+101e8637: f3 0f 59 fa                  	mulss	%xmm2, %xmm7
+101e863b: f3 0f 10 50 40               	movss	0x40(%eax), %xmm2
+101e8640: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101e8644: f3 0f 58 94 24 a0 00 00 00   	addss	0xa0(%esp), %xmm2
+101e864d: f3 0f 59 f3                  	mulss	%xmm3, %xmm6
+101e8651: f3 0f 10 58 44               	movss	0x44(%eax), %xmm3
+101e8656: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+101e865a: f3 0f 10 40 10               	movss	0x10(%eax), %xmm0
+101e865f: f3 0f 58 9c 24 a4 00 00 00   	addss	0xa4(%esp), %xmm3
+101e8668: f3 0f 58 cf                  	addss	%xmm7, %xmm1
+101e866c: f3 0f 58 cc                  	addss	%xmm4, %xmm1
+101e8670: f3 0f 5c c1                  	subss	%xmm1, %xmm0
+101e8674: f3 0f 11 40 10               	movss	%xmm0, 0x10(%eax)
+101e8679: f3 0f 10 40 14               	movss	0x14(%eax), %xmm0
+101e867e: f3 0f 58 d5                  	addss	%xmm5, %xmm2
+101e8682: f3 0f 5c c2                  	subss	%xmm2, %xmm0
+101e8686: f3 0f 11 40 14               	movss	%xmm0, 0x14(%eax)
+101e868b: f3 0f 10 40 18               	movss	0x18(%eax), %xmm0
+101e8690: f3 0f 58 de                  	addss	%xmm6, %xmm3
+101e8694: f3 0f 5c c3                  	subss	%xmm3, %xmm0
+101e8698: f3 0f 11 40 18               	movss	%xmm0, 0x18(%eax)
+101e869d: 83 ee 80                     	subl	$-0x80, %esi
+101e86a0: 83 ef 01                     	subl	$0x1, %edi
+101e86a3: 0f 85 be f7 ff ff            	jne	0x101e7e67 <NxCreateCoreSDK+0x8c17>
+101e86a9: 5f                           	popl	%edi
+101e86aa: 8d 43 01                     	leal	0x1(%ebx), %eax
+101e86ad: 5e                           	popl	%esi
+101e86ae: c1 e0 07                     	shll	$0x7, %eax
+101e86b1: 5b                           	popl	%ebx
+101e86b2: 81 c4 a8 00 00 00            	addl	$0xa8, %esp
+101e86b8: c3                           	retl
+101e86b9: cc                           	int3
+101e86ba: cc                           	int3
+101e86bb: cc                           	int3
+101e86bc: cc                           	int3
+101e86bd: cc                           	int3
+101e86be: cc                           	int3
+101e86bf: cc                           	int3
+101e86c0: 83 ec 1c                     	subl	$0x1c, %esp
+101e86c3: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101e86c6: 53                           	pushl	%ebx
+101e86c7: 8b 5c 24 24                  	movl	0x24(%esp), %ebx
+101e86cb: 55                           	pushl	%ebp
+101e86cc: 56                           	pushl	%esi
+101e86cd: 0f b6 73 01                  	movzbl	0x1(%ebx), %esi
+101e86d1: 8d 6e 01                     	leal	0x1(%esi), %ebp
+101e86d4: 33 d2                        	xorl	%edx, %edx
+101e86d6: 83 fd 04                     	cmpl	$0x4, %ebp
+101e86d9: 57                           	pushl	%edi
+101e86da: 89 74 24 18                  	movl	%esi, 0x18(%esp)
+101e86de: 0f 8c b4 00 00 00            	jl	0x101e8798 <NxCreateCoreSDK+0x9548>
+101e86e4: 8d 4e 01                     	leal	0x1(%esi), %ecx
+101e86e7: c1 e9 02                     	shrl	$0x2, %ecx
+101e86ea: 8d 83 e0 00 00 00            	leal	0xe0(%ebx), %eax
+101e86f0: 8d 14 8d 00 00 00 00         	leal	(,%ecx,4), %edx
+101e86f7: eb 07                        	jmp	0x101e8700 <NxCreateCoreSDK+0x94b0>
+101e86f9: 8d a4 24 00 00 00 00         	leal	(%esp), %esp
+101e8700: f3 0f 10 48 80               	movss	-0x80(%eax), %xmm1
+101e8705: 0f 2f c1                     	comiss	%xmm1, %xmm0
+101e8708: 76 03                        	jbe	0x101e870d <NxCreateCoreSDK+0x94bd>
+101e870a: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e870d: f3 0f 11 48 80               	movss	%xmm1, -0x80(%eax)
+101e8712: f3 0f 11 40 84               	movss	%xmm0, -0x7c(%eax)
+101e8717: f3 0f 11 40 88               	movss	%xmm0, -0x78(%eax)
+101e871c: f3 0f 10 08                  	movss	(%eax), %xmm1
+101e8720: 0f 2f c1                     	comiss	%xmm1, %xmm0
+101e8723: 76 03                        	jbe	0x101e8728 <NxCreateCoreSDK+0x94d8>
+101e8725: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e8728: f3 0f 11 08                  	movss	%xmm1, (%eax)
+101e872c: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+101e8731: f3 0f 11 40 08               	movss	%xmm0, 0x8(%eax)
+101e8736: f3 0f 10 88 80 00 00 00      	movss	0x80(%eax), %xmm1
+101e873e: 0f 2f c1                     	comiss	%xmm1, %xmm0
+101e8741: 76 03                        	jbe	0x101e8746 <NxCreateCoreSDK+0x94f6>
+101e8743: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e8746: f3 0f 11 88 80 00 00 00      	movss	%xmm1, 0x80(%eax)
+101e874e: f3 0f 11 80 84 00 00 00      	movss	%xmm0, 0x84(%eax)
+101e8756: f3 0f 11 80 88 00 00 00      	movss	%xmm0, 0x88(%eax)
+101e875e: f3 0f 10 88 00 01 00 00      	movss	0x100(%eax), %xmm1
+101e8766: 0f 2f c1                     	comiss	%xmm1, %xmm0
+101e8769: 76 03                        	jbe	0x101e876e <NxCreateCoreSDK+0x951e>
+101e876b: 0f 28 c8                     	movaps	%xmm0, %xmm1
+101e876e: f3 0f 11 88 00 01 00 00      	movss	%xmm1, 0x100(%eax)

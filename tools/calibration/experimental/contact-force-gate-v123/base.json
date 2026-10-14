@@ -1,0 +1,28 @@
+{
+  "scope": "Default-off original contact force squared-norm application gate; retained impulses update even on skipped response. Reuses actual scalar X/Z/Y squares and additions, no threshold or final-state zeroing.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "d3dba343f86390fd0fc260d5ff65a6212f33ceb0bca0b50c2133b34c9444cad6",
+      "after_sha256": "48109b9a680a2c6b6566bf50d136eb7cbf9ce11abadd30bea8c05cccb9d836e6"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h",
+      "before_sha256": "707a99cadde3ca7fc832bee290b7e40234100d944f91f2b7751a676f24920177",
+      "after_sha256": "938953095e1193ce485f12fbcfd82e844da40be18c12e17a519e366568f035d4"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeContactForceGateV123.h",
+      "before_sha256": null,
+      "after_sha256": "875c28410b05bdcb90b8acfb0cee7d1b2c292fe515cd96921f73cb1b8e6b82ce"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_FORCE_GATE_V123"
+  ],
+  "goal_complete": false,
+  "requires": "Accepted mesh-query-order-v122 and all prerequisites; rebuild all consumers"
+}

@@ -1,0 +1,575 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2366,
+      "sha256": "7e86f323aeb3f0b25408f781a507e55b21bfda61e5777ae6f835a45d52fc6b9a"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h",
+      "bytes": 5767,
+      "sha256": "938953095e1193ce485f12fbcfd82e844da40be18c12e17a519e366568f035d4"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeContactForceGateV123.h",
+      "bytes": 718,
+      "sha256": "875c28410b05bdcb90b8acfb0cee7d1b2c292fe515cd96921f73cb1b8e6b82ce"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "bytes": 120714,
+      "sha256": "48109b9a680a2c6b6566bf50d136eb7cbf9ce11abadd30bea8c05cccb9d836e6"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1261,
+      "sha256": "abe08c22df74a13e3996d0e9653c0f99fe9c4dba5b9425a9c76eb3e85afd77bf"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h",
+      "bytes": 5523,
+      "sha256": "707a99cadde3ca7fc832bee290b7e40234100d944f91f2b7751a676f24920177"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "bytes": 119999,
+      "sha256": "d3dba343f86390fd0fc260d5ff65a6212f33ceb0bca0b50c2133b34c9444cad6"
+    },
+    {
+      "path": "captures/mac-candidate/manifest.json",
+      "bytes": 579,
+      "sha256": "6658a6686d57b2708d587765562f0777546cc9b5819dca1009a73d35096b175a"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-0-force.jsonl.gz",
+      "bytes": 7361,
+      "sha256": "e813ab50f28d9b0765b5c0178c65e1729578ef76fcea0dfeb474a52fa40e545d"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-0-physical.jsonl.gz",
+      "bytes": 8093,
+      "sha256": "f29e6c8695cf4023d9fee148f63be579359ca340759aa0112af04661da2ea80c"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-0-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "660b26688db2ceedf5c9105239a9f10653c02d429743665eea4e48f775a1a862"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-0-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "6890ffa287c153acabae7cf90141cb69138b8312c6ab90ac7739962e46c77d47"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-1-force.jsonl.gz",
+      "bytes": 7361,
+      "sha256": "331e35436548592c41fc976b21987beac3c23b6fe850a3ddc0f10c91f7c04ce8"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-1-physical.jsonl.gz",
+      "bytes": 8090,
+      "sha256": "b064f7cb3cf7627acbed551ffe2a092450e79bbbb77382f7da423255cf59a110"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-1-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "f9fb34e9fcf3b68d9a1742781b4460d4c30d17b5b30de3e43ad8bc22504f3638"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-13-1-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "d74a47b0819d45ba631b2ff2c8fb57ed07b4a5ca6c1a814d2bbdcea882ee95b5"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-0-force.jsonl.gz",
+      "bytes": 7361,
+      "sha256": "244f0b260051fbc3858b9f36f5f367e7c9e46c0d43f681b61f0e5e9b83904dd5"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-0-physical.jsonl.gz",
+      "bytes": 8024,
+      "sha256": "4ea3257d0d11c1db03d91d17ec90200534e750bb430bad1c96abc028c377009e"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-0-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "0e3760404e87e9c33d8db1fafbf1b88fceb360b35bb538ee4c1ce443464a6a4a"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-0-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "410cfd6dec406ac5d28fa60c3e93880241240fcdce31b778f2a218a94c6c6cf8"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-1-force.jsonl.gz",
+      "bytes": 7361,
+      "sha256": "eaa180ed80674dbdcdb63caafc492b63755d5612c4378e2292ddff11df578fcc"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-1-physical.jsonl.gz",
+      "bytes": 8039,
+      "sha256": "22a51d05a9848541905e5b1989e06d3261363a2c75d6b4c040262be1d84a177e"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-1-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "f9926ea3536ae4da80d9084a85238f4b972973bd6c3d1b00f04335e541cbe5ea"
+    },
+    {
+      "path": "captures/mac-candidate/skin-tilted-triangle-angle3-skin2-thin1-14-1-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "5f598a1ace1f490f91d15fcb59cbdcfd63130f009d54b96e8c9cfffdcc65372b"
+    },
+    {
+      "path": "captures/mac-force/manifest.json",
+      "bytes": 579,
+      "sha256": "693b596991306d108eadbad67082745a51821f6615250a7392b01a13a3a04c05"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-0-force.jsonl.gz",
+      "bytes": 9729,
+      "sha256": "ff2b8600a30a51f32005fb0a4c7c12d9a59fddd39c105aec0f185a2a0d384ae3"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-0-physical.jsonl.gz",
+      "bytes": 8917,
+      "sha256": "96cb3cbec3530fb348d5d5200bc13c003fbe9712262a7b8c379dd3bc2d3a03e9"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-0-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "231f3aece199eab853de43e9f2f371ce6f3f75a4a722ce6f856f79655832b5d8"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-0-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "d6940ed2f1921e8bb9b5e2d14b015eeefc980042db13102296efc0ee749d1545"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-1-force.jsonl.gz",
+      "bytes": 9729,
+      "sha256": "d0476d1ddcefe231d369d58a0bbef8f6d839e8c94e2a342c775ab7d4f798fbf5"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-1-physical.jsonl.gz",
+      "bytes": 8909,
+      "sha256": "3508286835474b3481bebf414f0d0daf09989204a4267c270510709b208b500f"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-1-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "b5de46d514544e750844466d68d4133c84ce9c0a51c38f31361406097c3d8f2a"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-13-1-solver.jsonl.gz",
+      "bytes": 341,
+      "sha256": "a9c34ceddcd48d712eff75301505e9211e9964fff8d092d4376c224fa59eab90"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-0-force.jsonl.gz",
+      "bytes": 9729,
+      "sha256": "a8b694895ac32d7a9c9a48bd728ae16e8eb45ecad37ebfe2d4cf311507f47df6"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-0-physical.jsonl.gz",
+      "bytes": 8900,
+      "sha256": "3165f817f12c78625fbabfb1994326cb4aadfb97ab5bc7eb17d8c2d96a1db450"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-0-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "a67ccbdd62c75496d4ee7401736376941201b073f8084d03825b5a77b8245ace"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-0-solver.jsonl.gz",
+      "bytes": 338,
+      "sha256": "d32e48b6480ca0e0643857ff136b8bcb45b51beca89e98735fd02924aaaec0db"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-1-force.jsonl.gz",
+      "bytes": 9729,
+      "sha256": "3b17c3ef26c40f3d354d8627f09bcf8e066658e1e0af132ecfc1c9b85c8b7324"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-1-physical.jsonl.gz",
+      "bytes": 8896,
+      "sha256": "43e22e69a09aa9cccc4fd66c618aeee3de938cccd56bcf7bab29c65e51b041a5"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-1-prep.jsonl.gz",
+      "bytes": 76,
+      "sha256": "26990d82925b5ca518623a9ca50780663b05a99c829ebacd16845a0463e76209"
+    },
+    {
+      "path": "captures/mac-force/skin-tilted-triangle-angle3-skin2-thin1-14-1-solver.jsonl.gz",
+      "bytes": 338,
+      "sha256": "4d21d23352b9015768ed0e61ef9319c5682fd826ee2a84f601dfed8a279c394a"
+    },
+    {
+      "path": "captures/native-contact/manifest.json",
+      "bytes": 1684,
+      "sha256": "9dc54c7460774716a44119add9d7f397610fff0f6ac77a23dd4dc8111428ee5d"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-13-0-physical.jsonl.gz",
+      "bytes": 6424,
+      "sha256": "d6a34f221d28c5ab0df82234a0ac74118ae22b51f2baaa3a35a983fdd733d1f7"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-13-0-private.jsonl.gz",
+      "bytes": 31265,
+      "sha256": "eb4fe8a3c52b8564191ace2d911b57d7eaf2cefd76832291aeece757943c39e5"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-13-1-physical.jsonl.gz",
+      "bytes": 6395,
+      "sha256": "279122ef7452b2f5132d228cba94e2926ee4007c7b24ebaa72fb76821b1d3980"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-13-1-private.jsonl.gz",
+      "bytes": 31220,
+      "sha256": "f6ef1a43fa35dea6cd8ccdca4032cc7c939ba23176fb2eef7f8387e74cfe3024"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-14-0-physical.jsonl.gz",
+      "bytes": 6430,
+      "sha256": "1a8fead7a861721cb412c0713acec90c3580b2612366445ddbb5fc292b1bd219"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-14-0-private.jsonl.gz",
+      "bytes": 31259,
+      "sha256": "69a19f8bc7663c2eda829d841b71cb66c360fc22be839bf3daeeac41f5664e02"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-14-1-physical.jsonl.gz",
+      "bytes": 6407,
+      "sha256": "50421f2e08383bded6c1f7567caf41ed4c658b0eadc78e09f2cc032b12585606"
+    },
+    {
+      "path": "captures/native-contact/v123-skin-tilted-triangle-angle3-skin2-thin1-14-1-private.jsonl.gz",
+      "bytes": 31271,
+      "sha256": "6a219ce0f536053966a3e5a0ff0012aeb88840c93325dfefefe90c667c61b991"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-13-0-physical.jsonl.gz",
+      "bytes": 6177,
+      "sha256": "9c70536dfa9d4533194d29ce4e073eb730a905de09835a3884c808827f7abdd9"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-13-0-private.jsonl.gz",
+      "bytes": 3306,
+      "sha256": "a066721479f45155bea67cff9cc3cbcb0d4b9d3010d86389eacf1151ea825377"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-13-1-physical.jsonl.gz",
+      "bytes": 6204,
+      "sha256": "49b28132d150cad3feabe256579852f26bffbe1ce49b97aa70e717bc3e80b5a8"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-13-1-private.jsonl.gz",
+      "bytes": 3305,
+      "sha256": "d6cce8e717fb319032ed5ffec6692136626b1be21ec54c022557b3bce6c4ff59"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-14-0-physical.jsonl.gz",
+      "bytes": 6220,
+      "sha256": "0099432a84521fe47d35dfe15f214e8c0764e41d7632ac72d75c52f8f06d615c"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-14-0-private.jsonl.gz",
+      "bytes": 3200,
+      "sha256": "164e82e764c25620c33b8e7a98c4c35c55ef2453909bb11bbe0630eca78b10b2"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-14-1-physical.jsonl.gz",
+      "bytes": 6208,
+      "sha256": "a771175001abee04996ad1ed4cdd464e0ad71158515d93d2a9d1164fe0df6acd"
+    },
+    {
+      "path": "captures/native-force/kernel-marauder-drop-14-1-private.jsonl.gz",
+      "bytes": 3202,
+      "sha256": "002f26ab5fb6bc86f96523b3ac1f5ce9ed16457bca2d1d3631382fd5226825da"
+    },
+    {
+      "path": "captures/native-force/manifest.json",
+      "bytes": 2042,
+      "sha256": "098c978a4c90bd89d61bfd63757619671a8f86b6a947f039cf7462b09db14893"
+    },
+    {
+      "path": "checks/broad/capture-manifest.json",
+      "bytes": 9407,
+      "sha256": "47ac25ab58789e9128f28242bacb2a529710c0d3e2d0dca5d824e11618ad7125"
+    },
+    {
+      "path": "checks/build-all.log",
+      "bytes": 3485,
+      "sha256": "3ecf538d24bf20fbc357979488d0facb0a9451002e6f4d630af00559b1b2fab6"
+    },
+    {
+      "path": "checks/canonical-audit.log",
+      "bytes": 453,
+      "sha256": "a57cdc3243301349bcd247ec1dd373f5b1ebbaa66c8eaff37718ab3e855ef23b"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "fde4247ec3d8eb84cc731afc4491a61ef9e91ea58566ede34ca20d9ff33878ed"
+    },
+    {
+      "path": "checks/ctest-default.log",
+      "bytes": 7093,
+      "sha256": "928f115e980a1eeab05aef42dd21ca3ebd1141da9b5bb2f8b789666beac0e5d2"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 87,
+      "sha256": "086fd44bbddfc1d2685c8441a69473687ab1840181b6d4a025e3b019a5959ac1"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 9492,
+      "sha256": "fb44845552b78fa7fcc0b6e4ce2bda41ac62d0cd256f1411522eaba0d1d880ac"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 87,
+      "sha256": "3983967ad33b29859aee3c98c15bf54b93f411e11b703cdc60a8256f092aca0c"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 9466,
+      "sha256": "81d21fe7102885686526a0531dbccc356c30656cdc4ccf792996dd9e3193851e"
+    },
+    {
+      "path": "checks/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "99b860412a72b0caf43483a77b34ba674ec68b60fed20537806e91867c44e39d"
+    },
+    {
+      "path": "checks/regression-audit.log",
+      "bytes": 230,
+      "sha256": "8c7b1bcc6ddc953ab9effcbd26c25fd4697377785303b3ea9dbd818c73630cf3"
+    },
+    {
+      "path": "evidence/candidate-force-proof.json",
+      "bytes": 10712,
+      "sha256": "41ea927f8acac21e237098c016c0457fd488bc9f93feac2eda125d04fc5c79d7"
+    },
+    {
+      "path": "evidence/final-live-proof.json",
+      "bytes": 1222,
+      "sha256": "680c733cc26c8a6bff521ff8b2f55bf5417bbcf9420fd243c003a4f0f771f715"
+    },
+    {
+      "path": "evidence/force-gate-proof.json",
+      "bytes": 10703,
+      "sha256": "3b26fecb833e663427967ef5c93ebccbc5ff2791cdca1767f2080e87d00fc45a"
+    },
+    {
+      "path": "evidence/physics-v123-candidate-broad-audit.json",
+      "bytes": 115973,
+      "sha256": "4d7a5267fd705cda10d7009f59da346b3b5fe513f34555cc57c1f540cd687ce4"
+    },
+    {
+      "path": "evidence/physics-v123-candidate-canonical-error-audit.json",
+      "bytes": 609601,
+      "sha256": "c201eac1295b46892a5dc119129d7a0f66355596adb6c1d48dbf6696550dd7a3"
+    },
+    {
+      "path": "evidence/physics-v123-candidate-practical-error-audit.json",
+      "bytes": 1066322,
+      "sha256": "45fd1773bc1a584678f5490caa4c0ab6093267bc3b89716a575d737a8e20e01b"
+    },
+    {
+      "path": "evidence/physics-v123-candidate-regression-audit.json",
+      "bytes": 25357,
+      "sha256": "78497377fd0371e013cea234a6407879d5822483b1c84d077c7eb80c101ea8c0"
+    },
+    {
+      "path": "evidence/physics-v123-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "287315d02eeca6e41ac5f18917f7f8aebc28ccc0ca88d8bdd233324acf726ba5"
+    },
+    {
+      "path": "evidence/portable.json",
+      "bytes": 1124,
+      "sha256": "a8d31572ad04f1750e4deca121f239c53ddfa6b1022d627307b4fb8cad8bf37d"
+    },
+    {
+      "path": "evidence/production-helper-proof.json",
+      "bytes": 228,
+      "sha256": "e744f3fe57b2cc271c4483ef7e51152c8334be2aba80b6afc175c7f0a7b90372"
+    },
+    {
+      "path": "evidence/report.json",
+      "bytes": 6817,
+      "sha256": "699399fcef26a68efd0414f75b1d8894edc4b33c9c7ea6b6767542125bbe4d55"
+    },
+    {
+      "path": "evidence/solver-full.disasm.txt",
+      "bytes": 33435,
+      "sha256": "76ee39ce87cbb02c5f1cc22885c4e4bc74e21a0ea87260ebbca1778ee98b324d"
+    },
+    {
+      "path": "evidence/source-change-candidate.json",
+      "bytes": 1168,
+      "sha256": "54fc3c0706e811e8e19115346fd3aec3cba10baf29937ff94d35e3aaef0b115e"
+    },
+    {
+      "path": "evidence/v122-control.jsonl.gz",
+      "bytes": 2726,
+      "sha256": "4414c26e478a5c6830f930e1fa9021847d544a433ccffd5a8acff01c667faacd"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2967668,
+      "sha256": "a2642fce59a817c485dcf84b692e4732a71d7bf8675ed1e0f381d86b8b77a82a"
+    },
+    {
+      "path": "native-observer/build-observer.py",
+      "bytes": 2064,
+      "sha256": "dfac36c7b3e819397235e5b8d699750b78996136ab195d3b8c822523716cf9c0"
+    },
+    {
+      "path": "native-observer/build.cmd",
+      "bytes": 215,
+      "sha256": "e33c217d407515c5b5564fd3aa264667f944484da8ae47ffcf0eb89519b163c4"
+    },
+    {
+      "path": "native-observer/observer-build.json",
+      "bytes": 215,
+      "sha256": "e7511d52fdc88ae28e5a59e4297acb636002a1bb703b03b1309108bc0d89d638"
+    },
+    {
+      "path": "native-observer/trace-force.cpp",
+      "bytes": 11841,
+      "sha256": "fdc0d534bbbb6750089a7fcf16d4ebd25c052fc44175ead305be38a73e9695c9"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 8254,
+      "sha256": "db3dd5ca87a23ad654893575c8c4e32db79bdbacca21f19f754d748d91ed7f5c"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit.py",
+      "bytes": 4365,
+      "sha256": "2c554abff05d9cc6ae46a6f9dd0859195c99a5abf6d990690d3636402bbedf50"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-candidate.py",
+      "bytes": 2553,
+      "sha256": "a91aeba53b5b75a4028a738ce3fd486433ccfa9bccdfae55ec96bfe1e3e3e43a"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-contact.py",
+      "bytes": 2483,
+      "sha256": "f509d853e00c0b1f818365ad0c6623ba0c2dedbf5ccc8054be4940cbc94c0e55"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-force.py",
+      "bytes": 2547,
+      "sha256": "86ed179ac9a7f194a08cab00e85b9f9416e7a1ba1784f3a00f87265a15127a20"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-contact.py",
+      "bytes": 2504,
+      "sha256": "6f7d9a4b9e57db1f127390dcbb1dfb23ecc6ab9b2425b65ae969021d336f9780"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-force.py",
+      "bytes": 2736,
+      "sha256": "5e54fece27e6ddcba48c7500bf5ee423919fb6dc811fec87abc6fa1a62adcfa7"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3655,
+      "sha256": "0e6fa24fdf41ce8fc1742b3835a0185f0ee5ee31e9d7cbed6a55ea2349087a64"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2195,
+      "sha256": "f2e2eff9c5e84bb5bab0611c6a45a2e16506073a3f2497282b5def4f4c7b4583"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4284,
+      "sha256": "78ab690520d663885eb0fedb14af0dd8a831dae1404ddda687d4e4ed0e94bbb1"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-candidate-force.py",
+      "bytes": 2377,
+      "sha256": "f1d374211ee95f8dbf09a86abcd6aa1fd8ec901072382ea1e2fdb6084488f007"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-final-live.py",
+      "bytes": 2898,
+      "sha256": "6d982d004737f9bdf26105fd0a7f5b83030c2460985948a91f8edc7b0c6bb486"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-force-gate.py",
+      "bytes": 2377,
+      "sha256": "e117445c16eb1296060e72d2bc370da8d1e3c749e148b9d55329126d9f4d5739"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2437,
+      "sha256": "ef6d762970c4a818e8ee36285c0f894504b852c4ada318a85efae34e73400dfe"
+    },
+    {
+      "path": "reproduction-host-scripts/run-checks.py",
+      "bytes": 1358,
+      "sha256": "13f8953fb478ffacccd509b7818f735af4994e9ed6ebe40ebb5a3e54d4a4628e"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 2684,
+      "sha256": "f8d101b19bb3eb6cea74b73a2fc6ae2963be27a16775f703eede6b0082cd61d3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2095,
+      "sha256": "764605c7628256cef34977812b69770b73e11315a1c1255fe0507f534e4f6c16"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2069,
+      "sha256": "a563e798ad78783d01e62eed3d0f689ca24437b240af0a5186502602aceaeaad"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 8135,
+      "sha256": "14e5f702f87006a71b8456f7a7cbfce76148a601f7f12a82dcf3ccdfbd0432f4"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1672,
+      "sha256": "c8c4f5b074c715ecfe5e816e1a38cdbd7a2c4391d00ed797155c726317c8ad6c"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2364,
+      "sha256": "d3485aa609da3882fdd2e6fbfc346509ff559b31a1e5fc474ff9fdf89c4aec19"
+    },
+    {
+      "path": "verify-force.cpp",
+      "bytes": 497,
+      "sha256": "9023ef56834893bf79838056ed992e3d2c2db6246e0583caf8d533d6cefe8a5f"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3252,
+      "sha256": "88d89f008d3d5147620337df080ef51344c8a766a678095ec43f5004cbe49899"
+    }
+  ],
+  "goal_complete": false
+}

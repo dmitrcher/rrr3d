@@ -1,0 +1,80 @@
+{
+  "scope": "Original contact force X/Z/Y squared-norm response gate, retaining impulse updates. All isolated matrix cases match, whole-game/controller/all-map equality still unproved.",
+  "strict_cases": 608,
+  "total_cases": 608,
+  "remaining_cases": 0,
+  "all_previous_607_strict_preserved": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 607,
+  "actual_force_norm_and_branch_records_O0_O2": 40,
+  "actual_contact_incoming_rows_exact": 40,
+  "fresh_live_Native_equivalent_states": 96,
+  "private_signed_zero_differences_explicit": true,
+  "raw_ABI_equality_claimed": false,
+  "portable_Native_equal_states": 12204,
+  "flag_off_preserves_v122_decimal_states": 24,
+  "selected_flag_off_v122_preservation_cases": 25,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 900,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "goal_complete": false,
+  "new_strict_cases": [
+    "skin-tilted-triangle-angle3-skin2-thin1"
+  ],
+  "changed_trajectories": [
+    "skin-tilted-triangle-angle3-skin2-thin1"
+  ],
+  "two_repeats_exact": true,
+  "no_full_run_maximum_regressions_vs_v122": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "position_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "velocity_max": {
+      "improved": [
+        "skin-tilted-triangle-angle3-skin2-thin1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "orientation_max_degrees": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "angular_momentum_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_normal_force_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    }
+  },
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "09785df71e859a1732e0dccb23c70359db609540210c55e6190cee4e0add314e",
+    "rrr3d_physics_spring_probe": "a60778546c77323a8b45c78376b637ddca7a6ab8d24fcc8242577203da806ef2"
+  }
+}

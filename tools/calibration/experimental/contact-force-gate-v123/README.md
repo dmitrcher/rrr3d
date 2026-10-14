@@ -1,0 +1,11 @@
+# Original contact force response gate V123
+
+The isolated physics matrix matches all608 original Windows trajectories. This checkpoint does not certify whole-game, controller, rendering or all-map physics parity; the ordinary installed game remains unchanged.
+
+The last fixture diverged at step14 after contact row3 applied a force near1.66e-23. Original PhysX first updates retained normal/friction impulses, then computes forceX²+forceZ²+forceY² with individual float stores. If that squared norm is exactly zero it skips the body response (RVA1e83bf..1e83e3). Source previously applied every nonzero component vector. The actual original MXCSR is8064, with gradual underflow and noFTZ/DAZ. This is exact original arithmetic and control flow, without a tolerance or velocity snapping.
+
+Default-off `RRR3D_EXPERIMENT_NATIVE_CONTACT_FORCE_GATE_V123` restores the gate for the reconstructed contact response paths while retaining the impulse updates. All40 actual original norms and application decisions match the production helper at O0/O2, including nonzero subnormals. Four live candidate captures match all96 Native observable states and40 actual contact incoming bodies/tensors/levers/prepared masses/biases/retained impulses. Candidate force vectors match all40 Native records after the explicit body-role sign conversion. Original executables and complete reference histories remain unchanged.
+
+Apply/restore with `apply-experiment.py --adapter-root PATH --sdk-root PATH [--restore]`, then rebuild. Every source identity is checked before mutations. `verify.py --probe PATH` verifies recorded helper arithmetic, complete Native trajectories and flag-off V122 controls. Historical native-force filenames contain `marauder-drop`; their manifest and actual physical records identify the thin-contact fixture. No per-case, frame or wheel behavior is added.
+
+Validation:608/608 complete isolated trajectories exact; both255,864-state repetitions identical, all607 V122 strict cases preserved,607 full histories unchanged. No full-run raw/canonical maximum worsens. All53 project checks pass in each profile,291 independent gates pass. Portable verification reruns12,204 original-equivalent states and24 flag-off V122 controls. Headless real-map replay900 steps and rendered240 frames pass as functional checks, without a Windows game trajectory equality claim.

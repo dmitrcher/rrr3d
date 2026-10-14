@@ -1,0 +1,270 @@
+{
+  "scope": "Experimental original contact squared-force response gate V123,25 complete fixtures,two repeats per mode,flagoff preserves acceptedV122.",
+  "probe_sha256": "09785df71e859a1732e0dccb23c70359db609540210c55e6190cee4e0add314e",
+  "default_off_matches_v122_selected": true,
+  "modes": {
+    "control": {
+      "repeats_exact": true,
+      "cases": {
+        "border-air-straight": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "skin-tilted-triangle-angle3-skin2-thin1": {
+          "states": 24,
+          "first_difference": 14,
+          "exact": false
+        },
+        "marauder/suspension-drop": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "dirtdevil/suspension-drop": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "xCar/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "settle": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "brake": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "reverse-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-hit": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-oblique": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "target-half": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "bump-crossing": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "curb-side": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "border-grounded": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-air-straight-24": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-longitudinal": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-lateral": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "body-tilt-pitch": {
+          "states": 180,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-head-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-head-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-same-head-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-same-head-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-pole-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-pole-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        }
+      },
+      "strict_cases": 24
+    },
+    "candidate": {
+      "repeats_exact": true,
+      "cases": {
+        "border-air-straight": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "skin-tilted-triangle-angle3-skin2-thin1": {
+          "states": 24,
+          "first_difference": null,
+          "exact": true
+        },
+        "marauder/suspension-drop": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "dirtdevil/suspension-drop": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "xCar/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "settle": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "brake": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "reverse-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-hit": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-oblique": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "target-half": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "bump-crossing": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "curb-side": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "border-grounded": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-air-straight-24": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-longitudinal": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-lateral": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "body-tilt-pitch": {
+          "states": 180,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-head-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-head-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-same-head-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-same-head-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-pole-0": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        },
+        "pair-stock-pole-1": {
+          "states": 300,
+          "first_difference": null,
+          "exact": true
+        }
+      },
+      "strict_cases": 25
+    }
+  },
+  "goal_complete": false
+}

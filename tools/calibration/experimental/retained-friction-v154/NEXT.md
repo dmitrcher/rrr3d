@@ -9,3 +9,5 @@ Native478two900statespreserved. Next478normalcrossNativeunfused vsSourceFMA prov
 Native16/420two900statespreserved butbody-contactrowszero/zero; wheel/tire/integration needsobserver. Native482V155capture17112rep0done,rep1live; actual482Source6contacts,Native8contacts (30vs40solverrows): nextinvestigationcontactgeneration/order/count. Source48241937terminal.
 
 HealthyGitwork/sync-rrr3d,branchmacos-arm64; activeSourceGitcorruptneveruse. CaffeinatePID66293ON. Goalactive/incomplete.
+
+V154 published https://github.com/dmitrcher/rrr3d/releases/tag/physics-shape-retained-friction-v154-investigation-2026-10-15; actual GitHub download ZIP6170236bytes SHA00c3bdbcdcbaa58e256b13d1ed144d91ffeddad7e0870c4985d8a25f46b8a6e2,81hashedmembersverified, frozenbinary/Windows133 exact, freshdownloaded600sleep-settleoriginalF32states exact. Publicationcode0728339365495612ba09324fa355feabb679b4c4.

@@ -1,0 +1,198 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+10226e00:      	fstps	(%esp)
+10226e03:      	calll	0x10001540 <.text+0x540>
+10226e08:      	fld1
+10226e0a:      	movss	-0xfc(%ebp), %xmm3
+10226e12:      	fdivp	%st, %st(1)
+10226e14:      	addl	$0x4, %esp
+10226e17:      	flds	-0xb0(%ebp)
+10226e1d:      	fmul	%st(1), %st
+10226e1f:      	fstps	-0x30(%ebp)
+10226e22:      	flds	-0xac(%ebp)
+10226e28:      	fmul	%st(1), %st
+10226e2a:      	fstps	-0x2c(%ebp)
+10226e2d:      	fmuls	-0xa8(%ebp)
+10226e33:      	fstps	-0x28(%ebp)
+10226e36:      	jmp	0x10226e47 <NxCreateCoreSDK+0x47bf7>
+10226e38:      	movss	%xmm5, -0x30(%ebp)
+10226e3d:      	movss	%xmm5, -0x2c(%ebp)
+10226e42:      	movss	%xmm5, -0x28(%ebp)
+10226e47:      	mulss	-0x28(%ebp), %xmm3
+10226e4c:      	flds	-0x30(%ebp)
+10226e4f:      	movss	-0xb8(%ebp), %xmm1
+10226e57:      	movss	-0xb4(%ebp), %xmm0
+10226e5f:      	mulss	-0x2c(%ebp), %xmm1
+10226e64:      	mulss	-0x30(%ebp), %xmm0
+10226e69:      	addss	%xmm1, %xmm3
+10226e6d:      	addss	%xmm0, %xmm3
+10226e71:      	xorps	0x10331570, %xmm3
+10226e78:      	pushl	%ecx
+10226e79:      	fstps	(%esp)
+10226e7c:      	movss	%xmm3, -0x150(%ebp)
+10226e84:      	calll	0x10001510 <.text+0x510>
+10226e89:      	fstps	-0x40(%ebp)
+10226e8c:      	flds	-0x2c(%ebp)
+10226e8f:      	fstps	(%esp)
+10226e92:      	calll	0x10001510 <.text+0x510>
+10226e97:      	fstps	-0xc(%ebp)
+10226e9a:      	flds	-0x28(%ebp)
+10226e9d:      	fstps	(%esp)
+10226ea0:      	calll	0x10001510 <.text+0x510>
+10226ea5:      	fstps	-0x104(%ebp)
+10226eab:      	addl	$0x4, %esp
+10226eae:      	flds	-0x40(%ebp)
+10226eb1:      	movss	-0x104(%ebp), %xmm0
+10226eb9:      	flds	-0xc(%ebp)
+10226ebc:      	movl	$0x1, %edx
+10226ec1:      	movl	$0x2, %ecx
+10226ec6:      	fcompi	%st(1), %st
+10226ec8:      	fstp	%st(0)
+10226eca:      	movl	%edx, -0x14(%ebp)
+10226ecd:      	movl	%ecx, -0x1c(%ebp)
+10226ed0:      	jbe	0x10226ee1 <NxCreateCoreSDK+0x47c91>
+10226ed2:      	movss	-0xc(%ebp), %xmm1
+10226ed7:      	comiss	%xmm0, %xmm1
+10226eda:      	jbe	0x10226ee1 <NxCreateCoreSDK+0x47c91>
+10226edc:      	movl	%ecx, -0x1c(%ebp)
+10226edf:      	jmp	0x10226eea <NxCreateCoreSDK+0x47c9a>
+10226ee1:      	comiss	-0x40(%ebp), %xmm0
+10226ee5:      	jbe	0x10226ef1 <NxCreateCoreSDK+0x47ca1>
+10226ee7:      	movl	%edx, -0x1c(%ebp)
+10226eea:      	movl	$0x0, -0x14(%ebp)
+10226ef1:      	movl	-0x14(%ebp), %eax
+10226ef4:      	movss	-0x80(%ebp,%eax,4), %xmm0
+10226efa:      	movl	-0x1c(%ebp), %ecx
+10226efd:      	movss	(%ebx,%ecx,4), %xmm2
+10226f02:      	movss	-0x80(%ebp,%ecx,4), %xmm1
+10226f08:      	xorps	%xmm5, %xmm5
+10226f0b:      	mulss	%xmm0, %xmm2
+10226f0f:      	movss	%xmm0, -0x110(%ebp)
+10226f17:      	movss	(%ebx,%eax,4), %xmm0
+10226f1c:      	movl	0x8(%ebp), %eax
+10226f1f:      	mulss	%xmm1, %xmm0
+10226f23:      	subss	%xmm0, %xmm2
+10226f27:      	movss	0x10331584, %xmm0
+10226f2f:      	divss	%xmm2, %xmm0
+10226f33:      	movss	%xmm1, -0x10c(%ebp)
+10226f3b:      	movss	%xmm0, -0x108(%ebp)
+10226f43:      	testl	%eax, %eax
+10226f45:      	jbe	0x10227360 <NxCreateCoreSDK+0x48110>
+10226f4b:      	movss	-0x28(%ebp), %xmm7
+10226f50:      	movl	%edx, %ecx
+10226f52:      	movl	%ecx, -0xc(%ebp)
+10226f55:      	movl	%eax, -0x40(%ebp)
+10226f58:      	jmp	0x10226f63 <NxCreateCoreSDK+0x47d13>
+10226f5a:      	leal	(%ebx), %ebx
+10226f60:      	movl	0x8(%ebp), %eax
+10226f63:      	movl	%ecx, %edx
+10226f65:      	cmpl	%eax, %ecx
+10226f67:      	jb	0x10226f6b <NxCreateCoreSDK+0x47d1b>
+10226f69:      	xorl	%edx, %edx
+10226f6b:      	movzbl	-0x1(%esi,%ecx), %eax
+10226f70:      	leal	(%eax,%eax,2), %eax
+10226f73:      	movss	(%edi,%eax,4), %xmm3
+10226f78:      	leal	(%edi,%eax,4), %ebx
+10226f7b:      	movzbl	(%edx,%esi), %eax
+10226f7f:      	leal	(%eax,%eax,2), %edx
+10226f82:      	movss	0x8(%edi,%edx,4), %xmm1
+10226f88:      	movss	0x4(%edi,%edx,4), %xmm2
+10226f8e:      	movss	(%edi,%edx,4), %xmm4
+10226f93:      	leal	(%edi,%edx,4), %eax
+10226f96:      	movaps	%xmm3, %xmm0
+10226f99:      	mulss	-0x30(%ebp), %xmm0
+10226f9e:      	movss	%xmm0, -0x5c(%ebp)
+10226fa3:      	movaps	%xmm2, %xmm6
+10226fa6:      	mulss	-0x2c(%ebp), %xmm6
+10226fab:      	movaps	%xmm1, %xmm0
+10226fae:      	mulss	%xmm7, %xmm0
+10226fb2:      	addss	%xmm0, %xmm6
+10226fb6:      	movaps	%xmm4, %xmm0
+10226fb9:      	mulss	-0x30(%ebp), %xmm0
+10226fbe:      	addss	%xmm0, %xmm6
+10226fc2:      	movss	0x4(%ebx), %xmm0
+10226fc7:      	addss	-0x150(%ebp), %xmm6
+10226fcf:      	movss	%xmm4, -0x100(%ebp)
+10226fd7:      	movaps	%xmm0, %xmm4
+10226fda:      	mulss	-0x2c(%ebp), %xmm4
+10226fdf:      	movss	0x8(%ebx), %xmm0
+10226fe4:      	mulss	%xmm7, %xmm0
+10226fe8:      	addss	%xmm0, %xmm4
+10226fec:      	addss	-0x5c(%ebp), %xmm4
+10226ff1:      	addss	-0x150(%ebp), %xmm4
+10226ff9:      	mulss	%xmm4, %xmm6
+10226ffd:      	comiss	%xmm5, %xmm6
+10227000:      	movss	%xmm3, -0xe0(%ebp)
+10227008:      	ja	0x1022734d <NxCreateCoreSDK+0x480fd>
+1022700e:      	movss	0x4(%ebx), %xmm4
+10227013:      	movss	-0x100(%ebp), %xmm0
+1022701b:      	subss	%xmm4, %xmm2
+1022701f:      	movss	0x8(%ebx), %xmm4
+10227024:      	subss	%xmm4, %xmm1
+10227028:      	subss	%xmm3, %xmm0
+1022702c:      	movaps	%xmm1, %xmm4
+1022702f:      	movss	%xmm0, -0x74(%ebp)
+10227034:      	mulss	%xmm1, %xmm4
+10227038:      	movss	%xmm1, -0x6c(%ebp)
+1022703d:      	mulss	%xmm0, %xmm0
+10227041:      	movaps	%xmm2, %xmm1
+10227044:      	addss	%xmm4, %xmm0
+10227048:      	mulss	%xmm2, %xmm1
+1022704c:      	addss	%xmm1, %xmm0
+10227050:      	comiss	%xmm5, %xmm0
+10227053:      	movss	%xmm2, -0x70(%ebp)
+10227058:      	movss	%xmm0, -0xe4(%ebp)
+10227060:      	jbe	0x102270a8 <NxCreateCoreSDK+0x47e58>
+10227062:      	flds	-0xe4(%ebp)
+10227068:      	pushl	%ecx
+10227069:      	fstps	(%esp)
+1022706c:      	calll	0x10001540 <.text+0x540>
+10227071:      	fld1
+10227073:      	movss	-0x28(%ebp), %xmm7
+10227078:      	fdivp	%st, %st(1)
+1022707a:      	movss	-0xe0(%ebp), %xmm3
+10227082:      	xorps	%xmm5, %xmm5
+10227085:      	movl	-0xc(%ebp), %ecx
+10227088:      	addl	$0x4, %esp
+1022708b:      	flds	-0x74(%ebp)
+1022708e:      	fmul	%st(1), %st
+10227090:      	fstps	-0x4c(%ebp)
+10227093:      	flds	-0x70(%ebp)
+10227096:      	movss	-0x4c(%ebp), %xmm4
+1022709b:      	fmul	%st(1), %st
+1022709d:      	fstps	-0x48(%ebp)
+102270a0:      	fmuls	-0x6c(%ebp)
+102270a3:      	fstps	-0x44(%ebp)
+102270a6:      	jmp	0x102270b5 <NxCreateCoreSDK+0x47e65>
+102270a8:      	movaps	%xmm5, %xmm4
+102270ab:      	movss	%xmm5, -0x48(%ebp)
+102270b0:      	movss	%xmm5, -0x44(%ebp)
+102270b5:      	movss	-0x44(%ebp), %xmm1
+102270ba:      	movss	-0x2c(%ebp), %xmm6
+102270bf:      	mulss	%xmm7, %xmm1
+102270c3:      	movaps	%xmm4, %xmm0
+102270c6:      	mulss	-0x30(%ebp), %xmm0
+102270cb:      	addss	%xmm1, %xmm0
+102270cf:      	movss	-0x48(%ebp), %xmm1
+102270d4:      	mulss	%xmm6, %xmm1
+102270d8:      	addss	%xmm1, %xmm0
+102270dc:      	ucomiss	%xmm5, %xmm0
+102270df:      	lahf
+102270e0:      	movss	%xmm0, -0xf0(%ebp)
+102270e8:      	testb	$0x44, %ah
+102270eb:      	jnp	0x1022734d <NxCreateCoreSDK+0x480fd>
+102270f1:      	movss	0x4(%ebx), %xmm2
+102270f6:      	movss	0x8(%ebx), %xmm1
+102270fb:      	movl	-0x1c(%ebp), %edx
+102270fe:      	movl	-0x10(%ebp), %eax
+10227101:      	movaps	%xmm2, %xmm0
+10227104:      	mulss	%xmm6, %xmm0
+10227108:      	movaps	%xmm1, %xmm6
+1022710b:      	mulss	%xmm7, %xmm6
+1022710f:      	addss	%xmm6, %xmm0
+10227113:      	addss	-0x5c(%ebp), %xmm0
+10227118:      	addss	-0x150(%ebp), %xmm0

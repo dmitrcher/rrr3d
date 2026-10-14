@@ -1,0 +1,59 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+10226d00:      	<unknown>
+10226d02:      	movups	-0x4(%ecx), %xmm0
+10226d06:      	movl	0x18(%ebp), %ebx
+10226d09:      	movss	0x4(%ecx), %xmm3
+10226d0e:      	movss	0x8(%ebx), %xmm1
+10226d13:      	leal	(%edx,%edx,2), %eax
+10226d16:      	movl	-0x24(%ebp), %edx
+10226d19:      	movss	(%edx,%eax,4), %xmm4
+10226d1e:      	movss	0x4(%edx,%eax,4), %xmm6
+10226d24:      	movss	0x8(%edx,%eax,4), %xmm7
+10226d2a:      	subss	%xmm0, %xmm4
+10226d2e:      	leal	(%edx,%eax,4), %eax
+10226d31:      	movss	%xmm0, -0xb4(%ebp)
+10226d39:      	movss	(%ecx), %xmm0
+10226d3d:      	subss	%xmm0, %xmm6
+10226d41:      	movss	%xmm0, -0xb8(%ebp)
+10226d49:      	movss	0x4(%ebx), %xmm0
+10226d4e:      	movss	%xmm1, -0xe8(%ebp)
+10226d56:      	subss	%xmm3, %xmm7
+10226d5a:      	movaps	%xmm0, %xmm2
+10226d5d:      	mulss	%xmm7, %xmm2
+10226d61:      	mulss	%xmm6, %xmm1
+10226d65:      	subss	%xmm2, %xmm1
+10226d69:      	movss	(%ebx), %xmm2
+10226d6d:      	mulss	%xmm4, %xmm0
+10226d71:      	movss	%xmm2, -0xf8(%ebp)
+10226d79:      	mulss	%xmm7, %xmm2
+10226d7d:      	movss	%xmm4, -0x80(%ebp)
+10226d82:      	movss	%xmm7, -0x78(%ebp)
+10226d87:      	movss	-0xe8(%ebp), %xmm7
+10226d8f:      	mulss	%xmm4, %xmm7
+10226d93:      	movss	-0xf8(%ebp), %xmm4
+10226d9b:      	mulss	%xmm6, %xmm4
+10226d9f:      	subss	%xmm4, %xmm0
+10226da3:      	movaps	%xmm0, %xmm4
+10226da6:      	movss	%xmm1, -0xb0(%ebp)
+10226dae:      	subss	%xmm7, %xmm2
+10226db2:      	mulss	%xmm0, %xmm4
+10226db6:      	movss	%xmm0, -0xa8(%ebp)
+10226dbe:      	mulss	%xmm1, %xmm1
+10226dc2:      	movaps	%xmm2, %xmm0
+10226dc5:      	addss	%xmm4, %xmm1
+10226dc9:      	mulss	%xmm2, %xmm0
+10226dcd:      	addss	%xmm0, %xmm1
+10226dd1:      	comiss	%xmm5, %xmm1
+10226dd4:      	movl	%eax, -0xec(%ebp)
+10226dda:      	movss	%xmm6, -0x7c(%ebp)
+10226ddf:      	movss	%xmm3, -0xfc(%ebp)
+10226de7:      	movss	%xmm2, -0xac(%ebp)
+10226def:      	movss	%xmm1, -0xf4(%ebp)
+10226df7:      	jbe	0x10226e38 <NxCreateCoreSDK+0x47be8>
+10226df9:      	flds	-0xf4(%ebp)
+10226dff:      	pushl	%ecx

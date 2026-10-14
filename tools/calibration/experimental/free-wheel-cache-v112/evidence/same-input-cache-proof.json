@@ -1,0 +1,318 @@
+{
+  "scope": "Actual original free-wheel entry and after-reset checkpoints on identical inputs; Source retained ray state derived independently, no Native values supplied to runtime. +2c8 is serialized longitudinal tire stiffness, not suspension force. FLT_MAX marks invalid cached ray.",
+  "checks": [
+    {
+      "optimization": "O0",
+      "actual_original_branch_results_exact": 12,
+      "Native_repeats": 2
+    },
+    {
+      "optimization": "O2",
+      "actual_original_branch_results_exact": 12,
+      "Native_repeats": 2
+    }
+  ],
+  "fixtures": [
+    {
+      "tick": 507,
+      "wheel": 0,
+      "input": [
+        1135944541,
+        1122896982,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135544594
+    },
+    {
+      "tick": 507,
+      "wheel": 1,
+      "input": [
+        1135944606,
+        1122897070,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135544659
+    },
+    {
+      "tick": 507,
+      "wheel": 2,
+      "input": [
+        1135544593,
+        1122896981,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135544593
+    },
+    {
+      "tick": 507,
+      "wheel": 3,
+      "input": [
+        1135544658,
+        1122897069,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135544658
+    },
+    {
+      "tick": 508,
+      "wheel": 0,
+      "input": [
+        1135944541,
+        1122896982,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1135944541
+    },
+    {
+      "tick": 508,
+      "wheel": 1,
+      "input": [
+        1135944606,
+        1122897070,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1135944606
+    },
+    {
+      "tick": 508,
+      "wheel": 2,
+      "input": [
+        1135559857,
+        1122917740,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135559857
+    },
+    {
+      "tick": 508,
+      "wheel": 3,
+      "input": [
+        1135559922,
+        1122917828,
+        1051595899,
+        0,
+        1,
+        64
+      ],
+      "expected": 1135559922
+    },
+    {
+      "tick": 509,
+      "wheel": 0,
+      "input": [
+        1136344488,
+        1122896982,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1136344488
+    },
+    {
+      "tick": 509,
+      "wheel": 1,
+      "input": [
+        1136344553,
+        1122897070,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1136344553
+    },
+    {
+      "tick": 509,
+      "wheel": 2,
+      "input": [
+        1135559857,
+        1122917740,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1135559857
+    },
+    {
+      "tick": 509,
+      "wheel": 3,
+      "input": [
+        1135559922,
+        1122917828,
+        1051595899,
+        0,
+        0,
+        64
+      ],
+      "expected": 1135559922
+    }
+  ],
+  "live_same_input_checks": [
+    {
+      "tick": 507,
+      "wheel": 0,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 507,
+      "wheel": 1,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 0,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 1,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 2,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 3,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 0,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 1,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 2,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 3,
+      "repeat": 0,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 507,
+      "wheel": 0,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 507,
+      "wheel": 1,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 0,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 1,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 2,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 508,
+      "wheel": 3,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 0,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 1,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 2,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    },
+    {
+      "tick": 509,
+      "wheel": 3,
+      "repeat": 1,
+      "all6_input_fields_exact": true,
+      "production_branch_result_exact": true
+    }
+  ],
+  "actual_Native_original600_histories_preserved": 3600,
+  "live_Source_full600_Native_equivalent_histories": 3600,
+  "goal_complete": false
+}

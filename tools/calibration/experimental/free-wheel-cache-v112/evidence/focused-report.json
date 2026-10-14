@@ -1,0 +1,840 @@
+{
+  "scope": "All69 remaining V111 cases plus13 retained controls; new flag off preserves V111 complete decimal histories, two repeats each.",
+  "probe_sha256": "3aa0f2bf724ae12f30432bf0e2acede3aea6bf3a787b505d9f445dfc5c9b5788",
+  "default_off_matches_v111_for_selected82": true,
+  "modes": {
+    "control": {
+      "repeats_exact": true,
+      "cases": {
+        "steer-left": {
+          "states": 600,
+          "first_difference": 240,
+          "exact": false
+        },
+        "steer-right": {
+          "states": 600,
+          "first_difference": 240,
+          "exact": false
+        },
+        "spring-soft": {
+          "states": 600,
+          "first_difference": 46,
+          "exact": false
+        },
+        "travel-short": {
+          "states": 600,
+          "first_difference": 43,
+          "exact": false
+        },
+        "travel-long": {
+          "states": 600,
+          "first_difference": 36,
+          "exact": false
+        },
+        "radius-small": {
+          "states": 600,
+          "first_difference": 39,
+          "exact": false
+        },
+        "mass-heavy": {
+          "states": 600,
+          "first_difference": 43,
+          "exact": false
+        },
+        "game-air-pitch": {
+          "states": 120,
+          "first_difference": 4,
+          "exact": false
+        },
+        "game-angular-damping": {
+          "states": 120,
+          "first_difference": 1,
+          "exact": false
+        },
+        "game-clamp-roll": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "game-clamp-pitch": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "game-clamp-mixed": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-tilt-pitch": {
+          "states": 180,
+          "first_difference": 166,
+          "exact": false
+        },
+        "body-wheel-contact-x": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-wheel-contact-pitch": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-wheel-contact-roll": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "pair-stock-pole-1": {
+          "states": 300,
+          "first_difference": 32,
+          "exact": false
+        },
+        "border-air-straight": {
+          "states": 600,
+          "first_difference": 62,
+          "exact": false
+        },
+        "skin-tilted-triangle-angle3-skin2-thin1": {
+          "states": 24,
+          "first_difference": 14,
+          "exact": false
+        },
+        "marauder/suspension-drop": {
+          "states": 600,
+          "first_difference": 146,
+          "exact": false
+        },
+        "mobility/marauder/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 587,
+          "exact": false
+        },
+        "mobility/marauder/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 587,
+          "exact": false
+        },
+        "mobility/marauder/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 587,
+          "exact": false
+        },
+        "dirtdevil/suspension-drop": {
+          "states": 600,
+          "first_difference": 76,
+          "exact": false
+        },
+        "mobility/dirtdevil/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 581,
+          "exact": false
+        },
+        "mobility/dirtdevil/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 581,
+          "exact": false
+        },
+        "mobility/dirtdevil/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 581,
+          "exact": false
+        },
+        "mobility/manticora/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/manticora/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/manticora/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/manticoraBoss/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/manticoraBoss/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/manticoraBoss/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 556,
+          "exact": false
+        },
+        "mobility/airblade/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 593,
+          "exact": false
+        },
+        "mobility/airblade/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 593,
+          "exact": false
+        },
+        "mobility/airblade/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 593,
+          "exact": false
+        },
+        "mobility/guseniza/gusWheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/guseniza/gusWheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/guseniza/gusWheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/gusenizaBoss/gusWheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/gusenizaBoss/gusWheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/gusenizaBoss/gusWheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/gusenizaBoss/gusWheel1_boss/wheel-drive": {
+          "states": 600,
+          "first_difference": 531,
+          "exact": false
+        },
+        "mobility/podushka/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/podushka/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/podushka/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/podushkaBoss/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/podushkaBoss/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/podushkaBoss/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": 507,
+          "exact": false
+        },
+        "mobility/monstertruck/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 551,
+          "exact": false
+        },
+        "mobility/monstertruck/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 551,
+          "exact": false
+        },
+        "mobility/monstertruck/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 551,
+          "exact": false
+        },
+        "mobility/monstertruckBoss/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 526,
+          "exact": false
+        },
+        "mobility/monstertruckBoss/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 526,
+          "exact": false
+        },
+        "mobility/monstertruckBoss/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 526,
+          "exact": false
+        },
+        "mobility/devildriver/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/devildriver/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/devildriver/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/devildriverBoss/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/devildriverBoss/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/devildriverBoss/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": 528,
+          "exact": false
+        },
+        "mobility/tankchetti/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": 599,
+          "exact": false
+        },
+        "mobility/tankchetti/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": 599,
+          "exact": false
+        },
+        "mobility/tankchetti/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 599,
+          "exact": false
+        },
+        "mobility/mustang/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": 484,
+          "exact": false
+        },
+        "xCar/wheel-drive": {
+          "states": 600,
+          "first_difference": 525,
+          "exact": false
+        },
+        "mobility/xCar/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": 496,
+          "exact": false
+        },
+        "mobility/xCar/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": 496,
+          "exact": false
+        },
+        "mobility/xCar/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": 496,
+          "exact": false
+        },
+        "settle": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "brake": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "reverse-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-hit": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-oblique": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "target-half": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "bump-crossing": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "curb-side": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "border-grounded": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-air-straight-24": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-longitudinal": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-lateral": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        }
+      },
+      "strict_cases": 13
+    },
+    "candidate": {
+      "repeats_exact": true,
+      "cases": {
+        "steer-left": {
+          "states": 600,
+          "first_difference": 240,
+          "exact": false
+        },
+        "steer-right": {
+          "states": 600,
+          "first_difference": 240,
+          "exact": false
+        },
+        "spring-soft": {
+          "states": 600,
+          "first_difference": 46,
+          "exact": false
+        },
+        "travel-short": {
+          "states": 600,
+          "first_difference": 43,
+          "exact": false
+        },
+        "travel-long": {
+          "states": 600,
+          "first_difference": 36,
+          "exact": false
+        },
+        "radius-small": {
+          "states": 600,
+          "first_difference": 39,
+          "exact": false
+        },
+        "mass-heavy": {
+          "states": 600,
+          "first_difference": 43,
+          "exact": false
+        },
+        "game-air-pitch": {
+          "states": 120,
+          "first_difference": 4,
+          "exact": false
+        },
+        "game-angular-damping": {
+          "states": 120,
+          "first_difference": 1,
+          "exact": false
+        },
+        "game-clamp-roll": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "game-clamp-pitch": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "game-clamp-mixed": {
+          "states": 120,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-tilt-pitch": {
+          "states": 180,
+          "first_difference": 166,
+          "exact": false
+        },
+        "body-wheel-contact-x": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-wheel-contact-pitch": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "body-wheel-contact-roll": {
+          "states": 180,
+          "first_difference": 0,
+          "exact": false
+        },
+        "pair-stock-pole-1": {
+          "states": 300,
+          "first_difference": 32,
+          "exact": false
+        },
+        "border-air-straight": {
+          "states": 600,
+          "first_difference": 62,
+          "exact": false
+        },
+        "skin-tilted-triangle-angle3-skin2-thin1": {
+          "states": 24,
+          "first_difference": 14,
+          "exact": false
+        },
+        "marauder/suspension-drop": {
+          "states": 600,
+          "first_difference": 146,
+          "exact": false
+        },
+        "mobility/marauder/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/marauder/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/marauder/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "dirtdevil/suspension-drop": {
+          "states": 600,
+          "first_difference": 76,
+          "exact": false
+        },
+        "mobility/dirtdevil/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/dirtdevil/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/dirtdevil/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticora/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticora/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticora/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticoraBoss/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticoraBoss/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/manticoraBoss/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/airblade/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/airblade/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/airblade/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/guseniza/gusWheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/guseniza/gusWheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/guseniza/gusWheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/gusenizaBoss/gusWheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/gusenizaBoss/gusWheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/gusenizaBoss/gusWheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/gusenizaBoss/gusWheel1_boss/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushka/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushka/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushka/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushkaBoss/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushkaBoss/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/podushkaBoss/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruck/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruck/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruck/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruckBoss/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruckBoss/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/monstertruckBoss/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriver/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriver/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriver/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriverBoss/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriverBoss/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/devildriverBoss/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/tankchetti/wheel1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/tankchetti/wheel2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/tankchetti/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/mustang/wheel3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "xCar/wheel-drive": {
+          "states": 600,
+          "first_difference": 525,
+          "exact": false
+        },
+        "mobility/xCar/engine1/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/xCar/engine2/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "mobility/xCar/engine3/wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "settle": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wheel-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "brake": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "reverse-drive": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-hit": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-oblique": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "target-half": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "bump-crossing": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "curb-side": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "border-grounded": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "wall-air-straight-24": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-longitudinal": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        },
+        "slope-lateral": {
+          "states": 600,
+          "first_difference": null,
+          "exact": true
+        }
+      },
+      "strict_cases": 60
+    }
+  },
+  "goal_complete": false
+}

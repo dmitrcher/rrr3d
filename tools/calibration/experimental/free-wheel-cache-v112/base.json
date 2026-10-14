@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off cached ray forward speed before first lost-contact free motor step; Source-only values; no power/coefficient/case/frame feeds. Private adapter runtime vectors, no SDK changes.",
+  "files": [
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "be7ca9f834f75c72309b3f6c088973a6802855a92183c692a02159465455dde9",
+      "after_sha256": "4fab22f7d7f5dfe4e04a2ccf58f05c7ed76869292846e4e44e943ce35dcb00f4",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeFreeWheelCacheV112.h",
+      "before_sha256": null,
+      "after_sha256": "914e4fd1069972523e630185a1e9320274ae0b1096bafa720b0e4bd5606551fb",
+      "location": "adapter"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified static-box-contact-v111 and all prerequisites; adapter-only two-file delta, no SDK modifications"
+}

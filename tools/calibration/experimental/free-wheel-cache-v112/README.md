@@ -1,0 +1,9 @@
+# Previous ray contact in free wheel integration V112
+
+Validated investigation checkpoint; overall goal remains incomplete. Default-off adapter-only two-file delta over verified V111. The original free wheel integration uses the previous ray contact and cached forward speed before the fresh query. On the first lost-contact frame the cached longitudinal speed is divided by radius before motor torque. Later invalid ray records carry axle speed normally. The predicate uses longitudinal tire stiffness (+2c8), wheel flags and FLT_MAX ray sentinel; it does not use suspension force.
+
+Runtime derives its own cached speed and contact validity; no measured states or fixture-specific branches enter the calculation. Power, torque, brake, tire and geometry parameters are unchanged. New flag: RRR3D_EXPERIMENT_NATIVE_FREE_WHEEL_CACHE_V112. Snapshot installer verifies every base before mutation; rebuild all adapter consumers.
+
+Actual original Windows entry and post-reset results match production header O0/O2 in12inputs, two Native repeats. Actual live Source matches all6inputfields and result on20lost-contact/free rows across507/508/509 twice. All six traced600-step histories match original Windows, and original EXE/DLL hashes and 3600Native states are preserved. Whole-game/render equivalence and overall goal remain incomplete.
+
+Complete matrix: 586/608 strict, 22 open, all539previous strict preserved.47new strict wheel-drive scenarios and561unchanged full histories. Two255864-state repeats exact. Wheel angular-speed maximum improves in47cases; all other audited maxima unchanged, no worsening.53project checks,291independent gates, solo600/rendered240 functional checks pass. verify.py checks production arithmetic O0/O2,36000fresh original-equivalent states and600flag-off V111-preserved states.

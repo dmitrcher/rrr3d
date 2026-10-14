@@ -1,0 +1,26 @@
+[0/2] Re-checking globbed directories...
+[1/5] Building CXX object src/Rock3dEngine/CMakeFiles/Rock3dEngine.dir/source/physics/JoltVehiclePhysics.cpp.o
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1899:56: warning: 'configureMaterial' has a non-throwing exception specification but can still throw [-Wexceptions]
+ 1899 |                 if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box frame physical pose");pose=it->second;}
+      |                                                        ^
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1705:10: note: function declared non-throwing here
+ 1705 |     void configureMaterial(
+      |          ^
+ 1706 |         const JPH::Body& first, const JPH::Body& second,
+ 1707 |         const JPH::ContactManifold& manifold,
+ 1708 |         JPH::ContactSettings& settings) noexcept
+      |                                         ~~~~~~~~
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1885:60: warning: 'configureMaterial' has a non-throwing exception specification but can still throw [-Wexceptions]
+ 1885 |                     if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box inertia physical pose");pose=it->second;}
+      |                                                            ^
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1705:10: note: function declared non-throwing here
+ 1705 |     void configureMaterial(
+      |          ^
+ 1706 |         const JPH::Body& first, const JPH::Body& second,
+ 1707 |         const JPH::ContactManifold& manifold,
+ 1708 |         JPH::ContactSettings& settings) noexcept
+      |                                         ~~~~~~~~
+2 warnings generated.
+[2/5] Linking CXX static library src/Rock3dEngine/libRock3dEngine.a
+[3/5] Linking CXX executable Debug/rrr3d_physics_calibration
+[4/5] Linking CXX executable Debug/rrr3d_physics_spring_probe

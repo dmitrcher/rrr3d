@@ -1,0 +1,220 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10074500:      	movups	0x10331570, %xmm3
+10074507:      	jmp	0x10074521 <.text+0x73521>
+10074509:      	flds	0x48(%edi)
+1007450c:      	fstps	0xc(%eax)
+1007450f:      	flds	0x4c(%edi)
+10074512:      	fstps	0x10(%eax)
+10074515:      	flds	0x50(%edi)
+10074518:      	fstps	0x14(%eax)
+1007451b:      	flds	0x54(%edi)
+1007451e:      	fstps	0x18(%eax)
+10074521:      	testl	%ecx, %ecx
+10074523:      	je	0x10074663 <.text+0x73663>
+10074529:      	movss	0x54(%edi), %xmm4
+1007452e:      	movss	0x70(%ecx), %xmm1
+10074533:      	movss	0x74(%ecx), %xmm2
+10074538:      	movss	0x78(%ecx), %xmm0
+1007453d:      	movss	0x50(%edi), %xmm6
+10074542:      	movaps	%xmm4, %xmm5
+10074545:      	xorps	%xmm3, %xmm1
+10074548:      	mulss	%xmm1, %xmm5
+1007454c:      	movss	%xmm5, 0xc(%esp)
+10074552:      	xorps	%xmm3, %xmm2
+10074555:      	xorps	%xmm3, %xmm0
+10074558:      	movss	0x7c(%ecx), %xmm3
+1007455d:      	movaps	%xmm2, %xmm5
+10074560:      	mulss	%xmm4, %xmm5
+10074564:      	movss	%xmm5, 0x10(%esp)
+1007456a:      	movaps	%xmm0, %xmm5
+1007456d:      	mulss	%xmm4, %xmm5
+10074571:      	movss	%xmm5, 0x14(%esp)
+10074577:      	movss	0x48(%edi), %xmm5
+1007457c:      	movaps	%xmm3, %xmm4
+1007457f:      	mulss	%xmm5, %xmm4
+10074583:      	movss	0x4c(%edi), %xmm5
+10074588:      	movss	%xmm4, 0x1c(%esp)
+1007458e:      	movaps	%xmm3, %xmm4
+10074591:      	mulss	%xmm5, %xmm4
+10074595:      	movss	%xmm4, 0x20(%esp)
+1007459b:      	movaps	%xmm3, %xmm4
+1007459e:      	mulss	%xmm6, %xmm4
+100745a2:      	movss	%xmm4, 0x24(%esp)
+100745a8:      	movaps	%xmm0, %xmm7
+100745ab:      	mulss	%xmm5, %xmm7
+100745af:      	movaps	%xmm2, %xmm4
+100745b2:      	mulss	%xmm6, %xmm4
+100745b6:      	subss	%xmm7, %xmm4
+100745ba:      	movss	0x48(%edi), %xmm7
+100745bf:      	addss	0x1c(%esp), %xmm4
+100745c5:      	addss	0xc(%esp), %xmm4
+100745cb:      	movaps	%xmm0, %xmm5
+100745ce:      	mulss	%xmm7, %xmm5
+100745d2:      	movaps	%xmm1, %xmm7
+100745d5:      	mulss	%xmm6, %xmm7
+100745d9:      	movss	0x4c(%edi), %xmm6
+100745de:      	subss	%xmm7, %xmm5
+100745e2:      	addss	0x20(%esp), %xmm5
+100745e8:      	addss	0x10(%esp), %xmm5
+100745ee:      	movaps	%xmm1, %xmm7
+100745f1:      	mulss	%xmm6, %xmm7
+100745f5:      	movss	0x48(%edi), %xmm6
+100745fa:      	movss	%xmm7, 0x18(%esp)
+10074600:      	movaps	%xmm2, %xmm7
+10074603:      	mulss	%xmm6, %xmm7
+10074607:      	movss	0x18(%esp), %xmm6
+1007460d:      	subss	%xmm7, %xmm6
+10074611:      	movss	0x54(%edi), %xmm7
+10074616:      	addss	0x24(%esp), %xmm6
+1007461c:      	addss	0x14(%esp), %xmm6
+10074622:      	mulss	%xmm7, %xmm3
+10074626:      	movss	0x50(%edi), %xmm7
+1007462b:      	mulss	%xmm7, %xmm0
+1007462f:      	movss	0x4c(%edi), %xmm7
+10074634:      	mulss	%xmm7, %xmm2
+10074638:      	addss	%xmm2, %xmm0
+1007463c:      	movss	0x48(%edi), %xmm2
+10074641:      	mulss	%xmm2, %xmm1
+10074645:      	addss	%xmm1, %xmm0
+10074649:      	subss	%xmm0, %xmm3
+1007464d:      	movss	%xmm4, 0x28(%eax)
+10074652:      	movss	%xmm5, 0x2c(%eax)
+10074657:      	movss	%xmm6, 0x30(%eax)
+1007465c:      	movss	%xmm3, 0x34(%eax)
+10074661:      	jmp	0x1007467b <.text+0x7367b>
+10074663:      	flds	0x48(%edi)
+10074666:      	fstps	0x28(%eax)
+10074669:      	flds	0x4c(%edi)
+1007466c:      	fstps	0x2c(%eax)
+1007466f:      	flds	0x50(%edi)
+10074672:      	fstps	0x30(%eax)
+10074675:      	flds	0x54(%edi)
+10074678:      	fstps	0x34(%eax)
+1007467b:      	flds	0x3c(%edi)
+1007467e:      	xorps	%xmm0, %xmm0
+10074681:      	fstps	0x38(%eax)
+10074684:      	popl	%esi
+10074685:      	flds	0x40(%edi)
+10074688:      	fstps	0x3c(%eax)
+1007468b:      	flds	0x44(%edi)
+1007468e:      	fstps	0x40(%eax)
+10074691:      	movss	%xmm0, 0x4c(%eax)
+10074696:      	movss	%xmm0, 0x48(%eax)
+1007469b:      	movss	%xmm0, 0x44(%eax)
+100746a0:      	movl	0x4(%ebx), %ecx
+100746a3:      	flds	0x20(%ecx)
+100746a6:      	fstps	0x50(%eax)
+100746a9:      	movl	0x4(%ebx), %edx
+100746ac:      	flds	0x20(%edx)
+100746af:      	fstps	0x54(%eax)
+100746b2:      	movl	0x4(%ebx), %ecx
+100746b5:      	flds	0x1c(%ecx)
+100746b8:      	fstps	0x58(%eax)
+100746bb:      	movl	0x4(%ebx), %edx
+100746be:      	flds	0x1c(%edx)
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10074390:      	andb	$0x14, %al
+10074392:      	movss	%xmm0, 0x1c(%eax)
+10074397:      	movss	%xmm2, 0x20(%eax)
+1007439c:      	movss	%xmm3, 0x24(%eax)
+100743a1:      	jmp	0x100743b4 <.text+0x733b4>
+100743a3:      	flds	(%edi)
+100743a5:      	fstps	0x1c(%eax)
+100743a8:      	flds	0x4(%edi)
+100743ab:      	fstps	0x20(%eax)
+100743ae:      	flds	0x8(%edi)
+100743b1:      	fstps	0x24(%eax)
+100743b4:      	movl	0xc(%esi), %esi
+100743b7:      	movss	0x10331570, %xmm3
+100743bf:      	testl	%esi, %esi
+100743c1:      	je	0x10074509 <.text+0x73509>
+100743c7:      	movss	0x54(%edi), %xmm4
+100743cc:      	movss	0x70(%esi), %xmm1
+100743d1:      	movss	0x74(%esi), %xmm2
+100743d6:      	movss	0x78(%esi), %xmm0
+100743db:      	movss	0x50(%edi), %xmm6
+100743e0:      	movaps	%xmm4, %xmm5
+100743e3:      	xorps	%xmm3, %xmm1
+100743e6:      	mulss	%xmm1, %xmm5
+100743ea:      	movss	%xmm5, 0x1c(%esp)
+100743f0:      	xorps	%xmm3, %xmm2
+100743f3:      	xorps	%xmm3, %xmm0
+100743f6:      	movss	0x7c(%esi), %xmm3
+100743fb:      	movaps	%xmm2, %xmm5
+100743fe:      	mulss	%xmm4, %xmm5
+10074402:      	movss	%xmm5, 0x20(%esp)
+10074408:      	movaps	%xmm0, %xmm5
+1007440b:      	mulss	%xmm4, %xmm5
+1007440f:      	movss	%xmm5, 0x24(%esp)
+10074415:      	movss	0x48(%edi), %xmm5
+1007441a:      	movaps	%xmm3, %xmm4
+1007441d:      	mulss	%xmm5, %xmm4
+10074421:      	movss	0x4c(%edi), %xmm5
+10074426:      	movss	%xmm4, 0xc(%esp)
+1007442c:      	movaps	%xmm3, %xmm4
+1007442f:      	mulss	%xmm5, %xmm4
+10074433:      	movss	%xmm4, 0x10(%esp)
+10074439:      	movaps	%xmm3, %xmm4
+1007443c:      	mulss	%xmm6, %xmm4
+10074440:      	movss	%xmm4, 0x14(%esp)
+10074446:      	movaps	%xmm0, %xmm7
+10074449:      	mulss	%xmm5, %xmm7
+1007444d:      	movaps	%xmm2, %xmm4
+10074450:      	mulss	%xmm6, %xmm4
+10074454:      	subss	%xmm7, %xmm4
+10074458:      	movss	0x48(%edi), %xmm7
+1007445d:      	addss	0xc(%esp), %xmm4
+10074463:      	addss	0x1c(%esp), %xmm4
+10074469:      	movaps	%xmm0, %xmm5
+1007446c:      	mulss	%xmm7, %xmm5
+10074470:      	movaps	%xmm1, %xmm7
+10074473:      	mulss	%xmm6, %xmm7
+10074477:      	movss	0x4c(%edi), %xmm6
+1007447c:      	subss	%xmm7, %xmm5
+10074480:      	addss	0x10(%esp), %xmm5
+10074486:      	addss	0x20(%esp), %xmm5
+1007448c:      	movaps	%xmm1, %xmm7
+1007448f:      	mulss	%xmm6, %xmm7
+10074493:      	movss	0x48(%edi), %xmm6
+10074498:      	movss	%xmm7, 0x18(%esp)
+1007449e:      	movaps	%xmm2, %xmm7
+100744a1:      	mulss	%xmm6, %xmm7
+100744a5:      	movss	0x18(%esp), %xmm6
+100744ab:      	subss	%xmm7, %xmm6
+100744af:      	movss	0x54(%edi), %xmm7
+100744b4:      	addss	0x14(%esp), %xmm6
+100744ba:      	addss	0x24(%esp), %xmm6
+100744c0:      	mulss	%xmm7, %xmm3
+100744c4:      	movss	0x50(%edi), %xmm7
+100744c9:      	mulss	%xmm7, %xmm0
+100744cd:      	movss	0x4c(%edi), %xmm7
+100744d2:      	mulss	%xmm7, %xmm2
+100744d6:      	addss	%xmm2, %xmm0
+100744da:      	movss	0x48(%edi), %xmm2
+100744df:      	mulss	%xmm2, %xmm1
+100744e3:      	addss	%xmm1, %xmm0
+100744e7:      	subss	%xmm0, %xmm3
+100744eb:      	movss	%xmm4, 0xc(%eax)
+100744f0:      	movss	%xmm5, 0x10(%eax)
+100744f5:      	movss	%xmm6, 0x14(%eax)
+100744fa:      	movss	%xmm3, 0x18(%eax)
+100744ff:      	movss	0x10331570, %xmm3
+10074507:      	jmp	0x10074521 <.text+0x73521>
+10074509:      	flds	0x48(%edi)
+1007450c:      	fstps	0xc(%eax)
+1007450f:      	flds	0x4c(%edi)
+10074512:      	fstps	0x10(%eax)
+10074515:      	flds	0x50(%edi)
+10074518:      	fstps	0x14(%eax)
+1007451b:      	flds	0x54(%edi)
+1007451e:      	fstps	0x18(%eax)

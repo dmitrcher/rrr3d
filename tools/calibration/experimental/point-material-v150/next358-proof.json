@@ -1,0 +1,86 @@
+{
+  "scope": "Next first divergence physical358, after V150; Source diagnostic trace preserves all900 states; original read-only observer preserves two original900-state histories.",
+  "geometry": [
+    {
+      "point": 0,
+      "source": [
+        3263151983,
+        1116109904,
+        1087724037,
+        3172879360
+      ],
+      "native": [
+        3263151983,
+        1116109904,
+        1087724037,
+        3172879360
+      ],
+      "differing_components": []
+    },
+    {
+      "point": 1,
+      "source": [
+        3263156431,
+        1116113493,
+        1089617417,
+        3171724799
+      ],
+      "native": [
+        3263156431,
+        1116113493,
+        1089617417,
+        3171724799
+      ],
+      "differing_components": []
+    },
+    {
+      "point": 2,
+      "source": [
+        3263158317,
+        1116115015,
+        1090420253,
+        3171235072
+      ],
+      "native": [
+        3263158318,
+        1116115015,
+        1090420253,
+        3171235072
+      ],
+      "differing_components": [
+        0
+      ]
+    },
+    {
+      "point": 3,
+      "source": [
+        3263156431,
+        1116113493,
+        1089617418,
+        3171724473
+      ],
+      "native": [
+        3263156431,
+        1116113493,
+        1089617418,
+        3171724473
+      ],
+      "differing_components": []
+    }
+  ],
+  "source_raw_local": [
+    1005189898,
+    3156189602,
+    3207370399,
+    1060965541
+  ],
+  "native_raw_local": [
+    1005189898,
+    3156189601,
+    3207370399,
+    1060965542
+  ],
+  "next_cause": "Converter Core743c7..744fa forms local quaternion with cross products before scalar products, and scalar dot Z/Y/X. Current framev36::multiply uses another association. Offline converter-proof.json reproduces original local quaternion from Source-derived actor and raw frame at342/358 O0/O2. Runtime fix and other material stages are not yet implemented.",
+  "remaining_geometry": "Third point world X differs by one float32 ULP; local clipping/transport operation still needs isolation.",
+  "goal_complete": false
+}

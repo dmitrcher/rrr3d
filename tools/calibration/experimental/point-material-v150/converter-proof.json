@@ -1,0 +1,50 @@
+{
+  "scope": "Independent local kernel only; NOT integrated into V150. Source-derived cache frame and actor quaternion; Native result used only by assertion.",
+  "checks": [
+    {
+      "tick": 342,
+      "optimization": "O0",
+      "local_quaternion": [
+        3159863845,
+        3163100732,
+        3211785782,
+        1051855473
+      ],
+      "exact": true
+    },
+    {
+      "tick": 358,
+      "optimization": "O0",
+      "local_quaternion": [
+        1005189898,
+        3156189601,
+        3207370399,
+        1060965542
+      ],
+      "exact": true
+    },
+    {
+      "tick": 342,
+      "optimization": "O2",
+      "local_quaternion": [
+        3159863845,
+        3163100732,
+        3211785782,
+        1051855473
+      ],
+      "exact": true
+    },
+    {
+      "tick": 358,
+      "optimization": "O2",
+      "local_quaternion": [
+        1005189898,
+        3156189601,
+        3207370399,
+        1060965542
+      ],
+      "exact": true
+    }
+  ],
+  "goal_complete": false
+}

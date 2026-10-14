@@ -1,0 +1,122 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -1,6 +1,7 @@
+ #include "physics/NativeContactCache.h"
+ #include "physics/NativeCombinedTireV95.h"
+ #include <map>
++#include <set>
+ #include "physics/OriginalVehiclePhysics.h"
+ #include "physics/CalibrationTuning.h"
+ #include "physics/SourceBoxManifold.h"
+@@ -32,6 +33,7 @@
+ #include "physics/NativeWheelRayV52.h"
+ #include "physics/NativePlacedMeshV126.h"
+ #include "physics/NativeEnergySleepV127.h"
++#include "physics/NativeStartupOrientationV129.h"
+ #include "physics/NativeTriangleNormalV101.h"
+ #include "physics/NativeWheelPoseV54.h"
+ #include "physics/NativeTireV55.h"
+@@ -2998,7 +3000,15 @@
+             return;
+         setVehicleEnabled(index, true);
+         auto& vehicle = vehicles_[index];
+-        if(energySleepEnabledV128(vehicle)){vehicle.energySleepV128={};vehicle.energyPendingV128=false;}
++        if(energySleepEnabledV128(vehicle)){vehicle.energySleepV128={};vehicle.energyPendingV128=false;vehicle.energyPairsV131.clear();vehicle.energyLostPairV131=false;}
++        const char* startupFlagV130 = std::getenv("RRR3D_EXPERIMENT_ORIGINAL_STARTUP_V130");
++        const bool originalStartupV130 = startupFlagV130 && std::strcmp(startupFlagV130, "1") == 0 &&
++            direction.z == 0.0F && (direction.x != 0.0F || direction.y != 0.0F);
++        JPH::Quat startupRotationV130;
++        if (originalStartupV130) {
++            const auto startup = motorrock::startupv129::computeHorizontalStartup({{direction.x, direction.y, direction.z}});
++            startupRotationV130 = toJolt(Quat{startup.quaternion[0], startup.quaternion[1], startup.quaternion[2], startup.quaternion[3]});
++        }
+         const float length =
+             std::sqrt(direction.x * direction.x + direction.y * direction.y);
+         if (length <= 0.0001F)
+@@ -3012,7 +3022,7 @@
+         auto& bodies = system_.GetBodyInterface();
+         bodies.SetPositionAndRotation(
+             vehicle.body, toJolt(position),
+-            JPH::Quat::sRotation(JPH::Vec3::sAxisY(), -angle),
++            originalStartupV130 ? startupRotationV130 : JPH::Quat::sRotation(JPH::Vec3::sAxisY(), -angle),
+             JPH::EActivation::Activate);
+         vehicle.sourceFrozenNormalizationPending = true;
+         bodies.SetLinearAndAngularVelocity(
+@@ -3938,6 +3948,8 @@
+         Vec3 diagnosticAcceleration{};
+         JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
+         bool sourceFrozenNormalizationPending = true;
++        std::set<std::uint32_t> energyPairsV131;
++        bool energyLostPairV131 = false;
+         std::vector<float> sourceWheelAxleSpeeds;
+         std::vector<float> sourceMotorForwardV112;
+         std::vector<bool> sourceMotorContactV112;
+@@ -4026,6 +4038,7 @@
+             v.energyInputV128.inverseMass=body.GetMotionProperties()->GetInverseMass();v.energyInputV128.threshold=v.spawn.vehicle.bodySleepEnergyThreshold;
+             if(!contactListener_.sleepShapeBoundsV128(body,bounds))continue;}
+             unsigned count=0;
++            std::set<std::uint32_t> pairsV131;
+             const auto overlap=[&](JPH::BodyID id) {
+                 if(id.IsInvalid() || id==v.body)return;
+                 JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);if(!lock.Succeeded() || !lock.GetBody().IsInBroadPhase())return;
+@@ -4033,11 +4046,17 @@
+                 if(collisionSurface(other.GetUserData())==CollisionSurface::DeathPlane && (other.GetUserData()&bodyKindMask)==surfaceBodyKind) {if(bounds[0][2]<=0)++count;return;}
+                 std::array<wr::Vector,2> b;if(!contactListener_.sleepShapeBoundsV128(other,b))return;
+                 for(unsigned a=0;a<3;++a)if(bounds[0][a]>b[1][a] || bounds[1][a]<b[0][a])return;
+-                ++count;
++                ++count;pairsV131.insert(id.GetIndexAndSequenceNumber());
+             };
+             for(auto id:trackBodies_)overlap(id);
+             for(const auto& d:decorations_){overlap(d.shapeBody);for(auto id:d.meshBodies)overlap(id);for(auto id:d.childShapeBodies)overlap(id);}
+             for(const auto& other:vehicles_)if(other.body!=v.body)overlap(other.body);
++            const char* lossFlagV131=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_LOSS_WAKE_V131");
++            v.energyLostPairV131=false;
++            if(lossFlagV131 && std::strcmp(lossFlagV131,"1")==0) {
++                for(auto id:v.energyPairsV131)if(pairsV131.count(id)==0){++count;v.energyLostPairV131=true;}
++                v.energyPairsV131=std::move(pairsV131);
++            }
+             v.energyInputV128.interactionCount=count;
+         }
+     }
+@@ -4056,15 +4075,18 @@
+                 continue;
+             }
+             v.energyAxleReportV128.clear();if(!v.energyActiveV128)continue;
+-            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),v.body);if(!lock.Succeeded())continue;const auto& body=lock.GetBody();
++            {JPH::BodyLockRead lock(system_.GetBodyLockInterface(),v.body);if(!lock.Succeeded())continue;const auto& body=lock.GetBody();
+             const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));const auto q=fromJolt(body.GetRotation());
+-            v.energyInputV128.position={{cm.x,cm.y,cm.z}};v.energyInputV128.rotation={{q.x,q.y,q.z,q.w}};v.energyInputV128.dt=dt;
++            v.energyInputV128.position={{cm.x,cm.y,cm.z}};v.energyInputV128.rotation={{q.x,q.y,q.z,q.w}};v.energyInputV128.dt=dt;}
+             for(const auto* w:v.constraint->GetWheels())if(w->HasContact())++v.energyInputV128.interactionCount;
+             for(const auto& other:vehicles_)if(other.body!=v.body)for(const auto* w:other.constraint->GetWheels())if(w->HasContact() && w->GetContactBodyID()==v.body)++v.energyInputV128.interactionCount;
+             const auto result=motorrock::energysleepv127::step(v.energySleepV128,v.energyInputV128);v.energyPendingV128=result.sleep;
+             const char* path=std::getenv("RRR3D_ENERGY_SLEEP_TRACE_FILE_V128");if(path && *path)if(FILE* file=std::fopen(path,"a")) {
+                 std::fprintf(file,"{\"step\":%u,\"interactions\":%u,\"wake\":%.9g,\"energy\":%.9g,\"threshold\":%.9g,\"pending\":%s}\n",v.constraint->GetSourceSimulationCounterV59()-1,v.energyInputV128.interactionCount,v.energySleepV128.wake,result.energy,result.threshold,result.sleep?"true":"false");std::fclose(file);
+             }
++            // Original potential-pair removal retains the interaction through
++            // this solve, then requests default wake (Core 0x16947/0x13fed).
++            if(v.energyLostPairV131)wakeEnergyV128(v);
+         }
+     }
+ 
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativeStartupOrientationV129.h
+@@ -0,0 +1,18 @@
++#pragma once
++// Research reconstruction of original BaseSceneNode SetDir/SetUp and D3DX9_43.
++// Uses the VM's independently audited x86 reciprocal-square-root emulation.
++// Parent-free, nonzero horizontal startup directions only. No reference words or per-track branches.
++#include "SourceMaterialFrameCandidate.h"
++namespace motorrock { namespace startupv129 {
++namespace cf=contactframe;
++inline float f(double x){return cf::store(x);}
++inline float add(float a,float b){return f(double(a)+b);}
++inline float sub(float a,float b){return f(double(a)-b);}
++inline float mul(float a,float b){return f(double(a)*b);}
++inline cf::Vector crossOriginal(cf::Vector a,cf::Vector b){return {{sub(mul(a[1],b[2]),mul(a[2],b[1])),sub(mul(a[2],b[0]),mul(a[0],b[2])),sub(mul(a[0],b[1]),mul(a[1],b[0]))}};}
++inline cf::Vector normalize(cf::Vector a){float s=add(add(mul(a[0],a[0]),mul(a[1],a[1])),mul(a[2],a[2]));if(s==0)return {{0,0,0}};float r=materialcandidate::inverseSquareRootEstimate(s);float refined=mul(sub(3,mul(mul(r,s),r)),mul(r,.5f));for(int i=0;i<3;++i)a[i]=mul(a[i],refined);return a;}
++struct Result {cf::Vector direction,up;float matrix[16];cf::Quaternion quaternion;};
++inline Result computeHorizontalStartup(cf::Vector value){Result o{};auto dir=normalize(value);auto up=cf::Vector{{0,0,1}};auto right=normalize(crossOriginal(up,dir));up=crossOriginal(dir,right);up=normalize({{0,0,1}});right=normalize(crossOriginal(up,dir));dir=crossOriginal(right,up);o.direction=dir;o.up=up;right=crossOriginal(up,dir);for(int i=0;i<3;++i){o.matrix[i]=dir[i];o.matrix[4+i]=right[i];o.matrix[8+i]=up[i];}o.matrix[15]=1;
++const float *m=o.matrix;float trace=add(add(m[0],m[5]),m[10]);auto&q=o.quaternion;
++if(trace>0){float root=f(std::sqrt(double(add(trace,1))));q[3]=mul(root,.5f);float scale=f(.25/double(q[3]));q[0]=mul(sub(m[6],m[9]),scale);q[1]=mul(sub(m[8],m[2]),scale);q[2]=mul(sub(m[1],m[4]),scale);}else{float d[]={sub(sub(m[0],m[5]),m[10]),sub(sub(m[5],m[0]),m[10]),sub(m[10],add(m[0],m[5]))};int i=d[1]>d[0]?1:0;if(d[2]>d[i])i=2;int j=(i+1)%3,k=(j+1)%3;float root=f(std::sqrt(double(add(d[i],1))));q[i]=mul(root,.5f);float scale=f(.25/double(q[i]));q[j]=mul(add(m[4*j+i],m[4*i+j]),scale);q[k]=mul(add(m[4*k+i],m[4*i+k]),scale);q[3]=mul(sub(m[4*j+k],m[4*k+j]),scale);}return o;}
++}}

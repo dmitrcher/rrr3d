@@ -1,0 +1,75 @@
+{
+  "scope": "Actual original wake requests and pre/post energy helper outputs versus geometry-derived Source pair lifecycle; public900states preserved by observers.",
+  "checks": [
+    {
+      "repeat": 0,
+      "frames": 111,
+      "failures": []
+    },
+    {
+      "repeat": 1,
+      "frames": 111,
+      "failures": []
+    }
+  ],
+  "wakecalls": [
+    {
+      "repeat": 0,
+      "tick": 12,
+      "caller_rva": "0x1b2cde",
+      "requested_counter_word": 1054168405,
+      "previous_counter_word": 1045220548
+    },
+    {
+      "repeat": 0,
+      "tick": 25,
+      "caller_rva": "0x1b2cde",
+      "requested_counter_word": 1054727645,
+      "previous_counter_word": 1045220548
+    },
+    {
+      "repeat": 0,
+      "tick": 32,
+      "caller_rva": "0x1694c",
+      "requested_counter_word": 1053609164,
+      "previous_counter_word": 1050253717
+    },
+    {
+      "repeat": 0,
+      "tick": 33,
+      "caller_rva": "0x13ff2",
+      "requested_counter_word": 1053609164,
+      "previous_counter_word": 1053609164
+    },
+    {
+      "repeat": 1,
+      "tick": 12,
+      "caller_rva": "0x1b2cde",
+      "requested_counter_word": 1054168405,
+      "previous_counter_word": 1045220548
+    },
+    {
+      "repeat": 1,
+      "tick": 25,
+      "caller_rva": "0x1b2cde",
+      "requested_counter_word": 1054727645,
+      "previous_counter_word": 1045220548
+    },
+    {
+      "repeat": 1,
+      "tick": 32,
+      "caller_rva": "0x1694c",
+      "requested_counter_word": 1053609164,
+      "previous_counter_word": 1050253717
+    },
+    {
+      "repeat": 1,
+      "tick": 33,
+      "caller_rva": "0x13ff2",
+      "requested_counter_word": 1053609164,
+      "previous_counter_word": 1053609164
+    }
+  ],
+  "model_uses_fixture_ids_or_ticks": false,
+  "whole_game_verified": false
+}

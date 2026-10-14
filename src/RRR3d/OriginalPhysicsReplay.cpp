@@ -1,4 +1,5 @@
 #include "OriginalPhysicsReplay.h"
+#include "SourceWorldFixtureV124.h"
 #include "OriginalRaceSession.h"
 #include "ParityTrace.h"
 
@@ -60,6 +61,8 @@ bool replaySoloPhysics(const r3d::game::originalrace::Race& race,
         if (race.racers.size() != 1 || !race.racers.front().human ||
             description.spawns.size() != 1)
             throw std::runtime_error("solo replay requires exactly one human spawn");
+        const char* fixturePathV124=std::getenv("RRR3D_WORLD_FIXTURE_FILE_V124");
+        if(fixturePathV124 && *fixturePathV124)exportSourceWorldV124(description,fixturePathV124);
         std::string error;
         auto world = createOriginalVehicleWorld(description, error);
         if (!world) throw std::runtime_error(error);

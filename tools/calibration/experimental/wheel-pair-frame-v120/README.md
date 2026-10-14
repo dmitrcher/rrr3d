@@ -1,0 +1,13 @@
+# Dynamic wheel spring actor frames V120
+
+Validated investigation checkpoint; overall goal remains incomplete. Mac skipped the original actor-frame spring preparation whenever a wheel contacted another dynamic body. The original prepares independent axes and angular Jacobians in both actor frames. In the two-car pole fixture this first changed angular momentum and rotation at step32.
+
+The default-off flag `RRR3D_EXPERIMENT_NATIVE_WHEEL_PAIR_FRAME_V120` prepares both Jacobians with the existing original frame helper and uses each body’s independently prepared linear axis for mass, relative velocity and impulse application. The axes live in per-wheel spring state, keeping the generic contact-row size and allocator unchanged. Static contacts and the disabled experiment retain their previous paths. No coefficients, case/frame/wheel rules or reference-state injection are used.
+
+Sixteen actual Native two-body frame records match production arithmetic at O0/O2, with both incoming actor poses/centres and original contact points bound word-for-word. Actual wheel contact points and manager handles bind prepared row identities. Four live captures match both Jacobians/inverse Jacobians/masses and owner before/after body states/impulses. Eighty actual rows additionally match both bodies before and after impulses; the original outputs are independently bound by the next generic-row entry with the same body pointers. Private signed zeros are explicit. Original Windows EXE/DLL hashes and complete histories remain unchanged.
+
+Apply/restore with `apply-experiment.py --adapter-root PATH --sdk-root PATH [--restore]`, then rebuild all consumers. Every source identity is checked before any mutation. `verify.py --probe PATH` checks the production frame helper at O0/O2 and runs fresh complete trajectories. The read-only telemetry snapshot and dependency header under evidence are verification materials, not extra runtime overlays. The restored build and frozen matrix probe have identical loadable code/data sections; their unloaded metadata differs.
+
+Whole-game/render equivalence remains unproven. This investigation package does not replace the ordinary installation.
+
+Complete matrix:603/608 strict,5 open; all602 prior strict cases preserved. Both255,864-state repeats are identical;607 full histories unchanged. The entire300-step pair-stock-pole-1 trajectory newly matches Windows. No raw/canonical maximum worsens. All53 project checks pass under both profiles;291 independent gates and solo/rendered functional checks pass. Portable verification covers9,780 fresh Native-equivalent states and600 flag-off V119-preserved states.

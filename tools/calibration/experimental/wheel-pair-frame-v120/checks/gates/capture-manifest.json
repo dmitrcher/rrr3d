@@ -1,0 +1,4104 @@
+{
+  "scope": "Retained 291 independent physics gates, fresh control/candidate two repeats each.",
+  "probe_sha256": "bc66edec7745768aa21178cc60d0afb0cbcc5031070b5347b117b7dc023bda6b",
+  "environment": {
+    "RRR3D_SEED": "42",
+    "NX_SPRING_ITERATIONS": "4",
+    "RRR3D_EXPERIMENT_UPPER_FACE_WINDING": "1",
+    "RRR3D_EXPERIMENT_NEGATIVE_X_FACE_ORDER": "1",
+    "RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM": "1",
+    "RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE": "1",
+    "RRR3D_CALIBRATION_PROFILE": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/sync-rrr3d/tools/calibration/profiles/windows-source-v14.cfg",
+    "RRR3D_EXPERIMENT_SPRING_BIAS": "1",
+    "RRR3D_EXPERIMENT_SPRING_FINAL": "1",
+    "RRR3D_EXPERIMENT_SPRING_LOST": "1",
+    "RRR3D_EXPERIMENT_SPRING_COLD": "1",
+    "RRR3D_EXPERIMENT_FRICTION_ZERO": "1",
+    "RRR3D_EXPERIMENT_SUSPENSION_STOP": "1",
+    "RRR3D_EXPERIMENT_MESH_CONTACTS": "1",
+    "RRR3D_EXPERIMENT_TIRE_FORCE_HISTORY": "1",
+    "RRR3D_EXPERIMENT_SUSPENSION_RAW": "1",
+    "RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_MASS": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_BIAS": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_POINT_VELOCITY": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_ORIGINAL_DELTA": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_FORCE_FIRST": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_ERROR_FRAME": "1",
+    "RRR3D_EXPERIMENT_NATIVE_MESH_EDGE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_CACHE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CONTACT_INERTIA": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TRIANGLE_PLANE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SOLVER_NORMAL": "1",
+    "RRR3D_EXPERIMENT_NATIVE_POLYGON_DEPTH": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_FRAME": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SOLVER_INERTIA": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_POSE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_RESTORE": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL": "1",
+    "RRR3D_EXPERIMENT_NATIVE_POSITIVE_Z_FACE_ORDER": "1",
+    "RRR3D_EXPERIMENT_NATIVE_INITIAL_COM": "1",
+    "RRR3D_EXPERIMENT_NATIVE_ACTOR_ORIGIN": "1",
+    "RRR3D_EXPERIMENT_NATIVE_ACTOR_OUTPUT": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SHAPE_TRANSLATION": "1",
+    "RRR3D_EXPERIMENT_NATIVE_MASS_DOT_ORDER": "1",
+    "RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_EXACT": "1",
+    "RRR3D_EXPERIMENT_NATIVE_PRINCIPAL_INERTIA": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SHAPE_MASS": "1",
+    "RRR3D_CALIBRATION_ISOLATE_NEUTRAL_STABILIZATION": "1",
+    "RRR3D_EXPERIMENT_NATIVE_ANGULAR_INTEGRATION": "1",
+    "RRR3D_EXPERIMENT_NATIVE_PUBLIC_ANGULAR_MOMENTUM": "1",
+    "RRR3D_EXPERIMENT_NATIVE_DYNAMIC_ACTOR_OUTPUT": "1",
+    "RRR3D_EXPERIMENT_NATIVE_EXACT_SHAPE_COM": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SINGLE_AXIS_FRICTION": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_LOCAL_POINT_ORDER": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CACHE_LEVER_ORDER": "1",
+    "RRR3D_EXPERIMENT_NATIVE_CALLBACK_ACTOR_ROTATION": "1",
+    "RRR3D_EXPERIMENT_NATIVE_NONUNIT_POSE_MATRIX": "1",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_RAY_ORIGIN": "1",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SPRING_SPLIT_V53": "1",
+    "RRR3D_EXPERIMENT_NATIVE_SPRING_PREP_V53": "1",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_SHAPE_POSE_V54": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55": "1",
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_ROW_INERTIA_V56": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_REVERSE_V55": "1",
+    "RRR3D_EXPERIMENT_NATIVE_TIRE_REPORT_V56": "1"
+  },
+  "results": {
+    "native24": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "body-slide-x": {
+            "samples": 180,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-4": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-5": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "marauder/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "dirtdevil/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "manticora/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "manticoraBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "airblade/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "guseniza/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "gusenizaBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "podushka/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "podushkaBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "monstertruck/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "monstertruckBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "devildriver/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "devildriverBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "buggi/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "tankchetti/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "mustang/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "xCar/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [
+          {
+            "case": "body-slide-x",
+            "tick": 18
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 12
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 54
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 61
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 93
+          },
+          {
+            "case": "dirtdevil/spin-mixed",
+            "tick": 94
+          },
+          {
+            "case": "dirtdevil/spin-mixed",
+            "tick": 101
+          },
+          {
+            "case": "manticora/spin-mixed",
+            "tick": 21
+          },
+          {
+            "case": "manticora/spin-mixed",
+            "tick": 36
+          },
+          {
+            "case": "manticoraBoss/spin-mixed",
+            "tick": 21
+          },
+          {
+            "case": "manticoraBoss/spin-mixed",
+            "tick": 36
+          },
+          {
+            "case": "airblade/spin-mixed",
+            "tick": 37
+          },
+          {
+            "case": "airblade/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 51
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 57
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 79
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 51
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 57
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 79
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "podushka/spin-mixed",
+            "tick": 19
+          },
+          {
+            "case": "podushka/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "podushkaBoss/spin-mixed",
+            "tick": 19
+          },
+          {
+            "case": "podushkaBoss/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "monstertruck/spin-mixed",
+            "tick": 76
+          },
+          {
+            "case": "monstertruckBoss/spin-mixed",
+            "tick": 46
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 52
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 62
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 7
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 65
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 75
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 107
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 114
+          },
+          {
+            "case": "buggi/spin-mixed",
+            "tick": 95
+          },
+          {
+            "case": "tankchetti/spin-mixed",
+            "tick": 60
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 6
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 10
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 27
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 29
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 85
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 107
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 32
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 48
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 50
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 116
+          }
+        ],
+        "cases_exact": [
+          "body-slide-x",
+          "pose-v45-inverted-0",
+          "pose-v45-inverted-1",
+          "pose-v45-inverted-2",
+          "pose-v45-inverted-3",
+          "pose-v45-inverted-4",
+          "pose-v45-inverted-5",
+          "marauder/spin-mixed",
+          "dirtdevil/spin-mixed",
+          "manticora/spin-mixed",
+          "manticoraBoss/spin-mixed",
+          "airblade/spin-mixed",
+          "guseniza/spin-mixed",
+          "gusenizaBoss/spin-mixed",
+          "podushka/spin-mixed",
+          "podushkaBoss/spin-mixed",
+          "monstertruck/spin-mixed",
+          "monstertruckBoss/spin-mixed",
+          "devildriver/spin-mixed",
+          "devildriverBoss/spin-mixed",
+          "buggi/spin-mixed",
+          "tankchetti/spin-mixed",
+          "mustang/spin-mixed",
+          "xCar/spin-mixed"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "body-slide-x": {
+            "samples": 180,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-4": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v45-inverted-5": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "marauder/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "dirtdevil/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "manticora/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "manticoraBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "airblade/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "guseniza/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "gusenizaBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "podushka/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "podushkaBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "monstertruck/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "monstertruckBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "devildriver/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "devildriverBoss/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "buggi/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "tankchetti/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "mustang/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "xCar/spin-mixed": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [
+          {
+            "case": "body-slide-x",
+            "tick": 18
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 12
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 54
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 61
+          },
+          {
+            "case": "marauder/spin-mixed",
+            "tick": 93
+          },
+          {
+            "case": "dirtdevil/spin-mixed",
+            "tick": 94
+          },
+          {
+            "case": "dirtdevil/spin-mixed",
+            "tick": 101
+          },
+          {
+            "case": "manticora/spin-mixed",
+            "tick": 21
+          },
+          {
+            "case": "manticora/spin-mixed",
+            "tick": 36
+          },
+          {
+            "case": "manticoraBoss/spin-mixed",
+            "tick": 21
+          },
+          {
+            "case": "manticoraBoss/spin-mixed",
+            "tick": 36
+          },
+          {
+            "case": "airblade/spin-mixed",
+            "tick": 37
+          },
+          {
+            "case": "airblade/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 51
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 57
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 79
+          },
+          {
+            "case": "guseniza/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 51
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 57
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 79
+          },
+          {
+            "case": "gusenizaBoss/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "podushka/spin-mixed",
+            "tick": 19
+          },
+          {
+            "case": "podushka/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "podushkaBoss/spin-mixed",
+            "tick": 19
+          },
+          {
+            "case": "podushkaBoss/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "monstertruck/spin-mixed",
+            "tick": 76
+          },
+          {
+            "case": "monstertruckBoss/spin-mixed",
+            "tick": 46
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 52
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 53
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 62
+          },
+          {
+            "case": "devildriver/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 7
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 65
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 75
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 91
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 107
+          },
+          {
+            "case": "devildriverBoss/spin-mixed",
+            "tick": 114
+          },
+          {
+            "case": "buggi/spin-mixed",
+            "tick": 95
+          },
+          {
+            "case": "tankchetti/spin-mixed",
+            "tick": 60
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 6
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 10
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 27
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 29
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 85
+          },
+          {
+            "case": "mustang/spin-mixed",
+            "tick": 107
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 32
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 48
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 50
+          },
+          {
+            "case": "xCar/spin-mixed",
+            "tick": 116
+          }
+        ],
+        "cases_exact": [
+          "body-slide-x",
+          "pose-v45-inverted-0",
+          "pose-v45-inverted-1",
+          "pose-v45-inverted-2",
+          "pose-v45-inverted-3",
+          "pose-v45-inverted-4",
+          "pose-v45-inverted-5",
+          "marauder/spin-mixed",
+          "dirtdevil/spin-mixed",
+          "manticora/spin-mixed",
+          "manticoraBoss/spin-mixed",
+          "airblade/spin-mixed",
+          "guseniza/spin-mixed",
+          "gusenizaBoss/spin-mixed",
+          "podushka/spin-mixed",
+          "podushkaBoss/spin-mixed",
+          "monstertruck/spin-mixed",
+          "monstertruckBoss/spin-mixed",
+          "devildriver/spin-mixed",
+          "devildriverBoss/spin-mixed",
+          "buggi/spin-mixed",
+          "tankchetti/spin-mixed",
+          "mustang/spin-mixed",
+          "xCar/spin-mixed"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "long72": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "frame-v25-long-p0-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "frame-v25-long-p0-x0-y0",
+          "frame-v25-long-p0-x0-y1",
+          "frame-v25-long-p0-x1-y0",
+          "frame-v25-long-p0-x1-y1",
+          "frame-v25-long-p0-x2-y0",
+          "frame-v25-long-p0-x2-y1",
+          "frame-v25-long-p1-x0-y0",
+          "frame-v25-long-p1-x0-y1",
+          "frame-v25-long-p1-x1-y0",
+          "frame-v25-long-p1-x1-y1",
+          "frame-v25-long-p1-x2-y0",
+          "frame-v25-long-p1-x2-y1",
+          "frame-v25-long-p2-x0-y0",
+          "frame-v25-long-p2-x0-y1",
+          "frame-v25-long-p2-x1-y0",
+          "frame-v25-long-p2-x1-y1",
+          "frame-v25-long-p2-x2-y0",
+          "frame-v25-long-p2-x2-y1",
+          "frame-v25-long-p3-x0-y0",
+          "frame-v25-long-p3-x0-y1",
+          "frame-v25-long-p3-x1-y0",
+          "frame-v25-long-p3-x1-y1",
+          "frame-v25-long-p3-x2-y0",
+          "frame-v25-long-p3-x2-y1",
+          "frame-v25-long-p4-x0-y0",
+          "frame-v25-long-p4-x0-y1",
+          "frame-v25-long-p4-x1-y0",
+          "frame-v25-long-p4-x1-y1",
+          "frame-v25-long-p4-x2-y0",
+          "frame-v25-long-p4-x2-y1",
+          "frame-v25-long-p5-x0-y0",
+          "frame-v25-long-p5-x0-y1",
+          "frame-v25-long-p5-x1-y0",
+          "frame-v25-long-p5-x1-y1",
+          "frame-v25-long-p5-x2-y0",
+          "frame-v25-long-p5-x2-y1",
+          "frame-v25-long-p6-x0-y0",
+          "frame-v25-long-p6-x0-y1",
+          "frame-v25-long-p6-x1-y0",
+          "frame-v25-long-p6-x1-y1",
+          "frame-v25-long-p6-x2-y0",
+          "frame-v25-long-p6-x2-y1",
+          "frame-v25-long-p7-x0-y0",
+          "frame-v25-long-p7-x0-y1",
+          "frame-v25-long-p7-x1-y0",
+          "frame-v25-long-p7-x1-y1",
+          "frame-v25-long-p7-x2-y0",
+          "frame-v25-long-p7-x2-y1",
+          "frame-v25-long-p8-x0-y0",
+          "frame-v25-long-p8-x0-y1",
+          "frame-v25-long-p8-x1-y0",
+          "frame-v25-long-p8-x1-y1",
+          "frame-v25-long-p8-x2-y0",
+          "frame-v25-long-p8-x2-y1",
+          "frame-v25-long-p9-x0-y0",
+          "frame-v25-long-p9-x0-y1",
+          "frame-v25-long-p9-x1-y0",
+          "frame-v25-long-p9-x1-y1",
+          "frame-v25-long-p9-x2-y0",
+          "frame-v25-long-p9-x2-y1",
+          "frame-v25-long-p10-x0-y0",
+          "frame-v25-long-p10-x0-y1",
+          "frame-v25-long-p10-x1-y0",
+          "frame-v25-long-p10-x1-y1",
+          "frame-v25-long-p10-x2-y0",
+          "frame-v25-long-p10-x2-y1",
+          "frame-v25-long-p11-x0-y0",
+          "frame-v25-long-p11-x0-y1",
+          "frame-v25-long-p11-x1-y0",
+          "frame-v25-long-p11-x1-y1",
+          "frame-v25-long-p11-x2-y0",
+          "frame-v25-long-p11-x2-y1"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "frame-v25-long-p0-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p0-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p1-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p2-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p3-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p4-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p5-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p6-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p7-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p8-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p9-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p10-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x0-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x0-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x1-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x1-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x2-y0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "frame-v25-long-p11-x2-y1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "frame-v25-long-p0-x0-y0",
+          "frame-v25-long-p0-x0-y1",
+          "frame-v25-long-p0-x1-y0",
+          "frame-v25-long-p0-x1-y1",
+          "frame-v25-long-p0-x2-y0",
+          "frame-v25-long-p0-x2-y1",
+          "frame-v25-long-p1-x0-y0",
+          "frame-v25-long-p1-x0-y1",
+          "frame-v25-long-p1-x1-y0",
+          "frame-v25-long-p1-x1-y1",
+          "frame-v25-long-p1-x2-y0",
+          "frame-v25-long-p1-x2-y1",
+          "frame-v25-long-p2-x0-y0",
+          "frame-v25-long-p2-x0-y1",
+          "frame-v25-long-p2-x1-y0",
+          "frame-v25-long-p2-x1-y1",
+          "frame-v25-long-p2-x2-y0",
+          "frame-v25-long-p2-x2-y1",
+          "frame-v25-long-p3-x0-y0",
+          "frame-v25-long-p3-x0-y1",
+          "frame-v25-long-p3-x1-y0",
+          "frame-v25-long-p3-x1-y1",
+          "frame-v25-long-p3-x2-y0",
+          "frame-v25-long-p3-x2-y1",
+          "frame-v25-long-p4-x0-y0",
+          "frame-v25-long-p4-x0-y1",
+          "frame-v25-long-p4-x1-y0",
+          "frame-v25-long-p4-x1-y1",
+          "frame-v25-long-p4-x2-y0",
+          "frame-v25-long-p4-x2-y1",
+          "frame-v25-long-p5-x0-y0",
+          "frame-v25-long-p5-x0-y1",
+          "frame-v25-long-p5-x1-y0",
+          "frame-v25-long-p5-x1-y1",
+          "frame-v25-long-p5-x2-y0",
+          "frame-v25-long-p5-x2-y1",
+          "frame-v25-long-p6-x0-y0",
+          "frame-v25-long-p6-x0-y1",
+          "frame-v25-long-p6-x1-y0",
+          "frame-v25-long-p6-x1-y1",
+          "frame-v25-long-p6-x2-y0",
+          "frame-v25-long-p6-x2-y1",
+          "frame-v25-long-p7-x0-y0",
+          "frame-v25-long-p7-x0-y1",
+          "frame-v25-long-p7-x1-y0",
+          "frame-v25-long-p7-x1-y1",
+          "frame-v25-long-p7-x2-y0",
+          "frame-v25-long-p7-x2-y1",
+          "frame-v25-long-p8-x0-y0",
+          "frame-v25-long-p8-x0-y1",
+          "frame-v25-long-p8-x1-y0",
+          "frame-v25-long-p8-x1-y1",
+          "frame-v25-long-p8-x2-y0",
+          "frame-v25-long-p8-x2-y1",
+          "frame-v25-long-p9-x0-y0",
+          "frame-v25-long-p9-x0-y1",
+          "frame-v25-long-p9-x1-y0",
+          "frame-v25-long-p9-x1-y1",
+          "frame-v25-long-p9-x2-y0",
+          "frame-v25-long-p9-x2-y1",
+          "frame-v25-long-p10-x0-y0",
+          "frame-v25-long-p10-x0-y1",
+          "frame-v25-long-p10-x1-y0",
+          "frame-v25-long-p10-x1-y1",
+          "frame-v25-long-p10-x2-y0",
+          "frame-v25-long-p10-x2-y1",
+          "frame-v25-long-p11-x0-y0",
+          "frame-v25-long-p11-x0-y1",
+          "frame-v25-long-p11-x1-y0",
+          "frame-v25-long-p11-x1-y1",
+          "frame-v25-long-p11-x2-y0",
+          "frame-v25-long-p11-x2-y1"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "old6": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "pose-v42-frozen-0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-4": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-5": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "pose-v42-frozen-0",
+          "pose-v42-frozen-1",
+          "pose-v42-frozen-2",
+          "pose-v42-frozen-3",
+          "pose-v42-frozen-4",
+          "pose-v42-frozen-5"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "pose-v42-frozen-0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-4": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "pose-v42-frozen-5": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "pose-v42-frozen-0",
+          "pose-v42-frozen-1",
+          "pose-v42-frozen-2",
+          "pose-v42-frozen-3",
+          "pose-v42-frozen-4",
+          "pose-v42-frozen-5"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "isolation00": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-00-free-m0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m0-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-00-free-m0-v0",
+          "isolate-00-free-m0-v1",
+          "isolate-00-free-m0-v2",
+          "isolate-00-free-m1-v0",
+          "isolate-00-free-m1-v1",
+          "isolate-00-free-m1-v2",
+          "isolate-00-free-m2-v0",
+          "isolate-00-free-m2-v1",
+          "isolate-00-free-m2-v2"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-00-free-m0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m0-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m1-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-00-free-m2-v2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-00-free-m0-v0",
+          "isolate-00-free-m0-v1",
+          "isolate-00-free-m0-v2",
+          "isolate-00-free-m1-v0",
+          "isolate-00-free-m1-v1",
+          "isolate-00-free-m1-v2",
+          "isolate-00-free-m2-v0",
+          "isolate-00-free-m2-v1",
+          "isolate-00-free-m2-v2"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "isolation01": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-01-accel-m0-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-01-accel-m0-a0-k0-v0",
+          "isolate-01-accel-m0-a0-k0-v1",
+          "isolate-01-accel-m0-a0-k1-v0",
+          "isolate-01-accel-m0-a0-k1-v1",
+          "isolate-01-accel-m0-a0-k2-v0",
+          "isolate-01-accel-m0-a0-k2-v1",
+          "isolate-01-accel-m0-a0-k3-v0",
+          "isolate-01-accel-m0-a0-k3-v1",
+          "isolate-01-accel-m0-a0-k4-v0",
+          "isolate-01-accel-m0-a0-k4-v1",
+          "isolate-01-accel-m0-a0-k5-v0",
+          "isolate-01-accel-m0-a0-k5-v1",
+          "isolate-01-accel-m0-a1-k0-v0",
+          "isolate-01-accel-m0-a1-k0-v1",
+          "isolate-01-accel-m0-a1-k1-v0",
+          "isolate-01-accel-m0-a1-k1-v1",
+          "isolate-01-accel-m0-a1-k2-v0",
+          "isolate-01-accel-m0-a1-k2-v1",
+          "isolate-01-accel-m0-a1-k3-v0",
+          "isolate-01-accel-m0-a1-k3-v1",
+          "isolate-01-accel-m0-a1-k4-v0",
+          "isolate-01-accel-m0-a1-k4-v1",
+          "isolate-01-accel-m0-a1-k5-v0",
+          "isolate-01-accel-m0-a1-k5-v1",
+          "isolate-01-accel-m0-a2-k0-v0",
+          "isolate-01-accel-m0-a2-k0-v1",
+          "isolate-01-accel-m0-a2-k1-v0",
+          "isolate-01-accel-m0-a2-k1-v1",
+          "isolate-01-accel-m0-a2-k2-v0",
+          "isolate-01-accel-m0-a2-k2-v1",
+          "isolate-01-accel-m0-a2-k3-v0",
+          "isolate-01-accel-m0-a2-k3-v1",
+          "isolate-01-accel-m0-a2-k4-v0",
+          "isolate-01-accel-m0-a2-k4-v1",
+          "isolate-01-accel-m0-a2-k5-v0",
+          "isolate-01-accel-m0-a2-k5-v1",
+          "isolate-01-accel-m1-a0-k0-v0",
+          "isolate-01-accel-m1-a0-k0-v1",
+          "isolate-01-accel-m1-a0-k1-v0",
+          "isolate-01-accel-m1-a0-k1-v1",
+          "isolate-01-accel-m1-a0-k2-v0",
+          "isolate-01-accel-m1-a0-k2-v1",
+          "isolate-01-accel-m1-a0-k3-v0",
+          "isolate-01-accel-m1-a0-k3-v1",
+          "isolate-01-accel-m1-a0-k4-v0",
+          "isolate-01-accel-m1-a0-k4-v1",
+          "isolate-01-accel-m1-a0-k5-v0",
+          "isolate-01-accel-m1-a0-k5-v1",
+          "isolate-01-accel-m1-a1-k0-v0",
+          "isolate-01-accel-m1-a1-k0-v1",
+          "isolate-01-accel-m1-a1-k1-v0",
+          "isolate-01-accel-m1-a1-k1-v1",
+          "isolate-01-accel-m1-a1-k2-v0",
+          "isolate-01-accel-m1-a1-k2-v1",
+          "isolate-01-accel-m1-a1-k3-v0",
+          "isolate-01-accel-m1-a1-k3-v1",
+          "isolate-01-accel-m1-a1-k4-v0",
+          "isolate-01-accel-m1-a1-k4-v1",
+          "isolate-01-accel-m1-a1-k5-v0",
+          "isolate-01-accel-m1-a1-k5-v1",
+          "isolate-01-accel-m1-a2-k0-v0",
+          "isolate-01-accel-m1-a2-k0-v1",
+          "isolate-01-accel-m1-a2-k1-v0",
+          "isolate-01-accel-m1-a2-k1-v1",
+          "isolate-01-accel-m1-a2-k2-v0",
+          "isolate-01-accel-m1-a2-k2-v1",
+          "isolate-01-accel-m1-a2-k3-v0",
+          "isolate-01-accel-m1-a2-k3-v1",
+          "isolate-01-accel-m1-a2-k4-v0",
+          "isolate-01-accel-m1-a2-k4-v1",
+          "isolate-01-accel-m1-a2-k5-v0",
+          "isolate-01-accel-m1-a2-k5-v1",
+          "isolate-01-accel-m2-a0-k0-v0",
+          "isolate-01-accel-m2-a0-k0-v1",
+          "isolate-01-accel-m2-a0-k1-v0",
+          "isolate-01-accel-m2-a0-k1-v1",
+          "isolate-01-accel-m2-a0-k2-v0",
+          "isolate-01-accel-m2-a0-k2-v1",
+          "isolate-01-accel-m2-a0-k3-v0",
+          "isolate-01-accel-m2-a0-k3-v1",
+          "isolate-01-accel-m2-a0-k4-v0",
+          "isolate-01-accel-m2-a0-k4-v1",
+          "isolate-01-accel-m2-a0-k5-v0",
+          "isolate-01-accel-m2-a0-k5-v1",
+          "isolate-01-accel-m2-a1-k0-v0",
+          "isolate-01-accel-m2-a1-k0-v1",
+          "isolate-01-accel-m2-a1-k1-v0",
+          "isolate-01-accel-m2-a1-k1-v1",
+          "isolate-01-accel-m2-a1-k2-v0",
+          "isolate-01-accel-m2-a1-k2-v1",
+          "isolate-01-accel-m2-a1-k3-v0",
+          "isolate-01-accel-m2-a1-k3-v1",
+          "isolate-01-accel-m2-a1-k4-v0",
+          "isolate-01-accel-m2-a1-k4-v1",
+          "isolate-01-accel-m2-a1-k5-v0",
+          "isolate-01-accel-m2-a1-k5-v1",
+          "isolate-01-accel-m2-a2-k0-v0",
+          "isolate-01-accel-m2-a2-k0-v1",
+          "isolate-01-accel-m2-a2-k1-v0",
+          "isolate-01-accel-m2-a2-k1-v1",
+          "isolate-01-accel-m2-a2-k2-v0",
+          "isolate-01-accel-m2-a2-k2-v1",
+          "isolate-01-accel-m2-a2-k3-v0",
+          "isolate-01-accel-m2-a2-k3-v1",
+          "isolate-01-accel-m2-a2-k4-v0",
+          "isolate-01-accel-m2-a2-k4-v1",
+          "isolate-01-accel-m2-a2-k5-v0",
+          "isolate-01-accel-m2-a2-k5-v1"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-01-accel-m0-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m0-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m1-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a0-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a1-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k0-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k0-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k1-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k1-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k2-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k2-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k3-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k3-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k4-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k4-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k5-v0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-01-accel-m2-a2-k5-v1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-01-accel-m0-a0-k0-v0",
+          "isolate-01-accel-m0-a0-k0-v1",
+          "isolate-01-accel-m0-a0-k1-v0",
+          "isolate-01-accel-m0-a0-k1-v1",
+          "isolate-01-accel-m0-a0-k2-v0",
+          "isolate-01-accel-m0-a0-k2-v1",
+          "isolate-01-accel-m0-a0-k3-v0",
+          "isolate-01-accel-m0-a0-k3-v1",
+          "isolate-01-accel-m0-a0-k4-v0",
+          "isolate-01-accel-m0-a0-k4-v1",
+          "isolate-01-accel-m0-a0-k5-v0",
+          "isolate-01-accel-m0-a0-k5-v1",
+          "isolate-01-accel-m0-a1-k0-v0",
+          "isolate-01-accel-m0-a1-k0-v1",
+          "isolate-01-accel-m0-a1-k1-v0",
+          "isolate-01-accel-m0-a1-k1-v1",
+          "isolate-01-accel-m0-a1-k2-v0",
+          "isolate-01-accel-m0-a1-k2-v1",
+          "isolate-01-accel-m0-a1-k3-v0",
+          "isolate-01-accel-m0-a1-k3-v1",
+          "isolate-01-accel-m0-a1-k4-v0",
+          "isolate-01-accel-m0-a1-k4-v1",
+          "isolate-01-accel-m0-a1-k5-v0",
+          "isolate-01-accel-m0-a1-k5-v1",
+          "isolate-01-accel-m0-a2-k0-v0",
+          "isolate-01-accel-m0-a2-k0-v1",
+          "isolate-01-accel-m0-a2-k1-v0",
+          "isolate-01-accel-m0-a2-k1-v1",
+          "isolate-01-accel-m0-a2-k2-v0",
+          "isolate-01-accel-m0-a2-k2-v1",
+          "isolate-01-accel-m0-a2-k3-v0",
+          "isolate-01-accel-m0-a2-k3-v1",
+          "isolate-01-accel-m0-a2-k4-v0",
+          "isolate-01-accel-m0-a2-k4-v1",
+          "isolate-01-accel-m0-a2-k5-v0",
+          "isolate-01-accel-m0-a2-k5-v1",
+          "isolate-01-accel-m1-a0-k0-v0",
+          "isolate-01-accel-m1-a0-k0-v1",
+          "isolate-01-accel-m1-a0-k1-v0",
+          "isolate-01-accel-m1-a0-k1-v1",
+          "isolate-01-accel-m1-a0-k2-v0",
+          "isolate-01-accel-m1-a0-k2-v1",
+          "isolate-01-accel-m1-a0-k3-v0",
+          "isolate-01-accel-m1-a0-k3-v1",
+          "isolate-01-accel-m1-a0-k4-v0",
+          "isolate-01-accel-m1-a0-k4-v1",
+          "isolate-01-accel-m1-a0-k5-v0",
+          "isolate-01-accel-m1-a0-k5-v1",
+          "isolate-01-accel-m1-a1-k0-v0",
+          "isolate-01-accel-m1-a1-k0-v1",
+          "isolate-01-accel-m1-a1-k1-v0",
+          "isolate-01-accel-m1-a1-k1-v1",
+          "isolate-01-accel-m1-a1-k2-v0",
+          "isolate-01-accel-m1-a1-k2-v1",
+          "isolate-01-accel-m1-a1-k3-v0",
+          "isolate-01-accel-m1-a1-k3-v1",
+          "isolate-01-accel-m1-a1-k4-v0",
+          "isolate-01-accel-m1-a1-k4-v1",
+          "isolate-01-accel-m1-a1-k5-v0",
+          "isolate-01-accel-m1-a1-k5-v1",
+          "isolate-01-accel-m1-a2-k0-v0",
+          "isolate-01-accel-m1-a2-k0-v1",
+          "isolate-01-accel-m1-a2-k1-v0",
+          "isolate-01-accel-m1-a2-k1-v1",
+          "isolate-01-accel-m1-a2-k2-v0",
+          "isolate-01-accel-m1-a2-k2-v1",
+          "isolate-01-accel-m1-a2-k3-v0",
+          "isolate-01-accel-m1-a2-k3-v1",
+          "isolate-01-accel-m1-a2-k4-v0",
+          "isolate-01-accel-m1-a2-k4-v1",
+          "isolate-01-accel-m1-a2-k5-v0",
+          "isolate-01-accel-m1-a2-k5-v1",
+          "isolate-01-accel-m2-a0-k0-v0",
+          "isolate-01-accel-m2-a0-k0-v1",
+          "isolate-01-accel-m2-a0-k1-v0",
+          "isolate-01-accel-m2-a0-k1-v1",
+          "isolate-01-accel-m2-a0-k2-v0",
+          "isolate-01-accel-m2-a0-k2-v1",
+          "isolate-01-accel-m2-a0-k3-v0",
+          "isolate-01-accel-m2-a0-k3-v1",
+          "isolate-01-accel-m2-a0-k4-v0",
+          "isolate-01-accel-m2-a0-k4-v1",
+          "isolate-01-accel-m2-a0-k5-v0",
+          "isolate-01-accel-m2-a0-k5-v1",
+          "isolate-01-accel-m2-a1-k0-v0",
+          "isolate-01-accel-m2-a1-k0-v1",
+          "isolate-01-accel-m2-a1-k1-v0",
+          "isolate-01-accel-m2-a1-k1-v1",
+          "isolate-01-accel-m2-a1-k2-v0",
+          "isolate-01-accel-m2-a1-k2-v1",
+          "isolate-01-accel-m2-a1-k3-v0",
+          "isolate-01-accel-m2-a1-k3-v1",
+          "isolate-01-accel-m2-a1-k4-v0",
+          "isolate-01-accel-m2-a1-k4-v1",
+          "isolate-01-accel-m2-a1-k5-v0",
+          "isolate-01-accel-m2-a1-k5-v1",
+          "isolate-01-accel-m2-a2-k0-v0",
+          "isolate-01-accel-m2-a2-k0-v1",
+          "isolate-01-accel-m2-a2-k1-v0",
+          "isolate-01-accel-m2-a2-k1-v1",
+          "isolate-01-accel-m2-a2-k2-v0",
+          "isolate-01-accel-m2-a2-k2-v1",
+          "isolate-01-accel-m2-a2-k3-v0",
+          "isolate-01-accel-m2-a2-k3-v1",
+          "isolate-01-accel-m2-a2-k4-v0",
+          "isolate-01-accel-m2-a2-k4-v1",
+          "isolate-01-accel-m2-a2-k5-v0",
+          "isolate-01-accel-m2-a2-k5-v1"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "isolation02": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-02-gravity-m0-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-02-gravity-m0-g0-v0-a0",
+          "isolate-02-gravity-m0-g0-v0-a1",
+          "isolate-02-gravity-m0-g0-v0-a2",
+          "isolate-02-gravity-m0-g0-v0-a3",
+          "isolate-02-gravity-m0-g0-v1-a0",
+          "isolate-02-gravity-m0-g0-v1-a1",
+          "isolate-02-gravity-m0-g0-v1-a2",
+          "isolate-02-gravity-m0-g0-v1-a3",
+          "isolate-02-gravity-m0-g1-v0-a0",
+          "isolate-02-gravity-m0-g1-v0-a1",
+          "isolate-02-gravity-m0-g1-v0-a2",
+          "isolate-02-gravity-m0-g1-v0-a3",
+          "isolate-02-gravity-m0-g1-v1-a0",
+          "isolate-02-gravity-m0-g1-v1-a1",
+          "isolate-02-gravity-m0-g1-v1-a2",
+          "isolate-02-gravity-m0-g1-v1-a3",
+          "isolate-02-gravity-m1-g0-v0-a0",
+          "isolate-02-gravity-m1-g0-v0-a1",
+          "isolate-02-gravity-m1-g0-v0-a2",
+          "isolate-02-gravity-m1-g0-v0-a3",
+          "isolate-02-gravity-m1-g0-v1-a0",
+          "isolate-02-gravity-m1-g0-v1-a1",
+          "isolate-02-gravity-m1-g0-v1-a2",
+          "isolate-02-gravity-m1-g0-v1-a3",
+          "isolate-02-gravity-m1-g1-v0-a0",
+          "isolate-02-gravity-m1-g1-v0-a1",
+          "isolate-02-gravity-m1-g1-v0-a2",
+          "isolate-02-gravity-m1-g1-v0-a3",
+          "isolate-02-gravity-m1-g1-v1-a0",
+          "isolate-02-gravity-m1-g1-v1-a1",
+          "isolate-02-gravity-m1-g1-v1-a2",
+          "isolate-02-gravity-m1-g1-v1-a3",
+          "isolate-02-gravity-m2-g0-v0-a0",
+          "isolate-02-gravity-m2-g0-v0-a1",
+          "isolate-02-gravity-m2-g0-v0-a2",
+          "isolate-02-gravity-m2-g0-v0-a3",
+          "isolate-02-gravity-m2-g0-v1-a0",
+          "isolate-02-gravity-m2-g0-v1-a1",
+          "isolate-02-gravity-m2-g0-v1-a2",
+          "isolate-02-gravity-m2-g0-v1-a3",
+          "isolate-02-gravity-m2-g1-v0-a0",
+          "isolate-02-gravity-m2-g1-v0-a1",
+          "isolate-02-gravity-m2-g1-v0-a2",
+          "isolate-02-gravity-m2-g1-v0-a3",
+          "isolate-02-gravity-m2-g1-v1-a0",
+          "isolate-02-gravity-m2-g1-v1-a1",
+          "isolate-02-gravity-m2-g1-v1-a2",
+          "isolate-02-gravity-m2-g1-v1-a3"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-02-gravity-m0-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m0-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m1-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g0-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v0-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a2": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-02-gravity-m2-g1-v1-a3": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-02-gravity-m0-g0-v0-a0",
+          "isolate-02-gravity-m0-g0-v0-a1",
+          "isolate-02-gravity-m0-g0-v0-a2",
+          "isolate-02-gravity-m0-g0-v0-a3",
+          "isolate-02-gravity-m0-g0-v1-a0",
+          "isolate-02-gravity-m0-g0-v1-a1",
+          "isolate-02-gravity-m0-g0-v1-a2",
+          "isolate-02-gravity-m0-g0-v1-a3",
+          "isolate-02-gravity-m0-g1-v0-a0",
+          "isolate-02-gravity-m0-g1-v0-a1",
+          "isolate-02-gravity-m0-g1-v0-a2",
+          "isolate-02-gravity-m0-g1-v0-a3",
+          "isolate-02-gravity-m0-g1-v1-a0",
+          "isolate-02-gravity-m0-g1-v1-a1",
+          "isolate-02-gravity-m0-g1-v1-a2",
+          "isolate-02-gravity-m0-g1-v1-a3",
+          "isolate-02-gravity-m1-g0-v0-a0",
+          "isolate-02-gravity-m1-g0-v0-a1",
+          "isolate-02-gravity-m1-g0-v0-a2",
+          "isolate-02-gravity-m1-g0-v0-a3",
+          "isolate-02-gravity-m1-g0-v1-a0",
+          "isolate-02-gravity-m1-g0-v1-a1",
+          "isolate-02-gravity-m1-g0-v1-a2",
+          "isolate-02-gravity-m1-g0-v1-a3",
+          "isolate-02-gravity-m1-g1-v0-a0",
+          "isolate-02-gravity-m1-g1-v0-a1",
+          "isolate-02-gravity-m1-g1-v0-a2",
+          "isolate-02-gravity-m1-g1-v0-a3",
+          "isolate-02-gravity-m1-g1-v1-a0",
+          "isolate-02-gravity-m1-g1-v1-a1",
+          "isolate-02-gravity-m1-g1-v1-a2",
+          "isolate-02-gravity-m1-g1-v1-a3",
+          "isolate-02-gravity-m2-g0-v0-a0",
+          "isolate-02-gravity-m2-g0-v0-a1",
+          "isolate-02-gravity-m2-g0-v0-a2",
+          "isolate-02-gravity-m2-g0-v0-a3",
+          "isolate-02-gravity-m2-g0-v1-a0",
+          "isolate-02-gravity-m2-g0-v1-a1",
+          "isolate-02-gravity-m2-g0-v1-a2",
+          "isolate-02-gravity-m2-g0-v1-a3",
+          "isolate-02-gravity-m2-g1-v0-a0",
+          "isolate-02-gravity-m2-g1-v0-a1",
+          "isolate-02-gravity-m2-g1-v0-a2",
+          "isolate-02-gravity-m2-g1-v0-a3",
+          "isolate-02-gravity-m2-g1-v1-a0",
+          "isolate-02-gravity-m2-g1-v1-a1",
+          "isolate-02-gravity-m2-g1-v1-a2",
+          "isolate-02-gravity-m2-g1-v1-a3"
+        ],
+        "cases_remaining": []
+      }
+    },
+    "isolation03": {
+      "control": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-03-contact-m0-h0-v0-f0",
+          "isolate-03-contact-m0-h0-v0-f1",
+          "isolate-03-contact-m0-h0-v1-f0",
+          "isolate-03-contact-m0-h0-v1-f1",
+          "isolate-03-contact-m0-h1-v0-f0",
+          "isolate-03-contact-m0-h1-v0-f1",
+          "isolate-03-contact-m0-h1-v1-f0",
+          "isolate-03-contact-m0-h1-v1-f1",
+          "isolate-03-contact-m1-h0-v0-f0",
+          "isolate-03-contact-m1-h0-v0-f1",
+          "isolate-03-contact-m1-h0-v1-f0",
+          "isolate-03-contact-m1-h0-v1-f1",
+          "isolate-03-contact-m1-h1-v0-f0",
+          "isolate-03-contact-m1-h1-v0-f1",
+          "isolate-03-contact-m1-h1-v1-f0",
+          "isolate-03-contact-m1-h1-v1-f1",
+          "isolate-03-contact-m2-h0-v0-f0",
+          "isolate-03-contact-m2-h0-v0-f1",
+          "isolate-03-contact-m2-h0-v1-f0",
+          "isolate-03-contact-m2-h0-v1-f1",
+          "isolate-03-contact-m2-h1-v0-f0",
+          "isolate-03-contact-m2-h1-v0-f1",
+          "isolate-03-contact-m2-h1-v1-f0",
+          "isolate-03-contact-m2-h1-v1-f1"
+        ],
+        "cases_remaining": []
+      },
+      "candidate": {
+        "comparison": "exact IEEE-754 float32 words; no tolerance",
+        "cases": {
+          "isolate-03-contact-m0-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m0-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m1-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h0-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v0-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v0-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v1-f0": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          },
+          "isolate-03-contact-m2-h1-v1-f1": {
+            "samples": 120,
+            "difference_ticks": [],
+            "exact": true
+          }
+        },
+        "decimal_only_differences": [],
+        "cases_exact": [
+          "isolate-03-contact-m0-h0-v0-f0",
+          "isolate-03-contact-m0-h0-v0-f1",
+          "isolate-03-contact-m0-h0-v1-f0",
+          "isolate-03-contact-m0-h0-v1-f1",
+          "isolate-03-contact-m0-h1-v0-f0",
+          "isolate-03-contact-m0-h1-v0-f1",
+          "isolate-03-contact-m0-h1-v1-f0",
+          "isolate-03-contact-m0-h1-v1-f1",
+          "isolate-03-contact-m1-h0-v0-f0",
+          "isolate-03-contact-m1-h0-v0-f1",
+          "isolate-03-contact-m1-h0-v1-f0",
+          "isolate-03-contact-m1-h0-v1-f1",
+          "isolate-03-contact-m1-h1-v0-f0",
+          "isolate-03-contact-m1-h1-v0-f1",
+          "isolate-03-contact-m1-h1-v1-f0",
+          "isolate-03-contact-m1-h1-v1-f1",
+          "isolate-03-contact-m2-h0-v0-f0",
+          "isolate-03-contact-m2-h0-v0-f1",
+          "isolate-03-contact-m2-h0-v1-f0",
+          "isolate-03-contact-m2-h0-v1-f1",
+          "isolate-03-contact-m2-h1-v0-f0",
+          "isolate-03-contact-m2-h1-v0-f1",
+          "isolate-03-contact-m2-h1-v1-f0",
+          "isolate-03-contact-m2-h1-v1-f1"
+        ],
+        "cases_remaining": []
+      }
+    }
+  },
+  "default_off_preserves_v56": true,
+  "goal_complete": false
+}

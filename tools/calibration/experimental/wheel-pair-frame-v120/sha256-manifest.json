@@ -1,0 +1,485 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2648,
+      "sha256": "c058dd224454fa42a989826014f8e713849042eeb1cdbbe0eb8f6817b468f7ed"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "bytes": 50034,
+      "sha256": "0f199b34d0fdc73728ae244bfb343f1e05a8a82d1648615edcdf40311ece8315"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h",
+      "bytes": 2894,
+      "sha256": "2385c36c84399688c7b93763834c7e3779bd41a3cec0827d10da5d18a11a5bd7"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "bytes": 63631,
+      "sha256": "2cdcb578527cbb5db1ca9ac3b797d61e51b2c5db586d2c4c36a452ddddcab658"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1254,
+      "sha256": "90abe2c1cb358c760a66faa354f49d780c14a96b78c8808e3ec0b4f8bdd3eae4"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "bytes": 47708,
+      "sha256": "40fa80378427c228998afeed74e439ceecfe9baad3f1bb54d853db258c8db34a"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h",
+      "bytes": 2815,
+      "sha256": "47dace0c14c2fca814de4db3b4715cf9884ef29a1ed8fd9f52e8d3f28f3c0a32"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "bytes": 62243,
+      "sha256": "b23395eeecefd48c9246bd0423575fbe534620d3b3603a2e318a8f4cf012a578"
+    },
+    {
+      "path": "captures/both-body-trace/manifest.json",
+      "bytes": 468,
+      "sha256": "83dd69a928d6f192af42e1059e690f3ed671ee0ec2999e83d6715959ad676187"
+    },
+    {
+      "path": "captures/both-body-trace/run0-physical.jsonl.gz",
+      "bytes": 26062,
+      "sha256": "076c7e5fa5fc33a30c243fb94296bf4d8c09b4971fa63a5f587cf6c87e5ca725"
+    },
+    {
+      "path": "captures/both-body-trace/run0-private.jsonl.gz",
+      "bytes": 25452,
+      "sha256": "f08af99005262e5461263dea6638c09ea538b8be905cd1a397dac02d83e12ebb"
+    },
+    {
+      "path": "captures/both-body-trace/run1-physical.jsonl.gz",
+      "bytes": 26067,
+      "sha256": "d1b2c960596dc87421597e1f85438b09244165853f5938541f5ceaeb93086ee5"
+    },
+    {
+      "path": "captures/both-body-trace/run1-private.jsonl.gz",
+      "bytes": 25452,
+      "sha256": "029038091b20223c98b00e0dddbdc42176831b361dd6cc66f579a993ae977ac8"
+    },
+    {
+      "path": "captures/mac-candidate/manifest.json",
+      "bytes": 583,
+      "sha256": "10500690d28768c2f1be1d6c01f8e89337e069f696a937162b69433370e1072a"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-0-combined.jsonl.gz",
+      "bytes": 316,
+      "sha256": "5a1a31b50367a8dd565e92aa3f9ef4833d1748e40ed66fecb254bcfddd2013ba"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-0-physical.jsonl.gz",
+      "bytes": 26062,
+      "sha256": "4ced0e970e652c8e6788db6eb9e817c08531d9045ed9f17385856835e0de9a10"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-0-prep.jsonl.gz",
+      "bytes": 1134,
+      "sha256": "5bfc4e5d37801c9a794c20806ea7e6166275cdb6709a18710744ca45fff15bca"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-0-solver.jsonl.gz",
+      "bytes": 1601,
+      "sha256": "4360fd0a4bc24b234e488976f93962014915eb9c9de3908bfd60a6b5b886da3e"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-0-tire.jsonl.gz",
+      "bytes": 1842,
+      "sha256": "0406d30c3102ae67e946d56c3b3989f2b6e14b62b17884fe23f8af6cd91f010b"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-1-combined.jsonl.gz",
+      "bytes": 316,
+      "sha256": "52ee6a133f24d832ad5572456e2bda2db2a56f202d8aec1018a8e91b27e71b8a"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-1-physical.jsonl.gz",
+      "bytes": 26134,
+      "sha256": "565b25ccb3870cc59e604e990fe6fe18ea86b02b627cac0bbadc2070b6ca99af"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-1-prep.jsonl.gz",
+      "bytes": 1134,
+      "sha256": "5d597c1e66e9cde2b66a9710324c7405f32e7cb60b8584892d5a335933d2bf52"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-1-solver.jsonl.gz",
+      "bytes": 1601,
+      "sha256": "3448636f87e7d1b29fa37882f0df70588857828a7b2753ff264a55229c548779"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-31-1-tire.jsonl.gz",
+      "bytes": 1842,
+      "sha256": "75653389f8dbe9730683e7544ec12fa13de8907815e49e3961ce37c44592f4c1"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-0-combined.jsonl.gz",
+      "bytes": 320,
+      "sha256": "8f4703bd60ff856afe07bc23dde45f03eb0178d8f68aeb04d1c8c3941f952f97"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-0-physical.jsonl.gz",
+      "bytes": 26108,
+      "sha256": "b6a31eba981defb929c660d63427fb96b39a747f9820bc06cfce27868c3bdd16"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-0-prep.jsonl.gz",
+      "bytes": 1153,
+      "sha256": "acfd6db0674c30a5eb32b811a06d02e3a85f513cf386652cf07ebe16af001014"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-0-solver.jsonl.gz",
+      "bytes": 1577,
+      "sha256": "1ff826f565e26312584b00a759529633328e4e22207f18dbf17b4b02d86a4f5b"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-0-tire.jsonl.gz",
+      "bytes": 1829,
+      "sha256": "935ea15684f18dec179a71c9748c62da33a3aa91335a6a70c30e37b9761167d8"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-1-combined.jsonl.gz",
+      "bytes": 320,
+      "sha256": "6d7dbf65e8daa648c282c474b6f479daae10346c3efd3c10f1b600eafa57178c"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-1-physical.jsonl.gz",
+      "bytes": 26088,
+      "sha256": "92ab527821f93f7322a96163b131bd28dd018c64951a415b004ea4e365415436"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-1-prep.jsonl.gz",
+      "bytes": 1153,
+      "sha256": "fa4137ef008792c697cefdbe910e3c19737dc57025ee7c246914d7abd5e8143c"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-1-solver.jsonl.gz",
+      "bytes": 1577,
+      "sha256": "e52239e4a6d70b38bea3b9aef216e28cc720e33193f2a1b38dae02c9833bd64d"
+    },
+    {
+      "path": "captures/mac-candidate/pair-stock-pole-1-32-1-tire.jsonl.gz",
+      "bytes": 1829,
+      "sha256": "5b8624f5deebf84ab7bf86dbe8cef0cf0eb620e6bb904e1f94036ba18f98f91b"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-31-0-physical.jsonl.gz",
+      "bytes": 74035,
+      "sha256": "83758e03911362f7f0a95cc313b5dfd77a46d5c9fb15e31953dcceacf953c6db"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-31-0-private.jsonl.gz",
+      "bytes": 26430,
+      "sha256": "e76d0749bbca9fa6b620724a063c0300037a387e4be0a9465041fa93ad84b39a"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-31-1-physical.jsonl.gz",
+      "bytes": 74008,
+      "sha256": "33a73d417608ee6522978fb37c58f4ebc975a1688c5c8a0a581c4c131e25259b"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-31-1-private.jsonl.gz",
+      "bytes": 26412,
+      "sha256": "f577a02a26184af0fdd994297dc790719fde3fe0cc17fd212844f2d65e8a1fd3"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-32-0-physical.jsonl.gz",
+      "bytes": 73992,
+      "sha256": "7680e8e21ad328e251c1e405024f28a93ed67a39ccb2bf789b84ecb4e159a9b4"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-32-0-private.jsonl.gz",
+      "bytes": 26560,
+      "sha256": "ac638786ee57dd2d8b48909c3c79eaed91da2f6616c04e5740cb5032a19e8bf4"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-32-1-physical.jsonl.gz",
+      "bytes": 74013,
+      "sha256": "24fb3a55627e00e68ba80e479ce107a209041a7d0e45afee633907faa42b8ad8"
+    },
+    {
+      "path": "captures/native-kernel/kernel-pair-stock-pole-1-32-1-private.jsonl.gz",
+      "bytes": 26522,
+      "sha256": "face73cfdcb9c4dc0008f4548b8047002c6a394d6950f61cd7d74ab9c75d8c29"
+    },
+    {
+      "path": "captures/native-kernel/manifest.json",
+      "bytes": 1958,
+      "sha256": "f901d28ab5ff4ebce90afaec9b81abe54a3c84198481eb1ccc810454056297ff"
+    },
+    {
+      "path": "checks/broad/capture-manifest.json",
+      "bytes": 9235,
+      "sha256": "09f73f98abf0ee8fb425a74b11284b803e452c6e833e4b89fd7c4fcf2d252f0e"
+    },
+    {
+      "path": "checks/build-all-restored.log",
+      "bytes": 3646,
+      "sha256": "70fec3ab5d6784899aeab2d92a9e0a736d2bd893715914e9ec90b4ee754ccd33"
+    },
+    {
+      "path": "checks/canonical-audit.log",
+      "bytes": 453,
+      "sha256": "0495e2e683b991b9608d7e18c36199e2f4e62114939d567ab1d43ce869d74953"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "2e8bfdc04ca07e9ccd4916d42a36e7a5e0fd5174da9c61f5f44a877c4566c606"
+    },
+    {
+      "path": "checks/ctest-default.log",
+      "bytes": 7093,
+      "sha256": "c0a43463591fcc3a57b7ecf83c628a185d5a00653bf8a5ada46559efa6723f14"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "0bb9b3564897bf3f976054de430428e4f891e07d0e7cd85a26c5d9b47effc0aa"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 9316,
+      "sha256": "17652f4396a986a64cf1ac4976c5d825d3a393a02c66c2154252d31233d86f2b"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "68502104d5bf76b293de7d8e64c38d602555de2dd69579616c2d136ea4b81cd0"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 9290,
+      "sha256": "66d790d83698f5320f500b937c7127cc425ef9c9844977df0aa920f30980e884"
+    },
+    {
+      "path": "checks/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "0f67b6b0d531a2bee71a315faa87885e88c3e8a88b1d9d7ca4e4dc1ab8a74aca"
+    },
+    {
+      "path": "checks/regression-audit.log",
+      "bytes": 230,
+      "sha256": "8c7b1bcc6ddc953ab9effcbd26c25fd4697377785303b3ea9dbd818c73630cf3"
+    },
+    {
+      "path": "evidence/both-body-live-proof.json",
+      "bytes": 1293,
+      "sha256": "60689555b5def130947f9ab0fddb51208f95dab94976bade99d49edb7f0349a2"
+    },
+    {
+      "path": "evidence/both-frame-proof.json",
+      "bytes": 18651,
+      "sha256": "bec960261ca106b8cf1deee2860d54ea8033b0d224ec0fadb138f70e460cb720"
+    },
+    {
+      "path": "evidence/dependencies/NativeWheelFrameV57.h",
+      "bytes": 2294,
+      "sha256": "b1bf7ea7437c202fd81af05f9871c3106c97333a2528a7c80a51a83137715a08"
+    },
+    {
+      "path": "evidence/live-spring-proof.json",
+      "bytes": 1600,
+      "sha256": "d39ff06dba832f7c2c1849f039a99e1a6e3ebacfb9e35ff48fbf18e31402c958"
+    },
+    {
+      "path": "evidence/owner-frame-proof.json",
+      "bytes": 10468,
+      "sha256": "dec505d46a1ac2b371c39f1908cd7022d23ad15f8cbfee2c0290fbd20c42ad3f"
+    },
+    {
+      "path": "evidence/physics-v120-candidate-broad-audit.json",
+      "bytes": 162370,
+      "sha256": "52eab4743aa12cc6fa46d83059665cc40ae68b573e6d80225a720326e352b6ec"
+    },
+    {
+      "path": "evidence/physics-v120-candidate-canonical-error-audit.json",
+      "bytes": 611451,
+      "sha256": "04f6cd52a2ed1298f3a36846bf84ceecf856eae8794cf146c257b6beb649f73f"
+    },
+    {
+      "path": "evidence/physics-v120-candidate-practical-error-audit.json",
+      "bytes": 1069518,
+      "sha256": "31ec9a05b6478c57b84c9c22108656983a17ca8ccabfb19cc452806eddbcc571"
+    },
+    {
+      "path": "evidence/physics-v120-candidate-regression-audit.json",
+      "bytes": 24680,
+      "sha256": "047c87e0367129adadcf52097742c8664c6a7ed21bbfa90113c7b9d0a3ecfa41"
+    },
+    {
+      "path": "evidence/physics-v120-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "287315d02eeca6e41ac5f18917f7f8aebc28ccc0ca88d8bdd233324acf726ba5"
+    },
+    {
+      "path": "evidence/portable.json",
+      "bytes": 921,
+      "sha256": "c8f5624725b3448e1810ef72baf999c7d09a1b8d2a7f006e7a512848051f2e37"
+    },
+    {
+      "path": "evidence/readonly-AxisConstraintPart-pair-telemetry.h",
+      "bytes": 51737,
+      "sha256": "cdaf09c1483a7bc2a54691b3363abf08d3eba96e7a1aa05251eed044aa63aa73"
+    },
+    {
+      "path": "evidence/report.json",
+      "bytes": 6799,
+      "sha256": "81dd13bae1a9329ac1e65cd76d1f4dd83165579494f36bac929c3e6f1c6022d9"
+    },
+    {
+      "path": "evidence/restored-section-comparison.json",
+      "bytes": 3702,
+      "sha256": "789a90f967411b559173699a19378fc12df40ab0e392ba64e2ea517c6cb05ae4"
+    },
+    {
+      "path": "evidence/source-change-candidate.json",
+      "bytes": 1162,
+      "sha256": "011992b78e5b62873d840250a56f60f158bafaf8d3e78bf0ec4ebed993231a58"
+    },
+    {
+      "path": "evidence/v119-control.jsonl.gz",
+      "bytes": 48759,
+      "sha256": "c88210fe313757c430ec9a2596f0cf9b14ed542465e5d4e1d9e6c3b59c4a92fc"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2434818,
+      "sha256": "b41d1286bc1cfd41634b562b6db2bd8c9cf1daa1cab39b1e9acfa2da83e17d31"
+    },
+    {
+      "path": "native-observer/trace-wheel.cpp",
+      "bytes": 12117,
+      "sha256": "6850d1473c04cad82851536a600fd098795786c84947ecab09c759e63b5458b6"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 8087,
+      "sha256": "499bdc9649f01dfd63a746e270cf5d72a4131990c8efb9532084a33d11a62fcd"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit.py",
+      "bytes": 4371,
+      "sha256": "5932edc7a3b8fc54121cbdd5de6901a8b936bc071178462118da03c2dbd8e65b"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-both-body-trace.py",
+      "bytes": 1655,
+      "sha256": "537291be8303781344386acbe2d5f28057bf72ad12897dd2d9082aad90ba760f"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-candidate.py",
+      "bytes": 2434,
+      "sha256": "7e1fcf04beee8d7eddb965cb33c795c3d3dc01f45dea2e602b0be7940a5fb91c"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-telemetry.py",
+      "bytes": 2422,
+      "sha256": "45561de8ffa361980023f3a4fbb095711edd74b42f11e745662e190230ba2e0e"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-kernel.py",
+      "bytes": 2674,
+      "sha256": "bb100c39461420d14b687b26ac89a310bdfc4e7525c55bbed8f4a3c8bc398cc5"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3652,
+      "sha256": "5380a2bd6d126ff328e27200bbe7bc0b391050075f992dba9260d2873d800c91"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2201,
+      "sha256": "892e555528ce0bbb8fadda33f75bed4ed26f2aba6aa751ec48822b6735bf58c1"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4290,
+      "sha256": "945d38089eb32adb6514cd6bf2628a78e434084bafc5c16a5fcf42adb01a4c0e"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-both-frame.py",
+      "bytes": 2911,
+      "sha256": "db1def11f43d89b19be7a4ed0c0275f47c0d58a242f5c11d7c6dafa99f2b6073"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2446,
+      "sha256": "18ba3786a27e1ca72d4c3617a384bb0a508f3751c4255e71cbe5cb192090dc63"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 2678,
+      "sha256": "e8d57908688f80079cdfa9426c7fb1f613e8a0bd2ea63eb563ea483294e455f8"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2098,
+      "sha256": "c81121083e536e6b153caf7681b2ff580c1a195e0b70e3cfe29891dabbfbe5b1"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2072,
+      "sha256": "5eaa9a0326336b09c9ff2805525c6f736460feaa6e2a2a19501829311b575df3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 7939,
+      "sha256": "f0e09cb46537ebc3a4d3c3cb2d8c61b0a76c6b648e21684299427609b08b0efc"
+    },
+    {
+      "path": "reproduction-host-scripts/run-target-state.py",
+      "bytes": 2078,
+      "sha256": "0985b7d3ec7da9e8d743f92d6e39dc0bff51788b520165fdc340638b2e68b79e"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1670,
+      "sha256": "146efa810d2db3faa86f5d7cba599b2631dadce9bd1a83590b2684ec458154c0"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-both-body-live.py",
+      "bytes": 3027,
+      "sha256": "cd122afbff31710674e9ebc0f802b167a13c0b3928e1c60abc78faee4121ec6d"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-live-springs.py",
+      "bytes": 3138,
+      "sha256": "cbc39c0cd6fd7846fb743b6ae49abb1cdfa8a0e0b89a87dedbf04ede7665772a"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2518,
+      "sha256": "86b27103b2a8c159f00e6364c982fd7446d44ec71384d3991d252a7c78749836"
+    },
+    {
+      "path": "verify-both-frame.cpp",
+      "bytes": 752,
+      "sha256": "93512b7ac568a011f76016de5c1f1736fb817a07f8401f85808d494b34dc4076"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3170,
+      "sha256": "99899772a92933f40063d180813f5302b7ec2b271dcf2e5daab27ff5ace143cb"
+    }
+  ],
+  "goal_complete": false
+}

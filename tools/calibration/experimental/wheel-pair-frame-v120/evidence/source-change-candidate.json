@@ -1,0 +1,27 @@
+{
+  "scope": "Complete two-body spring actor frames and distinct linear axes, per-wheel state only; extra read-only preparation telemetry. Default-off unvalidated candidate.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h",
+      "before_sha256": "40fa80378427c228998afeed74e439ceecfe9baad3f1bb54d853db258c8db34a",
+      "after_sha256": "0f199b34d0fdc73728ae244bfb343f1e05a8a82d1648615edcdf40311ece8315"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h",
+      "before_sha256": "47dace0c14c2fca814de4db3b4715cf9884ef29a1ed8fd9f52e8d3f28f3c0a32",
+      "after_sha256": "2385c36c84399688c7b93763834c7e3779bd41a3cec0827d10da5d18a11a5bd7"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "b23395eeecefd48c9246bd0423575fbe534620d3b3603a2e318a8f4cf012a578",
+      "after_sha256": "2cdcb578527cbb5db1ca9ac3b797d61e51b2c5db586d2c4c36a452ddddcab658"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_WHEEL_PAIR_FRAME_V120"
+  ],
+  "goal_complete": false
+}

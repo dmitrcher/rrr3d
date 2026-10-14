@@ -1,0 +1,89 @@
+{
+  "scope": "Original two-body spring actor frames and independent linear axes, per-wheel state. No coefficient fitting, state injection or case/frame/wheel rules.",
+  "strict_cases": 603,
+  "total_cases": 608,
+  "remaining_cases": 5,
+  "new_strict_cases": [
+    "pair-stock-pole-1"
+  ],
+  "all_previous_602_strict_preserved": true,
+  "two_repeats_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 607,
+  "changed_trajectories": [
+    "pair-stock-pole-1"
+  ],
+  "no_full_run_maximum_regressions_vs_v119": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [
+        "pair-stock-pole-1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "position_max": {
+      "improved": [
+        "pair-stock-pole-1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "velocity_max": {
+      "improved": [
+        "pair-stock-pole-1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "orientation_max_degrees": {
+      "improved": [
+        "pair-stock-pole-1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "angular_momentum_max": {
+      "improved": [
+        "pair-stock-pole-1"
+      ],
+      "worsened": [],
+      "same": 607
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_normal_force_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    }
+  },
+  "actual_both_body_frame_records_O0_O2": 16,
+  "actual_both_body_incoming_and_next_row_bound_output_checks": 80,
+  "fresh_live_Native_equivalent_states": 1200,
+  "private_signed_zero_differences_explicit": true,
+  "raw_ABI_equality_claimed": false,
+  "portable_Native_equal_states": 9780,
+  "flag_off_preserves_v119_decimal_states": 600,
+  "selected_flag_off_v119_preservation_cases": 25,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "restored_build_all_loadable_code_and_data_sections_match_matrix_probe": true,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "8efb2be6609c1e5e326f8eb8f48669f9f8b424241155bfb820f7e452e5390e79",
+    "rrr3d_physics_spring_probe": "bc66edec7745768aa21178cc60d0afb0cbcc5031070b5347b117b7dc023bda6b"
+  },
+  "goal_complete": false
+}

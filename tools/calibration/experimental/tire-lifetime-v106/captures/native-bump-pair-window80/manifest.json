@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\endpoint-window-v90\\TraceEndpointWindowV90.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\endpoint-window-v90\\TraceEndpointWindowV90.exe:\r\nec98b750c4060b1337144b1aaaabd6cf05d0706aa3f729f45b1c7e8dd579764b\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "endpoint",
+      "name": "bump-crossing",
+      "repeat": 0,
+      "sample_tick": 80,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "6d905547e8dc242f4d25b3ec78ed94697a1f26a378d6fe8506dec8df6b650351"
+    },
+    {
+      "kind": "endpoint",
+      "name": "bump-crossing",
+      "repeat": 1,
+      "sample_tick": 80,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "5da5db7ba156d9b5e56e2aef6ed05f084b90d2273885bcd1006d020a1d3d0dc7"
+    }
+  ],
+  "goal_complete": false
+}

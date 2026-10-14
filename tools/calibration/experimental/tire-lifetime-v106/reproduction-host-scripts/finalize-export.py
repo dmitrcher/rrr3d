@@ -1,0 +1,26 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil
+r=Path.cwd();w=r/'work/tire-lifetime-v106';d=r/'work/sync-rrr3d/tools/calibration/experimental/tire-lifetime-v106';e=d/'evidence'
+a=json.loads((r/'outputs/physics-v106-final-broad-audit.json').read_text());old=json.loads((r/'outputs/physics-v105-final-broad-audit.json').read_text());assert len(a['cases'])==608 and a['two_repeats_exact'] and a['samples']==255864;assert set(old['exact'])<=set(a['exact']);assert set(a['exact'])-set(old['exact'])=={'slope-longitudinal','bump-crossing'}
+reg=json.loads((r/'outputs/physics-v106-regression-audit.json').read_text());assert len(reg['unchanged'])==604 and set(reg['changed_trajectories'])=={'slope-longitudinal','bump-crossing','curb-side','border-grounded'}
+for n,t in [('curb-side',13),('border-grounded',61)]:assert a['cases'][n]['first_difference']['tick']==old['cases'][n]['first_difference']['tick']==t
+for name in ['physics-v106-final-broad-audit.json','physics-v106-final-practical-error-audit.json','physics-v106-regression-audit.json','physics-v106-guarded-installer-test.json']:shutil.copy2(r/'outputs'/name,e/name)
+for name in ['next-curb13-spring-lever-lead.json','native-pair-reset-proof.json','live-bump57-proof.json']:shutil.copy2(r/'outputs/tire-lifetime-v106'/name,e/name)
+for name in ['native-manager-next-open']:shutil.copytree(r/'outputs/tire-lifetime-v106'/name,d/'captures'/name)
+for name in ['gates-complete-profile','game-smoke','game-render-race']:
+ dest=d/'checks'/name;dest.mkdir(parents=True)
+ for p in (r/'outputs/tire-lifetime-v106'/name).iterdir():
+  if p.suffix=='.json':shutil.copy2(p,dest/p.name)
+for name in ['ctest.log','build-force-lifetime.log','installer.log','portable.log']:shutil.copy2(w/name,d/'checks'/name)
+for p in w.glob('*.py'):shutil.copy2(p,d/'reproduction-host-scripts'/p.name)
+base=json.loads((d/'base.json').read_text());base['scope']=base['scope'].replace('Validation pending.','Repeated full608 matrix:467strict141open, all465 previous strict retained,604 entire histories unchanged. Four histories changed. Known increased maxima in two previously differing open cases, detailed in regression audit; this is a causal investigation checkpoint, not a final regression-free game fix.');(d/'base.json').write_text(json.dumps(base,indent=2)+'\n')
+p=d/'README.md';s=p.read_text().replace('The first full608-case comparison','Two fresh full608-case comparisons').replace('Repeated broad validation is pending.','Both uninterrupted255864-state runs are exactly repeatable. The291 separate retained gates and53CTest checks passed; headless600-step solo replay and240-frame rendered menu/race smoke both exit0. These game checks confirm functionality, not Windows/Mac complete-game or graphics equivalence.');p.write_text(s)
+nextscope='Next: curb-side earliest13 spring lever arm/box ray-hit transform. Fresh Native repeat masses/incoming body exact while first wheel2 spring Jacobian Y differs one float32 ULP. Border-grounded first61 remains separate. No new coefficient fitting, frame dispatch or oracle injection. Keep candidate known open-case maxima explicit. Overall goal141open.';(w/'NEXT.md').write_text(nextscope+'\n');(d/'NEXT.md').write_text(nextscope+'\n')
+checkpoint={'scope':'Native-bound causal V106 investigation checkpoint, independent latest tire object age plus deferred full wheel object/previous force deletion. Default-off module over verifiedV105; ordinary installed game remains previous version.','strict_cases':467,'total_cases':608,'remaining_cases':141,'new_strict_cases':['slope-longitudinal','bump-crossing'],'all_previous_465_strict_preserved':True,'states_per_repeat':255864,'repeats':2,'all_repeat_states_exact':True,'unchanged_trajectories':604,'changed_trajectories':reg['changed_trajectories'],'known_open_case_increased_maxima':{f:v['worsened'] for f,v in reg['maxima'].items()},'globally_magnitude_regression_free':False,'old_earliest_divergences_preserved':{'curb-side':13,'border-grounded':61},'native_live_bump_solver_rows_verified_per_repeat':{'spring':20,'tire':40},'independent_physics_gates':291,'ctest_checks':53,'headless_solo_steps':600,'rendered_functional_smoke_frames':240,'complete_game_and_render_parity_claimed':False,'frozen_probes':json.loads((r/'work/frozen-v106/manifest.json').read_text())['hashes'],'goal_complete':False}
+(r/'outputs/physics-v106-probe-validation.json').write_text(json.dumps(checkpoint,indent=2)+'\n');(d/'validation.json').write_text(json.dumps(checkpoint,indent=2)+'\n')
+# Compress only copied, closed capture journals; preserve their content digest.
+for p in sorted((d/'captures').rglob('*.jsonl')):
+ dest=Path(str(p)+'.gz');assert not dest.exists()
+ with p.open('rb') as src,gzip.open(dest,'wb',compresslevel=6) as dst:shutil.copyfileobj(src,dst)
+ assert hashlib.sha256(gzip.open(dest,'rb').read()).digest()==hashlib.sha256(p.read_bytes()).digest();p.unlink()
+files=[p for p in sorted(d.rglob('*')) if p.is_file()];(d/'sha256-manifest.json').write_text(json.dumps({'files':[{'path':str(p.relative_to(d)),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in files],'goal_complete':False},indent=2)+'\n');print('Finalized467strict141open;465 retained; known open-case magnitude increases explicitly recorded;',len(files),'SHA members')

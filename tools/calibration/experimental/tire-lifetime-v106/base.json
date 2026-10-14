@@ -1,0 +1,37 @@
+{
+  "scope": "Guarded five-file V106 delta over accepted combinedV105. Independent tire object creation age and deferred static mesh/box pair manager destruction; full wheel-object deletion invalidates previous spring force. Both flags default off. Anchor state retained. No physical coefficient changes, frame/case dispatch or measured-state injection. Repeated full608 matrix:467strict141open, all465 previous strict retained,604 entire histories unchanged. Four histories changed. Known increased maxima in two previously differing open cases, detailed in regression audit; this is a causal investigation checkpoint, not a final regression-free game fix.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "c020a93115ebac38b623a7d651974f329ab8cae72b08302d0bf6110eff431eee",
+      "after_sha256": "a7216e1b070aa6f630a91dbe7a8a69e098a5458170e1081bab78023472323759"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "063a4040fa55cb735a98e498d4f7a3cdf38413499157fd4025717be194a9dd22",
+      "after_sha256": "16e3b5431d92444bcf3f4a50f8a114f62d9fea5e12e969332c9b8800ec8ab995"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "be8cd07ef0426f8abd5cb04e823027faf8b3e210257b7c4f822b1a98504b5f8f",
+      "after_sha256": "60798e89be54904b2358dbfb0f277a4392a8465532e8bd107e9d654b6af4f3b8"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "62c9792c9f697846d5b253bd1643cde8614ab5be611080591702aa442c7b8325",
+      "after_sha256": "d3f0f45d3fa583211004fb3ff3810392639c327ea11591023bbfd23861f16fc0"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeWheelPairLifetimeV106.h",
+      "before_sha256": null,
+      "after_sha256": "9307e22b76bc2647073828b742d687c15e7a15c191b4aa7ffa1a47a8dcaa3626"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Apply verified wheel-lifetime-v105 over acceptedV102 first; before snapshots are exactly its resulting SDK/adapter."
+}

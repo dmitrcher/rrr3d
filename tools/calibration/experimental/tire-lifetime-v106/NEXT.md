@@ -1,0 +1,1 @@
+Next: curb-side earliest13 spring lever arm/box ray-hit transform. Fresh Native repeat masses/incoming body exact while first wheel2 spring Jacobian Y differs one float32 ULP. Border-grounded first61 remains separate. No new coefficient fitting, frame dispatch or oracle injection. Keep candidate known open-case maxima explicit. Overall goal141open.

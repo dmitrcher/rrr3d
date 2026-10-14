@@ -1,0 +1,62 @@
+{
+  "scope": "Native-bound causal V106 investigation checkpoint, independent latest tire object age plus deferred full wheel object/previous force deletion. Default-off module over verifiedV105; ordinary installed game remains previous version.",
+  "strict_cases": 467,
+  "total_cases": 608,
+  "remaining_cases": 141,
+  "new_strict_cases": [
+    "slope-longitudinal",
+    "bump-crossing"
+  ],
+  "all_previous_465_strict_preserved": true,
+  "states_per_repeat": 255864,
+  "repeats": 2,
+  "all_repeat_states_exact": true,
+  "unchanged_trajectories": 604,
+  "changed_trajectories": [
+    "slope-longitudinal",
+    "bump-crossing",
+    "curb-side",
+    "border-grounded"
+  ],
+  "known_open_case_increased_maxima": {
+    "position_max": [
+      "curb-side"
+    ],
+    "velocity_max": [
+      "curb-side",
+      "border-grounded"
+    ],
+    "orientation_max_degrees": [
+      "curb-side"
+    ],
+    "angular_momentum_max": [
+      "border-grounded"
+    ],
+    "wheel_contact_mismatches": [],
+    "wheel_suspension_max": [
+      "border-grounded"
+    ],
+    "wheel_normal_force_max": [
+      "curb-side"
+    ]
+  },
+  "globally_magnitude_regression_free": false,
+  "old_earliest_divergences_preserved": {
+    "curb-side": 13,
+    "border-grounded": 61
+  },
+  "native_live_bump_solver_rows_verified_per_repeat": {
+    "spring": 20,
+    "tire": 40
+  },
+  "independent_physics_gates": 291,
+  "ctest_checks": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_and_render_parity_claimed": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "c7891934ec1cb9233a1f4bef8194477f1e8b082df761d7fbcc2d1957c2a110db",
+    "rrr3d_physics_spring_probe": "7244974d5be2deb7571e62998cc93d23512e97f52f8a514a77f22a05f7d0a180"
+  },
+  "goal_complete": false
+}

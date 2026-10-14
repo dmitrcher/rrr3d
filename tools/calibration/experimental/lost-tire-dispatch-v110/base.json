@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off retained lost static tire objects keep persistent Native tire-object dispatch eligibility; axes, mass, limits, impulse and application arithmetic unchanged. Extra read-only telemetry adds body state/inverse Jacobian. No SDK layout change.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "9b834eb00980553a5f09a30786f123dbc1c3ebc01a7714dee3e2c04008d205dc",
+      "after_sha256": "7eae535f2b4e102b97b17ac164d94157e211238ddfeb098231b0525549c3e125"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "60798e89be54904b2358dbfb0f277a4392a8465532e8bd107e9d654b6af4f3b8",
+      "after_sha256": "45ed5662584b992be0be8e54813ae507a1b93036cd84655f8d28196cb1efe4c9"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified contact-frame-static-mesh-v109 and all prerequisites. Two SDK implementation files; SDK class layout unchanged."
+}

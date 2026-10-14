@@ -1,0 +1,28 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_Native_Jv_words_exact": 80,
+      "observed_output_words_never_used_as_inputs": true
+    },
+    {
+      "optimization": "O2",
+      "actual_Native_Jv_words_exact": 80,
+      "observed_output_words_never_used_as_inputs": true
+    }
+  ],
+  "goal_complete": false,
+  "fresh_original_Native_equal_states": {
+    "settle": 600,
+    "target-half": 600,
+    "slope-longitudinal": 600,
+    "slope-lateral": 600,
+    "bump-crossing": 600,
+    "curb-side": 600,
+    "border-grounded": 600
+  },
+  "full_Native_equal_states": 4200,
+  "retained_roll_contact_states": 180,
+  "retained_roll_matches_windows_claimed": false,
+  "probe_sha256": "fd87c6ef0eb80687a8f4fa10c05cf981ef4b0f752b7646bdd4c13fef7ce9b5b8"
+}

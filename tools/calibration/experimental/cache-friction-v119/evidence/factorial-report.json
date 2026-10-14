@@ -1,0 +1,30 @@
+{
+  "scope": "Two independent default-off fixes; factorial actual uninterrupted180-step trajectories and two repeats each, frozen final candidate. Flags off preserve complete V118 decimal history, cache-only preserves intermediate candidate. Same original initial conditions and commands; no resets or tuning.",
+  "modes": {
+    "off": {
+      "first_difference": 166,
+      "difference_steps": 14,
+      "full_states": 180,
+      "repeats_exact": true
+    },
+    "cache-only": {
+      "first_difference": 175,
+      "difference_steps": 2,
+      "full_states": 180,
+      "repeats_exact": true
+    },
+    "friction-only": {
+      "first_difference": 166,
+      "difference_steps": 14,
+      "full_states": 180,
+      "repeats_exact": true
+    },
+    "both": {
+      "first_difference": null,
+      "difference_steps": 0,
+      "full_states": 180,
+      "repeats_exact": true
+    }
+  },
+  "goal_complete": false
+}

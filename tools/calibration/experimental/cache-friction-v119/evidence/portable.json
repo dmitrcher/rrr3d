@@ -1,0 +1,50 @@
+{
+  "arithmetic": [
+    {
+      "kind": "cache",
+      "optimization": "O0",
+      "original_records_exact": 8,
+      "flag_off_Source_records_preserved": 8
+    },
+    {
+      "kind": "cache",
+      "optimization": "O2",
+      "original_records_exact": 8,
+      "flag_off_Source_records_preserved": 8
+    },
+    {
+      "kind": "mass",
+      "optimization": "O0",
+      "original_records_exact": 80
+    },
+    {
+      "kind": "mass",
+      "optimization": "O2",
+      "original_records_exact": 80
+    }
+  ],
+  "goal_complete": false,
+  "fresh_original_Native_equal_states": {
+    "settle": 600,
+    "wheel-drive": 600,
+    "brake": 600,
+    "steer-left": 600,
+    "steer-right": 600,
+    "reverse-drive": 600,
+    "spring-soft": 600,
+    "travel-short": 600,
+    "travel-long": 600,
+    "radius-small": 600,
+    "mass-heavy": 600,
+    "target-half": 600,
+    "bump-crossing": 600,
+    "curb-side": 600,
+    "body-tilt-pitch": 180,
+    "wall-air-straight-24": 600,
+    "border-grounded": 600
+  },
+  "full_Native_equal_states": 9780,
+  "off_preserved_decimal_states": 180,
+  "cache-only_preserved_decimal_states": 180,
+  "probe_sha256": "056da1f6851ff5bbca99a4c77333fdfba5fcc58d154cbb1bd2a1da45683408ad"
+}

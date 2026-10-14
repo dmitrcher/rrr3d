@@ -1,0 +1,158 @@
+{
+  "scope": "Actual immutable Native public getter inputs and results, two repeats; production getter exact on identical Native inputs. Source underlying angular velocity first differs at166, no getter correction justified.",
+  "fixtures": [
+    {
+      "tick": 165,
+      "repeat": 0,
+      "incoming": [
+        1014539085,
+        1064635644,
+        3147309794,
+        1049881010,
+        885844829,
+        885841379,
+        977059155,
+        1022102671,
+        1063065278,
+        1006817460
+      ],
+      "expected": [
+        1201953573,
+        1242177122,
+        1173808479
+      ]
+    },
+    {
+      "tick": 165,
+      "repeat": 1,
+      "incoming": [
+        1014539085,
+        1064635644,
+        3147309794,
+        1049881010,
+        885844829,
+        885841379,
+        977059155,
+        1022102671,
+        1063065278,
+        1006817460
+      ],
+      "expected": [
+        1201953573,
+        1242177122,
+        1173808479
+      ]
+    },
+    {
+      "tick": 166,
+      "repeat": 0,
+      "incoming": [
+        1014480826,
+        1064670131,
+        3147026725,
+        1049649634,
+        885844829,
+        885841379,
+        977059155,
+        1022015993,
+        1063056061,
+        1007013106
+      ],
+      "expected": [
+        1201917356,
+        1242171351,
+        1173489023
+      ]
+    },
+    {
+      "tick": 166,
+      "repeat": 1,
+      "incoming": [
+        1014480826,
+        1064670131,
+        3147026725,
+        1049649634,
+        885844829,
+        885841379,
+        977059155,
+        1022015993,
+        1063056061,
+        1007013106
+      ],
+      "expected": [
+        1201917356,
+        1242171351,
+        1173489023
+      ]
+    }
+  ],
+  "live_comparisons": [
+    {
+      "tick": 165,
+      "repeat": 0,
+      "first_incoming_differences": [],
+      "Source_momentum": [
+        1201953573,
+        1242177122,
+        1173808479
+      ],
+      "Native_momentum": [
+        1201953573,
+        1242177122,
+        1173808479
+      ]
+    },
+    {
+      "tick": 165,
+      "repeat": 1,
+      "first_incoming_differences": [],
+      "Source_momentum": [
+        1201953573,
+        1242177122,
+        1173808479
+      ],
+      "Native_momentum": [
+        1201953573,
+        1242177122,
+        1173808479
+      ]
+    },
+    {
+      "tick": 166,
+      "repeat": 0,
+      "first_incoming_differences": [
+        7,
+        9
+      ],
+      "Source_momentum": [
+        1201917357,
+        1242171351,
+        1173489022
+      ],
+      "Native_momentum": [
+        1201917356,
+        1242171351,
+        1173489023
+      ]
+    },
+    {
+      "tick": 166,
+      "repeat": 1,
+      "first_incoming_differences": [
+        7,
+        9
+      ],
+      "Source_momentum": [
+        1201917357,
+        1242171351,
+        1173489022
+      ],
+      "Native_momentum": [
+        1201917356,
+        1242171351,
+        1173489023
+      ]
+    }
+  ],
+  "goal_complete": false
+}

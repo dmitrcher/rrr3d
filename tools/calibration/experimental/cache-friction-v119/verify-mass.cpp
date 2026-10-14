@@ -1,0 +1,5 @@
+#include "NativePairPreparationV74.h"
+#include <iostream>
+#include <cstring>
+float f(unsigned w){float v;std::memcpy(&v,&w,4);return v;}unsigned bits(float v){unsigned w;std::memcpy(&w,&v,4);return w;}
+int main(){unsigned a[96];while(std::cin>>a[0]){for(unsigned i=1;i<96;++i)std::cin>>a[i];namespace P=motorrock_native_pair_v73;auto axes=P::axes({{f(a[16]),f(a[17]),f(a[18]),f(a[19])}});std::array<P::Body,2>b{};for(unsigned slot=0;slot<2;++slot){unsigned base=32+32*slot;b[slot].inverse_mass=f(a[base+11]);for(unsigned k=0;k<3;++k)b[slot].lever[k]=f(a[4+4*slot+k]);for(unsigned k=0;k<9;++k)b[slot].inverse_inertia[k]=f(a[base+15+k]);}for(unsigned j=0;j<3;++j){auto s=b[b[0].inverse_mass?0:1];auto resp=P::cross(P::tensor(s.inverse_inertia,P::cross(s.lever,axes[j])),s.lever);float xyz=P::add(P::add(P::mul(resp[0],axes[j][0]),P::mul(resp[1],axes[j][1])),P::mul(resp[2],axes[j][2]));std::cout<<bits(P::div(1.f,P::add(s.inverse_mass,xyz)))<<' '<<bits(motorrock_native_pair_v74::effectiveMass(b,axes[j],j))<<' ';}std::cout<<'\n';}}

@@ -1,0 +1,13 @@
+# Cached contact and friction arithmetic V119
+
+Validated investigation checkpoint; overall goal remains incomplete. On the tilted body trajectory, Mac first diverged at step166. Actual same-input captures exclude the public momentum accessor and identify two separate original arithmetic paths.
+
+Persistent cached-world positions use XYZ accumulation on every component before translation and body subtraction (original RVA253f79..2540e5). Mac previously used YZX on the Y component. The guarded `RRR3D_EXPERIMENT_NATIVE_CACHE_WORLD_POINT_V119` corrects only this cached-point path. At step175, the second tangent effective mass used XYZ instead of the original YZX projection for either body slot (RVA841e0..84c74). `RRR3D_EXPERIMENT_NATIVE_FRICTION_MASS_ORDER_V119` reuses the existing original ordered-dot helper for this projection. Both flags remain off by default. No coefficients, case/frame/wheel rules or recorded states enter runtime.
+
+Eight actual Native cached transverse/material-error outputs match production arithmetic at O0/O2 from identical Source inputs; flag-off preserves all eight old Source outputs. Eighty actual prepared Native contact rows bind original masses and the second tangent association. The four-mode factorial retains the first divergence with either correction alone; together all180 states match. Four live Source captures at both former first divergences match all720 full Native observable states and40 actual incoming contact bodies, tensors, levers, prepared masses/biases and retained impulses. Private signed zeros are explicit. Original Windows EXE/DLL hashes and complete reference histories remain unchanged.
+
+Apply or restore with `apply-experiment.py --adapter-root PATH --sdk-root PATH [--restore]`, then rebuild all consumers. Every source identity is checked before any mutation. `verify.py --probe PATH` compiles the production arithmetic, checks actual Native fixtures and runs fresh complete trajectories. Read-only dependency headers under evidence serve the portable verifier; they are not runtime overlays. Reproduction scripts describe the original host paths; portable verification does not require them.
+
+Whole-game and render parity remain unproven, and this investigation package does not replace the ordinary installation.
+
+Complete matrix:602/608 strict,6 open; all601 prior strict cases preserved. Both255,864-state repeats are identical;607 full histories unchanged. The entire180-step tilted-body trajectory newly matches Windows. No raw/canonical maximum worsens. All53 project checks pass under both profiles;291 independent gates and solo/rendered functional checks pass. Portable verification runs9,780 fresh original-equivalent states plus180 flag-off and180 cache-only control states.

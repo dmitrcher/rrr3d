@@ -1,0 +1,490 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2760,
+      "sha256": "4956f54d34fa588b7e5c7aaccd0bffb177b056b87a5abdbeadf3fe37b5575fc1"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeContactCache.h",
+      "bytes": 6111,
+      "sha256": "17a58604c546e5f45f572a14fc6a5c160cb0bbc113f4fdccbb89fa9b2adcbe9a"
+    },
+    {
+      "path": "after/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "bytes": 119999,
+      "sha256": "d3dba343f86390fd0fc260d5ff65a6212f33ceb0bca0b50c2133b34c9444cad6"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1018,
+      "sha256": "21d79fda4885d5d5b158c920825cde03017988e07b9eccd2a1298f0ee26538f2"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/NativeContactCache.h",
+      "bytes": 5409,
+      "sha256": "6858d18fafd55caf6225d4370ef9917f0b67f64cf9bb5c3a16561076e24f4a55"
+    },
+    {
+      "path": "before/sdk/Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "bytes": 119224,
+      "sha256": "a8916542208efb2b4222b6d6a250a022579eee0ea377c34786a3c78d4c5dce04"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-0-physical.jsonl.gz",
+      "bytes": 122834,
+      "sha256": "7d0349250739986c28a2522f3e5132c7436f7adbbb6d3337e16e4434da05e0c1"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-0-prep.jsonl.gz",
+      "bytes": 53,
+      "sha256": "cb554d61f427da4f99d9dba7decc5a5a8b4a449152b44d2a7bbd73f5cba03a82"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-0-solver.jsonl.gz",
+      "bytes": 363,
+      "sha256": "cbf58e5206105d386a28735d21a076301b864cfd22886bb6d0f1c673b7a770d7"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-1-physical.jsonl.gz",
+      "bytes": 122835,
+      "sha256": "1912508c5f044bc6367c83dbd847dd8f5249cd1cb855f6f7622690ba3a7642d6"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-1-prep.jsonl.gz",
+      "bytes": 53,
+      "sha256": "746627108656cc97f2518a392e74dd7d19560e58213c68402f08f96fe5ceb840"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-166-1-solver.jsonl.gz",
+      "bytes": 363,
+      "sha256": "92b299c585dcfcad6bea228069c6e71f2fb61eabcbddba35613c6415da3ddb96"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-0-physical.jsonl.gz",
+      "bytes": 122876,
+      "sha256": "bb92d7bfda64e55149b666e12384daeefe2c309467d1db5d730a7e91dac596a7"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-0-prep.jsonl.gz",
+      "bytes": 53,
+      "sha256": "ed32c6de8a7b919d8fe8b8681e97feef26caa55a185cddb6a9ed64af4911b693"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-0-solver.jsonl.gz",
+      "bytes": 354,
+      "sha256": "d98de05f91ade97673dcfa8d655b6597242bf8f2c500c1a15a54e6c9340a0ae7"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-1-physical.jsonl.gz",
+      "bytes": 122871,
+      "sha256": "ef51a9da3455a9c29591f6c79ad3f80d0e390912a9a8526cbd019e17d6cfebeb"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-1-prep.jsonl.gz",
+      "bytes": 53,
+      "sha256": "a1e9ea9337ca72db7814def7922a5ada82343503acda5384c7c2abdf85c0cf98"
+    },
+    {
+      "path": "captures/mac-final-contact/body-tilt-pitch-175-1-solver.jsonl.gz",
+      "bytes": 354,
+      "sha256": "8dc3faa4b780ac9460fe196f265d620e9e2be9c4dcaae0cca110cbf791a440ce"
+    },
+    {
+      "path": "captures/mac-final-contact/manifest.json",
+      "bytes": 587,
+      "sha256": "457096337ed540338e7536548cbe9418198a8367573ba167e39253a4fbd992cf"
+    },
+    {
+      "path": "captures/native-contact/manifest.json",
+      "bytes": 1596,
+      "sha256": "909f4954c47be84c79f0f49425e570d6f18c9a7860445a13d6ec545bac7c6094"
+    },
+    {
+      "path": "captures/native-contact/v119-body-tilt-pitch-165-0-private.jsonl.gz",
+      "bytes": 37250,
+      "sha256": "cb5b9a39eef1ae48cfef42f973930e4258e0f44efc04d3f94960691f3539d3a4"
+    },
+    {
+      "path": "captures/native-contact/v119-body-tilt-pitch-165-1-private.jsonl.gz",
+      "bytes": 37233,
+      "sha256": "9eb154b0807ea58f2944e83039d819f8aa7c7df27e5c885dbb6bf6e2f9daf867"
+    },
+    {
+      "path": "captures/native-contact/v119-body-tilt-pitch-166-0-private.jsonl.gz",
+      "bytes": 37319,
+      "sha256": "07241c2130636411fef6825bd2c87743d2c00c3bf998d982fb3b9725c2b3e799"
+    },
+    {
+      "path": "captures/native-contact/v119-body-tilt-pitch-166-1-private.jsonl.gz",
+      "bytes": 37322,
+      "sha256": "09d9bcb3d301566b5631eecb80a68457c773f69137388cd912e3acc8b0326c8c"
+    },
+    {
+      "path": "captures/native-contact-next/manifest.json",
+      "bytes": 1596,
+      "sha256": "855ef922b02efedf3392d0d524239f49d887f28cd6e363da1188357afe1de866"
+    },
+    {
+      "path": "captures/native-contact-next/v119-body-tilt-pitch-174-0-private.jsonl.gz",
+      "bytes": 37295,
+      "sha256": "f012ac062b72477a5706eb0e4391ab0aba554c0c49c620175d5f84d12da15442"
+    },
+    {
+      "path": "captures/native-contact-next/v119-body-tilt-pitch-174-1-private.jsonl.gz",
+      "bytes": 37275,
+      "sha256": "026b1d8018951da4f3fe0f063dbc9f210d1924cb14cd73b5f1df407d65740fcd"
+    },
+    {
+      "path": "captures/native-contact-next/v119-body-tilt-pitch-175-0-private.jsonl.gz",
+      "bytes": 37298,
+      "sha256": "d36bb45bcd98588debb028cd3306e3f1b0dff948da059c2fce08b76c0b8b06ba"
+    },
+    {
+      "path": "captures/native-contact-next/v119-body-tilt-pitch-175-1-private.jsonl.gz",
+      "bytes": 37167,
+      "sha256": "c3c2e70ccfc1388998f3896f3ba8248f2f90c8a6ba1ac614414a9656213db4f2"
+    },
+    {
+      "path": "captures/native-getter/case0-tick165-rep0-private.jsonl.gz",
+      "bytes": 1447,
+      "sha256": "e974e4a4da6e114d1182a9f416c47fcb2e3d7c330a753f2d0fbe43e6b90490a2"
+    },
+    {
+      "path": "captures/native-getter/case0-tick165-rep1-private.jsonl.gz",
+      "bytes": 1452,
+      "sha256": "0d797d7d106298730580ab3cd9c1dfc356665c38404488a3a94114c4a82f245c"
+    },
+    {
+      "path": "captures/native-getter/case1-tick166-rep0-private.jsonl.gz",
+      "bytes": 1436,
+      "sha256": "eba316d68a7c6b3ed5aea7a4d57abdb8207e00d124c97a5ea8a0c910cac244f4"
+    },
+    {
+      "path": "captures/native-getter/case1-tick166-rep1-private.jsonl.gz",
+      "bytes": 1442,
+      "sha256": "18402c5339e1dff2e7604ff4448eba58ce4b5ff8271bf2027ac15259a81d37e3"
+    },
+    {
+      "path": "captures/native-getter/manifest.json",
+      "bytes": 2199,
+      "sha256": "49c85f5c1eb52ef8970d4c1db1da469ea223ccda3c341c283163675d0a81d184"
+    },
+    {
+      "path": "checks/broad-friction/capture-manifest.json",
+      "bytes": 9176,
+      "sha256": "0db6026ea0ea9cb3a372bf6e4131f6c3452d064b44314e653b65981167605ce5"
+    },
+    {
+      "path": "checks/build-all.log",
+      "bytes": 3485,
+      "sha256": "328847e967177d6110057d6835d6aa927f71a170845d7c2324ac94e0abe98d38"
+    },
+    {
+      "path": "checks/canonical-audit.log",
+      "bytes": 453,
+      "sha256": "f0f6a947fdbee7c4b28cf493c87781c91daf4bc27a6ff167aa8b72e9223cf518"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "d14c3c21b437024c074d85eb267689eeb5f9e02bec3ffaccee64842106f28755"
+    },
+    {
+      "path": "checks/ctest-default.log",
+      "bytes": 7093,
+      "sha256": "b473e6897e86f61bb8a89f4f0f87d3fd8ad0dc32e5a1519fca51209fade6ddae"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "739d79ec116fb5385261151fac3b9b4b917e8f8abf022c3b2821a784dbf16c2a"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 9259,
+      "sha256": "3625ff269b4322b97e8696b81044688100d82d935460ec51bff02ce9ecec22a2"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "700011e221920557fc46564b3c36de7f28f0ebfa6eca5b7d501d23800f435053"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 9233,
+      "sha256": "4fe6fd3d77c145b858bc65c2cb278fd6d917fe28229289e02268b01881f438ee"
+    },
+    {
+      "path": "checks/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "8a980b8bc5bbce8992bbdbc50dd2c72a28eee7b84f5516c981b7125fa8c4809f"
+    },
+    {
+      "path": "checks/regression-audit.log",
+      "bytes": 230,
+      "sha256": "8c7b1bcc6ddc953ab9effcbd26c25fd4697377785303b3ea9dbd818c73630cf3"
+    },
+    {
+      "path": "evidence/cache-only-control.jsonl.gz",
+      "bytes": 25601,
+      "sha256": "dbae0bbfff3d17269ddd5040bf515a218a4cb99e37fdd15a62f168b0f78be810"
+    },
+    {
+      "path": "evidence/cache-proof.json",
+      "bytes": 8992,
+      "sha256": "fe24db62387516282be02a51c06ef1cba165e03f9740d43460d443a84b1dc8d6"
+    },
+    {
+      "path": "evidence/dependencies/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "evidence/dependencies/DerivedContactErrorFrame.h",
+      "bytes": 2270,
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5"
+    },
+    {
+      "path": "evidence/dependencies/NativePairContactArithmeticV73.h",
+      "bytes": 3615,
+      "sha256": "aa146791d88d32464af300792d6a99147d5551d17dda13c39f907973bcf98bd8"
+    },
+    {
+      "path": "evidence/dependencies/NativePairPreparationV74.h",
+      "bytes": 1113,
+      "sha256": "04e549881d49482c43f1a470a21e6910406135f12990d1ad57a0d4a5dfcb7917"
+    },
+    {
+      "path": "evidence/dependencies/SourceMaterialFrameCandidate.h",
+      "bytes": 4067,
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    },
+    {
+      "path": "evidence/factorial-report.json",
+      "bytes": 913,
+      "sha256": "b7eaff3ae4209f3ea013ca0ec144f4e45130e3a662f5cc05e380d0db7a85caec"
+    },
+    {
+      "path": "evidence/final-live-proof.json",
+      "bytes": 1231,
+      "sha256": "62bb31d664f99c2f389fe77f1710d0d01ddd61c89582c8e264ed58f5767e1566"
+    },
+    {
+      "path": "evidence/mass-next-proof.json",
+      "bytes": 74406,
+      "sha256": "5fe4b8f76e349e46ad98efec4145917970e74078cd8e49cc5214c33e4c16e7ac"
+    },
+    {
+      "path": "evidence/mass-proof.json",
+      "bytes": 74408,
+      "sha256": "9b31651e103516c54ad49346f8de0fc8fa6d5b9e6e6710113b01dc90c322a763"
+    },
+    {
+      "path": "evidence/physics-v119-friction-candidate-broad-audit.json",
+      "bytes": 170981,
+      "sha256": "a0d70da693ccf3816b95e245085192d798fd98ec7e2cbf7ef5a5ddeb9e7c5e02"
+    },
+    {
+      "path": "evidence/physics-v119-friction-candidate-canonical-error-audit.json",
+      "bytes": 611633,
+      "sha256": "d7f8eb2048de9576a9210cfd763cc45426f7b55e988325e92e8593fa6c122d22"
+    },
+    {
+      "path": "evidence/physics-v119-friction-candidate-practical-error-audit.json",
+      "bytes": 1069947,
+      "sha256": "c04a2d984f7f02fb2c653f76c712ff7e632bcdccc6e17f395d4b163d880f25c9"
+    },
+    {
+      "path": "evidence/physics-v119-friction-candidate-regression-audit.json",
+      "bytes": 24639,
+      "sha256": "930768bd079c27f7bd640b42a1a175e0f7c6d68c091b831e34b878ca66eb4a2d"
+    },
+    {
+      "path": "evidence/physics-v119-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/portable.json",
+      "bytes": 1204,
+      "sha256": "afbe38ed300b2aca00aa8ec8295b5ede1f0f9a7be10bc2297e36c484095152cd"
+    },
+    {
+      "path": "evidence/public-proof.json",
+      "bytes": 2930,
+      "sha256": "ea3892eed5421251a6be6fb553c7892bc743619f46979cbc4988d3302209371e"
+    },
+    {
+      "path": "evidence/report.json",
+      "bytes": 5533,
+      "sha256": "a44c7ce557b5ee93cd10030d7a2a330dfa329995b20f9b836ff1abb8893240ea"
+    },
+    {
+      "path": "evidence/source-change-final-candidate.json",
+      "bytes": 1118,
+      "sha256": "8f56269e6a9898a273baa9a6fcd5a69a6778f0a49a23da07ff54fba36d486031"
+    },
+    {
+      "path": "evidence/static-solver-comparison.json",
+      "bytes": 2069,
+      "sha256": "cce3aa5c51c267dd06e16abe4c7b8c1caa36989db84f3a47864274695afe1013"
+    },
+    {
+      "path": "evidence/v118-control.jsonl.gz",
+      "bytes": 25580,
+      "sha256": "f8ea9a6f68d1b757383e92a32a88ff1889eedc77792a5c9d2b843d48adb5c5f4"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2430354,
+      "sha256": "414d6d8cb2515c53975e9fe2b5e67548f0a54299c7acad2ff204adc4c4270dfb"
+    },
+    {
+      "path": "native-observer/build.cmd",
+      "bytes": 457,
+      "sha256": "e2986b17f6a46f7ba1ab0ba7f7b94d1798fa9af49ed74e11fe50fd051912d4db"
+    },
+    {
+      "path": "native-observer/trace-angular.cpp",
+      "bytes": 10548,
+      "sha256": "8ac3d0eb7730902f607fd129f015e498fd040e0dfd81dee0f54e483e882cafa4"
+    },
+    {
+      "path": "native-observer/trace-contact.cpp",
+      "bytes": 18408,
+      "sha256": "813423ca65d80763c4b7bdf5f8ca3174e8161bd1e5bc1b92b7e26d049c65ffd6"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 8031,
+      "sha256": "855de149186c0d696d1c02e1bab3e6e8da580b304c55dac5299efcafe129265e"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit.py",
+      "bytes": 4387,
+      "sha256": "04d1125963905372c6189fd346633b6c4966f6d081f6a4e216afd287fdaf57c8"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-final-contact.py",
+      "bytes": 2372,
+      "sha256": "2158f0169f68ac8cc6a4a69294deb197861a9456f03b59fc4da12ff2a844a672"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-contact-next.py",
+      "bytes": 2461,
+      "sha256": "f723bacd86dad4e19c0c5f269d7f75e503b4bf9cbe1b3e2ff075c97eadb05c9a"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-contact.py",
+      "bytes": 2456,
+      "sha256": "084f91a59d1eb547b85cf7923f74d1f395de23058f079f5d44caf6ba5bb20101"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native.py",
+      "bytes": 2946,
+      "sha256": "5bed28cbb240a3cacab53d3af100f750df661e24eb3199155765fca34a26f7f0"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad-friction.py",
+      "bytes": 3671,
+      "sha256": "de3e6ceb3917d3ca25f0935be0d5e1633963cf53fe9f548bf9e227cabe14fa20"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2226,
+      "sha256": "6256da8c957573d56871f8e7d1df50bc8c4a51534887cc0441a5c789a365140e"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4300,
+      "sha256": "caf7b1d6ad90023b46d6e03092b1a6acdd8ea0df66125aea21b84d327e1336ca"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-cache.py",
+      "bytes": 2575,
+      "sha256": "5e833fd061c502104393c351b1ece966c237519b4745cc4261761b3696bd7608"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-final-live.py",
+      "bytes": 2894,
+      "sha256": "57eedc16b4d0f922954b2ce3769b82964b295fe00c28d65303a06c6ee2a2ab6c"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad-friction.py",
+      "bytes": 2462,
+      "sha256": "c8635ca17275064682145dcfb208a7fa269f7bb175a097713acbf57afbd3b021"
+    },
+    {
+      "path": "reproduction-host-scripts/run-factorial.py",
+      "bytes": 2399,
+      "sha256": "c7b0dedbec9a18206ca01df204c181804c8a51efdc8c2468801531692c1aa64c"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused-friction.py",
+      "bytes": 2628,
+      "sha256": "83ec08aba460a143403a3342fd03f6fab278fdc78faac87d69f3b94b9f16d222"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2102,
+      "sha256": "d92c24175cf4da463463896eaf2751c1fdc8e03d236e9aa8d921bb6ef9707077"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2076,
+      "sha256": "610a776db144b6d7f85c569292057bdf395fb4af851eb0f5b1ff004a2b0da395"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 7857,
+      "sha256": "d3f0a9f773edf204a96c1e13fdf382bc4b9294d2fbdbcbcd44e92c3f1d47b662"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1668,
+      "sha256": "5c46135ec6156d95204cf64820ee629df308203e07b2e549fe7924a8026eda92"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-mass-next.py",
+      "bytes": 1719,
+      "sha256": "106311046d27ee4790a826a05516565246fcd40b6be8396a05d94551eff279f1"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-mass.py",
+      "bytes": 1709,
+      "sha256": "5e62e296aac0bc2584e6d4883f9a616dcfb86da4448eea3c17054aa380c51dcb"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2530,
+      "sha256": "efe849bdb296813740f3946a7d35a41171bb1d5a913313ad50497a1844109837"
+    },
+    {
+      "path": "verify-cache.cpp",
+      "bytes": 967,
+      "sha256": "d20193adf33f4923f685d5d39007804b9e2ff2c11534b7c756d1a19d4a938dad"
+    },
+    {
+      "path": "verify-mass.cpp",
+      "bytes": 1031,
+      "sha256": "1798141c0ed7f61f40142d11e8bc3b757011744ee46fe994803ab152f5863cc8"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 4175,
+      "sha256": "825b90551c00899b1849769ca7d9d84a6990bc51482adfbe701e83aec085b566"
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,18 @@
+commit 859b7a55bf765fba20279ca922126c5fffcc4302
+Author: Aleksey Komarov <q4arus@ya.ru>
+Date:   Tue Jun 22 09:23:24 2021 +0300
+
+    math: fix multiplication order
+
+diff --git a/src/Rock3dEngine/source/graph/SceneManager.cpp b/src/Rock3dEngine/source/graph/SceneManager.cpp
+index be15c0e2..f4f8d0ca 100644
+--- a/src/Rock3dEngine/source/graph/SceneManager.cpp
++++ b/src/Rock3dEngine/source/graph/SceneManager.cpp
+@@ -133,6 +133,7 @@ void BaseSceneNode::ExtractRotation(_RotationStyle style) const
+ 				 
+ 		case rsQuaternion:
+ 			_rot = glm::quat_cast(Matrix4DxToGlm(_rotMat));
++			//_rot = glm::quat(-_rot.w, _rot.x, _rot.y, _rot.z);
+ 			break;
+ 
+ 		case rsVectors:

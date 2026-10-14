@@ -1,0 +1,13 @@
+{
+  "scope": "Actual first divergence465, same original COM/quaternion7words and body box rotation9words; box worldZ differs1ULP before clipping. All4 solver quaternions still exact. Native read-only captures preserve two original900-state histories.",
+  "actor_com_quaternion7words_exact": true,
+  "box_differences": [
+    {
+      "index": 11,
+      "source": 1089118567,
+      "native": 1089118568
+    }
+  ],
+  "candidate": "sourceBox shape-to-COM translation currently reuses DerivedContactErrorFrame::rotate dotYZX. SDK NxQuat::rot uses NxVec3 dotXYZ; tentative XYZ matches actual465 box center while896 old V43 records do not distinguish any dot order. Need original private physical translation validation before integrating. Public setter/getter ShapeOrigin helper follows another path and is not that validation.",
+  "goal_complete": false
+}

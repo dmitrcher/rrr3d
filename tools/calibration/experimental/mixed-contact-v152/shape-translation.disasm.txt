@@ -1,0 +1,82 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+10200730:      	pushl	%ebp
+10200731:      	movl	%esp, %ebp
+10200733:      	andl	$-0x8, %esp
+10200736:      	movl	0x10(%edi), %eax
+10200739:      	subl	$0x40, %esp
+1020073c:      	cmpl	$0x0, 0x20(%eax)
+10200740:      	je	0x10200802 <NxCreateCoreSDK+0x215b2>
+10200746:      	leal	0x10(%esp), %ecx
+1020074a:      	pushl	%ecx
+1020074b:      	addl	$0x14, %eax
+1020074e:      	calll	0x10138f20 <NpCreatePhysicsSDK+0x2bdb0>
+10200753:      	movl	0xc(%edi), %ecx
+10200756:      	movl	(%ecx), %edx
+10200758:      	movl	0x34(%edx), %edx
+1020075b:      	leal	0x4(%esp), %eax
+1020075f:      	pushl	%eax
+10200760:      	calll	*%edx
+10200762:      	movss	0x8(%eax), %xmm4
+10200767:      	movss	(%eax), %xmm0
+1020076b:      	movss	0x4(%eax), %xmm3
+10200770:      	movaps	%xmm0, %xmm1
+10200773:      	mulss	0x10(%esp), %xmm1
+10200779:      	movaps	%xmm4, %xmm2
+1020077c:      	mulss	0x18(%esp), %xmm2
+10200782:      	addss	%xmm2, %xmm1
+10200786:      	movaps	%xmm3, %xmm2
+10200789:      	mulss	0x14(%esp), %xmm2
+1020078f:      	addss	%xmm2, %xmm1
+10200793:      	movaps	%xmm0, %xmm2
+10200796:      	mulss	0x1c(%esp), %xmm2
+1020079c:      	mulss	0x28(%esp), %xmm0
+102007a2:      	movaps	%xmm4, %xmm5
+102007a5:      	mulss	0x24(%esp), %xmm5
+102007ab:      	mulss	0x30(%esp), %xmm4
+102007b1:      	addss	%xmm5, %xmm2
+102007b5:      	movaps	%xmm3, %xmm5
+102007b8:      	mulss	0x2c(%esp), %xmm3
+102007be:      	mulss	0x20(%esp), %xmm5
+102007c4:      	addss	%xmm4, %xmm0
+102007c8:      	addss	%xmm3, %xmm0
+102007cc:      	movss	0x34(%esp), %xmm3
+102007d2:      	addss	%xmm1, %xmm3
+102007d6:      	movss	0x38(%esp), %xmm1
+102007dc:      	addss	%xmm5, %xmm2
+102007e0:      	addss	%xmm2, %xmm1
+102007e4:      	movss	0x3c(%esp), %xmm2
+102007ea:      	addss	%xmm0, %xmm2
+102007ee:      	movss	%xmm3, (%esi)
+102007f2:      	movss	%xmm1, 0x4(%esi)
+102007f7:      	movss	%xmm2, 0x8(%esi)
+102007fc:      	movl	%esi, %eax
+102007fe:      	movl	%ebp, %esp
+10200800:      	popl	%ebp
+10200801:      	retl
+10200802:      	movl	0xc(%edi), %ecx
+10200805:      	movl	(%ecx), %eax
+10200807:      	movl	0x34(%eax), %edx
+1020080a:      	pushl	%esi
+1020080b:      	calll	*%edx
+1020080d:      	movl	%esi, %eax
+1020080f:      	movl	%ebp, %esp
+10200811:      	popl	%ebp
+10200812:      	retl
+10200813:      	int3
+10200814:      	int3
+10200815:      	int3
+10200816:      	int3
+10200817:      	int3
+10200818:      	int3
+10200819:      	int3
+1020081a:      	int3
+1020081b:      	int3
+1020081c:      	int3
+1020081d:      	int3
+1020081e:      	int3
+1020081f:      	int3

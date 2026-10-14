@@ -1,0 +1,53 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10125b70:      	pushl	%esi
+10125b71:      	movl	0x8(%esp), %esi
+10125b75:      	pushl	%edi
+10125b76:      	leal	0xc(%ecx), %edi
+10125b79:      	calll	0x10200730 <NxCreateCoreSDK+0x214e0>
+10125b7e:      	popl	%edi
+10125b7f:      	movl	%esi, %eax
+10125b81:      	popl	%esi
+10125b82:      	retl	$0x4
+10125b85:      	int3
+10125b86:      	int3
+10125b87:      	int3
+10125b88:      	int3
+10125b89:      	int3
+10125b8a:      	int3
+10125b8b:      	int3
+10125b8c:      	int3
+10125b8d:      	int3
+10125b8e:      	int3
+10125b8f:      	int3
+10125b90:      	pushl	%esi
+10125b91:      	movl	0x8(%esp), %esi
+10125b95:      	pushl	%esi
+10125b96:      	leal	0xc(%ecx), %eax
+10125b99:      	calll	0x10200820 <NxCreateCoreSDK+0x215d0>
+10125b9e:      	movl	%esi, %eax
+10125ba0:      	popl	%esi
+10125ba1:      	retl	$0x4
+10125ba4:      	int3
+10125ba5:      	int3
+10125ba6:      	int3
+10125ba7:      	int3
+10125ba8:      	int3
+10125ba9:      	int3
+10125baa:      	int3
+10125bab:      	int3
+10125bac:      	int3
+10125bad:      	int3
+10125bae:      	int3
+10125baf:      	int3
+10125bb0:      	pushl	%esi
+10125bb1:      	pushl	%edi
+10125bb2:      	movl	%ecx, %edi
+10125bb4:      	movl	0x10(%edi), %esi
+10125bb7:      	calll	0x10097600 <AgPmDestroySourceConnection+0x3d90>
+10125bbc:      	testb	%al, %al
+10125bbe:      	je	0x10125bf2 <NpCreatePhysicsSDK+0x18a82>

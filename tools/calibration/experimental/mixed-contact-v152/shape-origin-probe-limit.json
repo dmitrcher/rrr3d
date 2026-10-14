@@ -1,0 +1,71 @@
+{
+  "scope": "Native ShapeOriginV152 helper uses public setGlobalOrientationQuat and getGlobalPosition; it is not an isolation of the original private cached465 shape pose. No runtime correction inferred from it.",
+  "cases": [
+    {
+      "case": 0,
+      "input_quaternion": [
+        3135561006,
+        988425813,
+        1060302830,
+        1060574110
+      ],
+      "public_output_quaternion": [
+        3135561007,
+        988425813,
+        1060302830,
+        1060574113
+      ],
+      "identical": false
+    },
+    {
+      "case": 1,
+      "input_quaternion": [
+        3163376540,
+        3147058336,
+        1050042659,
+        1064610458
+      ],
+      "public_output_quaternion": [
+        3163376540,
+        3147058336,
+        1050042658,
+        1064610462
+      ],
+      "identical": false
+    },
+    {
+      "case": 2,
+      "input_quaternion": [
+        3163229473,
+        3151184605,
+        1049951591,
+        1064624278
+      ],
+      "public_output_quaternion": [
+        3163229472,
+        3151184605,
+        1049951590,
+        1064624280
+      ],
+      "identical": false
+    },
+    {
+      "case": 3,
+      "input_quaternion": [
+        1013655884,
+        1017394285,
+        1052818421,
+        1064113632
+      ],
+      "public_output_quaternion": [
+        1013655882,
+        1017394283,
+        1052818419,
+        1064113639
+      ],
+      "identical": false
+    }
+  ],
+  "getter_route": "Shape vtable17 RVA125b70 -> Core200730 uses actor matrix/public pose path; actual physics cached shape pose is another path.",
+  "goal_complete": false
+}

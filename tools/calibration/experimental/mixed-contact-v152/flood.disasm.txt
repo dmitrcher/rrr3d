@@ -1,0 +1,176 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCooking.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1001e7f0 <NxCookConvexMesh>:
+10023d00:      	<unknown>
+10023d03:      	movl	%eax, %ebp
+10023d05:      	jmp	0x10023d2a <NxCookConvexMesh+0x553a>
+10023d07:      	cmpl	%eax, %edx
+10023d09:      	jne	0x10023d27 <NxCookConvexMesh+0x5537>
+10023d0b:      	movl	%ecx, %ebp
+10023d0d:      	jmp	0x10023d2a <NxCookConvexMesh+0x553a>
+10023d0f:      	cmpl	%eax, %ebp
+10023d11:      	jne	0x10023d27 <NxCookConvexMesh+0x5537>
+10023d13:      	movl	0xc(%esp), %eax
+10023d17:      	cmpl	%edx, %eax
+10023d19:      	jne	0x10023d1f <NxCookConvexMesh+0x552f>
+10023d1b:      	movl	%ecx, %ebp
+10023d1d:      	jmp	0x10023d2a <NxCookConvexMesh+0x553a>
+10023d1f:      	cmpl	%ecx, %eax
+10023d21:      	jne	0x10023d27 <NxCookConvexMesh+0x5537>
+10023d23:      	movl	%edx, %ebp
+10023d25:      	jmp	0x10023d2a <NxCookConvexMesh+0x553a>
+10023d27:      	orl	$-0x1, %ebp
+10023d2a:      	movl	0x1c(%edi), %ecx
+10023d2d:      	cmpl	$-0x1, (%ecx,%ebx,4)
+10023d31:      	jne	0x10023d6f <NxCookConvexMesh+0x557f>
+10023d33:      	movl	0x4(%esi), %edx
+10023d36:      	cmpl	(%esi), %edx
+10023d38:      	jne	0x10023d44 <NxCookConvexMesh+0x5554>
+10023d3a:      	movl	$0x1, %edx
+10023d3f:      	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10023d44:      	movl	0x4(%esi), %eax
+10023d47:      	movl	0x8(%esi), %ecx
+10023d4a:      	movl	%ebx, (%ecx,%eax,4)
+10023d4d:      	movl	$0x1, %ebx
+10023d52:      	addl	%ebx, 0x4(%esi)
+10023d55:      	movl	0x4(%esi), %eax
+10023d58:      	cmpl	(%esi), %eax
+10023d5a:      	jne	0x10023d63 <NxCookConvexMesh+0x5573>
+10023d5c:      	movl	%ebx, %edx
+10023d5e:      	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10023d63:      	movl	0x4(%esi), %edx
+10023d66:      	movl	0x8(%esi), %eax
+10023d69:      	movl	%ebp, (%eax,%edx,4)
+10023d6c:      	addl	%ebx, 0x4(%esi)
+10023d6f:      	movl	0x20(%esp), %eax
+10023d73:      	movl	0x1c(%esp), %ecx
+10023d77:      	movzwl	0x2(%eax), %edx
+10023d7b:      	incl	%ecx
+10023d7c:      	movl	%ecx, 0x1c(%esp)
+10023d80:      	cmpl	%edx, %ecx
+10023d82:      	jb	0x10023cb1 <NxCookConvexMesh+0x54c1>
+10023d88:      	popl	%esi
+10023d89:      	popl	%ebp
+10023d8a:      	popl	%ebx
+10023d8b:      	addl	$0x18, %esp
+10023d8e:      	retl	$0x4
+10023d91:      	int3
+10023d92:      	int3
+10023d93:      	int3
+10023d94:      	int3
+10023d95:      	int3
+10023d96:      	int3
+10023d97:      	int3
+10023d98:      	int3
+10023d99:      	int3
+10023d9a:      	int3
+10023d9b:      	int3
+10023d9c:      	int3
+10023d9d:      	int3
+10023d9e:      	int3
+10023d9f:      	int3
+10023da0:      	subl	$0x14, %esp
+10023da3:      	movss	0x100515e0, %xmm0
+10023dab:      	pushl	%ebp
+10023dac:      	xorl	%ebp, %ebp
+10023dae:      	pushl	%esi
+10023daf:      	pushl	%edi
+10023db0:      	leal	0x1(%ebp), %edx
+10023db3:      	leal	0xc(%esp), %esi
+10023db7:      	movl	%eax, %edi
+10023db9:      	movl	%ebp, 0xc(%esp)
+10023dbd:      	movl	%ebp, 0x10(%esp)
+10023dc1:      	movl	%ebp, 0x14(%esp)
+10023dc5:      	movss	%xmm0, 0x18(%esp)
+10023dcb:      	movl	%ebp, 0x1c(%esp)
+10023dcf:      	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10023dd4:      	movl	0x10(%esp), %ecx
+10023dd8:      	movl	0x14(%esp), %edx
+10023ddc:      	movl	0x24(%esp), %eax
+10023de0:      	movl	%eax, (%edx,%ecx,4)
+10023de3:      	incl	%ecx
+10023de4:      	movl	%ecx, 0x10(%esp)
+10023de8:      	cmpl	0xc(%esp), %ecx
+10023dec:      	jne	0x10023dfe <NxCookConvexMesh+0x560e>
+10023dee:      	leal	0x1(%ebp), %edx
+10023df1:      	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10023df6:      	movl	0x14(%esp), %edx
+10023dfa:      	movl	0x10(%esp), %ecx
+10023dfe:      	movl	$0xffffffff, (%edx,%ecx,4) # imm = 0xFFFFFFFF
+10023e05:      	addl	$0x1, %ecx
+10023e08:      	movl	%ecx, 0x10(%esp)
+10023e0c:      	je	0x10023e58 <NxCookConvexMesh+0x5668>
+10023e0e:      	movl	0x24(%esp), %esi
+10023e12:      	pushl	%ebx
+10023e13:      	movl	0x28(%esp), %ebx
+10023e17:      	cmpl	%ebp, %ecx
+10023e19:      	je	0x10023e3f <NxCookConvexMesh+0x564f>
+10023e1b:      	movl	0x20(%esp), %eax
+10023e1f:      	movl	%eax, %ebx
+10023e21:      	movl	(%edx,%ebx,4), %ebx
+10023e24:      	incl	%eax
+10023e25:      	cmpl	%ecx, %eax
+10023e27:      	je	0x10023e37 <NxCookConvexMesh+0x5647>
+10023e29:      	movl	%eax, %esi
+10023e2b:      	movl	(%edx,%esi,4), %esi
+10023e2e:      	incl	%eax
+10023e2f:      	movl	%eax, 0x20(%esp)
+10023e33:      	cmpl	%ecx, %eax
+10023e35:      	jne	0x10023e3f <NxCookConvexMesh+0x564f>
+10023e37:      	movl	%ebp, 0x20(%esp)
+10023e3b:      	movl	%ebp, 0x14(%esp)
+10023e3f:      	pushl	%ebx
+10023e40:      	movl	%esi, %ecx
+10023e42:      	leal	0x14(%esp), %eax
+10023e46:      	calll	0x100239f0 <NxCookConvexMesh+0x5200>
+10023e4b:      	movl	0x14(%esp), %ecx
+10023e4f:      	movl	0x18(%esp), %edx
+10023e53:      	cmpl	%ebp, %ecx
+10023e55:      	jne	0x10023e1b <NxCookConvexMesh+0x562b>
+10023e57:      	popl	%ebx
+10023e58:      	movss	0x18(%esp), %xmm0
+10023e5e:      	comiss	0x100515b0, %xmm0
+10023e65:      	jb	0x10023e91 <NxCookConvexMesh+0x56a1>
+10023e67:      	cmpl	%ebp, %edx
+10023e69:      	je	0x10023e91 <NxCookConvexMesh+0x56a1>
+10023e6b:      	movl	0x1005a600, %ecx
+10023e71:      	cmpl	%ebp, %ecx
+10023e73:      	jne	0x10023e80 <NxCookConvexMesh+0x5690>
+10023e75:      	movl	$0x100595e4, %ecx       # imm = 0x100595E4
+10023e7a:      	movl	%ecx, 0x1005a600
+10023e80:      	movl	(%ecx), %eax
+10023e82:      	popl	%edi
+10023e83:      	popl	%esi
+10023e84:      	popl	%ebp
+10023e85:      	addl	$0x14, %esp
+10023e88:      	movl	%edx, 0x4(%esp)
+10023e8c:      	movl	0xc(%eax), %edx
+10023e8f:      	jmpl	*%edx
+10023e91:      	popl	%edi
+10023e92:      	popl	%esi
+10023e93:      	popl	%ebp
+10023e94:      	addl	$0x14, %esp
+10023e97:      	retl	$0x4
+10023e9a:      	int3
+10023e9b:      	int3
+10023e9c:      	int3
+10023e9d:      	int3
+10023e9e:      	int3
+10023e9f:      	int3
+10023ea0:      	xorl	%ecx, %ecx
+10023ea2:      	movl	%ecx, 0x24(%eax)
+10023ea5:      	movl	%ecx, 0x1005a608
+10023eab:      	movl	0x4(%esp), %ecx
+10023eaf:      	pushl	%ecx
+10023eb0:      	calll	0x10023da0 <NxCookConvexMesh+0x55b0>
+10023eb5:      	movb	$0x1, %al
+10023eb7:      	retl	$0x4
+10023eba:      	int3
+10023ebb:      	int3
+10023ebc:      	int3
+10023ebd:      	int3
+10023ebe:      	int3
+10023ebf:      	int3

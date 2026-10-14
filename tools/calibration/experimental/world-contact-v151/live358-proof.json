@@ -1,0 +1,147 @@
+{
+  "scope": "Actual Source moving replay at358, independent flags tested separately and together; no Native values injected. Original Windows reference unchanged. Read-only Source diagnostics preserve all900 candidate states.",
+  "ablations": {
+    "baseline": [
+      {
+        "point": 0,
+        "geometry_exact": true,
+        "solver_quaternion_exact": false,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      },
+      {
+        "point": 1,
+        "geometry_exact": true,
+        "solver_quaternion_exact": false,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      },
+      {
+        "point": 2,
+        "geometry_exact": false,
+        "solver_quaternion_exact": true,
+        "mass_exact": false,
+        "bias_exact": false,
+        "lever_exact": false
+      },
+      {
+        "point": 3,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      }
+    ],
+    "frame_only": [
+      {
+        "point": 0,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      },
+      {
+        "point": 1,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      },
+      {
+        "point": 2,
+        "geometry_exact": false,
+        "solver_quaternion_exact": true,
+        "mass_exact": false,
+        "bias_exact": false,
+        "lever_exact": false
+      },
+      {
+        "point": 3,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      }
+    ],
+    "world_only": [
+      {
+        "point": 0,
+        "geometry_exact": true,
+        "solver_quaternion_exact": false,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      },
+      {
+        "point": 1,
+        "geometry_exact": true,
+        "solver_quaternion_exact": false,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      },
+      {
+        "point": 2,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      },
+      {
+        "point": 3,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": false,
+        "lever_exact": true
+      }
+    ],
+    "both": [
+      {
+        "point": 0,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      },
+      {
+        "point": 1,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      },
+      {
+        "point": 2,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      },
+      {
+        "point": 3,
+        "geometry_exact": true,
+        "solver_quaternion_exact": true,
+        "mass_exact": true,
+        "bias_exact": true,
+        "lever_exact": true
+      }
+    ]
+  },
+  "all_four_prepared_contacts_exact": true,
+  "initial_physical_states_exact": 359,
+  "first_divergence": 359,
+  "previous_first_divergence": 358,
+  "coefficient_changes": false,
+  "goal_complete": false
+}

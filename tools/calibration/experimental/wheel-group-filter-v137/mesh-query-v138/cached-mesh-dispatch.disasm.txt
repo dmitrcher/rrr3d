@@ -1,0 +1,65 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+101f2490: 83 ec 34                     	subl	$0x34, %esp
+101f2493: 53                           	pushl	%ebx
+101f2494: 55                           	pushl	%ebp
+101f2495: 56                           	pushl	%esi
+101f2496: 57                           	pushl	%edi
+101f2497: 8b 7c 24 48                  	movl	0x48(%esp), %edi
+101f249b: 83 4f 04 10                  	orl	$0x10, 0x4(%edi)
+101f249f: 8b f0                        	movl	%eax, %esi
+101f24a1: 33 db                        	xorl	%ebx, %ebx
+101f24a3: 89 77 08                     	movl	%esi, 0x8(%edi)
+101f24a6: 3b f3                        	cmpl	%ebx, %esi
+101f24a8: 74 13                        	je	0x101f24bd <NxCreateCoreSDK+0x1326d>
+101f24aa: 8b 46 04                     	movl	0x4(%esi), %eax
+101f24ad: 33 c9                        	xorl	%ecx, %ecx
+101f24af: 3b c3                        	cmpl	%ebx, %eax
+101f24b1: 0f 95 c1                     	setne	%cl
+101f24b4: 89 47 0c                     	movl	%eax, 0xc(%edi)
+101f24b7: 8b c1                        	movl	%ecx, %eax
+101f24b9: 3b c3                        	cmpl	%ebx, %eax
+101f24bb: 75 0c                        	jne	0x101f24c9 <NxCreateCoreSDK+0x13279>
+101f24bd: 32 c0                        	xorb	%al, %al
+101f24bf: 5f                           	popl	%edi
+101f24c0: 5e                           	popl	%esi
+101f24c1: 5d                           	popl	%ebp
+101f24c2: 5b                           	popl	%ebx
+101f24c3: 83 c4 34                     	addl	$0x34, %esp
+101f24c6: c2 08 00                     	retl	$0x8
+101f24c9: 8b 44 24 4c                  	movl	0x4c(%esp), %eax
+101f24cd: 52                           	pushl	%edx
+101f24ce: e8 9d e4 ff ff               	calll	0x101f0970 <NxCreateCoreSDK+0x11720>
+101f24d3: 85 c0                        	testl	%eax, %eax
+101f24d5: 0f 85 03 06 00 00            	jne	0x101f2ade <NxCreateCoreSDK+0x1388e>
+101f24db: 8b 47 08                     	movl	0x8(%edi), %eax
+101f24de: 3b c3                        	cmpl	%ebx, %eax
+101f24e0: 0f 84 92 04 00 00            	je	0x101f2978 <NxCreateCoreSDK+0x13728>
+101f24e6: f6 40 08 04                  	testb	$0x4, 0x8(%eax)
+101f24ea: 0f 84 88 04 00 00            	je	0x101f2978 <NxCreateCoreSDK+0x13728>
+101f24f0: 8b 47 0c                     	movl	0xc(%edi), %eax
+101f24f3: 8b 40 08                     	movl	0x8(%eax), %eax
+101f24f6: 89 44 24 1c                  	movl	%eax, 0x1c(%esp)
+101f24fa: 89 5c 24 48                  	movl	%ebx, 0x48(%esp)
+101f24fe: 3b c3                        	cmpl	%ebx, %eax
+101f2500: 0f 86 d8 05 00 00            	jbe	0x101f2ade <NxCreateCoreSDK+0x1388e>
+101f2506: 8b 4f 0c                     	movl	0xc(%edi), %ecx
+101f2509: 8b 41 10                     	movl	0x10(%ecx), %eax
+101f250c: 8b 51 14                     	movl	0x14(%ecx), %edx
+101f250f: 8b 0c 18                     	movl	(%eax,%ebx), %ecx
+101f2512: 8b 74 18 04                  	movl	0x4(%eax,%ebx), %esi
+101f2516: 03 c3                        	addl	%ebx, %eax
+101f2518: 8b 40 08                     	movl	0x8(%eax), %eax
+101f251b: 8d 0c 49                     	leal	(%ecx,%ecx,2), %ecx
+101f251e: 8d 0c 8a                     	leal	(%edx,%ecx,4), %ecx
+101f2521: 8d 34 76                     	leal	(%esi,%esi,2), %esi
+101f2524: 8d 34 b2                     	leal	(%edx,%esi,4), %esi
+101f2527: 8d 04 40                     	leal	(%eax,%eax,2), %eax
+101f252a: 8d 04 82                     	leal	(%edx,%eax,4), %eax
+101f252d: ba 01 00 00 00               	movl	$0x1, %edx
+101f2532: 01 57 64                     	addl	%edx, 0x64(%edi)
+101f2535: 80 bf 8d 00 00 00 00         	cmpb	$0x0, 0x8d(%edi)

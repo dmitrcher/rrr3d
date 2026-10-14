@@ -1,0 +1,25 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -5338,7 +5338,21 @@
+         sourceContactOrderV79_.update(shapes);
+         if(sourceStaticPairOrderV108_) {
+             std::vector<std::pair<unsigned,unsigned>> added,removed;
+-            const auto wheelPair=[&](const auto& pair) {return shapes.at(pair.first-1).wheel || shapes.at(pair.second-1).wheel;};
++            std::set<unsigned> disabledWheelSupportsV137;
++            if(generalSceneV134 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_GROUP_FILTER_V137"))
++                for(const auto& entry:sourceStaticBodyShapesV108_) {
++                    JPH::BodyLockRead lock(system_.GetBodyLockInterface(),JPH::BodyID(entry.first));
++                    if(lock.Succeeded() && (lock.GetBody().GetUserData()&bodyKindMask)==surfaceBodyKind
++                        && collisionSurface(lock.GetBody().GetUserData())==CollisionSurface::TrackBorder)
++                        disabledWheelSupportsV137.insert(entry.second);
++                }
++            // Original scene group4 wheels do not collide with group3 borders.
++            // SAP adjacency remains geometric; no contact manager is created.
++            const auto wheelPair=[&](const auto& pair) {
++                if(!shapes.at(pair.first-1).wheel && !shapes.at(pair.second-1).wheel)return false;
++                const auto other=shapes.at(pair.first-1).wheel?pair.second:pair.first;
++                return !disabledWheelSupportsV137.count(other);
++            };
+             for(const auto& pair:sourceContactOrderV79_.createdPairsV108())if(wheelPair(pair))added.push_back(pair);
+             for(const auto& pair:sourceContactOrderV79_.removedPairsV108())if(wheelPair(pair))removed.push_back(pair);
+             sourceWheelManagerOrderV108_.update(added,removed);

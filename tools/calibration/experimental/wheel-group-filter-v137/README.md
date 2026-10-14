@@ -1,0 +1,13 @@
+# V137: exclude disabled wheel-border contact managers
+
+Goal remains incomplete. Default-off research overlay on V134; SDK unchanged. Ordinary installed game unchanged.
+
+The original real-map bridge sets collision group4 wheels against group3 borders false. V134 geometric SAP pairs nevertheless fed all wheel pairs into its dense wheel-manager list. V137 retains geometric SAP adjacency but excludes these disabled pairs when adding/removing wheel contact managers. Scene geometry/control/time remain unchanged. No coefficients, per-frame order or fixture states are supplied to the runtime.
+
+Four actual GameCar-wake map captures repeat exactly twice with identical fixture words. First differences on maps0/16/48/64:314/244/347/238, compared with V134301/244/293/238. At301 semantic binding by exact spring Jacobians proves all60 intermediate original solver body inputs, four spring masses/inverse-Jacobians and actual solve order[2,3,1,0] match. This improves moving fixtures while preserving the original formulas.
+
+V136 first-accepted-hit dispatch was separately tested. Original RVA14c3b3..14c3dd enqueues only after a closer accepted hit, rather than on every broadphase pair. It prevents the rejected V135 initialcontact20 regression but alone keeps the same V134 prefixes. Combining it with V137 does not improve prefixes and changes later map16 behavior, so V136 is not included in this overlay. Its diagnostic snapshots are retained locally; actual runtime after/source contains only V137 plus the prior V134 readonly trace.
+
+First314 Native world contact point wheel1 has Z6.46358060836792; Source6.463581085205078. Other three points match. Original interpolation reproduced on original vertices/u/v exactly for all4wheels. Source local triangle vertices match, but u differs by1-2float32ULPs. Fresh readonly observation at1f24d3 proves the ray setup returned0 (no early cached hit), and all24 local ray input words plus all36 triangle vertex words match. Native then avoids the direct scan at1f2535 and traverses its mesh acceleration structure. Native u differs from Source for all4wheels; changing dot order matches only2 of4 and is not accepted. Next inspect the actual tree triangle intersector before changing arithmetic. Do not fit suspension or power.
+
+53 CTest checks pass and default-off900states+900commands exactly preserve V133. First full608 capture comparison is stored separately; second frozen capture is running at publication time, so no two-repeat full608 claim is made here. General group filtering, compound/decor dynamics, original MotorProgress FP and production controller wake transport remain open.

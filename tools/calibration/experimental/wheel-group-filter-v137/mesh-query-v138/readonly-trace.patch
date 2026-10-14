@@ -1,0 +1,35 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -884,7 +884,7 @@
+     bool wheelSourceMeshQueryV122(const JPH::Body& body,
+         motorrock::wheelrayv52::Vector start, motorrock::wheelrayv52::Vector unit,
+         float length, bool& hit, JPH::SubShapeID& subShape,
+-        motorrock::wheelrayv52::Vector& point, float& distance) const
++        motorrock::wheelrayv52::Vector& point, float& distance, unsigned traceTickV138=~0U, unsigned traceWheelV138=~0U) const
+     {
+         namespace wr=motorrock::wheelrayv52;
+         hit=false;
+@@ -905,6 +905,14 @@
+             if(intersection.distance>=distance)continue;
+             distance=intersection.distance;point=wr::interpolate(p[0],p[1],p[2],intersection.u,intersection.v);
+             subShape=triangle.subShapeV122;hit=true;
++            if(const char* path=std::getenv("RRR3D_MESH_QUERY_TRACE_FILE_V138"))if(*path) {
++                const char* step=std::getenv("RRR3D_MESH_QUERY_TRACE_STEP_V138");
++                if(!step || traceTickV138==std::strtoul(step,nullptr,10))if(FILE* file=std::fopen(path,"a")) {
++                    std::fprintf(file,"{\"sdk_counter\":%u,\"wheel\":%u,\"body_id\":%u,\"triangle\":%u,\"start\":[%.9g,%.9g,%.9g],\"unit\":[%.9g,%.9g,%.9g],\"length\":%.9g,\"distance\":%.9g,\"u\":%.9g,\"v\":%.9g,\"local_point\":[%.9g,%.9g,%.9g],\"vertices\":[",traceTickV138,traceWheelV138,body.GetID().GetIndexAndSequenceNumber(),static_cast<const JPH::MeshShape*>(shape)->GetTriangleUserData(subShape),start[0],start[1],start[2],unit[0],unit[1],unit[2],length,distance,intersection.u,intersection.v,point[0],point[1],point[2]);
++                    for(unsigned i=0;i<3;++i)std::fprintf(file,"%s[%.9g,%.9g,%.9g]",i?",":"",p[i][0],p[i][1],p[i][2]);
++                    std::fprintf(file,"]}\n");std::fclose(file);
++                }
++            }
+         }
+         if(hit && mesh->placedV126)point=motorrock::placedmeshv126::point(mesh->poseV126,point);
+         return true;
+@@ -2467,7 +2475,7 @@
+                 auto selectedSubShapeV122=hit.mSubShapeID2;
+                 float selectedFractionV122=hit.mFraction;
+                 wr::Vector sourcePointV122{};float sourceDistanceV122=0;bool sourceHitV122=false;
+-                const bool sourceMeshV122=nativeTriangleOrderV122 && contacts.wheelSourceMeshQueryV122(lock.GetBody(),rayStart,unitDirection,queryLength,sourceHitV122,selectedSubShapeV122,sourcePointV122,sourceDistanceV122);
++                const bool sourceMeshV122=nativeTriangleOrderV122 && contacts.wheelSourceMeshQueryV122(lock.GetBody(),rayStart,unitDirection,queryLength,sourceHitV122,selectedSubShapeV122,sourcePointV122,sourceDistanceV122,physicalTickV101,wheelIdV101);
+                 if(sourceMeshV122) {
+                     if(!sourceHitV122 || queryLength<=0)return;
+                     selectedFractionV122=wr::div(sourceDistanceV122,queryLength);

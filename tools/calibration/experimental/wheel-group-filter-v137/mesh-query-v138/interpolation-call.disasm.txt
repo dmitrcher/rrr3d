@@ -1,0 +1,90 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1014dfe0: 00 f3                        	addb	%dh, %bl
+1014dfe2: 0f 10 47 2c                  	movups	0x2c(%edi), %xmm0
+1014dfe6: 8d 4c 24 10                  	leal	0x10(%esp), %ecx
+1014dfea: f3 0f 11 84 24 88 00 00 00   	movss	%xmm0, 0x88(%esp)
+1014dff3: 0f 57 c0                     	xorps	%xmm0, %xmm0
+1014dff6: 8d 54 24 50                  	leal	0x50(%esp), %edx
+1014dffa: 89 8c 24 ec 00 00 00         	movl	%ecx, 0xec(%esp)
+1014e001: 52                           	pushl	%edx
+1014e002: 8b 55 08                     	movl	0x8(%ebp), %edx
+1014e005: f3 0f 11 84 24 80 00 00 00   	movss	%xmm0, 0x80(%esp)
+1014e00e: f3 0f 11 44 24 70            	movss	%xmm0, 0x70(%esp)
+1014e014: f3 0f 11 44 24 60            	movss	%xmm0, 0x60(%esp)
+1014e01a: f3 0f 10 05 84 15 33 10      	movss	0x10331584, %xmm0
+1014e022: 8d 8c 24 94 00 00 00         	leal	0x94(%esp), %ecx
+1014e029: f3 0f 11 84 24 90 00 00 00   	movss	%xmm0, 0x90(%esp)
+1014e032: 51                           	pushl	%ecx
+1014e033: e8 58 44 0a 00               	calll	0x101f2490 <NxCreateCoreSDK+0x13240>
+1014e038: 84 c0                        	testb	%al, %al
+1014e03a: 75 3f                        	jne	0x1014e07b <NpCreatePhysicsSDK+0x40f0b>
+1014e03c: f3 0f 10 44 24 1c            	movss	0x1c(%esp), %xmm0
+1014e042: 0f 2f 05 8c 15 33 10         	comiss	0x1033158c, %xmm0
+1014e049: 72 25                        	jb	0x1014e070 <NpCreatePhysicsSDK+0x40f00>
+1014e04b: 8b 44 24 18                  	movl	0x18(%esp), %eax
+1014e04f: 3b c3                        	cmpl	%ebx, %eax
+1014e051: 74 1d                        	je	0x1014e070 <NpCreatePhysicsSDK+0x40f00>
+1014e053: 8b 0d a4 07 35 10            	movl	0x103507a4, %ecx
+1014e059: 3b cb                        	cmpl	%ebx, %ecx
+1014e05b: 75 0b                        	jne	0x1014e068 <NpCreatePhysicsSDK+0x40ef8>
+1014e05d: b9 38 f1 33 10               	movl	$0x1033f138, %ecx       # imm = 0x1033F138
+1014e062: 89 0d a4 07 35 10            	movl	%ecx, 0x103507a4
+1014e068: 8b 11                        	movl	(%ecx), %edx
+1014e06a: 50                           	pushl	%eax
+1014e06b: 8b 42 0c                     	movl	0xc(%edx), %eax
+1014e06e: ff d0                        	calll	*%eax
+1014e070: 32 c0                        	xorb	%al, %al
+1014e072: 5f                           	popl	%edi
+1014e073: 5e                           	popl	%esi
+1014e074: 5b                           	popl	%ebx
+1014e075: 8b e5                        	movl	%ebp, %esp
+1014e077: 5d                           	popl	%ebp
+1014e078: c2 14 00                     	retl	$0x14
+1014e07b: f7 44 24 14 fc ff ff ff      	testl	$0xfffffffc, 0x14(%esp) # imm = 0xFFFFFFFC
+1014e083: 75 14                        	jne	0x1014e099 <NpCreatePhysicsSDK+0x40f29>
+1014e085: 8d 74 24 10                  	leal	0x10(%esp), %esi
+1014e089: e8 a2 1d ec ff               	calll	0x1000fe30 <.text+0xee30>
+1014e08e: 32 c0                        	xorb	%al, %al
+1014e090: 5f                           	popl	%edi
+1014e091: 5e                           	popl	%esi
+1014e092: 5b                           	popl	%ebx
+1014e093: 8b e5                        	movl	%ebp, %esp
+1014e095: 5d                           	popl	%ebp
+1014e096: c2 14 00                     	retl	$0x14
+1014e099: 8b 44 24 18                  	movl	0x18(%esp), %eax
+1014e09d: f3 0f 10 40 04               	movss	0x4(%eax), %xmm0
+1014e0a2: 0f 2f 45 0c                  	comiss	0xc(%ebp), %xmm0
+1014e0a6: 8b 5d 14                     	movl	0x14(%ebp), %ebx
+1014e0a9: 89 44 24 0c                  	movl	%eax, 0xc(%esp)
+1014e0ad: f3 0f 11 43 24               	movss	%xmm0, 0x24(%ebx)
+1014e0b2: 77 d1                        	ja	0x1014e085 <NpCreatePhysicsSDK+0x40f15>
+1014e0b4: 8b 00                        	movl	(%eax), %eax
+1014e0b6: 8b 8e 6c 01 00 00            	movl	0x16c(%esi), %ecx
+1014e0bc: f3 0f 10 15 84 15 33 10      	movss	0x10331584, %xmm2
+1014e0c4: 8d 14 40                     	leal	(%eax,%eax,2), %edx
+1014e0c7: 8b 41 10                     	movl	0x10(%ecx), %eax
+1014e0ca: 8d 04 90                     	leal	(%eax,%edx,4), %eax
+1014e0cd: 8b 10                        	movl	(%eax), %edx
+1014e0cf: 89 4c 24 28                  	movl	%ecx, 0x28(%esp)
+1014e0d3: 8b 49 0c                     	movl	0xc(%ecx), %ecx
+1014e0d6: 8d 14 52                     	leal	(%edx,%edx,2), %edx
+1014e0d9: 8d 14 91                     	leal	(%ecx,%edx,4), %edx
+1014e0dc: 89 54 24 2c                  	movl	%edx, 0x2c(%esp)
+1014e0e0: 8b 50 04                     	movl	0x4(%eax), %edx
+1014e0e3: 89 44 24 3c                  	movl	%eax, 0x3c(%esp)
+1014e0e7: 8b 40 08                     	movl	0x8(%eax), %eax
+1014e0ea: 8d 14 52                     	leal	(%edx,%edx,2), %edx
+1014e0ed: 8d 14 91                     	leal	(%ecx,%edx,4), %edx
+1014e0f0: 8d 04 40                     	leal	(%eax,%eax,2), %eax
+1014e0f3: f3 0f 10 24 81               	movss	(%ecx,%eax,4), %xmm4
+1014e0f8: 8d 04 81                     	leal	(%ecx,%eax,4), %eax
+1014e0fb: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+1014e0ff: f3 0f 10 41 08               	movss	0x8(%ecx), %xmm0
+1014e104: f3 0f 10 49 0c               	movss	0xc(%ecx), %xmm1
+1014e109: 8b 4c 24 2c                  	movl	0x2c(%esp), %ecx
+1014e10d: f3 0f 5c d0                  	subss	%xmm0, %xmm2

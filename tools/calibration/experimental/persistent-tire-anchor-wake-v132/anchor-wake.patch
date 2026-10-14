@@ -1,0 +1,25 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -4013,7 +4013,11 @@
+             v.constraint->ClearDormantWheelObjectsV128();
+             std::fill(v.previousSuspensionForces.begin(),v.previousSuspensionForces.end(),0);
+             std::fill(v.wheelNormalForcesV84.begin(),v.wheelNormalForcesV84.end(),0);
+-            std::fill(v.tireAnchorsV55.begin(),v.tireAnchorsV55.end(),VehicleRuntime::TireAnchorV55{});
++            // The wheel's static-friction anchor survives body sleep even when
++            // transient solver objects are destroyed. Original anchor captures
++            // after wake retain pre-sleep world points (Core 14b620/14b72e).
++            if(!motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_WAKE_RETAIN_ANCHOR_V132"))
++                std::fill(v.tireAnchorsV55.begin(),v.tireAnchorsV55.end(),VehicleRuntime::TireAnchorV55{});
+         }
+         v.energySleepV128.wake=std::max(v.energySleepV128.wake,.3999999761581421F);
+         v.energyPendingV128=false;v.energyAxleReportV128.clear();
+@@ -5729,7 +5733,8 @@
+                         }
+                     }
+                     const char* anchorTraceV91=std::getenv("RRR3D_TIRE_ANCHOR_TRACE_FILE_V91");
+-                    if(anchorTraceV91 && *anchorTraceV91 && constraint.GetSourceSimulationCounterV59()<=60) {
++                    if(anchorTraceV91 && *anchorTraceV91 && (constraint.GetSourceSimulationCounterV59()<=60 ||
++                        (std::getenv("RRR3D_TIRE_ANCHOR_TRACE_ALL_V132") && std::strcmp(std::getenv("RRR3D_TIRE_ANCHOR_TRACE_ALL_V132"),"1")==0))) {
+                         if(FILE* file=std::fopen(anchorTraceV91,"a")) {
+                             const auto currentV91=wheel->HasContact()?fromJolt(wheel->GetContactPosition()):Vec3{0,0,0};
+                             std::fprintf(file,"{\"event\":\"tire-anchor-lifetime\",\"step\":%u,\"vehicle\":%zu,\"wheel\":%u,\"has_contact\":%s,\"valid_before\":%s,\"valid_after\":%s,\"current\":[%.9g,%.9g,%.9g],\"previous\":[%.9g,%.9g,%.9g],\"stored\":[%.9g,%.9g,%.9g],\"lateral_error\":%.9g,\"longitudinal_error\":%.9g}\n",

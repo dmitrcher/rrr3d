@@ -1,0 +1,17 @@
+{
+  "original_current_points_exact": 8,
+  "original_saved_points_match_prior_source_current_ticks": {
+    "48": 723,
+    "16": 750
+  },
+  "source_saved_points_reset_tick": 780,
+  "same_input_original_anchor_formula_exact_cases": 8,
+  "compiler_modes": [
+    "O0",
+    "O2"
+  ],
+  "cause": "V128 wakeEnergyV128 incorrectly clears per-wheel persistent tireAnchorsV55 alongside transient row object reset",
+  "correction_candidate_flag": "RRR3D_EXPERIMENT_NATIVE_WAKE_RETAIN_ANCHOR_V132",
+  "changes_coefficients_or_measured_state": false,
+  "goal_complete": false
+}

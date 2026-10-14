@@ -1,0 +1,13 @@
+# V132: preserve persistent tire anchors during body wake
+
+Goal incomplete. The default-off `RRR3D_EXPERIMENT_NATIVE_WAKE_RETAIN_ANCHOR_V132` corrects an earlier V128 decision to clear the persistent wheel friction anchor when recreating transient solver objects after body sleep. Source-only runtime change; SDK unchanged from V131/V128. `RRR3D_TIRE_ANCHOR_TRACE_ALL_V132` only extends the existing read-only anchor trace beyond60.
+
+Actual original Windows private captures for map48 first781 and map16 first787: first suspension iteration input states and prepared tire mass/axis/Jacobians all match Source; first body difference arises in the second lateral tire row of iteration1. Native saved world anchor remains from earlier contact723/750; Source reset it at wake780. Identical-input anchor formula matches original8 anchors at O0/O2, so the cause is state lifetime rather than formula/coefficient differences.
+
+After retaining the Source-computed anchor, actual original8 current/saved points and error terms match; all80 intermediate tire input-body states at these two previously failing frames now match. Four source map fixtures0/16/48/64,900 SDK-only steps each, two repeats, full body/wheel Float32 and awake status: all900 exact on every map. Original SDK/game/fixture hashes unchanged and read-only observers preserve all900 public states. Windows baseline was not fitted or modified.
+
+The paired fixtures contain one car/noAI/fixed inputs, step and geometry. They use raw SDK wheel commands, which do not wake the sleeping original actor in motor phases120..659. This is not a GameCar acceleration/control verdict. Original GameCar::SetMoveCar wakes on transitions into non-neutral movement; that path and actual motor FP context must be audited next. Rendered original Race placement, all scene interactions/decorations/compound/sensor wake and actual production integration remain unproved. Ordinary installed game still has previousV73 physics.
+
+Final build and53 CTest checks pass; default-off900 physical samples plus900 driver commands preserved. Two frozen full608 regressions are running at publication checkpoint; final broad proof pending. No production promotion is authorized by narrow passing fixtures alone.
+
+Apply guarded installer on the verified V131 experimental Source base: `python3 install-guarded.py --source-root PATH --apply`. Source/after hash guards prevent applying onto other revisions. Diagnostic scripts use saved workspace paths and the existing Parallels originalSDK/development environment; no proprietary DLLs are distributed.

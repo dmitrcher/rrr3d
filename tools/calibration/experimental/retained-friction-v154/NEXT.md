@@ -1,0 +1,11 @@
+# V154 validated publication checkpoint
+
+Both full608x2 gates terminal:608/608255864originalF32states exact,repeats identical. Source153 standalone608x2 also608/608exact.53CTestpass. BothnewflagsOFF900==V152, SDK154off/Source153on900==V153. Installer3then0 and unknownprereqrejectbeforeanymutation verified.
+
+MovingV154first478/420/358/238; initialprefix478/420/358/238, exacttotal478/420/374/239. Source153actual465all4contactgeometry/prepexact; Source154actual249all10linear/angularpre-responsestatesexact,900diagnosticstatesunchanged. OriginalWindowsunchanged. OrdinaryinstalledgameV73unchanged.
+
+Native478two900statespreserved. Next478normalcrossNativeunfused vsSourceFMA proven; separateV155revision2 nowactive butNOTpartofthisrelease. V155first482/420/358/238, all20actual478rowsexact, defaultoff900==V154,53CTestpass; full608x2session73884ongoingdoNOTrestart. SourceV155activeheaderdiffersfromV154 SourceMesh151 prereq, soV154installerapplytoitsdocumentedbaseonly.
+
+Native16/420two900statespreserved butbody-contactrowszero/zero; wheel/tire/integration needsobserver. Native482V155capture17112rep0done,rep1live; actual482Source6contacts,Native8contacts (30vs40solverrows): nextinvestigationcontactgeneration/order/count. Source48241937terminal.
+
+HealthyGitwork/sync-rrr3d,branchmacos-arm64; activeSourceGitcorruptneveruse. CaffeinatePID66293ON. Goalactive/incomplete.

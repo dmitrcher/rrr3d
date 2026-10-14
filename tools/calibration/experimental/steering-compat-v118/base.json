@@ -1,0 +1,38 @@
+{
+  "scope": "Original compatibility for steering: spring/tire actor frames, cold lateral starts, angle-rotated basis, coupled tire order and diagnostics. Default-off, no coefficients fitted or state injection. Five source/SDK files.",
+  "flag": "RRR3D_EXPERIMENT_NATIVE_STEERING_COMPAT_V118",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "602654cb4464673ca53ffa2680a657a28ccb06695f6e510d301d00495f72897a",
+      "after_sha256": "b23395eeecefd48c9246bd0423575fbe534620d3b3603a2e318a8f4cf012a578"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/WheeledVehicleController.cpp",
+      "before_sha256": "45ed5662584b992be0be8e54813ae507a1b93036cd84655f8d28196cb1efe4c9",
+      "after_sha256": "f7fd7c84bf566ae11d874346c7f8e3117836b833a1124a81f6d9d796d7d082f0"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.cpp",
+      "before_sha256": "7eae535f2b4e102b97b17ac164d94157e211238ddfeb098231b0525549c3e125",
+      "after_sha256": "b9f987f16125a601a072888c1168c7c713fbc58612f836ac4ad859fa5515684e"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "11601ad18c9eba48125af1b189d741bb2c3841a7348a2f17ac25b0e0a24b2321",
+      "after_sha256": "84ef5e096121729b02ced819228f33f387d73129c88a25a36e2278874a5791b0"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeSteeringTireV118.h",
+      "before_sha256": null,
+      "after_sha256": "3099315395d1240bf496bc254f1cac8cea37314aff4936a3cf84a1528ddd4be8"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified zero-spring-v117 and all prerequisites; rebuild consumers"
+}

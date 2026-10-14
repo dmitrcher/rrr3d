@@ -1,0 +1,92 @@
+{
+  "scope": "Actual original Native contact preparation and body inputs, with post-solve bodies bound by the next contact entry inside each iteration. Inter-iteration transitions include wheel constraints and are deliberately not used as contact-only outputs. Retained impulses/vector values are independently bound at the same contact next iteration. Wall47,bump49,air16; two Native repeats; unchanged runtime never consumes these inputs.",
+  "checks": [
+    {
+      "case": "wall-oblique",
+      "repeat": 0,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-oblique",
+      "repeat": 1,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "bump-crossing",
+      "repeat": 0,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "bump-crossing",
+      "repeat": 1,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-air-straight-24",
+      "repeat": 0,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-air-straight-24",
+      "repeat": 1,
+      "optimization": "O0",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-oblique",
+      "repeat": 0,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-oblique",
+      "repeat": 1,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "bump-crossing",
+      "repeat": 0,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "bump-crossing",
+      "repeat": 1,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-air-straight-24",
+      "repeat": 0,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    },
+    {
+      "case": "wall-air-straight-24",
+      "repeat": 1,
+      "optimization": "O2",
+      "within_iteration_body_transitions_exact_except_signed_zero": 15,
+      "next_iteration_retained_lambda_and_friction_vectors_exact_except_signed_zero": 16
+    }
+  ],
+  "raw_signed_zero_differences": [],
+  "raw_ABI_equality_claimed": true,
+  "goal_complete": false
+}

@@ -1,0 +1,214 @@
+{
+  "scope": "Actual Native and actual Source V110 box geometry and actor inputs. Source points already match Native; existing local-to-solver lever and scalar tensor kernels independently reconstruct actual Native fields. Factorial control/lever/inertia/both proves separate causal changes; O0/O2, two Native captures. Actual runtime receives no Native states or expected outputs.",
+  "checks": [
+    {
+      "repeat": 0,
+      "checks": [
+        {
+          "optimization": "O0",
+          "point": 0,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344668,
+            1144344668
+          ],
+          "Native_mass_word": 1144344668
+        },
+        {
+          "optimization": "O0",
+          "point": 1,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344669,
+            1144344669
+          ],
+          "Native_mass_word": 1144344669
+        },
+        {
+          "optimization": "O0",
+          "point": 2,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344732,
+            1144344733,
+            1144344732,
+            1144344734
+          ],
+          "Native_mass_word": 1144344734
+        },
+        {
+          "optimization": "O0",
+          "point": 3,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344734,
+            1144344734,
+            1144344735,
+            1144344735
+          ],
+          "Native_mass_word": 1144344735
+        },
+        {
+          "optimization": "O2",
+          "point": 0,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344668,
+            1144344668
+          ],
+          "Native_mass_word": 1144344668
+        },
+        {
+          "optimization": "O2",
+          "point": 1,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344669,
+            1144344669
+          ],
+          "Native_mass_word": 1144344669
+        },
+        {
+          "optimization": "O2",
+          "point": 2,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344732,
+            1144344733,
+            1144344732,
+            1144344734
+          ],
+          "Native_mass_word": 1144344734
+        },
+        {
+          "optimization": "O2",
+          "point": 3,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344734,
+            1144344734,
+            1144344735,
+            1144344735
+          ],
+          "Native_mass_word": 1144344735
+        }
+      ],
+      "all_world_geometry_points_Native_exact": true,
+      "actor_matrix_local_point_solver_lever_and_tensor_Native_exact": true,
+      "only_both_preparation_changes_match_all_four_normal_masses": true
+    },
+    {
+      "repeat": 1,
+      "checks": [
+        {
+          "optimization": "O0",
+          "point": 0,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344668,
+            1144344668
+          ],
+          "Native_mass_word": 1144344668
+        },
+        {
+          "optimization": "O0",
+          "point": 1,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344669,
+            1144344669
+          ],
+          "Native_mass_word": 1144344669
+        },
+        {
+          "optimization": "O0",
+          "point": 2,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344732,
+            1144344733,
+            1144344732,
+            1144344734
+          ],
+          "Native_mass_word": 1144344734
+        },
+        {
+          "optimization": "O0",
+          "point": 3,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344734,
+            1144344734,
+            1144344735,
+            1144344735
+          ],
+          "Native_mass_word": 1144344735
+        },
+        {
+          "optimization": "O2",
+          "point": 0,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344668,
+            1144344668
+          ],
+          "Native_mass_word": 1144344668
+        },
+        {
+          "optimization": "O2",
+          "point": 1,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344668,
+            1144344668,
+            1144344669,
+            1144344669
+          ],
+          "Native_mass_word": 1144344669
+        },
+        {
+          "optimization": "O2",
+          "point": 2,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344732,
+            1144344733,
+            1144344732,
+            1144344734
+          ],
+          "Native_mass_word": 1144344734
+        },
+        {
+          "optimization": "O2",
+          "point": 3,
+          "both_mass_exact": true,
+          "control_lever_inertia_both_mass_words": [
+            1144344734,
+            1144344734,
+            1144344735,
+            1144344735
+          ],
+          "Native_mass_word": 1144344735
+        }
+      ],
+      "all_world_geometry_points_Native_exact": true,
+      "actor_matrix_local_point_solver_lever_and_tensor_Native_exact": true,
+      "only_both_preparation_changes_match_all_four_normal_masses": true
+    }
+  ],
+  "goal_complete": false
+}

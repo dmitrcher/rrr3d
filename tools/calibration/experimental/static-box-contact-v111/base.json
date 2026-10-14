@@ -1,0 +1,31 @@
+{
+  "scope": "Default-off static box lever, exact solver inertia, original material basis, scalar contact masses and point-velocity/coupled-force solve. Restitution replaces speculative bias only for bounce. Constraint-step APIs retain intermediate velocities. Actual box type guard excludes track meshes. No coefficient/case/frame/reference injection. Private heap state extended; consumers rebuilt. Material uses raw-quaternion projected normal. Complete static/dynamic point cache preserves original local records and transported error. Five independent default-off flags.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "dfc9fb074bcf8e63941c85d9d1eae1df95aa8cfb838bb3d8550b9f367085d4e9",
+      "after_sha256": "be7ca9f834f75c72309b3f6c088973a6802855a92183c692a02159465455dde9"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.h",
+      "before_sha256": "698fd65b080995fbaf75c022d9d0aea31f73f32fb24f436b1b972d897089e8b0",
+      "after_sha256": "2c443dffc6458466c94fe6605b70a8dd747b51586341f134b1deddfec20f2fa5"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "e5467b9e580aa4720a153c48356a8eb6eb16d4ac3c84da3e9e96dd6b7c96377d",
+      "after_sha256": "a8916542208efb2b4222b6d6a250a022579eee0ea377c34786a3c78d4c5dce04"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeStaticBoxSolveV111.h",
+      "before_sha256": null,
+      "after_sha256": "989044df0b7468ec5acc767aa27152b1dfbde029867bab9a0d930cae32e836c1"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified lost-tire-dispatch-v110 and all prerequisites; four-file delta, extended private heap state; rebuild consumers."
+}

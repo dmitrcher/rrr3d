@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off original local-face/world-transform wheel query for static source boxes, using existing independently traced V80 kernel. Immutable original Windows static query17words matches at curb13/bump50 under O0/O2. No coefficients, frame/case dispatch or reference injection. V106 source base, adapter only; private SDK layout unchanged. Static candidates also require the original unpadded line/box AABB overlap; original source ray endpoint is retained before normalization. V106 helper reused for overlap.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "d3f0f45d3fa583211004fb3ff3810392639c327ea11591023bbfd23861f16fc0",
+      "after_sha256": "c50fd397c57e529b99890fcbfddea1743babf365eeb488bdf93ea6c64e2caf2e"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeStaticWheelBoxQueryV107.h",
+      "before_sha256": null,
+      "after_sha256": "cae762f909dea4be7f575a50cf74340c6ce426a7d8cf8f5b1fdee7155b63d7b8"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Apply verified tire-lifetime-v106 over its prerequisite wheel-lifetime-v105 first. Two-file delta, default-off."
+}

@@ -1,0 +1,13 @@
+# Static wheel-box query V107
+
+Default-off two-file delta over the verified tire-lifetime-v106 module and its prerequisites. Apply with apply-experiment.py, then rebuild the adapter and all consumers. VehicleConstraint private layout is unchanged by this delta.
+
+Original static box queries enter the same 1ae390 -> 1ea750 local-face/world-transform kernel already reconstructed for dynamic boxes in V80. Direct interpolation of the world ray changes contact lever arms. At curb13 Native and Mac previously differed by one float32 ULP in the first spring Jacobian; current prepared axes/Jacobians/inverseJacobians and resulting lambdas match in both repeats over five iterations. Incoming angular signed-zero differences remain explicitly recorded.
+
+The local face kernel's epsilon is consulted only after a raw source suspension-line/box AABB overlap. Jolt's padded broadphase alone admits a spurious bump candidate48, whereas the original calls the static query only from49. The production candidate helper matches independently observed Native query presence under O0/O2 and retains the original unnormalized source endpoint. No coefficients, case/frame rules or measured-state injection are used. Measured-pose shadow replay is a separate diagnostic, never part of runtime physics.
+
+Live curb first divergence moves13 ->224. At224 all corresponding spring properties and first incoming body match Native; the actual spring traversal remains Native0,1,3 versus Mac3,1,0. This is the next callback/broadphase lifetime lead, not a reason to fit parameters or hardcode row permutations.
+
+Run verify.py --probe /absolute/path/to/rrr3d_physics_calibration. It checks the original static query17-word fixtures and production candidate helper under O0/O2. It then checks2400 full Native-equivalent states plus the224-state curb prefix and180 preserved V106 roll-contact states. The roll fixture confirms preservation only; full curb600 Native parity is not claimed. Broad repeated608-case validation and complete-run error/regression reports must be consulted. Complete game/race/render equivalence remains unproven, ordinary installed game is unchanged, and the overall goal remains incomplete.
+
+Two fresh complete608-case matrices preserve all467 strict cases (141open), are exactly repeatable over255864 states each, and leave607 complete histories unchanged. Only curb-side changes; all measured complete-run maxima improve or stay equal versusV106. Curb maximum position error decreases0.00029980155 ->0.00024656932 in source units. The291 independent physics gates and53CTest checks pass; solo600 and rendered240 functional game checks exit0. The previous open border-grounded magnitude regression fromV106 is still unresolved.

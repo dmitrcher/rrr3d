@@ -1,0 +1,27 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all600samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\wheel-transform-v80\\TraceWheelTransformV80.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\wheel-transform-v80\\TraceWheelTransformV80.exe:\r\ncce3c3c5dc593504429cf1d5bdb818aa172e646d6ab478737f85824c078395fe\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "creation",
+      "name": "curb-side",
+      "repeat": 0,
+      "sample_tick": 224,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "8c798b829058cd603b69e498fa7fd0f3773a2493ef7e7d333a7df63396405e30"
+    },
+    {
+      "kind": "creation",
+      "name": "curb-side",
+      "repeat": 1,
+      "sample_tick": 224,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "fd04012f6704e346878801ac99891d412e82fba7a1b274af4923b64ae162f930"
+    }
+  ],
+  "goal_complete": false
+}

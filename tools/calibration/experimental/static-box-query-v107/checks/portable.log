@@ -1,0 +1,62 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_original_static_query_fixtures": 8,
+      "Native_query_words_exact": 136,
+      "actual_original_query_candidate_masks_exact": [
+        [
+          48,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          49,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "shadow_poses_never_used_in_runtime": true
+    },
+    {
+      "optimization": "O2",
+      "actual_original_static_query_fixtures": 8,
+      "Native_query_words_exact": 136,
+      "actual_original_query_candidate_masks_exact": [
+        [
+          48,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          49,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "shadow_poses_never_used_in_runtime": true
+    }
+  ],
+  "goal_complete": false,
+  "actual_downloaded_original_checkpoint": {
+    "settle": 600,
+    "slope-longitudinal": 600,
+    "slope-lateral": 600,
+    "bump-crossing": 600,
+    "curb-side": 224
+  },
+  "full_Native_equal_states": 2400,
+  "Native_equal_curb_prefix_states": 224,
+  "full_curb_Native_equality_claimed": false,
+  "retained_roll_contact_states": 180,
+  "retained_roll_matches_windows_claimed": false,
+  "probe_sha256": "6d86e0405545aec3fafa6076412da485b06b8afda3d3eafd361ac7ec496951c2"
+}

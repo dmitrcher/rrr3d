@@ -1,0 +1,63 @@
+{
+  "scope": "Actual original Native static query presence at bump48/49, two repeats. Production candidate helper independently checked under O0/O2 on original measured poses. Shadow poses validate the geometry test only, never enter runtime Mac. Source endpoint retained before unit normalization.",
+  "proof": [
+    {
+      "physical_tick": 48,
+      "actual_Native_static_box_call_count_per_repeat": [
+        0,
+        0
+      ]
+    },
+    {
+      "physical_tick": 49,
+      "actual_Native_static_box_call_count_per_repeat": [
+        2,
+        2
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "optimization": "O0",
+      "original_pose_shadow_candidate_masks": [
+        [
+          48,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          49,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "actual_Native_query_presence_exact": true
+    },
+    {
+      "optimization": "O2",
+      "original_pose_shadow_candidate_masks": [
+        [
+          48,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          49,
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "actual_Native_query_presence_exact": true
+    }
+  ],
+  "production_header_sha256": "cae762f909dea4be7f575a50cf74340c6ce426a7d8cf8f5b1fdee7155b63d7b8",
+  "goal_complete": false
+}

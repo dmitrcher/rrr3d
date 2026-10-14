@@ -1,0 +1,650 @@
+{
+  "files": [
+    {
+      "path": "NEXT.md",
+      "bytes": 619,
+      "sha256": "7c5a1d9d0f805683433380462470d20bbadadd09e95555687ba74a99277cb029"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2730,
+      "sha256": "199bf83752f496955fb828ccc192c00d87254e0c4cbe3a96ff1855dd5681277d"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeStaticWheelBoxQueryV107.h",
+      "bytes": 1339,
+      "sha256": "cae762f909dea4be7f575a50cf74340c6ce426a7d8cf8f5b1fdee7155b63d7b8"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 379874,
+      "sha256": "c50fd397c57e529b99890fcbfddea1743babf365eeb488bdf93ea6c64e2caf2e"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1236,
+      "sha256": "144afc995a48a1641357b415922492c30c56b074faa6c983b7a480b1312edcc6"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 379038,
+      "sha256": "d3f0f45d3fa583211004fb3ff3810392639c327ea11591023bbfd23861f16fc0"
+    },
+    {
+      "path": "box-query-fixtures.json",
+      "bytes": 6051,
+      "sha256": "4983585071982a35c9ca9973c795a2e5b7ceb0405f25ded4bd225b8406878137"
+    },
+    {
+      "path": "candidate-bounds-input.txt",
+      "bytes": 174,
+      "sha256": "761f44692b29a0cec013c7c908f3b87204c1a10fc623990f97f9d03e644d638c"
+    },
+    {
+      "path": "candidate-bounds-proof.cpp",
+      "bytes": 609,
+      "sha256": "6fc06854debfb8d05ec5547604f73a6896dac9e27c21bbe537688281ecffb98a"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-0-combined.jsonl.gz",
+      "bytes": 234,
+      "sha256": "c5a0d1a9d90cb27cbf34c6c981413696f5f071fcc73c855b2ad1a62da9767b1d"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-0-physical.jsonl.gz",
+      "bytes": 122487,
+      "sha256": "088fa6e2b7f55a5bdd59da367fa04426b771040f246e7fd23469bd905f695770"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-0-prep.jsonl.gz",
+      "bytes": 380,
+      "sha256": "a56703983b94785a437e1993e22e9dda298aa844a9cd8988a2935bf96439c88f"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-0-solver.jsonl.gz",
+      "bytes": 571,
+      "sha256": "9611fff46f962e1c36fe3ac5f0a7a4616221ee1168a39b5c3da86bb244e720de"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-0-tire.jsonl.gz",
+      "bytes": 966,
+      "sha256": "65b4441f8682f3add72c747a54d9fa3e4b1fe97d3e8907a174865e5ae53b9f9b"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-1-combined.jsonl.gz",
+      "bytes": 234,
+      "sha256": "86a190b75736b2ce3118bc53449611c0613725dad0c08f7ba8eb7cfa52360d90"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-1-physical.jsonl.gz",
+      "bytes": 122426,
+      "sha256": "fc01836b705f029df5e51e3cc83d5bf23a887add90603e70085889b101a0a844"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-1-prep.jsonl.gz",
+      "bytes": 380,
+      "sha256": "54a0346035cb601b285ea909aaf7674ef98c7a34018552ec5c10f4ff50d44772"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-1-solver.jsonl.gz",
+      "bytes": 571,
+      "sha256": "4df68be5ce6681a351f04a13c2aececd1bf3434687414930cd9cfcc6be2b5ceb"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-13-1-tire.jsonl.gz",
+      "bytes": 966,
+      "sha256": "2af67da301257266a57a6297d8b18752c18415370e92702d195f560a1243f8c7"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-0-combined.jsonl.gz",
+      "bytes": 356,
+      "sha256": "143ba9182eb4f629374816bcb0f38c03b91116ba91bca8cd74443110292beef2"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-0-physical.jsonl.gz",
+      "bytes": 122468,
+      "sha256": "f046ae4d5ae4b85b0576cf57f5d7215f94affd3160b01e3296027891edd3e5a9"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-0-prep.jsonl.gz",
+      "bytes": 695,
+      "sha256": "f40b242b8b408933ee32e45c04adef2df2f4e14fe9c3b1385b2bad296da7b932"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-0-solver.jsonl.gz",
+      "bytes": 927,
+      "sha256": "59caeab260d5a9d585204c0311c135373c67538658683608e2169a0cb0c1b658"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-0-tire.jsonl.gz",
+      "bytes": 1793,
+      "sha256": "4c31dfc758292ab68d9f33dc0fe2d8774892126902b2272a802148a728a4e483"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-1-combined.jsonl.gz",
+      "bytes": 356,
+      "sha256": "208665fdcd6c75c062a00fe0162aa0c153d11c1df02897a27ab3bf01e4a219ee"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-1-physical.jsonl.gz",
+      "bytes": 122498,
+      "sha256": "38c7a73df28baff4ff56a38bce19cca7a6f12618d91f2ee480676d6491a72dec"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-1-prep.jsonl.gz",
+      "bytes": 695,
+      "sha256": "0bdace4e9d650f84cdbe702d925c106baf69b2f5f8c0d2a9488b4768dd3db981"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-1-solver.jsonl.gz",
+      "bytes": 927,
+      "sha256": "a94030f8c211481a07967a527567b46b0a21f1d2ec4910b049b6167a444385aa"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/curb-side-224-1-tire.jsonl.gz",
+      "bytes": 1793,
+      "sha256": "b237ff7e0cd55320e3ef333986aabefe27cb2441a68a77486d0d759db1662dcd"
+    },
+    {
+      "path": "captures/mac-curb-checkpoints/manifest.json",
+      "bytes": 8405,
+      "sha256": "b3ee20d25543f1aff777209ef3e87f4b46529551e7367c0c5a1106a9e31fb203"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-0-physical.jsonl.gz",
+      "bytes": 279022,
+      "sha256": "71dfd5ec0db5bafd93241bea0a34248371a4ae31f7c7ae2eca47d74b49329834"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-0-private.jsonl.gz",
+      "bytes": 20234,
+      "sha256": "cd1e25c799678a9d086ef27e0360f3b73f2735b5101166b968e6859be1c4b40f"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-1-physical.jsonl.gz",
+      "bytes": 279226,
+      "sha256": "44c6902551927272dae7960f70619d22d046e3f82594bc1dcbc30b69004c82a1"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-1-private.jsonl.gz",
+      "bytes": 20224,
+      "sha256": "61146ad712064202fb86bfa8ed2f4c497f84f25b9aea4684813dd6a0f25adbfc"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-48-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-0-physical.jsonl.gz",
+      "bytes": 279310,
+      "sha256": "2d02b4e7fd8c194aaa195563264d8dbcf6444e099bacf027f3369eb6eb653a45"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-0-private.jsonl.gz",
+      "bytes": 26686,
+      "sha256": "9b479dc9b70fc92313ba79ca3f114e5091e5a6b962813a718352d74d2b143864"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-1-physical.jsonl.gz",
+      "bytes": 279170,
+      "sha256": "caaa63aff2ecef262384748c3f43c19ddd4c063d1fd392535b6483811d60c219"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-1-private.jsonl.gz",
+      "bytes": 26697,
+      "sha256": "9e700eb2b5c3f45d0f799e6b16715fd030be0359b4da94698bce0ec9a40e62ca"
+    },
+    {
+      "path": "captures/native-boundary-transform/creation-bump-crossing-49-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-boundary-transform/manifest.json",
+      "bytes": 2236,
+      "sha256": "1bae39edc025c541fe31754fcd85faebb45d03e5cb1cabe65738d7bd797c7202"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-0-physical.jsonl.gz",
+      "bytes": 312687,
+      "sha256": "344f8d532b3b1d1793883acd6ec30f8b441979e436a840ec2dbc8a0ad2c23781"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-0-private.jsonl.gz",
+      "bytes": 4281992,
+      "sha256": "16d54ccc17a68c90eab651513d56424d3519c2fc3363ef17bcad6877f8a46ba2"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-1-physical.jsonl.gz",
+      "bytes": 312662,
+      "sha256": "d6d477764095fff23df0e21db9e8e732e50bf87550e33805a7813ef2191c046f"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-1-private.jsonl.gz",
+      "bytes": 4257590,
+      "sha256": "98f42dc5ddb56265277e24abee46f5c4a0d43fe4082941806e9deb14a49ccafb"
+    },
+    {
+      "path": "captures/native-next-curb224/curb-side-230-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-curb224/manifest.json",
+      "bytes": 1746,
+      "sha256": "f74575b6395a8c6901143b14efd556f66025c29940708e0cfd1c97d3eff2e682"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-0-physical.jsonl.gz",
+      "bytes": 313390,
+      "sha256": "34b38bfb56440358cb4f80358bae33662acdf29a8d027714384286e8f8ffd300"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-0-private.jsonl.gz",
+      "bytes": 19261,
+      "sha256": "adb0ef4e81b02d332fbfc49a001b9293c5bf87c19bc050c16dfea970d9bffc0e"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-1-physical.jsonl.gz",
+      "bytes": 313479,
+      "sha256": "6889a21646d3f4a4401e01629301444b48ea5c6ae39a42b271df44ddedfa8229"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-1-private.jsonl.gz",
+      "bytes": 19285,
+      "sha256": "cd8860b7b30f61914131cc56c7fae304ecac3fbda3175402b9b12796397a1441"
+    },
+    {
+      "path": "captures/native-next-queue224/creation-curb-side-224-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-queue224/manifest.json",
+      "bytes": 1730,
+      "sha256": "b9b8e7b30bec2d0d38bf7b1cee37ad99dd9937ec74c1b243d19e0eb2a40eac0f"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-0-physical.jsonl.gz",
+      "bytes": 279226,
+      "sha256": "fc165f4eb452a1d4462941a7bc74eb08b241ae1f10c6db12d5560d19b73810b6"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-0-private.jsonl.gz",
+      "bytes": 28880,
+      "sha256": "ace79cc40843a99cb760c9ff217440acc23f53c136ea63f679b15dcd9ad419d8"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-1-physical.jsonl.gz",
+      "bytes": 279162,
+      "sha256": "a16eb2c78dc78f1cbed30477ef359e3c6b8126b05a510f05615665566783eb73"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-1-private.jsonl.gz",
+      "bytes": 28872,
+      "sha256": "33be1a2400879043b0c8d71a01c52130ca182c00eb3ee35413b04f6d93432fb8"
+    },
+    {
+      "path": "captures/native-transform/creation-bump-crossing-50-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-0-physical.jsonl.gz",
+      "bytes": 311757,
+      "sha256": "7d884a1284f1e2c303aba9fa4c6554c726181bfcacb0b3c87ab5a9db76ce7535"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-0-private.jsonl.gz",
+      "bytes": 9988,
+      "sha256": "74cd8453ab6f2b5d3eab67ecb9958f9d6de46718c9f168293ec0306874368d39"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-1-physical.jsonl.gz",
+      "bytes": 311793,
+      "sha256": "ba45cd4b40b2fa6ff1c22d41a7092326d5e9984fa921f9cef7d7e19209d91e6b"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-1-private.jsonl.gz",
+      "bytes": 9995,
+      "sha256": "ed750b828ec7f0955478bb58529e3fa2281b5bb93b0f33ee0679900d735bdb80"
+    },
+    {
+      "path": "captures/native-transform/creation-curb-side-13-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-transform/manifest.json",
+      "bytes": 2228,
+      "sha256": "8e534e9f821854c9fea3849810986cf531e5d2c487cc2babfad34ae38992a2de"
+    },
+    {
+      "path": "checks/build-final-all.log",
+      "bytes": 3662,
+      "sha256": "cedeb33efcfab3b9de6db7f2431671aa6a6c292246c32e1fbc732a9d300e63ca"
+    },
+    {
+      "path": "checks/ctest.log",
+      "bytes": 7093,
+      "sha256": "5da3782d7e68a66ff0c97cd18bcee5c642a6f8ccf3e4223e2432a146ff10bee5"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "8f163873ffcf30f57faab1cd6d6725840ef90394f33c50ea279c3b02c5246ccc"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 8198,
+      "sha256": "08d1face208772a1c939ad65093281370250860727068ae66006c531d79a84db"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 87,
+      "sha256": "2653a7a243915499838829926dfa4b2dc1e7455253ef7f772d7389570123465b"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 8172,
+      "sha256": "432b6dfd13712ddae9737a03da6f879e477cd1b399b1a196d7d50636de159801"
+    },
+    {
+      "path": "checks/gates-complete-profile/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "3ef1a74e7929f7eee265e4c74f2d777f2a87439599dba9334c0a2df944c9f137"
+    },
+    {
+      "path": "checks/installer.log",
+      "bytes": 455,
+      "sha256": "1dd62d3d45aba31347ea0107b775a7388901286cb519614a7991164e55e320ac"
+    },
+    {
+      "path": "checks/portable.log",
+      "bytes": 1351,
+      "sha256": "fd528ba27a018f004bdcff2dfe60453a5276ddc73158037c3540fef6e0523099"
+    },
+    {
+      "path": "evidence/focused-final-report.json",
+      "bytes": 17231,
+      "sha256": "f73b0b4b1f7e64a41e5d01e99fcc37dc8d2c39defa3e5811f5710e68fef3df7f"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 17229,
+      "sha256": "d1035b3c084e0a2f4b9048691610a989f52dda286d1b471b72cec4e33e3222b6"
+    },
+    {
+      "path": "evidence/live-curb13-proof.json",
+      "bytes": 6194,
+      "sha256": "1a7a5974905bc19ca3c628289b9e4592a2e96c04e47542a04b207b9ac6d2d534"
+    },
+    {
+      "path": "evidence/native-queue224-proof.json",
+      "bytes": 1248,
+      "sha256": "27270be5a1c9bf58111eb8919ecc261f1a2cfa4e58b2f2eb6c729682fbc2656e"
+    },
+    {
+      "path": "evidence/next-curb224-spring-order-lead.json",
+      "bytes": 1198,
+      "sha256": "c81da2b0986ca63cd091b54e973f705caab31ac0c7d9c3c71097f4a618b92b7a"
+    },
+    {
+      "path": "evidence/physics-v107-final-broad-audit.json",
+      "bytes": 1042015,
+      "sha256": "d51964b8359d531960f6c3b52a77afb6aef4e76b188a12c6090a81b8a4a317be"
+    },
+    {
+      "path": "evidence/physics-v107-final-practical-error-audit.json",
+      "bytes": 1110477,
+      "sha256": "2197ab6e0af65cad1c0576638d5f8884faeeee0674d041f4b2d2037711b3eaeb"
+    },
+    {
+      "path": "evidence/physics-v107-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v107-native-candidate-bounds-proof.json",
+      "bytes": 1351,
+      "sha256": "712ef8c7d84a4fcad60aa241a3b122926713012026d0db1f101624a4357134ce"
+    },
+    {
+      "path": "evidence/physics-v107-native-static-box-query-proof.json",
+      "bytes": 579,
+      "sha256": "d12a70809269af7f85dd5c389df605e475d26e79c871821aeb6f9db28dedb6bc"
+    },
+    {
+      "path": "evidence/physics-v107-regression-audit.json",
+      "bytes": 24702,
+      "sha256": "0bddc7cd90586c7d542f085e02007de308a29d377c7858fc4ac5b0cf6f991947"
+    },
+    {
+      "path": "evidence/retained-roll-contact-v106.jsonl.gz",
+      "bytes": 33343,
+      "sha256": "da88a19e60acd0cd72ecf50f98bca69a8fb43f0f48e8674fb45e26773047d5fb"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 507275,
+      "sha256": "e610eb936b3ce1405599eec54d1b6453546bdf304d0e24b437831fe44e1b0140"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7191,
+      "sha256": "a8f9ba6958277d402d7a869a47e0d1b03c1dc7ba9073dd1df306772ad88d13e8"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-curb-checkpoints.py",
+      "bytes": 2703,
+      "sha256": "a0ce80ab7b4cbd48bdc989508cea8b453ca48686817f03f78e129f1975cd83aa"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-boundary-transform.py",
+      "bytes": 3189,
+      "sha256": "47e6bb93d5463ec51c322a54c72a947523df732b7bcf8be4ea434d42d75402ba"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next-curb224.py",
+      "bytes": 2905,
+      "sha256": "7cf3b1d25a979aa9aee2f62bff91c9f224d3b14b9c50320fa02ee303af580650"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next-queue224.py",
+      "bytes": 3160,
+      "sha256": "7e2dbffdfd70b9876ffd4009b099b975d37e42054723803309a6ac38a7142fae"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-transform.py",
+      "bytes": 3176,
+      "sha256": "d597e69b6ed590bc4ea8aa492ca81537332989640bfc18fafc6840c54c348647"
+    },
+    {
+      "path": "reproduction-host-scripts/check-quick.py",
+      "bytes": 1142,
+      "sha256": "1298b2dc69951cd128e756566a5f531411bcf8025a4c953f5caa6ed600c782ae"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad-first.py",
+      "bytes": 3687,
+      "sha256": "b770734f5ce7014aabf71273cc9cda09132726f14aeb509c01929b815fb494be"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3655,
+      "sha256": "3069914b5025a3305c57bee2ceccb0f991a187fcbd4176f6285e587dca20ae8e"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2187,
+      "sha256": "aba1ade8a2deebd39575f6f3fa81a0feab8ff4422af7a1460d0bc5bf8adfb6c6"
+    },
+    {
+      "path": "reproduction-host-scripts/export-draft.py",
+      "bytes": 5416,
+      "sha256": "e3be4275c09ec6a682eca073809d01a6b5ee91c6c855c13e274c945973980385"
+    },
+    {
+      "path": "reproduction-host-scripts/finalize-export.py",
+      "bytes": 4254,
+      "sha256": "d9e456335917be194c8bba41819a493396ae2a4a077958be1b3f677e960a4ff0"
+    },
+    {
+      "path": "reproduction-host-scripts/inspect-curb224.py",
+      "bytes": 2484,
+      "sha256": "eeb9ecc04605b5114e29404d08e261f03c0fc3c6964877ee04e24df85e23fa10"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4279,
+      "sha256": "25b6ec1cffdc65064905222e7a47196bbfc47b7b6fc2f512ac6cd1e6e012ab82"
+    },
+    {
+      "path": "reproduction-host-scripts/prepare-bounds-candidate.py",
+      "bytes": 3378,
+      "sha256": "a680e0e033ef090b8841fc2ccb6fdcc4b3b1fdea056c7526c159aef81c5e56c8"
+    },
+    {
+      "path": "reproduction-host-scripts/prepare-candidate.py",
+      "bytes": 2095,
+      "sha256": "1cd8481d82f86c319d0ca392309bf9c94c81e4151a3c41094e376673e30ac475"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-curb13-and-next224.py",
+      "bytes": 4164,
+      "sha256": "4a04e2a77305b0065782fbcd115406d802f04e04df1b207d3c136e45f5db7051"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-native-queue224.py",
+      "bytes": 1637,
+      "sha256": "dddff995f34e2f56888a59c21b6f4663e42d60096ac7c947d1f81afe38f00f82"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2421,
+      "sha256": "6ab1783b9d0f1c11c8b8036993c92167aa8ccf7bd9ac6e866ac86bd986066c00"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused-final.py",
+      "bytes": 3858,
+      "sha256": "d8a7f9e6622ab8352b8d0712ea3e096ce90b4ee37a354d3aa807ad70ca49e431"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 3852,
+      "sha256": "051140c50f24dad4a3ecb72cf85c75ea35ef90a024ce0ce6c66c51f49fe0349f"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2089,
+      "sha256": "814e36facc8e953c7c4ac10eade8d3f8dd6a79026d93131515ac9ec4e42a1ac1"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2063,
+      "sha256": "6694f2b312eed48d3956d0482b0463f2a50d473fe4d471ceb8180a191146ad09"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates-complete-profile.py",
+      "bytes": 6703,
+      "sha256": "c753cc558062d64159d0562e2291b088017e7d62223a50228e50ac203d68bf72"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1670,
+      "sha256": "feb1550d80594b9a25e3ff775ebdb346e7ccd34cdab2708fb2edae074f933603"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-candidate-bounds.py",
+      "bytes": 2406,
+      "sha256": "56fd144db1bcf487e746759cfe8dc3c393607a71817b456715c4785499e1a6d8"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-static-box-query.py",
+      "bytes": 3338,
+      "sha256": "b253104622085d5a6a0a9b8d8813517919993753d20447f8694e19238d367f12"
+    },
+    {
+      "path": "shadow/NativeWheelBoxQueryV80.h",
+      "bytes": 3115,
+      "sha256": "3b86099bab077640056935105749b4ada74cafbd94938cd80e255b90796a3cc1"
+    },
+    {
+      "path": "shadow/NativeWheelBoxRayV59.h",
+      "bytes": 2052,
+      "sha256": "7eaa3cffcdeec70f240660f037cc00ceb928980b72373350966810ec56e6533b"
+    },
+    {
+      "path": "shadow/NativeWheelPairLifetimeV106.h",
+      "bytes": 1263,
+      "sha256": "9307e22b76bc2647073828b742d687c15e7a15c191b4aa7ffa1a47a8dcaa3626"
+    },
+    {
+      "path": "shadow/NativeWheelPoseV54.h",
+      "bytes": 2355,
+      "sha256": "85705e021c6f0a7286a3a518dba4493d052b74ad26b152961a2d08f3b7f9895f"
+    },
+    {
+      "path": "shadow/NativeWheelRayV52.h",
+      "bytes": 2097,
+      "sha256": "8d903bf98826524ee1047617195b435ea7a1e714ce8a5f3d4771a166fb7b4347"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 1124,
+      "sha256": "bb018423709d8d04743b9e38a98a5820f9a3a14ab25bb6ff20868d84fb9d5370"
+    },
+    {
+      "path": "verify-box-query.cpp",
+      "bytes": 923,
+      "sha256": "9688da09f652829550a0e16f05ec3410649b605e21fbf085173f93622a35ff9c"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3746,
+      "sha256": "7ce2668d9a98593a41daf7b76eaa8fd1cb0b9266f814b74dd8bee580c9f8b40f"
+    }
+  ],
+  "goal_complete": false
+}

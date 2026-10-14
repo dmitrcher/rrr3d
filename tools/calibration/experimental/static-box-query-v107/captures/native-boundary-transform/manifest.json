@@ -1,0 +1,43 @@
+{
+  "scope": "Original Native read-only debugger traces. Source AFTER_SOLVE sample count provides an authoritative current physical tick. No calculation from the integrator counter. Original exe and DLL unchanged; same fixed physics inputs and all600samples Golden exact.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\wheel-transform-v80\\TraceWheelTransformV80.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\wheel-transform-v80\\TraceWheelTransformV80.exe:\r\ncce3c3c5dc593504429cf1d5bdb818aa172e646d6ab478737f85824c078395fe\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "kind": "creation",
+      "name": "bump-crossing",
+      "repeat": 0,
+      "sample_tick": 48,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4d2b7529252df52b289203e73a21f5d217674311c524dfb46e966a0070567ac6"
+    },
+    {
+      "kind": "creation",
+      "name": "bump-crossing",
+      "repeat": 1,
+      "sample_tick": 48,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "4d67c924994ee90f10a6fca2823f7ec470e212d1b23593adba0e36f0f601f5da"
+    },
+    {
+      "kind": "creation",
+      "name": "bump-crossing",
+      "repeat": 0,
+      "sample_tick": 49,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "bfd3390456a1a200e3dd72e6f98aa1577f0b8ee9a7715b34250b3b6fdc0e2feb"
+    },
+    {
+      "kind": "creation",
+      "name": "bump-crossing",
+      "repeat": 1,
+      "sample_tick": 49,
+      "physical_golden_exact": true,
+      "private_logical_sha256": "9c5554536f4965c4b60829561f4c35c5e035349a0c54e0073ea0a8da9121f779"
+    }
+  ],
+  "goal_complete": false
+}

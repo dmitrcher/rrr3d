@@ -1,0 +1,23 @@
+{
+  "scope": "Identical original static-box inputs; curb13 and bump50, two repeats, original exe/DLL/physical histories unchanged. Prototype not installed in live physics.",
+  "fixtures": 8,
+  "raw_words_per_optimization": 136,
+  "checks": [
+    {
+      "optimization": "O0",
+      "exact": true,
+      "differences": []
+    },
+    {
+      "optimization": "O2",
+      "exact": true,
+      "differences": []
+    }
+  ],
+  "original_constants": {
+    "candidate_initial_value": -1,
+    "side_boundary_epsilon": 1e-05
+  },
+  "live_physics_changed": false,
+  "goal_complete": false
+}

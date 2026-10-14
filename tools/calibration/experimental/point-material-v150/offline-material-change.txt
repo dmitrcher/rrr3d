@@ -1,0 +1,1 @@
+Offline only, NativeMaterialFrameV36.h compute(): replace rawLocal=framev36::multiply(inverse,rawWorld(plane)) with framev36::solverMultiply(inverse,rawWorld(plane)), with RRR3D_EXPERIMENT_NATIVE_SOLVER_SCALAR_V98=1. Test uses prior verify-material.cpp and Source-derived inputs; no runtime change. See converter disassembly and local/full material proofs.

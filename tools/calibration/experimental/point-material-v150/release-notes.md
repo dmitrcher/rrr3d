@@ -1,0 +1,7 @@
+The experimental Mac contact solver previously reused one triangle's material frame for every contact. Each contact now keeps its own callback frame, normal and friction tangents through the Source/Jolt adapter. No vehicle coefficients or Windows reference binaries change.
+
+Map0 now matches every original float32 physical field through sample357, including the body collision at342; the previous first difference was342. All four original contact solver quaternions, effective masses, bias terms, lever arms and contact positions/separations match at342. Repeated moving runs on maps0/16/48/64 first differ at358/244/358/238, so full moving parity remains open.
+
+Both full608-scenario runs match255864 original Windows physical states. All53 CTest checks pass and the default-off path preserves900 V149 moving states. The archive contains the tested arm64 Mac calibration binary, unchanged WindowsWorldProbeV133, fixtures, environment and guarded source/SDK overlay. SDK data layout changes require rebuilding all libraries together. Ordinary installed game is unchanged; proprietary SDK/game DLLs are excluded.
+
+Two next causes at358 are independently isolated: local contact-frame multiplication order and an unnecessary intermediate coordinate transform for body corners. Their offline proofs are included; the runtime corrections are not yet in this binary. This is an investigation prerelease, not a claim of complete physics or game parity.

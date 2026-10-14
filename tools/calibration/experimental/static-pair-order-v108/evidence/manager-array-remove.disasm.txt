@@ -1,0 +1,179 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+1000bfc0: 53                           	pushl	%ebx
+1000bfc1: 55                           	pushl	%ebp
+1000bfc2: 56                           	pushl	%esi
+1000bfc3: 57                           	pushl	%edi
+1000bfc4: 8b f9                        	movl	%ecx, %edi
+1000bfc6: 8b 47 1c                     	movl	0x1c(%edi), %eax
+1000bfc9: 8b 50 1c                     	movl	0x1c(%eax), %edx
+1000bfcc: 0f b7 5f 24                  	movzwl	0x24(%edi), %ebx
+1000bfd0: 8b 70 18                     	movl	0x18(%eax), %esi
+1000bfd3: 83 c0 18                     	addl	$0x18, %eax
+1000bfd6: 8b ea                        	movl	%edx, %ebp
+1000bfd8: 2b ee                        	subl	%esi, %ebp
+1000bfda: c1 fd 02                     	sarl	$0x2, %ebp
+1000bfdd: 0f b7 cb                     	movzwl	%bx, %ecx
+1000bfe0: 4d                           	decl	%ebp
+1000bfe1: 3b cd                        	cmpl	%ebp, %ecx
+1000bfe3: 74 06                        	je	0x1000bfeb <.text+0xafeb>
+1000bfe5: 8b 52 fc                     	movl	-0x4(%edx), %edx
+1000bfe8: 89 14 8e                     	movl	%edx, (%esi,%ecx,4)
+1000bfeb: 83 40 04 fc                  	addl	$-0x4, 0x4(%eax)
+1000bfef: 8b 47 1c                     	movl	0x1c(%edi), %eax
+1000bff2: 8b 50 1c                     	movl	0x1c(%eax), %edx
+1000bff5: 2b 50 18                     	subl	0x18(%eax), %edx
+1000bff8: c1 fa 02                     	sarl	$0x2, %edx
+1000bffb: 3b ca                        	cmpl	%edx, %ecx
+1000bffd: 73 15                        	jae	0x1000c014 <.text+0xb014>
+1000bfff: 8b 50 18                     	movl	0x18(%eax), %edx
+1000c002: 8b 0c 8a                     	movl	(%edx,%ecx,4), %ecx
+1000c005: 39 41 1c                     	cmpl	%eax, 0x1c(%ecx)
+1000c008: 75 06                        	jne	0x1000c010 <.text+0xb010>
+1000c00a: 66 89 59 24                  	movw	%bx, 0x24(%ecx)
+1000c00e: eb 04                        	jmp	0x1000c014 <.text+0xb014>
+1000c010: 66 89 59 26                  	movw	%bx, 0x26(%ecx)
+1000c014: b8 ff ff 00 00               	movl	$0xffff, %eax           # imm = 0xFFFF
+1000c019: 66 89 47 24                  	movw	%ax, 0x24(%edi)
+1000c01d: 8b 47 20                     	movl	0x20(%edi), %eax
+1000c020: bb ff ff 00 00               	movl	$0xffff, %ebx           # imm = 0xFFFF
+1000c025: 39 47 1c                     	cmpl	%eax, 0x1c(%edi)
+1000c028: 74 04                        	je	0x1000c02e <.text+0xb02e>
+1000c02a: 0f b7 5f 26                  	movzwl	0x26(%edi), %ebx
+1000c02e: 8b 50 1c                     	movl	0x1c(%eax), %edx
+1000c031: 8b 70 18                     	movl	0x18(%eax), %esi
+1000c034: 8b ea                        	movl	%edx, %ebp
+1000c036: 2b ee                        	subl	%esi, %ebp
+1000c038: c1 fd 02                     	sarl	$0x2, %ebp
+1000c03b: 0f b7 cb                     	movzwl	%bx, %ecx
+1000c03e: 4d                           	decl	%ebp
+1000c03f: 3b cd                        	cmpl	%ebp, %ecx
+1000c041: 74 06                        	je	0x1000c049 <.text+0xb049>
+1000c043: 8b 52 fc                     	movl	-0x4(%edx), %edx
+1000c046: 89 14 8e                     	movl	%edx, (%esi,%ecx,4)
+1000c049: 83 40 1c fc                  	addl	$-0x4, 0x1c(%eax)
+1000c04d: 8b 47 20                     	movl	0x20(%edi), %eax
+1000c050: 8b 50 1c                     	movl	0x1c(%eax), %edx
+1000c053: 2b 50 18                     	subl	0x18(%eax), %edx
+1000c056: c1 fa 02                     	sarl	$0x2, %edx
+1000c059: 3b ca                        	cmpl	%edx, %ecx
+1000c05b: 73 15                        	jae	0x1000c072 <.text+0xb072>
+1000c05d: 8b 50 18                     	movl	0x18(%eax), %edx
+1000c060: 8b 0c 8a                     	movl	(%edx,%ecx,4), %ecx
+1000c063: 39 41 1c                     	cmpl	%eax, 0x1c(%ecx)
+1000c066: 75 06                        	jne	0x1000c06e <.text+0xb06e>
+1000c068: 66 89 59 24                  	movw	%bx, 0x24(%ecx)
+1000c06c: eb 04                        	jmp	0x1000c072 <.text+0xb072>
+1000c06e: 66 89 59 26                  	movw	%bx, 0x26(%ecx)
+1000c072: 8b 77 04                     	movl	0x4(%edi), %esi
+1000c075: b8 ff ff 00 00               	movl	$0xffff, %eax           # imm = 0xFFFF
+1000c07a: 57                           	pushl	%edi
+1000c07b: 66 89 47 26                  	movw	%ax, 0x26(%edi)
+1000c07f: e8 7c 20 09 00               	calll	0x1009e100 <AgPmDestroySourceConnection+0xa890>
+1000c084: 8b 77 08                     	movl	0x8(%edi), %esi
+1000c087: 57                           	pushl	%edi
+1000c088: e8 73 20 09 00               	calll	0x1009e100 <AgPmDestroySourceConnection+0xa890>
+1000c08d: 8b 4f 04                     	movl	0x4(%edi), %ecx
+1000c090: 8b 51 0c                     	movl	0xc(%ecx), %edx
+1000c093: 57                           	pushl	%edi
+1000c094: 52                           	pushl	%edx
+1000c095: e8 96 16 09 00               	calll	0x1009d730 <AgPmDestroySourceConnection+0x9ec0>
+1000c09a: 8b 07                        	movl	(%edi), %eax
+1000c09c: 8b 50 08                     	movl	0x8(%eax), %edx
+1000c09f: 8b cf                        	movl	%edi, %ecx
+1000c0a1: ff d2                        	calll	*%edx
+1000c0a3: 84 c0                        	testb	%al, %al
+1000c0a5: 74 0d                        	je	0x1000c0b4 <.text+0xb0b4>
+1000c0a7: 8b 07                        	movl	(%edi), %eax
+1000c0a9: 8b 50 18                     	movl	0x18(%eax), %edx
+1000c0ac: 8b cf                        	movl	%edi, %ecx
+1000c0ae: 5f                           	popl	%edi
+1000c0af: 5e                           	popl	%esi
+1000c0b0: 5d                           	popl	%ebp
+1000c0b1: 5b                           	popl	%ebx
+1000c0b2: ff e2                        	jmpl	*%edx
+1000c0b4: 5f                           	popl	%edi
+1000c0b5: 5e                           	popl	%esi
+1000c0b6: 5d                           	popl	%ebp
+1000c0b7: 5b                           	popl	%ebx
+1000c0b8: c3                           	retl
+1000c0b9: cc                           	int3
+1000c0ba: cc                           	int3
+1000c0bb: cc                           	int3
+1000c0bc: cc                           	int3
+1000c0bd: cc                           	int3
+1000c0be: cc                           	int3
+1000c0bf: cc                           	int3
+1000c0c0: 8b 44 24 04                  	movl	0x4(%esp), %eax
+1000c0c4: c7 00 2c 27 31 10            	movl	$0x1031272c, (%eax)     # imm = 0x1031272C
+1000c0ca: 56                           	pushl	%esi
+1000c0cb: be ff ff 00 00               	movl	$0xffff, %esi           # imm = 0xFFFF
+1000c0d0: 66 89 70 04                  	movw	%si, 0x4(%eax)
+1000c0d4: be 01 00 00 00               	movl	$0x1, %esi
+1000c0d9: 66 89 70 06                  	movw	%si, 0x6(%eax)
+1000c0dd: 8b 71 24                     	movl	0x24(%ecx), %esi
+1000c0e0: 57                           	pushl	%edi
+1000c0e1: 8b 7a 24                     	movl	0x24(%edx), %edi
+1000c0e4: 89 70 10                     	movl	%esi, 0x10(%eax)
+1000c0e7: be ff ff 00 00               	movl	$0xffff, %esi           # imm = 0xFFFF
+1000c0ec: 89 48 28                     	movl	%ecx, 0x28(%eax)
+1000c0ef: 66 89 70 18                  	movw	%si, 0x18(%eax)
+1000c0f3: 66 89 70 1a                  	movw	%si, 0x1a(%eax)
+1000c0f7: 8b 74 24 10                  	movl	0x10(%esp), %esi
+1000c0fb: 89 50 24                     	movl	%edx, 0x24(%eax)
+1000c0fe: b9 ff ff 00 00               	movl	$0xffff, %ecx           # imm = 0xFFFF
+1000c103: 89 78 0c                     	movl	%edi, 0xc(%eax)
+1000c106: 89 70 1c                     	movl	%esi, 0x1c(%eax)
+1000c109: 8b d1                        	movl	%ecx, %edx
+1000c10b: c7 40 14 ff ff ff ff         	movl	$0xffffffff, 0x14(%eax) # imm = 0xFFFFFFFF
+1000c112: c6 40 20 00                  	movb	$0x0, 0x20(%eax)
+1000c116: c7 40 08 38 27 31 10         	movl	$0x10312738, 0x8(%eax)  # imm = 0x10312738
+1000c11d: 66 89 48 2c                  	movw	%cx, 0x2c(%eax)
+1000c121: 66 89 50 2e                  	movw	%dx, 0x2e(%eax)
+1000c125: 5f                           	popl	%edi
+1000c126: c7 00 e8 26 31 10            	movl	$0x103126e8, (%eax)     # imm = 0x103126E8
+1000c12c: c7 40 08 f4 26 31 10         	movl	$0x103126f4, 0x8(%eax)  # imm = 0x103126F4
+1000c133: 5e                           	popl	%esi
+1000c134: c2 08 00                     	retl	$0x8
+1000c137: cc                           	int3
+1000c138: cc                           	int3
+1000c139: cc                           	int3
+1000c13a: cc                           	int3
+1000c13b: cc                           	int3
+1000c13c: cc                           	int3
+1000c13d: cc                           	int3
+1000c13e: cc                           	int3
+1000c13f: cc                           	int3
+1000c140: f6 44 24 04 01               	testb	$0x1, 0x4(%esp)
+1000c145: 56                           	pushl	%esi
+1000c146: 8b f1                        	movl	%ecx, %esi
+1000c148: c7 46 08 f4 26 31 10         	movl	$0x103126f4, 0x8(%esi)  # imm = 0x103126F4
+1000c14f: c7 46 08 10 27 31 10         	movl	$0x10312710, 0x8(%esi)  # imm = 0x10312710
+1000c156: c7 06 2c 27 31 10            	movl	$0x1031272c, (%esi)     # imm = 0x1031272C
+1000c15c: 74 0e                        	je	0x1000c16c <.text+0xb16c>
+1000c15e: 8b 0d e0 07 35 10            	movl	0x103507e0, %ecx
+1000c164: 8b 01                        	movl	(%ecx), %eax
+1000c166: 8b 50 14                     	movl	0x14(%eax), %edx
+1000c169: 56                           	pushl	%esi
+1000c16a: ff d2                        	calll	*%edx
+1000c16c: 8b c6                        	movl	%esi, %eax
+1000c16e: 5e                           	popl	%esi
+1000c16f: c2 04 00                     	retl	$0x4
+1000c172: cc                           	int3
+1000c173: cc                           	int3
+1000c174: cc                           	int3
+1000c175: cc                           	int3
+1000c176: cc                           	int3
+1000c177: cc                           	int3
+1000c178: cc                           	int3
+1000c179: cc                           	int3
+1000c17a: cc                           	int3
+1000c17b: cc                           	int3
+1000c17c: cc                           	int3
+1000c17d: cc                           	int3
+1000c17e: cc                           	int3
+1000c17f: cc                           	int3

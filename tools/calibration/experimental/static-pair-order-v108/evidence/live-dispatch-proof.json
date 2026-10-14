@@ -1,0 +1,183 @@
+{
+  "scope": "Actual Mac independent runtime geometry and manager lifecycle, not Native event/pose replay: observed dispatch ranks equal independently captured Native processor indices in two Native repeats. Inactive wheel indices in creation_visits allocate no current spring object.",
+  "probe_sha256": "3d6d559955fc88ab48a79ed78be9329e3cd926b8b6cb08f8eb4b25b433c8a53f",
+  "checks": [
+    {
+      "repeat": 0,
+      "physical_tick": 19,
+      "actual_Native_wheel_processor_ranks": [
+        1,
+        3,
+        2,
+        4
+      ],
+      "actual_Mac_dispatch_ranks": [
+        1,
+        3,
+        2,
+        4
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "repeat": 0,
+      "physical_tick": 203,
+      "actual_Native_wheel_processor_ranks": [
+        0,
+        3,
+        2,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        0,
+        3,
+        2,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "repeat": 0,
+      "physical_tick": 220,
+      "actual_Native_wheel_processor_ranks": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "repeat": 0,
+      "physical_tick": 224,
+      "actual_Native_wheel_processor_ranks": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        2,
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 19,
+      "actual_Native_wheel_processor_ranks": [
+        1,
+        3,
+        2,
+        4
+      ],
+      "actual_Mac_dispatch_ranks": [
+        1,
+        3,
+        2,
+        4
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 203,
+      "actual_Native_wheel_processor_ranks": [
+        0,
+        3,
+        2,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        0,
+        3,
+        2,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 220,
+      "actual_Native_wheel_processor_ranks": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        0,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        0,
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "repeat": 1,
+      "physical_tick": 224,
+      "actual_Native_wheel_processor_ranks": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_dispatch_ranks": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "actual_Mac_creation_visits_including_inactive_wheels": [
+        2,
+        3,
+        1,
+        0
+      ]
+    }
+  ],
+  "goal_complete": false
+}

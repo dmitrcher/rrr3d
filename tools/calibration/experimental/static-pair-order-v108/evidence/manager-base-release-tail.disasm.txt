@@ -1,0 +1,87 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10013f60: b9 ff ff 00 00               	movl	$0xffff, %ecx           # imm = 0xFFFF
+10013f65: 66 01 48 10                  	addw	%cx, 0x10(%eax)
+10013f69: 0f b7 48 10                  	movzwl	0x10(%eax), %ecx
+10013f6d: 66 85 c9                     	testw	%cx, %cx
+10013f70: 75 03                        	jne	0x10013f75 <.text+0x12f75>
+10013f72: 89 50 08                     	movl	%edx, 0x8(%eax)
+10013f75: 8b 57 28                     	movl	0x28(%edi), %edx
+10013f78: 8b c2                        	movl	%edx, %eax
+10013f7a: c1 e8 0f                     	shrl	$0xf, %eax
+10013f7d: a8 01                        	testb	$0x1, %al
+10013f7f: 0f 84 b8 00 00 00            	je	0x1001403d <.text+0x1303d>
+10013f85: 8b 47 1c                     	movl	0x1c(%edi), %eax
+10013f88: 85 c0                        	testl	%eax, %eax
+10013f8a: 74 05                        	je	0x10013f91 <.text+0x12f91>
+10013f8c: 83 c0 fc                     	addl	$-0x4, %eax
+10013f8f: eb 02                        	jmp	0x10013f93 <.text+0x12f93>
+10013f91: 33 c0                        	xorl	%eax, %eax
+10013f93: 8b b0 28 01 00 00            	movl	0x128(%eax), %esi
+10013f99: 8b 47 20                     	movl	0x20(%edi), %eax
+10013f9c: 85 c0                        	testl	%eax, %eax
+10013f9e: 74 05                        	je	0x10013fa5 <.text+0x12fa5>
+10013fa0: 83 c0 fc                     	addl	$-0x4, %eax
+10013fa3: eb 02                        	jmp	0x10013fa7 <.text+0x12fa7>
+10013fa5: 33 c0                        	xorl	%eax, %eax
+10013fa7: 8b 98 28 01 00 00            	movl	0x128(%eax), %ebx
+10013fad: 85 f6                        	testl	%esi, %esi
+10013faf: 74 46                        	je	0x10013ff7 <.text+0x12ff7>
+10013fb1: 8b 8e 78 01 00 00            	movl	0x178(%esi), %ecx
+10013fb7: 3b cd                        	cmpl	%ebp, %ecx
+10013fb9: 74 20                        	je	0x10013fdb <.text+0x12fdb>
+10013fbb: 8b 86 48 01 00 00            	movl	0x148(%esi), %eax
+10013fc1: 8b a8 8c 00 00 00            	movl	0x8c(%eax), %ebp
+10013fc7: 2b e9                        	subl	%ecx, %ebp
+10013fc9: 4d                           	decl	%ebp
+10013fca: 81 e5 ff ff ff 7f            	andl	$0x7fffffff, %ebp       # imm = 0x7FFFFFFF
+10013fd0: 39 a8 80 00 00 00            	cmpl	%ebp, 0x80(%eax)
+10013fd6: 73 1c                        	jae	0x10013ff4 <.text+0x12ff4>
+10013fd8: 83 cd ff                     	orl	$-0x1, %ebp
+10013fdb: c1 ea 10                     	shrl	$0x10, %edx
+10013fde: f6 c2 01                     	testb	$0x1, %dl
+10013fe1: 75 14                        	jne	0x10013ff7 <.text+0x12ff7>
+10013fe3: d9 05 84 16 33 10            	flds	0x10331684
+10013fe9: 51                           	pushl	%ecx
+10013fea: d9 1c 24                     	fstps	(%esp)
+10013fed: e8 7e d2 19 00               	calll	0x101b1270 <NpCreatePhysicsSDK+0xa4100>
+10013ff2: eb 03                        	jmp	0x10013ff7 <.text+0x12ff7>
+10013ff4: 83 cd ff                     	orl	$-0x1, %ebp
+10013ff7: 85 db                        	testl	%ebx, %ebx
+10013ff9: 74 42                        	je	0x1001403d <.text+0x1303d>
+10013ffb: 8b 8b 78 01 00 00            	movl	0x178(%ebx), %ecx
+10014001: 3b cd                        	cmpl	%ebp, %ecx
+10014003: 74 1d                        	je	0x10014022 <.text+0x13022>
+10014005: 8b 83 48 01 00 00            	movl	0x148(%ebx), %eax
+1001400b: 8b 90 8c 00 00 00            	movl	0x8c(%eax), %edx
+10014011: 2b d1                        	subl	%ecx, %edx
+10014013: 4a                           	decl	%edx
+10014014: 81 e2 ff ff ff 7f            	andl	$0x7fffffff, %edx       # imm = 0x7FFFFFFF
+1001401a: 39 90 80 00 00 00            	cmpl	%edx, 0x80(%eax)
+10014020: 73 1b                        	jae	0x1001403d <.text+0x1303d>
+10014022: 8b 47 28                     	movl	0x28(%edi), %eax
+10014025: c1 e8 11                     	shrl	$0x11, %eax
+10014028: a8 01                        	testb	$0x1, %al
+1001402a: 75 11                        	jne	0x1001403d <.text+0x1303d>
+1001402c: d9 05 84 16 33 10            	flds	0x10331684
+10014032: 51                           	pushl	%ecx
+10014033: 8b f3                        	movl	%ebx, %esi
+10014035: d9 1c 24                     	fstps	(%esp)
+10014038: e8 33 d2 19 00               	calll	0x101b1270 <NpCreatePhysicsSDK+0xa4100>
+1001403d: 8b 47 2c                     	movl	0x2c(%edi), %eax
+10014040: b9 ff ff 00 00               	movl	$0xffff, %ecx           # imm = 0xFFFF
+10014045: 66 01 48 12                  	addw	%cx, 0x12(%eax)
+10014049: 8b 4f 34                     	movl	0x34(%edi), %ecx
+1001404c: 85 c9                        	testl	%ecx, %ecx
+1001404e: 74 32                        	je	0x10014082 <.text+0x13082>
+10014050: 8b 47 1c                     	movl	0x1c(%edi), %eax
+10014053: 85 c0                        	testl	%eax, %eax
+10014055: 74 05                        	je	0x1001405c <.text+0x1305c>
+10014057: 83 c0 fc                     	addl	$-0x4, %eax
+1001405a: eb 02                        	jmp	0x1001405e <.text+0x1305e>
+1001405c: 33 c0                        	xorl	%eax, %eax
+1001405e: 8b 90 2c 01 00 00            	movl	0x12c(%eax), %edx

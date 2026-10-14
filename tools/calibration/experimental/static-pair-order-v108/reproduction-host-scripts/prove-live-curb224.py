@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,gzip,struct
+r=Path.cwd();bits=lambda v:struct.unpack('<I',struct.pack('<f',v))[0];swap=lambda v:[v[0],v[2],v[1]]
+def load(p):return [json.loads(line,parse_int=lambda v:-0.0 if v=='-0' else int(v)) for line in (gzip.open(p,'rt') if str(p).endswith('.gz') else p.open())]
+proof=[]
+for rep in range(2):
+ n=[row for row in load(r/f'outputs/static-box-query-v107/native-next-curb224/curb-side-230-{rep}-private.jsonl.gz') if row.get('sample_tick_v71')==224];ni=[row for row in n if row.get('function')=='spring-solve-input'];nr=[row for row in n if row.get('function')=='spring-solve-result'];p=r/'outputs/static-pair-order-v108/mac-curb224';tag=f'curb-side-224-{rep}';prep=load(p/(tag+'-prep.jsonl'));solver=load(p/(tag+'-solver.jsonl'));si=[row for row in solver if row['phase']=='spring-before'];sr=[row for row in solver if row['phase']=='spring-after'];tire=load(p/(tag+'-tire.jsonl'));ti=[row for row in tire if row['event'].endswith('-input')];tr=[row for row in tire if row['event'].endswith('-result')];assert len(ni)==len(nr)==45 and len(si)==len(sr)==15 and len(ti)==len(tr)==30;orders=[]
+ for iteration in range(5):
+  assert [row['wheel'] for row in si[iteration*3:iteration*3+3]]==[0,1,3]
+  for index in range(3):
+   m=si[iteration*3+index];n=ni[iteration*9+index];row=n['solve_row']['words'];pr=next(x for x in prep if x['wheel']==m['wheel']);assert bits(m['mass'])==row[11];assert list(map(bits,pr['world_axis']))==row[8:11];assert list(map(bits,pr['spring']['jacobian']))==row[12:15];assert list(map(bits,pr['spring']['inverse_jacobian']))==row[20:23];assert list(map(bits,m['velocity']))==n['solve_body0']['words'][:3];assert list(map(bits,m['angular']))==n['solve_body0']['words'][4:7];assert bits(sr[iteration*3+index]['lambda'])==nr[iteration*9+index]['solve_row']['words'][28]
+  visits=[]
+  for index in range(6):
+   m=ti[iteration*6+index];n=ni[iteration*9+3+index];row=n['solve_row']['words'];match=[x for x in prep if list(map(bits,swap(x['world_point'])))==list(map(bits,m['position']))];assert len(match)==1;visits.append(match[0]['wheel']);assert bits(m['mass'])==row[11];assert list(map(bits,[-v for v in swap(m['axis'])]))==row[8:11];assert list(map(bits,swap(m['r_cross_axis'])))==row[12:15];assert list(map(bits,swap(m['inv_i_r_cross_axis'])))==row[20:23];assert list(map(bits,swap(m['linear'])))==n['solve_body0']['words'][:3];assert list(map(bits,[-v for v in swap(m['angular'])]))==n['solve_body0']['words'][4:7];assert bits(m['minimum'])==row[30] and bits(m['maximum'])==row[29];assert bits(tr[iteration*6+index]['lambda'])==nr[iteration*9+3+index]['solve_row']['words'][28]
+  orders.append(visits)
+ proof.append({'repeat':rep,'physical_tick':224,'all_five_iterations_spring_order_exact':[0,1,3],'prepared_spring_properties_incoming_bodies_result_lambdas_exact':15,'all_tire_properties_incoming_bodies_limits_result_lambdas_exact':30,'actual_tire_visits':orders})
+(r/'outputs/static-pair-order-v108/live-curb224-proof.json').write_text(json.dumps({'scope':'Actual original Native and actual live Mac V108 at the formerly first divergent224. All five iterations, corresponding prepared geometry, incoming bodies, row limits and lambdas match. Entire curb600 histories independently Native-equivalent. Generic manager lifecycle drives order; no hypothetical row permutation or reference reset.','proof':proof,'goal_complete':False},indent=2)+'\n');print('Two repeats:15 springs+30 tire rows, all properties/input bodies/limits/results exact Native, correct spring order0,1,3.')

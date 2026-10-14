@@ -1,0 +1,30 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_Native_event_repeats": 2,
+      "all_original_observed_wheel_processor_slots_exact": true,
+      "body_managers_excluded": true,
+      "original_events_never_used_in_runtime": true
+    },
+    {
+      "optimization": "O2",
+      "actual_Native_event_repeats": 2,
+      "all_original_observed_wheel_processor_slots_exact": true,
+      "body_managers_excluded": true,
+      "original_events_never_used_in_runtime": true
+    }
+  ],
+  "goal_complete": false,
+  "fresh_original_Native_equal_states": {
+    "settle": 600,
+    "slope-longitudinal": 600,
+    "slope-lateral": 600,
+    "bump-crossing": 600,
+    "curb-side": 600
+  },
+  "full_Native_equal_states": 3000,
+  "retained_roll_contact_states": 180,
+  "retained_roll_matches_windows_claimed": false,
+  "probe_sha256": "3d6d559955fc88ab48a79ed78be9329e3cd926b8b6cb08f8eb4b25b433c8a53f"
+}

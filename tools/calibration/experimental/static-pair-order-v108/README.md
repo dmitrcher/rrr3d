@@ -1,0 +1,15 @@
+# Static wheel contact-manager dispatch V108
+
+Default-off six-file delta over the verified static-box-query-v107 module and its prerequisites. Apply with apply-experiment.py, then rebuild all consumers: VehicleConstraint private layout changes.
+
+The wheel contact-manager processor keeps dense slots. On deferred retirement of a manager, the last registered wheel manager fills its vacancy. Body contact managers use a separate processor. Current dispatch slots must not be confused with first wheel callback arrival ages, generic spring/tire object creation ages or broadphase pair birth serials. The new SDK array carries only current dispatch order; it never declares an object recreated.
+
+Actual original Native manager slot snapshots at curb19,203,220,224 bind the mechanism: wheel slots evolve0,2,1,3 ->3,2,1 ->3,1 ->3,1,0. The generic production helper replays actual original pair events under O0/O2 and matches every observed slot in both repeats. The actual Mac runtime derives its own events from source suspension-line, vehicle box and static geometry; it receives no original events or poses. Its dispatch ranks independently match Native snapshots. At formerly divergent224 all five iterations match actual Native:15 spring and30 tire prepared properties, incoming bodies, limits and result lambdas. Both complete600-step curb histories now match the original observable contract.
+
+Geometry integration currently supports one original terrain mesh, one vehicle and static solid box decorations with no child shapes. Actual source creation order is respected. Other scene types retain their previous ordering; this domain restriction is not a claim that their parity is finished. New flags stay off by default. No coefficient fitting, wheel/frame/case permutation or reference-state reset is used.
+
+Run verify.py --probe /absolute/path/to/rrr3d_physics_calibration. It validates production lifecycle arithmetic under O0/O2,3000 fresh full Native-equivalent states and180 retained V107 roll-contact states. The latter proves preservation only. Consult repeated608-case broad and complete-run regression/error reports before accepting the checkpoint. Complete-game/render equality is unproven, ordinary installed game is unchanged, and the overall goal remains incomplete.
+
+Disassembly excerpts are diagnostic context: the shape contact-list removal explicitly replaces an element with the last pointer; the separate wheel-processor slot mechanism is bound by actual Native slot observations, not inferred from that shape-list routine alone.
+
+Two fresh complete608-case matrices:468strict140open, all467 prior strict retained, exactly repeatable255864-state runs. Only curb-side changes;607 complete histories are unchanged and no full-run maximum worsens versusV107. Curb600 now matches Native;291 independent physics gates,53CTest checks, solo600 and rendered240 functional checks passed. The previously open border-grounded case remains unresolved: actual first61 body state/tensor/lever/mass matches while scaled bias differs one ULP. These game checks do not prove complete-game/render equivalence.

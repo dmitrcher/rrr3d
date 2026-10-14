@@ -1,0 +1,191 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1018bd80: 74 4c                        	je	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bd82: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+1018bd86: 83 c1 48                     	addl	$0x48, %ecx
+1018bd89: 51                           	pushl	%ecx
+1018bd8a: 8b f3                        	movl	%ebx, %esi
+1018bd8c: e8 df f3 ff ff               	calll	0x1018b170 <NpCreatePhysicsSDK+0x7e000>
+1018bd91: 84 c0                        	testb	%al, %al
+1018bd93: 74 39                        	je	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bd95: 66 01 7b 12                  	addw	%di, 0x12(%ebx)
+1018bd99: eb 33                        	jmp	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bd9b: 8b 55 00                     	movl	(%ebp), %edx
+1018bd9e: 8b 42 10                     	movl	0x10(%edx), %eax
+1018bda1: 8b cd                        	movl	%ebp, %ecx
+1018bda3: ff d0                        	calll	*%eax
+1018bda5: 84 c0                        	testb	%al, %al
+1018bda7: 74 25                        	je	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bda9: 8b c3                        	movl	%ebx, %eax
+1018bdab: e8 00 f2 0b 00               	calll	0x1024afb0 <NxCreateCoreSDK+0x6bd60>
+1018bdb0: a9 04 02 00 00               	testl	$0x204, %eax            # imm = 0x204
+1018bdb5: 74 17                        	je	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bdb7: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+1018bdbb: 83 c1 48                     	addl	$0x48, %ecx
+1018bdbe: 51                           	pushl	%ecx
+1018bdbf: 8b f3                        	movl	%ebx, %esi
+1018bdc1: e8 aa f3 ff ff               	calll	0x1018b170 <NpCreatePhysicsSDK+0x7e000>
+1018bdc6: 84 c0                        	testb	%al, %al
+1018bdc8: 74 04                        	je	0x1018bdce <NpCreatePhysicsSDK+0x7ec5e>
+1018bdca: 66 ff 43 12                  	incw	0x12(%ebx)
+1018bdce: 8b 45 24                     	movl	0x24(%ebp), %eax
+1018bdd1: 85 c0                        	testl	%eax, %eax
+1018bdd3: 74 05                        	je	0x1018bdda <NpCreatePhysicsSDK+0x7ec6a>
+1018bdd5: 83 c0 fc                     	addl	$-0x4, %eax
+1018bdd8: eb 02                        	jmp	0x1018bddc <NpCreatePhysicsSDK+0x7ec6c>
+1018bdda: 33 c0                        	xorl	%eax, %eax
+1018bddc: 8b 90 2c 01 00 00            	movl	0x12c(%eax), %edx
+1018bde2: 81 c2 44 03 00 00            	addl	$0x344, %edx            # imm = 0x344
+1018bde8: 52                           	pushl	%edx
+1018bde9: ff 15 14 50 27 10            	calll	*0x10275014
+1018bdef: 8b 45 1c                     	movl	0x1c(%ebp), %eax
+1018bdf2: 83 e8 00                     	subl	$0x0, %eax
+1018bdf5: 74 40                        	je	0x1018be37 <NpCreatePhysicsSDK+0x7ecc7>
+1018bdf7: 83 e8 01                     	subl	$0x1, %eax
+1018bdfa: 74 2a                        	je	0x1018be26 <NpCreatePhysicsSDK+0x7ecb6>
+1018bdfc: 83 e8 01                     	subl	$0x1, %eax
+1018bdff: 75 59                        	jne	0x1018be5a <NpCreatePhysicsSDK+0x7ecea>
+1018be01: 8b 44 24 18                  	movl	0x18(%esp), %eax
+1018be05: 8b 70 58                     	movl	0x58(%eax), %esi
+1018be08: 8d 4d 08                     	leal	0x8(%ebp), %ecx
+1018be0b: e8 f0 a7 0c 00               	calll	0x10256600 <NxCreateCoreSDK+0x773b0>
+1018be10: 8b 55 00                     	movl	(%ebp), %edx
+1018be13: 8b 02                        	movl	(%edx), %eax
+1018be15: 6a 00                        	pushl	$0x0
+1018be17: 8b cd                        	movl	%ebp, %ecx
+1018be19: ff d0                        	calll	*%eax
+1018be1b: 8b 4e 74                     	movl	0x74(%esi), %ecx
+1018be1e: 89 4d 00                     	movl	%ecx, (%ebp)
+1018be21: 89 6e 74                     	movl	%ebp, 0x74(%esi)
+1018be24: eb 34                        	jmp	0x1018be5a <NpCreatePhysicsSDK+0x7ecea>
+1018be26: 8b 54 24 18                  	movl	0x18(%esp), %edx
+1018be2a: 8b 42 58                     	movl	0x58(%edx), %eax
+1018be2d: 50                           	pushl	%eax
+1018be2e: 8b f5                        	movl	%ebp, %esi
+1018be30: e8 2b fd ff ff               	calll	0x1018bb60 <NpCreatePhysicsSDK+0x7e9f0>
+1018be35: eb 23                        	jmp	0x1018be5a <NpCreatePhysicsSDK+0x7ecea>
+1018be37: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+1018be3b: 8b 71 58                     	movl	0x58(%ecx), %esi
+1018be3e: 8d 4d 08                     	leal	0x8(%ebp), %ecx
+1018be41: e8 aa b0 07 00               	calll	0x10206ef0 <NxCreateCoreSDK+0x27ca0>
+1018be46: 8b 55 00                     	movl	(%ebp), %edx
+1018be49: 8b 02                        	movl	(%edx), %eax
+1018be4b: 6a 00                        	pushl	$0x0
+1018be4d: 8b cd                        	movl	%ebp, %ecx
+1018be4f: ff d0                        	calll	*%eax
+1018be51: 8b 4e 2c                     	movl	0x2c(%esi), %ecx
+1018be54: 89 4d 00                     	movl	%ecx, (%ebp)
+1018be57: 89 6e 2c                     	movl	%ebp, 0x2c(%esi)
+1018be5a: 66 83 7b 12 00               	cmpw	$0x0, 0x12(%ebx)
+1018be5f: 75 0e                        	jne	0x1018be6f <NpCreatePhysicsSDK+0x7ecff>
+1018be61: 8b 54 24 18                  	movl	0x18(%esp), %edx
+1018be65: 8b 42 58                     	movl	0x58(%edx), %eax
+1018be68: 53                           	pushl	%ebx
+1018be69: 50                           	pushl	%eax
+1018be6a: e8 61 85 e8 ff               	calll	0x100143d0 <.text+0x133d0>
+1018be6f: 5f                           	popl	%edi
+1018be70: 5e                           	popl	%esi
+1018be71: 5d                           	popl	%ebp
+1018be72: 5b                           	popl	%ebx
+1018be73: 59                           	popl	%ecx
+1018be74: c2 08 00                     	retl	$0x8
+1018be77: cc                           	int3
+1018be78: cc                           	int3
+1018be79: cc                           	int3
+1018be7a: cc                           	int3
+1018be7b: cc                           	int3
+1018be7c: cc                           	int3
+1018be7d: cc                           	int3
+1018be7e: cc                           	int3
+1018be7f: cc                           	int3
+1018be80: 51                           	pushl	%ecx
+1018be81: 56                           	pushl	%esi
+1018be82: 8b f0                        	movl	%eax, %esi
+1018be84: f6 46 06 10                  	testb	$0x10, 0x6(%esi)
+1018be88: 57                           	pushl	%edi
+1018be89: 8b f9                        	movl	%ecx, %edi
+1018be8b: 74 19                        	je	0x1018bea6 <NpCreatePhysicsSDK+0x7ed36>
+1018be8d: 8b 06                        	movl	(%esi), %eax
+1018be8f: 8b 50 08                     	movl	0x8(%eax), %edx
+1018be92: 8b ce                        	movl	%esi, %ecx
+1018be94: ff d2                        	calll	*%edx
+1018be96: 8b ce                        	movl	%esi, %ecx
+1018be98: e8 e3 d8 ff ff               	calll	0x10189780 <NpCreatePhysicsSDK+0x7c610>
+1018be9d: b8 ef ff 00 00               	movl	$0xffef, %eax           # imm = 0xFFEF
+1018bea2: 66 21 46 06                  	andw	%ax, 0x6(%esi)
+1018bea6: f6 46 06 08                  	testb	$0x8, 0x6(%esi)
+1018beaa: 74 09                        	je	0x1018beb5 <NpCreatePhysicsSDK+0x7ed45>
+1018beac: 8b d6                        	movl	%esi, %edx
+1018beae: 8b cf                        	movl	%edi, %ecx
+1018beb0: e8 6b d9 ff ff               	calll	0x10189820 <NpCreatePhysicsSDK+0x7c6b0>
+1018beb5: 8b 46 1c                     	movl	0x1c(%esi), %eax
+1018beb8: 83 f8 06                     	cmpl	$0x6, %eax
+1018bebb: 77 47                        	ja	0x1018bf04 <NpCreatePhysicsSDK+0x7ed94>
+1018bebd: ff 24 85 08 bf 18 10         	jmpl	*0x1018bf08(,%eax,4)
+1018bec4: 8b 7f 58                     	movl	0x58(%edi), %edi
+1018bec7: 8d 4e 08                     	leal	0x8(%esi), %ecx
+1018beca: e8 21 61 07 00               	calll	0x10201ff0 <NxCreateCoreSDK+0x22da0>
+1018becf: 8b 16                        	movl	(%esi), %edx
+1018bed1: 8b 02                        	movl	(%edx), %eax
+1018bed3: 6a 00                        	pushl	$0x0
+1018bed5: 8b ce                        	movl	%esi, %ecx
+1018bed7: ff d0                        	calll	*%eax
+1018bed9: 8b 4f 5c                     	movl	0x5c(%edi), %ecx
+1018bedc: 89 0e                        	movl	%ecx, (%esi)
+1018bede: 89 77 5c                     	movl	%esi, 0x5c(%edi)
+1018bee1: 5f                           	popl	%edi
+1018bee2: 5e                           	popl	%esi
+1018bee3: 59                           	popl	%ecx
+1018bee4: c3                           	retl
+1018bee5: 8b 7f 58                     	movl	0x58(%edi), %edi
+1018bee8: e8 53 e3 ff ff               	calll	0x1018a240 <NpCreatePhysicsSDK+0x7d0d0>
+1018beed: 5f                           	popl	%edi
+1018beee: 5e                           	popl	%esi
+1018beef: 59                           	popl	%ecx
+1018bef0: c3                           	retl
+1018bef1: 56                           	pushl	%esi
+1018bef2: 57                           	pushl	%edi
+1018bef3: e8 08 fd ff ff               	calll	0x1018bc00 <NpCreatePhysicsSDK+0x7ea90>
+1018bef8: 5f                           	popl	%edi
+1018bef9: 5e                           	popl	%esi
+1018befa: 59                           	popl	%ecx
+1018befb: c3                           	retl
+1018befc: 8b 7f 58                     	movl	0x58(%edi), %edi
+1018beff: e8 0c f3 ff ff               	calll	0x1018b210 <NpCreatePhysicsSDK+0x7e0a0>
+1018bf04: 5f                           	popl	%edi
+1018bf05: 5e                           	popl	%esi
+1018bf06: 59                           	popl	%ecx
+1018bf07: c3                           	retl
+1018bf08: f1                           	<unknown>
+1018bf09: be 18 10 f1 be               	movl	$0xbef11018, %esi       # imm = 0xBEF11018
+1018bf0e: 18 10                        	sbbb	%dl, (%eax)
+1018bf10: f1                           	<unknown>
+1018bf11: be 18 10 04 bf               	movl	$0xbf041018, %esi       # imm = 0xBF041018
+1018bf16: 18 10                        	sbbb	%dl, (%eax)
+1018bf18: c4 be 18 10 e5 be            	lesl	-0x411aefe8(%esi), %edi
+1018bf1e: 18 10                        	sbbb	%dl, (%eax)
+1018bf20: fc                           	cld
+1018bf21: be 18 10 cc cc               	movl	$0xcccc1018, %esi       # imm = 0xCCCC1018
+1018bf26: cc                           	int3
+1018bf27: cc                           	int3
+1018bf28: cc                           	int3
+1018bf29: cc                           	int3
+1018bf2a: cc                           	int3
+1018bf2b: cc                           	int3
+1018bf2c: cc                           	int3
+1018bf2d: cc                           	int3
+1018bf2e: cc                           	int3
+1018bf2f: cc                           	int3
+1018bf30: 55                           	pushl	%ebp
+1018bf31: 8b ec                        	movl	%esp, %ebp
+1018bf33: 83 e4 f8                     	andl	$-0x8, %esp
+1018bf36: 51                           	pushl	%ecx
+1018bf37: 53                           	pushl	%ebx
+1018bf38: 8b 5d 08                     	movl	0x8(%ebp), %ebx
+1018bf3b: 56                           	pushl	%esi
+1018bf3c: 57                           	pushl	%edi
+1018bf3d: 8b 7b 08                     	movl	0x8(%ebx), %edi

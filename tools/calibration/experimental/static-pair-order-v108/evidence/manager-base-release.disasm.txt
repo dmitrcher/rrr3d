@@ -1,0 +1,156 @@
+
+work/editor-package/MotorRock-Windows-MapEditor/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10013dd0: 51                           	pushl	%ecx
+10013dd1: 56                           	pushl	%esi
+10013dd2: 8b f1                        	movl	%ecx, %esi
+10013dd4: e8 57 fb ff ff               	calll	0x10013930 <.text+0x12930>
+10013dd9: 8b 46 2c                     	movl	0x2c(%esi), %eax
+10013ddc: 66 ff 40 12                  	incw	0x12(%eax)
+10013de0: 8b 46 1c                     	movl	0x1c(%esi), %eax
+10013de3: 85 c0                        	testl	%eax, %eax
+10013de5: 74 05                        	je	0x10013dec <.text+0x12dec>
+10013de7: 83 c0 fc                     	addl	$-0x4, %eax
+10013dea: eb 02                        	jmp	0x10013dee <.text+0x12dee>
+10013dec: 33 c0                        	xorl	%eax, %eax
+10013dee: 8b 80 2c 01 00 00            	movl	0x12c(%eax), %eax
+10013df4: 8b 88 10 03 00 00            	movl	0x310(%eax), %ecx
+10013dfa: ff 81 a0 06 00 00            	incl	0x6a0(%ecx)
+10013e00: 8b 90 10 03 00 00            	movl	0x310(%eax), %edx
+10013e06: 8b 89 a0 06 00 00            	movl	0x6a0(%ecx), %ecx
+10013e0c: 8b 92 a4 06 00 00            	movl	0x6a4(%edx), %edx
+10013e12: 05 04 03 00 00               	addl	$0x304, %eax            # imm = 0x304
+10013e17: 3b ca                        	cmpl	%edx, %ecx
+10013e19: 7d 02                        	jge	0x10013e1d <.text+0x12e1d>
+10013e1b: 8b ca                        	movl	%edx, %ecx
+10013e1d: 8b 40 0c                     	movl	0xc(%eax), %eax
+10013e20: 89 88 a4 06 00 00            	movl	%ecx, 0x6a4(%eax)
+10013e26: 8b 46 20                     	movl	0x20(%esi), %eax
+10013e29: 85 c0                        	testl	%eax, %eax
+10013e2b: 74 05                        	je	0x10013e32 <.text+0x12e32>
+10013e2d: 83 c0 fc                     	addl	$-0x4, %eax
+10013e30: eb 02                        	jmp	0x10013e34 <.text+0x12e34>
+10013e32: 33 c0                        	xorl	%eax, %eax
+10013e34: 8b 4e 1c                     	movl	0x1c(%esi), %ecx
+10013e37: 85 c9                        	testl	%ecx, %ecx
+10013e39: 74 05                        	je	0x10013e40 <.text+0x12e40>
+10013e3b: 8d 51 fc                     	leal	-0x4(%ecx), %edx
+10013e3e: eb 02                        	jmp	0x10013e42 <.text+0x12e42>
+10013e40: 33 d2                        	xorl	%edx, %edx
+10013e42: 85 c9                        	testl	%ecx, %ecx
+10013e44: 74 05                        	je	0x10013e4b <.text+0x12e4b>
+10013e46: 83 c1 fc                     	addl	$-0x4, %ecx
+10013e49: eb 02                        	jmp	0x10013e4d <.text+0x12e4d>
+10013e4b: 33 c9                        	xorl	%ecx, %ecx
+10013e4d: 8b 89 2c 01 00 00            	movl	0x12c(%ecx), %ecx
+10013e53: 53                           	pushl	%ebx
+10013e54: 8d 5c 24 08                  	leal	0x8(%esp), %ebx
+10013e58: 53                           	pushl	%ebx
+10013e59: 8b 5e 14                     	movl	0x14(%esi), %ebx
+10013e5c: 53                           	pushl	%ebx
+10013e5d: 6a 00                        	pushl	$0x0
+10013e5f: 52                           	pushl	%edx
+10013e60: e8 2b 31 1f 00               	calll	0x10206f90 <NxCreateCoreSDK+0x27d40>
+10013e65: 83 c4 10                     	addl	$0x10, %esp
+10013e68: 5b                           	popl	%ebx
+10013e69: 84 c0                        	testb	%al, %al
+10013e6b: 74 41                        	je	0x10013eae <.text+0x12eae>
+10013e6d: 8b 76 1c                     	movl	0x1c(%esi), %esi
+10013e70: 85 f6                        	testl	%esi, %esi
+10013e72: 74 05                        	je	0x10013e79 <.text+0x12e79>
+10013e74: 8d 46 fc                     	leal	-0x4(%esi), %eax
+10013e77: eb 02                        	jmp	0x10013e7b <.text+0x12e7b>
+10013e79: 33 c0                        	xorl	%eax, %eax
+10013e7b: 8b 80 2c 01 00 00            	movl	0x12c(%eax), %eax
+10013e81: 8b 4c 24 04                  	movl	0x4(%esp), %ecx
+10013e85: 8b 90 10 03 00 00            	movl	0x310(%eax), %edx
+10013e8b: 05 04 03 00 00               	addl	$0x304, %eax            # imm = 0x304
+10013e90: c1 e1 04                     	shll	$0x4, %ecx
+10013e93: ff 04 0a                     	incl	(%edx,%ecx)
+10013e96: 8b 70 0c                     	movl	0xc(%eax), %esi
+10013e99: 8b 74 0e 04                  	movl	0x4(%esi,%ecx), %esi
+10013e9d: 03 d1                        	addl	%ecx, %edx
+10013e9f: 8b 12                        	movl	(%edx), %edx
+10013ea1: 3b d6                        	cmpl	%esi, %edx
+10013ea3: 7d 02                        	jge	0x10013ea7 <.text+0x12ea7>
+10013ea5: 8b d6                        	movl	%esi, %edx
+10013ea7: 8b 40 0c                     	movl	0xc(%eax), %eax
+10013eaa: 89 54 08 04                  	movl	%edx, 0x4(%eax,%ecx)
+10013eae: 5e                           	popl	%esi
+10013eaf: 59                           	popl	%ecx
+10013eb0: c3                           	retl
+10013eb1: cc                           	int3
+10013eb2: cc                           	int3
+10013eb3: cc                           	int3
+10013eb4: cc                           	int3
+10013eb5: cc                           	int3
+10013eb6: cc                           	int3
+10013eb7: cc                           	int3
+10013eb8: cc                           	int3
+10013eb9: cc                           	int3
+10013eba: cc                           	int3
+10013ebb: cc                           	int3
+10013ebc: cc                           	int3
+10013ebd: cc                           	int3
+10013ebe: cc                           	int3
+10013ebf: cc                           	int3
+10013ec0: 51                           	pushl	%ecx
+10013ec1: 53                           	pushl	%ebx
+10013ec2: 55                           	pushl	%ebp
+10013ec3: 56                           	pushl	%esi
+10013ec4: 57                           	pushl	%edi
+10013ec5: 8b f9                        	movl	%ecx, %edi
+10013ec7: 8b 47 1c                     	movl	0x1c(%edi), %eax
+10013eca: 85 c0                        	testl	%eax, %eax
+10013ecc: 74 05                        	je	0x10013ed3 <.text+0x12ed3>
+10013ece: 83 c0 fc                     	addl	$-0x4, %eax
+10013ed1: eb 02                        	jmp	0x10013ed5 <.text+0x12ed5>
+10013ed3: 33 c0                        	xorl	%eax, %eax
+10013ed5: 8b 80 2c 01 00 00            	movl	0x12c(%eax), %eax
+10013edb: 8b 80 10 03 00 00            	movl	0x310(%eax), %eax
+10013ee1: 83 cd ff                     	orl	$-0x1, %ebp
+10013ee4: 01 68 10                     	addl	%ebp, 0x10(%eax)
+10013ee7: e8 d4 80 ff ff               	calll	0x1000bfc0 <.text+0xafc0>
+10013eec: 8b 4f 28                     	movl	0x28(%edi), %ecx
+10013eef: c1 e9 05                     	shrl	$0x5, %ecx
+10013ef2: f6 c1 01                     	testb	$0x1, %cl
+10013ef5: 74 7e                        	je	0x10013f75 <.text+0x12f75>
+10013ef7: 8b 47 1c                     	movl	0x1c(%edi), %eax
+10013efa: 85 c0                        	testl	%eax, %eax
+10013efc: 74 05                        	je	0x10013f03 <.text+0x12f03>
+10013efe: 83 c0 fc                     	addl	$-0x4, %eax
+10013f01: eb 02                        	jmp	0x10013f05 <.text+0x12f05>
+10013f03: 33 c0                        	xorl	%eax, %eax
+10013f05: 8b 88 28 01 00 00            	movl	0x128(%eax), %ecx
+10013f0b: 8b 47 20                     	movl	0x20(%edi), %eax
+10013f0e: 85 c0                        	testl	%eax, %eax
+10013f10: 74 05                        	je	0x10013f17 <.text+0x12f17>
+10013f12: 83 c0 fc                     	addl	$-0x4, %eax
+10013f15: eb 02                        	jmp	0x10013f19 <.text+0x12f19>
+10013f17: 33 c0                        	xorl	%eax, %eax
+10013f19: 8b 80 28 01 00 00            	movl	0x128(%eax), %eax
+10013f1f: 85 c9                        	testl	%ecx, %ecx
+10013f21: 74 23                        	je	0x10013f46 <.text+0x12f46>
+10013f23: 85 c0                        	testl	%eax, %eax
+10013f25: 75 03                        	jne	0x10013f2a <.text+0x12f2a>
+10013f27: 01 69 3c                     	addl	%ebp, 0x3c(%ecx)
+10013f2a: 01 a9 38 02 00 00            	addl	%ebp, 0x238(%ecx)
+10013f30: 85 c0                        	testl	%eax, %eax
+10013f32: 74 06                        	je	0x10013f3a <.text+0x12f3a>
+10013f34: 01 a8 38 02 00 00            	addl	%ebp, 0x238(%eax)
+10013f3a: 8b 47 1c                     	movl	0x1c(%edi), %eax
+10013f3d: 85 c0                        	testl	%eax, %eax
+10013f3f: 74 0e                        	je	0x10013f4f <.text+0x12f4f>
+10013f41: 83 c0 fc                     	addl	$-0x4, %eax
+10013f44: eb 0b                        	jmp	0x10013f51 <.text+0x12f51>
+10013f46: 85 c0                        	testl	%eax, %eax
+10013f48: 74 f0                        	je	0x10013f3a <.text+0x12f3a>
+10013f4a: 01 68 3c                     	addl	%ebp, 0x3c(%eax)
+10013f4d: eb e1                        	jmp	0x10013f30 <.text+0x12f30>
+10013f4f: 33 c0                        	xorl	%eax, %eax
+10013f51: 8b 90 2c 01 00 00            	movl	0x12c(%eax), %edx
+10013f57: 8b 47 2c                     	movl	0x2c(%edi), %eax
+10013f5a: 8b 92 8c 00 00 00            	movl	0x8c(%edx), %edx

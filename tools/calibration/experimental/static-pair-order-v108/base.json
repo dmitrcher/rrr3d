@@ -1,0 +1,43 @@
+{
+  "scope": "Default-off current static wheel contact-manager dispatch slots, separate from persistent object/callback ages and pair birth. Original deferred dense removal/last-slot replacement observed at curb203/220/224. One terrain mesh, one vehicle, static box decorations with exact creation ordering; other scene classes retain prior behavior. No coefficients/frame-case rules/oracle state. Private VehicleConstraint layout changes; rebuild all consumers.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactNodesV90.h",
+      "before_sha256": "82bb4a20b3135a1f89f4c976af46c8873f4a850dfd539956fa8c21231b9c6f7a",
+      "after_sha256": "c98bf3700ae0379a30d0995b8226ba2fa7802f7769175e59fc661846edb6f16b"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactOrderV79.h",
+      "before_sha256": "ac5a8eb7a288538e46b393f3ded1e9809a1937084dedad84afa71793c9e3ec75",
+      "after_sha256": "3f6b6ea5a32ec6cec116a38df9843f3a86250a859dd883a1b9bc5a259161162b"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "c50fd397c57e529b99890fcbfddea1743babf365eeb488bdf93ea6c64e2caf2e",
+      "after_sha256": "121ad5c665e9ac32bd87ba4381e810909c673b455660a0f1ed18ea3e70121df6"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.h",
+      "before_sha256": "a7216e1b070aa6f630a91dbe7a8a69e098a5458170e1081bab78023472323759",
+      "after_sha256": "57043e15f35a4c92d399d2ec0f78a2de30d9dd43a89d12a6e899bc59b6fba3cb"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "16e3b5431d92444bcf3f4a50f8a114f62d9fea5e12e969332c9b8800ec8ab995",
+      "after_sha256": "2cb955c13c6184a5326cadea96ee852e9e924e219ac9baaecd507a56a9ac5d6e"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeContactManagerOrderV108.h",
+      "before_sha256": null,
+      "after_sha256": "98c242432db9ed3334beb903fd8471bac6c04f573308c7d5b8c76014c4e2e635"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified static-box-query-v107 and its prerequisites. Six-file delta; private VehicleConstraint layout changes and all consumers must rebuild."
+}

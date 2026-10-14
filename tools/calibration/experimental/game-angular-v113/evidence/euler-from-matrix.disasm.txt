@@ -1,0 +1,193 @@
+  429e40: 83 ec 18                     	subl	$0x18, %esp
+  429e43: 8b 44 24 24                  	movl	0x24(%esp), %eax
+  429e47: 8b c8                        	movl	%eax, %ecx
+  429e49: d1 e8                        	shrl	%eax
+  429e4b: 8b d0                        	movl	%eax, %edx
+  429e4d: d1 e8                        	shrl	%eax
+  429e4f: 83 e1 01                     	andl	$0x1, %ecx
+  429e52: 53                           	pushl	%ebx
+  429e53: 89 4c 24 18                  	movl	%ecx, 0x18(%esp)
+  429e57: 8b c8                        	movl	%eax, %ecx
+  429e59: d1 e8                        	shrl	%eax
+  429e5b: 55                           	pushl	%ebp
+  429e5c: 83 e0 03                     	andl	$0x3, %eax
+  429e5f: 56                           	pushl	%esi
+  429e60: 0f be b0 b0 15 43 00         	movsbl	0x4315b0(%eax), %esi
+  429e67: 83 e1 01                     	andl	$0x1, %ecx
+  429e6a: 0f be 9c 0e a8 15 43 00      	movsbl	0x4315a8(%esi,%ecx), %ebx
+  429e72: 8b c6                        	movl	%esi, %eax
+  429e74: 83 e2 01                     	andl	$0x1, %edx
+  429e77: 2b c1                        	subl	%ecx, %eax
+  429e79: 0f be a8 a9 15 43 00         	movsbl	0x4315a9(%eax), %ebp
+  429e80: 57                           	pushl	%edi
+  429e81: 8b 7c 24 30                  	movl	0x30(%esp), %edi
+  429e85: 89 4c 24 20                  	movl	%ecx, 0x20(%esp)
+  429e89: 83 fa 01                     	cmpl	$0x1, %edx
+  429e8c: 0f 85 f0 00 00 00            	jne	0x429f82 <.text+0x28f82>
+  429e92: 8d 4c b5 00                  	leal	(%ebp,%esi,4), %ecx
+  429e96: d9 04 8f                     	flds	(%edi,%ecx,4)
+  429e99: 8d 04 8f                     	leal	(%edi,%ecx,4), %eax
+  429e9c: 8d 14 b3                     	leal	(%ebx,%esi,4), %edx
+  429e9f: d9 04 97                     	flds	(%edi,%edx,4)
+  429ea2: 89 44 24 18                  	movl	%eax, 0x18(%esp)
+  429ea6: 8d 04 97                     	leal	(%edi,%edx,4), %eax
+  429ea9: dc c8                        	fmul	%st, %st(0)
+  429eab: d9 c1                        	fld	%st(1)
+  429ead: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+  429eb1: de ca                        	fmulp	%st, %st(2)
+  429eb3: de c1                        	faddp	%st, %st(1)
+  429eb5: d9 5c 24 10                  	fstps	0x10(%esp)
+  429eb9: d9 44 24 10                  	flds	0x10(%esp)
+  429ebd: e8 4e 03 00 00               	calll	0x42a210 <.text+0x29210>
+  429ec2: d9 5c 24 10                  	fstps	0x10(%esp)
+  429ec6: d9 44 24 10                  	flds	0x10(%esp)
+  429eca: d9 5c 24 10                  	fstps	0x10(%esp)
+  429ece: d9 05 b8 15 43 00            	flds	0x4315b8
+  429ed4: d8 5c 24 10                  	fcomps	0x10(%esp)
+  429ed8: df e0                        	fnstsw	%ax
+  429eda: f6 c4 05                     	testb	$0x5, %ah
+  429edd: 7a 61                        	jp	0x429f40 <.text+0x28f40>
+  429edf: 8b 44 24 14                  	movl	0x14(%esp), %eax
+  429ee3: 8b 4c 24 18                  	movl	0x18(%esp), %ecx
+  429ee7: d9 00                        	flds	(%eax)
+  429ee9: d9 01                        	flds	(%ecx)
+  429eeb: e8 18 05 00 00               	calll	0x42a408 <.text+0x29408>
+  429ef0: d9 5c 24 18                  	fstps	0x18(%esp)
+  429ef4: d9 44 24 18                  	flds	0x18(%esp)
+  429ef8: 8b 7c 24 2c                  	movl	0x2c(%esp), %edi
+  429efc: 8b 44 24 30                  	movl	0x30(%esp), %eax
+  429f00: d9 1f                        	fstps	(%edi)
+  429f02: d9 44 24 10                  	flds	0x10(%esp)
+  429f06: 8d 14 b6                     	leal	(%esi,%esi,4), %edx
+  429f09: d9 04 90                     	flds	(%eax,%edx,4)
+  429f0c: e8 f7 04 00 00               	calll	0x42a408 <.text+0x29408>
+  429f11: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  429f15: 8b 44 24 30                  	movl	0x30(%esp), %eax
+  429f19: d9 44 24 2c                  	flds	0x2c(%esp)
+  429f1d: d9 5f 04                     	fstps	0x4(%edi)
+  429f20: 8d 0c 9e                     	leal	(%esi,%ebx,4), %ecx
+  429f23: d9 04 88                     	flds	(%eax,%ecx,4)
+  429f26: 8d 14 ae                     	leal	(%esi,%ebp,4), %edx
+  429f29: d9 04 90                     	flds	(%eax,%edx,4)
+  429f2c: d9 e0                        	fchs
+  429f2e: e8 d5 04 00 00               	calll	0x42a408 <.text+0x29408>
+  429f33: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  429f37: d9 44 24 2c                  	flds	0x2c(%esp)
+  429f3b: e9 2d 01 00 00               	jmp	0x42a06d <.text+0x2906d>
+  429f40: 8d 44 9d 00                  	leal	(%ebp,%ebx,4), %eax
+  429f44: d9 04 87                     	flds	(%edi,%eax,4)
+  429f47: 8d 0c 9b                     	leal	(%ebx,%ebx,4), %ecx
+  429f4a: d9 e0                        	fchs
+  429f4c: d9 04 8f                     	flds	(%edi,%ecx,4)
+  429f4f: e8 b4 04 00 00               	calll	0x42a408 <.text+0x29408>
+  429f54: d9 5c 24 18                  	fstps	0x18(%esp)
+  429f58: d9 44 24 18                  	flds	0x18(%esp)
+  429f5c: 8b 7c 24 2c                  	movl	0x2c(%esp), %edi
+  429f60: 8b 44 24 30                  	movl	0x30(%esp), %eax
+  429f64: d9 1f                        	fstps	(%edi)
+  429f66: d9 44 24 10                  	flds	0x10(%esp)
+  429f6a: 8d 14 b6                     	leal	(%esi,%esi,4), %edx
+  429f6d: d9 04 90                     	flds	(%eax,%edx,4)
+  429f70: e8 93 04 00 00               	calll	0x42a408 <.text+0x29408>
+  429f75: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  429f79: d9 44 24 2c                  	flds	0x2c(%esp)
+  429f7d: e9 e6 00 00 00               	jmp	0x42a068 <.text+0x29068>
+  429f82: 8d 0c 9e                     	leal	(%esi,%ebx,4), %ecx
+  429f85: d9 04 8f                     	flds	(%edi,%ecx,4)
+  429f88: 8d 04 8f                     	leal	(%edi,%ecx,4), %eax
+  429f8b: 8d 14 b6                     	leal	(%esi,%esi,4), %edx
+  429f8e: d9 04 97                     	flds	(%edi,%edx,4)
+  429f91: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+  429f95: 8d 04 97                     	leal	(%edi,%edx,4), %eax
+  429f98: dc c8                        	fmul	%st, %st(0)
+  429f9a: d9 c1                        	fld	%st(1)
+  429f9c: 89 44 24 1c                  	movl	%eax, 0x1c(%esp)
+  429fa0: de ca                        	fmulp	%st, %st(2)
+  429fa2: de c1                        	faddp	%st, %st(1)
+  429fa4: d9 5c 24 18                  	fstps	0x18(%esp)
+  429fa8: d9 44 24 18                  	flds	0x18(%esp)
+  429fac: e8 5f 02 00 00               	calll	0x42a210 <.text+0x29210>
+  429fb1: d9 5c 24 18                  	fstps	0x18(%esp)
+  429fb5: d9 44 24 18                  	flds	0x18(%esp)
+  429fb9: d9 5c 24 10                  	fstps	0x10(%esp)
+  429fbd: d9 05 b8 15 43 00            	flds	0x4315b8
+  429fc3: d8 5c 24 10                  	fcomps	0x10(%esp)
+  429fc7: df e0                        	fnstsw	%ax
+  429fc9: f6 c4 05                     	testb	$0x5, %ah
+  429fcc: 7a 5b                        	jp	0x42a029 <.text+0x29029>
+  429fce: 8d 04 ab                     	leal	(%ebx,%ebp,4), %eax
+  429fd1: d9 04 87                     	flds	(%edi,%eax,4)
+  429fd4: 8d 4c ad 00                  	leal	(%ebp,%ebp,4), %ecx
+  429fd8: d9 04 8f                     	flds	(%edi,%ecx,4)
+  429fdb: e8 28 04 00 00               	calll	0x42a408 <.text+0x29408>
+  429fe0: d9 5c 24 18                  	fstps	0x18(%esp)
+  429fe4: d9 44 24 18                  	flds	0x18(%esp)
+  429fe8: 8b 7c 24 2c                  	movl	0x2c(%esp), %edi
+  429fec: 8b 44 24 30                  	movl	0x30(%esp), %eax
+  429ff0: d9 1f                        	fstps	(%edi)
+  429ff2: 8d 14 ae                     	leal	(%esi,%ebp,4), %edx
+  429ff5: d9 04 90                     	flds	(%eax,%edx,4)
+  429ff8: d9 e0                        	fchs
+  429ffa: d9 44 24 10                  	flds	0x10(%esp)
+  429ffe: e8 05 04 00 00               	calll	0x42a408 <.text+0x29408>
+  42a003: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  42a007: d9 44 24 2c                  	flds	0x2c(%esp)
+  42a00b: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+  42a00f: 8b 54 24 1c                  	movl	0x1c(%esp), %edx
+  42a013: d9 5f 04                     	fstps	0x4(%edi)
+  42a016: d9 01                        	flds	(%ecx)
+  42a018: d9 02                        	flds	(%edx)
+  42a01a: e8 e9 03 00 00               	calll	0x42a408 <.text+0x29408>
+  42a01f: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  42a023: d9 44 24 2c                  	flds	0x2c(%esp)
+  42a027: eb 44                        	jmp	0x42a06d <.text+0x2906d>
+  42a029: 8d 44 9d 00                  	leal	(%ebp,%ebx,4), %eax
+  42a02d: d9 04 87                     	flds	(%edi,%eax,4)
+  42a030: 8d 0c 9b                     	leal	(%ebx,%ebx,4), %ecx
+  42a033: d9 e0                        	fchs
+  42a035: d9 04 8f                     	flds	(%edi,%ecx,4)
+  42a038: e8 cb 03 00 00               	calll	0x42a408 <.text+0x29408>
+  42a03d: d9 5c 24 1c                  	fstps	0x1c(%esp)
+  42a041: d9 44 24 1c                  	flds	0x1c(%esp)
+  42a045: 8b 7c 24 2c                  	movl	0x2c(%esp), %edi
+  42a049: 8b 44 24 30                  	movl	0x30(%esp), %eax
+  42a04d: d9 1f                        	fstps	(%edi)
+  42a04f: 8d 14 ae                     	leal	(%esi,%ebp,4), %edx
+  42a052: d9 04 90                     	flds	(%eax,%edx,4)
+  42a055: d9 e0                        	fchs
+  42a057: d9 44 24 10                  	flds	0x10(%esp)
+  42a05b: e8 a8 03 00 00               	calll	0x42a408 <.text+0x29408>
+  42a060: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  42a064: d9 44 24 2c                  	flds	0x2c(%esp)
+  42a068: d9 5f 04                     	fstps	0x4(%edi)
+  42a06b: d9 ee                        	fldz
+  42a06d: b8 01 00 00 00               	movl	$0x1, %eax
+  42a072: d9 5f 08                     	fstps	0x8(%edi)
+  42a075: 39 44 24 20                  	cmpl	%eax, 0x20(%esp)
+  42a079: 75 16                        	jne	0x42a091 <.text+0x29091>
+  42a07b: d9 07                        	flds	(%edi)
+  42a07d: d9 e0                        	fchs
+  42a07f: d9 1f                        	fstps	(%edi)
+  42a081: d9 47 04                     	flds	0x4(%edi)
+  42a084: d9 e0                        	fchs
+  42a086: d9 5f 04                     	fstps	0x4(%edi)
+  42a089: d9 47 08                     	flds	0x8(%edi)
+  42a08c: d9 e0                        	fchs
+  42a08e: d9 5f 08                     	fstps	0x8(%edi)
+  42a091: 39 44 24 24                  	cmpl	%eax, 0x24(%esp)
+  42a095: 75 12                        	jne	0x42a0a9 <.text+0x290a9>
+  42a097: d9 07                        	flds	(%edi)
+  42a099: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  42a09d: d9 47 08                     	flds	0x8(%edi)
+  42a0a0: d9 1f                        	fstps	(%edi)
+  42a0a2: d9 44 24 2c                  	flds	0x2c(%esp)
+  42a0a6: d9 5f 08                     	fstps	0x8(%edi)
+  42a0a9: db 44 24 34                  	fildl	0x34(%esp)
+  42a0ad: 8b c7                        	movl	%edi, %eax
+  42a0af: d9 5f 0c                     	fstps	0xc(%edi)
+  42a0b2: 5f                           	popl	%edi
+  42a0b3: 5e                           	popl	%esi
+  42a0b4: 5d                           	popl	%ebp
+  42a0b5: 5b                           	popl	%ebx
+  42a0b6: 83 c4 18                     	addl	$0x18, %esp
+  42a0b9: c3                           	retl

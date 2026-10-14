@@ -1,0 +1,57 @@
+{
+  "arithmetic": [
+    {
+      "kernel": "setter",
+      "optimization": "O0",
+      "original_checkpoints_exact": 8
+    },
+    {
+      "kernel": "stabilize",
+      "optimization": "O0",
+      "original_checkpoints_exact": 8
+    },
+    {
+      "kernel": "euler",
+      "optimization": "O0",
+      "original_checkpoints_exact": 6
+    },
+    {
+      "kernel": "setter",
+      "optimization": "O2",
+      "original_checkpoints_exact": 8
+    },
+    {
+      "kernel": "stabilize",
+      "optimization": "O2",
+      "original_checkpoints_exact": 8
+    },
+    {
+      "kernel": "euler",
+      "optimization": "O2",
+      "original_checkpoints_exact": 6
+    }
+  ],
+  "goal_complete": false,
+  "fresh_original_Native_equal_states": {
+    "settle": 600,
+    "wheel-drive": 600,
+    "brake": 600,
+    "reverse-drive": 600,
+    "target-half": 600,
+    "slope-longitudinal": 600,
+    "slope-lateral": 600,
+    "wall-hit": 600,
+    "wall-oblique": 600,
+    "bump-crossing": 600,
+    "curb-side": 600,
+    "game-angular-damping": 120,
+    "game-clamp-roll": 120,
+    "game-clamp-pitch": 120,
+    "game-clamp-mixed": 120,
+    "wall-air-straight-24": 600,
+    "border-grounded": 600
+  },
+  "full_Native_equal_states": 8280,
+  "flag_off_preserves_v112_clamp_states": 120,
+  "probe_sha256": "90f1f7759d954165b1fa78bafcda21adec73b9571b3f2513b5b46731745ac750"
+}

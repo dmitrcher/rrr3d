@@ -1,0 +1,59 @@
+{
+  "scope": "Read-only actual Native motor arithmetic. Authoritative current tick from completed sample lines. Immutable Original EXE/DLL and all120physicalstates unchanged.",
+  "hashes": {
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\SpringProbe.exe:\r\n3935cb983910290e2ff844bb437286d140d0fafa6cfbcbfbcbfd0f07b6208262\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll": "SHA256 hash of C:\\MotorRock\\calibration-probes\\contact-pose-v45\\PhysXCore.dll:\r\nc03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb\r\nCertUtil: -hashfile command completed successfully.\r\n",
+    "C:\\MotorRock\\calibration-probes\\euler-v113\\TraceEulerV113.exe": "SHA256 hash of C:\\MotorRock\\calibration-probes\\euler-v113\\TraceEulerV113.exe:\r\n68835f6b79f6ec8ea233b4eb8e527a636af0621e264acf7d04a94120b4c01214\r\nCertUtil: -hashfile command completed successfully.\r\n"
+  },
+  "captures": [
+    {
+      "name": "game-clamp-roll",
+      "physical_tick": 10,
+      "repeat": 0,
+      "tag": "case0-tick10-rep0",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "34f434d4ccdfea423f6d2786ec3bd505f040e109042f85e9c7c585818eddedc4"
+    },
+    {
+      "name": "game-clamp-roll",
+      "physical_tick": 10,
+      "repeat": 1,
+      "tag": "case0-tick10-rep1",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "6faac480b086e1975d3d67f2cc7b50df29b072450fc6eee9ab5e4a7795c082e0"
+    },
+    {
+      "name": "game-clamp-pitch",
+      "physical_tick": 31,
+      "repeat": 0,
+      "tag": "case1-tick31-rep0",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "6972bc5c45d63edacd462fa8ff6d7b7b8278e331937a575d90c7cdff6403eebd"
+    },
+    {
+      "name": "game-clamp-pitch",
+      "physical_tick": 31,
+      "repeat": 1,
+      "tag": "case1-tick31-rep1",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "ee1397aa6fd61b5a00a447d26e09f8e3ab49d414d46c3a500b0b8823f285b10e"
+    },
+    {
+      "name": "game-clamp-mixed",
+      "physical_tick": 4,
+      "repeat": 0,
+      "tag": "case2-tick4-rep0",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "1bf43960a206b34313d5a246fc55b7f560504066108a5e6adc26765d2ba1339b"
+    },
+    {
+      "name": "game-clamp-mixed",
+      "physical_tick": 4,
+      "repeat": 1,
+      "tag": "case2-tick4-rep1",
+      "golden_full_states_exact": true,
+      "private_logical_sha256": "338fc38926761ec706ead705bf45d294f3d80a1d840d80ca02f0ae93d21dd3f8"
+    }
+  ],
+  "goal_complete": false
+}

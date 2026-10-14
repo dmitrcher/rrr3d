@@ -1,0 +1,43 @@
+{
+  "scope": "Production header reconstructs original angular setter/inverse tensor, original stabilization momentum, and original Euler quaternion; independent live Source inputs and actual original checkpoints, no runtime state feeds.",
+  "checks": [
+    {
+      "kernel": "setter",
+      "optimization": "O0",
+      "actual_original_checkpoints_exact": 8,
+      "Native_repeats": 2
+    },
+    {
+      "kernel": "stabilize",
+      "optimization": "O0",
+      "actual_original_checkpoints_exact": 8,
+      "Native_repeats": 2
+    },
+    {
+      "kernel": "euler",
+      "optimization": "O0",
+      "actual_original_checkpoints_exact": 6,
+      "Native_repeats": 2
+    },
+    {
+      "kernel": "setter",
+      "optimization": "O2",
+      "actual_original_checkpoints_exact": 8,
+      "Native_repeats": 2
+    },
+    {
+      "kernel": "stabilize",
+      "optimization": "O2",
+      "actual_original_checkpoints_exact": 8,
+      "Native_repeats": 2
+    },
+    {
+      "kernel": "euler",
+      "optimization": "O2",
+      "actual_original_checkpoints_exact": 6,
+      "Native_repeats": 2
+    }
+  ],
+  "original_EXE_DLL_unchanged": true,
+  "goal_complete": false
+}

@@ -1,0 +1,740 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1965,
+      "sha256": "d98e718b931776c6a1b56c760dd459265257c097221844a07c88bcfb4338c515"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeGameAngularV113.h",
+      "bytes": 3884,
+      "sha256": "2e077aca614c769bc696f6528dfe7638e31b91f2ed721a195f1be6509b721c71"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21675,
+      "sha256": "1798853a64e440aafc79fbd6df49b24f9518e4ec458847c4561918cab0328bb4"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 399232,
+      "sha256": "3b074dce8b4a8cb7cdb3c541924000e0cd1ad7c0ec4cef77e3e1c8b6430721ad"
+    },
+    {
+      "path": "after/adapter/tools/calibration/mac.cpp",
+      "bytes": 10145,
+      "sha256": "64385b32358c8c1e34b8eb86ab79d4c7a716311849db0958fba4dde59e3f51dc"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 1543,
+      "sha256": "e0d51385e750b2eedc302530031f931ac788cd8bd601587f62f09426b001bc85"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21673,
+      "sha256": "620f46919f6c32cbe16cb748679b4bac7df59df7edbe8d5c82062273062d2f85"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 394525,
+      "sha256": "4fab22f7d7f5dfe4e04a2ccf58f05c7ed76869292846e4e44e943ce35dcb00f4"
+    },
+    {
+      "path": "before/adapter/tools/calibration/mac.cpp",
+      "bytes": 10185,
+      "sha256": "b9058fb673ecbef6f81bd35f3f56dfd2c469e1d4d47c629a5ae1a6159d7107ac"
+    },
+    {
+      "path": "captures/live-final/game-angular-damping-1-0-physical.jsonl.gz",
+      "bytes": 9365,
+      "sha256": "a1ad869512fddbe69b3ceda65415adfe500883c466b2921c64fb120a69dba8ee"
+    },
+    {
+      "path": "captures/live-final/game-angular-damping-1-0-private.jsonl.gz",
+      "bytes": 284,
+      "sha256": "22d74deaf099536c4b3da266c491623419c4af52738f14c16ac36fa997ea7589"
+    },
+    {
+      "path": "captures/live-final/game-angular-damping-1-1-physical.jsonl.gz",
+      "bytes": 9359,
+      "sha256": "300b2306b31d7d9826fbd219829386318f4a1968a2e7d6acad871ccb8854f44e"
+    },
+    {
+      "path": "captures/live-final/game-angular-damping-1-1-private.jsonl.gz",
+      "bytes": 284,
+      "sha256": "a873312152b4a5302041a13ebb2e8981a1647b0cc1e7f928f438fe198e10a384"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-0-0-physical.jsonl.gz",
+      "bytes": 9384,
+      "sha256": "7c87bea546ea22ff0cf932ca4f8231106ef552ab73923a9861d94a0d61e17ffb"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-0-0-private.jsonl.gz",
+      "bytes": 260,
+      "sha256": "a323aa5b48eea845f16fc4bd155a52c936ac6be8329fead3983e4274c0358629"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-0-1-physical.jsonl.gz",
+      "bytes": 9386,
+      "sha256": "7226bd8f3cbfa2a28dcf15ce7004c34255796d913d1a0c31eea92e7cc1bf6fab"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-0-1-private.jsonl.gz",
+      "bytes": 260,
+      "sha256": "22573e7d87788929b339ee56e150a8db7c6b236fea5a3daccc1ffa162ae37b0b"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-4-0-physical.jsonl.gz",
+      "bytes": 9369,
+      "sha256": "81b89727fbb23c267d9206f7a342e0ec0ecfd34031b60cdb203792cfe9c9027c"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-4-0-private.jsonl.gz",
+      "bytes": 280,
+      "sha256": "7e20d6d9e47c0709035970a03d5bc32d8a8aec45ca22464fc0287e5d7ac77165"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-4-1-physical.jsonl.gz",
+      "bytes": 9381,
+      "sha256": "947a950949579a231f027ac9b414cabba101f47a2dde2ccb1398477441dedc3f"
+    },
+    {
+      "path": "captures/live-final/game-clamp-mixed-4-1-private.jsonl.gz",
+      "bytes": 280,
+      "sha256": "b78a659b0ad380e9ab57a0c6ed899e80e2028aef4357786d595f5d6b5e5daff6"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-0-0-physical.jsonl.gz",
+      "bytes": 9498,
+      "sha256": "a20a3afcee9afe5979c7de4189b0af2dce00924fa718cc61e27e1bbc07dd3585"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-0-0-private.jsonl.gz",
+      "bytes": 254,
+      "sha256": "3c863b91b9c2006fd995511f5664ada13f10130465de1411da0d3d55bfea6d25"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-0-1-physical.jsonl.gz",
+      "bytes": 9499,
+      "sha256": "7a082a7307a96b08af3048720ed9812ae5edf31fc0676fb7ab914d0533192812"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-0-1-private.jsonl.gz",
+      "bytes": 254,
+      "sha256": "94d5d7c8d71bc86e91ae3f70d66038848ad48c8ded83ecb6973fde5eda1480b9"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-31-0-physical.jsonl.gz",
+      "bytes": 9508,
+      "sha256": "10e4d0eb63cc5fb8757b039e3836eecfbba363aff11f3204e8ba004a03bda75d"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-31-0-private.jsonl.gz",
+      "bytes": 279,
+      "sha256": "40a8b6d042f28482826886c07c6db99ba2e50f4173760b5df947bf95457366c6"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-31-1-physical.jsonl.gz",
+      "bytes": 9507,
+      "sha256": "fa6ab94cedd4e1af2051c8109dcdff2541b8e48a11d0c74b25f9e3fd6820511c"
+    },
+    {
+      "path": "captures/live-final/game-clamp-pitch-31-1-private.jsonl.gz",
+      "bytes": 279,
+      "sha256": "0d953a946f748183040e3cf970013ccf51be334f8810d6758eb467215c2e0ae3"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-0-0-physical.jsonl.gz",
+      "bytes": 9469,
+      "sha256": "f24f66df702e501cd9e5dd7c80c61c4713688357918ae2ee8ce8072941467584"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-0-0-private.jsonl.gz",
+      "bytes": 249,
+      "sha256": "5e0c0d32716904940b7c796e92887217d71ceaae5ea2c7b88783bb7438b0d57a"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-0-1-physical.jsonl.gz",
+      "bytes": 9475,
+      "sha256": "62cb4a6e63962a8809347ec9059aba9b99c1598f5c48b368ac3f1034b27b694a"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-0-1-private.jsonl.gz",
+      "bytes": 249,
+      "sha256": "708645d77129d03c6d85bda39dce4449b7f3289fb4d440ebb4acfddf8e836c61"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-10-0-physical.jsonl.gz",
+      "bytes": 9479,
+      "sha256": "18a20248b7b8860a75d9613d4ee77d4e5e9731f5d3fe51b643252b865e4b1a1a"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-10-0-private.jsonl.gz",
+      "bytes": 279,
+      "sha256": "ccf81d3f911fdfb3ea1d5ed62f5af2116bf5412a25dda321fe65ab4def59df91"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-10-1-physical.jsonl.gz",
+      "bytes": 9475,
+      "sha256": "34f343490c186e6a0d1db6604241a6a419f96123d4f667b5411293ad8be8538d"
+    },
+    {
+      "path": "captures/live-final/game-clamp-roll-10-1-private.jsonl.gz",
+      "bytes": 279,
+      "sha256": "7f75012aef055bc741255421e76e3f1f96667de7984fa20d0fe188d0d32deab7"
+    },
+    {
+      "path": "captures/live-final/manifest.json",
+      "bytes": 4754,
+      "sha256": "d352c2722bedb4c9f44a3c5fae11d5da59b8a8b847073f6c3929fe5205d50a53"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep0-physical.jsonl.gz",
+      "bytes": 35117,
+      "sha256": "f93c967a2d4ad5bdc9a6eb8cbe95d3dddd30066343e9503697901d81ef1ff538"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep0-private.jsonl.gz",
+      "bytes": 2780,
+      "sha256": "1cbce1ca10f604dfea3273583dbddf5a28e8c113eade1805d6fbbbb407ddf6d7"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep1-physical.jsonl.gz",
+      "bytes": 35135,
+      "sha256": "dcd9398caebcdd537a40b6e2679574f1fad1c30225501f2c5c0de9ae66e2c766"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep1-private.jsonl.gz",
+      "bytes": 2785,
+      "sha256": "ce800c21fd833ed0f06998fad92b93074f502641b6d26baee33f7a2636f2adf6"
+    },
+    {
+      "path": "captures/native-euler/case0-tick10-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep0-physical.jsonl.gz",
+      "bytes": 35087,
+      "sha256": "0137cce85fc3a669045cf746d1effb00bef13d1f67a2420c2a926d6859aea0bb"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep0-private.jsonl.gz",
+      "bytes": 2768,
+      "sha256": "16218704af7b8924d49daa759f20b780f95c707f9e579060f62fa33074e91100"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep1-physical.jsonl.gz",
+      "bytes": 35089,
+      "sha256": "45bb1fa843bc6161db8633fcc99b1908dacc26aa2dd6ff237e265d23aa172f55"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep1-private.jsonl.gz",
+      "bytes": 2771,
+      "sha256": "eae1d84eaf07a9cf90d537f3cc238a4f8e2244266a7949cbf07d345a6dd62602"
+    },
+    {
+      "path": "captures/native-euler/case1-tick31-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep0-physical.jsonl.gz",
+      "bytes": 34862,
+      "sha256": "300dd813ebe2d241328fe9e1d6ddc8d4f373c8ca94b87f8d655a85facd3d8730"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep0-private.jsonl.gz",
+      "bytes": 2770,
+      "sha256": "1a7dc2240af50851d5f6d1e7768ca6752d582a93dcb86148f767b3c0960f057d"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep1-physical.jsonl.gz",
+      "bytes": 34858,
+      "sha256": "ad92800c956807e91c0efb65624a1c985a1ee2aa49f5174afdab9926b2d27cf0"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep1-private.jsonl.gz",
+      "bytes": 2765,
+      "sha256": "af778df786babfba101d795e7552e883f0c18238a3dc94b474b42168cf586c6d"
+    },
+    {
+      "path": "captures/native-euler/case2-tick4-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-euler/manifest.json",
+      "bytes": 2695,
+      "sha256": "f3e16b3f89e72f0cdec33c05028f38f2e5a7ccfc7d6257dc334325e4c04ada82"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep0-physical.jsonl.gz",
+      "bytes": 35102,
+      "sha256": "895d1be428215bd18ecb5bd37dfcc1b03da8c2bb2845c8bfb713f006fb2218e2"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep0-private.jsonl.gz",
+      "bytes": 1861,
+      "sha256": "d1ce4d86649906e251271e319155dae60eb18cff931a6c22de2710d91311e764"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep1-physical.jsonl.gz",
+      "bytes": 35078,
+      "sha256": "9d1a83e981e45df7779d16f0d1ae5a5cdaf2e4ff1d9c409a20c3600bd79da016"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep1-private.jsonl.gz",
+      "bytes": 1854,
+      "sha256": "09f9555b24df9a6434526a4cc4d42513a6a7fb1682613bf7b49f72ea13c4ba0f"
+    },
+    {
+      "path": "captures/native-setter-v3/case0-tick0-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep0-physical.jsonl.gz",
+      "bytes": 35029,
+      "sha256": "a9dae81c25f01472279ef381778d98138420b0d07dca368556285c1e573e63aa"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep0-private.jsonl.gz",
+      "bytes": 1866,
+      "sha256": "625fea10273e37c20857d4263af44afaa6401b5807a804f1ee6c1d9164af09d5"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep1-physical.jsonl.gz",
+      "bytes": 35013,
+      "sha256": "ac3bb096f7c04b0649b495d96f7103426de92ca48383880bdbc2260e9ead6fb4"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep1-private.jsonl.gz",
+      "bytes": 1867,
+      "sha256": "1d8d09ee9246e9f8c1d1fe1df4729228d8574af399a5998a87f23608d34f90af"
+    },
+    {
+      "path": "captures/native-setter-v3/case1-tick0-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep0-physical.jsonl.gz",
+      "bytes": 34822,
+      "sha256": "a1551f7055edd3fe86a9c55304f2acf5a8816cb2d81d6319f9bdb6f966948934"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep0-private.jsonl.gz",
+      "bytes": 1864,
+      "sha256": "94ce32b4da64da978a65a3944b242e3927177611fc8c677b1bff8095fa69fc37"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep1-physical.jsonl.gz",
+      "bytes": 34844,
+      "sha256": "cee71d95777df6e65c0a978bc3179e729bab239d2e674e40bca932a822946e63"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep1-private.jsonl.gz",
+      "bytes": 1868,
+      "sha256": "623783de4aab0b5d1d90e9e1f1b38b3d80d976c9a85463dcd9e293660444b112"
+    },
+    {
+      "path": "captures/native-setter-v3/case2-tick0-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep0-physical.jsonl.gz",
+      "bytes": 34768,
+      "sha256": "1098e01002e991b70db90e017f05c809a581691a058b457c9f6fb231b91e3361"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep0-private.jsonl.gz",
+      "bytes": 2046,
+      "sha256": "6040d3d5765743372b6d2294552469d60da8ef2ff21f46bc721dae23b1211212"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep1-physical.jsonl.gz",
+      "bytes": 34776,
+      "sha256": "701fda41891e2837ddf0ae1fc92838757de90fe1a67f7f5027a0f2994ff23528"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep1-private.jsonl.gz",
+      "bytes": 2037,
+      "sha256": "7e9747165edfb00635747bd7c486b45bf6c8ca2feaeae40eb08fa9063f3998d5"
+    },
+    {
+      "path": "captures/native-setter-v3/case3-tick1-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep0-physical.jsonl.gz",
+      "bytes": 21702,
+      "sha256": "838dff91327323051f0173b24c6fdf814467ad3046a5f857e5b21d354f84e353"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep0-private.jsonl.gz",
+      "bytes": 1183,
+      "sha256": "de5de6ae17c4bb51c336dd770437bd7437a5efe53177c39e93e862b30c141cfe"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep1-physical.jsonl.gz",
+      "bytes": 21730,
+      "sha256": "da6c954177e69c3b898ffe92784c06f106ce341bd355e944fc6476fdffe915fe"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep1-private.jsonl.gz",
+      "bytes": 1189,
+      "sha256": "4f3a94fdedc73eb32f664b023b51ccf28c3162264dbc537b9eeed334187b7d95"
+    },
+    {
+      "path": "captures/native-setter-v3/case4-tick4-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-setter-v3/manifest.json",
+      "bytes": 3773,
+      "sha256": "837ffe4290c90bff75c2db08befaabe702d232d5eab29cb0027798f74c75eaf3"
+    },
+    {
+      "path": "checks/broad-final/capture-manifest.json",
+      "bytes": 8760,
+      "sha256": "93da2a5727092a6147466c3c90bb1601805b6f834a7ec1cffc0808e73cb5a1b5"
+    },
+    {
+      "path": "checks/build-all-final.log",
+      "bytes": 5658,
+      "sha256": "c0ecf54fd948e6679bad03197c716bc1831d0c9fd281c0919633105a2e3a4447"
+    },
+    {
+      "path": "checks/canonical-final.log",
+      "bytes": 453,
+      "sha256": "ab24f940946ff33f58ee7f42a626ef09fe29ff99520834fe4055bcbcdd009f5d"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "8cdc5e5e3fc9c88a51a22e211c03a662a162205caad488a60af4c2327d5052c6"
+    },
+    {
+      "path": "checks/ctest-final.log",
+      "bytes": 7093,
+      "sha256": "1913e272121e6ffc58eec6afec3438b9d360c40b8e0027ed6a7464c0112b0e69"
+    },
+    {
+      "path": "checks/game-final-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "77828955d69cb46dfc132815ae99534de84a026c7b7e252cd61c67582165208e"
+    },
+    {
+      "path": "checks/game-final-render-race/launch.json",
+      "bytes": 8852,
+      "sha256": "ebe0faec787a64bec431de99a24cc06d427ff18955f20c3b90861792da19e7ee"
+    },
+    {
+      "path": "checks/game-final-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "efc3cd9eaa5523597b4f523925ce452de6435b82d3864cbc7846f491f5fe8242"
+    },
+    {
+      "path": "checks/game-final-smoke/launch.json",
+      "bytes": 8826,
+      "sha256": "3fc0ad811785ed85dae293a7ed650bc2a304ae13521cf8a4f78a0e0fde6949fc"
+    },
+    {
+      "path": "checks/gates-final/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "e121d5c84ac637542b850d06592e1a34926bdd65a85201e614d56d8bbd283a52"
+    },
+    {
+      "path": "checks/regression-final.log",
+      "bytes": 230,
+      "sha256": "ada89187dff00cb83092dc0f0d1037fcc4aed16495b5f8feca23d8db71ca877e"
+    },
+    {
+      "path": "euler-fixtures-final.json",
+      "bytes": 1825,
+      "sha256": "115979c98ea767ddcb9c5cbb5ef213850a4f9f525ba74462a559e0fe7bdf9d87"
+    },
+    {
+      "path": "evidence/actor-method-addresses.json",
+      "bytes": 347,
+      "sha256": "5bb7dd6f093a7a03a80ed2777031b7a09b57dfedeece86f19933cd05c12ef65e"
+    },
+    {
+      "path": "evidence/euler-from-matrix.disasm.txt",
+      "bytes": 11290,
+      "sha256": "8f8fa2b53f3a278f69817b82cf9d3410d0ef1abbb87b4c24bc44bafe928d36b2"
+    },
+    {
+      "path": "evidence/euler-from-quat.disasm.txt",
+      "bytes": 6760,
+      "sha256": "1c02dc350d2c54a5686deaf45b8b80207556bd087e69f7a3e30eafa48b3b7c47"
+    },
+    {
+      "path": "evidence/euler-to-quat.disasm.txt",
+      "bytes": 8650,
+      "sha256": "9327fceb9e2455ab8a0a1bb5d2187e4cec34f8edcfe73952e1c1df66f97b49f3"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 9250,
+      "sha256": "0c3439f8f8b67749a502431064886ff11b50b5b0a38722276940a668fa39b837"
+    },
+    {
+      "path": "evidence/inverse-tensor.disasm.txt",
+      "bytes": 5146,
+      "sha256": "8e62802f003dd017e4c43ef8dfebc31b5999986499e279ee9ad4c22f7b8a346f"
+    },
+    {
+      "path": "evidence/native-euler-source-verification.json",
+      "bytes": 166,
+      "sha256": "51cb2523aa0ddd81cb01e442a924464fd2802fc16375b55ef3564f4531435889"
+    },
+    {
+      "path": "evidence/native-source-verification.json",
+      "bytes": 166,
+      "sha256": "f9e312eedd01accc30f336818d07a101b0840540acccdc0b998a52942a9cb593"
+    },
+    {
+      "path": "evidence/physics-v113-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "d6632f77b571a6b32f40feb097e523fcef45f4620df3d2d7edaae30ca172e6ab"
+    },
+    {
+      "path": "evidence/physics-v113-validated-broad-audit.json",
+      "bytes": 269580,
+      "sha256": "648c16ed0395dd713aa4edb138eadbe4e56dcea71dc8d418746bc85082801131"
+    },
+    {
+      "path": "evidence/physics-v113-validated-canonical-error-audit.json",
+      "bytes": 614653,
+      "sha256": "60e7d777a2045f08a5bf741c87d505a3cea6dae76abfa244d84e726af3a2a459"
+    },
+    {
+      "path": "evidence/physics-v113-validated-practical-error-audit.json",
+      "bytes": 1075355,
+      "sha256": "bd8d4d7867e7eae8cc6445361489aa2a38d5229f0ac19c9b2623bd47a4f276f8"
+    },
+    {
+      "path": "evidence/physics-v113-validated-regression-audit.json",
+      "bytes": 24782,
+      "sha256": "d227a58573fdb52aaf2d7735ef6252e78fe6b98a212ed700c34c0e275dcaaf32"
+    },
+    {
+      "path": "evidence/portable-final.json",
+      "bytes": 1342,
+      "sha256": "ce5c337b44efc86b3214d7ef9a59e4ac944076e7f0c44c3f6c6989574c650539"
+    },
+    {
+      "path": "evidence/same-input-proof.json",
+      "bytes": 1160,
+      "sha256": "5673288cc61e85a551344e664f3948a8d411fc595231495bfcfa49d97b35574d"
+    },
+    {
+      "path": "evidence/set-angular-momentum.disasm.txt",
+      "bytes": 10907,
+      "sha256": "f596f7887478eb5930cb3e3f00bc2870817e322669c689f85ff8ae85a6f49ed1"
+    },
+    {
+      "path": "evidence/setter-pose.disasm.txt",
+      "bytes": 8332,
+      "sha256": "70806edab61bf2a34b95baa8e4dc0e0c8fae6f7624616a2921771c153516b2e3"
+    },
+    {
+      "path": "evidence/v112-clamp-mixed.jsonl.gz",
+      "bytes": 9237,
+      "sha256": "7fdcb0724bd8277328d59ca3d9fed00399c9a8122998396a2a09c8b4fa94713a"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2144927,
+      "sha256": "68ab6a59b74499c52f3957769d91b4b555e146ee16908905285ebaea872ba8e0"
+    },
+    {
+      "path": "native-euler-observer/build.cmd",
+      "bytes": 285,
+      "sha256": "d0ca362a9d43d10966b7d061fa576e1d2364932c852a880d79d1c5b4bd32f27d"
+    },
+    {
+      "path": "native-euler-observer/trace-angular.cpp",
+      "bytes": 11243,
+      "sha256": "3bc3a55fc49768a7652cbcf8c974823d5e2d10e3c3b93897b9ddb62226b7563f"
+    },
+    {
+      "path": "native-setter-observer/build.cmd",
+      "bytes": 291,
+      "sha256": "e791f591bc0825653bd636732dc5191335a5b40b16653da32f74cb4453954fc4"
+    },
+    {
+      "path": "native-setter-observer/trace-angular.cpp",
+      "bytes": 10548,
+      "sha256": "8ac3d0eb7730902f607fd129f015e498fd040e0dfd81dee0f54e483e882cafa4"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7820,
+      "sha256": "6a17b266aae1b3726922fe18192e1435e9fd4bb76dd68f9d63110ae1afe22ef9"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit-final.py",
+      "bytes": 4377,
+      "sha256": "c0f926c13de756d18539f26ec31edb2053e1cdf5ff1abba69670f1601badde9e"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-live-final.py",
+      "bytes": 3274,
+      "sha256": "de0443753405c7726e9d0ccd47802f8d614d6d4e4acb647608cc894870992912"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-euler.py",
+      "bytes": 2956,
+      "sha256": "845b56926ea03710b4de34759c65f264d5ced8cc213380010c9a94cd1f048b73"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next.py",
+      "bytes": 2968,
+      "sha256": "5d3fc8c0154ef717efee008090452aa4236640d7c6610b18e629976865375420"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-setter.py",
+      "bytes": 3019,
+      "sha256": "08673310a75d14429285a4bd72d031f5db52590a3a11c092ed773d6b98bf5526"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad-final.py",
+      "bytes": 3661,
+      "sha256": "895716177470c090255a1cf8d2c1e8a10ff45cdf1e457df933f1066ca901c9bd"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression-final.py",
+      "bytes": 2207,
+      "sha256": "0a2ea95c1394981867037a8fabaf9872e374af904f8b1d41473f45cc4e310ffe"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit-final.py",
+      "bytes": 4290,
+      "sha256": "eb4812b77d15fadbe7fcfb767356d1f995bf13771fd57e77c6f46748521cbb74"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad-final.py",
+      "bytes": 2443,
+      "sha256": "75eac2f1a17972e59f8caf1601dd3aed30d95fcd54c3077cbdd01512f1f98993"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused-validated.py",
+      "bytes": 2546,
+      "sha256": "db9946534e6dc60e783317cf6c56c7e7719df92e61ee664f03f19160441d6473"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates-final.py",
+      "bytes": 7276,
+      "sha256": "3a6c78131b5875cf35c7033488ec9c2132d8f3e92d89611e3a5407e2f8a73d26"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1666,
+      "sha256": "fae84723fadb3a8eaa7c495892fc6709c3be24961dd314ac44e010c2c19f7a36"
+    },
+    {
+      "path": "setter-fixtures.json",
+      "bytes": 3451,
+      "sha256": "d5fefd4e92938a966301027702d691be520bafbdd21d64c170d0363dd42f4c75"
+    },
+    {
+      "path": "shadow/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "shadow/NativePublicAngular.h",
+      "bytes": 2119,
+      "sha256": "2729a9845d6d233045afec900353c18f38af3b23392c359d4ca3c3db84aa4b46"
+    },
+    {
+      "path": "stabilize-fixtures.json",
+      "bytes": 3103,
+      "sha256": "d707b9716d42ec721ecd46b27570dc1a3a00751feb912b9dda27f690f0e60093"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2885,
+      "sha256": "23103dc5742792a25f72ad9b569d14bb53322a77251299cf59eb910b9598b917"
+    },
+    {
+      "path": "verify-euler.cpp",
+      "bytes": 1232,
+      "sha256": "2b11c8372319623b5e35d0ab9d2d0ec81f4c35ceec625761fcd02032a33dafb6"
+    },
+    {
+      "path": "verify-setter.cpp",
+      "bytes": 738,
+      "sha256": "90d06a6c4be1976d4ac73d90f70ebcd096476d309af8529f7f90be13622e7d5a"
+    },
+    {
+      "path": "verify-stabilize.cpp",
+      "bytes": 863,
+      "sha256": "1966db2a6718371c48dcc27fd70edd5fb7fc5c31b0915994609cf375bffa3363"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3344,
+      "sha256": "8436399ca6b27c7a7215aa37010602727b30b66f42911a59e538056651aa2563"
+    }
+  ],
+  "goal_complete": false
+}

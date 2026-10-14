@@ -1,0 +1,96 @@
+{
+  "scope": "Original angular momentum setter and game stabilization arithmetic plus original Euler conversion. Diagnostic clamp angle precision retained across controller instead of premature float narrowing; Windows inputs/reference unchanged. No coefficient/state/case rules.",
+  "strict_cases": 590,
+  "total_cases": 608,
+  "remaining_cases": 18,
+  "new_strict_cases": [
+    "game-angular-damping",
+    "game-clamp-mixed",
+    "game-clamp-pitch",
+    "game-clamp-roll"
+  ],
+  "all_previous_586_strict_preserved": true,
+  "two_repeats_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 604,
+  "changed_trajectories": [
+    "game-angular-damping",
+    "game-clamp-mixed",
+    "game-clamp-pitch",
+    "game-clamp-roll"
+  ],
+  "no_full_run_maximum_regressions_vs_v112": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "position_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "velocity_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "orientation_max_degrees": {
+      "improved": [
+        "game-angular-damping",
+        "game-clamp-roll",
+        "game-clamp-pitch",
+        "game-clamp-mixed"
+      ],
+      "worsened": [],
+      "same": 604
+    },
+    "angular_momentum_max": {
+      "improved": [
+        "game-angular-damping",
+        "game-clamp-roll",
+        "game-clamp-pitch",
+        "game-clamp-mixed"
+      ],
+      "worsened": [],
+      "same": 604
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_normal_force_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    }
+  },
+  "original_setter_tensor_velocity_checkpoints_exact_O0_O2": 8,
+  "original_stabilization_momentum_checkpoints_exact_O0_O2": 8,
+  "original_Euler_angle_quaternion_checkpoints_exact_O0_O2": 6,
+  "Native_repeats": 2,
+  "live_checkpoint_captures": 14,
+  "live120_step_Native_equivalent_states": 1680,
+  "all10_incoming_words_and_world_momentum_pose_velocity_exact": true,
+  "portable_Native_equal_states": 8280,
+  "flag_off_preserves_v112_clamp_states": 120,
+  "selected_flag_off_v112_preservation_cases": 35,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "90f1f7759d954165b1fa78bafcda21adec73b9571b3f2513b5b46731745ac750",
+    "rrr3d_physics_spring_probe": "c2db29f37179ed448df1291b928c71c287c7c3abef6fab1aac9614f62bc54056"
+  },
+  "goal_complete": false
+}

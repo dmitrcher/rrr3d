@@ -1,0 +1,151 @@
+  429c80: 55                           	pushl	%ebp
+  429c81: 8b ec                        	movl	%esp, %ebp
+  429c83: 83 e4 f8                     	andl	$-0x8, %esp
+  429c86: 83 ec 54                     	subl	$0x54, %esp
+  429c89: d9 45 18                     	flds	0x18(%ebp)
+  429c8c: 53                           	pushl	%ebx
+  429c8d: d9 7c 24 08                  	fnstcw	0x8(%esp)
+  429c91: 56                           	pushl	%esi
+  429c92: 0f b7 44 24 0c               	movzwl	0xc(%esp), %eax
+  429c97: 0d 00 0c 00 00               	orl	$0xc00, %eax            # imm = 0xC00
+  429c9c: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+  429ca0: 57                           	pushl	%edi
+  429ca1: d9 6c 24 14                  	fldcw	0x14(%esp)
+  429ca5: df 7c 24 28                  	fistpll	0x28(%esp)
+  429ca9: 8b 44 24 28                  	movl	0x28(%esp), %eax
+  429cad: 8b c8                        	movl	%eax, %ecx
+  429caf: d1 e8                        	shrl	%eax
+  429cb1: d9 6c 24 10                  	fldcw	0x10(%esp)
+  429cb5: 8b d8                        	movl	%eax, %ebx
+  429cb7: d1 e8                        	shrl	%eax
+  429cb9: 8b f0                        	movl	%eax, %esi
+  429cbb: d1 e8                        	shrl	%eax
+  429cbd: 83 e0 03                     	andl	$0x3, %eax
+  429cc0: 0f be b8 b0 15 43 00         	movsbl	0x4315b0(%eax), %edi
+  429cc7: 83 e6 01                     	andl	$0x1, %esi
+  429cca: 0f be 84 37 a8 15 43 00      	movsbl	0x4315a8(%edi,%esi), %eax
+  429cd2: 8b d7                        	movl	%edi, %edx
+  429cd4: 2b d6                        	subl	%esi, %edx
+  429cd6: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+  429cda: 0f be 82 a9 15 43 00         	movsbl	0x4315a9(%edx), %eax
+  429ce1: 83 e1 01                     	andl	$0x1, %ecx
+  429ce4: 83 e3 01                     	andl	$0x1, %ebx
+  429ce7: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+  429ceb: 83 f9 01                     	cmpl	$0x1, %ecx
+  429cee: 75 14                        	jne	0x429d04 <.text+0x28d04>
+  429cf0: d9 45 0c                     	flds	0xc(%ebp)
+  429cf3: d9 5c 24 18                  	fstps	0x18(%esp)
+  429cf7: d9 45 14                     	flds	0x14(%ebp)
+  429cfa: d9 5d 0c                     	fstps	0xc(%ebp)
+  429cfd: d9 44 24 18                  	flds	0x18(%esp)
+  429d01: d9 5d 14                     	fstps	0x14(%ebp)
+  429d04: 83 fe 01                     	cmpl	$0x1, %esi
+  429d07: 75 08                        	jne	0x429d11 <.text+0x28d11>
+  429d09: d9 45 10                     	flds	0x10(%ebp)
+  429d0c: d9 e0                        	fchs
+  429d0e: d9 5d 10                     	fstps	0x10(%ebp)
+  429d11: d9 45 0c                     	flds	0xc(%ebp)
+  429d14: dd 05 58 e2 42 00            	fldl	0x42e258
+  429d1a: dc c9                        	fmul	%st, %st(1)
+  429d1c: d9 c9                        	fxch	%st(1)
+  429d1e: dd 54 24 30                  	fstl	0x30(%esp)
+  429d22: d9 45 10                     	flds	0x10(%ebp)
+  429d25: d8 ca                        	fmul	%st(2), %st
+  429d27: dd 5c 24 18                  	fstpl	0x18(%esp)
+  429d2b: d9 45 14                     	flds	0x14(%ebp)
+  429d2e: de ca                        	fmulp	%st, %st(2)
+  429d30: d9 c9                        	fxch	%st(1)
+  429d32: dd 5c 24 20                  	fstpl	0x20(%esp)
+  429d36: e8 c1 06 00 00               	calll	0x42a3fc <.text+0x293fc>
+  429d3b: dd 5c 24 40                  	fstpl	0x40(%esp)
+  429d3f: dd 44 24 18                  	fldl	0x18(%esp)
+  429d43: e8 b4 06 00 00               	calll	0x42a3fc <.text+0x293fc>
+  429d48: dd 5c 24 28                  	fstpl	0x28(%esp)
+  429d4c: dd 44 24 20                  	fldl	0x20(%esp)
+  429d50: e8 a7 06 00 00               	calll	0x42a3fc <.text+0x293fc>
+  429d55: dd 5c 24 38                  	fstpl	0x38(%esp)
+  429d59: dd 44 24 30                  	fldl	0x30(%esp)
+  429d5d: e8 a0 06 00 00               	calll	0x42a402 <.text+0x29402>
+  429d62: dd 5c 24 30                  	fstpl	0x30(%esp)
+  429d66: dd 44 24 18                  	fldl	0x18(%esp)
+  429d6a: e8 93 06 00 00               	calll	0x42a402 <.text+0x29402>
+  429d6f: dd 5c 24 18                  	fstpl	0x18(%esp)
+  429d73: dd 44 24 20                  	fldl	0x20(%esp)
+  429d77: e8 86 06 00 00               	calll	0x42a402 <.text+0x29402>
+  429d7c: dd 44 24 38                  	fldl	0x38(%esp)
+  429d80: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+  429d84: d9 c0                        	fld	%st(0)
+  429d86: dd 44 24 40                  	fldl	0x40(%esp)
+  429d8a: 8d 4c cc 48                  	leal	0x48(%esp,%ecx,8), %ecx
+  429d8e: dc c9                        	fmul	%st, %st(1)
+  429d90: d8 cb                        	fmul	%st(3), %st
+  429d92: dd 44 24 30                  	fldl	0x30(%esp)
+  429d96: d9 c0                        	fld	%st(0)
+  429d98: de cc                        	fmulp	%st, %st(4)
+  429d9a: de cc                        	fmulp	%st, %st(4)
+  429d9c: d9 c2                        	fld	%st(2)
+  429d9e: 83 fb 01                     	cmpl	$0x1, %ebx
+  429da1: 75 32                        	jne	0x429dd5 <.text+0x28dd5>
+  429da3: d8 c1                        	fadd	%st(1), %st
+  429da5: 8b 54 24 14                  	movl	0x14(%esp), %edx
+  429da9: dd 44 24 28                  	fldl	0x28(%esp)
+  429dad: dc c9                        	fmul	%st, %st(1)
+  429daf: d9 c9                        	fxch	%st(1)
+  429db1: dd 5c fc 48                  	fstpl	0x48(%esp,%edi,8)
+  429db5: d9 c4                        	fld	%st(4)
+  429db7: d8 c3                        	fadd	%st(3), %st
+  429db9: dd 44 24 18                  	fldl	0x18(%esp)
+  429dbd: dc c9                        	fmul	%st, %st(1)
+  429dbf: d9 c9                        	fxch	%st(1)
+  429dc1: dd 19                        	fstpl	(%ecx)
+  429dc3: d9 ca                        	fxch	%st(2)
+  429dc5: de e4                        	fsubp	%st, %st(4)
+  429dc7: d9 cb                        	fxch	%st(3)
+  429dc9: de c9                        	fmulp	%st, %st(1)
+  429dcb: dd 5c d4 48                  	fstpl	0x48(%esp,%edx,8)
+  429dcf: de e2                        	fsubp	%st, %st(2)
+  429dd1: de c9                        	fmulp	%st, %st(1)
+  429dd3: eb 3a                        	jmp	0x429e0f <.text+0x28e0f>
+  429dd5: dd 44 24 28                  	fldl	0x28(%esp)
+  429dd9: 8b 44 24 14                  	movl	0x14(%esp), %eax
+  429ddd: dc c9                        	fmul	%st, %st(1)
+  429ddf: d9 c2                        	fld	%st(2)
+  429de1: dd 44 24 18                  	fldl	0x18(%esp)
+  429de5: dc c9                        	fmul	%st, %st(1)
+  429de7: d9 cb                        	fxch	%st(3)
+  429de9: de e1                        	fsubp	%st, %st(1)
+  429deb: dd 5c fc 48                  	fstpl	0x48(%esp,%edi,8)
+  429def: d9 c3                        	fld	%st(3)
+  429df1: d8 ca                        	fmul	%st(2), %st
+  429df3: d9 c6                        	fld	%st(6)
+  429df5: d8 ca                        	fmul	%st(2), %st
+  429df7: de c1                        	faddp	%st, %st(1)
+  429df9: dd 19                        	fstpl	(%ecx)
+  429dfb: dc ca                        	fmul	%st, %st(2)
+  429dfd: d9 cc                        	fxch	%st(4)
+  429dff: d8 c9                        	fmul	%st(1), %st
+  429e01: de ea                        	fsubrp	%st, %st(2)
+  429e03: d9 c9                        	fxch	%st(1)
+  429e05: dd 5c c4 48                  	fstpl	0x48(%esp,%eax,8)
+  429e09: de cb                        	fmulp	%st, %st(3)
+  429e0b: de c9                        	fmulp	%st, %st(1)
+  429e0d: de c1                        	faddp	%st, %st(1)
+  429e0f: 8b 45 08                     	movl	0x8(%ebp), %eax
+  429e12: d9 58 0c                     	fstps	0xc(%eax)
+  429e15: 83 fe 01                     	cmpl	$0x1, %esi
+  429e18: 75 06                        	jne	0x429e20 <.text+0x28e20>
+  429e1a: dd 01                        	fldl	(%ecx)
+  429e1c: d9 e0                        	fchs
+  429e1e: dd 19                        	fstpl	(%ecx)
+  429e20: dd 44 24 48                  	fldl	0x48(%esp)
+  429e24: 5f                           	popl	%edi
+  429e25: d9 18                        	fstps	(%eax)
+  429e27: 5e                           	popl	%esi
+  429e28: dd 44 24 48                  	fldl	0x48(%esp)
+  429e2c: 5b                           	popl	%ebx
+  429e2d: d9 58 04                     	fstps	0x4(%eax)
+  429e30: dd 44 24 4c                  	fldl	0x4c(%esp)
+  429e34: d9 58 08                     	fstps	0x8(%eax)
+  429e37: 8b e5                        	movl	%ebp, %esp
+  429e39: 5d                           	popl	%ebp
+  429e3a: c3                           	retl

@@ -1,0 +1,31 @@
+{
+  "scope": "Default-off original angular momentum setter and game stabilization, original Euler conversion, preserved double diagnostic clamp inputs; no coefficients/reference-state/case-frame rules. Four adapter/harness files, controller-layout consumers rebuilt.",
+  "files": [
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "4fab22f7d7f5dfe4e04a2ccf58f05c7ed76869292846e4e44e943ce35dcb00f4",
+      "after_sha256": "3b074dce8b4a8cb7cdb3c541924000e0cd1ad7c0ec4cef77e3e1c8b6430721ad",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "before_sha256": "620f46919f6c32cbe16cb748679b4bac7df59df7edbe8d5c82062273062d2f85",
+      "after_sha256": "1798853a64e440aafc79fbd6df49b24f9518e4ec458847c4561918cab0328bb4",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeGameAngularV113.h",
+      "before_sha256": null,
+      "after_sha256": "2e077aca614c769bc696f6528dfe7638e31b91f2ed721a195f1be6509b721c71",
+      "location": "adapter"
+    },
+    {
+      "path": "tools/calibration/mac.cpp",
+      "before_sha256": "b9058fb673ecbef6f81bd35f3f56dfd2c469e1d4d47c629a5ae1a6159d7107ac",
+      "after_sha256": "64385b32358c8c1e34b8eb86ab79d4c7a716311849db0958fba4dde59e3f51dc",
+      "location": "adapter"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified free-wheel-cache-v112 and all prerequisites; four adapter/harness files; rebuild every VehicleDriveCommand consumer"
+}

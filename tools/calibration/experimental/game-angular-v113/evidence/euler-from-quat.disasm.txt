@@ -1,0 +1,122 @@
+  42a0c0: d9 44 24 0c                  	flds	0xc(%esp)
+  42a0c4: 83 ec 60                     	subl	$0x60, %esp
+  42a0c7: d9 c0                        	fld	%st(0)
+  42a0c9: d9 44 24 68                  	flds	0x68(%esp)
+  42a0cd: d9 c0                        	fld	%st(0)
+  42a0cf: d9 44 24 70                  	flds	0x70(%esp)
+  42a0d3: d9 44 24 74                  	flds	0x74(%esp)
+  42a0d7: d9 c0                        	fld	%st(0)
+  42a0d9: d9 c3                        	fld	%st(3)
+  42a0db: de cc                        	fmulp	%st, %st(4)
+  42a0dd: d9 c5                        	fld	%st(5)
+  42a0df: de ce                        	fmulp	%st, %st(6)
+  42a0e1: d9 cb                        	fxch	%st(3)
+  42a0e3: de c5                        	faddp	%st, %st(5)
+  42a0e5: d9 c1                        	fld	%st(1)
+  42a0e7: de ca                        	fmulp	%st, %st(2)
+  42a0e9: d9 cc                        	fxch	%st(4)
+  42a0eb: de c1                        	faddp	%st, %st(1)
+  42a0ed: d9 c1                        	fld	%st(1)
+  42a0ef: de ca                        	fmulp	%st, %st(2)
+  42a0f1: de c1                        	faddp	%st, %st(1)
+  42a0f3: d9 ee                        	fldz
+  42a0f5: d8 d1                        	fcom	%st(1)
+  42a0f7: df e0                        	fnstsw	%ax
+  42a0f9: f6 c4 05                     	testb	$0x5, %ah
+  42a0fc: 7a 0a                        	jp	0x42a108 <.text+0x29108>
+  42a0fe: dd d8                        	fstp	%st(0)
+  42a100: dc 3d 68 e2 42 00            	fdivrl	0x42e268
+  42a106: eb 02                        	jmp	0x42a10a <.text+0x2910a>
+  42a108: dd d9                        	fstp	%st(1)
+  42a10a: d9 c1                        	fld	%st(1)
+  42a10c: 8b 44 24 78                  	movl	0x78(%esp), %eax
+  42a110: d8 c9                        	fmul	%st(1), %st
+  42a112: 50                           	pushl	%eax
+  42a113: d9 c4                        	fld	%st(4)
+  42a115: 8d 4c 24 24                  	leal	0x24(%esp), %ecx
+  42a119: d8 ca                        	fmul	%st(2), %st
+  42a11b: 51                           	pushl	%ecx
+  42a11c: d9 44 24 78                  	flds	0x78(%esp)
+  42a120: 8d 54 24 18                  	leal	0x18(%esp), %edx
+  42a124: de cb                        	fmulp	%st, %st(3)
+  42a126: 52                           	pushl	%edx
+  42a127: d9 c4                        	fld	%st(4)
+  42a129: d8 ca                        	fmul	%st(2), %st
+  42a12b: d9 c5                        	fld	%st(5)
+  42a12d: d8 ca                        	fmul	%st(2), %st
+  42a12f: d9 ce                        	fxch	%st(6)
+  42a131: d8 cc                        	fmul	%st(4), %st
+  42a133: dd 5c 24 14                  	fstpl	0x14(%esp)
+  42a137: d9 c4                        	fld	%st(4)
+  42a139: de cb                        	fmulp	%st, %st(3)
+  42a13b: d9 c4                        	fld	%st(4)
+  42a13d: d8 ca                        	fmul	%st(2), %st
+  42a13f: d9 cd                        	fxch	%st(5)
+  42a141: d8 cc                        	fmul	%st(4), %st
+  42a143: dd 5c 24 0c                  	fstpl	0xc(%esp)
+  42a147: d9 c6                        	fld	%st(6)
+  42a149: de ca                        	fmulp	%st, %st(2)
+  42a14b: d9 ce                        	fxch	%st(6)
+  42a14d: d8 cb                        	fmul	%st(3), %st
+  42a14f: d9 44 24 7c                  	flds	0x7c(%esp)
+  42a153: de cc                        	fmulp	%st, %st(4)
+  42a155: d9 cb                        	fxch	%st(3)
+  42a157: dd 54 24 1c                  	fstl	0x1c(%esp)
+  42a15b: d8 c1                        	fadd	%st(1), %st
+  42a15d: d9 e8                        	fld1
+  42a15f: de e1                        	fsubp	%st, %st(1)
+  42a161: d9 5c 24 2c                  	fstps	0x2c(%esp)
+  42a165: d9 c3                        	fld	%st(3)
+  42a167: dd 44 24 14                  	fldl	0x14(%esp)
+  42a16b: dc e9                        	fsubr	%st, %st(1)
+  42a16d: d9 c9                        	fxch	%st(1)
+  42a16f: d9 5c 24 30                  	fstps	0x30(%esp)
+  42a173: dd 44 24 0c                  	fldl	0xc(%esp)
+  42a177: d8 c6                        	fadd	%st(6), %st
+  42a179: d9 5c 24 34                  	fstps	0x34(%esp)
+  42a17d: de c4                        	faddp	%st, %st(4)
+  42a17f: d9 cb                        	fxch	%st(3)
+  42a181: d9 5c 24 3c                  	fstps	0x3c(%esp)
+  42a185: dd 44 24 1c                  	fldl	0x1c(%esp)
+  42a189: d8 c1                        	fadd	%st(1), %st
+  42a18b: d9 e8                        	fld1
+  42a18d: d9 c0                        	fld	%st(0)
+  42a18f: de e2                        	fsubp	%st, %st(2)
+  42a191: d9 c9                        	fxch	%st(1)
+  42a193: d9 5c 24 40                  	fstps	0x40(%esp)
+  42a197: d9 c2                        	fld	%st(2)
+  42a199: d8 e6                        	fsub	%st(6), %st
+  42a19b: d9 5c 24 44                  	fstps	0x44(%esp)
+  42a19f: dd 44 24 0c                  	fldl	0xc(%esp)
+  42a1a3: de e5                        	fsubp	%st, %st(5)
+  42a1a5: d9 cc                        	fxch	%st(4)
+  42a1a7: d9 5c 24 4c                  	fstps	0x4c(%esp)
+  42a1ab: d9 c9                        	fxch	%st(1)
+  42a1ad: de c4                        	faddp	%st, %st(4)
+  42a1af: d9 cb                        	fxch	%st(3)
+  42a1b1: d9 5c 24 50                  	fstps	0x50(%esp)
+  42a1b5: de c2                        	faddp	%st, %st(2)
+  42a1b7: de e1                        	fsubp	%st, %st(1)
+  42a1b9: d9 5c 24 54                  	fstps	0x54(%esp)
+  42a1bd: d9 ee                        	fldz
+  42a1bf: d9 54 24 58                  	fsts	0x58(%esp)
+  42a1c3: d9 54 24 48                  	fsts	0x48(%esp)
+  42a1c7: d9 54 24 38                  	fsts	0x38(%esp)
+  42a1cb: d9 54 24 64                  	fsts	0x64(%esp)
+  42a1cf: d9 54 24 60                  	fsts	0x60(%esp)
+  42a1d3: d9 5c 24 5c                  	fstps	0x5c(%esp)
+  42a1d7: d9 e8                        	fld1
+  42a1d9: d9 5c 24 68                  	fstps	0x68(%esp)
+  42a1dd: e8 5e fc ff ff               	calll	0x429e40 <.text+0x28e40>
+  42a1e2: 8b 10                        	movl	(%eax), %edx
+  42a1e4: 8b 4c 24 70                  	movl	0x70(%esp), %ecx
+  42a1e8: 89 11                        	movl	%edx, (%ecx)
+  42a1ea: 8b 50 04                     	movl	0x4(%eax), %edx
+  42a1ed: 89 51 04                     	movl	%edx, 0x4(%ecx)
+  42a1f0: 8b 50 08                     	movl	0x8(%eax), %edx
+  42a1f3: 8b 40 0c                     	movl	0xc(%eax), %eax
+  42a1f6: 89 51 08                     	movl	%edx, 0x8(%ecx)
+  42a1f9: 89 41 0c                     	movl	%eax, 0xc(%ecx)
+  42a1fc: 8b c1                        	movl	%ecx, %eax
+  42a1fe: 83 c4 6c                     	addl	$0x6c, %esp
+  42a201: c3                           	retl

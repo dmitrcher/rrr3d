@@ -1,0 +1,27 @@
+{
+  "flag": "RRR3D_EXPERIMENT_NATIVE_ENERGY_SLEEP_V128",
+  "files": {
+    "source/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before": "9cccee601145530ddeac19f6eac8ee81ccd797ef7f1d497a464dbd5bd1271fca",
+      "after": "71bab4ef5439996830666fbd249e5601fbe91b6e0858711a3a99728a799e28f9"
+    },
+    "source/src/RRR3d/OriginalPhysicsReplay.cpp": {
+      "before": "f03ffdcb3a744263a18f5962441887affdc18b268fceca919fec691832c026cd",
+      "after": "c05803c9e15235cbb29e31f73f71b6f8c60d9da92da2f1b900941ea6c613ed9d"
+    },
+    "source/src/Rock3dEngine/header/physics/NativeEnergySleepV127.h": {
+      "before": null,
+      "after": "3ade545453e1d71d9f996300f7fd78dc06333ebadfdbeedd1e0c162810059cb0"
+    },
+    "sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp": {
+      "before": "2cdcb578527cbb5db1ca9ac3b797d61e51b2c5db586d2c4c36a452ddddcab658",
+      "after": "6caf42d50eaf5c74e7f7ea005ff2eeed64be8a487553337e6bece171a35d884d"
+    },
+    "sdk/Jolt/Physics/Vehicle/VehicleConstraint.h": {
+      "before": "57043e15f35a4c92d399d2ec0f78a2de30d9dd43a89d12a6e899bc59b6fba3cb",
+      "after": "4fc8685755e4442db89e636564897fc9eb8904ba1b98044d78898eb169c7486d"
+    }
+  },
+  "accepted": false,
+  "goal_complete": false
+}

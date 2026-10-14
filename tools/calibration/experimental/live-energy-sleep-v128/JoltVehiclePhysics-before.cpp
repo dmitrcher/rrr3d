@@ -1,0 +1,7695 @@
+#include "physics/NativeContactCache.h"
+#include "physics/NativeCombinedTireV95.h"
+#include <map>
+#include "physics/OriginalVehiclePhysics.h"
+#include "physics/CalibrationTuning.h"
+#include "physics/SourceBoxManifold.h"
+#include "physics/SourceMeshManifold.h"
+#include "physics/SourceMaterialFrameCandidate.h"
+#include "physics/DerivedContactErrorFrame.h"
+#include "physics/NativeMaterialFrameV36.h"
+#include "physics/NativeInertiaRotation.h"
+#include "physics/NativePrincipalInertia.h"
+#include "physics/NativeShapeMass.h"
+#include "physics/NativePublicAngular.h"
+#include "physics/NativeGameAngularV113.h"
+#include "physics/NativeLocalAngularAccelerationV114.h"
+#include "physics/NativePhysicalPoseV42.h"
+#include "physics/NativePairLocalCacheV75.h"
+#include "physics/NativePairQuaternionV76.h"
+#include "physics/NativeContactOrderV79.h"
+#include "physics/NativeContactManagerOrderV108.h"
+#include "physics/NativeWheelPairLifetimeV106.h"
+#include "physics/NativeWheelBoxQueryV80.h"
+#include "physics/NativeStaticWheelBoxQueryV107.h"
+#include "physics/NativeLongitudinalSlipV81.h"
+#include "physics/NativeNormalForceV84.h"
+#include "physics/NativeSuspensionForceV88.h"
+#include "physics/NativeSuspensionForceV115.h"
+#include "physics/NativeWheelMotorV92.h"
+#include "physics/NativeFreeWheelCacheV112.h"
+#include "physics/NativeQuaternionPoseV43.h"
+#include "physics/NativeWheelRayV52.h"
+#include "physics/NativePlacedMeshV126.h"
+#include "physics/NativeTriangleNormalV101.h"
+#include "physics/NativeWheelPoseV54.h"
+#include "physics/NativeTireV55.h"
+#include "physics/NativeSteeringTireV118.h"
+#include "physics/NativeWheelBoxRayV59.h"
+
+#include <Jolt/Jolt.h>
+#include <Jolt/Core/Factory.h>
+#include <Jolt/Core/JobSystemThreadPool.h>
+#include <Jolt/Core/TempAllocator.h>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
+#include <Jolt/Physics/Collision/Shape/MeshShape.h>
+#include <Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h>
+#include <Jolt/Physics/Collision/Shape/PlaneShape.h>
+#include <Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h>
+#include <Jolt/Physics/Body/BodyFilter.h>
+#include <Jolt/Physics/Collision/ContactListener.h>
+#include <Jolt/Physics/Constraints/ConstraintPart/NativeContactArithmetic.h>
+#include <Jolt/Physics/Collision/CollideShape.h>
+#include <Jolt/Physics/Collision/CollisionDispatch.h>
+#include <Jolt/Physics/Collision/EstimateCollisionResponse.h>
+#include <Jolt/Physics/Collision/RayCast.h>
+#include <Jolt/Physics/Collision/CastResult.h>
+#include <Jolt/Physics/Collision/CollisionCollectorImpl.h>
+#include <Jolt/Physics/PhysicsSystem.h>
+#include <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+#include <Jolt/Physics/Vehicle/VehicleConstraint.h>
+#include <Jolt/Physics/Vehicle/WheeledVehicleController.h>
+#include <Jolt/RegisterTypes.h>
+
+#include <algorithm>
+#include <array>
+#include <atomic>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <limits>
+#include <mutex>
+#include <stdexcept>
+#include <thread>
+
+namespace r3d::physics
+{
+namespace
+{
+
+// Physx.h::Scene::CollDisGroup. Object layers encode both this source group
+// and whether Jolt must place the body in the moving broad-phase bucket.
+enum class SourceCollisionGroup : JPH::ObjectLayer
+{
+    Default = 0U,
+    Shot = 1U,
+    ShotBorder = 2U,
+    ShotTransparency = 3U,
+    Wheel = 4U,
+    ShotTrack = 5U,
+    TrackPlane = 6U,
+    PlaneDeath = 7U,
+};
+
+constexpr JPH::ObjectLayer sourceObjectLayer(
+    SourceCollisionGroup group, bool moving) noexcept
+{
+    return static_cast<JPH::ObjectLayer>(
+        (static_cast<JPH::ObjectLayer>(group) << 1U) |
+        (moving ? 1U : 0U));
+}
+
+constexpr bool sourceObjectLayerIsMoving(JPH::ObjectLayer layer) noexcept
+{
+    return (layer & 1U) != 0U;
+}
+
+constexpr SourceCollisionGroup sourceObjectLayerGroup(
+    JPH::ObjectLayer layer) noexcept
+{
+    const auto value = static_cast<JPH::ObjectLayer>(layer >> 1U);
+    return value <= static_cast<JPH::ObjectLayer>(
+                        SourceCollisionGroup::PlaneDeath)
+               ? static_cast<SourceCollisionGroup>(value)
+               : SourceCollisionGroup::Default;
+}
+
+constexpr bool sourceCollisionGroupsShouldCollide(
+    SourceCollisionGroup first, SourceCollisionGroup second) noexcept
+{
+    const auto pair = [first, second](SourceCollisionGroup a,
+                                      SourceCollisionGroup b) constexpr {
+        return (first == a && second == b) ||
+               (first == b && second == a);
+    };
+    // Exact setGroupCollisionFlag(..., false) calls from Physx.cpp::Scene.
+    return !(
+        pair(SourceCollisionGroup::Shot, SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::ShotBorder,
+             SourceCollisionGroup::ShotBorder) ||
+        pair(SourceCollisionGroup::ShotBorder,
+             SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::ShotTrack,
+             SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::ShotTrack,
+             SourceCollisionGroup::ShotBorder) ||
+        pair(SourceCollisionGroup::ShotTrack,
+             SourceCollisionGroup::ShotTrack) ||
+        pair(SourceCollisionGroup::ShotTransparency,
+             SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::Wheel, SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::Wheel,
+             SourceCollisionGroup::ShotBorder) ||
+        pair(SourceCollisionGroup::Wheel,
+             SourceCollisionGroup::ShotTrack) ||
+        pair(SourceCollisionGroup::Wheel,
+             SourceCollisionGroup::ShotTransparency) ||
+        pair(SourceCollisionGroup::TrackPlane,
+             SourceCollisionGroup::Shot) ||
+        pair(SourceCollisionGroup::TrackPlane,
+             SourceCollisionGroup::ShotBorder));
+}
+
+namespace Layers
+{
+constexpr JPH::ObjectLayer defaultNonMoving =
+    sourceObjectLayer(SourceCollisionGroup::Default, false);
+constexpr JPH::ObjectLayer defaultMoving =
+    sourceObjectLayer(SourceCollisionGroup::Default, true);
+} // namespace Layers
+
+namespace BroadPhaseLayers
+{
+constexpr JPH::BroadPhaseLayer nonMoving(0);
+constexpr JPH::BroadPhaseLayer moving(1);
+constexpr JPH::uint count = 2;
+} // namespace BroadPhaseLayers
+
+// NxBodyDesc leaves maxAngularVelocity at -1 for cars, movable decorations,
+// debris and projectile actors. PhysX then uses the SDK default documented by
+// NX_MAX_ANGULAR_VELOCITY: 7 rad/s. Jolt's default is roughly 47 rad/s, which
+// lets an ordinary off-centre impact spin a chassis fast enough for the next
+// wheel/body contact to turn that rotation into an artificial upward launch.
+constexpr float sourceMaximumAngularVelocity = 7.0F;
+// Physx.cpp sets NX_SKIN_WIDTH to 0.025. Two default shapes may therefore
+// interpenetrate by 0.05 before their visual surfaces meet. NxBodyDesc also
+// leaves solverIterationCount at its SDK default of four.
+constexpr float sourceSkinWidth = 0.025F;
+constexpr float sourcePenetrationSlop = 2.0F * sourceSkinWidth;
+constexpr JPH::uint sourceSolverIterations = 4U;
+// DataBase::AddPxBody explicitly replaces the PhysX 2.8.4 default 0.005
+// with 0.05 for cars, movable decorations and detached crush pieces.
+// NxBodyDesc uses mass-normalized kinetic energy: K / m < threshold. Jolt
+// tracks the movement range of representative body points. Its enclosing
+// sphere radius is half the distance travelled at constant velocity, so the
+// configured radius/time boundary is 0.5 * sqrt(2E). The rotational half
+// remains conservatively handled by Jolt's two off-centre test points.
+constexpr float sourceSleepEnergyThreshold = 0.05F;
+constexpr float sourcePointVelocitySleepThreshold = 0.15811388300841897F;
+// NX_SLEEP_INTERVAL is exactly 20 frames at the PhysX standard 0.02 step.
+constexpr float sourceTimeBeforeSleep = 0.4F;
+// PhysX 2.8 NX_BOUNCE_THRESHOLD defaults to -2 m/s. Jolt stores the positive
+// magnitude below which restitution is suppressed.
+constexpr float sourceMinimumBounceVelocity = 2.0F;
+// World::cMaxSimStep is the interval represented by one PhysX contact report.
+// Jolt runs two 1/120 solver updates inside that interval, but the gameplay
+// still consumes one NxContactPair::sumNormalForce/sumFrictionForce value.
+constexpr float sourceContactReportStep = 1.0F / 60.0F;
+
+JPH::Vec3 sourceBoxHalfExtents(Vec3 halfExtents, float skinWidth, bool contactSkin = false) noexcept
+{
+    // A Jolt convex radius does not move the outer planes. Contact skins
+    // therefore need a geometric inset to avoid an early corner impulse.
+    // The historical adapter represented only the excess above 0.025.
+    // Inertia still uses the full source geometry, as the Nx SDK does.
+    constexpr float minimumHalfExtent = 0.005F;
+    const float effectiveSkin =
+        std::isfinite(skinWidth) && skinWidth >= 0.0F
+            ? skinWidth : sourceSkinWidth;
+    const float inset =
+        contactSkin ? effectiveSkin : std::max(effectiveSkin - sourceSkinWidth, 0.0F);
+    return {
+        std::max(std::abs(halfExtents.x) - inset, minimumHalfExtent),
+        std::max(std::abs(halfExtents.z) - inset, minimumHalfExtent),
+        std::max(std::abs(halfExtents.y) - inset, minimumHalfExtent)};
+}
+
+class ObjectLayerPairFilter final : public JPH::ObjectLayerPairFilter
+{
+public:
+    bool ShouldCollide(JPH::ObjectLayer first,
+                       JPH::ObjectLayer second) const override
+    {
+        if (!sourceObjectLayerIsMoving(first) &&
+            !sourceObjectLayerIsMoving(second))
+            return false;
+        return sourceCollisionGroupsShouldCollide(
+            sourceObjectLayerGroup(first), sourceObjectLayerGroup(second));
+    }
+};
+
+class BroadPhaseLayerInterface final : public JPH::BroadPhaseLayerInterface
+{
+public:
+    JPH::uint GetNumBroadPhaseLayers() const override
+    {
+        return BroadPhaseLayers::count;
+    }
+
+    JPH::BroadPhaseLayer GetBroadPhaseLayer(
+        JPH::ObjectLayer layer) const override
+    {
+        return sourceObjectLayerIsMoving(layer)
+                   ? BroadPhaseLayers::moving
+                   : BroadPhaseLayers::nonMoving;
+    }
+};
+
+class ObjectVsBroadPhaseFilter final
+    : public JPH::ObjectVsBroadPhaseLayerFilter
+{
+public:
+    bool ShouldCollide(JPH::ObjectLayer layer,
+                       JPH::BroadPhaseLayer broadPhase) const override
+    {
+        return sourceObjectLayerIsMoving(layer) ||
+               broadPhase == BroadPhaseLayers::moving;
+    }
+};
+
+class JoltRuntime
+{
+public:
+    JoltRuntime()
+    {
+        JPH::RegisterDefaultAllocator();
+        JPH::Factory::sInstance = new JPH::Factory;
+        JPH::RegisterTypes();
+    }
+
+    ~JoltRuntime()
+    {
+        JPH::UnregisterTypes();
+        delete JPH::Factory::sInstance;
+        JPH::Factory::sInstance = nullptr;
+    }
+};
+
+JoltRuntime& runtime()
+{
+    static JoltRuntime value;
+    return value;
+}
+
+JPH::Vec3 toJolt(Vec3 value)
+{
+    return {value.x, value.z, value.y};
+}
+
+JPH::Vec3 toJoltAngular(Vec3 value)
+{
+    // Z-up -> Y-up swaps two axes and therefore changes handedness.
+    // Angular velocity is an axial vector and needs det(P) * P.
+    return {-value.x, -value.z, -value.y};
+}
+
+JPH::Quat toJolt(Quat value)
+{
+    return {-value.x, -value.z, -value.y, value.w};
+}
+
+Vec3 fromJolt(JPH::Vec3Arg value)
+{
+    return {value.GetX(), value.GetZ(), value.GetY()};
+}
+
+Vec3 fromJoltAngular(JPH::Vec3Arg value)
+{
+    return {-value.GetX(), -value.GetZ(), -value.GetY()};
+}
+
+float sourceContactForceFromImpulse(float impulse) noexcept
+{
+    return impulse / sourceContactReportStep;
+}
+
+void accumulateSourceContactForces(BodyContact& accumulated,
+                                   BodyContact&& contact)
+{
+    // PhysX reports the vector sum for the complete actor pair. A Jolt actor
+    // pair can arrive once per internal half-step (and once per sub-shape),
+    // so selecting the strongest callback changes both damage magnitude and
+    // spring-border direction at mesh seams.
+    const JPH::Vec3 normalForce =
+        toJolt(accumulated.normal) * accumulated.force +
+        toJolt(contact.normal) * contact.force;
+    accumulated.force = normalForce.Length();
+    if (accumulated.force > 1.0e-6F)
+    {
+        accumulated.normal = fromJolt(
+            normalForce / accumulated.force);
+    }
+    accumulated.normalSpeed = std::max(
+        accumulated.normalSpeed, contact.normalSpeed);
+
+    const JPH::Vec3 frictionForce =
+        toJolt(accumulated.frictionForceVector) +
+        toJolt(contact.frictionForceVector);
+    accumulated.frictionForce = frictionForce.Length();
+    accumulated.frictionForceVector = fromJolt(frictionForce);
+
+    if (!accumulated.hasPoint && contact.hasPoint)
+    {
+        accumulated.point = contact.point;
+        accumulated.points = std::move(contact.points);
+        accumulated.hasPoint = true;
+    }
+}
+
+Quat fromJolt(JPH::QuatArg value)
+{
+    // Changing from game Z-up to Jolt Y-up is a reflection. Quaternion
+    // imaginary components are axial, hence det(P) * P.
+    return {-value.GetX(), -value.GetZ(), -value.GetY(), value.GetW()};
+}
+
+Vec3 quaternionToEulerXYZ(Quat value)
+{
+    const float sinRoll =
+        2.0F * (value.w * value.x + value.y * value.z);
+    const float cosRoll =
+        1.0F - 2.0F * (value.x * value.x + value.y * value.y);
+    const float sinPitch = std::clamp(
+        2.0F * (value.w * value.y - value.z * value.x),
+        -1.0F, 1.0F);
+    const float sinYaw =
+        2.0F * (value.w * value.z + value.x * value.y);
+    const float cosYaw =
+        1.0F - 2.0F * (value.y * value.y + value.z * value.z);
+    return {std::atan2(sinRoll, cosRoll), std::asin(sinPitch),
+            std::atan2(sinYaw, cosYaw)};
+}
+
+Quat quaternionFromEulerXYZ(Vec3 value)
+{
+    const float cr = std::cos(0.5F * value.x);
+    const float sr = std::sin(0.5F * value.x);
+    const float cp = std::cos(0.5F * value.y);
+    const float sp = std::sin(0.5F * value.y);
+    const float cy = std::cos(0.5F * value.z);
+    const float sy = std::sin(0.5F * value.z);
+    return {sr * cp * cy - cr * sp * sy,
+            cr * sp * cy + sr * cp * sy,
+            cr * cp * sy - sr * sp * cy,
+            cr * cp * cy + sr * sp * sy};
+}
+
+Vec3 transformPoint(const Transform& transform, Vec3 value)
+{
+    value.x *= transform.scale.x;
+    value.y *= transform.scale.y;
+    value.z *= transform.scale.z;
+    const auto& q = transform.rotation;
+    const Vec3 t{2.0F * (q.y * value.z - q.z * value.y),
+                 2.0F * (q.z * value.x - q.x * value.z),
+                 2.0F * (q.x * value.y - q.y * value.x)};
+    const Vec3 rotated{
+        value.x + q.w * t.x + (q.y * t.z - q.z * t.y),
+        value.y + q.w * t.y + (q.z * t.x - q.x * t.z),
+        value.z + q.w * t.z + (q.x * t.y - q.y * t.x)};
+    return {rotated.x + transform.position.x,
+            rotated.y + transform.position.y,
+            rotated.z + transform.position.z};
+}
+
+struct SourceBodyFriction
+{
+    JPH::Vec3 firstDirection = JPH::Vec3::sZero();
+    float first = 0.0F;
+    float second = 0.0F;
+};
+
+enum class SourceCombineMode : std::uint8_t
+{
+    Average = 0U,
+    Minimum = 1U,
+    Multiply = 2U,
+    Maximum = 3U,
+};
+
+float sourceCombineCoefficient(float first, SourceCombineMode firstMode,
+                               float second,
+                               SourceCombineMode secondMode) noexcept
+{
+    const auto mode = static_cast<SourceCombineMode>(std::max(
+        static_cast<std::uint8_t>(firstMode),
+        static_cast<std::uint8_t>(secondMode)));
+    switch (mode)
+    {
+    case SourceCombineMode::Minimum:
+        return std::min(first, second);
+    case SourceCombineMode::Multiply:
+        return first * second;
+    case SourceCombineMode::Maximum:
+        return std::max(first, second);
+    case SourceCombineMode::Average:
+    default:
+        return 0.5F * (first + second);
+    }
+}
+
+SourceBodyFriction sourceVehicleBodyFriction(
+    JPH::QuatArg carRotation, JPH::Vec3Arg contactNormal,
+    float carPrimaryFriction, float otherFriction,
+    SourceCombineMode otherMode, bool sourceTrackContact,
+    bool sourcePairLimits = false, float secondaryMaterial = 2.0F,
+    float secondarySurface = -1.0F) noexcept
+{
+    // Nx first projects and normalizes the anisotropy direction in the
+    // contact plane, before GameCar::OnContactModify reads the SDK frame.
+    // Crossing raw car-up here incorrectly selected the isotropic fallback
+    // for every roll below 30 degrees (the source tests a unit SDK tangent).
+    const JPH::Vec3 carUp = carRotation * JPH::Vec3::sAxisY();
+    JPH::Vec3 first = carUp.Cross(contactNormal);
+    // Nx suppresses projected directions shorter than 0.01. Independent
+    // polar probes select the world basis at 0.0100 rad and anisotropy at
+    // 0.0101 rad. Keep tiny solver tilt from rotating the friction patch.
+    const bool isotropic = first.LengthSq() <= 1.0e-4F;
+    if (isotropic)
+    {
+        // Coincident anisotropy/normal: Nx uses its world contact basis,
+        // independent of car yaw. The flat +Z source plane has primary +/-Y.
+        first = JPH::Vec3::sAxisX().Cross(contactNormal);
+        if (first.LengthSq() <= 1.0e-8F)
+            first = JPH::Vec3::sAxisZ().Cross(contactNormal);
+    }
+    first = first.Normalized();
+    float primary = sourceCombineCoefficient(
+        carPrimaryFriction, SourceCombineMode::Minimum, otherFriction, otherMode);
+    float secondary = sourceCombineCoefficient(
+        secondaryMaterial, SourceCombineMode::Minimum,
+        secondarySurface>=0.0F?secondarySurface:otherFriction, otherMode);
+    // Independent SDK material-pair probes cap the secondary coefficient
+    // before the polar fallback; the primary coefficient can exceed one.
+    if (sourcePairLimits) secondary = std::min(1.0F, secondary);
+    // Nx averages the already combined U/V coefficients at the pole:
+    // the source 0.08/0.1 pair becomes isotropic 0.09, not 0.1.
+    if (isotropic) primary = secondary = 0.5F * (primary + secondary);
+    return {first, sourceTrackContact ? 0.0F : primary, secondary};
+}
+
+SourceBodyFriction sourceCarPairBodyFriction(
+    JPH::QuatArg firstRotation, float firstPrimary,
+    JPH::QuatArg secondRotation, float secondPrimary,
+    JPH::Vec3Arg normal) noexcept
+{
+    const bool second = std::abs(2.0F - secondPrimary) >
+                        std::abs(2.0F - firstPrimary);
+    return sourceVehicleBodyFriction(
+        second ? secondRotation : firstRotation, normal,
+        second ? secondPrimary : firstPrimary,
+        0.5F * ((second ? firstPrimary : secondPrimary) + 2.0F),
+        SourceCombineMode::Minimum, false, true);
+}
+
+SourceBodyFriction sourceTrackBodyFriction(
+    JPH::QuatArg carRotation, JPH::Vec3Arg contactNormal,
+    CollisionSurface surface) noexcept
+{
+    const bool border = surface == CollisionSurface::TrackBorder;
+    return sourceVehicleBodyFriction(
+        carRotation, contactNormal, 0.08F, border ? 4.0F : 0.1F,
+        border ? SourceCombineMode::Maximum
+               : SourceCombineMode::Average,
+        true, true);
+}
+
+constexpr JPH::uint64 bodyKindMask = 0xf000000000000000ULL;
+constexpr JPH::uint64 vehicleBodyKind = 0x1000000000000000ULL;
+constexpr JPH::uint64 surfaceBodyKind = 0x2000000000000000ULL;
+constexpr JPH::uint64 decorationBodyKind = 0x3000000000000000ULL;
+constexpr JPH::uint64 projectileBodyKind = 0x4000000000000000ULL;
+constexpr JPH::uint64 projectileCollisionGroupMask =
+    0x0f00000000000000ULL;
+constexpr unsigned projectileCollisionGroupShift = 56U;
+
+JPH::uint64 vehicleUserData(std::size_t index)
+{
+    return vehicleBodyKind | static_cast<JPH::uint64>(index);
+}
+
+JPH::uint64 surfaceUserData(CollisionSurface surface)
+{
+    return surfaceBodyKind | static_cast<JPH::uint64>(surface);
+}
+
+JPH::uint64 decorationUserData(std::size_t index)
+{
+    return decorationBodyKind | static_cast<JPH::uint64>(index);
+}
+
+SourceCollisionGroup sourceCollisionGroup(
+    ProjectileCollisionGroup collisionGroup) noexcept
+{
+    switch (collisionGroup)
+    {
+    case ProjectileCollisionGroup::Shot:
+        return SourceCollisionGroup::Shot;
+    case ProjectileCollisionGroup::ShotBorder:
+        return SourceCollisionGroup::ShotBorder;
+    case ProjectileCollisionGroup::ShotTrack:
+        return SourceCollisionGroup::ShotTrack;
+    default:
+        return SourceCollisionGroup::Default;
+    }
+}
+
+JPH::uint64 projectileUserData(
+    std::size_t index, ProjectileCollisionGroup collisionGroup)
+{
+    return projectileBodyKind |
+           (static_cast<JPH::uint64>(collisionGroup) <<
+            projectileCollisionGroupShift) |
+           static_cast<JPH::uint64>(index);
+}
+
+bool vehicleIndex(JPH::uint64 userData, std::size_t& index)
+{
+    if ((userData & bodyKindMask) != vehicleBodyKind)
+        return false;
+    index = static_cast<std::size_t>(userData & ~bodyKindMask);
+    return true;
+}
+
+ProjectileCollisionGroup projectileCollisionGroup(JPH::uint64 userData)
+{
+    if ((userData & bodyKindMask) != projectileBodyKind)
+        return ProjectileCollisionGroup::Default;
+    const auto value = static_cast<std::uint8_t>(
+        (userData & projectileCollisionGroupMask) >>
+        projectileCollisionGroupShift);
+    switch (value)
+    {
+    case static_cast<std::uint8_t>(ProjectileCollisionGroup::Shot):
+        return ProjectileCollisionGroup::Shot;
+    case static_cast<std::uint8_t>(ProjectileCollisionGroup::ShotBorder):
+        return ProjectileCollisionGroup::ShotBorder;
+    case static_cast<std::uint8_t>(ProjectileCollisionGroup::ShotTrack):
+        return ProjectileCollisionGroup::ShotTrack;
+    default:
+        return ProjectileCollisionGroup::Default;
+    }
+}
+
+bool projectileIsShotTrack(JPH::uint64 userData)
+{
+    return projectileCollisionGroup(userData) ==
+           ProjectileCollisionGroup::ShotTrack;
+}
+
+bool projectileIndex(JPH::uint64 userData, std::size_t& index)
+{
+    if ((userData & bodyKindMask) != projectileBodyKind)
+        return false;
+    index = static_cast<std::size_t>(
+        userData & ~(bodyKindMask | projectileCollisionGroupMask));
+    return true;
+}
+
+bool decorationIndex(JPH::uint64 userData, std::size_t& index)
+{
+    if ((userData & bodyKindMask) != decorationBodyKind)
+        return false;
+    index = static_cast<std::size_t>(userData & ~bodyKindMask);
+    return true;
+}
+
+CollisionSurface collisionSurface(JPH::uint64 userData)
+{
+    if ((userData & bodyKindMask) == decorationBodyKind)
+        return CollisionSurface::Decoration;
+    if ((userData & bodyKindMask) != surfaceBodyKind)
+        return CollisionSurface::TrackPlane;
+    const auto value = static_cast<std::uint8_t>(userData & ~bodyKindMask);
+    return value <= static_cast<std::uint8_t>(CollisionSurface::DeathPlane)
+               ? static_cast<CollisionSurface>(value)
+               : CollisionSurface::TrackPlane;
+}
+
+SourceCombineMode sourceFrictionCombineMode(const JPH::Body& body) noexcept
+{
+    const JPH::uint64 userData = body.GetUserData();
+    if ((userData & bodyKindMask) == vehicleBodyKind)
+        return SourceCombineMode::Minimum;
+    if ((userData & bodyKindMask) == surfaceBodyKind &&
+        collisionSurface(userData) == CollisionSurface::TrackBorder)
+    {
+        return SourceCombineMode::Maximum;
+    }
+    return SourceCombineMode::Average;
+}
+
+float sourceCombineFriction(const JPH::Body& first,
+                            const JPH::SubShapeID&,
+                            const JPH::Body& second,
+                            const JPH::SubShapeID&) noexcept
+{
+    return sourceCombineCoefficient(
+        first.GetFriction(), sourceFrictionCombineMode(first),
+        second.GetFriction(), sourceFrictionCombineMode(second));
+}
+
+float sourceCombineRestitution(const JPH::Body& first,
+                               const JPH::SubShapeID&,
+                               const JPH::Body& second,
+                               const JPH::SubShapeID&) noexcept
+{
+    // No original game material changes NxMaterialDesc's default
+    // restitution combine mode, therefore every pair uses NX_CM_AVERAGE.
+    return sourceCombineCoefficient(
+        first.GetRestitution(), SourceCombineMode::Average,
+        second.GetRestitution(), SourceCombineMode::Average);
+}
+
+// A source vehicle box may contact the interior seam of a flat Nx mesh.
+// Jolt's velocity hint can keep the seam normal instead of the face normal.
+const JPH::Shape* sourceContactShape(const JPH::Body& body) noexcept
+{
+    const JPH::Shape* shape = body.GetShape();
+    while (shape->GetType() == JPH::EShapeType::Decorated)
+        shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+    return shape;
+}
+
+bool sourceVehicleBoxMeshPair(const JPH::Body& first, const JPH::Body& second) noexcept
+{
+    const auto pair = [](const JPH::Body& car, const JPH::Body& mesh) {
+        return (car.GetUserData() & bodyKindMask) == vehicleBodyKind &&
+            sourceContactShape(car)->GetSubType() == JPH::EShapeSubType::Box &&
+            sourceContactShape(mesh)->GetSubType() == JPH::EShapeSubType::Mesh;
+    };
+    return pair(first, second) || pair(second, first);
+}
+
+void sourceCollideVehicleBoxMesh(
+    const JPH::Body& first, const JPH::Body& second,
+    JPH::Mat44Arg firstTransform, JPH::Mat44Arg secondTransform,
+    JPH::CollideShapeSettings& settings, JPH::CollideShapeCollector& collector,
+    const JPH::ShapeFilter& filter)
+{
+    if (!sourceVehicleBoxMeshPair(first, second)) {
+        JPH::PhysicsSystem::sDefaultSimCollideBodyVsBody(
+            first, second, firstTransform, secondTransform, settings, collector, filter);
+        return;
+    }
+    settings.mActiveEdgeMode = JPH::EActiveEdgeMode::CollideOnlyWithActive;
+    settings.mActiveEdgeMovementDirection = JPH::Vec3::sZero();
+    JPH::SubShapeIDCreator firstPart, secondPart;
+    JPH::CollisionDispatch::sCollideShapeVsShape(
+        first.GetShape(), second.GetShape(), JPH::Vec3::sOne(), JPH::Vec3::sOne(),
+        firstTransform, secondTransform, firstPart, secondPart, settings, collector, filter);
+}
+
+class OriginalContactListener final : public JPH::ContactListener
+{
+public:
+    void useSolvedImpulses(bool enabled) { solvedImpulses_ = enabled; }
+    void disableBodyFriction(JPH::BodyID body) {
+        frictionDisabledBodies_.push_back(body);
+    }
+    void sourceContactOptions(bool independent, bool boxOrder, bool materialPairs, bool contactOffsets, bool boxManifolds) {
+        independentFriction_ = independent; boxContactOrder_ = boxOrder;
+        materialPairs_ = materialPairs; contactOffsets_ = contactOffsets; sourceBoxManifolds_ = boxManifolds;
+    }
+
+    void registerContactBox(JPH::BoxShape& box, Vec3 fullHalfExtents, float skinWidth)
+    {
+        if (!contactOffsets_) return;
+        const float skin = std::isfinite(skinWidth) && skinWidth >= 0.0F
+            ? skinWidth : sourceSkinWidth;
+        const JPH::Vec3 inset = toJolt(fullHalfExtents).Abs() - box.GetHalfExtent();
+        std::scoped_lock lock(mutex_);
+        std::size_t index = 0;
+        for (; index < contactGeometry_.size(); ++index)
+            if (contactGeometry_[index].skin == skin && contactGeometry_[index].inset == inset)
+                break;
+        if (index == contactGeometry_.size()) contactGeometry_.push_back({skin, inset});
+        wheelBoxQueryPaddingV59_=std::max(wheelBoxQueryPaddingV59_,inset.Length());
+        // These private box shapes have no other shape-user-data consumer.
+        // Indexing deduplicated geometry avoids retaining destroyed debris shapes.
+        box.SetUserData(contactGeometryMarker | static_cast<JPH::uint64>(index));
+    }
+    float wheelBoxQueryPaddingV59() const {
+        std::scoped_lock lock(mutex_);return wheelBoxQueryPaddingV59_;
+    }
+    bool wheelContactSkinV94(const JPH::Body& body,JPH::SubShapeID subShape,float& skin) const {
+        JPH::SubShapeID remainder;
+        const JPH::Shape* shape=body.GetShape()->GetLeafShape(subShape,remainder);
+        if(!shape)return false;
+        if(shape->GetSubType()==JPH::EShapeSubType::Mesh || shape->GetSubType()==JPH::EShapeSubType::Plane) {
+            // Track mesh/plane creation uses the unchanged original scene default.
+            skin=sourceSkinWidth;return true;
+        }
+        if(shape->GetSubType()!=JPH::EShapeSubType::Box)return false;
+        const auto data=shape->GetUserData();
+        if((data&contactGeometryMarker)==0)return false;
+        const auto index=static_cast<std::size_t>(data&~contactGeometryMarker);
+        std::scoped_lock lock(mutex_);
+        if(index>=contactGeometry_.size())return false;
+        skin=contactGeometry_[index].skin;return true;
+    }
+    bool wheelSourceBoxV59(const JPH::Body &body,motorrock::wheelboxrayv59::Box &output,
+                           bool allowVehicleV70=false) const {
+        std::size_t vehicle=0;
+        if(!body.IsStatic() && !(allowVehicleV70 && body.IsDynamic() && vehicleIndex(body.GetUserData(),vehicle)))return false;
+        SourceBox box;if(!sourceBox(body,box))return false;
+        output.half={{box.half.x,box.half.y,box.half.z}};
+        output.position={{box.transform.p.x,box.transform.p.y,box.transform.p.z}};
+        const auto &m=box.transform.m;
+        output.columns={{{{m.column0.x,m.column0.y,m.column0.z}},{{m.column1.x,m.column1.y,m.column1.z}},{{m.column2.x,m.column2.y,m.column2.z}}}};
+        return true;
+    }
+
+    void registerSourceMesh(JPH::Shape& shape, const JPH::TriangleList& triangles,
+                            const motorrock::placedmeshv126::Pose* placedPose=nullptr)
+    {
+        auto record = std::make_shared<SourceMesh>();
+        if(placedPose){record->placedV126=true;record->poseV126=*placedPose;}
+        for (const auto& triangle : triangles) {
+            SourceMeshTriangle out;
+            for (int j = 0; j < 3; ++j) {
+                const auto v = fromJolt(JPH::Vec3::sLoadFloat3Unsafe(triangle.mV[j == 0? 0 : 3-j]));
+                out.points[j] = {v.x, v.y, v.z};
+            }
+            record->triangles.push_back(out);
+        }
+        const char* queryOrderV122 = std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122");
+        if(placedPose || (queryOrderV122 && std::strcmp(queryOrderV122,"1")==0)) {
+            JPH::Array<JPH::SubShapeID> ids;
+            static_cast<const JPH::MeshShape&>(shape).GetSourceTriangleIDsV122(ids);
+            if(ids.size()!=record->triangles.size())throw std::runtime_error("Source triangle ID count mismatch");
+            for(unsigned i=0;i<ids.size();++i)record->triangles[i].subShapeV122=ids[i];
+        }
+        if (sourcemesh::boxtrianglesatv60::enabled()) {
+            // Coplanar shared edges are internal to the surface, not convex
+            // boundary edges. Source mesh cooking removes them from EE tests.
+            using Vertex=std::array<float,3>;
+            using Edge=std::array<Vertex,2>;
+            std::map<Edge,std::vector<std::pair<unsigned,unsigned>>> shared;
+            for (unsigned i=0;i<record->triangles.size();++i) {
+                const auto& t=record->triangles[i];
+                for (unsigned e=0;e<3;++e) {
+                    const auto p=t.points[e],q=t.points[(e+1)%3];
+                    Edge key{{Vertex{{p.x,p.y,p.z}},Vertex{{q.x,q.y,q.z}}}};
+                    if (key[1]<key[0])std::swap(key[0],key[1]);
+                    shared[key].push_back({i,e});
+                }
+            }
+            for (const auto& entry:shared) {
+                if (entry.second.size()!=2)continue;
+                const auto a=entry.second[0],b=entry.second[1];
+                const auto n0=sourcemesh::trianglePlane(record->triangles[a.first].points).n;
+                const auto n1=sourcemesh::trianglePlane(record->triangles[b.first].points).n;
+                if (n0.dot(n1)>0.999999f) {
+                    record->triangles[a.first].convexEdges&=~(1u<<a.second);
+                    record->triangles[b.first].convexEdges&=~(1u<<b.second);
+                }
+            }
+        }
+        std::scoped_lock lock(mutex_);
+        shape.SetUserData(sourceMeshMarker | sourceMeshes_.size());
+        sourceMeshes_.push_back(std::move(record));
+    }
+
+    // Exact source vertices, independent of Jolt's mesh compression/order.
+    // This first experiment covers the static identity mesh bodies created by
+    // createTrack; moved/decorated meshes keep their existing query path.
+    bool wheelSourceTriangle(const JPH::Body& body, JPH::SubShapeID subShape,
+                             std::array<motorrock::wheelrayv52::Vector, 3>& points) const
+    {
+        if(!body.IsStatic() || body.GetPosition()!=JPH::RVec3::sZero() || body.GetRotation()!=JPH::Quat::sIdentity())return false;
+        return wheelSourceLocalTriangle(body,subShape,points);
+    }
+
+    // Stored source triangles are local shape geometry. Preserve the existing
+    // identity-only point query, while normal generation can precede rotation.
+    bool wheelSourceLocalTriangle(const JPH::Body& body, JPH::SubShapeID subShape,
+                                  std::array<motorrock::wheelrayv52::Vector,3>& points) const
+    {
+        const auto* shape = body.GetShape();
+        if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
+        const auto data = shape->GetUserData();
+        if ((data & sourceMeshMarker) == 0) return false;
+        const auto index = data & ~sourceMeshMarker;
+        const auto triangle = static_cast<const JPH::MeshShape*>(shape)->GetTriangleUserData(subShape);
+        std::scoped_lock lock(mutex_);
+        if (index >= sourceMeshes_.size() || triangle >= sourceMeshes_[index]->triangles.size()) return false;
+        const auto& source = sourceMeshes_[index]->triangles[triangle];
+        for (unsigned i = 0; i < 3; ++i)
+            points[i] = {source.points[i].x, source.points[i].y, source.points[i].z};
+        return true;
+    }
+
+    bool wheelPlacedMeshNormalV126(const JPH::Body& body,
+        motorrock::wheelrayv52::Vector local, motorrock::wheelrayv52::Vector& world) const
+    {
+        const auto* shape=body.GetShape();if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
+        const auto data=shape->GetUserData();if((data&sourceMeshMarker)==0)return false;
+        std::scoped_lock lock(mutex_);const auto index=data&~sourceMeshMarker;
+        if(index>=sourceMeshes_.size() || !sourceMeshes_[index]->placedV126)return false;
+        world=motorrock::placedmeshv126::direction(sourceMeshes_[index]->poseV126,local);return true;
+    }
+
+    // Experimental source-order scalar triangle query for static identity meshes.
+    // Original small-mesh query scans source triangles and replaces its retained
+    // hit only when the new distance is strictly smaller (RVA 1f28ef..1f290d).
+    // Jolt's triangle acceptance and traversal cannot choose that source hit.
+    bool wheelSourceMeshQueryV122(const JPH::Body& body,
+        motorrock::wheelrayv52::Vector start, motorrock::wheelrayv52::Vector unit,
+        float length, bool& hit, JPH::SubShapeID& subShape,
+        motorrock::wheelrayv52::Vector& point, float& distance) const
+    {
+        namespace wr=motorrock::wheelrayv52;
+        hit=false;
+        if(!body.IsStatic())return false;
+        const auto* shape=body.GetShape();
+        if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
+        const auto data=shape->GetUserData();if((data&sourceMeshMarker)==0)return false;
+        std::shared_ptr<const SourceMesh> mesh;
+        { std::scoped_lock lock(mutex_);const auto index=data&~sourceMeshMarker;if(index>=sourceMeshes_.size())return false;mesh=sourceMeshes_[index]; }
+        if(!mesh->placedV126 && (body.GetPosition()!=JPH::RVec3::sZero() || body.GetRotation()!=JPH::Quat::sIdentity()))return false;
+        if(mesh->placedV126){start=motorrock::placedmeshv126::inversePoint(mesh->poseV126,start);unit=motorrock::placedmeshv126::inverseDirection(mesh->poseV126,unit);}
+        distance=std::numeric_limits<float>::infinity();
+        for(const auto& triangle:mesh->triangles) {
+            std::array<wr::Vector,3> p;
+            for(unsigned i=0;i<3;++i)p[i]={{triangle.points[i].x,triangle.points[i].y,triangle.points[i].z}};
+            const auto intersection=wr::intersect(start,unit,p[0],p[1],p[2]);
+            if(!std::isfinite(intersection.distance) || intersection.distance<0 || intersection.distance>length || intersection.u<0 || intersection.v<0 || wr::add(intersection.u,intersection.v)>1)continue;
+            if(intersection.distance>=distance)continue;
+            distance=intersection.distance;point=wr::interpolate(p[0],p[1],p[2],intersection.u,intersection.v);
+            subShape=triangle.subShapeV122;hit=true;
+        }
+        if(hit && mesh->placedV126)point=motorrock::placedmeshv126::point(mesh->poseV126,point);
+        return true;
+    }
+
+    bool WantsContactManifoldRefresh(const JPH::Body& first, const JPH::Body& second) const override
+    {
+        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second)) return true;
+        if (!sourceBoxManifolds_) return false;
+        std::size_t index;
+        if (!vehicleIndex(first.GetUserData(), index) && !vehicleIndex(second.GetUserData(), index)) return false;
+        if (first.GetMotionType() != JPH::EMotionType::Static && second.GetMotionType() != JPH::EMotionType::Static) {
+            const char* pairFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_MANIFOLD_V71");
+            std::size_t firstCar, secondCar;
+            if (!pairFlag || (std::strcmp(pairFlag,"1") != 0 && std::strcmp(pairFlag,"2") != 0) ||
+                !first.IsDynamic() || !second.IsDynamic() ||
+                !vehicleIndex(first.GetUserData(),firstCar) ||
+                !vehicleIndex(second.GetUserData(),secondCar)) return false;
+        }
+        if (first.IsSensor() || second.IsSensor()) return false;
+        SourceBox a, b;
+        return sourceBox(first, a) && sourceBox(second, b);
+    }
+
+    bool OverrideContactManifold(const JPH::Body& first, const JPH::Body& second,
+                                 const JPH::ContactManifold& input, JPH::ContactManifold& output) override
+    {
+        if (sourceMeshMode_ && sourceVehicleBoxMeshPair(first, second)) {
+            const bool generated = meshManifold(first, second, input, output);
+            if (generated) replayFirstContact(first, second, output);
+            return generated;
+        }
+        if (!WantsContactManifoldRefresh(first, second)) return false;
+        SourceBox a, b;
+        if (!sourceBox(first, a) || !sourceBox(second, b)) return false;
+        // Preserve Nx static-first box geometry independently of body-ID order.
+        const bool swap = first.GetMotionType() != JPH::EMotionType::Static;
+        const auto& s0 = swap? b : a;
+        const auto& s1 = swap? a : b;
+        sourcebox::PxU32 axis = 0;
+        sourcebox::ContactBuffer contacts;
+        const char* pairFlagV71=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_MANIFOLD_V71");
+        const bool nativePairV71=first.IsDynamic() && second.IsDynamic() && pairFlagV71 &&
+            (std::strcmp(pairFlagV71,"1")==0 || std::strcmp(pairFlagV71,"2")==0);
+        const char* satFlagV72=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_SAT_V72");
+        const bool nativeSATV72=nativePairV71 && satFlagV72 && std::strcmp(satFlagV72,"1")==0;
+        const char* axisCacheFlagV73=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_CACHE_V73");
+        const bool axisCacheV73=nativeSATV72 && axisCacheFlagV73 && std::strcmp(axisCacheFlagV73,"1")==0;
+        const std::uint64_t pairKeyV73=std::uint64_t(first.GetID().GetIndexAndSequenceNumber()) |
+            (std::uint64_t(second.GetID().GetIndexAndSequenceNumber())<<32);
+        if(axisCacheV73){
+            std::scoped_lock lock(mutex_);
+            const auto previous=nativePairBoxAxesV73_.find(pairKeyV73);
+            if(previous!=nativePairBoxAxesV73_.end() && previous->second.second+1>=traceStep_)axis=previous->second.first;
+        }
+        const char* pairClipFlagV74=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_CLIP_V74");
+        const bool pairClipV74=nativePairV71 && pairClipFlagV74 && std::strcmp(pairClipFlagV74,"1")==0;
+        const char* inverseFlagV76=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_BOX_INVERSE_V76");
+        const bool pairInverseV76=nativeSATV72 && inverseFlagV76 && std::strcmp(inverseFlagV76,"1")==0;
+        sourcebox::contacts(contacts, s0.half, s1.half, s0.transform, s1.transform, axis,0.0F,nativeSATV72,pairClipV74,pairInverseV76);
+        if(axisCacheV73){
+            std::scoped_lock lock(mutex_);
+            if(contacts.count)nativePairBoxAxesV73_[pairKeyV73]={axis,traceStep_};
+            else nativePairBoxAxesV73_.erase(pairKeyV73);
+        }
+        const char* pairTraceV74=std::getenv("RRR3D_PAIR_GEOMETRY_TRACE_V74");
+        const char* pairTraceStepV74=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+        if(nativePairV71 && pairTraceV74 && std::strcmp(pairTraceV74,"1")==0 &&
+           (!pairTraceStepV74 || !*pairTraceStepV74 || std::strtoull(pairTraceStepV74,nullptr,10)==traceStep_-1)){
+            std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1<<",\"axis\":"<<axis;
+            auto vector=[&](sourcebox::PxVec3 v){sample<<'['<<v.x<<','<<v.y<<','<<v.z<<']';};
+            auto box=[&](const char* name,const SourceBox& s){sample<<",\""<<name<<"\":[";vector(s.half);sample<<',';vector(s.transform.m.column0);sample<<',';vector(s.transform.m.column1);sample<<',';vector(s.transform.m.column2);sample<<',';vector(s.transform.p);sample<<']';};
+            box("body0",s0);box("body1",s1);sample<<",\"points\":[";
+            for(unsigned i=0;i<contacts.count;++i){sample<<(i?",":"")<<'[';vector(contacts.contacts[i].point);sample<<',';vector(contacts.contacts[i].normal);sample<<','<<contacts.contacts[i].separation<<']';}
+            sample<<"]}";motorrock::parity::event("physics.native-pair-geometry-v74","independent box helper inputs",sample.str());
+        }
+        // Original x87 rounding resolves near-equal face overlaps in V72.
+        // Keep the V71 Z-face fallback when the arithmetic experiment is off.
+        if (nativePairV71 && !nativeSATV72 && std::strcmp(pairFlagV71,"1")==0 &&
+            (axis==sourcebox::AXIS_A2+1 || axis==sourcebox::AXIS_B2+1)) return false;
+        if (contacts.count > (nativePairV71?64u:4u)) return false;
+        output = input;
+        output.mRelativeContactPointsOn1.clear();
+        output.mRelativeContactPointsOn2.clear();
+        output.mUseSourceSeparation = true;
+        output.mUseSourceBlockPGS = true;
+        output.mSourceSeparations.fill(0.0F);
+        output.mPenetrationDepth = 0.0F;
+        if (!contacts.count) return true;
+        const auto& n = contacts.contacts[0].normal;
+        if(nativePairV71)output.mNativePairRawNormalV74={{n.x,n.y,n.z}};
+        output.mWorldSpaceNormal = toJolt(Vec3{n.x, n.y, n.z}) * (swap? 1.0F : -1.0F);
+        output.mWorldSpaceNormal = output.mWorldSpaceNormal.Normalized();
+        const char* pairLeverFlagV74=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_LEVERS_V74");
+        const bool staticBoxLeverV111=(first.IsStatic()!=second.IsStatic())
+            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_LEVER_V111");
+        const bool pairLeversV74=(nativePairV71 && pairLeverFlagV74 && std::strcmp(pairLeverFlagV74,"1")==0)
+            || staticBoxLeverV111;
+        motorrock::nativecache::Pose pairPosesV74[2];
+        if(pairLeversV74){
+            const JPH::Body* bodies[]={&second,&first};
+            if(staticBoxLeverV111){bodies[0]=first.IsStatic()?&first:&second;bodies[1]=first.IsDynamic()?&first:&second;}
+            std::scoped_lock lock(mutex_);
+            for(unsigned j=0;j<2;++j){
+                if(staticBoxLeverV111 && bodies[j]->IsStatic()) {
+                    // Original static solver body stores world points in an
+                    // identity frame, independent of the static shape pose.
+                    pairPosesV74[j]={motorrock::contactframe::columns({{1,0,0}},{{0,1,0}},{{0,0,1}}),{{0,0,0}}};
+                    continue;
+                }
+                const auto pose=nativeMaterialActorPoses_.find(bodies[j]->GetID().GetIndexAndSequenceNumber());
+                if(pose==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing pair lever physical pose");
+                const auto center=fromJolt(JPH::Vec3(bodies[j]->GetCenterOfMassPosition()));
+                pairPosesV74[j]={motorrock::physicalposev42::rotation(pose->second),{{center.x,center.y,center.z}}};
+            }
+            output.mNativePairLeverActiveV74=true;
+        }
+        const char* pairCacheFlagV75=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_LOCAL_CACHE_V75");
+        const bool staticBoxCacheV111=staticBoxLeverV111 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_CACHE_V111");
+        const bool pairCacheV75=pairLeversV74 && ((nativePairV71 && pairCacheFlagV75 && std::strcmp(pairCacheFlagV75,"1")==0) || staticBoxCacheV111);
+        std::vector<motorrock::paircachev75::StoredPoint> cachedPointsV75;
+        if(pairCacheV75){
+            namespace pc=motorrock::paircachev75;namespace de=motorrock::derivederror;
+            // Original pair wrapper caps helper contacts at16 before transport.
+            contacts.count=std::min(contacts.count,16u);
+            std::vector<pc::WorldPoint> current;for(unsigned i=0;i<contacts.count;++i){const auto& c=contacts.contacts[i];current.push_back({{{c.point.x,c.point.y,c.point.z}},{{c.normal.x,c.normal.y,c.normal.z}},c.separation});}
+            std::scoped_lock lock(mutex_);auto& stored=nativePairLocalCachesV75_[pairKeyV73];
+            if(stored.step+1<traceStep_)stored.cache=pc::Cache{};
+            const float skin=de::add(s0.skin,s1.skin);
+            const bool reused=stored.cache.prepare(pairPosesV74[0],pairPosesV74[1],current,de::mul(skin,.2F),skin);
+            stored.step=traceStep_;cachedPointsV75=stored.cache.points;
+            auto ordered=contacts;
+            for(unsigned i=0;i<contacts.count;++i){ordered.contacts[i]=contacts.contacts[stored.cache.currentForStored[i]];for(unsigned j=0;j<3;++j)output.mNativeErrorTransverse[i][j]=cachedPointsV75[i].transverse[j];}
+            contacts=ordered;output.mNativePairLocalCacheV75=true;
+            const char* cacheTrace=std::getenv("RRR3D_PAIR_CACHE_TRACE_V75");
+            const char* cacheStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+            if(cacheTrace && std::strcmp(cacheTrace,"1")==0 && (!cacheStep || !*cacheStep || std::strtoull(cacheStep,nullptr,10)==traceStep_-1)){
+                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1<<",\"reuse\":"<<(reused?"true":"false")<<",\"points\":[";
+                auto vector=[&](const motorrock::contactframe::Vector& v){sample<<'['<<v[0]<<','<<v[1]<<','<<v[2]<<']';};
+                for(unsigned i=0;i<cachedPointsV75.size();++i){const auto& v=cachedPointsV75[i];sample<<(i?",":"")<<'[';vector(v.position);sample<<',';vector(v.on0);sample<<',';vector(v.on1);sample<<',';vector(v.normal0);sample<<',';vector(v.normal1);sample<<','<<v.separation<<','<<v.transverse[1]<<','<<v.transverse[2]<<",[";for(unsigned j=0;j<4;++j)sample<<(j?",":"")<<v.raw[j];sample<<"]]";}sample<<"]}";
+                motorrock::parity::event("physics.native-pair-cache-v75","independent paired local-point persistence",sample.str());
+            }
+        }
+        for (sourcebox::PxU32 i = 0; i < contacts.count; ++i) {
+            const auto& c = contacts.contacts[i];
+            if(pairLeversV74){namespace nc=motorrock::nativecache;const motorrock::contactframe::Vector point={{c.point.x,c.point.y,c.point.z}};
+                const auto r0=pairCacheV75?motorrock::paircachev75::lever(pairPosesV74[0],cachedPointsV75[i].on0):nc::solverLever(pairPosesV74[0],nc::localBody0Point(pairPosesV74[0],point));
+                const auto r1=pairCacheV75?motorrock::paircachev75::lever(pairPosesV74[1],cachedPointsV75[i].on1):nc::solverLever(pairPosesV74[1],nc::local(pairPosesV74[1],point));
+                const bool firstStatic=staticBoxLeverV111 && first.IsStatic();
+                for(unsigned j=0;j<3;++j){output.mNativePairLevers0V74[i][j]=(firstStatic?r1:r0)[j];output.mNativePairLevers1V74[i][j]=(firstStatic?r0:r1)[j];}
+            }
+            const JPH::Vec3 relative(toJolt(Vec3{c.point.x, c.point.y, c.point.z}) - output.mBaseOffset);
+            output.mRelativeContactPointsOn1.push_back(relative);
+            output.mRelativeContactPointsOn2.push_back(relative);
+            output.mSourceSeparations[i] = c.separation;
+            output.mPenetrationDepth = std::max(output.mPenetrationDepth, -c.separation);
+        }
+        return true;
+    }
+
+    void OnSourceNormalRow(const JPH::Body& first, const JPH::Body& second, JPH::uint index,
+                           const char* phase, float effectiveMass, float velocityBias,
+                           float unbiasedBias, float separation, float lambda, float dt,
+                           JPH::Vec3Arg r0CrossNormal, JPH::Vec3Arg r1CrossNormal,
+                           JPH::Vec3Arg invI0R0CrossNormal, JPH::Vec3Arg invI1R1CrossNormal) override
+    {
+        if (std::strncmp(phase, "iteration-", 10) == 0) {
+            const char* target = std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+            if (target && *target) {
+                char* end = nullptr;
+                const auto step = std::strtoull(target, &end, 10);
+                if (!end || *end) throw std::runtime_error("Invalid contact iteration trace step");
+                if (step != traceStep_ - 1) return;
+            }
+        }
+        std::ostringstream out;
+        out.imbue(std::locale::classic());
+        out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
+            << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
+            << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
+            << ",\"index\":" << index << ",\"phase\":" << motorrock::parity::quote(phase)
+            << ",\"effective_mass\":" << effectiveMass << ",\"velocity_bias\":" << velocityBias
+            << ",\"unbiased_bias\":" << unbiasedBias << ",\"source_separation\":" << separation
+            << ",\"normal_lambda\":" << lambda << ",\"dt\":" << dt;
+        const auto vector = [&](const char* name, JPH::Vec3 value) {
+            const Vec3 v = fromJolt(value);
+            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
+        };
+        const auto axial = [&](const char* name, JPH::Vec3 value) {
+            const Vec3 v = fromJoltAngular(value);
+            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
+        };
+        vector("velocity0", first.GetLinearVelocity()); vector("velocity1", second.GetLinearVelocity());
+        axial("angular0", first.GetAngularVelocity()); axial("angular1", second.GetAngularVelocity());
+        axial("r_cross_normal0", r0CrossNormal); axial("r_cross_normal1", r1CrossNormal);
+        axial("inverse_inertia_r_cross_normal0", invI0R0CrossNormal);
+        axial("inverse_inertia_r_cross_normal1", invI1R1CrossNormal);
+        const auto inertia = [&](const char* prefix, const JPH::Body& body) {
+            const float inverseMass = body.IsDynamic()? body.GetMotionPropertiesUnchecked()->GetInverseMass() : 0.0F;
+            out << ",\"" << prefix << "_inverse_mass\":" << inverseMass;
+            if (!body.IsDynamic()) return;
+            const JPH::Mat44 inverse = body.GetInverseInertia();
+            for (int axis = 0; axis < 3; ++axis) {
+                const Vec3 sourceAxis = axis == 0? Vec3{1,0,0} : axis == 1? Vec3{0,1,0} : Vec3{0,0,1};
+                const std::string name = std::string(prefix) + "_inverse_inertia_axis" + std::to_string(axis);
+                vector(name.c_str(), inverse.Multiply3x3(toJolt(sourceAxis)));
+            }
+        };
+        inertia("body0", first); inertia("body1", second);
+        out << '}';
+        motorrock::parity::event("physics.source-normal-row", "source normal row diagnostics", out.str());
+    }
+
+    void OnNativeContactIteration(const JPH::Body& first, const JPH::Body& second, JPH::uint index,
+                                  const JPH::NativeContactArithmetic& row, float mass, float lambda) override
+    {
+        const char* target=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+        if (target && *target) {
+            char* end=nullptr;const auto step=std::strtoull(target,&end,10);
+            if (!end || *end) throw std::runtime_error("Invalid Native contact trace step");
+            if (step!=traceStep_-1) return; // Telemetry filter only: never changes solver inputs.
+        }
+        const char* flag=std::getenv("RRR3D_CONTACT_NATIVE_FIRST_ONLY");
+        if (flag && std::strcmp(flag,"1")==0) {
+            if (nativeFirstTraceStep_==UINT64_MAX) nativeFirstTraceStep_=traceStep_-1;
+            if (nativeFirstTraceStep_!=traceStep_-1) return;
+        }
+        const JPH::Body& dynamic=row.mDynamicFirst?first:second;
+        const char* localInertiaTrace=std::getenv("RRR3D_CONTACT_LOCAL_INERTIA_TRACE");
+        if(localInertiaTrace && std::strcmp(localInertiaTrace,"1")==0 && index==0 && row.mIteration==0) {
+            const auto local=dynamic.GetMotionProperties()->GetLocalSpaceInverseInertia();
+            const unsigned axes[]={0,2,1};std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
+            sample<<"{\"step\":"<<traceStep_-1<<",\"local_inverse_inertia\":[";
+            for(unsigned col=0;col<3;++col)for(unsigned r=0;r<3;++r)sample<<(col||r?",":"")<<local.GetColumn3(axes[col])[axes[r]];
+            sample<<"]}";motorrock::parity::event("physics.source-local-inertia","independent body tensor",sample.str());
+        }
+        std::ostringstream out;out.imbue(std::locale::classic());out<<std::setprecision(9)
+            << "{\"step\":" << traceStep_-1 << ",\"index\":" << index << ",\"iteration\":" << row.mIteration
+            << ",\"mask\":" << row.mMask << ",\"dynamic_first\":" << (row.mDynamicFirst?"true":"false")
+            << ",\"diagnostic_error\":" << (row.mDiagnosticError?"true":"false")
+            << (row.mDerivedError?",\"derived_error\":true":"")
+            << ",\"effective_mass\":" << mass << ",\"scaled_bias\":" << row.mScaledBias
+            << ",\"raw_bias\":" << row.mRawBias << ",\"constraint_error\":" << row.mError
+            << ",\"lambda\":" << lambda << ",\"inverse_mass\":" << row.mInvMass;
+        const auto vector=[&](const char* name,JPH::Vec3 v) {out<<",\""<<name<<"\":["<<v.GetX()<<','<<v.GetY()<<','<<v.GetZ()<<']';};
+        vector("lever_arm",row.mR);vector("normal",row.mNormal);
+        vector("velocity",JPH::NativeContactArithmetic::Polar(dynamic.GetLinearVelocity()));
+        vector("angular",JPH::NativeContactArithmetic::Axial(dynamic.GetAngularVelocity()));
+        out<<",\"inverse_inertia\":[";for(unsigned i=0;i<9;++i){if(i)out<<',';out<<row.mInvI[i];}out<<"]}";
+        motorrock::parity::event("physics.native-contact-row","experimental Native arithmetic row",out.str());
+    }
+
+    void OnSourceMotionSolved(const JPH::Body& body, JPH::Vec3Arg velocity, JPH::Vec3Arg angular) override
+    {
+        std::scoped_lock lock(mutex_);
+        sourceFinalMotion_.push_back({body.GetID(), velocity, angular});
+    }
+    void restoreSourceMotion(const JPH::BodyLockInterface& locks)
+    {
+        std::scoped_lock lock(mutex_);
+        for (const auto& state : sourceFinalMotion_) {
+            JPH::BodyLockWrite lock(locks, state.body);
+            if (lock.Succeeded()) {
+                const char* dormant = std::getenv("RRR3D_EXPERIMENT_NATIVE_DORMANT_MOTION_RESTORE_V83");
+                if (dormant && std::strcmp(dormant,"1")==0 && !lock.GetBody().IsActive())
+                    continue; // Deactivation cleared the body motion after the cached solver result.
+                lock.GetBody().SetLinearVelocity(state.velocity);
+                auto* motion = lock.GetBody().GetMotionProperties();
+                const float limit = motion->GetMaxAngularVelocity();
+                motion->SetMaxAngularVelocity(std::max(limit, state.angular.Length() + 0.001F));
+                motion->SetAngularVelocity(state.angular);
+                motion->SetMaxAngularVelocity(limit);
+            }
+        }
+        sourceFinalMotion_.clear();
+    }
+
+    void OnContactSolved(const JPH::Body& first, const JPH::Body& second,
+                         JPH::Vec3Arg normalImpulse,
+                         JPH::Vec3Arg frictionImpulse) override
+    {
+        if (!solvedImpulses_) return;
+        recordSolved(first, second, normalImpulse, frictionImpulse);
+        recordSolved(second, first, -normalImpulse, -frictionImpulse);
+    }
+
+    void resize(std::size_t count)
+    {
+        std::scoped_lock lock(mutex_);
+        pending_.assign(count, {});
+    }
+
+    void resizeProjectiles(std::size_t count)
+    {
+        std::scoped_lock lock(mutex_);
+        projectilePending_.resize(count);
+        projectileIgnoredVehicles_.resize(
+            count, std::numeric_limits<std::size_t>::max());
+    }
+
+    void setProjectileIgnoredVehicle(
+        std::size_t projectile, std::size_t vehicle)
+    {
+        std::scoped_lock lock(mutex_);
+        if (projectile >= projectileIgnoredVehicles_.size())
+            return;
+        projectileIgnoredVehicles_[projectile] = vehicle;
+    }
+
+    void prepareNativeMaterialPose(JPH::BodyID body, JPH::Quat rotation, bool normalizeInitial) {
+        const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME");
+        if(!flag || std::strcmp(flag,"1")!=0)return;
+        const auto q=fromJolt(rotation);
+        motorrock::contactframe::Quaternion pose={{q.x,q.y,q.z,q.w}};
+        if(normalizeInitial)pose=motorrock::framev36::normalize(pose);
+        std::scoped_lock lock(mutex_);
+        nativeMaterialActorPoses_[body.GetIndexAndSequenceNumber()]=pose;
+    }
+
+    void beginStep()
+    {
+        ++traceStep_;
+        std::scoped_lock lock(mutex_);
+        for (auto& contacts : pending_)
+            contacts.clear();
+        for (auto& contacts : projectilePending_)
+            contacts.clear();
+    }
+
+    std::vector<BodyContact> take(std::size_t index)
+    {
+        std::scoped_lock lock(mutex_);
+        if (index >= pending_.size())
+            return {};
+        return std::move(pending_[index]);
+    }
+
+    std::vector<BodyContact> takeProjectile(std::size_t index)
+    {
+        std::scoped_lock lock(mutex_);
+        if (index >= projectilePending_.size())
+            return {};
+        return std::move(projectilePending_[index]);
+    }
+
+    void OnContactAdded(const JPH::Body& first, const JPH::Body& second,
+                        const JPH::ContactManifold& manifold,
+                        JPH::ContactSettings& settings) override
+    {
+        configureMaterial(first, second, manifold, settings);
+        traceManifold(first, second, manifold, settings);
+        record(first, second, manifold, settings);
+    }
+
+    void OnContactPersisted(const JPH::Body& first,
+                            const JPH::Body& second,
+                            const JPH::ContactManifold& manifold,
+                            JPH::ContactSettings& settings) override
+    {
+        configureMaterial(first, second, manifold, settings);
+        traceManifold(first, second, manifold, settings);
+        record(first, second, manifold, settings);
+    }
+
+private:
+    struct SourceBox { sourcebox::PxVec3 half; sourcebox::Cm::Matrix34 transform; float skin; motorrock::contactframe::Quaternion physicalPose={{0,0,0,1}};bool hasPhysicalPose=false; };
+    bool sourceBox(const JPH::Body& body, SourceBox& box) const
+    {
+        const JPH::Shape* shape = body.GetShape();
+        JPH::RMat44 transform = body.GetWorldTransform();
+        motorrock::contactframe::Quaternion physicalPose={{0,0,0,1}};
+        bool hasPhysicalPose=false;
+        motorrock::contactframe::Quaternion localShapeRotation={{0,0,0,1}};
+        motorrock::contactframe::Vector localShapePosition={{0,0,0}};
+        motorrock::contactframe::Quaternion bodyPhysicalPose={{0,0,0,1}};
+        const char* physicalPoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE");
+        if(body.IsDynamic() && physicalPoseFlag && std::strcmp(physicalPoseFlag,"1")==0) {
+            motorrock::contactframe::Quaternion pose;
+            { std::scoped_lock lock(mutex_);
+              const auto prepared=nativeMaterialActorPoses_.find(body.GetID().GetIndexAndSequenceNumber());
+              if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical geometry pose");
+              pose=prepared->second; }
+            physicalPose=bodyPhysicalPose=pose;hasPhysicalPose=true;
+            const char* originFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_ORIGIN");
+            if(originFlag && std::strcmp(originFlag,"1")==0) {
+                const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+                const auto local=fromJolt(body.GetShape()->GetCenterOfMass());
+                const auto origin=motorrock::quaternionposev43::origin(pose,{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+                transform.SetTranslation(toJolt(Vec3{origin[0],origin[1],origin[2]}));
+            }
+            const auto rotation=motorrock::physicalposev42::rotation(pose);
+            const unsigned axes[]={0,2,1};
+            for(unsigned col=0;col<3;++col)transform.SetColumn3(axes[col],
+                toJolt(Vec3{rotation.a[0][col],rotation.a[1][col],rotation.a[2][col]}));
+        }
+        while (shape->GetType() == JPH::EShapeType::Decorated) {
+            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
+                const auto* decorated = static_cast<const JPH::RotatedTranslatedShape*>(shape);
+                transform = transform * JPH::Mat44::sRotationTranslation(decorated->GetRotation(), decorated->GetPosition());
+                const char* shapeFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SHAPE_TRANSLATION");
+                if(hasPhysicalPose && shapeFlag && std::strcmp(shapeFlag,"1")==0) {
+                    const auto p=fromJolt(decorated->GetPosition());
+                    localShapePosition=motorrock::quaternionposev43::center(localShapeRotation,localShapePosition,{{p.x,p.y,p.z}});
+                    const auto localCenter=fromJolt(body.GetShape()->GetCenterOfMass());
+                    motorrock::contactframe::Vector offset;
+                    for(int i=0;i<3;++i)offset[i]=motorrock::derivederror::sub(localShapePosition[i],i==0?localCenter.x:i==1?localCenter.y:localCenter.z);
+                    const auto center=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+                    // Original geometry composes shape-to-COM locally, then
+                    // transforms once. Two separate world translations round differently.
+                    const auto translated=motorrock::quaternionposev43::center(bodyPhysicalPose,{{center.x,center.y,center.z}},offset);
+                    transform.SetTranslation(toJolt(Vec3{translated[0],translated[1],translated[2]}));
+                }
+                if(hasPhysicalPose) {
+                    const auto q=fromJolt(decorated->GetRotation());
+                    physicalPose=motorrock::framev36::multiply(physicalPose,{{q.x,q.y,q.z,q.w}});
+                    localShapeRotation=motorrock::framev36::multiply(localShapeRotation,{{q.x,q.y,q.z,q.w}});
+                }
+            } else if (shape->GetSubType() != JPH::EShapeSubType::OffsetCenterOfMass) return false;
+            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+        }
+        if (shape->GetSubType() != JPH::EShapeSubType::Box) return false;
+        const auto data = shape->GetUserData();
+        if ((data & contactGeometryMarker) == 0) return false;
+        const auto index = static_cast<std::size_t>(data & ~contactGeometryMarker);
+        SourceContactGeometry geometry;
+        { std::scoped_lock lock(mutex_); if (index >= contactGeometry_.size()) return false; geometry = contactGeometry_[index]; }
+        const auto convert = [](JPH::Vec3 value) { const auto v = fromJolt(value); return sourcebox::PxVec3{v.x, v.y, v.z}; };
+        box.half = convert(static_cast<const JPH::BoxShape*>(shape)->GetHalfExtent() + geometry.inset);
+        box.transform = {{convert(transform.Multiply3x3(JPH::Vec3::sAxisX())),
+                          convert(transform.Multiply3x3(JPH::Vec3::sAxisZ())),
+                          convert(transform.Multiply3x3(JPH::Vec3::sAxisY()))}, convert(JPH::Vec3(transform.GetTranslation()))};
+        box.skin = geometry.skin;box.physicalPose=physicalPose;box.hasPhysicalPose=hasPhysicalPose;
+        return true;
+    }
+    struct SourceMeshTriangle { std::array<sourcemesh::PxVec3,3> points; unsigned convexEdges=7; JPH::SubShapeID subShapeV122; };
+    struct SourceMesh { std::vector<SourceMeshTriangle> triangles; bool placedV126=false; motorrock::placedmeshv126::Pose poseV126; };
+    static constexpr JPH::uint64 sourceMeshMarker = JPH::uint64{1} << 62;
+    std::vector<std::shared_ptr<const SourceMesh>> sourceMeshes_;
+    std::map<std::uint64_t,motorrock::nativecache::Cache> nativeContactCaches_;
+    std::map<std::uint64_t,std::pair<sourcebox::PxU32,std::uint64_t>> nativePairBoxAxesV73_;
+    struct NativePairLocalStateV75 {motorrock::paircachev75::Cache cache;std::uint64_t step=0;};
+    std::map<std::uint64_t,NativePairLocalStateV75> nativePairLocalCachesV75_;
+    std::map<JPH::uint32,motorrock::contactframe::Quaternion> nativeMaterialActorPoses_;
+    const int sourceMeshMode_ = std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")? std::atoi(std::getenv("RRR3D_EXPERIMENT_MESH_CONTACTS")) : 0;
+
+    bool meshManifold(const JPH::Body& first, const JPH::Body& second,
+                      const JPH::ContactManifold& input, JPH::ContactManifold& output)
+    {
+        const bool carFirst = first.GetMotionType() != JPH::EMotionType::Static;
+        const auto& car = carFirst? first : second;
+        const auto& surface = carFirst? second : first;
+        if (surface.GetMotionType() != JPH::EMotionType::Static || surface.IsSensor()) return false;
+        SourceBox full;
+        if (!sourceBox(car, full)) return false;
+        const auto* shape = surface.GetShape();
+        JPH::RMat44 transform = surface.GetWorldTransform();
+        while (shape->GetType() == JPH::EShapeType::Decorated) {
+            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated) {
+                const auto* d = static_cast<const JPH::RotatedTranslatedShape*>(shape);
+                transform = transform * JPH::Mat44::sRotationTranslation(d->GetRotation(),d->GetPosition());
+            } else if (shape->GetSubType() != JPH::EShapeSubType::OffsetCenterOfMass) return false;
+            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+        }
+        if (shape->GetSubType() != JPH::EShapeSubType::Mesh) return false;
+        const auto data = shape->GetUserData();
+        if ((data & sourceMeshMarker) == 0) return false;
+        std::shared_ptr<const SourceMesh> mesh;
+        { std::scoped_lock lock(mutex_); const auto index = data & ~sourceMeshMarker; if (index >= sourceMeshes_.size()) return false; mesh = sourceMeshes_[index]; }
+        const auto cv = [](sourcebox::PxVec3 a) { return sourcemesh::PxVec3{a.x,a.y,a.z}; };
+        const sourcemesh::PxVec3 half = cv(full.half);
+        const sourcemesh::Cm::Matrix34 box{{cv(full.transform.m.column0),cv(full.transform.m.column1),cv(full.transform.m.column2)},cv(full.transform.p)};
+        sourcemesh::Cm::Matrix34 nativeMeshInverse=box.getInverseRT();
+        const char* nativeMeshInverseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_INVERSE_TRANSLATION_V61");
+        const bool useNativeMeshInverse=full.hasPhysicalPose && nativeMeshInverseFlag && std::strcmp(nativeMeshInverseFlag,"1")==0;
+        if(useNativeMeshInverse) {
+            // Original geometry's inverse rotation matrix and inverse origin
+            // use different arithmetic for a quaternion that is not unit length.
+            // Verified on identical Native inputs, not a fitted position offset.
+            const auto p=motorrock::derivederror::rotate(full.physicalPose,{{box.p.x,box.p.y,box.p.z}},true);
+            nativeMeshInverse.p={-p[0],-p[1],-p[2]};
+        }
+        sourcemesh::PxVec3 lo(FLT_MAX),hi(-FLT_MAX);
+        for (int mask=0;mask<8;++mask) {
+            const auto point=box.transform({(mask&1)?half.x:-half.x,(mask&2)?half.y:-half.y,(mask&4)?half.z:-half.z});
+            for(int a=0;a<3;++a){lo[a]=std::min(lo[a],point[a]);hi[a]=std::max(hi[a],point[a]);}
+        }
+        sourcemesh::ContactBuffer contacts;
+        sourcemesh::PxVec3 commonNormal;bool nativeHullReference=false;
+        motorrock::contactframe::Vector publicTriangleNormal={{0,0,0}};
+        const char* nativeEdgeFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_EDGE");
+        const bool nativeEdge=nativeEdgeFlag && std::strcmp(nativeEdgeFlag,"1")==0;
+        unsigned index=0;
+        for (const auto& t : mesh->triangles) {
+            std::array<sourcemesh::PxVec3,3> verts;
+            sourcemesh::PxVec3 min(FLT_MAX),max(-FLT_MAX);
+            for(int j=0;j<3;++j) {
+                const auto& p=t.points[j];
+                if(mesh->placedV126){const auto v=motorrock::placedmeshv126::point(mesh->poseV126,{{p.x,p.y,p.z}});verts[j]={v[0],v[1],v[2]};}
+                else {const auto v=fromJolt(JPH::Vec3(transform*JPH::RVec3(toJolt(Vec3{p.x,p.y,p.z}))));verts[j]={v.x,v.y,v.z};}
+                for(int a=0;a<3;++a){min[a]=std::min(min[a],verts[j][a]);max[a]=std::max(max[a],verts[j][a]);}
+            }
+            const unsigned triangleIndex=index++;
+            bool overlap=true;for(int a=0;a<3;++a)overlap &= min[a]<=hi[a]+.05f && max[a]>=lo[a]-.05f;
+            if(!overlap)continue;
+            const unsigned before=contacts.count;
+            const char* edgeStageFlag=std::getenv("RRR3D_CONTACT_EDGE_STAGE_TRACE");
+            const char* edgeStageStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+            const bool edgeStageTrace=edgeStageFlag && std::strcmp(edgeStageFlag,"1")==0 && (!edgeStageStep || std::strtoull(edgeStageStep,nullptr,10)==traceStep_-1);
+            sourcemesh::nativeedge::stageTraceEnabled=edgeStageTrace;
+            sourcemesh::nativeedge::stageTraceRecords.clear();
+            const char* geometryTrace=std::getenv("RRR3D_CONTACT_GEOMETRY_INPUT_TRACE");
+            const char* geometryStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+            const bool selectedGeometryStep=geometryStep && *geometryStep? std::strtoull(geometryStep,nullptr,10)==traceStep_-1:traceStep_==1;
+            if(geometryTrace && std::strcmp(geometryTrace,"1")==0 && selectedGeometryStep) {
+                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
+                sample<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex<<",\"half\":["<<half.x<<','<<half.y<<','<<half.z<<"],\"box\":[";
+                for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)sample<<(col||row?",":"")<<(col==0?box.m.column0:col==1?box.m.column1:box.m.column2)[row];
+                sample<<','<<box.p.x<<','<<box.p.y<<','<<box.p.z<<"],\"vertices\":[";
+                for(unsigned i=0;i<3;++i)sample<<(i?",":"")<<'['<<verts[i].x<<','<<verts[i].y<<','<<verts[i].z<<']';
+                const sourcemesh::PxPlane plane=sourcemesh::trianglePlane(verts);
+                sample<<"],\"plane\":["<<plane.n.x<<','<<plane.n.y<<','<<plane.n.z<<','<<plane.d<<"]}";
+                motorrock::parity::event("physics.source-mesh-input","independent geometry inputs",sample.str());
+            }
+            sourcemesh::faceContacts(contacts,half,box,verts,triangleIndex,nativeEdge,t.convexEdges,useNativeMeshInverse?&nativeMeshInverse:nullptr);
+            if(edgeStageTrace)for(const auto& e:sourcemesh::nativeedge::stageTraceRecords) {
+                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1<<",\"triangle\":"<<triangleIndex;
+                const auto v=[&](const char* name,sourcemesh::PxVec3 p){sample<<",\""<<name<<"\":["<<p.x<<','<<p.y<<','<<p.z<<']';};
+                v("delta",e.v1);v("p1",e.p1);v("p2",e.p2);v("direction",e.dir);v("p3",e.p3);v("p4",e.p4);v("plane_normal",e.planeNormal);v("normalized_direction",e.normalizedDirection);v("before",e.before);v("after",e.after);
+                sample<<",\"plane_constant\":"<<e.planeConstant<<",\"coefficient\":"<<e.coefficient<<",\"d3\":"<<e.d3<<",\"denominator\":"<<e.denominator<<",\"ratio\":"<<e.ratio<<",\"distance\":"<<e.distance<<",\"i\":"<<e.i<<",\"j\":"<<e.j<<",\"accepted\":"<<(e.accepted?"true":"false")<<'}';
+                motorrock::parity::event("physics.native-edge-stages","independent edge crossing stages",sample.str());
+            }
+            sourcemesh::nativeedge::stageTraceEnabled=false;
+            if(contacts.count==before)continue;
+            const auto normal=contacts.contacts[before].normal;
+            if(before && normal.dot(commonNormal)<.999999f)return false;
+            commonNormal=normal;
+            if(before==0)nativeHullReference=contacts.contacts[before].nativeHullReference;
+            else nativeHullReference &= contacts.contacts[before].nativeHullReference;
+            if(before==0) {
+                // Public NxTriangle::normal uses vertex differences, a scalar
+                // cross product and NxVec3 normalization. The private collision
+                // plane uses different arithmetic and must remain separate.
+                namespace cf=motorrock::contactframe;
+                cf::Vector e1,e2;
+                for(int axis=0;axis<3;++axis) {
+                    e1[axis]=cf::store(double(verts[1][axis])-verts[0][axis]);
+                    e2[axis]=cf::store(double(verts[2][axis])-verts[0][axis]);
+                }
+                publicTriangleNormal=cf::unit(cf::cross(e1,e2));
+            }
+        }
+        if(contacts.count>16)return false;
+        output=input;output.mRelativeContactPointsOn1.clear();output.mRelativeContactPointsOn2.clear();
+        output.mUseSourceSeparation=true;output.mUseSourceBlockPGS=sourceMeshMode_!=2;output.mSourceSeparations.fill(0);output.mPenetrationDepth=0;
+        output.mNativeErrorFrameActive=false;
+        output.mNativeErrorCacheActive=false;
+        output.mNativeSolverTangentActive=false;
+        if(!contacts.count)return true;
+        const char* roleFlagV99=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ROLES_V99");
+        const bool orderedRolesV99=roleFlagV99 && std::strcmp(roleFlagV99,"1")==0;
+        // Measured Native pairs put the later-created actor in slot 0.
+        // This default-off investigation uses scene creation order, not SAT's
+        // reference polygon, as the source of canonical body roles.
+        const bool staticFirstV99=orderedRolesV99 && surface.GetID().GetIndex()>car.GetID().GetIndex();
+        const char* materialFlag=std::getenv("RRR3D_EXPERIMENT_MATERIAL_FRAME_CANDIDATE");
+        if(materialFlag && std::strcmp(materialFlag,"1")==0) {
+            namespace cf=motorrock::contactframe;
+            cf::Vector a={{box.m.column0.x,box.m.column0.y,box.m.column0.z}};
+            cf::Vector b={{box.m.column1.x,box.m.column1.y,box.m.column1.z}};
+            cf::Vector c={{box.m.column2.x,box.m.column2.y,box.m.column2.z}};
+            const auto q=fromJolt(car.GetRotation());
+            cf::Quaternion actorQuaternion={{q.x,q.y,q.z,q.w}};
+            const cf::Vector plane={{commonNormal.x,commonNormal.y,commonNormal.z}};
+            const char* nativeFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_MATERIAL_FRAME");
+            const bool nativeFrame=nativeFrameFlag && std::strcmp(nativeFrameFlag,"1")==0;
+            const auto candidate=motorrock::materialcandidate::compute(cf::columns(a,b,c),actorQuaternion,plane);
+            motorrock::framev36::Result nativeCandidate;
+            if(nativeFrame) {
+                { std::scoped_lock lock(mutex_);
+                  const auto pose=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+                  if(pose==nativeMaterialActorPoses_.end())throw std::runtime_error("Native material actor pose was not prepared");
+                  actorQuaternion=pose->second; }
+                // Original frozen actors expose the saved API pose to the user
+                // callback while internal geometry/cache use the prepared pose.
+                auto callbackActor=cf::columns(a,b,c);
+                const char* geometryPoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_GEOMETRY_POSE");
+                if(geometryPoseFlag && std::strcmp(geometryPoseFlag,"1")==0) {
+                    const auto apiPose=car.GetCenterOfMassTransform();
+                    const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(apiPose.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
+                    callbackActor=cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY()));
+                }
+                const char* callbackActorFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_ACTOR_ROTATION");
+                if(callbackActorFlag && std::strcmp(callbackActorFlag,"1")==0) {
+                    const auto publicActor=motorrock::nativepublicangular::orientation({q.x,q.y,q.z,q.w});
+                    for(unsigned r=0;r<3;++r)for(unsigned c=0;c<3;++c)callbackActor.a[r][c]=publicActor[r][c];
+                }
+                const char* triangleNormalFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CALLBACK_TRIANGLE_NORMAL");
+                const auto callbackPlane=triangleNormalFlag && std::strcmp(triangleNormalFlag,"1")==0?publicTriangleNormal:plane;
+                const char* shapeOrderFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SHAPE_ORDER_FRAME_V65");
+                const bool shapeOrderFrame=shapeOrderFlag && std::strcmp(shapeOrderFlag,"1")==0;
+                // Diagnostic hypothesis: Native shape0 is the later-created
+                // actor, independent of which manifold polygon won SAT.
+                const bool staticFirst=orderedRolesV99?staticFirstV99:(shapeOrderFrame?surface.GetID().GetIndex()>car.GetID().GetIndex():nativeHullReference);
+                auto canonicalPlane=plane;
+                const bool originalHullFrameV109=nativeHullReference
+                    && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_MATERIAL_ERROR_ROLES_V109");
+                if(staticFirstV99 && !originalHullFrameV109)
+                    for(unsigned axis=0;axis<3;++axis)canonicalPlane[axis]=-canonicalPlane[axis];
+                nativeCandidate=motorrock::framev36::compute(callbackActor,actorQuaternion,canonicalPlane,callbackPlane,staticFirst);
+                const char* solverFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_FRAME_MULTIPLY");
+                if(nativeCandidate.callback.modified && solverFrameFlag && std::strcmp(solverFrameFlag,"1")==0) {
+                    output.mNativeSolverTangentActive=true;
+                    const auto tangent=motorrock::framev36::solverTangent2(nativeCandidate.solverQuaternion);
+                    for(unsigned j=0;j<3;++j)output.mNativeSourceTangent2[j]=tangent[j];
+                    const auto firstTangent=motorrock::framev36::solverTangent1(nativeCandidate.solverQuaternion);
+                    for(unsigned j=0;j<3;++j)output.mNativeSourceTangent1[j]=firstTangent[j];
+                }
+                const char* stageFlag=std::getenv("RRR3D_CONTACT_MATERIAL_STAGE_TRACE");
+                const char* stageStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+                if(stageFlag && std::strcmp(stageFlag,"1")==0 && (!stageStep || std::strtoull(stageStep,nullptr,10)==traceStep_-1)) {
+                    std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"step\":"<<traceStep_-1;
+                    const auto q=[&](const char* name,cf::Quaternion v){sample<<",\""<<name<<"\":[";for(int j=0;j<4;++j)sample<<(j?",":"")<<v[j];sample<<']';};
+                    const auto m=[&](const char* name,const cf::Matrix& v){sample<<",\""<<name<<"\":[";for(int c=0;c<3;++c)for(int r=0;r<3;++r)sample<<(c||r?",":"")<<v.a[r][c];sample<<']';};
+                    sample<<",\"callback_plane\":["<<callbackPlane[0]<<','<<callbackPlane[1]<<','<<callbackPlane[2]<<']';q("physical_actor",actorQuaternion);m("api_actor",callbackActor);q("raw_local",nativeCandidate.rawLocal);q("raw_world",nativeCandidate.errors.raw);m("material_basis",nativeCandidate.materialBasis);q("material_world",nativeCandidate.errors.material);q("seed",nativeCandidate.seed);m("callback_before",nativeCandidate.callback.before);m("callback_after",nativeCandidate.callback.after);q("callback_local0",nativeCandidate.callback.local0);q("callback_local1",nativeCandidate.callback.local1);q("solver_quaternion",nativeCandidate.solverQuaternion);sample<<'}';
+                    motorrock::parity::event("physics.native-material-stages","independent material and callback stages",sample.str());
+                }
+            }
+            const char* errorFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ERROR_FRAME");
+            if(errorFlag && std::strcmp(errorFlag,"1")==0) {
+                const auto frames=nativeFrame?nativeCandidate.errors:motorrock::derivederror::frames(cf::columns(a,b,c),actorQuaternion,plane);
+                output.mNativeErrorFrameActive=true;
+                for(int j=0;j<4;++j) {
+                    output.mNativeErrorRawQuaternion[j]=frames.raw[j];
+                    output.mNativeErrorMaterialQuaternion[j]=frames.material[j];
+                }
+            }
+            if(nativeFrame?nativeCandidate.callback.modified:candidate.callback.modified) {
+                const auto n=nativeFrame?nativeCandidate.normal:candidate.normal;
+                commonNormal={n[0],n[1],n[2]};
+            }
+        }
+        const char* cacheFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_CACHE");
+        if(output.mNativeErrorFrameActive && cacheFlag && std::strcmp(cacheFlag,"1")==0) {
+            namespace nc=motorrock::nativecache;namespace cf=motorrock::contactframe;
+            nc::Pose actor{cf::columns({{box.m.column0.x,box.m.column0.y,box.m.column0.z}},{{box.m.column1.x,box.m.column1.y,box.m.column1.z}},{{box.m.column2.x,box.m.column2.y,box.m.column2.z}}),{{box.p.x,box.p.y,box.p.z}}};
+            const auto axis=[&](JPH::Vec3 v){const auto x=fromJolt(transform.Multiply3x3(v));return cf::Vector{{x.x,x.y,x.z}};};
+            const auto translation=fromJolt(JPH::Vec3(transform.GetTranslation()));
+            const nc::Pose ground{cf::columns(axis(JPH::Vec3::sAxisX()),axis(JPH::Vec3::sAxisZ()),axis(JPH::Vec3::sAxisY())),{{translation.x,translation.y,translation.z}}};
+            std::vector<cf::Vector> points;for(unsigned i=0;i<contacts.count;++i){const auto& p=contacts.contacts[i].point;points.push_back({{p.x,p.y,p.z}});}
+            const auto& n=contacts.contacts[0].normal;cf::Vector normal={{n.x,n.y,n.z}};
+            if(staticFirstV99)for(unsigned axis=0;axis<3;++axis)normal[axis]=-normal[axis];
+            const std::uint64_t key=std::uint64_t(car.GetID().GetIndexAndSequenceNumber()) | (std::uint64_t(surface.GetID().GetIndexAndSequenceNumber())<<32);
+            std::scoped_lock lock(mutex_);
+            const char* cachePoseFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_POSE");
+            if(cachePoseFlag && std::strcmp(cachePoseFlag,"1")==0) {
+                const auto prepared=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+                if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical cache pose");
+                actor.rotation=motorrock::physicalposev42::rotation(prepared->second);
+                const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
+                actor.position={{center.x,center.y,center.z}};
+            }
+            cf::Quaternion cacheFrame;for(unsigned j=0;j<4;++j)cacheFrame[j]=output.mNativeErrorRawQuaternion[j];
+            const char* cacheFrameFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CACHE_FRAME");
+            const bool persistentCacheFrame=cacheFrameFlag && std::strcmp(cacheFrameFlag,"1")==0;
+            if(persistentCacheFrame)cacheFrame=motorrock::framev36::rawWorld(normal);
+            std::vector<cf::Vector> levers;
+            const char* cacheTraceFlag=std::getenv("RRR3D_CONTACT_CACHE_INPUT_TRACE");
+            const char* cacheTraceStep=std::getenv("RRR3D_CONTACT_NATIVE_TRACE_STEP");
+            const bool traceCache=cacheTraceFlag && std::strcmp(cacheTraceFlag,"1")==0 &&
+                (!cacheTraceStep || !*cacheTraceStep || std::strtoull(cacheTraceStep,nullptr,10)==traceStep_-1);
+            const auto beforeCache=traceCache?nativeContactCaches_[key].points:std::vector<nc::Point>{};
+            const auto errors=nativeContactCaches_[key].prepare(staticFirstV99?ground:actor,staticFirstV99?actor:ground,points,normal,nc::de::mul(nc::de::add(full.skin,.025F),.2F),cacheFrame,&levers,persistentCacheFrame,staticFirstV99?1U:0U);
+            if(traceCache) {
+                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9);
+                const auto vector=[&](const cf::Vector& v){sample<<'['<<v[0]<<','<<v[1]<<','<<v[2]<<']';};
+                const auto pose=[&](const nc::Pose& p){sample<<'[';for(unsigned c=0;c<3;++c)for(unsigned r=0;r<3;++r)sample<<(c||r?",":"")<<p.rotation.a[r][c];for(unsigned i=0;i<3;++i)sample<<','<<p.position[i];sample<<']';};
+                const auto cache=[&](const std::vector<nc::Point>& stored){sample<<'[';for(unsigned i=0;i<stored.size();++i){sample<<(i?",":"")<<'[';vector(stored[i].on0);sample<<',';vector(stored[i].on1);sample<<',';vector(stored[i].normal0);sample<<',';vector(stored[i].normal1);sample<<']';}sample<<']';};
+                sample<<"{\"step\":"<<traceStep_-1<<",\"actor_quaternion\":[";const auto preparedPose=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());if(preparedPose==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing native cache pose");for(unsigned j=0;j<4;++j)sample<<(j?",":"")<<preparedPose->second[j];sample<<"],\"actor\":";pose(actor);sample<<",\"ground\":";pose(ground);
+                sample<<",\"canonical_dynamic_slot\":"<<(staticFirstV99?1:0)<<",\"car_body_index\":"<<car.GetID().GetIndex()<<",\"surface_body_index\":"<<surface.GetID().GetIndex();
+                sample<<",\"frame\":[";for(unsigned j=0;j<4;++j)sample<<(j?",":"")<<cacheFrame[j];sample<<"],\"before\":";cache(beforeCache);sample<<",\"after\":";cache(nativeContactCaches_[key].points);
+                sample<<",\"current\":[";for(unsigned i=0;i<points.size();++i){sample<<(i?",":"");vector(points[i]);}sample<<"],\"separations\":[";for(unsigned i=0;i<contacts.count;++i)sample<<(i?",":"")<<contacts.contacts[i].separation;
+                sample<<"],\"errors\":[";for(unsigned i=0;i<errors.size();++i){sample<<(i?",":"");vector(errors[i]);}sample<<"]}";
+                motorrock::parity::event("physics.native-cache-input","independent cache inputs and persistence",sample.str());
+            }
+            const auto center=fromJolt(JPH::Vec3(car.GetCenterOfMassPosition()));
+            const cf::Vector offset={{nc::de::sub(actor.position[0],center.x),nc::de::sub(actor.position[1],center.y),nc::de::sub(actor.position[2],center.z)}};
+            output.mNativeErrorCacheActive=true;
+            for(unsigned i=0;i<errors.size();++i)for(unsigned j=0;j<3;++j){output.mNativeErrorTransverse[i][j]=errors[i][j];output.mNativeCachedLeverArms[i][j]=nc::de::add(levers[i][j],offset[j]);}
+        }
+        output.mWorldSpaceNormal=toJolt(Vec3{commonNormal.x,commonNormal.y,commonNormal.z})*(carFirst?-1.0f:1.0f);
+        for(unsigned i=0;i<contacts.count;++i) {
+            const auto& c=contacts.contacts[i];const JPH::Vec3 relative(toJolt(Vec3{c.point.x,c.point.y,c.point.z})-output.mBaseOffset);
+            output.mRelativeContactPointsOn1.push_back(relative);output.mRelativeContactPointsOn2.push_back(relative);
+            output.mSourceSeparations[i]=c.separation;output.mPenetrationDepth=std::max(output.mPenetrationDepth,-c.separation);
+        }
+        return true;
+    }
+
+    // Diagnostic intervention only. The recorded Native geometry is an external
+    // input, not an implementation of contact generation or evidence of parity.
+    void replayFirstContact(const JPH::Body& first, const JPH::Body& second,
+                            JPH::ContactManifold& output)
+    {
+        const auto enabled = [](const char* name) {
+            const char* value = std::getenv(name);
+            return value && std::strcmp(value,"1")==0;
+        };
+        if (!enabled("RRR3D_CONTACT_GEOMETRY_REPLAY")) return;
+        const char* path = std::getenv("RRR3D_CONTACT_GEOMETRY_REPLAY_FILE");
+        if (!path || !*path) throw std::runtime_error("Contact replay requires a recorded geometry file");
+        std::ifstream input(path);
+        unsigned tick = 0, count = 0; Vec3 referenceNormal;
+        if (!(input >> tick >> count >> referenceNormal.x >> referenceNormal.y >> referenceNormal.z))
+            throw std::runtime_error("Invalid contact replay header");
+        if (traceStep_ - 1 != tick) return;
+        if (count != output.mRelativeContactPointsOn1.size() || !output.mUseSourceSeparation || !output.mUseSourceBlockPGS)
+            throw std::runtime_error("Contact replay point count or solver mode differs");
+        std::size_t vehicle = 0;
+        const bool carFirst = vehicleIndex(first.GetUserData(), vehicle);
+        const JPH::Vec3 expectedNormal = toJolt(referenceNormal) * (carFirst? -1.0F : 1.0F);
+        if (expectedNormal.GetX()!=output.mWorldSpaceNormal.GetX() || expectedNormal.GetY()!=output.mWorldSpaceNormal.GetY() || expectedNormal.GetZ()!=output.mWorldSpaceNormal.GetZ())
+            throw std::runtime_error("Contact replay normal differs; geometry-only intervention is invalid");
+        const bool positions = enabled("RRR3D_CONTACT_REPLAY_POSITIONS");
+        const bool separations = enabled("RRR3D_CONTACT_REPLAY_SEPARATIONS");
+        const bool nativeErrors = enabled("RRR3D_CONTACT_REPLAY_NATIVE_ERROR");
+        output.mUseDiagnosticNativeErrors=nativeErrors;
+        for (unsigned i=0; i<count; ++i) {
+            Vec3 point; float separation;
+            if (!(input >> point.x >> point.y >> point.z >> separation))
+                throw std::runtime_error("Invalid contact replay point");
+            if (nativeErrors && !(input >> output.mDiagnosticNativeErrors[i]))
+                throw std::runtime_error("Missing diagnostic Native constraint error");
+            if (positions) {
+                const JPH::Vec3 relative(toJolt(point) - output.mBaseOffset);
+                output.mRelativeContactPointsOn1[i] = relative;
+                output.mRelativeContactPointsOn2[i] = relative;
+            }
+            if (separations) output.mSourceSeparations[i] = separation;
+        }
+        if (separations) {
+            output.mPenetrationDepth=0.0F;
+            for (unsigned i=0;i<count;++i) output.mPenetrationDepth=std::max(output.mPenetrationDepth,-output.mSourceSeparations[i]);
+        }
+        std::ostringstream record;
+        record << "{\"step\":" << tick << ",\"points\":" << count
+               << ",\"positions_replayed\":" << (positions?"true":"false")
+               << ",\"separations_replayed\":" << (separations?"true":"false");
+        if (nativeErrors) record << ",\"native_errors_replayed\":true";
+        record << '}';
+        motorrock::parity::event("physics.diagnostic-contact-replay", "Native first-contact geometry intervention", record.str());
+    }
+
+    struct SourceFinalMotion { JPH::BodyID body; JPH::Vec3 velocity, angular; };
+    std::vector<SourceFinalMotion> sourceFinalMotion_;
+    bool sourceBoxManifolds_ = false;
+
+    void traceManifold(const JPH::Body& first, const JPH::Body& second,
+                       const JPH::ContactManifold& manifold,
+                       const JPH::ContactSettings& settings) const
+    {
+        if (!tracePoints_) return;
+        std::ostringstream out;
+        out.imbue(std::locale::classic());
+        out << std::setprecision(9) << "{\"step\":" << traceStep_ - 1
+            << ",\"body0\":" << first.GetID().GetIndexAndSequenceNumber()
+            << ",\"body1\":" << second.GetID().GetIndexAndSequenceNumber()
+            << ",\"sensor0\":" << (first.IsSensor()?"true":"false")
+            << ",\"sensor1\":" << (second.IsSensor()?"true":"false")
+            << ",\"depth\":" << manifold.mPenetrationDepth
+            << ",\"additional_separation\":" << settings.mAdditionalSeparation
+            << ",\"position_penetration_slop\":" << settings.mPositionPenetrationSlop
+            << ",\"friction0\":" << settings.mCombinedFriction
+            << ",\"friction1\":" << settings.mCombinedFriction2
+            << ",\"independent_friction\":" << (settings.mUseIndependentFriction?"true":"false")
+            << ",\"box_contact_order\":" << (settings.mUseBoxContactOrder?"true":"false");
+        const JPH::Body& diagnosticCar = first.GetMotionType() != JPH::EMotionType::Static ? first : second;
+        SourceBox diagnosticBox;
+        if (sourceBox(diagnosticCar, diagnosticBox)) {
+            const auto sourceVector = [&](const char* name, sourcebox::PxVec3 value) {
+                out << ",\"" << name << "\":[" << value.x << ',' << value.y << ',' << value.z << ']';
+            };
+            sourceVector("source_box_position", diagnosticBox.transform.p);
+            sourceVector("source_box_half", diagnosticBox.half);
+            sourceVector("source_box_axis0", diagnosticBox.transform.m.column0);
+            sourceVector("source_box_axis1", diagnosticBox.transform.m.column1);
+            sourceVector("source_box_axis2", diagnosticBox.transform.m.column2);
+            const auto diagnosticRotation = fromJolt(diagnosticCar.GetRotation());
+            out << ",\"source_actor_quaternion\":[" << diagnosticRotation.x << ',' << diagnosticRotation.y << ','
+                << diagnosticRotation.z << ',' << diagnosticRotation.w << ']';
+        }
+        const auto vector = [&](const char* name, JPH::RVec3 value) {
+            const Vec3 v = fromJolt(JPH::Vec3(value));
+            out << ",\"" << name << "\":[" << v.x << ',' << v.y << ',' << v.z << ']';
+        };
+        vector("normal", JPH::RVec3(manifold.mWorldSpaceNormal));
+        vector("axis1", JPH::RVec3(settings.mFrictionDirection1));
+        // Nx exposes constraint error separately from attachment positions.
+        // Log Jolt's geometric separation and the source triangle frame before
+        // changing solver behavior; both are required to diagnose edge contacts.
+        std::size_t firstVehicle = 0, secondVehicle = 0;
+        const bool carAtFirst = vehicleIndex(first.GetUserData(), firstVehicle);
+        const bool carAtSecond = vehicleIndex(second.GetUserData(), secondVehicle);
+        if (carAtFirst != carAtSecond) {
+            const JPH::Body& surfaceBody = carAtFirst ? second : first;
+            const auto surface = collisionSurface(surfaceBody.GetUserData());
+            if ((surfaceBody.GetUserData() & bodyKindMask) == surfaceBodyKind &&
+                (surface == CollisionSurface::TrackPlane || surface == CollisionSurface::TrackBorder)) {
+                const auto subShape = carAtFirst ? manifold.mSubShapeID2 : manifold.mSubShapeID1;
+                const auto point = carAtFirst ? manifold.GetWorldSpaceContactPointOn2(0) : manifold.GetWorldSpaceContactPointOn1(0);
+                JPH::Vec3 triangleNormal = surfaceBody.GetWorldSpaceSurfaceNormal(subShape, point);
+                vector("triangle_normal", JPH::RVec3(triangleNormal));
+                if (carAtFirst) triangleNormal = -triangleNormal;
+                JPH::Vec3 secondAxis = manifold.mWorldSpaceNormal.Cross(settings.mFrictionDirection1);
+                JPH::Vec3 firstAxis = secondAxis.Cross(triangleNormal);
+                const bool fallback = firstAxis.Length() < 0.5F;
+                if (fallback) {
+                    firstAxis = settings.mFrictionDirection1;
+                    secondAxis = triangleNormal.Cross(firstAxis);
+                }
+                out << ",\"source_frame_fallback\":" << (fallback ? "true" : "false");
+                if (secondAxis.Length() > 0.1F) {
+                    firstAxis = firstAxis.Normalized(); secondAxis = secondAxis.Normalized();
+                    vector("source_frame_normal", JPH::RVec3(firstAxis.Cross(secondAxis).Normalized()));
+                    vector("source_frame_axis1", JPH::RVec3(firstAxis));
+                    vector("source_frame_axis2", JPH::RVec3(secondAxis));
+                }
+            }
+        }
+        vector("center0", first.GetCenterOfMassPosition());
+        vector("center1", second.GetCenterOfMassPosition());
+        out << ",\"points\":[";
+        for (JPH::uint i=0; i<manifold.mRelativeContactPointsOn1.size(); ++i) {
+            if (i) out << ',';
+            out << '{';
+            // vector() prefixes fields with a comma; start with the point index.
+            out << "\"index\":" << i;
+            if (manifold.mUseSourceSeparation) out << ",\"source_separation\":" << manifold.mSourceSeparations[i];
+            out << ",\"geometric_separation\":"
+                << JPH::Vec3(manifold.GetWorldSpaceContactPointOn2(i) - manifold.GetWorldSpaceContactPointOn1(i)).Dot(manifold.mWorldSpaceNormal);
+            vector("on0", manifold.GetWorldSpaceContactPointOn1(i));
+            vector("on1", manifold.GetWorldSpaceContactPointOn2(i));
+            out << '}';
+        }
+        out << "]}";
+        motorrock::parity::event("physics.contact-manifold", "Jolt input manifold", out.str());
+    }
+
+    void recordSolved(const JPH::Body& body, const JPH::Body& other,
+                      JPH::Vec3Arg normalImpulse, JPH::Vec3Arg frictionImpulse)
+    {
+        std::size_t vehicle = 0;
+        if (!vehicleIndex(body.GetUserData(), vehicle)) return;
+        std::scoped_lock lock(mutex_);
+        if (vehicle >= pending_.size()) return;
+        auto& contacts = pending_[vehicle];
+        const auto found = std::find_if(contacts.begin(), contacts.end(),
+            [&](const BodyContact& c) {
+                return c.otherActor == other.GetID().GetIndexAndSequenceNumber();
+            });
+        if (found == contacts.end()) return;
+        BodyContact solved;
+        const float magnitude = normalImpulse.Length();
+        if (magnitude > 1.0e-8F) solved.normal = fromJolt(normalImpulse / magnitude);
+        solved.force = sourceContactForceFromImpulse(magnitude);
+        solved.frictionForceVector = fromJolt(frictionImpulse / sourceContactReportStep);
+        solved.frictionForce = (frictionImpulse / sourceContactReportStep).Length();
+        accumulateSourceContactForces(*found, std::move(solved));
+    }
+
+    bool sourceContactOffset(const JPH::Body& body, JPH::Vec3Arg normal, float& offset)
+    {
+        const JPH::Shape* shape = body.GetShape();
+        JPH::Vec3 localNormal = body.GetRotation().Conjugated() * normal;
+        while (shape->GetType() == JPH::EShapeType::Decorated) {
+            if (shape->GetSubType() == JPH::EShapeSubType::RotatedTranslated)
+                localNormal = static_cast<const JPH::RotatedTranslatedShape*>(shape)->GetRotation().Conjugated() * localNormal;
+            shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+        }
+        if (shape->GetSubType() == JPH::EShapeSubType::Mesh ||
+            shape->GetSubType() == JPH::EShapeSubType::Plane) {
+            offset = sourceSkinWidth;
+            return true;
+        }
+        if (shape->GetSubType() != JPH::EShapeSubType::Box) return false;
+        const auto data = shape->GetUserData();
+        if ((data & contactGeometryMarker) == 0) return false;
+        const auto index = static_cast<std::size_t>(data & ~contactGeometryMarker);
+        std::scoped_lock lock(mutex_);
+        if (index >= contactGeometry_.size()) return false;
+        const auto& geometry = contactGeometry_[index];
+        offset = geometry.skin - localNormal.Abs().Dot(geometry.inset);
+        return true;
+    }
+
+    void configureMaterial(
+        const JPH::Body& first, const JPH::Body& second,
+        const JPH::ContactManifold& manifold,
+        JPH::ContactSettings& settings) noexcept
+    {
+        std::size_t firstVehicle = 0;
+        std::size_t secondVehicle = 0;
+        const bool firstIsVehicle =
+            vehicleIndex(first.GetUserData(), firstVehicle);
+        const bool secondIsVehicle =
+            vehicleIndex(second.GetUserData(), secondVehicle);
+        if (!firstIsVehicle && !secondIsVehicle)
+            return;
+        settings.mUseIndependentFriction = independentFriction_;
+        settings.mUseSourceBlockPGS = manifold.mUseSourceBlockPGS;
+        if (contactOffsets_) {
+            float firstOffset = 0.0F, secondOffset = 0.0F;
+            if (sourceContactOffset(first, manifold.mWorldSpaceNormal, firstOffset) &&
+                sourceContactOffset(second, manifold.mWorldSpaceNormal, secondOffset)) {
+                // Nx skin is scalar along the contact normal. An axis inset
+                // projects farther when the box is tilted, so subtract that
+                // projection instead of counting one constant inset per box.
+                settings.mAdditionalSeparation = firstOffset + secondOffset;
+                settings.mPositionPenetrationSlop = 0.0F;
+            }
+        }
+        const auto isBox = [](const JPH::Body& body) {
+            const JPH::Shape* shape = body.GetShape();
+            while (shape->GetType() == JPH::EShapeType::Decorated)
+                shape = static_cast<const JPH::DecoratedShape*>(shape)->GetInnerShape();
+            return shape->GetSubType() == JPH::EShapeSubType::Box;
+        };
+        settings.mUseBoxContactOrder = boxContactOrder_ && isBox(first) && isBox(second);
+        if (manifold.mUseSourceSeparation) {
+            SourceBox a, b;
+            if (sourceBox(first, a) && sourceBox(second, b)) settings.mAdditionalSeparation = a.skin + b.skin;
+            else if (sourceBox(first,a)) settings.mAdditionalSeparation = a.skin + 0.025F;
+            else if (sourceBox(second,b)) settings.mAdditionalSeparation = b.skin + 0.025F;
+            settings.mUseSourceSeparation = true;
+            settings.mSourceSeparations = manifold.mSourceSeparations;
+            settings.mUseDiagnosticNativeErrors=manifold.mUseDiagnosticNativeErrors;
+            settings.mDiagnosticNativeErrors=manifold.mDiagnosticNativeErrors;
+            settings.mUseDerivedNativeErrors=manifold.mNativeErrorFrameActive;
+            settings.mNativeCachedLeverActive=manifold.mNativeErrorCacheActive;
+            settings.mNativeCachedLeverArms=manifold.mNativeCachedLeverArms;
+            settings.mNativeSolverTangentActive=manifold.mNativeSolverTangentActive;
+            settings.mNativeSourceTangent2=manifold.mNativeSourceTangent2;
+            settings.mNativeSourceTangent1=manifold.mNativeSourceTangent1;
+            if(settings.mUseDerivedNativeErrors) {
+                motorrock::derivederror::Frames frames;
+                for(int j=0;j<4;++j) {
+                    frames.raw[j]=manifold.mNativeErrorRawQuaternion[j];
+                    frames.material[j]=manifold.mNativeErrorMaterialQuaternion[j];
+                }
+                for(unsigned j=0;j<manifold.mRelativeContactPointsOn1.size();++j) {
+                    const float rawError=motorrock::derivederror::add(manifold.mSourceSeparations[j],settings.mAdditionalSeparation);
+                    if(manifold.mNativeErrorCacheActive) {
+                        const auto& transverse=manifold.mNativeErrorTransverse[j];
+                        motorrock::contactframe::Vector raw={{rawError,transverse[1],transverse[2]}};
+                        settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(raw,frames);
+                    } else settings.mDerivedNativeErrors[j]=motorrock::derivederror::error(rawError,frames);
+                }
+            }
+            settings.mUseBoxContactOrder = false;
+        }
+        const JPH::Body& car = firstIsVehicle ? first : second;
+        const JPH::Body& other = firstIsVehicle ? second : first;
+        const char* nativeInertiaFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_INERTIA");
+        if(nativeInertiaFlag && std::strcmp(nativeInertiaFlag,"1")==0 &&
+           car.IsDynamic() && other.IsStatic() && settings.mUseSourceBlockPGS) {
+            namespace cf=motorrock::contactframe;
+            cf::Quaternion pose;
+            { std::scoped_lock lock(mutex_);
+              const auto found=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+              // A prepared pose is required; this contact callback cannot throw.
+              if(found==nativeMaterialActorPoses_.end())std::abort();
+              pose=found->second; }
+            const auto local=car.GetMotionProperties()->GetLocalSpaceInverseInertia();
+            const unsigned axes[]={0,2,1};cf::Matrix tensor;
+            for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)
+                tensor.a[row][col]=local.GetColumn3(axes[col])[axes[row]];
+            const char* solverInertiaFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_SOLVER_INERTIA");
+            const bool solverInertia=solverInertiaFlag && std::strcmp(solverInertiaFlag,"1")==0 && motorrock::inertiav37::diagonal(tensor);
+            const auto rotated=solverInertia?motorrock::inertiav37::solver(pose,tensor):motorrock::inertiav37::rotate(cf::decode(pose),tensor);
+            settings.mNativeInverseInertia=JPH::Mat44::sZero();
+            for(unsigned col=0;col<3;++col)settings.mNativeInverseInertia.SetColumn3(axes[col],
+                toJolt(Vec3{rotated.a[0][col],rotated.a[1][col],rotated.a[2][col]}));
+            settings.mNativeInverseInertiaActive=true;
+        }
+        const auto surface = collisionSurface(other.GetUserData());
+        const bool sourceTrackActor =
+            (other.GetUserData() & bodyKindMask) == surfaceBodyKind;
+        const bool sourceTrackContact =
+            sourceTrackActor &&
+            (surface == CollisionSurface::TrackPlane ||
+             surface == CollisionSurface::TrackBorder);
+        // Nx selects the more anisotropic actor frame; tied materials keep
+        // the sorted body order. The other car contributes mean U/V friction.
+        const auto source = materialPairs_ && firstIsVehicle && secondIsVehicle
+            ? sourceCarPairBodyFriction(car.GetRotation(), car.GetFriction(),
+                other.GetRotation(), other.GetFriction(), manifold.mWorldSpaceNormal)
+            : sourceVehicleBodyFriction(car.GetRotation(), manifold.mWorldSpaceNormal,
+                car.GetFriction(), other.GetFriction(), sourceFrictionCombineMode(other),
+                sourceTrackContact, materialPairs_);
+        const char* pairStaticFlagV71=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_STATIC_FRICTION_V71");
+        if (pairStaticFlagV71 && std::strcmp(pairStaticFlagV71,"1")==0 && firstIsVehicle && secondIsVehicle && settings.mUseSourceBlockPGS) {
+            // Native pair material uses static V=3.2; its dynamic V=2 pair
+            // cap belongs only to the sliding limit. Preserve frame selection.
+            const bool selectSecond=std::abs(2.0F-other.GetFriction())>std::abs(2.0F-car.GetFriction());
+            const auto staticPair=sourceVehicleBodyFriction(
+                selectSecond?other.GetRotation():car.GetRotation(),manifold.mWorldSpaceNormal,
+                selectSecond?other.GetFriction():car.GetFriction(),
+                0.5F*((selectSecond?car.GetFriction():other.GetFriction())+3.2F),
+                SourceCombineMode::Minimum,false,false,3.2F);
+            settings.mNativeStaticFriction1V71=staticPair.first;
+            settings.mNativeStaticFriction2V69=staticPair.second;
+        }
+        settings.mCombinedFriction = source.first;
+        settings.mCombinedFriction2 = source.second;
+        settings.mFrictionDirection1 = source.firstDirection;
+        const char* preCallbackFrictionFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PRE_CALLBACK_FRICTION_V62");
+        if (preCallbackFrictionFlag && std::strcmp(preCallbackFrictionFlag,"1")==0 &&
+            sourceTrackContact && manifold.mNativeErrorFrameActive && car.IsDynamic() && other.IsStatic()) {
+            // Nx combines anisotropic material coefficients before the game
+            // callback changes the contact frame. Use the prepared actor pose
+            // and the original material normal; keep the callback's tangents.
+            motorrock::contactframe::Quaternion raw, pose;
+            for(unsigned j=0;j<4;++j)raw[j]=manifold.mNativeErrorRawQuaternion[j];
+            { std::scoped_lock lock(mutex_);
+              const auto found=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+              if(found==nativeMaterialActorPoses_.end())std::abort();
+              pose=found->second; }
+            const auto normal=motorrock::derivederror::rotate(raw,{{1,0,0}},false);
+            const auto material=sourceVehicleBodyFriction(
+                toJolt(Quat{pose[0],pose[1],pose[2],pose[3]}),toJolt(Vec3{normal[0],normal[1],normal[2]}),
+                car.GetFriction(),other.GetFriction(),sourceFrictionCombineMode(other),true,materialPairs_);
+            settings.mCombinedFriction=material.first;
+            settings.mCombinedFriction2=material.second;
+            const char* staticFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_STATIC_FRICTION_V69");
+            if(staticFlag && std::strcmp(staticFlag,"1")==0) {
+                // Keep the original material's static V=3.2 separate from
+                // dynamic V=2 and its SDK pair cap. Border static=0.1;
+                // primary scalar material combination retains the SDK's
+                // static>=dynamic validation before the polar average.
+                const float staticSurface=surface==CollisionSurface::TrackBorder?0.1F:other.GetFriction();
+                const auto staticMaterial=sourceVehicleBodyFriction(
+                    toJolt(Quat{pose[0],pose[1],pose[2],pose[3]}),toJolt(Vec3{normal[0],normal[1],normal[2]}),
+                    car.GetFriction(),other.GetFriction(),sourceFrictionCombineMode(other),true,false,3.2F,staticSurface);
+                settings.mNativeStaticFriction2V69=staticMaterial.second;
+            }
+        }
+        const char* pairFrameFlagV74=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_FRAME_V74");
+        const char* pairInertiaFlagV74=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_INERTIA_V74");
+        const char* pairSolverFlagV73=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_SOLVER_V73");
+        const char* pairLeverFlagV74=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_LEVERS_V74");
+        const bool pairLeverV74=pairLeverFlagV74 && std::strcmp(pairLeverFlagV74,"1")==0;
+        const bool pairFrameV74=pairFrameFlagV74 && std::strcmp(pairFrameFlagV74,"1")==0;
+        const bool pairInertiaV74=pairInertiaFlagV74 && std::strcmp(pairInertiaFlagV74,"1")==0;
+        SourceBox staticPairBox0V111,staticPairBox1V111;
+        const bool staticBoxPairV111=settings.mUseSourceBlockPGS && (first.IsStatic()!=second.IsStatic())
+            && ((first.IsDynamic() && firstIsVehicle) || (second.IsDynamic() && secondIsVehicle))
+            && sourceBox(first,staticPairBox0V111) && sourceBox(second,staticPairBox1V111);
+        if(staticBoxPairV111 && manifold.mNativePairLeverActiveV74
+            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_LEVER_V111")) {
+            settings.mNativePairLeverActiveV74=true;
+            settings.mNativePairLevers0V74=manifold.mNativePairLevers0V74;
+            settings.mNativePairLevers1V74=manifold.mNativePairLevers1V74;
+        }
+        if(staticBoxPairV111 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_INERTIA_V111")) {
+            namespace cf=motorrock::contactframe;
+            const JPH::Body* bodies[]={&first,&second};JPH::Mat44 values[2];bool eligible=true;
+            const unsigned axes[]={0,2,1};
+            for(unsigned i=0;i<2;++i) {
+                values[i]=JPH::Mat44::sZero();
+                if(bodies[i]->IsStatic())continue;
+                const auto local=bodies[i]->GetMotionPropertiesUnchecked()->GetLocalSpaceInverseInertia();cf::Matrix tensor;
+                for(unsigned c=0;c<3;++c)for(unsigned r=0;r<3;++r)tensor.a[r][c]=local.GetColumn3(axes[c])[axes[r]];
+                if(!motorrock::inertiav37::diagonal(tensor)){eligible=false;break;}
+                cf::Quaternion pose;
+                {std::scoped_lock lock(mutex_);const auto it=nativeMaterialActorPoses_.find(bodies[i]->GetID().GetIndexAndSequenceNumber());
+                    if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box inertia physical pose");pose=it->second;}
+                auto rotated=motorrock::inertiav37::solver(pose,tensor);
+                const auto allowed=bodies[i]->GetMotionPropertiesUnchecked()->GetAllowedDOFs();
+                const JPH::EAllowedDOFs rotationAxes[]={JPH::EAllowedDOFs::RotationX,JPH::EAllowedDOFs::RotationZ,JPH::EAllowedDOFs::RotationY};
+                for(unsigned c=0;c<3;++c)for(unsigned r=0;r<3;++r)
+                    if((allowed & rotationAxes[c])==JPH::EAllowedDOFs::None || (allowed & rotationAxes[r])==JPH::EAllowedDOFs::None)rotated.a[r][c]=0.0F;
+                for(unsigned c=0;c<3;++c)values[i].SetColumn3(axes[c],toJolt(Vec3{rotated.a[0][c],rotated.a[1][c],rotated.a[2][c]}));
+            }
+            if(eligible){settings.mNativePairInverseInertia1V74=values[0];settings.mNativePairInverseInertia2V74=values[1];settings.mNativePairInertiaActiveV74=true;}
+        }
+        if(staticBoxPairV111 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_FRAME_V111")) {
+            namespace cf=motorrock::contactframe;namespace fv=motorrock::framev36;
+            const auto& car=first.IsDynamic()?first:second;cf::Quaternion pose;
+            {std::scoped_lock lock(mutex_);const auto it=nativeMaterialActorPoses_.find(car.GetID().GetIndexAndSequenceNumber());
+                if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box frame physical pose");pose=it->second;}
+            const float sign=first.IsDynamic()?1.0F:-1.0F;
+            const auto jn=fromJolt(manifold.mWorldSpaceNormal);
+            const cf::Vector normal={{sign*jn.x,sign*jn.y,sign*jn.z}};
+            const auto reference=cf::column(motorrock::physicalposev42::rotation(pose),2);
+            // Material preparation projects the raw quaternion's first axis;
+            // using the geometry normal directly skips original F32 transport.
+            const auto raw=fv::rawWorld(normal);
+            const auto materialNormal=motorrock::derivederror::rotate(raw,{{1,0,0}},false);
+            auto frame=fv::encode(fv::basis(materialNormal,reference));
+            for(unsigned i=0;i<3;++i)frame[i]=-frame[i];
+            const auto n=motorrock::contactnormalv38::decode(frame),t0=fv::solverTangent1(frame),t1=fv::solverTangent2(frame);
+            for(unsigned i=0;i<3;++i){settings.mNativePairNormalV74[i]=sign*n[i];settings.mNativePairTangent0V74[i]=t0[i];settings.mNativePairTangent1V74[i]=sign*t1[i];}
+            settings.mNativePairFrameActiveV74=true;
+            if(manifold.mNativePairLocalCacheV75 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_BOX_CACHE_V111")) {
+                settings.mUseDerivedNativeErrors=true;motorrock::derivederror::Frames frames{raw,frame};
+                for(unsigned i=0;i<manifold.mRelativeContactPointsOn1.size();++i) {
+                    const auto& transverse=manifold.mNativeErrorTransverse[i];
+                    const float error=motorrock::derivederror::add(manifold.mSourceSeparations[i],settings.mAdditionalSeparation);
+                    settings.mDerivedNativeErrors[i]=motorrock::derivederror::error({{error,transverse[1],transverse[2]}},frames);
+                }
+            }
+        }
+        if(firstIsVehicle && secondIsVehicle && first.IsDynamic() && second.IsDynamic() &&
+           settings.mUseSourceBlockPGS && pairSolverFlagV73 && std::strcmp(pairSolverFlagV73,"1")==0 &&
+           (pairFrameV74 || pairInertiaV74 || pairLeverV74)) {
+            namespace cf=motorrock::contactframe;namespace fv=motorrock::framev36;
+            if(manifold.mNativePairLeverActiveV74){settings.mNativePairLeverActiveV74=true;settings.mNativePairLevers0V74=manifold.mNativePairLevers0V74;settings.mNativePairLevers1V74=manifold.mNativePairLevers1V74;}
+            cf::Quaternion poses[2];
+            {std::scoped_lock lock(mutex_);const JPH::Body* bodies[]={&first,&second};
+             for(unsigned i=0;i<2;++i){const auto it=nativeMaterialActorPoses_.find(bodies[i]->GetID().GetIndexAndSequenceNumber());if(it==nativeMaterialActorPoses_.end())std::abort();poses[i]=it->second;}}
+            if(pairFrameV74) {
+                const unsigned selected=std::abs(2.0F-second.GetFriction())>std::abs(2.0F-first.GetFriction())?1u:0u;
+                cf::Vector normal={{manifold.mNativePairRawNormalV74[0],manifold.mNativePairRawNormalV74[1],manifold.mNativePairRawNormalV74[2]}};
+                const char* transportFlagV75=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_MATERIAL_TRANSPORT_V75");
+                const bool transportV75=transportFlagV75 && std::strcmp(transportFlagV75,"1")==0;
+                auto raw=fv::rawWorld(normal);
+                const char* rawLocalFlagV76=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_RAW_LOCAL_V76");
+                const char* materialLocalFlagV76=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_MATERIAL_LOCAL_V76");
+                const bool rawLocalV76=transportV75 && rawLocalFlagV76 && std::strcmp(rawLocalFlagV76,"1")==0;
+                const bool materialLocalV76=transportV75 && materialLocalFlagV76 && std::strcmp(materialLocalFlagV76,"1")==0;
+                if(transportV75){auto inverseRaw=poses[1];for(unsigned i=0;i<3;++i)inverseRaw[i]=-inverseRaw[i];const auto local=rawLocalV76?motorrock::pairquaternionv76::localMultiply(inverseRaw,raw):fv::multiply(inverseRaw,raw);raw=fv::multiply(poses[1],local);}
+                const auto direction=cf::column(transportV75?motorrock::physicalposev42::rotation(poses[selected]):cf::decode(poses[selected]),2);
+                auto material=fv::encode(fv::basis(motorrock::derivederror::rotate(raw,{{1,0,0}},false),direction));
+                for(unsigned i=0;i<3;++i)material[i]=-material[i];
+                auto inverse=poses[1];for(unsigned i=0;i<3;++i)inverse[i]=-inverse[i];
+                const auto seed=materialLocalV76?motorrock::pairquaternionv76::materialLocalMultiply(inverse,material):fv::multiply(inverse,material);
+                const auto solver=fv::solverMultiply(poses[1],seed);
+                const auto n=motorrock::contactnormalv38::decode(solver),t0=fv::solverTangent1(solver),t1=fv::solverTangent2(solver);
+                for(unsigned i=0;i<3;++i){settings.mNativePairNormalV74[i]=n[i];settings.mNativePairTangent0V74[i]=t0[i];settings.mNativePairTangent1V74[i]=t1[i];}
+                settings.mNativePairFrameActiveV74=true;
+                const char* errorFlagV75=std::getenv("RRR3D_EXPERIMENT_NATIVE_PAIR_ERROR_V75");
+                if(transportV75 && manifold.mNativePairLocalCacheV75 && errorFlagV75 && std::strcmp(errorFlagV75,"1")==0){
+                    settings.mUseDerivedNativeErrors=true;motorrock::derivederror::Frames frames{raw,material};
+                    for(unsigned i=0;i<manifold.mRelativeContactPointsOn1.size();++i){const auto& transverse=manifold.mNativeErrorTransverse[i];const float error=motorrock::derivederror::add(manifold.mSourceSeparations[i],settings.mAdditionalSeparation);settings.mDerivedNativeErrors[i]=motorrock::derivederror::error({{error,transverse[1],transverse[2]}},frames);}
+                }
+            }
+            if(pairInertiaV74) {
+                const JPH::Body* bodies[]={&first,&second};JPH::Mat44 values[2];bool eligible=true;
+                const unsigned axes[]={0,2,1};
+                for(unsigned i=0;i<2;++i){const auto local=bodies[i]->GetMotionProperties()->GetLocalSpaceInverseInertia();cf::Matrix tensor;
+                    for(unsigned c=0;c<3;++c)for(unsigned r=0;r<3;++r)tensor.a[r][c]=local.GetColumn3(axes[c])[axes[r]];
+                    if(!motorrock::inertiav37::diagonal(tensor)){eligible=false;break;}
+                    const auto rotated=motorrock::inertiav37::solver(poses[i],tensor);values[i]=JPH::Mat44::sZero();
+                    for(unsigned c=0;c<3;++c)values[i].SetColumn3(axes[c],toJolt(Vec3{rotated.a[0][c],rotated.a[1][c],rotated.a[2][c]}));
+                }
+                if(eligible){settings.mNativePairInverseInertia1V74=values[0];settings.mNativePairInverseInertia2V74=values[1];settings.mNativePairInertiaActiveV74=true;}
+            }
+        }
+        if (std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+                      first.GetID()) != frictionDisabledBodies_.end() ||
+            std::find(frictionDisabledBodies_.begin(), frictionDisabledBodies_.end(),
+                      second.GetID()) != frictionDisabledBodies_.end()) {
+            settings.mCombinedFriction = settings.mCombinedFriction2 = 0.0F;
+            if(settings.mNativeStaticFriction2V69>=0.0F)settings.mNativeStaticFriction2V69=0.0F;
+        }
+    }
+
+    void recordOne(std::size_t vehicle, const JPH::Body& body,
+                   const JPH::Body& other, JPH::Vec3Arg outwardNormal,
+                   float estimatedNormalImpulse,
+                   JPH::Vec3Arg estimatedFrictionImpulseVector,
+                   const JPH::ContactManifold& manifold)
+    {
+        const JPH::Vec3 bodyVelocity = body.GetLinearVelocity();
+        std::size_t otherVehicle = std::numeric_limits<std::size_t>::max();
+        const bool otherIsVehicle =
+            vehicleIndex(other.GetUserData(), otherVehicle);
+        std::size_t otherDecoration =
+            std::numeric_limits<std::size_t>::max();
+        decorationIndex(other.GetUserData(), otherDecoration);
+        const bool otherIsMoving =
+            other.GetMotionType() != JPH::EMotionType::Static;
+        const JPH::Vec3 otherVelocity =
+            otherIsMoving ? other.GetLinearVelocity()
+                          : JPH::Vec3::sZero();
+        const float normalSpeed = std::max(
+            0.0F, -(bodyVelocity - otherVelocity).Dot(outwardNormal));
+        const float bodyInverseMass =
+            body.GetMotionProperties()->GetInverseMass();
+        const float otherInverseMass =
+            otherIsMoving
+                ? other.GetMotionProperties()->GetInverseMass()
+                : 0.0F;
+        const float inverseMass = bodyInverseMass + otherInverseMass;
+        const float effectiveMassImpulse =
+            inverseMass > 0.0F
+                ? normalSpeed / inverseMass
+                : 0.0F;
+        const float normalImpulse =
+            solvedImpulses_ ? 0.0F : std::max(effectiveMassImpulse, estimatedNormalImpulse);
+
+        BodyContact contact;
+        contact.surface =
+            otherIsVehicle ? CollisionSurface::Vehicle
+                           : collisionSurface(other.GetUserData());
+        contact.otherVehicle = otherVehicle;
+        contact.otherDecoration = otherDecoration;
+        contact.normal = fromJolt(outwardNormal);
+        contact.normalSpeed = normalSpeed;
+        contact.force = sourceContactForceFromImpulse(normalImpulse);
+        contact.otherActor =
+            other.GetID().GetIndexAndSequenceNumber();
+        const JPH::Vec3 frictionForceVector =
+            estimatedFrictionImpulseVector / sourceContactReportStep;
+        contact.frictionForce = frictionForceVector.Length();
+        contact.frictionForceVector = fromJolt(frictionForceVector);
+        const auto pointCount = std::min<std::size_t>(
+            {manifold.mRelativeContactPointsOn1.size(),
+             manifold.mRelativeContactPointsOn2.size(), 2U});
+        contact.points.reserve(pointCount);
+        for (std::size_t index = 0; index < pointCount; ++index)
+        {
+            const JPH::RVec3 firstPoint =
+                manifold.GetWorldSpaceContactPointOn1(
+                    static_cast<JPH::uint>(index));
+            const JPH::RVec3 secondPoint =
+                manifold.GetWorldSpaceContactPointOn2(
+                    static_cast<JPH::uint>(index));
+            contact.points.push_back(fromJolt(JPH::Vec3(
+                firstPoint + 0.5F * (secondPoint - firstPoint))));
+        }
+        if (!contact.points.empty())
+        {
+            contact.point = contact.points.front();
+            contact.hasPoint = true;
+        }
+
+        std::scoped_lock lock(mutex_);
+        if (vehicle >= pending_.size())
+            return;
+        auto& contacts = pending_[vehicle];
+        const auto found = std::find_if(
+            contacts.begin(), contacts.end(),
+            [&](const BodyContact& value) {
+                return value.surface == contact.surface &&
+                       value.otherVehicle == contact.otherVehicle &&
+                       value.otherDecoration == contact.otherDecoration &&
+                       value.otherActor == contact.otherActor;
+            });
+        if (found == contacts.end())
+            contacts.push_back(std::move(contact));
+        else
+            accumulateSourceContactForces(*found, std::move(contact));
+    }
+
+    void record(const JPH::Body& first, const JPH::Body& second,
+                const JPH::ContactManifold& manifold,
+                const JPH::ContactSettings& settings)
+    {
+        JPH::CollisionEstimationResult estimation;
+        if (!solvedImpulses_) JPH::EstimateCollisionResponse(
+            first, second, manifold, estimation,
+            std::max(
+                settings.mCombinedFriction,
+                settings.mCombinedFriction2),
+            settings.mCombinedRestitution, 1.0F, 4U);
+        float estimatedNormalImpulse = 0.0F;
+        float frictionImpulse1 = 0.0F;
+        float frictionImpulse2 = 0.0F;
+        for (const auto& impulse : estimation.mImpulses)
+        {
+            estimatedNormalImpulse +=
+                std::abs(impulse.mContactImpulse);
+            frictionImpulse1 += impulse.mFrictionImpulse1;
+            frictionImpulse2 += impulse.mFrictionImpulse2;
+        }
+        // EstimateCollisionResponse stores the impulse applied against
+        // body 1 along its two contact tangents.  Body 2 receives the
+        // opposite impulse.  PhysX exposed the corresponding vector as
+        // sumFrictionForce and GameCar consumes its Z sign at borders. Keep
+        // this as an impulse until all Jolt callbacks for the source 1/60
+        // contact-report interval have been accumulated.
+        const JPH::Vec3 estimatedFrictionImpulseVector = solvedImpulses_
+            ? JPH::Vec3::sZero()
+            : -(frictionImpulse1 * estimation.mTangent1 +
+              frictionImpulse2 * estimation.mTangent2);
+        std::size_t firstVehicle = 0;
+        std::size_t secondVehicle = 0;
+        const bool firstIsProjectile =
+            (first.GetUserData() & bodyKindMask) == projectileBodyKind;
+        const bool secondIsProjectile =
+            (second.GetUserData() & bodyKindMask) == projectileBodyKind;
+        if (vehicleIndex(first.GetUserData(), firstVehicle) &&
+            !secondIsProjectile)
+        {
+            recordOne(firstVehicle, first, second,
+                      -manifold.mWorldSpaceNormal,
+                      estimatedNormalImpulse,
+                      estimatedFrictionImpulseVector, manifold);
+        }
+        if (vehicleIndex(second.GetUserData(), secondVehicle) &&
+            !firstIsProjectile)
+        {
+            recordOne(secondVehicle, second, first,
+                      manifold.mWorldSpaceNormal,
+                      estimatedNormalImpulse,
+                      -estimatedFrictionImpulseVector, manifold);
+        }
+        std::size_t firstProjectile = 0;
+        std::size_t secondProjectile = 0;
+        if (projectileIndex(first.GetUserData(), firstProjectile))
+        {
+            recordProjectile(
+                firstProjectile, first, second,
+                -manifold.mWorldSpaceNormal, manifold);
+        }
+        if (projectileIndex(second.GetUserData(), secondProjectile))
+        {
+            recordProjectile(
+                secondProjectile, second, first,
+                manifold.mWorldSpaceNormal, manifold);
+        }
+    }
+
+    void recordProjectile(
+        std::size_t projectile, const JPH::Body& body,
+        const JPH::Body& other, JPH::Vec3Arg outwardNormal,
+        const JPH::ContactManifold& manifold)
+    {
+        const auto otherKind = other.GetUserData() & bodyKindMask;
+        std::size_t otherVehicle =
+            std::numeric_limits<std::size_t>::max();
+        std::size_t otherDecoration =
+            std::numeric_limits<std::size_t>::max();
+        if (otherKind == vehicleBodyKind)
+            vehicleIndex(other.GetUserData(), otherVehicle);
+        else if (otherKind == decorationBodyKind)
+            decorationIndex(other.GetUserData(), otherDecoration);
+        else if (otherKind != surfaceBodyKind)
+            return;
+
+        BodyContact contact;
+        contact.surface = otherKind == vehicleBodyKind
+            ? CollisionSurface::Vehicle
+            : collisionSurface(other.GetUserData());
+        contact.otherVehicle = otherVehicle;
+        contact.otherDecoration = otherDecoration;
+        contact.otherActor =
+            other.GetID().GetIndexAndSequenceNumber();
+        contact.normal = fromJolt(outwardNormal);
+        const JPH::Vec3 otherVelocity =
+            other.GetMotionType() == JPH::EMotionType::Static
+                ? JPH::Vec3::sZero()
+                : other.GetLinearVelocity();
+        contact.normalSpeed = std::max(
+            0.0F,
+            -(body.GetLinearVelocity() - otherVelocity)
+                 .Dot(outwardNormal));
+        const auto pointCount = std::min<std::size_t>(
+            {manifold.mRelativeContactPointsOn1.size(),
+             manifold.mRelativeContactPointsOn2.size(), 2U});
+        contact.points.reserve(pointCount);
+        for (std::size_t index = 0; index < pointCount; ++index)
+        {
+            const auto firstPoint =
+                manifold.GetWorldSpaceContactPointOn1(
+                    static_cast<JPH::uint>(index));
+            const auto secondPoint =
+                manifold.GetWorldSpaceContactPointOn2(
+                    static_cast<JPH::uint>(index));
+            contact.points.push_back(fromJolt(JPH::Vec3(
+                firstPoint + 0.5F * (secondPoint - firstPoint))));
+        }
+        if (!contact.points.empty())
+        {
+            contact.point = contact.points.front();
+            contact.hasPoint = true;
+        }
+
+        std::scoped_lock lock(mutex_);
+        if (projectile >= projectilePending_.size())
+            return;
+        if (projectile < projectileIgnoredVehicles_.size())
+        {
+            const auto ignoredVehicle =
+                projectileIgnoredVehicles_[projectile];
+            if (ignoredVehicle !=
+                    std::numeric_limits<std::size_t>::max() &&
+                otherVehicle == ignoredVehicle)
+                return;
+        }
+        auto& contacts = projectilePending_[projectile];
+        const auto found = std::find_if(
+            contacts.begin(), contacts.end(),
+            [&](const BodyContact& value) {
+                return value.surface == contact.surface &&
+                       value.otherVehicle == contact.otherVehicle &&
+                       value.otherDecoration == contact.otherDecoration &&
+                       value.otherActor == contact.otherActor;
+            });
+        if (found == contacts.end())
+            contacts.push_back(std::move(contact));
+        else if (contact.normalSpeed > found->normalSpeed)
+            *found = std::move(contact);
+    }
+
+    bool solvedImpulses_ = false;
+    std::vector<JPH::BodyID> frictionDisabledBodies_;
+    bool independentFriction_ = false;
+    bool boxContactOrder_ = false;
+    bool contactOffsets_ = false;
+    struct SourceContactGeometry { float skin; JPH::Vec3 inset; };
+    static constexpr JPH::uint64 contactGeometryMarker = JPH::uint64(1) << 63;
+    std::vector<SourceContactGeometry> contactGeometry_;
+    float wheelBoxQueryPaddingV59_=0;
+    bool materialPairs_ = false;
+    bool tracePoints_ = std::getenv("RRR3D_CONTACT_POINTS") != nullptr;
+    std::uint64_t traceStep_ = 0;
+    std::uint64_t nativeFirstTraceStep_ = UINT64_MAX;
+    mutable std::mutex mutex_;
+    std::vector<std::vector<BodyContact>> pending_;
+    std::vector<std::vector<BodyContact>> projectilePending_;
+    std::vector<std::size_t> projectileIgnoredVehicles_;
+};
+
+// The original PhysX triangle meshes are used both for solid collision and
+// suspension raycasts. PhysX accepted the suspension-facing side independently
+// of stored triangle winding; this adapter preserves that behaviour while the
+// Jolt mesh itself keeps a single solid front face.
+class OriginalWheelCollisionTester final
+    : public JPH::VehicleCollisionTester
+{
+    bool enabled_;
+    const OriginalContactListener& contacts_;
+    std::vector<WheelDescription> sourceWheels_;
+    bool sourceCompat_;
+    static bool flag(const char* name) {
+        const char* value = std::getenv(name);
+        return value && std::strcmp(value, "1") == 0;
+    }
+public:
+    explicit OriginalWheelCollisionTester(JPH::ObjectLayer layer, bool enabled,
+        const OriginalContactListener& contacts, const VehicleDescription& source, bool compat)
+        : VehicleCollisionTester(layer), enabled_(enabled), contacts_(contacts),
+          sourceWheels_(source.wheels), sourceCompat_(compat)
+    {
+    }
+
+    bool Collide(JPH::PhysicsSystem& system,
+                 const JPH::VehicleConstraint& vehicle,
+                 JPH::uint wheelIndex, JPH::RVec3Arg origin,
+                 JPH::Vec3Arg direction, const JPH::BodyID& vehicleBody,
+                 JPH::Body*& outBody, JPH::SubShapeID& outSubShape,
+                 JPH::RVec3& outPosition, JPH::Vec3& outNormal,
+                 float& outLength) const override
+    {
+        if (!enabled_)
+            return false;
+        const JPH::DefaultBroadPhaseLayerFilter defaultBroadPhase =
+            system.GetDefaultBroadPhaseLayerFilter(mObjectLayer);
+        const JPH::BroadPhaseLayerFilter& broadPhase =
+            mBroadPhaseLayerFilter != nullptr ? *mBroadPhaseLayerFilter
+                                              : defaultBroadPhase;
+        const JPH::DefaultObjectLayerFilter defaultObject =
+            system.GetDefaultLayerFilter(mObjectLayer);
+        const JPH::ObjectLayerFilter& object =
+            mObjectLayerFilter != nullptr ? *mObjectLayerFilter
+                                          : defaultObject;
+        const JPH::IgnoreSingleBodyFilter defaultBody(vehicleBody);
+        const JPH::BodyFilter& bodyFilter =
+            mBodyFilter != nullptr ? *mBodyFilter : defaultBody;
+        const auto* wheel = vehicle.GetWheel(wheelIndex)->GetSettings();
+        const float rayLength = wheel->mSuspensionMaxLength + wheel->mRadius;
+        namespace wr = motorrock::wheelrayv52;
+        const bool nativePoint = sourceCompat_ && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT");
+        bool nativeOrigin = sourceCompat_ && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_RAY_ORIGIN");
+        JPH::RVec3 queryOrigin = origin;
+        JPH::Vec3 queryDelta = rayLength * direction;
+        const bool nativePose = nativeOrigin && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_SHAPE_POSE_V54");
+        wr::Vector shapeAxis{0,0,1};
+        wr::Vector originalRayEndV107{};
+        // Only the identity physical wheel pose has been independently traced
+        // here. Do not guess the original private rotated shape pose.
+        if (nativeOrigin) {
+            JPH::BodyLockRead vehicleLock(system.GetBodyLockInterfaceNoLock(), vehicleBody);
+            nativeOrigin = vehicleLock.Succeeded() &&
+                (nativePose || vehicleLock.GetBody().GetRotation() == JPH::Quat::sIdentity()) &&
+                wheelIndex < sourceWheels_.size();
+            if (nativeOrigin) {
+            const auto& source = sourceWheels_[wheelIndex];
+            const auto cm = fromJolt(JPH::Vec3(vehicleLock.GetBody().GetCenterOfMassPosition()));
+            const auto local = fromJolt(vehicleLock.GetBody().GetShape()->GetCenterOfMass());
+            const auto q = nativePose ? fromJolt(vehicleLock.GetBody().GetRotation()) : Quat{0,0,0,1};
+            const auto actor = motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},
+                {{cm.x,cm.y,cm.z}}, {{local.x,local.y,local.z}});
+            if (nativePose) {
+                namespace wp = motorrock::wheelposev54;
+                // Original shape local orientation is the source wheel's fixed
+                // (.5,.5,.5,.5) frame. Preserve compose -> matrix -> endpoint
+                // stores; rotating the actor suspension axis is not equivalent.
+                const auto shape = wp::pose(wp::compose(
+                    {{actor[0],actor[1],actor[2],q.x,q.y,q.z,q.w}},
+                    {{source.position.x,source.position.y,source.position.z,.5F,.5F,.5F,.5F}}));
+                const auto nativeRay = wp::ray(shape,source.radius,source.suspensionTravel);
+                shapeAxis = nativeRay.axis;
+                originalRayEndV107 = nativeRay.end;
+                queryOrigin = toJolt(Vec3{nativeRay.start[0],nativeRay.start[1],nativeRay.start[2]});
+                const auto delta = wr::subtract(nativeRay.end,nativeRay.start);
+                queryDelta = toJolt(Vec3{delta[0],delta[1],delta[2]});
+            } else {
+                const wr::Vector start{wr::add(actor[0], source.position.x),
+                    wr::add(actor[1], source.position.y), wr::add(actor[2], source.position.z)};
+                const float endZ = wr::sub(start[2], wr::add(source.radius, source.suspensionTravel));
+                queryOrigin = toJolt(Vec3{start[0], start[1], start[2]});
+                queryDelta = toJolt(Vec3{0, 0, wr::sub(endZ, start[2])});
+            }
+            }
+        }
+        const JPH::RRayCast ray{queryOrigin, queryDelta};
+        const auto nativeStart = fromJolt(JPH::Vec3(queryOrigin));
+        const auto nativeDelta = fromJolt(queryDelta);
+        const wr::Vector rayStart{nativeStart.x, nativeStart.y, nativeStart.z};
+        const wr::Vector rayDelta{nativeDelta.x, nativeDelta.y, nativeDelta.z};
+        const float queryLength = std::sqrt(wr::dotZYX(rayDelta, rayDelta));
+        const float reciprocalLength = queryLength > 0 ? wr::div(1.0F, queryLength) : 0;
+        const wr::Vector unitDirection{wr::mul(rayDelta[0], reciprocalLength),
+            wr::mul(rayDelta[1], reciprocalLength), wr::mul(rayDelta[2], reciprocalLength)};
+
+        class Collector final : public JPH::CastRayCollector
+        {
+        public:
+            Collector(JPH::PhysicsSystem& physics, const JPH::RRayCast& value,
+                      const OriginalContactListener& listener, bool exactPoint,
+                      wr::Vector start, wr::Vector unit, float length,bool exactBox,bool vehicleV70,unsigned physicalTick,unsigned wheelId,bool exactNormal,bool exactTriangleOrder)
+                : system(physics), ray(value), contacts(listener), nativePoint(exactPoint),
+                  rayStart(start), unitDirection(unit), queryLength(length),nativeBox(exactBox),nativeVehicleV70(vehicleV70),physicalTickV101(physicalTick),wheelIdV101(wheelId),nativeNormalV101(exactNormal),nativeTriangleOrderV122(exactTriangleOrder)
+            {
+            }
+
+            void AddHit(const JPH::RayCastResult& hit) override
+            {
+                if (!nativeTriangleOrderV122 && hit.mFraction >= GetEarlyOutFraction())
+                    return;
+                JPH::BodyLockRead lock(system.GetBodyLockInterfaceNoLock(),
+                                       hit.mBodyID);
+                if (!lock.Succeeded() || lock.GetBody().IsSensor())
+                    return;
+                if(nativeBox) {
+                    motorrock::wheelboxrayv59::Box full;
+                    if(contacts.wheelSourceBoxV59(lock.GetBody(),full,nativeVehicleV70))return;
+                }
+                std::size_t vehicle = 0;
+                const JPH::uint64 userData = lock.GetBody().GetUserData();
+                if ((!nativeVehicleV70 && vehicleIndex(userData, vehicle)) ||
+                    ((userData & bodyKindMask) == surfaceBodyKind &&
+                     collisionSurface(userData) ==
+                         CollisionSurface::TrackBorder))
+                    return;
+                auto selectedSubShapeV122=hit.mSubShapeID2;
+                float selectedFractionV122=hit.mFraction;
+                wr::Vector sourcePointV122{};float sourceDistanceV122=0;bool sourceHitV122=false;
+                const bool sourceMeshV122=nativeTriangleOrderV122 && contacts.wheelSourceMeshQueryV122(lock.GetBody(),rayStart,unitDirection,queryLength,sourceHitV122,selectedSubShapeV122,sourcePointV122,sourceDistanceV122);
+                if(sourceMeshV122) {
+                    if(!sourceHitV122 || queryLength<=0)return;
+                    selectedFractionV122=wr::div(sourceDistanceV122,queryLength);
+                }
+                if(selectedFractionV122>=GetEarlyOutFraction())return;
+                auto position = sourceMeshV122 ? toJolt(Vec3{sourcePointV122[0],sourcePointV122[1],sourcePointV122[2]}) : ray.GetPointOnRay(hit.mFraction);
+                if (nativePoint && !sourceMeshV122) {
+                    std::array<wr::Vector, 3> points;
+                    if (contacts.wheelSourceTriangle(lock.GetBody(), selectedSubShapeV122, points)) {
+                        const auto intersection = wr::intersect(rayStart, unitDirection,
+                            points[0], points[1], points[2]);
+                        if (std::isfinite(intersection.distance) && intersection.distance >= 0 &&
+                            intersection.distance <= queryLength && intersection.u >= 0 &&
+                            intersection.v >= 0 && wr::add(intersection.u, intersection.v) <= 1) {
+                            const auto p = wr::interpolate(points[0], points[1], points[2],
+                                intersection.u, intersection.v);
+                            position = toJolt(Vec3{p[0],p[1],p[2]});
+                        }
+                    }
+                }
+                auto normal = lock.GetBody().GetWorldSpaceSurfaceNormal(
+                    selectedSubShapeV122, position);
+                if(nativeNormalV101) {
+                    std::array<wr::Vector,3> localVerticesV101;
+                    if(contacts.wheelSourceLocalTriangle(lock.GetBody(),selectedSubShapeV122,localVerticesV101)) {
+                        const auto localNormalV101=motorrock::trianglenormalv101::compute(localVerticesV101).normal;
+                        wr::Vector placedNormalV126;
+                        normal=contacts.wheelPlacedMeshNormalV126(lock.GetBody(),localNormalV101,placedNormalV126)
+                            ? toJolt(Vec3{placedNormalV126[0],placedNormalV126[1],placedNormalV126[2]})
+                            : lock.GetBody().GetRotation()*toJolt(Vec3{localNormalV101[0],localNormalV101[1],localNormalV101[2]});
+                    }
+                }
+                if (normal.Dot(JPH::Vec3::sAxisY()) < 0.0F)
+                    normal = -normal;
+                const char* normalTraceV101=std::getenv("RRR3D_WHEEL_NORMAL_TRACE_FILE_V101");
+                const char* normalStepV101=std::getenv("RRR3D_WHEEL_NORMAL_TRACE_STEP_V101");
+                if(normalTraceV101 && *normalTraceV101 && (!normalStepV101 || physicalTickV101==std::strtoul(normalStepV101,nullptr,10))) {
+                    std::array<wr::Vector,3> pointsV101;
+                    if(contacts.wheelSourceTriangle(lock.GetBody(),selectedSubShapeV122,pointsV101))if(FILE* file=std::fopen(normalTraceV101,"a")) {
+                        std::fprintf(file,"{\"physical_tick\":%u,\"wheel\":%u,\"triangle\":%u,\"vertices_words\":[",physicalTickV101,wheelIdV101,static_cast<const JPH::MeshShape*>(lock.GetBody().GetShape())->GetTriangleUserData(selectedSubShapeV122));
+                        for(unsigned pV101=0;pV101<3;++pV101)for(unsigned aV101=0;aV101<3;++aV101){std::uint32_t wordV101=0;std::memcpy(&wordV101,&pointsV101[pV101][aV101],4);std::fprintf(file,"%s%u",pV101||aV101?",":"",wordV101);}
+                        const auto nV101=fromJolt(normal);const float valuesV101[]={nV101.x,nV101.y,nV101.z};std::fprintf(file,"],\"normal_words\":[");for(unsigned aV101=0;aV101<3;++aV101){std::uint32_t wordV101=0;std::memcpy(&wordV101,valuesV101+aV101,4);std::fprintf(file,"%s%u",aV101?",":"",wordV101);}std::fprintf(file,"]}\n");std::fclose(file);
+                    }
+                }
+                if (normal.Dot(JPH::Vec3::sAxisY()) <=
+                    std::cos(80.0F * 3.14159265358979323846F / 180.0F))
+                    return;
+                UpdateEarlyOutFraction(selectedFractionV122);
+                body = &lock.GetBody();
+                subShape = selectedSubShapeV122;
+                contactPosition = position;
+                contactNormal = normal;
+            }
+
+            JPH::PhysicsSystem& system;
+            JPH::RRayCast ray;
+            const OriginalContactListener& contacts;
+            bool nativePoint;
+            wr::Vector rayStart, unitDirection;
+            float queryLength;
+            bool nativeBox;
+            bool nativeVehicleV70;
+            unsigned physicalTickV101,wheelIdV101;
+            bool nativeNormalV101;
+            bool nativeTriangleOrderV122;
+            const JPH::Body* body = nullptr;
+            JPH::SubShapeID subShape;
+            JPH::RVec3 contactPosition;
+            JPH::Vec3 contactNormal;
+        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"),sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_VEHICLE_QUERY_V70"),vehicle.GetSourceSimulationCounterV59(),wheelIndex,nativePoint&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_MESH_NORMAL_V101"),nativePoint&&(flag("RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122")||flag("RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126")));
+
+        JPH::RayCastSettings settings;
+        settings.mBackFaceModeTriangles =
+            JPH::EBackFaceMode::CollideWithBackFaces;
+        system.GetNarrowPhaseQueryNoLock().CastRay(
+            ray, settings, collector, broadPhase, object, bodyFilter);
+        if(sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59")) {
+            // Body contacts use inset geometry to emulate the old contact
+            // skin. Suspension queries must see the full original box. The
+            // broad-phase padding only selects candidates; the exact full
+            // box intersection decides whether and where a wheel touches.
+            const float padding=contacts_.wheelBoxQueryPaddingV59()+std::sqrt(3.0F)*motorrock::wheelboxrayv59::parallel_bounds_epsilon;
+            JPH::AABox bounds;bounds.Encapsulate(JPH::Vec3(queryOrigin));bounds.Encapsulate(JPH::Vec3(queryOrigin+queryDelta));
+            bounds.mMin-=JPH::Vec3::sReplicate(padding);bounds.mMax+=JPH::Vec3::sReplicate(padding);
+            JPH::AllHitCollisionCollector<JPH::CollideShapeBodyCollector> boxes;
+            system.GetBroadPhaseQuery().CollideAABox(bounds,boxes,broadPhase,object);
+            for(const auto id:boxes.mHits) {
+                if(!bodyFilter.ShouldCollide(id))continue;
+                JPH::BodyLockRead lock(system.GetBodyLockInterfaceNoLock(),id);
+                if(!lock.Succeeded()||!bodyFilter.ShouldCollideLocked(lock.GetBody())||lock.GetBody().IsSensor())continue;
+                motorrock::wheelboxrayv59::Box box;
+                if(!contacts_.wheelSourceBoxV59(lock.GetBody(),box,collector.nativeVehicleV70))continue;
+                auto hit=motorrock::wheelboxrayv59::cast(box,rayStart,unitDirection,queryLength);
+                std::size_t sourceVehicleV80=0;
+                const bool originalDynamicBoxV80=collector.nativeVehicleV70 && flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V80")
+                    && lock.GetBody().IsDynamic() && vehicleIndex(lock.GetBody().GetUserData(),sourceVehicleV80);
+                // Static boxes enter the same original 1ae390 -> 1ea750 query.
+                // Transform the local face point back to world, rather than
+                // interpolating the world ray; the latter changes lever arms.
+                const bool originalStaticBoxV107=nativeOrigin && nativePose && lock.GetBody().IsStatic()
+                    && flag("RRR3D_EXPERIMENT_NATIVE_STATIC_WHEEL_BOX_QUERY_V107");
+                if(originalDynamicBoxV80 || originalStaticBoxV107) {
+                    const auto original=originalStaticBoxV107
+                        ? motorrock::staticwheelboxv107::cast(box,rayStart,originalRayEndV107,unitDirection,queryLength)
+                        : motorrock::wheelboxqueryv80::cast(box,rayStart,unitDirection,queryLength);
+                    hit.hit=original.hit;hit.distance=original.distance;hit.point=original.point;hit.normal=original.normal;
+                }
+                if(!hit.hit||queryLength<=0)continue;
+                const float fraction=wr::div(hit.distance,queryLength);
+                if(fraction>=collector.GetEarlyOutFraction())continue;
+                auto normal=toJolt(Vec3{hit.normal[0],hit.normal[1],hit.normal[2]});
+                if(normal.Dot(JPH::Vec3::sAxisY())<0)normal=-normal;
+                if(normal.Dot(JPH::Vec3::sAxisY())<=std::cos(80.0F*3.14159265358979323846F/180.0F))continue;
+                collector.UpdateEarlyOutFraction(fraction);
+                collector.body=&lock.GetBody();collector.subShape=JPH::SubShapeIDCreator().GetID();
+                collector.contactPosition=toJolt(Vec3{hit.point[0],hit.point[1],hit.point[2]});
+                collector.contactNormal=normal;
+            }
+        }
+        if (collector.body == nullptr)
+            return false;
+        outBody = const_cast<JPH::Body*>(collector.body);
+        outSubShape = collector.subShape;
+        outPosition = collector.contactPosition;
+        outNormal = collector.contactNormal;
+        if (nativeOrigin) {
+            const auto point = fromJolt(JPH::Vec3(outPosition));
+            outLength = std::max(0.0F, nativePose ?
+                motorrock::wheelposev54::distance(shapeAxis,rayStart,{{point.x,point.y,point.z}}) :
+                wr::sub(rayStart[2], point.z));
+        } else {
+            outLength = std::max(
+                0.0F, rayLength * collector.GetEarlyOutFraction() - wheel->mRadius);
+        }
+        return true;
+    }
+
+    void PredictContactProperties(
+        JPH::PhysicsSystem&, const JPH::VehicleConstraint& vehicle,
+        JPH::uint wheelIndex, JPH::RVec3Arg origin, JPH::Vec3Arg direction,
+        const JPH::BodyID&, JPH::Body*&, JPH::SubShapeID&,
+        JPH::RVec3& position, JPH::Vec3& normal,
+        float& suspensionLength) const override
+    {
+        const auto* wheel = vehicle.GetWheel(wheelIndex)->GetSettings();
+        const float denominator = direction.Dot(normal);
+        if (denominator < -1.0e-6F)
+        {
+            position = origin + JPH::Vec3(position - origin).Dot(normal) /
+                                    denominator * direction;
+            suspensionLength = JPH::Clamp(
+                JPH::Vec3(position - origin).Dot(direction) - wheel->mRadius,
+                0.0F, wheel->mSuspensionMaxLength);
+        }
+        else
+        {
+            suspensionLength = wheel->mSuspensionMaxLength;
+        }
+    }
+};
+
+bool sourceTireForceHistoryEnabled() noexcept
+{
+    const char* flag = std::getenv("RRR3D_EXPERIMENT_TIRE_FORCE_HISTORY");
+    return flag != nullptr && std::strcmp(flag, "1") == 0;
+}
+
+struct SourceWheelNormalForce
+{
+    float reaction = 0.0F;
+    float impulse = 0.0F;
+};
+
+SourceWheelNormalForce sourceWheelNormalForce(
+    float suspensionImpulse, float normalReactionImpulse,
+    bool contactForceEnabled, float tireSpring) noexcept
+{
+    SourceWheelNormalForce result;
+    suspensionImpulse = std::max(suspensionImpulse, 0.0F);
+    normalReactionImpulse = std::max(normalReactionImpulse, 0.0F);
+    result.impulse = suspensionImpulse;
+    if (normalReactionImpulse > 1.0e-6F)
+    {
+        result.reaction = suspensionImpulse / normalReactionImpulse;
+        if (!contactForceEnabled ||
+            (tireSpring > 0.0F && result.reaction > tireSpring))
+        {
+            result.impulse = 0.0F;
+        }
+        else
+        {
+            result.impulse = std::min(
+                suspensionImpulse, normalReactionImpulse * 1.5F);
+        }
+    }
+    else if (!contactForceEnabled)
+    {
+        result.impulse = 0.0F;
+    }
+    return result;
+}
+
+float sourceTireFunction(
+    const WheelDescription::TireFunction& tire, float slip) noexcept
+{
+    if (!std::isfinite(slip) || tire.extremumSlip <= 0.0F ||
+        tire.asymptoteSlip <= tire.extremumSlip ||
+        tire.extremumValue <= 0.0F || tire.asymptoteValue <= 0.0F)
+    {
+        return 0.0F;
+    }
+
+    // NxTireFunctionDesc::hermiteEval is part of the PhysX 2.8 contract
+    // used by the original game. Preserve the source cubic pieces (initial tangent 1, extrema tangent 0)
+    // instead of feeding Jolt a three-point linear approximation.
+    const float magnitude = std::abs(slip);
+    const float sign = slip >= 0.0F ? 1.0F : -1.0F;
+    float force = tire.asymptoteValue;
+    if (magnitude < tire.extremumSlip)
+    {
+        const float a = magnitude / tire.extremumSlip;
+        const float a2 = a * a;
+        const float a3 = a2 * a;
+        force = tire.extremumValue * (-a3 + a2 + a);
+    }
+    else if (magnitude < tire.asymptoteSlip)
+    {
+        const float a =
+            (magnitude - tire.extremumSlip) /
+            (tire.asymptoteSlip - tire.extremumSlip);
+        const float a2 = a * a;
+        const float a3 = a2 * a;
+        const float difference =
+            tire.asymptoteValue - tire.extremumValue;
+        force = -2.0F * difference * a3 +
+                3.0F * difference * a2 + tire.extremumValue;
+    }
+    return sign * force;
+}
+
+bool sourceLowSpeedWheelContact(
+    Vec3 previous, Vec3 current, bool previousValid) noexcept
+{
+    if (!previousValid)
+        return false;
+    const float x = current.x - previous.x;
+    const float y = current.y - previous.y;
+    const float z = current.z - previous.z;
+    return x * x + y * y + z * z <=
+           sourceSkinWidth * sourceSkinWidth;
+}
+
+float sourceClampedTireFriction(
+    const WheelDescription::TireFunction& tire, float slip,
+    bool lowSpeedFriction) noexcept
+{
+    // NxWheelShapeDesc documents a separate static-friction branch. In the
+    // clamped model its coefficient is extremumValue in both directions;
+    // the Hermite curve (and its zero at zero slip) is not used there.
+    if (lowSpeedFriction)
+        return std::max(tire.extremumValue, 0.0F);
+    return std::abs(sourceTireFunction(tire, slip));
+}
+
+float sourceWheelInertia(float inverseWheelMass) noexcept
+{
+    // Despite its historical name, NxWheelShape::inverseWheelMass is the
+    // inverse rotational inertia used to integrate axle torque. Jolt asks
+    // for that inertia directly; treating it as a cylinder mass changes the
+    // original response by a factor that also depends on wheel radius.
+    return std::isfinite(inverseWheelMass) && inverseWheelMass > 0.0F
+               ? 1.0F / inverseWheelMass
+               : 1.0F;
+}
+
+JPH::MassProperties sourceVehicleMassProperties(const VehicleDescription& source)
+{
+    // NxActor's initial shape list includes the raycast wheels. Their mass
+    // proxy is a radius-high cylinder about the suspension axis (not the
+    // rolling axle); density is 1, independently of inverseWheelMass. The
+    // root actor subsequently restores massLocalPose, keeping the SDK's
+    // diagonalized tensor. This formula was checked against all 17 original
+    // car records: maximum relative discrepancy < 3e-7.
+    JPH::MassProperties combined;
+    combined.SetMassAndInertiaOfSolidBox(2.0F * toJolt(source.halfExtents), 1.0F);
+    combined.Translate(toJolt(source.shapePosition));
+    for (const auto& wheel : source.wheels)
+    {
+        JPH::MassProperties proxy;
+        const float r2 = wheel.radius * wheel.radius;
+        proxy.mMass = JPH::JPH_PI * r2 * wheel.radius;
+        proxy.mInertia = JPH::Mat44::sScale(proxy.mMass * r2 * JPH::Vec3(1.0F / 3.0F, 0.5F, 1.0F / 3.0F));
+        proxy.Translate(toJolt(wheel.position));
+        combined.mMass += proxy.mMass;
+        for (int axis = 0; axis < 3; ++axis)
+            combined.mInertia.SetColumn4(axis, combined.mInertia.GetColumn4(axis) + proxy.mInertia.GetColumn4(axis));
+    }
+    combined.ScaleToMass(source.mass);
+    const char* shapeMassFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_SHAPE_MASS");
+    if (shapeMassFlag && std::strcmp(shapeMassFlag, "1") == 0)
+    {
+        const float half[] = {source.halfExtents.x, source.halfExtents.y, source.halfExtents.z};
+        const float position[] = {source.shapePosition.x, source.shapePosition.y, source.shapePosition.z};
+        nativeshapemass::Integrals exact;
+        nativeshapemass::accumulate(exact, nativeshapemass::box(half, position));
+        for (const auto& wheel : source.wheels)
+        {
+            const float wheelPosition[] = {wheel.position.x, wheel.position.y, wheel.position.z};
+            const float halfLength = (wheel.flags & 0x20U) != 0U
+                ? nativeshapemass::add(wheel.radius, wheel.suspensionTravel)
+                : nativeshapemass::mul(wheel.radius, 0.5F);
+            nativeshapemass::accumulate(exact,
+                nativeshapemass::wheel(wheel.radius, halfLength, wheelPosition));
+        }
+        nativeshapemass::scaleToMass(exact, source.mass);
+        combined.mMass = exact.mass;
+        const unsigned axes[] = {0, 2, 1};
+        combined.mInertia = JPH::Mat44::sIdentity();
+        for (unsigned i = 0; i < 3; ++i)
+            for (unsigned j = 0; j < 3; ++j)
+                combined.mInertia(axes[i], axes[j]) = exact.tensor[i][j];
+    }
+    const char* principalFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PRINCIPAL_INERTIA");
+    if (principalFlag && std::strcmp(principalFlag, "1") == 0)
+    {
+        // Nx diagonalizes in actor/source axis order and rounds to float only
+        // after its PC53 double Jacobi path. The dense tensor is unchanged.
+        const unsigned sourceAxes[] = {0, 2, 1};
+        float input[3][3];
+        for (unsigned i = 0; i < 3; ++i)
+            for (unsigned j = 0; j < 3; ++j)
+                input[i][j] = combined.mInertia(sourceAxes[i], sourceAxes[j]);
+        nativeprincipal::Result result;
+        if (!nativeprincipal::decompose(input, result))
+            throw std::runtime_error("Cannot diagonalize original double vehicle inertia");
+        combined.mInertia = JPH::Mat44::sScale(JPH::Vec3(
+            result.principal[0], result.principal[2], result.principal[1]));
+        return combined;
+    }
+    JPH::Mat44 axes;
+    JPH::Vec3 principal;
+    if (!combined.DecomposePrincipalMomentsOfInertia(axes, principal))
+        throw std::runtime_error("Cannot diagonalize original vehicle inertia");
+    // Nx preserves the actor-axis association while diagonalizing; the game
+    // then restores an identity mass frame. Jolt sorts eigenvalues. Reassociate
+    // them with the original axes instead of assuming X is always the smallest.
+    // That assumption happened to hold for the 17 shipped chassis, but fails
+    // when the wheel mass proxies are raised above the body.
+    constexpr int permutations[6][3] = {
+        {0,1,2}, {0,2,1}, {1,0,2}, {1,2,0}, {2,0,1}, {2,1,0}};
+    int best = 0;
+    float bestScore = -1.0F;
+    for (int candidate = 0; candidate < 6; ++candidate)
+    {
+        float score = 0.0F;
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            const float component = axes.GetColumn3(
+                permutations[candidate][axis])[axis];
+            score += component * component;
+        }
+        if (score > bestScore) { bestScore = score; best = candidate; }
+    }
+    combined.mInertia = JPH::Mat44::sScale(JPH::Vec3(
+        principal[permutations[best][0]], principal[permutations[best][1]],
+        principal[permutations[best][2]]));
+    return combined;
+}
+
+class JoltVehicleWorld final : public OriginalVehicleWorld
+{
+public:
+    explicit JoltVehicleWorld(const WorldDescription& description)
+        : tuning_(CalibrationTuning::load()), description_(tuning_.apply(description)), tempAllocator_(32U * 1024U * 1024U),
+          jobs_(JPH::cMaxPhysicsJobs, JPH::cMaxPhysicsBarriers,
+                std::max(1, static_cast<int>(std::thread::hardware_concurrency()) -
+                                1))
+    {
+        if (description_.spawns.empty())
+        {
+            description_.spawns.push_back(
+                {description_.vehicle, description_.startPosition,
+                 description_.startDirection});
+        }
+        validate();
+        system_.Init(4096, 0, 16384, 4096, broadPhaseInterface_,
+                     objectVsBroadPhase_, objectLayerPairs_);
+        system_.SetCombineFriction(sourceCombineFriction);
+        system_.SetCombineRestitution(sourceCombineRestitution);
+        if (tuning_.physxWheelCompat && tuning_.physxContactSkin &&
+            tuning_.physxBoxCorners && tuning_.physxMeshEdges)
+            system_.SetSimCollideBodyVsBody(sourceCollideVehicleBoxMesh);
+        auto physicsSettings = system_.GetPhysicsSettings();
+        physicsSettings.mPenetrationSlop = sourcePenetrationSlop;
+        if (tuning_.physxContactSkin && tuning_.physxSpeculativeSkin)
+        {
+            // Recover the combined skin distance removed from the two hulls.
+            // The Nx wall oracle otherwise detects the first impact a step earlier.
+            physicsSettings.mSpeculativeContactDistance = sourcePenetrationSlop;
+        }
+        physicsSettings.mNumVelocitySteps = sourceSolverIterations;
+        if (tuning_.physxWheelCompat) {
+            const char* count = std::getenv("RRR3D_EXPERIMENT_SPRING_ITERATIONS");
+            if (count && (std::strcmp(count, "1") == 0 || std::strcmp(count, "2") == 0 ||
+                          std::strcmp(count, "4") == 0 || std::strcmp(count, "8") == 0))
+                physicsSettings.mNumVelocitySteps = std::atoi(count);
+        }
+        if (tuning_.physxWheelCompat && (tuning_.physxBoxManifolds || std::getenv("RRR3D_EXPERIMENT_SPRING_FINAL"))) physicsSettings.mUseLargeIslandSplitter = false;
+        // PhysX 2.8 suppresses restitution below NX_BOUNCE_THRESHOLD (-2).
+        // Jolt expresses the same threshold as a positive speed magnitude.
+        physicsSettings.mMinVelocityForRestitution =
+            sourceMinimumBounceVelocity;
+        physicsSettings.mPointVelocitySleepThreshold =
+            sourcePointVelocitySleepThreshold;
+        physicsSettings.mTimeBeforeSleep = sourceTimeBeforeSleep;
+        system_.SetPhysicsSettings(physicsSettings);
+        contactListener_.useSolvedImpulses(tuning_.physxWheelCompat);
+        contactListener_.sourceContactOptions(
+            tuning_.physxWheelCompat && tuning_.physxIndependentFriction,
+            tuning_.physxWheelCompat && tuning_.physxBoxContactOrder,
+            tuning_.physxWheelCompat && tuning_.physxMaterialPairs,
+            tuning_.physxWheelCompat && tuning_.physxContactSkin &&
+                tuning_.physxBoxCorners && tuning_.physxContactOffsets,
+            tuning_.physxWheelCompat && tuning_.physxBoxManifolds &&
+                tuning_.physxContactSkin && tuning_.physxBoxCorners &&
+                tuning_.physxContactOffsets && tuning_.physxIndependentFriction);
+        contactListener_.resize(description_.spawns.size());
+        system_.SetContactListener(&contactListener_);
+        system_.SetGravity(
+            toJolt(Vec3{0.0F, 0.0F, description_.gravity}));
+        decorations_.resize(description_.decorations.size());
+        for (std::size_t index = 0; index < decorations_.size(); ++index)
+        {
+            decorations_[index].state.body =
+                description_.decorations[index].transform;
+            decorations_[index].state.active = true;
+        }
+        createTrack(description_.obstaclesAfterVehicles?1U:0U);
+        if(!description_.obstaclesAfterVehicles)createDecorationBodies();
+        vehicles_.reserve(description_.spawns.size());
+        for (const auto& spawn : description_.spawns)
+            createVehicle(spawn);
+        if(description_.obstaclesAfterVehicles) {
+            createTrack(2U);
+            createDecorationBodies();
+        }
+        system_.OptimizeBroadPhase();
+        reset();
+    }
+
+    ~JoltVehicleWorld() override
+    {
+        system_.SetContactListener(nullptr);
+        clearProjectileBodies();
+        clearDebris();
+        destroyDecorations();
+        for (auto& vehicle : vehicles_)
+        {
+            if (vehicle.constraint != nullptr)
+            {
+                if (vehicle.stepListenerRegistered)
+                    system_.RemoveStepListener(vehicle.constraint);
+                system_.RemoveConstraint(vehicle.constraint);
+                vehicle.constraint = nullptr;
+                vehicle.controller = nullptr;
+            }
+        }
+        auto& bodies = system_.GetBodyInterface();
+        for (auto& vehicle : vehicles_)
+        {
+            if (!vehicle.body.IsInvalid())
+            {
+                if (vehicle.enabled)
+                    bodies.RemoveBody(vehicle.body);
+                bodies.DestroyBody(vehicle.body);
+            }
+        }
+        for (const auto trackBody : trackBodies_)
+        {
+            if (trackBody.IsInvalid())
+                continue;
+            bodies.RemoveBody(trackBody);
+            bodies.DestroyBody(trackBody);
+        }
+    }
+
+    void reset() noexcept override
+    {
+        sourceFixedStepAccumulator_ = 0.0F;
+        sourceContactOrderV79_.clear();
+        sourceWheelManagerOrderV108_.clear();
+        sourceWheelPairLifetimesV106_.clear();
+        sourceFixedInputs_.clear();
+        clearProjectileBodies();
+        clearDebris();
+        auto& bodies = system_.GetBodyInterface();
+        for (std::size_t index = 0; index < decorations_.size(); ++index)
+        {
+            setDecorationEnabled(index, true);
+            auto& decoration = decorations_[index];
+            if (index >= description_.decorations.size())
+                continue;
+            const auto& source = description_.decorations[index];
+            decoration.state.body = source.transform;
+            if (decoration.shapeBody.IsInvalid())
+                continue;
+            bodies.SetPositionAndRotation(
+                decoration.shapeBody, toJolt(source.transform.position),
+                toJolt(source.transform.rotation),
+                source.dynamic ? JPH::EActivation::Activate
+                               : JPH::EActivation::DontActivate);
+            if (source.dynamic)
+            {
+                bodies.SetLinearAndAngularVelocity(
+                    decoration.shapeBody, JPH::Vec3::sZero(),
+                    JPH::Vec3::sZero());
+            }
+        }
+        for (std::size_t index = 0; index < vehicles_.size(); ++index)
+        {
+            const auto& spawn = vehicles_[index].spawn;
+            resetVehicle(index, spawn.position, spawn.direction);
+        }
+    }
+
+    void resetVehicle(std::size_t index, Vec3 position,
+                      Vec3 direction) noexcept override
+    {
+        if (index >= vehicles_.size())
+            return;
+        setVehicleEnabled(index, true);
+        auto& vehicle = vehicles_[index];
+        const float length =
+            std::sqrt(direction.x * direction.x + direction.y * direction.y);
+        if (length <= 0.0001F)
+            direction = {1.0F, 0.0F, 0.0F};
+        else
+        {
+            direction.x /= length;
+            direction.y /= length;
+        }
+        const float angle = std::atan2(direction.y, direction.x);
+        auto& bodies = system_.GetBodyInterface();
+        bodies.SetPositionAndRotation(
+            vehicle.body, toJolt(position),
+            JPH::Quat::sRotation(JPH::Vec3::sAxisY(), -angle),
+            JPH::EActivation::Activate);
+        vehicle.sourceFrozenNormalizationPending = true;
+        bodies.SetLinearAndAngularVelocity(
+            vehicle.body, JPH::Vec3::sZero(), JPH::Vec3::sZero());
+        vehicle.controller->SetDriverInput(0.0F, 0.0F, 0.0F, 0.0F);
+        for (auto* wheel : vehicle.constraint->GetWheels())
+        {
+            wheel->SetAngularVelocity(0.0F);
+            wheel->SetRotationAngle(0.0F);
+            wheel->SetSteerAngle(0.0F);
+        }
+        vehicle.steeringAngle = 0.0F;
+        vehicle.wheelTractionEnabled = true;
+        vehicle.wheelNormalReactions.assign(
+            vehicle.constraint->GetWheels().size(), 0.0F);
+        vehicle.wheelNormalImpulses.assign(
+            vehicle.constraint->GetWheels().size(), 0.0F);
+        vehicle.wheelNormalForcesV84.assign(vehicle.constraint->GetWheels().size(), 0.0F);
+        vehicle.previousSuspensionForces.assign(
+            vehicle.constraint->GetWheels().size(), 0.0F);
+        vehicle.wheelTireReleaseActive.assign(
+            vehicle.constraint->GetWheels().size(), false);
+        vehicle.tireAnchorsV55.assign(vehicle.constraint->GetWheels().size(), {});
+        vehicle.previousWheelContactPositions.assign(
+            vehicle.constraint->GetWheels().size(), {});
+        vehicle.previousWheelContactValid.assign(
+            vehicle.constraint->GetWheels().size(), false);
+        vehicle.sourceMotorForwardV112.assign(vehicle.constraint->GetWheels().size(), 0.0F);
+        vehicle.sourceMotorContactV112.assign(vehicle.constraint->GetWheels().size(), false);
+        vehicle.wheelLowSpeedFrictionActive.assign(
+            vehicle.constraint->GetWheels().size(), false);
+        vehicle.currentGear = -1;
+        vehicle.motorTorque = 0.0F;
+        vehicle.engineRpm = vehicle.spawn.vehicle.idlingRpm;
+        vehicle.sourceDriveCommand = {};
+        vehicle.sourceDriveCommand.brakeTorque =
+            vehicle.spawn.vehicle.restBrakeTorque;
+        vehicle.sourceDriveCommand.engineRpm =
+            vehicle.spawn.vehicle.idlingRpm;
+        vehicle.sourceDriveCommand.gear = -1;
+        vehicle.sourceDriveCommand.lateralGripScale = 1.0F;
+        vehicle.sourceDriveCommand.angularDamping = {
+            vehicle.spawn.vehicle.angularDamping.x,
+            vehicle.spawn.vehicle.angularDamping.y,
+            vehicle.spawn.vehicle.angularDamping.z};
+        vehicle.sourceDriveCommand.clampRollAngle =
+            vehicle.spawn.vehicle.clampRollAngle;
+        vehicle.sourceDriveCommand.clampPitchAngle =
+            vehicle.spawn.vehicle.clampPitchAngle;
+        ++vehicle.resetCount;
+        updateState(vehicle);
+    }
+
+    void setVehicleEnabled(std::size_t index,
+                           bool enabled) noexcept override
+    {
+        if (index >= vehicles_.size() ||
+            vehicles_[index].enabled == enabled)
+            return;
+        auto& vehicle = vehicles_[index];
+        auto& bodies = system_.GetBodyInterface();
+        if (enabled)
+        {
+            bodies.AddBody(vehicle.body, JPH::EActivation::Activate);
+            vehicle.constraint->SetEnabled(true);
+            system_.AddStepListener(vehicle.constraint);
+            vehicle.stepListenerRegistered = true;
+            vehicle.enabled = true;
+            updateState(vehicle);
+            return;
+        }
+        if (vehicle.stepListenerRegistered)
+        {
+            system_.RemoveStepListener(vehicle.constraint);
+            vehicle.stepListenerRegistered = false;
+        }
+        vehicle.constraint->SetEnabled(false);
+        bodies.RemoveBody(vehicle.body);
+        vehicle.enabled = false;
+        updateState(vehicle);
+    }
+
+    void step(float seconds, const VehicleInput& input) noexcept override
+    {
+        std::vector<VehicleInput> inputs(vehicles_.size());
+        if (!inputs.empty())
+            inputs.front() = input;
+        step(seconds, inputs);
+    }
+
+    void addLinearVelocity(std::size_t index,
+                           Vec3 delta) noexcept override
+    {
+        if (index >= vehicles_.size() || !vehicles_[index].enabled)
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        bodies.AddLinearVelocity(
+            vehicles_[index].body, toJolt(delta));
+        bodies.ActivateBody(vehicles_[index].body);
+    }
+
+    void setDiagnosticAcceleration(std::size_t index, Vec3 value) noexcept override
+    {
+        if (index >= vehicles_.size()) return;
+        auto& vehicle = vehicles_[index];
+        vehicle.diagnosticAcceleration = value;
+        const char* wake = std::getenv("RRR3D_EXPERIMENT_NATIVE_DIAGNOSTIC_AUTOWAKE_V83");
+        if (vehicle.enabled && tuning_.physxWheelCompat && wake && std::strcmp(wake,"1")==0) {
+            // NxActor::addForce(..., NX_ACCELERATION, true) refreshes the wake
+            // counter even for a zero vector and an already active actor.
+            // Preserve that API side effect without applying a synthetic force.
+            { JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), vehicle.body);
+              if (lock.Succeeded()) lock.GetBody().ResetSleepTimer(); }
+            system_.GetBodyInterface().ActivateBody(vehicle.body);
+        }
+    }
+
+    void addAngularVelocity(std::size_t index,
+                            Vec3 delta) noexcept override
+    {
+        if (index >= vehicles_.size() || !vehicles_[index].enabled)
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        setSourceAngularVelocity(vehicles_[index].body,
+            bodies.GetAngularVelocity(vehicles_[index].body) + toJoltAngular(delta));
+        bodies.ActivateBody(vehicles_[index].body);
+    }
+
+    void setAngularMomentum(std::size_t index,
+                            Vec3 momentum) noexcept override
+    {
+        if (index >= vehicles_.size() || !vehicles_[index].enabled)
+            return;
+        auto& vehicle = vehicles_[index];
+        JPH::BodyLockRead lock(
+            system_.GetBodyLockInterface(), vehicle.body);
+        if (!lock.Succeeded())
+            return;
+        JPH::Vec3 angularVelocity=JPH::Vec3::sZero();
+        bool nativeMomentumSetterV113=false;
+        const char* nativeGameFlagV113=std::getenv("RRR3D_EXPERIMENT_NATIVE_GAME_ANGULAR_V113");
+        const auto inverseV113=lock.GetBody().GetMotionProperties()->GetLocalSpaceInverseInertia();
+        bool diagonalV113=true;
+        for(unsigned i=0;i<3;++i)for(unsigned j=0;j<3;++j)if(i!=j && inverseV113(i,j)!=0.0F)diagonalV113=false;
+        if(nativeGameFlagV113 && std::strcmp(nativeGameFlagV113,"1")==0 && diagonalV113
+            && inverseV113(0,0)>0 && inverseV113(1,1)>0 && inverseV113(2,2)>0) {
+            namespace G=motorrock::gameangularv113;
+            const auto pose=fromJolt(lock.GetBody().GetRotation());
+            const auto value=G::velocity(G::inverseTensor({{pose.x,pose.y,pose.z,pose.w}},
+                {{inverseV113(0,0),inverseV113(2,2),inverseV113(1,1)}}),{{momentum.x,momentum.y,momentum.z}});
+            angularVelocity=toJoltAngular(Vec3{value[0],value[1],value[2]});
+            nativeMomentumSetterV113=true;
+        }
+        if(!nativeMomentumSetterV113)
+            angularVelocity=lock.GetBody().GetInverseInertia().Multiply3x3(toJoltAngular(momentum));
+        lock.ReleaseLock();
+        auto& bodies = system_.GetBodyInterface();
+        setSourceAngularVelocity(vehicle.body, angularVelocity);
+        bodies.ActivateBody(vehicle.body);
+        updateState(vehicle);
+    }
+
+    void synchronizeNetworkVehicle(
+        std::size_t index, Vec3 position, Quat rotation,
+        Vec3 linearMomentum, Vec3 angularMomentum,
+        bool graphRotationRequiresSnap) noexcept override
+    {
+        if (index >= vehicles_.size() || !vehicles_[index].enabled)
+            return;
+        auto& vehicle = vehicles_[index];
+        JPH::BodyLockRead lock(
+            system_.GetBodyLockInterface(), vehicle.body);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        const Vec3 currentPosition = fromJolt(body.GetPosition());
+        const auto currentRotation = body.GetRotation();
+        const auto targetRotation = toJolt(rotation);
+        const float quaternionDot = std::abs(
+            currentRotation.GetX() * targetRotation.GetX() +
+            currentRotation.GetY() * targetRotation.GetY() +
+            currentRotation.GetZ() * targetRotation.GetZ() +
+            currentRotation.GetW() * targetRotation.GetW());
+        const float rotationDifference =
+            2.0F * std::acos(std::clamp(quaternionDot, 0.0F, 1.0F));
+        lock.ReleaseLock();
+
+        auto& bodies = system_.GetBodyInterface();
+        const Vec3 positionDifference{
+            position.x - currentPosition.x,
+            position.y - currentPosition.y,
+            position.z - currentPosition.z};
+        const float positionDistance = std::sqrt(
+            positionDifference.x * positionDifference.x +
+            positionDifference.y * positionDifference.y +
+            positionDifference.z * positionDifference.z);
+        if (positionDistance > 4.0F)
+        {
+            bodies.SetPosition(
+                vehicle.body, toJolt(position),
+                JPH::EActivation::Activate);
+        }
+        else if (positionDistance > 0.1F)
+        {
+            const float correction =
+                2.0F * vehicle.spawn.vehicle.mass;
+            linearMomentum.x += positionDifference.x * correction;
+            linearMomentum.y += positionDifference.y * correction;
+            linearMomentum.z += positionDifference.z * correction;
+        }
+        if (graphRotationRequiresSnap || rotationDifference >
+            3.14159265358979323846F / 24.0F)
+        {
+            bodies.SetRotation(
+                vehicle.body, targetRotation,
+                JPH::EActivation::Activate);
+            vehicle.sourceFrozenNormalizationPending = true;
+        }
+
+        JPH::BodyLockRead momentumLock(
+            system_.GetBodyLockInterface(), vehicle.body);
+        if (!momentumLock.Succeeded())
+            return;
+        const auto angularVelocity =
+            momentumLock.GetBody().GetInverseInertia().Multiply3x3(
+                toJoltAngular(angularMomentum));
+        momentumLock.ReleaseLock();
+        bodies.SetLinearAndAngularVelocity(
+            vehicle.body,
+            toJolt(linearMomentum) /
+                std::max(vehicle.spawn.vehicle.mass, 0.001F),
+            angularVelocity);
+        bodies.ActivateBody(vehicle.body);
+        updateState(vehicle);
+    }
+
+    void setWheelTractionEnabled(std::size_t index,
+                                 bool enabled) noexcept override
+    {
+        if (index >= vehicles_.size())
+            return;
+        vehicles_[index].wheelTractionEnabled =
+            enabled || vehicles_[index].spawn.vehicle.clutchImmunity;
+    }
+
+    void clampLinearSpeed(std::size_t index,
+                          float maximumSpeed) noexcept override
+    {
+        if (index >= vehicles_.size() || !vehicles_[index].enabled ||
+            maximumSpeed <= 0.0F)
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        const auto velocity =
+            bodies.GetLinearVelocity(vehicles_[index].body);
+        const float speed = velocity.Length();
+        if (speed > maximumSpeed)
+        {
+            bodies.SetLinearVelocity(
+                vehicles_[index].body,
+                velocity * (maximumSpeed / speed));
+        }
+    }
+
+    void setVehicleFixedStepController(
+        VehicleFixedStepController controller) override
+    {
+        fixedStepController_ = std::move(controller);
+    }
+
+    void setWorldFixedStepController(
+        WorldFixedStepController controller) override
+    {
+        worldFixedStepController_ = std::move(controller);
+    }
+
+    void applyProjectileBodyCommands(
+        const std::vector<ProjectileBodyCommand>& commands) noexcept override
+    {
+        for (const auto& command : commands)
+            applyProjectileBodyCommand(command);
+    }
+
+    void step(float seconds,
+              const std::vector<VehicleInput>& rawInputs) noexcept override
+    {
+        const float simulationSeconds =
+            std::clamp(seconds, 0.0F, 0.25F);
+        float remaining = simulationSeconds;
+        const float joltStep = (1.0F / 60.0F) / tuning_.solverSubsteps;
+        // Windows gameplay has a separate fixed clock. World::cMaxSimStep
+        // is 1/60 even though the replacement backend uses two smaller Jolt
+        // solver steps for stability. Never advance Race/GameCar timers at
+        // the backend's 120 Hz rate.
+        constexpr float sourceStep = 1.0F / 60.0F;
+        const bool sourceFixedStepEnabled =
+            static_cast<bool>(worldFixedStepController_) ||
+            static_cast<bool>(fixedStepController_);
+        // Contact-point history is part of NxWheelShape itself, not of the
+        // optional game callbacks, so retain the source cadence even in the
+        // standalone physics smoke path.
+        sourceFixedStepAccumulator_ += simulationSeconds;
+        const std::size_t sourceStepsDue =
+            static_cast<std::size_t>(std::floor(
+                (sourceFixedStepAccumulator_ + 0.000001F) / sourceStep));
+        sourceFixedStepAccumulator_ -=
+            static_cast<float>(sourceStepsDue) * sourceStep;
+        sourceFixedStepAccumulator_ = std::max(
+            sourceFixedStepAccumulator_, 0.0F);
+        float simulatedSeconds = 0.0F;
+        std::size_t sourceStepsDispatched = 0U;
+        contactListener_.beginStep();
+        while (remaining > 0.0F)
+        {
+            const float delta = std::min(remaining, joltStep);
+            const bool dispatchSourceFixedStep =
+                sourceStepsDispatched < sourceStepsDue &&
+                simulatedSeconds + 0.000001F >=
+                    static_cast<float>(sourceStepsDispatched) * sourceStep;
+            if (dispatchSourceFixedStep)
+            {
+                // NxWheelShape compares the world contact point with the one
+                // from the preceding PhysX 1/60 step. Capture once at this
+                // source boundary so both internal Jolt 1/120 solves retain
+                // the same static-friction history.
+                for (auto& vehicle : vehicles_)
+                {
+                    const auto wheelCount =
+                        vehicle.constraint->GetWheels().size();
+                    vehicle.previousWheelContactPositions.resize(
+                        wheelCount);
+                    vehicle.previousWheelContactValid.resize(
+                        wheelCount, false);
+                    for (JPH::uint index = 0U;
+                         index < wheelCount; ++index)
+                    {
+                        const auto* wheel =
+                            vehicle.constraint->GetWheel(index);
+                        vehicle.previousWheelContactValid[index] =
+                            vehicle.enabled && wheel->HasContact();
+                        if (vehicle.previousWheelContactValid[index])
+                        {
+                            vehicle.previousWheelContactPositions[index] =
+                                fromJolt(wheel->GetContactPosition());
+                        }
+                    }
+                }
+                sourceFixedInputs_.assign(
+                    rawInputs.begin(), rawInputs.end());
+                sourceFixedInputs_.resize(vehicles_.size());
+                if (worldFixedStepController_)
+                {
+                    // World::FixedStep runs before PhysX Scene::Compute.
+                    // Refresh the completed state from the preceding source
+                    // interval before Race updates its full player roster.
+                    fixedStepStates_.resize(vehicles_.size());
+                    for (std::size_t index = 0;
+                         index < vehicles_.size(); ++index)
+                    {
+                        updateState(vehicles_[index]);
+                        const auto& state = vehicles_[index].state;
+                        auto& snapshot = fixedStepStates_[index];
+                        snapshot.body = state.body;
+                        snapshot.bodyAwake = state.bodyAwake;
+                        snapshot.linearVelocity = state.linearVelocity;
+                        snapshot.angularMomentum = state.angularMomentum;
+                        snapshot.kineticEnergy = state.kineticEnergy;
+                        snapshot.speed = state.speed;
+                        snapshot.drivenWheelSpeed = state.drivenWheelSpeed;
+                        snapshot.engineRpm = state.engineRpm;
+                        snapshot.gear = state.gear;
+                        snapshot.contactCount = state.contactCount;
+                        snapshot.resetCount = state.resetCount;
+                    }
+                    fixedStepResets_.clear();
+                    fixedStepLinearVelocities_.clear();
+                    for (auto& projectile : projectileBodies_)
+                        updateState(projectile);
+                    fixedStepProjectileStates_.clear();
+                    fixedStepProjectileStates_.reserve(
+                        projectileBodies_.size());
+                    for (const auto& projectile : projectileBodies_)
+                        fixedStepProjectileStates_.push_back(
+                            projectile.state);
+                    fixedStepProjectileCommands_.clear();
+                    worldFixedStepController_(
+                        sourceStep, fixedStepStates_, sourceFixedInputs_,
+                        fixedStepResets_, fixedStepLinearVelocities_,
+                        fixedStepProjectileStates_,
+                        fixedStepProjectileCommands_);
+                    sourceFixedInputs_.resize(vehicles_.size());
+                    for (const auto& reset : fixedStepResets_)
+                        resetVehicle(
+                            reset.vehicle, reset.position, reset.direction);
+                    for (const auto& velocity : fixedStepLinearVelocities_)
+                        addLinearVelocity(
+                            velocity.vehicle, velocity.delta);
+                    applyProjectileBodyCommands(
+                        fixedStepProjectileCommands_);
+                }
+                ++sourceStepsDispatched;
+            }
+            fixedStepInputs_ = sourceFixedStepEnabled
+                ? sourceFixedInputs_ : rawInputs;
+            fixedStepInputs_.resize(vehicles_.size());
+            for (std::size_t index = 0; index < vehicles_.size(); ++index)
+            {
+                prepareVehicleStep(
+                    index, vehicles_[index], fixedStepInputs_[index], delta,
+                    dispatchSourceFixedStep, sourceStep);
+            }
+            for (const auto& vehicle : vehicles_)
+            {
+                const auto& a = vehicle.diagnosticAcceleration;
+                if (vehicle.enabled && (a.x != 0 || a.y != 0 || a.z != 0))
+                    system_.GetBodyInterface().AddForce(vehicle.body,
+                        toJolt(Vec3{a.x * vehicle.spawn.vehicle.mass,
+                                    a.y * vehicle.spawn.vehicle.mass,
+                                    a.z * vehicle.spawn.vehicle.mass}));
+            }
+            if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+                for (auto& vehicle : vehicles_)
+                    if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+                        vehicle.sourceFrozenRotation = system_.GetBodyInterface()
+                            .GetRotation(vehicle.body);
+            for(const auto& vehicle:vehicles_)if(vehicle.enabled) {
+                const char* normalizeFlag=std::getenv("RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE");
+                const bool normalizeInitial=tuning_.physxWheelCompat && tuning_.physxFrozenPose &&
+                    vehicle.spawn.vehicle.freezeRotation && vehicle.sourceFrozenNormalizationPending &&
+                    normalizeFlag && std::strcmp(normalizeFlag,"1")==0;
+                const char* centerFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_INITIAL_COM");
+                if(normalizeInitial && centerFlag && std::strcmp(centerFlag,"1")==0) {
+                    auto& bodies=system_.GetBodyInterface();
+                    const auto rotation=bodies.GetRotation(vehicle.body);
+                    const auto q=fromJolt(rotation);
+                    const auto position=fromJolt(JPH::Vec3(bodies.GetPosition(vehicle.body)));
+                    const auto local=fromJolt(bodies.GetShape(vehicle.body)->GetCenterOfMass());
+                    const auto center=motorrock::quaternionposev43::center({{q.x,q.y,q.z,q.w}},{{position.x,position.y,position.z}},{{local.x,local.y,local.z}});
+                    const auto offset=rotation*bodies.GetShape(vehicle.body)->GetCenterOfMass();
+                    bodies.SetPositionAndRotation(vehicle.body,toJolt(Vec3{center[0],center[1],center[2]})-JPH::RVec3(offset),rotation,JPH::EActivation::DontActivate);
+                }
+                contactListener_.prepareNativeMaterialPose(vehicle.body,
+                    system_.GetBodyInterface().GetRotation(vehicle.body),normalizeInitial);
+            }
+            prepareNativeContactOrderV79();
+            prepareNativeWheelPairLifetimeV106();
+            const auto traceSleepV83 = [&](const char* phase) {
+                const char* path = std::getenv("RRR3D_SLEEP_TRACE_FILE_V83");
+                if (!path || !*path) return;
+                FILE* file = std::fopen(path, "a");
+                if (!file) return;
+                for (std::size_t index = 0; index < vehicles_.size(); ++index) {
+                    const auto& vehicle = vehicles_[index];
+                    JPH::BodyLockRead lock(system_.GetBodyLockInterface(), vehicle.body);
+                    if (!lock.Succeeded()) continue;
+                    const auto& body = lock.GetBody();
+                    const auto p = fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+                    const auto v = fromJolt(body.GetLinearVelocity());
+                    const auto a = fromJolt(body.GetAngularVelocity());
+                    std::fprintf(file, "{\"phase\":\"%s\",\"vehicle\":%zu,\"step\":%u,\"active\":%s,\"allow_sleep\":%s,\"position\":[%.9g,%.9g,%.9g],\"velocity\":[%.9g,%.9g,%.9g],\"angular\":[%.9g,%.9g,%.9g]}\n",
+                        phase, index, vehicle.constraint->GetSourceSimulationCounterV59(),
+                        body.IsActive() ? "true" : "false", body.GetAllowSleeping() ? "true" : "false",
+                        p.x, p.y, p.z, v.x, v.y, v.z, a.x, a.y, a.z);
+                }
+                std::fclose(file);
+                const char* posePath=std::getenv("RRR3D_SLEEP_POSE_TRACE_FILE_V127");
+                if(posePath && *posePath)if(FILE* poseFile=std::fopen(posePath,"a")) {
+                    for(std::size_t index=0;index<vehicles_.size();++index) {
+                        const auto& vehicle=vehicles_[index];
+                        JPH::BodyLockRead lock(system_.GetBodyLockInterface(),vehicle.body);if(!lock.Succeeded())continue;
+                        const auto& body=lock.GetBody();const auto c=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));const auto q=fromJolt(body.GetRotation());
+                        const auto diag=body.GetMotionProperties()->GetLocalSpaceInverseInertia();
+                        std::fprintf(poseFile,"{\"phase\":\"%s\",\"vehicle\":%zu,\"step\":%u,\"center\":[%.9g,%.9g,%.9g],\"rotation\":[%.9g,%.9g,%.9g,%.9g],\"inverse_mass\":%.9g,\"inverse_inertia\":[%.9g,%.9g,%.9g]}\n",phase,index,vehicle.constraint->GetSourceSimulationCounterV59(),c.x,c.y,c.z,q.x,q.y,q.z,q.w,body.GetMotionProperties()->GetInverseMass(),diag(0,0),diag(2,2),diag(1,1));
+                    }
+                    std::fclose(poseFile);
+                }
+            };
+            traceSleepV83("before-update");
+            system_.Update(delta, 1, &tempAllocator_, &jobs_);
+            traceSleepV83("after-update-before-restore");
+            contactListener_.restoreSourceMotion(system_.GetBodyLockInterface());
+            traceSleepV83("after-restore");
+            // Nxp.h describes frozen actors as dynamic during simulation,
+            // followed by pose restoration. Independent Nx captures confirm
+            // equal first-step translation/velocity for free and frozen bodies.
+            // Removing rotational DOFs instead changes the contact effective
+            // mass. The legacy path preserves actor origin; offset-COM probes
+            // require preserving integrated center of mass instead. Clear spin.
+            if (tuning_.physxWheelCompat && tuning_.physxFrozenPose)
+                for (auto& vehicle : vehicles_)
+                    if (vehicle.enabled && vehicle.spawn.vehicle.freezeRotation)
+                    {
+                        const char* normalizeFlag = std::getenv("RRR3D_EXPERIMENT_FROZEN_INITIAL_NORMALIZE");
+                        if (vehicle.sourceFrozenNormalizationPending && normalizeFlag && std::strcmp(normalizeFlag, "1") == 0)
+                        {
+                            // Nx freezes the orientation after one initial float
+                            // normalization. Repeating normalization can alternate
+                            // between adjacent quaternions; retain the result.
+                            auto q = fromJolt(vehicle.sourceFrozenRotation);
+                            const auto store = [](double value) { volatile float result = static_cast<float>(value); return result; };
+                            const float square = store(double(q.x)*q.x + double(q.y)*q.y + double(q.z)*q.z + double(q.w)*q.w);
+                            const float root = store(std::sqrt(double(square)));
+                            if (root > 0.0F)
+                            {
+                                const float inverse = store(1.0 / root);
+                                q.x = store(double(q.x)*inverse); q.y = store(double(q.y)*inverse);
+                                q.z = store(double(q.z)*inverse); q.w = store(double(q.w)*inverse);
+                                vehicle.sourceFrozenRotation = toJolt(q);
+                            }
+                            vehicle.sourceFrozenNormalizationPending = false;
+                        }
+                        auto& bodies = system_.GetBodyInterface();
+                        const char* frozenCenterFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_RESTORE");
+                        if(frozenCenterFlag && std::strcmp(frozenCenterFlag,"1")==0) {
+                            // Freeze orientation around the integrated center of mass.
+                            // SetRotation alone preserves the old actor origin and
+                            // moves an offset center after every integration step.
+                            const auto center=bodies.GetCenterOfMassPosition(vehicle.body);
+                            const auto offset=vehicle.sourceFrozenRotation*bodies.GetShape(vehicle.body)->GetCenterOfMass();
+                            bodies.SetPositionAndRotation(vehicle.body,center-JPH::RVec3(offset),vehicle.sourceFrozenRotation,
+                                JPH::EActivation::DontActivate);
+                            const auto restored=bodies.GetCenterOfMassPosition(vehicle.body);
+                            const char* exactFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_FROZEN_CM_EXACT");
+                            if(exactFlag && std::strcmp(exactFlag,"1")==0 && restored!=center) {
+                                // Actor-origin subtraction and addition can lose a COM
+                                // bit. Repair the actual integrated COM, then refresh bounds.
+                                const auto localCenter=bodies.GetShape(vehicle.body)->GetCenterOfMass();
+                                { JPH::BodyLockWrite lock(system_.GetBodyLockInterface(),vehicle.body);
+                                  if(!lock.Succeeded())std::abort();
+                                  lock.GetBody().AddPositionStep(JPH::Vec3(center-restored));
+                                  lock.GetBody().CalculateWorldSpaceBoundsInternal(); }
+                                bodies.NotifyShapeChanged(vehicle.body,localCenter,false,JPH::EActivation::DontActivate);
+                            }
+                            const char* restoreTrace=std::getenv("RRR3D_CONTACT_CM_RESTORE_TRACE");
+                            if(restoreTrace && std::strcmp(restoreTrace,"1")==0) {
+                                const auto actual=bodies.GetCenterOfMassPosition(vehicle.body);
+                                const auto vector=[](std::ostream& out,JPH::RVec3 v){const auto p=fromJolt(JPH::Vec3(v));out<<'['<<p.x<<','<<p.y<<','<<p.z<<']';};
+                                std::ostringstream sample;sample.imbue(std::locale::classic());sample<<std::setprecision(9)<<"{\"integrated\":";vector(sample,center);sample<<",\"after_actor_restore\":";vector(sample,restored);sample<<",\"actual\":";vector(sample,actual);sample<<'}';
+                                motorrock::parity::event("physics.native-frozen-com-restore","integrated versus restored center of mass",sample.str());
+                            }
+                        } else bodies.SetRotation(vehicle.body, vehicle.sourceFrozenRotation,
+                            JPH::EActivation::DontActivate);
+                        bodies.SetAngularVelocity(vehicle.body, JPH::Vec3::sZero());
+                    }
+            // The Nx tire-force callback reads the previous solved wheel force.
+            for (auto& vehicle : vehicles_)
+                for (JPH::uint i = 0; i < vehicle.constraint->GetWheels().size(); ++i) {
+                    const auto* wheel = vehicle.constraint->GetWheel(i);
+                    const bool sourceForceStoreV88=tuning_.physxWheelCompat && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_FORCE_STORE_V88");
+                    const bool separateForceStoreV115=sourceForceStoreV88 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_FORCE_STORE_V115");
+                    vehicle.previousSuspensionForces[i] = !wheel->HasContact()?0.0F:
+                        separateForceStoreV115?motorrock::suspensionforcev115::store(wheel->GetSourceSpringLambdaV115(),wheel->GetSourceStopLambdaV115(),delta):
+                        sourceForceStoreV88?motorrock::suspensionforcev88::store(wheel->GetSuspensionLambda(),delta):wheel->GetSuspensionLambda()/delta;
+                }
+            lastSolverDelta_ = delta;
+            if (tuning_.physxWheelCompat)
+                for (auto& vehicle : vehicles_)
+                    for (JPH::uint i = 0; i < vehicle.constraint->GetWheels().size(); ++i)
+                        if (vehicle.constraint->GetWheel(i)->HasContact())
+                            vehicle.constraint->GetWheel(i)->SetAngularVelocity(vehicle.sourceWheelAxleSpeeds[i]);
+            remaining -= delta;
+            simulatedSeconds += delta;
+        }
+        for (auto& vehicle : vehicles_)
+            updateState(vehicle);
+        for (std::size_t index = 0; index < decorations_.size(); ++index)
+            updateState(index);
+        for (auto& debris : debris_)
+        {
+            if (!debris.state.active)
+                continue;
+            if (debris.lifetime > 0.0F)
+            {
+                debris.lifetime -= simulationSeconds;
+                if (debris.lifetime <= 0.0F)
+                {
+                    destroyDebris(debris);
+                    continue;
+                }
+            }
+            updateState(debris);
+        }
+        for (auto& projectile : projectileBodies_)
+            updateState(projectile);
+    }
+
+    const VehicleState& vehicle() const noexcept override
+    {
+        return vehicles_.front().state;
+    }
+
+    const VehicleState& vehicle(std::size_t index) const noexcept override
+    {
+        return vehicles_[std::min(index, vehicles_.size() - 1U)].state;
+    }
+
+    std::size_t vehicleCount() const noexcept override
+    {
+        return vehicles_.size();
+    }
+
+    void setDecorationEnabled(std::size_t index,
+                              bool enabled) noexcept override
+    {
+        if (index >= decorations_.size() ||
+            decorations_[index].state.active == enabled)
+            return;
+        auto& decoration = decorations_[index];
+        auto& bodies = system_.GetBodyInterface();
+        auto setBodyEnabled = [&](JPH::BodyID body) {
+            if (body.IsInvalid())
+                return;
+            if (enabled)
+                bodies.AddBody(body, JPH::EActivation::Activate);
+            else
+                bodies.RemoveBody(body);
+        };
+        for (const auto body : decoration.meshBodies)
+            setBodyEnabled(body);
+        for (const auto body : decoration.childShapeBodies)
+            setBodyEnabled(body);
+        setBodyEnabled(decoration.shapeBody);
+        decoration.state.active = enabled;
+        if (!enabled)
+        {
+            decoration.state.linearVelocity = {};
+            decoration.state.bodyAwake = false;
+        }
+        if (enabled)
+            updateState(index);
+    }
+
+    const DecorationState& decoration(
+        std::size_t index) const noexcept override
+    {
+        return index < decorations_.size() ? decorations_[index].state
+                                           : emptyDecoration_;
+    }
+
+    std::size_t decorationCount() const noexcept override
+    {
+        return decorations_.size();
+    }
+
+    std::size_t addDebris(
+        const DebrisDescription& description) noexcept override
+    {
+        JPH::RefConst<JPH::Shape> shape;
+        if (!description.collisionMeshes.empty())
+        {
+            JPH::TriangleList triangles;
+            for (const auto& mesh : description.collisionMeshes)
+            {
+                triangles.reserve(triangles.size() +
+                                  mesh.indices.size() / 3U);
+                for (std::size_t index = 0;
+                     index + 2U < mesh.indices.size(); index += 3U)
+                {
+                    if (mesh.indices[index] >= mesh.vertices.size() ||
+                        mesh.indices[index + 1U] >= mesh.vertices.size() ||
+                        mesh.indices[index + 2U] >= mesh.vertices.size())
+                        return std::numeric_limits<std::size_t>::max();
+                    const Vec3 a = transformPoint(
+                        mesh.transform, mesh.vertices[mesh.indices[index]]);
+                    const Vec3 b = transformPoint(
+                        mesh.transform,
+                        mesh.vertices[mesh.indices[index + 1U]]);
+                    const Vec3 c = transformPoint(
+                        mesh.transform,
+                        mesh.vertices[mesh.indices[index + 2U]]);
+                    triangles.emplace_back(toJolt(a), toJolt(c), toJolt(b));
+                }
+            }
+            if (triangles.empty())
+                return std::numeric_limits<std::size_t>::max();
+            JPH::MeshShapeSettings meshSettings(triangles);
+            const auto meshResult = meshSettings.Create();
+            if (meshResult.HasError())
+                return std::numeric_limits<std::size_t>::max();
+            shape = meshResult.Get();
+        }
+        else
+        {
+            const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
+                description.halfExtents, description.skinWidth, tuning_.physxContactSkin);
+            const auto box = new JPH::BoxShape(
+                halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
+                                 ? 0.0F : JPH::cDefaultConvexRadius);
+            contactListener_.registerContactBox(*box, description.halfExtents, description.skinWidth);
+            const auto shifted = JPH::RotatedTranslatedShapeSettings(
+                                     toJolt(description.shapePosition),
+                                     toJolt(description.shapeRotation), box)
+                                     .Create();
+            if (shifted.HasError())
+                return std::numeric_limits<std::size_t>::max();
+            shape = shifted.Get();
+        }
+        const auto motion =
+            description.dynamic ? JPH::EMotionType::Dynamic
+                                : JPH::EMotionType::Static;
+        JPH::BodyCreationSettings settings(
+            shape, toJolt(description.transform.position),
+            toJolt(description.transform.rotation), motion,
+            description.dynamic ? Layers::defaultMoving
+                                : Layers::defaultNonMoving);
+        if (description.dynamic)
+        {
+            settings.mOverrideMassProperties =
+                JPH::EOverrideMassProperties::CalculateInertia;
+            settings.mMassPropertiesOverride.mMass =
+                std::max(description.mass, 1.0F);
+            // NxBodyDesc defaults: zero linear damping, 0.05 angular damping
+            // and the SDK-wide 7 rad/s angular velocity ceiling.
+            settings.mLinearDamping = 0.0F;
+            settings.mAngularDamping = 0.05F;
+            settings.mMaxAngularVelocity =
+                sourceMaximumAngularVelocity;
+            settings.mAllowSleeping =
+                description.sleepEnergyThreshold > 0.0F;
+        }
+        settings.mFriction = 0.5F;
+        // Physx.cpp mutates scene material 0 from the SDK defaults to this
+        // exact pair. Destruction pieces and unqualified objects use it.
+        settings.mRestitution = 0.5F;
+        settings.mEnhancedInternalEdgeRemoval = true;
+        settings.mUserData = surfaceUserData(
+            CollisionSurface::Decoration);
+        DebrisRuntime runtime;
+        runtime.body = system_.GetBodyInterface().CreateAndAddBody(
+            settings, description.dynamic
+                          ? JPH::EActivation::Activate
+                          : JPH::EActivation::DontActivate);
+        if (runtime.body.IsInvalid())
+            return std::numeric_limits<std::size_t>::max();
+        runtime.state.body = description.transform;
+        runtime.state.active = true;
+        runtime.state.bodyAwake = description.dynamic;
+        runtime.lifetime = description.lifetime;
+        if (description.dynamic &&
+            (description.localImpulse.x != 0.0F ||
+            description.localImpulse.y != 0.0F ||
+             description.localImpulse.z != 0.0F))
+        {
+            const JPH::Vec3 worldImpulse =
+                toJolt(description.transform.rotation) *
+                toJolt(description.localImpulse);
+            system_.GetBodyInterface().AddImpulse(
+                runtime.body, worldImpulse);
+        }
+        debris_.push_back(std::move(runtime));
+        return debris_.size() - 1U;
+    }
+
+    const DebrisState& debris(std::size_t index) const noexcept override
+    {
+        return index < debris_.size() ? debris_[index].state
+                                      : emptyDebris_;
+    }
+
+    std::size_t debrisCount() const noexcept override
+    {
+        return debris_.size();
+    }
+
+    const ProjectileBodyState& projectileBody(
+        std::size_t index) const noexcept override
+    {
+        return index < projectileBodies_.size()
+                   ? projectileBodies_[index].state
+                   : emptyProjectileBody_;
+    }
+
+    std::size_t projectileBodyCount() const noexcept override
+    {
+        return projectileBodies_.size();
+    }
+
+    WorldRayCastHit raycast(
+        const WorldRayCastQuery& query) const noexcept override
+    {
+        WorldRayCastHit result;
+        result.distance = std::max(query.maximumDistance, 0.0F);
+        if (result.distance <= 0.0F)
+            return result;
+        const Vec3 sourceDirection = query.direction;
+        const float sourceLength = std::sqrt(
+            sourceDirection.x * sourceDirection.x +
+            sourceDirection.y * sourceDirection.y +
+            sourceDirection.z * sourceDirection.z);
+        if (sourceLength <= 0.000001F)
+            return result;
+        const Vec3 normalizedDirection{
+            sourceDirection.x / sourceLength,
+            sourceDirection.y / sourceLength,
+            sourceDirection.z / sourceLength};
+        const JPH::RRayCast ray{
+            toJolt(query.origin),
+            result.distance * toJolt(normalizedDirection)};
+
+        class Collector final : public JPH::CastRayCollector
+        {
+        public:
+            Collector(const JPH::PhysicsSystem& physics,
+                      const WorldRayCastQuery& sourceQuery,
+                      const JPH::RRayCast& sourceRay,
+                      float maximumDistance) noexcept
+                : system(physics), query(sourceQuery), ray(sourceRay),
+                  maxDistance(maximumDistance)
+            {
+                hit.distance = maximumDistance;
+            }
+
+            void AddHit(const JPH::RayCastResult& value) override
+            {
+                if (value.mFraction >= GetEarlyOutFraction())
+                    return;
+                JPH::BodyLockRead lock(
+                    system.GetBodyLockInterface(), value.mBodyID);
+                if (!lock.Succeeded())
+                    return;
+                const JPH::Body& body = lock.GetBody();
+                const auto userData = body.GetUserData();
+                const auto kind = userData & bodyKindMask;
+                std::size_t vehicle =
+                    std::numeric_limits<std::size_t>::max();
+                std::size_t decoration =
+                    std::numeric_limits<std::size_t>::max();
+                std::size_t projectileBody =
+                    std::numeric_limits<std::size_t>::max();
+                CollisionSurface surface = CollisionSurface::TrackPlane;
+                if (kind == vehicleBodyKind)
+                {
+                    vehicleIndex(userData, vehicle);
+                    if (query.trackPlaneOnly ||
+                        vehicle == query.ignoredVehicle)
+                        return;
+                    surface = CollisionSurface::Vehicle;
+                }
+                else if (kind == decorationBodyKind)
+                {
+                    if (query.trackPlaneOnly)
+                        return;
+                    decorationIndex(userData, decoration);
+                    surface = CollisionSurface::Decoration;
+                }
+                else if (kind == surfaceBodyKind)
+                {
+                    surface = collisionSurface(userData);
+                    if (surface == CollisionSurface::TrackBorder &&
+                        !query.includeTrackBorders)
+                        return;
+                    if (surface == CollisionSurface::DeathPlane &&
+                        !query.includeDeathPlane)
+                        return;
+                    if (query.trackPlaneOnly &&
+                        surface != CollisionSurface::TrackPlane)
+                        return;
+                }
+                else if (kind == projectileBodyKind)
+                {
+                    if (!query.includeProjectileBodies ||
+                        !projectileIsShotTrack(userData))
+                        return;
+                    projectileIndex(userData, projectileBody);
+                    // ShotTrack is not a world material.  Its independent
+                    // identity is carried by projectileBody while the query
+                    // remains in the track-plane family.
+                    surface = CollisionSurface::TrackPlane;
+                }
+                else
+                {
+                    return;
+                }
+
+                const auto position = ray.GetPointOnRay(value.mFraction);
+                auto normal = body.GetWorldSpaceSurfaceNormal(
+                    value.mSubShapeID2, position);
+                const auto rayDirection = JPH::Vec3(ray.mDirection);
+                if (normal.Dot(rayDirection) > 0.0F)
+                    normal = -normal;
+                hit.hit = true;
+                hit.distance = maxDistance * value.mFraction;
+                hit.position = fromJolt(JPH::Vec3(position));
+                hit.normal = fromJolt(normal);
+                hit.surface = surface;
+                hit.vehicle = vehicle;
+                hit.decoration = decoration;
+                hit.projectileBody = projectileBody;
+                hit.actor = body.GetID().GetIndexAndSequenceNumber();
+                UpdateEarlyOutFraction(value.mFraction);
+            }
+
+            const JPH::PhysicsSystem& system;
+            const WorldRayCastQuery& query;
+            const JPH::RRayCast& ray;
+            float maxDistance = 0.0F;
+            WorldRayCastHit hit;
+        } collector(system_, query, ray, result.distance);
+
+        JPH::RayCastSettings settings;
+        settings.mBackFaceModeTriangles =
+            JPH::EBackFaceMode::CollideWithBackFaces;
+        system_.GetNarrowPhaseQuery().CastRay(
+            ray, settings, collector);
+        return collector.hit;
+    }
+
+private:
+    struct VehicleRuntime
+    {
+        VehicleSpawn spawn;
+        JPH::BodyID body;
+        JPH::Ref<JPH::VehicleConstraint> constraint;
+        JPH::WheeledVehicleController* controller = nullptr;
+        VehicleState state;
+        Vec3 diagnosticAcceleration{};
+        JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
+        bool sourceFrozenNormalizationPending = true;
+        std::vector<float> sourceWheelAxleSpeeds;
+        std::vector<float> sourceMotorForwardV112;
+        std::vector<bool> sourceMotorContactV112;
+        std::vector<float> sourceLongitudinalSlips, sourceLateralSlips;
+        float sourceBrakeTorque = 0;
+        bool sourceExtraGravity = false;
+        float steeringAngle = 0.0F;
+        float motorTorque = 0.0F;
+        float engineRpm = 1000.0F;
+        float lateralGripScale = 1.0F;
+        VehicleDriveCommand sourceDriveCommand;
+        std::vector<float> wheelNormalReactions;
+        std::vector<float> wheelNormalImpulses;
+        std::vector<float> wheelNormalForcesV84;
+        std::vector<float> previousSuspensionForces;
+        std::vector<bool> wheelTireReleaseActive;
+        std::vector<Vec3> previousWheelContactPositions;
+        std::vector<bool> previousWheelContactValid;
+        std::vector<bool> wheelLowSpeedFrictionActive;
+        struct TireAnchorV55 { Vec3 point{}; JPH::BodyID body; bool valid=false; float lateral=0,longitudinal=0; };
+        std::vector<TireAnchorV55> tireAnchorsV55;
+        std::vector<float> tireProjectionsV55;
+        std::vector<float> sourceLateralImpulseReportV56;
+        std::vector<float> sourceLongitudinalImpulseReportV87;
+        std::vector<bool> sourceImpulseReportValidV56;
+        int currentGear = -1;
+        std::uint32_t resetCount = 0;
+        bool wheelTractionEnabled = true;
+        bool enabled = true;
+        bool stepListenerRegistered = true;
+    };
+
+    struct DebrisRuntime
+    {
+        JPH::BodyID body;
+        DebrisState state;
+        float lifetime = -1.0F;
+    };
+
+    struct ProjectileBodyRuntime
+    {
+        JPH::BodyID body;
+        ProjectileBodyState state;
+    };
+
+    struct DecorationRuntime
+    {
+        std::vector<JPH::BodyID> meshBodies;
+        std::vector<JPH::BodyID> childShapeBodies;
+        JPH::BodyID shapeBody;
+        DecorationState state;
+    };
+
+    static float sourceGearRatio(int gear) noexcept
+    {
+        constexpr std::array<float, 6> ratios{
+            1.5F, 2.66F, 1.78F, 1.30F, 1.00F, 0.74F};
+        return ratios[static_cast<std::size_t>(
+            std::clamp(gear, 0, static_cast<int>(ratios.size() - 1U)))];
+    }
+
+    static float sourceRpm(const VehicleDescription& source, int gear,
+                           float wheelAngularSpeed) noexcept
+    {
+        if (gear < 0)
+            return source.idlingRpm;
+        constexpr float radiansPerRevolution =
+            6.28318530717958647692F;
+        const float rpm =
+            std::abs(wheelAngularSpeed) * sourceGearRatio(gear) *
+            source.differentialRatio * 60.0F / radiansPerRevolution;
+        return std::min(rpm, source.maximumRpm);
+    }
+
+    static float sourceTorque(const VehicleDescription& source,
+                              int gear) noexcept
+    {
+        return source.maximumTorque * sourceGearRatio(gear) *
+               source.differentialRatio * source.torqueEfficiency;
+    }
+
+    void setSourceAngularVelocity(JPH::BodyID id, JPH::Vec3Arg value) noexcept
+    {
+        if (!tuning_.physxWheelCompat)
+        {
+            system_.GetBodyInterface().SetAngularVelocity(id, value);
+            return;
+        }
+        // Nx setters accept an above-limit value; the next solve applies
+        // damping and then the 7 rad/s cap. Jolt's interface caps eagerly.
+        JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), id);
+        if (!lock.Succeeded()) return;
+        auto* motion = lock.GetBody().GetMotionProperties();
+        const float limit = motion->GetMaxAngularVelocity();
+        motion->SetMaxAngularVelocity(std::max(limit, value.Length() + 0.001F));
+        motion->SetAngularVelocity(value);
+        motion->SetMaxAngularVelocity(limit);
+    }
+
+    void stabilizeVehicle(
+        VehicleRuntime& vehicle, bool anyContact,
+        const std::array<float, 3U>& angularDamping,
+        double clampRollInput, double clampPitchInput) noexcept
+    {
+        const float clampRollAngle=static_cast<float>(clampRollInput),clampPitchAngle=static_cast<float>(clampPitchInput);
+        // Frozen axes have zero inverse inertia; inverting that matrix would
+        // produce NaNs even for a zero angular velocity.
+        if (vehicle.spawn.vehicle.freezeRotation) return;
+        auto& bodies = system_.GetBodyInterface();
+        JPH::BodyLockRead lock(
+            system_.GetBodyLockInterface(), vehicle.body);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        const JPH::Quat rotation = body.GetRotation();
+        // GameCar::StabilizeForce operates on angular momentum, not angular
+        // velocity. That distinction matters for the original car body: its
+        // translated shape and lowered centre of mass give it a coupled,
+        // non-spherical inertia tensor. Damping local velocity here preserved
+        // an unintended part of an off-centre collision impulse.
+        const JPH::Mat44 localInertia =
+            body.GetMotionProperties()
+                ->GetLocalSpaceInverseInertia()
+                .Inversed3x3();
+        JPH::Vec3 localAngularMomentum =
+            localInertia.Multiply3x3(
+                rotation.Conjugated() * body.GetAngularVelocity());
+        const auto traceStabilizeV113=[&](const char* phase,JPH::Vec3Arg momentum,JPH::Vec3Arg angular,JPH::QuatArg pose) {
+            const char* path=std::getenv("RRR3D_STABILIZE_TRACE_FILE_V113");
+            const char* step=std::getenv("RRR3D_STABILIZE_TRACE_STEP_V113");
+            if(!path || !*path || (step && vehicle.constraint->GetSourceSimulationCounterV59()!=std::strtoul(step,nullptr,10)))return;
+            const auto q=fromJolt(pose);const auto omega=fromJoltAngular(angular),m=fromJoltAngular(momentum);
+            const auto inv=body.GetMotionProperties()->GetLocalSpaceInverseInertia();
+            const float values[]={q.x,q.y,q.z,q.w,inv(0,0),inv(2,2),inv(1,1),omega.x,omega.y,omega.z,m.x,m.y,m.z,
+                angularDamping[0],angularDamping[1],angularDamping[2],clampRollAngle,clampPitchAngle};
+            if(FILE* file=std::fopen(path,"a")) {
+                std::fprintf(file,"{\"phase\":\"%s\",\"tick\":%u,\"contact\":%s,\"words\":[",phase,vehicle.constraint->GetSourceSimulationCounterV59(),anyContact?"true":"false");
+                for(unsigned i=0;i<18;++i){std::uint32_t word=0;std::memcpy(&word,&values[i],4);std::fprintf(file,"%s%u",i?",":"",word);}
+                std::fprintf(file,"]}\n");std::fclose(file);
+            }
+        };
+        traceStabilizeV113("input",JPH::Vec3::sZero(),body.GetAngularVelocity(),rotation);
+        const char* nativeGameFlagV113=std::getenv("RRR3D_EXPERIMENT_NATIVE_GAME_ANGULAR_V113");
+        const auto localInverseV113=body.GetMotionProperties()->GetLocalSpaceInverseInertia();
+        bool diagonalV113=true;
+        for(unsigned i=0;i<3;++i)for(unsigned j=0;j<3;++j)if(i!=j && localInverseV113(i,j)!=0.0F)diagonalV113=false;
+        if(nativeGameFlagV113 && std::strcmp(nativeGameFlagV113,"1")==0 && diagonalV113
+            && localInverseV113(0,0)>0 && localInverseV113(1,1)>0 && localInverseV113(2,2)>0) {
+            namespace G=motorrock::gameangularv113;
+            const auto pose=fromJolt(rotation);const auto omega=fromJoltAngular(body.GetAngularVelocity());
+            G::Quaternion q{{pose.x,pose.y,pose.z,pose.w}};
+            const G::Vector inv{{localInverseV113(0,0),localInverseV113(2,2),localInverseV113(1,1)}};
+            const auto momentum=G::stabilize(q,inv,{{omega.x,omega.y,omega.z}},angularDamping,clampRollInput,clampPitchInput,anyContact);
+            const auto mappedMomentum=toJoltAngular(Vec3{momentum[0],momentum[1],momentum[2]});
+            traceStabilizeV113("momentum-before-pose",mappedMomentum,body.GetAngularVelocity(),rotation);
+            lock.ReleaseLock();
+            if(clampRollInput>0 || clampPitchInput>0) {
+                q=G::clampOrientation(q,clampRollInput,clampPitchInput);
+                bodies.SetPositionAndRotation(vehicle.body,bodies.GetPosition(vehicle.body),toJolt(Quat{q[0],q[1],q[2],q[3]}),JPH::EActivation::Activate);
+            }
+            const auto velocity=G::velocity(G::inverseTensor(q,inv),momentum);
+            setSourceAngularVelocity(vehicle.body,toJoltAngular(Vec3{velocity[0],velocity[1],velocity[2]}));
+            traceStabilizeV113("applied",mappedMomentum,bodies.GetAngularVelocity(vehicle.body),bodies.GetRotation(vehicle.body));
+            return;
+        }
+        if (!anyContact)
+        {
+            if (clampRollAngle > 0.0F)
+            {
+                const float rollInertia = localInertia
+                    .Multiply3x3(JPH::Vec3::sAxisX())
+                    .GetX();
+                localAngularMomentum.SetX(std::clamp(
+                    localAngularMomentum.GetX(),
+                    -2.0F * rollInertia * clampRollAngle,
+                    2.0F * rollInertia * clampRollAngle));
+            }
+            if (clampPitchAngle > 0.0F)
+            {
+                // Source Y (pitch) maps to Jolt local Z after the Z-up to
+                // Y-up basis conversion.
+                const float pitchInertia = localInertia
+                    .Multiply3x3(JPH::Vec3::sAxisZ())
+                    .GetZ();
+                localAngularMomentum.SetZ(std::clamp(
+                    localAngularMomentum.GetZ(),
+                    -2.0F * pitchInertia * clampPitchAngle,
+                    2.0F * pitchInertia * clampPitchAngle));
+            }
+        }
+        localAngularMomentum.SetX(
+            localAngularMomentum.GetX() * angularDamping[0U]);
+        localAngularMomentum.SetZ(
+            localAngularMomentum.GetZ() * angularDamping[1U]);
+        localAngularMomentum.SetY(
+            localAngularMomentum.GetY() * angularDamping[2U]);
+        const JPH::Vec3 worldAngularMomentum =
+            rotation * localAngularMomentum;
+        traceStabilizeV113("momentum-before-pose",worldAngularMomentum,body.GetAngularVelocity(),rotation);
+        lock.ReleaseLock();
+
+        if (clampRollAngle > 0.0F || clampPitchAngle > 0.0F)
+        {
+            Vec3 euler = quaternionToEulerXYZ(fromJolt(rotation));
+            if (clampRollAngle > 0.0F)
+                euler.x = std::clamp(
+                    euler.x, -clampRollAngle, clampRollAngle);
+            if (clampPitchAngle > 0.0F)
+                euler.y = std::clamp(
+                    euler.y, -clampPitchAngle, clampPitchAngle);
+            bodies.SetPositionAndRotation(
+                vehicle.body, bodies.GetPosition(vehicle.body),
+                toJolt(quaternionFromEulerXYZ(euler)),
+                JPH::EActivation::Activate);
+        }
+        // PhysX setAngularMomentum runs after the optional orientation clamp.
+        // Recalculate velocity with the body's final world-space inertia so
+        // the clamp cannot manufacture or discard angular impulse.
+        setSourceAngularVelocity(
+            vehicle.body,
+            bodies.GetInverseInertia(vehicle.body)
+                .Multiply3x3(worldAngularMomentum));
+        traceStabilizeV113("applied",worldAngularMomentum,bodies.GetAngularVelocity(vehicle.body),bodies.GetRotation(vehicle.body));
+    }
+
+    void applySourceSteering(VehicleRuntime& vehicle, float input,
+                             float delta, bool anyContact,
+                             bool drivenContact) noexcept
+    {
+        const auto& source = vehicle.spawn.vehicle;
+        const float target = input * source.steerAngle;
+        if (std::abs(input) >= 0.999F && source.steerSpeed > 0.0F)
+        {
+            if (target > 0.0F)
+                vehicle.steeringAngle = std::min(
+                    std::max(vehicle.steeringAngle, 0.0F) +
+                        source.steerSpeed * delta,
+                    source.steerAngle);
+            else
+                vehicle.steeringAngle = std::max(
+                    std::min(vehicle.steeringAngle, 0.0F) -
+                        source.steerSpeed * delta,
+                    -source.steerAngle);
+        }
+        else
+        {
+            // Legacy smManual (analogue pad and AI) writes the angle
+            // directly; keyboard left/right uses the ramp above.
+            vehicle.steeringAngle = target;
+        }
+
+        const bool steeringContact =
+            source.gravitySteering ? anyContact : drivenContact;
+        if (!steeringContact || !vehicle.wheelTractionEnabled ||
+            std::abs(vehicle.steeringAngle) <= 0.0001F ||
+            source.steerAngle <= 0.0001F)
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        const auto rotation = bodies.GetRotation(vehicle.body);
+        const auto velocity = bodies.GetLinearVelocity(vehicle.body);
+        const float forwardSpeed =
+            velocity.Dot(rotation * JPH::Vec3::sAxisX());
+        const float alpha =
+            std::clamp(forwardSpeed / 10.0F, -1.0F, 1.0F);
+        const float sourceYaw =
+            alpha * (vehicle.steeringAngle / source.steerAngle) *
+            source.steerRotation * delta;
+        const auto yaw = JPH::Quat::sRotation(
+            JPH::Vec3::sAxisY(), -sourceYaw);
+        const auto correctedRotation = rotation * yaw;
+        float rearWheelX = 0.0F;
+        for (const auto& wheel : source.wheels)
+            rearWheelX = std::min(rearWheelX, wheel.position.x);
+        const JPH::Vec3 rearPivot{rearWheelX, 0.0F, 0.0F};
+        const auto position = bodies.GetPosition(vehicle.body);
+        const auto pivot = position + rotation * rearPivot;
+        bodies.SetPositionAndRotation(
+            vehicle.body, pivot - correctedRotation * rearPivot,
+            correctedRotation, JPH::EActivation::Activate);
+    }
+
+    void applyGameCarSteering(
+        VehicleRuntime& vehicle,
+        const VehicleDriveCommand& command) noexcept
+    {
+        vehicle.steeringAngle = command.steeringAngle;
+        if (std::abs(command.steeringYaw) <= 0.000001F)
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        const auto rotation = bodies.GetRotation(vehicle.body);
+        const auto correctedRotation = rotation * JPH::Quat::sRotation(
+            JPH::Vec3::sAxisY(), -command.steeringYaw);
+        const JPH::Vec3 rearPivot{command.rearWheelX, 0.0F, 0.0F};
+        const auto position = bodies.GetPosition(vehicle.body);
+        const auto pivot = position + rotation * rearPivot;
+        bodies.SetPositionAndRotation(
+            vehicle.body, pivot - correctedRotation * rearPivot,
+            correctedRotation, JPH::EActivation::Activate);
+    }
+
+    void prepareVehicleStep(std::size_t vehicleIndex,
+                            VehicleRuntime& vehicle, VehicleInput input,
+                            float delta, bool dispatchSourceFixedStep,
+                            float sourceDelta) noexcept
+    {
+        if (!vehicle.enabled)
+            return;
+        vehicle.wheelTireReleaseActive.assign(
+            vehicle.constraint->GetWheels().size(), false);
+        vehicle.wheelLowSpeedFrictionActive.assign(
+            vehicle.constraint->GetWheels().size(), false);
+        input.throttle = std::clamp(input.throttle, 0.0F, 1.0F);
+        input.reverse = std::clamp(input.reverse, 0.0F, 1.0F);
+        input.brake = std::clamp(input.brake, 0.0F, 1.0F);
+        input.steering = std::clamp(input.steering, -1.0F, 1.0F);
+        input.motorTorqueScale =
+            std::max(input.motorTorqueScale, 0.0F);
+        input.lateralGripScale =
+            std::max(input.lateralGripScale, 0.0F);
+
+        const auto& source = vehicle.spawn.vehicle;
+        bool anyContact = false;
+        bool drivenContact = false;
+        bool firstDrivenContact = false;
+        bool allContact = !vehicle.constraint->GetWheels().empty();
+        float drivenWheelSpeed = 0.0F;
+        bool foundDrivenWheel = false;
+        for (JPH::uint index = 0;
+             index < vehicle.constraint->GetWheels().size(); ++index)
+        {
+            const auto* wheel = vehicle.constraint->GetWheel(index);
+            anyContact = anyContact || wheel->HasContact();
+            allContact = allContact && wheel->HasContact();
+            if (!source.wheels[index].driven)
+                continue;
+            drivenContact = drivenContact || wheel->HasContact();
+            if (!foundDrivenWheel)
+            {
+                firstDrivenContact = wheel->HasContact();
+                drivenWheelSpeed = wheel->GetAngularVelocity();
+                foundDrivenWheel = true;
+            }
+        }
+
+        auto& bodies = system_.GetBodyInterface();
+        const JPH::Quat rotation = bodies.GetRotation(vehicle.body);
+        const JPH::Vec3 velocity =
+            bodies.GetLinearVelocity(vehicle.body);
+        const JPH::Vec3 horizontalVelocity{
+            velocity.GetX(), 0.0F, velocity.GetZ()};
+        const float signedSpeed =
+            velocity.Dot(rotation * JPH::Vec3::sAxisX());
+        // GameCar::GetSpeed in the source quantizes the longitudinal speed
+        // before MotorProgress chooses between drive and braking.
+        const float sourceSignedSpeed = std::abs(signedSpeed) < 1.0F
+            ? 0.0F : signedSpeed;
+
+        float brakeTorque = source.restBrakeTorque;
+        float motorTorque = 0.0F;
+        float rpm = sourceRpm(
+            source, vehicle.currentGear, drivenWheelSpeed);
+        VehicleDriveCommand gameCarCommand;
+        const bool gameCarControlled =
+            static_cast<bool>(fixedStepController_);
+        if (gameCarControlled)
+        {
+            if (dispatchSourceFixedStep)
+            {
+                vehicle.sourceDriveCommand = fixedStepController_(
+                    vehicleIndex, sourceDelta, input,
+                    {signedSpeed, velocity.Length(),
+                     horizontalVelocity.Length(), drivenWheelSpeed,
+                     anyContact, drivenContact, allContact,
+                     !vehicle.state.bodyContacts.empty(),
+                     firstDrivenContact});
+            }
+            gameCarCommand = vehicle.sourceDriveCommand;
+            motorTorque = gameCarCommand.motorTorque;
+            brakeTorque = gameCarCommand.brakeTorque;
+            rpm = gameCarCommand.engineRpm;
+            vehicle.currentGear = gameCarCommand.gear;
+            vehicle.lateralGripScale =
+                std::max(gameCarCommand.lateralGripScale, 0.0F);
+        }
+        else
+        {
+            vehicle.lateralGripScale = input.lateralGripScale;
+            // Standalone engine smoke keeps a backend-local controller. The
+            // active game always installs source GameCar::OnFixedStep.
+            if (input.brake > 0.0001F)
+            {
+                vehicle.currentGear = -1;
+                rpm = source.idlingRpm;
+                brakeTorque = source.brakeTorque * input.brake;
+            }
+            else if (input.reverse > 0.0001F)
+            {
+                if (sourceSignedSpeed > 0.0F)
+                {
+                    rpm = sourceRpm(
+                        source, vehicle.currentGear, drivenWheelSpeed);
+                    brakeTorque = source.brakeTorque;
+                }
+                else
+                {
+                    vehicle.currentGear = 0;
+                    rpm = sourceRpm(source, 0, drivenWheelSpeed);
+                    if (rpm < source.maximumRpm)
+                        motorTorque =
+                            -sourceTorque(source, 0) * input.reverse;
+                }
+            }
+            else if (input.throttle > 0.0001F)
+            {
+                if (sourceSignedSpeed < 0.0F)
+                {
+                    vehicle.currentGear = -1;
+                    rpm = source.idlingRpm;
+                    brakeTorque = source.brakeTorque;
+                }
+                else
+                {
+                    if (vehicle.currentGear <= 0)
+                        vehicle.currentGear = 1;
+                    rpm = sourceRpm(
+                        source, vehicle.currentGear, drivenWheelSpeed);
+                    motorTorque =
+                        sourceTorque(source, vehicle.currentGear) *
+                        input.throttle;
+                }
+            }
+
+            if (firstDrivenContact && source.automaticGears &&
+                vehicle.currentGear > 0)
+            {
+                if (rpm < source.maximumRpm / 1.8F &&
+                    vehicle.currentGear > 1)
+                    --vehicle.currentGear;
+                if (rpm >= source.maximumRpm &&
+                    vehicle.currentGear < 5)
+                    ++vehicle.currentGear;
+            }
+            if (source.maximumSpeed > 0.0F &&
+                velocity.Length() > source.maximumSpeed)
+                motorTorque = brakeTorque;
+            else
+                motorTorque *= input.motorTorqueScale;
+        }
+        motorTorque *= tuning_.torque;
+        brakeTorque *= tuning_.brake;
+        vehicle.motorTorque = motorTorque;
+        vehicle.engineRpm = rpm;
+
+        if (gameCarControlled)
+        {
+            if (dispatchSourceFixedStep)
+            {
+                if (gameCarCommand.applyAngularStabilization)
+                    stabilizeVehicle(
+                        vehicle, anyContact, gameCarCommand.angularDamping,
+                        gameCarCommand.clampRollAngle,
+                        gameCarCommand.clampPitchAngle);
+                applyGameCarSteering(vehicle, gameCarCommand);
+            }
+        }
+        else
+        {
+            stabilizeVehicle(
+                vehicle, anyContact,
+                {source.angularDamping.x, source.angularDamping.y,
+                 vehicle.wheelTractionEnabled
+                     ? source.angularDamping.z : 1.0F},
+                source.clampRollAngle, source.clampPitchAngle);
+            applySourceSteering(
+                vehicle, input.steering, delta,
+                anyContact, drivenContact);
+        }
+
+        // PhysX accepts restTorque on a rolling powered wheel. Jolt treats
+        // the same value as a wheel lock at low speed, which previously held
+        // the free rear axle stationary. Keep full braking commands exact,
+        // but omit only this incompatible rest brake while power is applied.
+        if (!tuning_.physxWheelCompat && std::abs(motorTorque) > 0.0001F &&
+            brakeTorque <= source.restBrakeTorque + 0.0001F)
+            brakeTorque = 0.0F;
+        const float brakeInput =
+            source.brakeTorque > 0.0F
+                ? std::clamp(
+                      brakeTorque / source.brakeTorque, 0.0F, 1.0F)
+                : 0.0F;
+        const float steeringInput =
+            source.steerAngle > 0.0001F
+                ? std::clamp(
+                      vehicle.steeringAngle / source.steerAngle,
+                      -1.0F, 1.0F)
+                : 0.0F;
+        // Motor/differential propagation is deliberately bypassed. The
+        // Windows code writes the complete CarMotorDesc torque to every
+        // driven NxWheelShape rather than splitting it across an axle.
+        vehicle.controller->SetDriverInput(
+            0.0F, steeringInput, brakeInput, 0.0F);
+        vehicle.sourceBrakeTorque = brakeTorque;
+        if (!tuning_.physxWheelCompat)
+            for (JPH::uint index = 0; index < vehicle.constraint->GetWheels().size(); ++index)
+                if (source.wheels[index].driven)
+                    static_cast<JPH::WheelWV*>(vehicle.constraint->GetWheel(index))->ApplyTorque(motorTorque, delta);
+
+        const bool applyExtraGravity = gameCarControlled
+            ? gameCarCommand.applyExtraGravity : !anyContact;
+        vehicle.sourceExtraGravity = applyExtraGravity;
+        if (applyExtraGravity)
+        {
+            bodies.AddForce(
+                vehicle.body,
+                toJolt(Vec3{0.0F, 0.0F,
+                            source.mass * description_.gravity}));
+            const float pitchAcceleration = gameCarControlled
+                ? gameCarCommand.airbornePitchAcceleration
+                : (horizontalVelocity.Length() > 1.0F &&
+                   !input.springLocked
+                       ? source.airbornePitchAcceleration : 0.0F);
+            if (pitchAcceleration != 0.0F)
+            {
+                const JPH::Quat currentRotation =
+                    bodies.GetRotation(vehicle.body);
+                const auto angularBeforeV114=bodies.GetAngularVelocity(vehicle.body);
+                JPH::Vec3 changeV114;
+                const char* nativeLocalFlagV114=std::getenv("RRR3D_EXPERIMENT_NATIVE_LOCAL_ANGULAR_V114");
+                if(nativeLocalFlagV114 && std::strcmp(nativeLocalFlagV114,"1")==0) {
+                    namespace L=motorrock::localangularv114;
+                    const auto pose=fromJolt(currentRotation);
+                    const auto world=L::world({{pose.x,pose.y,pose.z,pose.w}},{{0.0F,pitchAcceleration,0.0F}});
+                    changeV114=toJoltAngular(Vec3{L::mul(world[0],delta),L::mul(world[1],delta),L::mul(world[2],delta)});
+                } else changeV114=currentRotation*JPH::Vec3{0.0F,0.0F,-pitchAcceleration*delta};
+                setSourceAngularVelocity(vehicle.body,angularBeforeV114+changeV114);
+                const char* traceV114=std::getenv("RRR3D_AIR_TORQUE_TRACE_FILE_V114");
+                const char* stepV114=std::getenv("RRR3D_AIR_TORQUE_TRACE_STEP_V114");
+                if(traceV114 && *traceV114 && (!stepV114 || vehicle.constraint->GetSourceSimulationCounterV59()==std::strtoul(stepV114,nullptr,10))) {
+                    const auto q=fromJolt(currentRotation);const auto before=fromJoltAngular(angularBeforeV114),change=fromJoltAngular(changeV114),after=fromJoltAngular(bodies.GetAngularVelocity(vehicle.body));
+                    const float values[]={q.x,q.y,q.z,q.w,before.x,before.y,before.z,0.0F,pitchAcceleration,0.0F,delta,change.x,change.y,change.z,after.x,after.y,after.z};
+                    if(FILE* file=std::fopen(traceV114,"a")) {
+                        std::fprintf(file,"{\"tick\":%u,\"words\":[",vehicle.constraint->GetSourceSimulationCounterV59());
+                        for(unsigned i=0;i<17;++i){std::uint32_t word=0;std::memcpy(&word,&values[i],4);std::fprintf(file,"%s%u",i?",":"",word);}
+                        std::fprintf(file,"]}\n");std::fclose(file);
+                    }
+                }
+            }
+        }
+
+        if (input.throttle != 0.0F || input.reverse != 0.0F ||
+            input.brake != 0.0F || input.steering != 0.0F)
+            bodies.ActivateBody(vehicle.body);
+    }
+
+    ProjectileBodyRuntime* findProjectileBody(
+        std::uint64_t id) noexcept
+    {
+        const auto found = std::find_if(
+            projectileBodies_.begin(), projectileBodies_.end(),
+            [id](const ProjectileBodyRuntime& value) {
+                return value.state.id == id;
+            });
+        return found == projectileBodies_.end() ? nullptr : &*found;
+    }
+
+    void destroyProjectileBody(ProjectileBodyRuntime& projectile) noexcept
+    {
+        if (projectile.body.IsInvalid())
+        {
+            projectile.state.active = false;
+            projectile.state.bodyAwake = false;
+            return;
+        }
+        auto& bodies = system_.GetBodyInterface();
+        if (projectile.state.active)
+            bodies.RemoveBody(projectile.body);
+        bodies.DestroyBody(projectile.body);
+        projectile.body = JPH::BodyID();
+        projectile.state.active = false;
+        projectile.state.bodyAwake = false;
+    }
+
+    bool createProjectileBody(
+        const ProjectileBodyDescription& description) noexcept
+    {
+        if (description.id == invalidProjectileBodyId)
+            return false;
+        ProjectileBodyRuntime* runtime = findProjectileBody(description.id);
+        std::size_t index = 0U;
+        if (runtime != nullptr)
+        {
+            index = static_cast<std::size_t>(
+                runtime - projectileBodies_.data());
+            destroyProjectileBody(*runtime);
+        }
+        else
+        {
+            index = projectileBodies_.size();
+            projectileBodies_.push_back({});
+            runtime = &projectileBodies_.back();
+            contactListener_.resizeProjectiles(
+                projectileBodies_.size());
+        }
+        contactListener_.setProjectileIgnoredVehicle(
+            index, description.ignoredVehicle);
+
+        const JPH::Vec3 halfExtents{
+            std::max(description.halfExtents.x, 0.01F),
+            std::max(description.halfExtents.z, 0.01F),
+            std::max(description.halfExtents.y, 0.01F)};
+        const auto shifted = JPH::RotatedTranslatedShapeSettings(
+                                 toJolt(description.shapePosition),
+                                 toJolt(description.shapeRotation),
+                                 new JPH::BoxShape(halfExtents))
+                                 .Create();
+        if (shifted.HasError())
+            return false;
+
+        const JPH::EMotionType motionType = description.kinematic
+            ? JPH::EMotionType::Kinematic
+            : description.dynamic ? JPH::EMotionType::Dynamic
+                                  : JPH::EMotionType::Static;
+        const bool moving = motionType != JPH::EMotionType::Static;
+        JPH::BodyCreationSettings settings(
+            shifted.Get(), toJolt(description.transform.position),
+            toJolt(description.transform.rotation),
+            motionType,
+            sourceObjectLayer(
+                sourceCollisionGroup(description.collisionGroup), moving));
+        if (motionType == JPH::EMotionType::Dynamic)
+        {
+            settings.mOverrideMassProperties =
+                JPH::EOverrideMassProperties::CalculateInertia;
+            settings.mMassPropertiesOverride.mMass =
+                std::max(description.mass, 0.001F);
+            settings.mLinearDamping = 0.0F;
+            settings.mAngularDamping = 0.05F;
+            settings.mMaxAngularVelocity =
+                sourceMaximumAngularVelocity;
+            settings.mAllowSleeping =
+                description.sleepEnergyThreshold > 0.0F;
+        }
+        settings.mGravityFactor = description.gravityFactor;
+        settings.mIsSensor = description.sensor;
+        // The Windows runtime never enables NX_CONTINUOUS_CD and none of
+        // Proj::CreatePxBox's shapes owns an NxCCDSkeleton.  LinearCast was
+        // an early portable safeguard, but it made a fast projectile report
+        // contacts which the original discrete PhysX actor would miss.
+        settings.mMotionQuality = JPH::EMotionQuality::Discrete;
+        // Original projectile shapes do not override material index 0.
+        settings.mFriction = 0.5F;
+        settings.mRestitution = 0.5F;
+        settings.mUserData = projectileUserData(
+            index, description.collisionGroup);
+        runtime->body = system_.GetBodyInterface().CreateAndAddBody(
+            settings, moving
+                          ? JPH::EActivation::Activate
+                          : JPH::EActivation::DontActivate);
+        if (runtime->body.IsInvalid())
+            return false;
+        auto& bodies = system_.GetBodyInterface();
+        if (moving)
+        {
+            bodies.SetLinearVelocity(
+                runtime->body, toJolt(description.linearVelocity));
+        }
+        runtime->state.id = description.id;
+        runtime->state.body = description.transform;
+        runtime->state.linearVelocity = description.linearVelocity;
+        runtime->state.active = true;
+        runtime->state.bodyAwake = moving;
+        return true;
+    }
+
+    void synchronizeProjectileBody(
+        const ProjectileBodyDescription& description) noexcept
+    {
+        auto* runtime = findProjectileBody(description.id);
+        if (runtime == nullptr || !runtime->state.active ||
+            runtime->body.IsInvalid())
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        bodies.SetPositionAndRotation(
+            runtime->body, toJolt(description.transform.position),
+            toJolt(description.transform.rotation),
+            JPH::EActivation::Activate);
+        bodies.SetLinearVelocity(
+            runtime->body, toJolt(description.linearVelocity));
+        bodies.SetGravityFactor(
+            runtime->body, description.gravityFactor);
+        updateState(*runtime);
+    }
+
+    void applyProjectileBodyCommand(
+        const ProjectileBodyCommand& command) noexcept
+    {
+        switch (command.kind)
+        {
+        case ProjectileBodyCommandKind::Create:
+            createProjectileBody(command.body);
+            break;
+        case ProjectileBodyCommandKind::Synchronize:
+            synchronizeProjectileBody(command.body);
+            break;
+        case ProjectileBodyCommandKind::Destroy:
+            if (auto* runtime = findProjectileBody(command.body.id))
+                destroyProjectileBody(*runtime);
+            break;
+        }
+    }
+
+    void updateState(ProjectileBodyRuntime& projectile) noexcept
+    {
+        if (!projectile.state.active || projectile.body.IsInvalid())
+            return;
+        JPH::BodyLockRead lock(
+            system_.GetBodyLockInterface(), projectile.body);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        projectile.state.bodyAwake =
+            body.GetMotionType() != JPH::EMotionType::Static &&
+            body.IsActive();
+        projectile.state.body.position = fromJolt(body.GetPosition());
+        projectile.state.body.rotation = fromJolt(body.GetRotation());
+        projectile.state.body.scale = {1.0F, 1.0F, 1.0F};
+        projectile.state.linearVelocity =
+            body.GetMotionType() == JPH::EMotionType::Static
+                ? Vec3{}
+                : fromJolt(body.GetLinearVelocity());
+        const auto index = static_cast<std::size_t>(
+            &projectile - projectileBodies_.data());
+        projectile.state.contacts =
+            contactListener_.takeProjectile(index);
+    }
+
+    void clearProjectileBodies() noexcept
+    {
+        for (auto& projectile : projectileBodies_)
+            destroyProjectileBody(projectile);
+        projectileBodies_.clear();
+        contactListener_.resizeProjectiles(0U);
+    }
+
+    void destroyDebris(DebrisRuntime& debris) noexcept
+    {
+        if (debris.body.IsInvalid())
+            return;
+        auto& bodies = system_.GetBodyInterface();
+        if (debris.state.active)
+            bodies.RemoveBody(debris.body);
+        bodies.DestroyBody(debris.body);
+        debris.body = JPH::BodyID();
+        debris.state.active = false;
+        debris.state.linearVelocity = {};
+        debris.state.bodyAwake = false;
+    }
+
+    void clearDebris() noexcept
+    {
+        for (auto& debris : debris_)
+            destroyDebris(debris);
+        debris_.clear();
+    }
+
+    void destroyDecorations() noexcept
+    {
+        auto& bodies = system_.GetBodyInterface();
+        for (auto& decoration : decorations_)
+        {
+            auto destroyBody = [&](JPH::BodyID& body) {
+                if (body.IsInvalid())
+                    return;
+                if (decoration.state.active)
+                    bodies.RemoveBody(body);
+                bodies.DestroyBody(body);
+                body = JPH::BodyID();
+            };
+            for (auto& body : decoration.meshBodies)
+                destroyBody(body);
+            decoration.meshBodies.clear();
+            for (auto& body : decoration.childShapeBodies)
+                destroyBody(body);
+            decoration.childShapeBodies.clear();
+            destroyBody(decoration.shapeBody);
+            decoration.state.active = false;
+            decoration.state.linearVelocity = {};
+            decoration.state.bodyAwake = false;
+        }
+    }
+
+    void validate()
+    {
+        if (description_.collisionMeshes.empty() ||
+            description_.spawns.empty())
+            throw std::runtime_error("incomplete original race physics data");
+        for (const auto& spawn : description_.spawns)
+        {
+            if (spawn.vehicle.mass <= 0.0F ||
+                spawn.vehicle.wheels.size() != 4 ||
+                !std::any_of(
+                    spawn.vehicle.wheels.begin(),
+                    spawn.vehicle.wheels.end(),
+                    [](const WheelDescription& wheel) {
+                        return wheel.driven;
+                    }))
+                throw std::runtime_error(
+                    "incomplete original vehicle physics data");
+        }
+    }
+
+    // Phase 0 preserves normal construction. Phases 1/2 keep the same merged
+    // surfaces and decoration owners, with vehicles between plane and obstacles.
+    void createTrack(unsigned creationPhase=0U)
+    {
+        constexpr std::size_t surfaceCount = 3U;
+        std::array<JPH::TriangleList, surfaceCount> triangles;
+        std::vector<JPH::TriangleList> decorationTriangles(
+            decorations_.size());
+        auto surfaceIndex = [](CollisionSurface surface) {
+            switch (surface)
+            {
+            case CollisionSurface::TrackBorder:
+                return 1U;
+            case CollisionSurface::Decoration:
+                return 2U;
+            default:
+                return 0U;
+            }
+        };
+        for (const auto& mesh : description_.collisionMeshes)
+        {
+            const bool ownedDecoration =
+                mesh.surface == CollisionSurface::Decoration &&
+                mesh.decorationInstance < decorationTriangles.size();
+            auto& surfaceTriangles =
+                ownedDecoration
+                    ? decorationTriangles[mesh.decorationInstance]
+                    : triangles[surfaceIndex(mesh.surface)];
+            surfaceTriangles.reserve(surfaceTriangles.size() +
+                                     mesh.indices.size() / 3U);
+            for (std::size_t index = 0; index + 2 < mesh.indices.size();
+                 index += 3)
+            {
+                const Vec3 a = transformPoint(
+                    mesh.transform, mesh.vertices.at(mesh.indices[index]));
+                const Vec3 b = transformPoint(
+                    mesh.transform, mesh.vertices.at(mesh.indices[index + 1]));
+                const Vec3 c = transformPoint(
+                    mesh.transform, mesh.vertices.at(mesh.indices[index + 2]));
+                // The Z-up -> Y-up axis exchange reverses handedness, so
+                // reverse winding to preserve the original solid front face.
+                surfaceTriangles.emplace_back(
+                    toJolt(a), toJolt(c), toJolt(b));
+            }
+        }
+        constexpr std::array<CollisionSurface, surfaceCount> surfaces{
+            CollisionSurface::TrackPlane,
+            CollisionSurface::TrackBorder,
+            CollisionSurface::Decoration};
+        constexpr std::array<SourceCollisionGroup, surfaceCount> groups{
+            SourceCollisionGroup::TrackPlane,
+            SourceCollisionGroup::ShotTransparency,
+            SourceCollisionGroup::Default};
+        constexpr std::array<float, surfaceCount> frictions{
+            0.1F, 4.0F, 0.5F};
+        constexpr std::array<float, surfaceCount> restitutions{
+            0.0F, 0.0F, 0.5F};
+        auto createMeshBody = [&](const JPH::TriangleList& source,
+                                  float friction,
+                                  float restitution, JPH::uint64 userData,
+                                  bool sensor,
+                                  SourceCollisionGroup group,
+                                  const motorrock::placedmeshv126::Pose* placedPose=nullptr) {
+            if (source.empty())
+                return JPH::BodyID();
+            JPH::TriangleList querySource;
+            const char* wheelPointFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT");
+            const bool wheelPoint = placedPose || (tuning_.physxWheelCompat && wheelPointFlag &&
+                std::strcmp(wheelPointFlag, "1") == 0);
+            if (wheelPoint) {
+                querySource = source;
+                for (JPH::uint32 index=0; index<querySource.size(); ++index)
+                    querySource[index].mUserData = index;
+            }
+            JPH::MeshShapeSettings shapeSettings(wheelPoint? querySource : source);
+            shapeSettings.mPerTriangleUserData = wheelPoint;
+            const auto shapeResult = shapeSettings.Create();
+            if (shapeResult.HasError())
+                throw std::runtime_error(
+                    ("Jolt track mesh: " + shapeResult.GetError()).c_str());
+            contactListener_.registerSourceMesh(*shapeResult.Get(),source,placedPose);
+            JPH::BodyCreationSettings settings(
+                shapeResult.Get(), placedPose ? toJolt(Vec3{placedPose->position[0],placedPose->position[1],placedPose->position[2]}) : JPH::RVec3::sZero(),
+                placedPose ? toJolt(Quat{placedPose->quaternion[0],placedPose->quaternion[1],placedPose->quaternion[2],placedPose->quaternion[3]}) : JPH::Quat::sIdentity(), JPH::EMotionType::Static,
+                sourceObjectLayer(group, false));
+            settings.mFriction = friction;
+            settings.mRestitution = restitution;
+            settings.mUserData = userData;
+            settings.mIsSensor = sensor;
+            const auto body =
+                system_.GetBodyInterface().CreateAndAddBody(
+                    settings, JPH::EActivation::DontActivate);
+            if (body.IsInvalid())
+                throw std::runtime_error(
+                    "Jolt could not create track body");
+            return body;
+        };
+        const char* placedFlagV126=std::getenv("RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126");
+        const bool placedV126=tuning_.physxWheelCompat && placedFlagV126 && std::strcmp(placedFlagV126,"1")==0;
+        if(placedV126) {
+            for(const auto& mesh:description_.collisionMeshes) {
+                const auto surface=surfaceIndex(mesh.surface);
+                const bool owned=mesh.surface==CollisionSurface::Decoration && mesh.decorationInstance<decorations_.size();
+                if((creationPhase==1U && (surface!=0U || owned)) || (creationPhase==2U && surface==0U && !owned))continue;
+                const auto& t=mesh.transform;
+                const auto pose=motorrock::placedmeshv126::pose({{t.rotation.x,t.rotation.y,t.rotation.z,t.rotation.w}},{{t.position.x,t.position.y,t.position.z}});
+                JPH::TriangleList local;
+                for(std::size_t i=0;i+2<mesh.indices.size();i+=3) {
+                    const auto vertex=[&](unsigned offset){const auto& v=mesh.vertices.at(mesh.indices[i+offset]);return toJolt(Vec3{v.x*t.scale.x,v.y*t.scale.y,v.z*t.scale.z});};
+                    local.emplace_back(vertex(0),vertex(2),vertex(1));
+                }
+                const bool sensor=owned && !description_.decorations[mesh.decorationInstance].collisionResponse;
+                const auto body=createMeshBody(local,owned?.5F:frictions[surface],owned?.5F:restitutions[surface],
+                    owned?decorationUserData(mesh.decorationInstance):surfaceUserData(mesh.surface),sensor,groups[surface],&pose);
+                if(!body.IsInvalid()) {
+                    if(owned)decorations_[mesh.decorationInstance].meshBodies.push_back(body);else trackBodies_.push_back(body);
+                }
+            }
+        }
+        if(!placedV126) {
+        for (std::size_t index = 0; index < triangles.size(); ++index)
+        {
+            if (triangles[index].empty() || (creationPhase==1U && index!=0U) || (creationPhase==2U && index==0U))
+                continue;
+            trackBodies_.push_back(createMeshBody(
+                triangles[index], frictions[index], restitutions[index],
+                surfaceUserData(surfaces[index]),
+                false, groups[index]));
+        }
+        for (std::size_t index = 0;
+             index < decorationTriangles.size(); ++index)
+        {
+            if (decorationTriangles[index].empty() || creationPhase==1U)
+                continue;
+            const bool sensor =
+                index < description_.decorations.size() &&
+                !description_.decorations[index].collisionResponse;
+            decorations_[index].meshBodies.push_back(createMeshBody(
+                decorationTriangles[index], 0.5F, 0.5F,
+                decorationUserData(index), sensor,
+                SourceCollisionGroup::Default));
+        }
+        }
+        if(creationPhase==2U)return; // Death plane is created exactly once.
+        // Map.cpp creates a +Z NxPlaneShape at world Z=0 in the dedicated
+        // cdgPlaneDeath group. Jolt is Y-up, so +Y is the same source plane.
+        // PlaneShape uses a finite broad-phase extent; keep it far beyond all
+        // serialized maps while preserving the infinite narrow-phase plane.
+        JPH::BodyCreationSettings deathPlaneSettings(
+            new JPH::PlaneShape(
+                JPH::Plane(JPH::Vec3::sAxisY(), 0.0F), nullptr,
+                100000.0F),
+            JPH::RVec3::sZero(), JPH::Quat::sIdentity(),
+            JPH::EMotionType::Static,
+            sourceObjectLayer(SourceCollisionGroup::PlaneDeath, false));
+        deathPlaneSettings.mIsSensor = true;
+        deathPlaneSettings.mFriction = 0.5F;
+        deathPlaneSettings.mRestitution = 0.5F;
+        deathPlaneSettings.mUserData = surfaceUserData(
+            CollisionSurface::DeathPlane);
+        const auto deathPlane =
+            system_.GetBodyInterface().CreateAndAddBody(
+                deathPlaneSettings, JPH::EActivation::DontActivate);
+        if (deathPlane.IsInvalid())
+            throw std::runtime_error(
+                "Jolt could not create source death plane");
+        trackBodies_.push_back(deathPlane);
+    }
+
+    void createDecorationBodies()
+    {
+        for (std::size_t index = 0;
+             index < description_.decorations.size(); ++index)
+        {
+            const auto& source = description_.decorations[index];
+            auto& decoration = decorations_[index];
+            auto createBoxBody = [&](Vec3 halfExtents, Vec3 shapePosition,
+                                     Quat shapeRotation, float skinWidth,
+                                     bool dynamic, float mass,
+                                     bool collisionResponse) {
+                const auto box = new JPH::BoxShape(
+                    sourceBoxHalfExtents(halfExtents, skinWidth,
+                                         tuning_.physxContactSkin),
+                    tuning_.physxContactSkin && tuning_.physxBoxCorners
+                        ? 0.0F : JPH::cDefaultConvexRadius);
+                contactListener_.registerContactBox(*box, halfExtents, skinWidth);
+                const auto shifted = JPH::RotatedTranslatedShapeSettings(
+                                         toJolt(shapePosition),
+                                         toJolt(shapeRotation), box)
+                                         .Create();
+                if (shifted.HasError())
+                {
+                    throw std::runtime_error(
+                        ("Jolt decoration shape transform: " +
+                         shifted.GetError())
+                            .c_str());
+                }
+                const auto motion =
+                    dynamic ? JPH::EMotionType::Dynamic
+                            : JPH::EMotionType::Static;
+                JPH::BodyCreationSettings settings(
+                    shifted.Get(), toJolt(source.transform.position),
+                    toJolt(source.transform.rotation), motion,
+                    dynamic ? Layers::defaultMoving
+                            : Layers::defaultNonMoving);
+                if (dynamic)
+                {
+                    settings.mOverrideMassProperties =
+                        JPH::EOverrideMassProperties::CalculateInertia;
+                    settings.mMassPropertiesOverride.mMass =
+                        std::max(mass, 1.0F);
+                    settings.mLinearDamping = 0.0F;
+                    settings.mAngularDamping = 0.05F;
+                    settings.mMaxAngularVelocity =
+                        sourceMaximumAngularVelocity;
+                    settings.mAllowSleeping =
+                        source.sleepEnergyThreshold > 0.0F;
+                }
+                settings.mFriction = 0.5F;
+                // These shapes retain scene material 0. Physx.cpp explicitly
+                // sets its restitution to 0.5 (and its friction to 0.5).
+                settings.mRestitution = 0.5F;
+                settings.mEnhancedInternalEdgeRemoval = true;
+                settings.mUserData = decorationUserData(index);
+                settings.mIsSensor = !collisionResponse;
+                const auto body =
+                    system_.GetBodyInterface().CreateAndAddBody(
+                        settings, dynamic ? JPH::EActivation::Activate
+                                          : JPH::EActivation::DontActivate);
+                if (body.IsInvalid())
+                {
+                    throw std::runtime_error(
+                        "Jolt could not create decoration body");
+                }
+                return body;
+            };
+            if (source.hasBodyShape)
+            {
+                decoration.shapeBody = createBoxBody(
+                    source.halfExtents, source.shapePosition,
+                    source.shapeRotation, source.skinWidth, source.dynamic,
+                    source.mass, source.collisionResponse);
+            }
+            // Actor::InitRootNxActor attaches these shapes to the parent's
+            // static NX_AF_DISABLE_RESPONSE actor. Their saved body records
+            // take effect only after OnDeath detaches the pieces, so the
+            // intact forms are static sensors here as well.
+            decoration.childShapeBodies.reserve(source.childShapes.size());
+            for (const auto& child : source.childShapes)
+            {
+                decoration.childShapeBodies.push_back(createBoxBody(
+                    child.halfExtents, child.position, child.rotation,
+                    child.skinWidth, false, 0.0F,
+                    source.collisionResponse));
+            }
+        }
+    }
+
+    void prepareNativeWheelPairLifetimeV106()
+    {
+        if(!tuning_.physxWheelCompat
+           || !motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_OBJECT_LIFETIME_V106")
+           || !motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_WHEEL_PAIR_RESET_V106"))return;
+        namespace life=motorrock::wheelpairv106;
+        namespace wr=motorrock::wheelrayv52;
+        std::vector<std::pair<std::uint64_t,life::Bounds>> staticBounds;
+        std::uint64_t meshIdentity=0;
+        for(const auto& mesh:description_.collisionMeshes) {
+            life::Bounds bounds{};bool first=true;
+            for(unsigned index:mesh.indices) {
+                const auto point=transformPoint(mesh.transform,mesh.vertices.at(index));
+                const float v[3]={point.x,point.y,point.z};
+                for(unsigned axis=0;axis<3;++axis) {
+                    if(first)bounds[0][axis]=bounds[1][axis]=v[axis];
+                    else {bounds[0][axis]=std::min(bounds[0][axis],v[axis]);bounds[1][axis]=std::max(bounds[1][axis],v[axis]);}
+                }
+                first=false;
+            }
+            if(!first)staticBounds.push_back({meshIdentity,bounds});
+            meshIdentity+=2;
+        }
+        const auto addStaticBox=[&](JPH::BodyID id) {
+            if(id.IsInvalid())return;
+            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);
+            if(!lock.Succeeded() || !lock.GetBody().IsStatic() || !lock.GetBody().IsInBroadPhase())return;
+            motorrock::wheelboxrayv59::Box box;
+            if(!contactListener_.wheelSourceBoxV59(lock.GetBody(),box))return;
+            life::Bounds bounds{};
+            for(unsigned axis=0;axis<3;++axis) {
+                const float extent=wr::add(wr::add(wr::mul(std::abs(box.columns[0][axis]),box.half[0]),wr::mul(std::abs(box.columns[1][axis]),box.half[1])),wr::mul(std::abs(box.columns[2][axis]),box.half[2]));
+                bounds[0][axis]=wr::sub(box.position[axis],extent);bounds[1][axis]=wr::add(box.position[axis],extent);
+            }
+            staticBounds.push_back({(std::uint64_t(id.GetIndexAndSequenceNumber())<<1)|1,bounds});
+        };
+        for(const auto& decoration:decorations_) {
+            addStaticBox(decoration.shapeBody);
+            for(auto id:decoration.childShapeBodies)addStaticBox(id);
+        }
+        sourceWheelPairLifetimesV106_.resize(vehicles_.size());
+        for(unsigned vehicleIndex=0;vehicleIndex<vehicles_.size();++vehicleIndex) {
+            auto& vehicle=vehicles_[vehicleIndex];const auto& source=vehicle.spawn.vehicle;
+            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),vehicle.body);
+            if(!lock.Succeeded())throw std::runtime_error("Native wheel pair lifetime: missing vehicle");
+            const auto& body=lock.GetBody();
+            const auto q=fromJolt(body.GetRotation());const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition())),local=fromJolt(body.GetShape()->GetCenterOfMass());
+            const auto actor=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+            std::vector<std::set<std::uint64_t>> pairs(source.wheels.size());
+            for(unsigned index=0;index<source.wheels.size();++index) {
+                const auto& wheel=source.wheels[index];namespace wp=motorrock::wheelposev54;
+                const auto ray=wp::ray(wp::pose(wp::compose({{actor[0],actor[1],actor[2],q.x,q.y,q.z,q.w}},{{wheel.position.x,wheel.position.y,wheel.position.z,.5F,.5F,.5F,.5F}})),wheel.radius,wheel.suspensionTravel);
+                life::Bounds bounds{};
+                for(unsigned axis=0;axis<3;++axis){bounds[0][axis]=std::min(ray.start[axis],ray.end[axis]);bounds[1][axis]=std::max(ray.start[axis],ray.end[axis]);}
+                if(vehicle.enabled && source.wheelContactsEnabled)for(unsigned collider=0;collider<staticBounds.size();++collider)
+                    if(life::overlap(bounds,staticBounds[collider].second))pairs[index].insert(staticBounds[collider].first);
+            }
+            const auto resets=sourceWheelPairLifetimesV106_[vehicleIndex].update(pairs);
+            for(unsigned index=0;index<resets.size();++index)if(resets[index]) {
+                vehicle.constraint->ClearSourceWheelObjectsV106(index);
+                // The callback reads the force stored on the spring object.
+                // A removed manager destroys that object before this callback.
+                vehicle.previousSuspensionForces[index]=0.0F;
+            }
+            const char* path=std::getenv("RRR3D_WHEEL_PAIR_TRACE_FILE_V106");
+            if(path && *path)if(FILE* file=std::fopen(path,"a")) {
+                std::fprintf(file,"{\"sdk_counter_before_step\":%u,\"vehicle\":%u,\"resets\":[",vehicle.constraint->GetSourceSimulationCounterV59(),vehicleIndex);
+                for(unsigned i=0;i<resets.size();++i)std::fprintf(file,"%s%s",i?",":"",resets[i]?"true":"false");
+                std::fprintf(file,"],\"static_pairs\":[");
+                for(unsigned i=0;i<pairs.size();++i) {std::fprintf(file,"%s[",i?",":"");bool first=true;for(std::uint64_t collider:pairs[i]){std::fprintf(file,"%s%llu",first?"":",",static_cast<unsigned long long>(collider));first=false;}std::fprintf(file,"]");}
+                std::fprintf(file,"]}\n");std::fclose(file);
+            }
+        }
+    }
+
+    void prepareNativeContactOrderV79()
+    {
+        const char* flag=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ORDER_V79");
+        if(!tuning_.physxWheelCompat || !flag || std::strcmp(flag,"1")!=0)return;
+        namespace order=motorrock::contactorderv79;
+        namespace wr=motorrock::wheelrayv52;
+        std::vector<order::Shape> shapes;
+        // First isolated integration: one original terrain mesh and one actor.
+        // Multi-mesh insertion and mixed actor lifetimes remain uncertified.
+        sourceStaticGroundOrderV90_=motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_CONTACT_NODES_V90")
+            && description_.collisionMeshes.size()==1 && vehicles_.size()==1
+            && decorations_.empty() && description_.collisionMeshes.front().surface==CollisionSurface::TrackPlane;
+        sourceStaticPairOrderV108_=motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_PAIR_DISPATCH_V108")
+            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_CONTACT_NODES_V90")
+            && description_.collisionMeshes.size()==1 && vehicles_.size()==1 && !decorations_.empty()
+            && description_.collisionMeshes.front().surface==CollisionSurface::TrackPlane;
+        if(sourceStaticPairOrderV108_)for(const auto& decoration:description_.decorations)
+            if(!decoration.hasBodyShape || decoration.dynamic || !decoration.childShapes.empty() || !decoration.collisionResponse)sourceStaticPairOrderV108_=false;
+        // Complete static mesh pairs use the same wheel-manager processor
+        // as static boxes. Distinct surfaces are separate original actors;
+        // merged same-surface meshes still retain the previous fallback.
+        const bool multiStaticMeshV109=motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_MESH_DISPATCH_V109")
+            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_PAIR_DISPATCH_V108")
+            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_STATIC_CONTACT_NODES_V90")
+            && vehicles_.size()==1 && decorations_.empty()
+            && description_.collisionMeshes.size()==2
+            && description_.collisionMeshes[0].surface==CollisionSurface::TrackPlane
+            && description_.collisionMeshes[1].surface==CollisionSurface::TrackBorder;
+        sourceStaticPairOrderV108_=sourceStaticPairOrderV108_ || multiStaticMeshV109;
+        sourceContactOrderV79_.useRecycledNodesV90(sourceStaticGroundOrderV90_ || sourceStaticPairOrderV108_);
+        sourceContactOrderV79_.trackPairEventsV108(sourceStaticPairOrderV108_);
+        sourceStaticBodyShapesV108_.clear();
+        const auto addStaticMeshV109=[&](const TriangleMesh& mesh) {
+            order::Shape ground;ground.actor=0;bool first=true;
+            for(unsigned index:mesh.indices) {
+                const auto point=transformPoint(mesh.transform,mesh.vertices.at(index));const float v[3]={point.x,point.y,point.z};
+                for(unsigned axis=0;axis<3;++axis) {
+                    if(first)ground.bounds[0][axis]=ground.bounds[1][axis]=v[axis];
+                    else {ground.bounds[0][axis]=std::min(ground.bounds[0][axis],v[axis]);ground.bounds[1][axis]=std::max(ground.bounds[1][axis],v[axis]);}
+                }
+                first=false;
+            }
+            if(first)throw std::runtime_error("Native static order: empty source terrain");
+            if(multiStaticMeshV109)for(const auto id:trackBodies_) {
+                JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);
+                if(lock.Succeeded() && collisionSurface(lock.GetBody().GetUserData())==mesh.surface)
+                    sourceStaticBodyShapesV108_[id.GetIndexAndSequenceNumber()]=static_cast<unsigned>(shapes.size()+1);
+            }
+            shapes.push_back(ground);
+        };
+        if(sourceStaticGroundOrderV90_ || sourceStaticPairOrderV108_)
+            addStaticMeshV109(description_.collisionMeshes.front());
+        if(multiStaticMeshV109 && !description_.obstaclesAfterVehicles)
+            addStaticMeshV109(description_.collisionMeshes[1]);
+        const auto addStaticBoxesV108=[&]() {
+            if(!sourceStaticPairOrderV108_)return;
+            for(const auto& decoration:decorations_) {
+                JPH::BodyLockRead lock(system_.GetBodyLockInterface(),decoration.shapeBody);
+                if(!lock.Succeeded())throw std::runtime_error("Native static manager order: missing box");
+                motorrock::wheelboxrayv59::Box box;
+                if(!contactListener_.wheelSourceBoxV59(lock.GetBody(),box))throw std::runtime_error("Native static manager order: unsupported static box");
+                order::Shape shape;shape.actor=0;shape.enabled=lock.GetBody().IsInBroadPhase();
+                for(unsigned axis=0;axis<3;++axis) {
+                    const float extent=wr::add(wr::add(wr::mul(std::abs(box.columns[0][axis]),box.half[0]),wr::mul(std::abs(box.columns[1][axis]),box.half[1])),wr::mul(std::abs(box.columns[2][axis]),box.half[2]));
+                    shape.bounds[0][axis]=wr::sub(box.position[axis],extent);shape.bounds[1][axis]=wr::add(box.position[axis],extent);
+                }
+                sourceStaticBodyShapesV108_[decoration.shapeBody.GetIndexAndSequenceNumber()]=static_cast<unsigned>(shapes.size()+1);
+                shapes.push_back(shape);
+            }
+        };
+        if(!description_.obstaclesAfterVehicles)addStaticBoxesV108();
+        sourceContactBodyShapesV79_.resize(vehicles_.size());
+        for(std::size_t index=0;index<vehicles_.size();++index) {
+            const auto &vehicle=vehicles_[index];const auto &source=vehicle.spawn.vehicle;
+            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),vehicle.body);
+            if(!lock.Succeeded())throw std::runtime_error("Native contact order: missing vehicle body");
+            const auto &body=lock.GetBody();
+            sourceContactBodyShapesV79_[index]=static_cast<unsigned>(shapes.size()+1);
+            motorrock::wheelboxrayv59::Box box;
+            if(!contactListener_.wheelSourceBoxV59(body,box,true))throw std::runtime_error("Native contact order: unsupported vehicle box");
+            order::Shape bodyShape;bodyShape.actor=static_cast<unsigned>(index+1);bodyShape.enabled=vehicle.enabled;
+            for(unsigned axis=0;axis<3;++axis) {
+                const float extent=wr::add(wr::add(wr::mul(std::abs(box.columns[0][axis]),box.half[0]),wr::mul(std::abs(box.columns[1][axis]),box.half[1])),wr::mul(std::abs(box.columns[2][axis]),box.half[2]));
+                bodyShape.bounds[0][axis]=wr::sub(box.position[axis],extent);
+                bodyShape.bounds[1][axis]=wr::add(box.position[axis],extent);
+            }
+            shapes.push_back(bodyShape);
+            const auto q=fromJolt(body.GetRotation());const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition())),local=fromJolt(body.GetShape()->GetCenterOfMass());
+            const auto actor=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+            for(const auto &wheel:source.wheels) {
+                namespace wp=motorrock::wheelposev54;
+                const auto ray=wp::ray(wp::pose(wp::compose({{actor[0],actor[1],actor[2],q.x,q.y,q.z,q.w}},{{wheel.position.x,wheel.position.y,wheel.position.z,.5F,.5F,.5F,.5F}})),wheel.radius,wheel.suspensionTravel);
+                order::Shape w;w.actor=bodyShape.actor;w.wheel=true;w.enabled=vehicle.enabled && source.wheelContactsEnabled;
+                for(unsigned axis=0;axis<3;++axis){w.bounds[0][axis]=std::min(ray.start[axis],ray.end[axis]);w.bounds[1][axis]=std::max(ray.start[axis],ray.end[axis]);}
+                shapes.push_back(w);
+            }
+        }
+        if(multiStaticMeshV109 && description_.obstaclesAfterVehicles)
+            addStaticMeshV109(description_.collisionMeshes[1]);
+        if(description_.obstaclesAfterVehicles)addStaticBoxesV108();
+        const bool initializing=!sourceContactOrderV79_.initialized();
+        sourceContactOrderV79_.update(shapes);
+        if(sourceStaticPairOrderV108_) {
+            std::vector<std::pair<unsigned,unsigned>> added,removed;
+            const auto wheelPair=[&](const auto& pair) {return shapes.at(pair.first-1).wheel || shapes.at(pair.second-1).wheel;};
+            for(const auto& pair:sourceContactOrderV79_.createdPairsV108())if(wheelPair(pair))added.push_back(pair);
+            for(const auto& pair:sourceContactOrderV79_.removedPairsV108())if(wheelPair(pair))removed.push_back(pair);
+            sourceWheelManagerOrderV108_.update(added,removed);
+        } else sourceWheelManagerOrderV108_.clear();
+        const char* path=std::getenv("RRR3D_CONTACT_ORDER_TRACE_FILE_V79");
+        if(initializing && path && *path)if(FILE* file=std::fopen(path,"a")) {
+            for(unsigned axis=0;axis<3;++axis) {
+                std::fprintf(file,"{\"event\":\"native-order-init\",\"axis\":%u,\"words\":[",axis);
+                bool first=true;for(const auto &e:sourceContactOrderV79_.endpoints(axis)) {std::fprintf(file,"%s%u,%u",first?"":",",e.coordinate,e.ownerAndType);first=false;}
+                std::fprintf(file,"]}\n");
+            }
+            std::fclose(file);
+        }
+    }
+
+    void createVehicle(const VehicleSpawn& spawn)
+    {
+        const auto& source = spawn.vehicle;
+        const JPH::Vec3 halfExtents = sourceBoxHalfExtents(
+            source.halfExtents, source.bodySkinWidth, tuning_.physxContactSkin);
+        // NxBoxShape contacts use the sharp box vertices. Jolt's default
+        // rounded corners change their lever arms, especially against triangles.
+        const auto box = new JPH::BoxShape(
+            halfExtents, tuning_.physxContactSkin && tuning_.physxBoxCorners
+                             ? 0.0F : JPH::cDefaultConvexRadius);
+        contactListener_.registerContactBox(*box, source.halfExtents, source.bodySkinWidth);
+        const auto translated = JPH::RotatedTranslatedShapeSettings(
+                                    toJolt(source.shapePosition),
+                                    JPH::Quat::sIdentity(), box)
+                                    .Create();
+        if (translated.HasError())
+            throw std::runtime_error(
+                ("Jolt car shape transform: " + translated.GetError())
+                    .c_str());
+        const Vec3 centerOfMassOffset{
+            source.centerOfMass.x - source.shapePosition.x,
+            source.centerOfMass.y - source.shapePosition.y,
+            source.centerOfMass.z - source.shapePosition.z};
+        const auto shifted = JPH::OffsetCenterOfMassShapeSettings(
+                                 toJolt(centerOfMassOffset), translated.Get())
+                                 .Create();
+        if (shifted.HasError())
+            throw std::runtime_error(
+                ("Jolt car shape: " + shifted.GetError()).c_str());
+        const char* exactCenterFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_EXACT_SHAPE_COM");
+        if (tuning_.physxWheelCompat && exactCenterFlag && std::strcmp(exactCenterFlag, "1") == 0)
+            static_cast<JPH::OffsetCenterOfMassShape*>(shifted.Get().GetPtr())
+                ->SetExactCenterOfMass(toJolt(source.centerOfMass));
+        JPH::BodyCreationSettings bodySettings(
+            shifted.Get(), toJolt(spawn.position),
+            JPH::Quat::sIdentity(), JPH::EMotionType::Dynamic,
+            Layers::defaultMoving);
+        bodySettings.mOverrideMassProperties =
+            JPH::EOverrideMassProperties::CalculateInertia;
+        bodySettings.mMassPropertiesOverride.mMass = source.mass;
+        if (tuning_.physxWheelCompat)
+        {
+            bodySettings.mOverrideMassProperties = JPH::EOverrideMassProperties::MassAndInertiaProvided;
+            bodySettings.mMassPropertiesOverride = sourceVehicleMassProperties(source);
+        }
+        // DataBase::AddPxBody uses an otherwise-default NxBodyDesc. Preserve
+        // those SDK defaults instead of inheriting Jolt's 0.05 linear drag
+        // and much larger angular speed ceiling.
+        bodySettings.mLinearDamping = source.bodyLinearDamping;
+        bodySettings.mAngularDamping = source.bodyAngularDamping;
+        if (source.freezeRotation &&
+            !(tuning_.physxWheelCompat && tuning_.physxFrozenPose))
+            bodySettings.mAllowedDOFs = JPH::EAllowedDOFs::TranslationX |
+                JPH::EAllowedDOFs::TranslationY | JPH::EAllowedDOFs::TranslationZ;
+        bodySettings.mMaxAngularVelocity =
+            sourceMaximumAngularVelocity;
+        bodySettings.mAllowSleeping =
+            source.bodySleepEnergyThreshold > 0.0F;
+        bodySettings.mFriction = source.bodyFriction;
+        bodySettings.mRestitution = 0.0F;
+        bodySettings.mEnhancedInternalEdgeRemoval = true;
+        bodySettings.mUserData = vehicleUserData(vehicles_.size());
+        VehicleRuntime runtime;
+        runtime.spawn = spawn;
+        runtime.body = system_.GetBodyInterface().CreateAndAddBody(
+            bodySettings, JPH::EActivation::Activate);
+        if (runtime.body.IsInvalid())
+            throw std::runtime_error("Jolt could not create vehicle body");
+        if (!source.bodyContactFrictionEnabled)
+            contactListener_.disableBodyFriction(runtime.body);
+        JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), runtime.body);
+        if (!lock.Succeeded())
+            throw std::runtime_error("Jolt could not lock vehicle body");
+
+        JPH::VehicleConstraintSettings settings;
+        settings.mUp = JPH::Vec3::sAxisY();
+        settings.mForward = JPH::Vec3::sAxisX();
+        for (const auto& sourceWheel : source.wheels)
+        {
+            auto* wheel = new JPH::WheelSettingsWV;
+            wheel->mPosition = toJolt(sourceWheel.position);
+            wheel->mSuspensionDirection = -JPH::Vec3::sAxisY();
+            wheel->mSteeringAxis = JPH::Vec3::sAxisY();
+            wheel->mWheelUp = JPH::Vec3::sAxisY();
+            wheel->mWheelForward = JPH::Vec3::sAxisX();
+            wheel->mSuspensionMinLength = 0.0F;
+            wheel->mSuspensionMaxLength = sourceWheel.suspensionTravel;
+            if (tuning_.physxWheelCompat)
+            {
+                // Nx permits signed axle travel, but its compression hard stop
+                // is -sceneSlop, not -radius (verified with zero springs).
+                // Raising the ray origin by radius keeps the endpoint and
+                // spring rest point while making that signed stop legal.
+                wheel->mPosition += sourceWheel.radius * JPH::Vec3::sAxisY();
+                wheel->mSuspensionMaxLength += sourceWheel.radius;
+                if (tuning_.physxSuspensionStop)
+                    wheel->mSuspensionMinLength = std::max(
+                        0.0F, sourceWheel.radius - sourcePenetrationSlop);
+            }
+            // Shipped wheels use targetValue zero. The Nx probe also verifies
+            // the SDK target offset, whose actual effect is in world units.
+            wheel->mSourceSpringTargetV53 = sourceWheel.suspensionTarget;
+            wheel->mSourceSuspensionSlopV86 = sourcePenetrationSlop;
+            wheel->mSourceWheelSkinV94 = std::isfinite(sourceWheel.skinWidth) && sourceWheel.skinWidth>=0.0F
+                ? sourceWheel.skinWidth : sourceSkinWidth;
+            wheel->mSuspensionPreloadLength = 0.0F;
+            if (tuning_.physxWheelCompat)
+                wheel->mSuspensionPreloadLength = -sourcePenetrationSlop + sourceWheel.suspensionTarget;
+            wheel->mSuspensionSpring = JPH::SpringSettings(
+                JPH::ESpringMode::StiffnessAndDamping,
+                sourceWheel.spring, sourceWheel.damper);
+            if (tuning_.physxWheelCompat) {
+                if (std::getenv("RRR3D_EXPERIMENT_SPRING_BIAS"))
+                    wheel->mSuspensionSpringBiasFactor = 0.7F;
+                else
+                    wheel->mSuspensionSpring.mStiffness *= 0.7F;
+            }
+            wheel->mRadius = sourceWheel.radius;
+            wheel->mWidth = sourceWheel.width;
+            wheel->mInertia = sourceWheelInertia(sourceWheel.inverseMass);
+            // NxWheelShape has no equivalent of Jolt's built-in wheel
+            // angular drag. Source rolling resistance comes from restTorque.
+            wheel->mAngularDamping = 0.0F;
+            wheel->mMaxSteerAngle =
+                sourceWheel.steering ? source.steerAngle : 0.0F;
+            wheel->mMaxBrakeTorque = source.brakeTorque;
+            wheel->mMaxHandBrakeTorque = 0.0F;
+            auto applyTire = [](JPH::LinearCurve& output,
+                                const WheelDescription::TireFunction&
+                                    input,
+                                bool lateral) {
+                if (input.extremumSlip <= 0.0F ||
+                    input.extremumValue <= 0.0F ||
+                    input.asymptoteSlip <= 0.0F ||
+                    input.asymptoteValue <= 0.0F)
+                    return;
+                const float slipScale =
+                    lateral ? 180.0F / 3.14159265358979323846F
+                            : 1.0F;
+                output.Clear();
+                constexpr int samples = 24;
+                output.Reserve(samples + 1);
+                for (int sample = 0; sample <= samples; ++sample)
+                {
+                    const float slip =
+                        input.asymptoteSlip *
+                        static_cast<float>(sample) /
+                        static_cast<float>(samples);
+                    output.AddPoint(
+                        slip * slipScale,
+                        std::abs(sourceTireFunction(input, slip)));
+                }
+            };
+            applyTire(wheel->mLongitudinalFriction,
+                      sourceWheel.longitudinalTire, false);
+            applyTire(wheel->mLateralFriction,
+                      sourceWheel.lateralTire, true);
+            settings.mWheels.push_back(wheel);
+        }
+
+        auto* controllerSettings = new JPH::WheeledVehicleControllerSettings;
+        controllerSettings->mEngine.mMaxTorque = source.maximumTorque;
+        controllerSettings->mEngine.mMaxRPM =
+            std::max(source.maximumRpm, 100.0F);
+        controllerSettings->mEngine.mMinRPM = std::clamp(
+            source.idlingRpm, 1.0F,
+            controllerSettings->mEngine.mMaxRPM);
+        controllerSettings->mEngine.mNormalizedTorque.Clear();
+        controllerSettings->mEngine.mNormalizedTorque.Reserve(2);
+        controllerSettings->mEngine.mNormalizedTorque.AddPoint(
+            0.0F, source.torqueEfficiency);
+        controllerSettings->mEngine.mNormalizedTorque.AddPoint(
+            1.0F, source.torqueEfficiency);
+        controllerSettings->mTransmission.mGearRatios =
+            {2.66F, 1.78F, 1.30F, 1.00F, 0.74F};
+        controllerSettings->mTransmission.mReverseGearRatios = {-1.5F};
+        controllerSettings->mTransmission.mMode =
+            JPH::ETransmissionMode::Manual;
+        // CarMotorDesc shifts at maxRPM and maxRPM / 1.8 with no artificial
+        // clutch delay. Keep Jolt's thresholds just inside its assertions.
+        controllerSettings->mTransmission.mShiftUpRPM =
+            controllerSettings->mEngine.mMaxRPM * 0.999F;
+        controllerSettings->mTransmission.mShiftDownRPM =
+            controllerSettings->mEngine.mMaxRPM / 1.8F;
+        controllerSettings->mTransmission.mSwitchTime = 0.0F;
+        controllerSettings->mTransmission.mClutchReleaseTime = 0.0F;
+        controllerSettings->mTransmission.mSwitchLatency = 0.0F;
+        // Jolt requires differential torque weights to sum to one even in
+        // neutral. Keep topology metadata, but leave the manual transmission
+        // permanently disengaged; propulsion is applied directly to WheelWV.
+        std::vector<JPH::uint> driven;
+        for (JPH::uint index = 0; index < source.wheels.size(); ++index)
+            if (source.wheels[index].driven)
+                driven.push_back(index);
+        const std::size_t differentialCount =
+            (driven.size() + 1U) / 2U;
+        for (std::size_t index = 0; index < driven.size(); index += 2U)
+        {
+            JPH::VehicleDifferentialSettings differential;
+            differential.mLeftWheel =
+                static_cast<int>(driven[index]);
+            differential.mRightWheel =
+                index + 1U < driven.size()
+                    ? static_cast<int>(driven[index + 1U])
+                    : -1;
+            differential.mDifferentialRatio = source.differentialRatio;
+            differential.mEngineTorqueRatio =
+                1.0F / static_cast<float>(differentialCount);
+            controllerSettings->mDifferentials.push_back(differential);
+        }
+        settings.mController = controllerSettings;
+        runtime.constraint =
+            new JPH::VehicleConstraint(lock.GetBody(), settings);
+        JPH::Array<float> sourceWheelTravelV104;
+        sourceWheelTravelV104.reserve(source.wheels.size());
+        for(const auto& wheel:source.wheels)sourceWheelTravelV104.push_back(wheel.suspensionTravel);
+        runtime.constraint->SetSourceWheelObjectTravelV104(sourceWheelTravelV104);
+
+        runtime.constraint->SetVehicleCollisionTester(
+            new OriginalWheelCollisionTester(
+                sourceObjectLayer(SourceCollisionGroup::Wheel, true),
+                source.wheelContactsEnabled, contactListener_, source, tuning_.physxWheelCompat));
+        system_.AddConstraint(runtime.constraint);
+        system_.AddStepListener(runtime.constraint);
+        runtime.controller = static_cast<JPH::WheeledVehicleController*>(
+            runtime.constraint->GetController());
+        runtime.controller->GetTransmission().Set(0, 0.0F);
+        const auto wheelCount = runtime.constraint->GetWheels().size();
+        runtime.wheelNormalReactions.assign(wheelCount, 0.0F);
+        runtime.wheelNormalImpulses.assign(wheelCount, 0.0F);
+        runtime.previousSuspensionForces.assign(wheelCount, 0.0F);
+        runtime.wheelNormalForcesV84.assign(wheelCount, 0.0F);
+        runtime.wheelTireReleaseActive.assign(wheelCount, false);
+        runtime.tireAnchorsV55.resize(wheelCount);
+        runtime.tireProjectionsV55.assign(wheelCount,1);
+        runtime.sourceLateralImpulseReportV56.assign(wheelCount,0);
+        runtime.sourceLongitudinalImpulseReportV87.assign(wheelCount,0);
+        runtime.sourceImpulseReportValidV56.assign(wheelCount,false);
+        runtime.previousWheelContactPositions.assign(wheelCount, {});
+        runtime.previousWheelContactValid.assign(wheelCount, false);
+        runtime.wheelLowSpeedFrictionActive.assign(wheelCount, false);
+        vehicles_.push_back(std::move(runtime));
+        const std::size_t vehicleIndexValue = vehicles_.size() - 1U;
+        vehicles_.back().sourceWheelAxleSpeeds.assign(wheelCount, 0.0F);
+        vehicles_.back().sourceMotorForwardV112.assign(wheelCount, 0.0F);
+        vehicles_.back().sourceMotorContactV112.assign(wheelCount, false);
+        vehicles_.back().sourceLongitudinalSlips.assign(wheelCount, 0.0F);
+        vehicles_.back().sourceLateralSlips.assign(wheelCount, 0.0F);
+        vehicles_.back().constraint->SetPostCollideCallback(
+            [this, vehicleIndexValue](JPH::VehicleConstraint& constraint,
+                                      const JPH::PhysicsStepListenerContext& context) {
+                if (!tuning_.physxWheelCompat) return;
+                auto& vehicle = vehicles_[vehicleIndexValue];
+                const auto& source = vehicle.spawn.vehicle;
+                const float delta = context.mDeltaTime;
+                const char* pairOrderFlagV79=std::getenv("RRR3D_EXPERIMENT_NATIVE_CONTACT_ORDER_V79");
+                if(pairOrderFlagV79 && std::strcmp(pairOrderFlagV79,"1")==0) {
+                    JPH::Array<JPH::uint64> ranks(constraint.GetWheels().size(),0);
+                    for(JPH::uint wheel=0;wheel<ranks.size();++wheel) {
+                        auto* w=constraint.GetWheel(wheel);if(!w->HasContact())continue;
+                        JPH::BodyLockRead contact(system_.GetBodyLockInterfaceNoLock(),w->GetContactBodyID());
+                        std::size_t other=0;
+                        if(contact.Succeeded() && vehicleIndex(contact.GetBody().GetUserData(),other) && other<sourceContactBodyShapesV79_.size())
+                            ranks[wheel]=sourceContactOrderV79_.order(sourceContactBodyShapesV79_[vehicleIndexValue]+1+wheel,sourceContactBodyShapesV79_[other]);
+                        else if(sourceStaticGroundOrderV90_ && contact.Succeeded()
+                            && !trackBodies_.empty() && w->GetContactBodyID()==trackBodies_.front())
+                            ranks[wheel]=sourceContactOrderV79_.order(sourceContactBodyShapesV79_[vehicleIndexValue]+1+wheel,1);
+                    }
+                    constraint.SetSourceContactCreationOrderV79(ranks,sourceStaticGroundOrderV90_);
+                    JPH::Array<JPH::uint64> dispatch;
+                    if(sourceStaticPairOrderV108_) {
+                        dispatch.resize(constraint.GetWheels().size(),0);
+                        for(JPH::uint wheel=0;wheel<dispatch.size();++wheel) {
+                            const auto* current=constraint.GetWheel(wheel);if(!current->HasContact())continue;
+                            unsigned support=0;
+                            if(!trackBodies_.empty() && current->GetContactBodyID()==trackBodies_.front())support=1;
+                            else {const auto it=sourceStaticBodyShapesV108_.find(current->GetContactBodyID().GetIndexAndSequenceNumber());if(it!=sourceStaticBodyShapesV108_.end())support=it->second;}
+                            if(support)dispatch[wheel]=sourceWheelManagerOrderV108_.order(sourceContactBodyShapesV79_[vehicleIndexValue]+1+wheel,support);
+                        }
+                    }
+                    constraint.SetSourceCallbackDispatchOrderV108(dispatch);
+                    const char* path=std::getenv("RRR3D_CONTACT_ORDER_TRACE_FILE_V79");
+                    if(path && *path)if(FILE* file=std::fopen(path,"a")) {
+                        std::fprintf(file,"{\"event\":\"native-order-contacts\",\"step\":%u,\"vehicle\":%zu,\"ranks\":[",constraint.GetSourceSimulationCounterV59(),vehicleIndexValue);
+                        for(JPH::uint i=0;i<ranks.size();++i)std::fprintf(file,"%s%llu",i?",":"",static_cast<unsigned long long>(ranks[i]));
+                        std::fprintf(file,"]}\n");std::fclose(file);
+                    }
+                }
+
+                const JPH::Vec3 acceleration = system_.GetGravity() * (vehicle.sourceExtraGravity ? 2.0F : 1.0F)
+                    + toJolt(vehicle.diagnosticAcceleration);
+                for (JPH::uint i = 0; i < constraint.GetWheels().size(); ++i)
+                {
+                    auto* wheel = static_cast<JPH::WheelWV*>(constraint.GetWheel(i));
+                    namespace nt = motorrock::tirev55;
+                    if((nt::enabled("RRR3D_EXPERIMENT_NATIVE_HARD_STOP_SKINS_V94")
+                        || nt::enabled("RRR3D_WHEEL_SKIN_METADATA_V94")) && wheel->HasContact()) {
+                        JPH::BodyLockRead contact(system_.GetBodyLockInterfaceNoLock(),wheel->GetContactBodyID());
+                        float skin=0.0F;
+                        const bool valid=contact.Succeeded() && contactListener_.wheelContactSkinV94(
+                            contact.GetBody(),wheel->GetContactSubShapeID(),skin);
+                        wheel->SetSourceContactSkinV94(skin,valid);
+                    }
+                    const bool nativeSteeringBasisV118 = nt::enabled("RRR3D_EXPERIMENT_NATIVE_STEERING_COMPAT_V118");
+                    const bool nativeBasis = nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") && (wheel->GetSteerAngle()==0 || nativeSteeringBasisV118);
+                    vehicle.tireProjectionsV55[i]=1;
+                    vehicle.sourceImpulseReportValidV56[i]=false;
+                    if (wheel->HasContact() && (nativeBasis || nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55"))) {
+                        const auto* body=constraint.GetVehicleBody();const auto q=fromJolt(body->GetRotation());
+                        const auto cm=fromJolt(JPH::Vec3(body->GetCenterOfMassPosition()));const auto local=fromJolt(body->GetShape()->GetCenterOfMass());
+                        const auto p=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+                        const auto& sw=source.wheels[i];
+                        const auto pose=motorrock::wheelposev54::pose(motorrock::wheelposev54::compose(
+                            {{p[0],p[1],p[2],q.x,q.y,q.z,q.w}},{{sw.position.x,sw.position.y,sw.position.z,.5F,.5F,.5F,.5F}}));
+                        const auto n=fromJolt(wheel->GetContactNormal());const auto basis=nativeSteeringBasisV118?motorrock::steeringtirev118::basis(pose,{{n.x,n.y,n.z}},-wheel->GetSteerAngle()):nt::basisZeroSteer(pose,{{n.x,n.y,n.z}});
+                        if(nativeBasis)wheel->SetSourceContactBasisV55(toJolt(Vec3{basis.lateral[0],basis.lateral[1],basis.lateral[2]}),toJolt(Vec3{basis.longitudinal[0],basis.longitudinal[1],basis.longitudinal[2]}));
+                        vehicle.tireProjectionsV55[i]=nt::dotZYX(basis.suspension,{{n.x,n.y,n.z}});
+                    }
+                    float forward = 0.0F;
+                    JPH::Vec3 relative = JPH::Vec3::sZero();
+                    if (wheel->HasContact())
+                    {
+                        relative = constraint.GetVehicleBody()->GetPointVelocity(wheel->GetContactPosition())
+                            - wheel->GetContactPointVelocity() + acceleration * delta;
+                        if(nativeBasis) {
+                            const auto r=fromJolt(relative),axis=fromJolt(wheel->GetContactLongitudinal());
+                            forward=nt::dotZYX({{r.x,r.y,r.z}},{{axis.x,axis.y,axis.z}});
+                        } else forward = relative.Dot(wheel->GetContactLongitudinal());
+                        wheel->SetAngularVelocity(forward / source.wheels[i].radius);
+                    }
+                    // Native free integration consumes the previous ray contact
+                    // before the current ray query. A lost-contact transition
+                    // therefore uses the cached forward speed once, then torque.
+                    const float freeAxleBeforeV112=wheel->GetAngularVelocity();
+                    if(!wheel->HasContact() && nt::enabled("RRR3D_EXPERIMENT_NATIVE_FREE_WHEEL_CACHE_V112"))
+                        wheel->SetAngularVelocity(motorrock::freewheelcachev112::axle(
+                            wheel->GetAngularVelocity(),vehicle.sourceMotorForwardV112[i],source.wheels[i].radius,
+                            source.wheels[i].longitudinalTire.stiffnessFactor,vehicle.sourceMotorContactV112[i],source.wheels[i].flags));
+                    const float motorAxleBeforeV92=wheel->GetAngularVelocity();
+                    if (source.wheels[i].driven) {
+                        if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_WHEEL_MOTOR_V92"))
+                            wheel->SetAngularVelocity(motorrock::wheelmotorv92::apply(
+                                wheel->GetAngularVelocity(),vehicle.motorTorque,delta,source.wheels[i].inverseMass));
+                        else wheel->ApplyTorque(vehicle.motorTorque, delta);
+                    }
+                    const float axle = wheel->GetAngularVelocity();
+                    const float braking = vehicle.sourceBrakeTorque * source.wheels[i].inverseMass * delta;
+                    vehicle.sourceWheelAxleSpeeds[i] = std::copysign(std::max(std::abs(axle) - braking, 0.0F), axle);
+                    const char* motorTraceV92=std::getenv("RRR3D_WHEEL_MOTOR_TRACE_FILE_V92");
+                    const char* motorTraceStepV92=std::getenv("RRR3D_WHEEL_MOTOR_TRACE_STEP_V92");
+                    if(motorTraceV92 && *motorTraceV92 && (!motorTraceStepV92 || constraint.GetSourceSimulationCounterV59()==std::strtoul(motorTraceStepV92,nullptr,10))) {
+                        if(FILE* file=std::fopen(motorTraceV92,"a")) {
+                            std::fprintf(file,"{\"event\":\"wheel-motor\",\"physical_tick\":%u,\"vehicle\":%zu,\"wheel\":%u,\"has_contact\":%s,\"axle_before\":%.9g,\"torque\":%.9g,\"delta\":%.9g,\"inverse_mass\":%.9g,\"inertia\":%.9g,\"after_motor\":%.9g,\"brake_torque\":%.9g,\"after_brake\":%.9g}\n",
+                                constraint.GetSourceSimulationCounterV59(),vehicleIndexValue,i,wheel->HasContact()?"true":"false",
+                                motorAxleBeforeV92,source.wheels[i].driven?vehicle.motorTorque:0.0F,delta,source.wheels[i].inverseMass,wheel->GetSettings()->mInertia,
+                                axle,vehicle.sourceBrakeTorque,vehicle.sourceWheelAxleSpeeds[i]);std::fclose(file);
+                        }
+                    }
+                    const char* freeTraceV112=std::getenv("RRR3D_FREE_WHEEL_TRACE_FILE_V112");
+                    const char* freeStepV112=std::getenv("RRR3D_FREE_WHEEL_TRACE_STEP_V112");
+                    if(freeTraceV112 && *freeTraceV112 && (!freeStepV112 || constraint.GetSourceSimulationCounterV59()==std::strtoul(freeStepV112,nullptr,10)))
+                        if(FILE* file=std::fopen(freeTraceV112,"a")) {
+                            std::fprintf(file,"{\"tick\":%u,\"wheel\":%u,\"previous_contact\":%s,\"cached_forward\":%.9g,\"stiffness\":%.9g,\"current_contact\":%s,\"flags\":%u,\"radius\":%.9g,\"axle_prior\":%.9g,\"axle_before\":%.9g,\"after_brake\":%.9g}\n",
+                                constraint.GetSourceSimulationCounterV59(),i,vehicle.sourceMotorContactV112[i]?"true":"false",
+                                vehicle.sourceMotorForwardV112[i],source.wheels[i].longitudinalTire.stiffnessFactor,wheel->HasContact()?"true":"false",
+                                source.wheels[i].flags,source.wheels[i].radius,freeAxleBeforeV112,motorAxleBeforeV92,vehicle.sourceWheelAxleSpeeds[i]);std::fclose(file);
+                        }
+                    if(wheel->HasContact())vehicle.sourceMotorForwardV112[i]=forward;
+                    vehicle.sourceMotorContactV112[i]=wheel->HasContact();
+                    const float rolling = vehicle.sourceWheelAxleSpeeds[i] * source.wheels[i].radius;
+                    vehicle.sourceLongitudinalSlips[i] = (rolling - forward) / std::max(std::abs(rolling), 1.0F);
+                    float prescribedSlip = vehicle.sourceLongitudinalSlips[i];
+                    if (nt::enabled("RRR3D_EXPERIMENT_NATIVE_LONGITUDINAL_SLIP_V82")) {
+                        const auto slip = motorrock::longitudinalslipv81::calculate(
+                            forward, vehicle.sourceWheelAxleSpeeds[i], source.wheels[i].radius);
+                        // PhysX reports forward minus rolling, and flag bit 2 selects velocity units.
+                        vehicle.sourceLongitudinalSlips[i] = (source.wheels[i].flags & 4U)
+                            ? slip.rawSlip : slip.normalizedSlip;
+                        // Jolt's prescribed tire impulse uses the opposite sign convention.
+                        prescribedSlip = -slip.normalizedSlip;
+                    }
+                    wheel->mUsePrescribedLongitudinalImpulse = true;
+                    wheel->mPrescribedLongitudinalSlip = prescribedSlip;
+                    wheel->mPrescribedBraking = vehicle.sourceBrakeTorque > std::abs(source.wheels[i].driven ? vehicle.motorTorque : 0.0F);
+                    const float sideways = wheel->HasContact() ? relative.Dot(wheel->GetContactLateral()) : 0.0F;
+                    const float normal = wheel->HasContact() ? relative.Dot(wheel->GetContactNormal()) : 0.0F;
+                    vehicle.sourceLateralSlips[i] = std::atan2(std::abs(sideways), std::sqrt(forward * forward + normal * normal));
+                    if(wheel->HasContact() && nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55")) {
+                        const auto r=fromJolt(relative),axis=fromJolt(wheel->GetContactLateral());
+                        vehicle.sourceLateralSlips[i]=nt::lateralAngle({{r.x,r.y,r.z}},{{axis.x,axis.y,axis.z}});
+                        const char* angleTraceV100=std::getenv("RRR3D_TIRE_ANGLE_TRACE_FILE_V100");
+                        const char* angleStepV100=std::getenv("RRR3D_TIRE_ANGLE_TRACE_STEP_V100");
+                        if(angleTraceV100 && *angleTraceV100 && (!angleStepV100 || constraint.GetSourceSimulationCounterV59()==std::strtoul(angleStepV100,nullptr,10))) {
+                            const nt::Vector relativeV100={{r.x,r.y,r.z}},axisV100={{axis.x,axis.y,axis.z}};
+                            const float lengthV100=std::sqrt(nt::dotZYX(relativeV100,relativeV100));
+                            const float cosineV100=nt::div(nt::dotZYX(axisV100,relativeV100),lengthV100);
+                            const auto pointV100=fromJolt(wheel->GetContactPosition());
+                            const float valuesV100[]={r.x,r.y,r.z,axis.x,axis.y,axis.z,cosineV100,vehicle.sourceLateralSlips[i],lengthV100,pointV100.x,pointV100.y,pointV100.z};
+                            if(FILE* file=std::fopen(angleTraceV100,"a")) {
+                                std::fprintf(file,"{\"physical_tick\":%u,\"vehicle\":%zu,\"wheel\":%u,\"words\":[",constraint.GetSourceSimulationCounterV59(),vehicleIndexValue,i);
+                                for(unsigned valueV100=0;valueV100<12;++valueV100){std::uint32_t wordV100=0;std::memcpy(&wordV100,&valuesV100[valueV100],sizeof(wordV100));std::fprintf(file,"%s%u",valueV100?",":"",wordV100);}
+                                std::fprintf(file,"]}\n");std::fclose(file);
+                            }
+                        }
+                    }
+                    auto& anchor=vehicle.tireAnchorsV55[i];anchor.lateral=anchor.longitudinal=0;
+                    const auto anchorPreviousV91=anchor.point;
+                    const bool anchorValidBeforeV91=anchor.valid;
+                    if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55")) {
+                        if(!wheel->HasContact()) {
+                            // Native wheel anchor state outlives its transient contact manager.
+                            if(!nt::enabled("RRR3D_EXPERIMENT_NATIVE_RETAIN_TIRE_ANCHOR_V91"))anchor.valid=false;
+                        }
+                        else {
+                            JPH::BodyLockRead contact(system_.GetBodyLockInterfaceNoLock(),wheel->GetContactBodyID());
+                            if(!contact.Succeeded() || !contact.GetBody().IsStatic())anchor.valid=false;
+                            else {
+                                const auto p=fromJolt(wheel->GetContactPosition());
+                                const auto lateral=fromJolt(wheel->GetContactLateral()),longitudinal=fromJolt(wheel->GetContactLongitudinal());
+                                if(!anchor.valid || anchor.body!=wheel->GetContactBodyID()) {anchor.point=p;anchor.valid=true;anchor.body=wheel->GetContactBodyID();}
+                                const auto result=nt::anchor({{p.x,p.y,p.z}},{{anchor.point.x,anchor.point.y,anchor.point.z}},{{lateral.x,lateral.y,lateral.z}},{{longitudinal.x,longitudinal.y,longitudinal.z}},sourceSkinWidth,vehicle.sourceWheelAxleSpeeds[i]);
+                                if(result.update)anchor.point=p;
+                                else {anchor.lateral=result.lateral_error;anchor.longitudinal=result.longitudinal_error;}
+                            }
+                        }
+                    }
+                    const char* anchorTraceV91=std::getenv("RRR3D_TIRE_ANCHOR_TRACE_FILE_V91");
+                    if(anchorTraceV91 && *anchorTraceV91 && constraint.GetSourceSimulationCounterV59()<=60) {
+                        if(FILE* file=std::fopen(anchorTraceV91,"a")) {
+                            const auto currentV91=wheel->HasContact()?fromJolt(wheel->GetContactPosition()):Vec3{0,0,0};
+                            std::fprintf(file,"{\"event\":\"tire-anchor-lifetime\",\"step\":%u,\"vehicle\":%zu,\"wheel\":%u,\"has_contact\":%s,\"valid_before\":%s,\"valid_after\":%s,\"current\":[%.9g,%.9g,%.9g],\"previous\":[%.9g,%.9g,%.9g],\"stored\":[%.9g,%.9g,%.9g],\"lateral_error\":%.9g,\"longitudinal_error\":%.9g}\n",
+                                constraint.GetSourceSimulationCounterV59(),vehicleIndexValue,i,
+                                wheel->HasContact()?"true":"false",anchorValidBeforeV91?"true":"false",anchor.valid?"true":"false",
+                                currentV91.x,currentV91.y,currentV91.z,anchorPreviousV91.x,anchorPreviousV91.y,anchorPreviousV91.z,
+                                anchor.point.x,anchor.point.y,anchor.point.z,anchor.lateral,anchor.longitudinal);
+                            std::fclose(file);
+                        }
+                    }
+                }
+            });
+        vehicles_.back().constraint->SetCombineFriction(
+            [this, vehicleIndexValue](JPH::uint, float& longitudinal,
+                                      float& lateral, const JPH::Body&,
+                                      const JPH::SubShapeID&) {
+                // GameCar::IsClutchLocked makes the PhysX wheel contact
+                // modifier set every wheel's normal force to zero.  Jolt
+                // exposes the equivalent at the tire/contact friction
+                // boundary, so oil disables both force components while the
+                // source clutch timer is active.
+                if (!vehicles_[vehicleIndexValue].wheelTractionEnabled)
+                {
+                    longitudinal = 0.0F;
+                    lateral = 0.0F;
+                    return;
+                }
+                lateral *=
+                    vehicles_[vehicleIndexValue].lateralGripScale;
+                // NxWheelShape evaluates its serialized tire functions
+                // directly; the contacted material index is passed to the
+                // callback but the original implementation does not scale
+                // either tire coefficient by ground friction.
+            });
+        vehicles_.back().controller->SetTireMaxImpulseCallback(
+            [this, vehicleIndexValue](
+                JPH::uint wheelIndex, float& longitudinal,
+                float& lateral, float suspensionImpulse,
+                float longitudinalFriction, float lateralFriction,
+                float longitudinalSlip, float lateralSlip,
+                float deltaTime) {
+                auto& vehicle = vehicles_[vehicleIndexValue];
+                const auto& source = vehicle.spawn.vehicle;
+                const auto* wheel =
+                    vehicle.constraint->GetWheel(wheelIndex);
+                const bool sourceForceDomainV84 = tuning_.physxWheelCompat &&
+                    sourceTireForceHistoryEnabled() && wheel->HasContact() &&
+                    !source.wheels.empty() && motorrock::tirev55::enabled(
+                        "RRR3D_EXPERIMENT_NATIVE_FORCE_DOMAIN_V84");
+                float allowedSuspensionImpulse = suspensionImpulse;
+                if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled() &&
+                    wheelIndex < vehicle.previousSuspensionForces.size())
+                    allowedSuspensionImpulse = vehicle.previousSuspensionForces[wheelIndex] * deltaTime;
+                if (sourceForceDomainV84)
+                {
+                    const auto result = motorrock::normalforcev84::modify(
+                        vehicle.previousSuspensionForces[wheelIndex], source.mass,
+                        fromJolt(wheel->GetContactNormal()).z,
+                        fromJolt(system_.GetGravity()).z,
+                        static_cast<float>(source.wheels.size()),
+                        vehicle.wheelTractionEnabled, source.tireSpring);
+                    vehicle.wheelNormalForcesV84[wheelIndex] = result.force;
+                    allowedSuspensionImpulse = motorrock::tirev55::mul(result.force, deltaTime);
+                    vehicle.wheelNormalImpulses[wheelIndex] = allowedSuspensionImpulse;
+                    vehicle.wheelNormalReactions[wheelIndex] = result.reaction;
+                    vehicle.wheelTireReleaseActive[wheelIndex] = result.released;
+                }
+                else if (wheel->HasContact() && !source.wheels.empty())
+                {
+                    const float normalAcceleration = std::abs(
+                        system_.GetGravity().Dot(
+                            wheel->GetContactNormal()));
+                    const float normalReactionImpulse =
+                        source.mass * normalAcceleration * deltaTime /
+                        static_cast<float>(source.wheels.size());
+                    if (normalReactionImpulse > 1.0e-6F ||
+                        (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled()))
+                    {
+                        auto force = sourceWheelNormalForce(
+                            allowedSuspensionImpulse, normalReactionImpulse,
+                            vehicle.wheelTractionEnabled,
+                            source.tireSpring);
+                        // The Nx callback caps to the gravity-projected load even when it is zero.
+                        if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled())
+                            force.impulse = std::min(force.impulse, normalReactionImpulse * 1.5F);
+                        allowedSuspensionImpulse = force.impulse;
+                        if (wheelIndex <
+                            vehicle.wheelNormalReactions.size())
+                        {
+                            vehicle.wheelNormalReactions[wheelIndex] =
+                                force.reaction;
+                        }
+                        if (wheelIndex <
+                            vehicle.wheelNormalImpulses.size())
+                        {
+                            vehicle.wheelNormalImpulses[wheelIndex] =
+                                force.impulse;
+                        }
+                        if (wheelIndex <
+                            vehicle.wheelTireReleaseActive.size())
+                        {
+                            vehicle.wheelTireReleaseActive[wheelIndex] =
+                                vehicle.wheelTractionEnabled &&
+                                source.tireSpring > 0.0F &&
+                                force.reaction > source.tireSpring;
+                        }
+                    }
+                }
+                constexpr std::uint32_t clampedFriction = 1U << 6U;
+                if (!vehicle.wheelTractionEnabled)
+                {
+                    longitudinalFriction = 0.0F;
+                    lateralFriction = 0.0F;
+                }
+                else if (wheelIndex < source.wheels.size() &&
+                    (source.wheels[wheelIndex].flags & clampedFriction) != 0U)
+                {
+                    if (tuning_.physxWheelCompat && wheel->HasContact())
+                    {
+                        longitudinalSlip = vehicle.sourceLongitudinalSlips[wheelIndex];
+                        lateralSlip = vehicle.sourceLateralSlips[wheelIndex];
+                    }
+                    const bool lowSpeedFriction =
+                        (!tuning_.physxWheelCompat ||
+                         (std::abs(longitudinalSlip) < 1.0e-6F && std::abs(lateralSlip) < 1.0e-4F)) &&
+                        wheel->HasContact() &&
+                        wheelIndex <
+                            vehicle.previousWheelContactPositions.size() &&
+                        wheelIndex <
+                            vehicle.previousWheelContactValid.size() &&
+                        sourceLowSpeedWheelContact(
+                            vehicle.previousWheelContactPositions[wheelIndex],
+                            fromJolt(wheel->GetContactPosition()),
+                            vehicle.previousWheelContactValid[wheelIndex]);
+                    if (wheelIndex <
+                        vehicle.wheelLowSpeedFrictionActive.size())
+                    {
+                        vehicle.wheelLowSpeedFrictionActive[wheelIndex] =
+                            lowSpeedFriction;
+                    }
+                    // NX_WF_CLAMPED_FRICTION interprets hermiteEval directly
+                    // as mu and ignores stiffnessFactor. Jolt reports the
+                    // same longitudinal ratio and lateral angle (radians) to
+                    // this callback. At low speed PhysX instead uses the
+                    // documented static mu=extremumValue branch.
+                    longitudinalFriction = sourceClampedTireFriction(
+                        source.wheels[wheelIndex].longitudinalTire,
+                        longitudinalSlip, lowSpeedFriction);
+                    lateralFriction = sourceClampedTireFriction(
+                        source.wheels[wheelIndex].lateralTire,
+                        lateralSlip, lowSpeedFriction);
+                    if(motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") && vehicle.tireAnchorsV55[wheelIndex].valid) {
+                        // Native clamped row bounds remain curve-based even when anchor positional bias is nonzero.
+                        auto exactCurve=[](const WheelDescription::TireFunction& t,float slip) {return std::abs(motorrock::tirev55::curve(slip,t.extremumSlip,t.extremumValue,t.asymptoteSlip,t.asymptoteValue));};
+                        longitudinalFriction=exactCurve(source.wheels[wheelIndex].longitudinalTire,longitudinalSlip);
+                        lateralFriction=exactCurve(source.wheels[wheelIndex].lateralTire,lateralSlip);
+                    }
+                    lateralFriction *= vehicle.lateralGripScale;
+                }
+                if(motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55")) {
+                    allowedSuspensionImpulse=std::abs(motorrock::tirev55::impulseScale((sourceForceDomainV84 ? vehicle.wheelNormalForcesV84[wheelIndex] : motorrock::tirev55::div(allowedSuspensionImpulse,deltaTime)),vehicle.tireProjectionsV55[wheelIndex],deltaTime));
+                }
+                const char* combinedTraceV95 = std::getenv("RRR3D_COMBINED_TIRE_TRACE_FILE_V95");
+                const char* combinedStepV95 = std::getenv("RRR3D_COMBINED_TIRE_TRACE_STEP_V95");
+                if (combinedTraceV95 && *combinedTraceV95 &&
+                    vehicle.constraint->GetSourceVelocityStepsV57() == 1 &&
+                    (!combinedStepV95 || vehicle.constraint->GetSourceSimulationCounterV59() == std::strtoul(combinedStepV95, nullptr, 10) + 1) &&
+                    wheelIndex < source.wheels.size())
+                {
+                    if (FILE* file = std::fopen(combinedTraceV95, "a"))
+                    {
+                        std::fprintf(file, "{\"event\":\"combined-tire-input\",\"physical_tick\":%u,\"wheel\":%u,\"flags\":%u,\"has_contact\":%s,\"longitudinal\":%.9g,\"lateral\":%.9g,\"extremum_longitudinal\":%.9g,\"extremum_lateral\":%.9g,\"projected_force_impulse\":%.9g,\"normal_force\":%.9g,\"projection\":%.9g,\"delta\":%.9g,\"longitudinal_slip\":%.9g,\"lateral_slip\":%.9g}\n",
+                            vehicle.constraint->GetSourceSimulationCounterV59() - 1, wheelIndex, source.wheels[wheelIndex].flags, wheel->HasContact() ? "true" : "false",
+                            longitudinalFriction, lateralFriction, source.wheels[wheelIndex].longitudinalTire.extremumValue, source.wheels[wheelIndex].lateralTire.extremumValue,
+                            allowedSuspensionImpulse, vehicle.wheelNormalForcesV84[wheelIndex], vehicle.tireProjectionsV55[wheelIndex], deltaTime, longitudinalSlip, lateralSlip);
+                        std::fclose(file);
+                    }
+                }
+                const bool nativeCombinedTireV95 = tuning_.physxWheelCompat &&
+                    motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_COMBINED_TIRE_V95") &&
+                    wheel->HasContact() && wheelIndex < source.wheels.size() &&
+                    (source.wheels[wheelIndex].flags & clampedFriction) != 0 &&
+                    source.wheels[wheelIndex].longitudinalTire.extremumValue > 0 &&
+                    source.wheels[wheelIndex].lateralTire.extremumValue > 0;
+                if (nativeCombinedTireV95)
+                {
+                    const auto coupled = motorrock_combined_tire_v95::normalize(
+                        longitudinalFriction, lateralFriction,
+                        source.wheels[wheelIndex].longitudinalTire.extremumValue,
+                        source.wheels[wheelIndex].lateralTire.extremumValue);
+                    longitudinalFriction = coupled.longitudinal;
+                    lateralFriction = coupled.lateral;
+                }
+                longitudinal =
+                    longitudinalFriction * allowedSuspensionImpulse;
+                lateral = lateralFriction * allowedSuspensionImpulse;
+                namespace nt = motorrock::tirev55;
+                if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_WHEEL_ANCHOR_BIAS_V57") && vehicle.constraint->UsesSourceSpringFinal() &&
+                    vehicle.constraint->GetSourceVelocityStepsV57()==1 &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") &&
+                    wheel->HasContact() && (wheel->GetSteerAngle()==0 || nt::enabled("RRR3D_EXPERIMENT_NATIVE_STEERING_COMPAT_V118")) &&
+                    vehicle.tireAnchorsV55[wheelIndex].valid) {
+                    const auto &anchor=vehicle.tireAnchorsV55[wheelIndex];
+                    const float inverse_time=nt::div(1,deltaTime);
+                    vehicle.constraint->GetWheel(wheelIndex)->SetSourceAnchorBiasV57(nt::mul(anchor.longitudinal,inverse_time),nt::mul(anchor.lateral,inverse_time),nt::mul(vehicle.sourceWheelAxleSpeeds[wheelIndex],source.wheels[wheelIndex].radius));
+                }
+                // PhysX flags64 copies the signed curve-scaled tire request
+                // into NxWheelContactData, not the solver's final lambda.
+                // Restrict this experiment to the proved static, zero-steer,
+                // zero-longitudinal-slip branch. The V87 experiment reports both
+                // independent curve requests for nonzero longitudinal slip.
+                if (tuning_.physxWheelCompat &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_REPORT_V56") &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_ANCHOR_V55") &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_PROJECTION_V55") &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_BASIS_V55") &&
+                    nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_SLIP_V55") &&
+                    wheel->HasContact() && (wheel->GetSteerAngle()==0 || nt::enabled("RRR3D_EXPERIMENT_NATIVE_STEERING_COMPAT_V118")) &&
+                    vehicle.tireAnchorsV55[wheelIndex].valid &&
+                    (source.wheels[wheelIndex].flags & clampedFriction)!=0 &&
+                    (longitudinalSlip==0 || (nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_REQUEST_REPORT_V87") && wheel->HasStaticSourceContactV58())) && vehicle.tireProjectionsV55[wheelIndex]>=0)
+                {
+                    const auto& t=source.wheels[wheelIndex].lateralTire;
+                    float requested=nt::mul(-nt::curve(lateralSlip,t.extremumSlip,t.extremumValue,t.asymptoteSlip,t.asymptoteValue),allowedSuspensionImpulse);
+                    // The retained Windows observable log prints signed zero
+                    // as 0. Private solver signed-zero parity remains unproved.
+                    vehicle.sourceLateralImpulseReportV56[wheelIndex]=requested==0?0:requested;
+                    float longitudinalRequested=0;
+                    if(nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_REQUEST_REPORT_V87")) {
+                        const auto& longitudinalCurve=source.wheels[wheelIndex].longitudinalTire;
+                        longitudinalRequested=nt::mul(-nt::curve(longitudinalSlip,longitudinalCurve.extremumSlip,longitudinalCurve.extremumValue,longitudinalCurve.asymptoteSlip,longitudinalCurve.asymptoteValue),allowedSuspensionImpulse);
+                    }
+                    if (nativeCombinedTireV95)
+                    {
+                        const auto& longCurve = source.wheels[wheelIndex].longitudinalTire;
+                        const auto coupled = motorrock_combined_tire_v95::normalize(
+                            -nt::curve(longitudinalSlip, longCurve.extremumSlip, longCurve.extremumValue, longCurve.asymptoteSlip, longCurve.asymptoteValue),
+                            -nt::curve(lateralSlip, t.extremumSlip, t.extremumValue, t.asymptoteSlip, t.asymptoteValue),
+                            longCurve.extremumValue, t.extremumValue);
+                        requested = nt::mul(coupled.lateral, allowedSuspensionImpulse);
+                        vehicle.sourceLateralImpulseReportV56[wheelIndex] = requested == 0 ? 0 : requested;
+                        if (nt::enabled("RRR3D_EXPERIMENT_NATIVE_TIRE_REQUEST_REPORT_V87"))
+                            longitudinalRequested = nt::mul(coupled.longitudinal, allowedSuspensionImpulse);
+                    }
+                    vehicle.sourceLongitudinalImpulseReportV87[wheelIndex]=longitudinalRequested==0?0:longitudinalRequested;
+                    vehicle.sourceImpulseReportValidV56[wheelIndex]=true;
+                }
+            });
+    }
+
+    void updateState(VehicleRuntime& vehicle) noexcept
+    {
+        if (!vehicle.enabled)
+        {
+            vehicle.state.bodyAwake = false;
+            vehicle.state.linearVelocity = {};
+            vehicle.state.angularMomentum = {};
+            vehicle.state.kineticEnergy = 0.0F;
+            vehicle.state.speed = 0.0F;
+            vehicle.state.drivenWheelSpeed = 0.0F;
+            vehicle.state.engineRpm = 0.0F;
+            vehicle.state.gear = -1;
+            vehicle.state.contactCount = 0U;
+            vehicle.state.bodyContacts.clear();
+            vehicle.state.wheels.clear();
+            vehicle.state.wheelAngularSpeeds.clear();
+            vehicle.state.wheelContacts.clear();
+            return;
+        }
+        JPH::BodyLockRead lock(system_.GetBodyLockInterface(), vehicle.body);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        auto& state = vehicle.state;
+        state.bodyAwake = body.IsActive();
+        const char* actorOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_OUTPUT");
+        const char* dynamicOutputFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_DYNAMIC_ACTOR_OUTPUT");
+        if((vehicle.spawn.vehicle.freezeRotation && actorOutputFlag && std::strcmp(actorOutputFlag,"1")==0) ||
+            (!vehicle.spawn.vehicle.freezeRotation && dynamicOutputFlag && std::strcmp(dynamicOutputFlag,"1")==0)) {
+            const auto q=fromJolt(body.GetRotation());
+            const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+            const auto local=fromJolt(body.GetShape()->GetCenterOfMass());
+            const auto origin=motorrock::quaternionposev43::origin({{q.x,q.y,q.z,q.w}},{{cm.x,cm.y,cm.z}},{{local.x,local.y,local.z}});
+            state.body.position={origin[0],origin[1],origin[2]};
+        }
+        else state.body.position = fromJolt(body.GetPosition());
+        state.body.rotation = fromJolt(body.GetRotation());
+        state.body.scale = {1.0F, 1.0F, 1.0F};
+        state.linearVelocity = fromJolt(body.GetLinearVelocity());
+        const JPH::Vec3 angularVelocity = body.GetAngularVelocity();
+        JPH::Vec3 angularMomentum = JPH::Vec3::sZero();
+        bool nativeMomentumReady = false;
+        const char* publicAngularFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_PUBLIC_ANGULAR_MOMENTUM");
+        if (!vehicle.spawn.vehicle.freezeRotation && publicAngularFlag && std::strcmp(publicAngularFlag, "1") == 0)
+        {
+            const auto local = body.GetMotionProperties()->GetLocalSpaceInverseInertia();
+            // This oracle currently covers an identity mass frame in source axes.
+            // Do not approximate a non-diagonal frame by dropping its cross terms.
+            bool diagonal = true;
+            for (unsigned i=0; i<3; ++i) for (unsigned j=0; j<3; ++j)
+                if (i!=j && local(i,j)!=0.0F) diagonal=false;
+            if (diagonal && local(0,0)>0 && local(1,1)>0 && local(2,2)>0)
+            {
+                const auto q = fromJolt(body.GetRotation());
+                const auto omega = fromJoltAngular(angularVelocity);
+                const auto matrix = motorrock::nativepublicangular::orientation({q.x,q.y,q.z,q.w});
+                const auto tensor = motorrock::nativepublicangular::inertia(matrix, {1.0F/local(0,0),1.0F/local(2,2),1.0F/local(1,1)});
+                const auto momentum = motorrock::nativepublicangular::momentum(tensor,{omega.x,omega.y,omega.z});
+                angularMomentum = toJoltAngular(Vec3{momentum[0],momentum[1],momentum[2]});
+                nativeMomentumReady = true;
+            }
+        }
+        // The Native accessor accepts the original, slightly non-unit pose.
+        // Do not evaluate a Jolt-only fallback that would be overwritten:
+        // its principal rotation requires normalized input and asserts on
+        // long original integration histories.
+        if (!vehicle.spawn.vehicle.freezeRotation && !nativeMomentumReady)
+        {
+            angularMomentum = body.GetInverseInertia()
+                    .Inversed3x3()
+                    .Multiply3x3(angularVelocity);
+            const char* principalMomentumFlag = std::getenv("RRR3D_EXPERIMENT_PRINCIPAL_MOMENTUM");
+            if (!vehicle.spawn.vehicle.freezeRotation && principalMomentumFlag &&
+                std::strcmp(principalMomentumFlag, "1") == 0) {
+                const auto* motion = body.GetMotionProperties();
+                const JPH::Vec3 inv = motion->GetInverseInertiaDiagonal();
+                const JPH::Vec3 diagonal(inv.GetX() > 0 ? 1.0F / inv.GetX() : 0,
+                                         inv.GetY() > 0 ? 1.0F / inv.GetY() : 0,
+                                         inv.GetZ() > 0 ? 1.0F / inv.GetZ() : 0);
+                const JPH::Mat44 principal = JPH::Mat44::sRotation(
+                    body.GetRotation() * motion->GetInertiaRotation());
+                angularMomentum = principal.Multiply3x3(
+                    diagonal * principal.Multiply3x3Transposed(angularVelocity));
+            }
+        }
+        state.angularMomentum = fromJoltAngular(angularMomentum);
+        const char* angularTrace = std::getenv("RRR3D_ANGULAR_STATE_TRACE");
+        if (angularTrace && std::strcmp(angularTrace, "1") == 0)
+        {
+            const auto q = fromJolt(body.GetRotation());
+            const auto omega = fromJoltAngular(angularVelocity);
+            const auto center = fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));
+            const auto localCenter = fromJolt(body.GetShape()->GetCenterOfMass());
+            const auto inverseDiagonal = body.GetMotionProperties()->GetInverseInertiaDiagonal();
+            const auto inertiaQ = fromJolt(body.GetMotionProperties()->GetInertiaRotation());
+            std::ostringstream diagnostic; diagnostic.imbue(std::locale::classic());
+            diagnostic << std::setprecision(9) << "{\"body_id\":" << body.GetID().GetIndexAndSequenceNumber()
+                << ",\"angular_velocity\":[" << omega.x << ',' << omega.y << ',' << omega.z
+                << "],\"physical_quaternion\":[" << q.x << ',' << q.y << ',' << q.z << ',' << q.w
+                << "],\"inertia_quaternion\":[" << inertiaQ.x << ',' << inertiaQ.y << ',' << inertiaQ.z << ',' << inertiaQ.w
+                << "],\"inverse_diagonal\":[" << inverseDiagonal.GetX() << ',' << inverseDiagonal.GetZ() << ',' << inverseDiagonal.GetY()
+                << "],\"center_position\":[" << center.x << ',' << center.y << ',' << center.z
+                << "],\"local_center\":[" << localCenter.x << ',' << localCenter.y << ',' << localCenter.z
+                << "],\"momentum\":[" << state.angularMomentum.x << ',' << state.angularMomentum.y << ',' << state.angularMomentum.z << ']';
+            const JPH::Mat44 matrices[] = {JPH::Mat44::sRotation(body.GetRotation()),
+                body.GetInverseInertia(), body.GetMotionProperties()->GetLocalSpaceInverseInertia()};
+            const char* names[] = {"body_orientation_columns", "world_inverse_inertia_columns", "local_inverse_inertia_columns"};
+            const unsigned axes[] = {0, 2, 1};
+            for (unsigned m = 0; m < 3; ++m)
+            {
+                diagnostic << ",\"" << names[m] << "\":[";
+                for (unsigned col = 0; col < 3; ++col)
+                {
+                    if (col) diagnostic << ',';
+                    diagnostic << '[' << matrices[m](axes[0], axes[col]) << ','
+                        << matrices[m](axes[1], axes[col]) << ',' << matrices[m](axes[2], axes[col]) << ']';
+                }
+                diagnostic << ']';
+            }
+            diagnostic << '}';
+            motorrock::parity::event("physics.angular-state", "independent body state", diagnostic.str());
+        }
+        state.kineticEnergy =
+            0.5F * vehicle.spawn.vehicle.mass *
+                body.GetLinearVelocity().LengthSq() +
+            0.5F * angularVelocity.Dot(angularMomentum);
+        // Player::CarState::Update obtains GameCar::GetSpeed(actor, dir),
+        // i.e. the signed projection on the car's local +X axis, and applies
+        // its one-metre-per-second dead zone.  Feeding total velocity length
+        // here made AICar think a vehicle sliding sideways against a border
+        // was still moving forward, so its source blocking/reverse/reset
+        // state machine never recovered and opponents accumulated on walls.
+        const float longitudinalSpeed = body.GetLinearVelocity().Dot(
+            body.GetRotation() * JPH::Vec3::sAxisX());
+        state.speed = std::abs(longitudinalSpeed) < 1.0F
+                          ? 0.0F
+                          : longitudinalSpeed;
+        state.drivenWheelSpeed = 0.0F;
+        state.engineRpm = vehicle.engineRpm;
+        state.gear = vehicle.currentGear;
+        state.resetCount = vehicle.resetCount;
+        std::size_t vehicleIndexValue =
+            static_cast<std::size_t>(&vehicle - vehicles_.data());
+        state.bodyContacts = contactListener_.take(vehicleIndexValue);
+        state.wheels.clear();
+        state.wheelAngularSpeeds.clear();
+        state.wheelContacts.clear();
+        state.wheels.reserve(vehicle.constraint->GetWheels().size());
+        state.wheelAngularSpeeds.reserve(
+            vehicle.constraint->GetWheels().size());
+        state.wheelContacts.reserve(
+            vehicle.constraint->GetWheels().size());
+        JPH::uint contacts = 0;
+        bool freeWheelSpeedRead = false;
+        for (JPH::uint index = 0;
+             index < vehicle.constraint->GetWheels().size();
+             ++index)
+        {
+            const auto matrix = vehicle.constraint->GetWheelWorldTransform(
+                index, JPH::Vec3::sAxisZ(), JPH::Vec3::sAxisY());
+            Transform wheel;
+            wheel.position = fromJolt(matrix.GetTranslation());
+            wheel.rotation = fromJolt(matrix.GetQuaternion());
+            wheel.scale = {1.0F, 1.0F, 1.0F};
+            state.wheels.push_back(wheel);
+            const auto* joltWheel =
+                vehicle.constraint->GetWheel(index);
+            state.wheelAngularSpeeds.push_back(
+                joltWheel->GetAngularVelocity());
+            // GameCar::GetDrivenWheelSpeed searches the first !lead wheel.
+            // Despite the historical method name, lead is the powered
+            // group and the camera deliberately observes a free wheel.
+            if (!freeWheelSpeedRead &&
+                index < vehicle.spawn.vehicle.wheels.size() &&
+                !vehicle.spawn.vehicle.wheels[index].driven)
+            {
+                freeWheelSpeedRead = true;
+                const float speed =
+                    joltWheel->GetAngularVelocity() *
+                    vehicle.spawn.vehicle.wheels[index].radius;
+                state.drivenWheelSpeed =
+                    std::abs(speed) > 0.1F ? speed : 0.0F;
+            }
+            WheelContactState contact;
+            contact.hasContact = joltWheel->HasContact();
+            if (contact.hasContact)
+            {
+                contact.position =
+                    fromJolt(joltWheel->GetContactPosition());
+                contact.normal =
+                    fromJolt(joltWheel->GetContactNormal());
+                const auto* wheeled =
+                    static_cast<const JPH::WheelWV*>(joltWheel);
+                contact.longitudinalSlip = wheeled->mLongitudinalSlip;
+                contact.lateralSlip = wheeled->mLateralSlip;
+                const float suspensionDistanceV116 = joltWheel->GetSuspensionLength();
+                const float suspensionRadiusV116 = tuning_.physxWheelCompat ? vehicle.spawn.vehicle.wheels[index].radius : 0.0F;
+                // The original probe subtracts two float API values in x87 and
+                // stores a double for reporting. Keep the legacy float store
+                // when the diagnostic precision experiment is disabled.
+                const bool preciseLengthReportV116 = tuning_.physxWheelCompat && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_LENGTH_REPORT_V116");
+                contact.suspensionLength = preciseLengthReportV116
+                    ? double(suspensionDistanceV116) - double(suspensionRadiusV116)
+                    : double(float(suspensionDistanceV116 - suspensionRadiusV116));
+                contact.suspensionForce = joltWheel->GetSuspensionLambda() / lastSolverDelta_;
+                if (tuning_.physxWheelCompat && sourceTireForceHistoryEnabled() &&
+                    index < vehicle.wheelNormalImpulses.size())
+                {
+                    contact.suspensionForce = motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_FORCE_DOMAIN_V84")
+                        ? vehicle.wheelNormalForcesV84[index]
+                        : vehicle.wheelNormalImpulses[index] / lastSolverDelta_;
+                    contact.longitudinalSlip = vehicle.sourceLongitudinalSlips[index];
+                    contact.lateralSlip = vehicle.sourceLateralSlips[index];
+                }
+                contact.longitudinalImpulse = joltWheel->GetLongitudinalLambda();
+                contact.lateralImpulse = joltWheel->GetLateralLambda();
+                if (vehicle.sourceImpulseReportValidV56[index])
+                {
+                    contact.longitudinalImpulse=vehicle.sourceLongitudinalImpulseReportV87[index];
+                    contact.lateralImpulse=vehicle.sourceLateralImpulseReportV56[index];
+                }
+                if (index < vehicle.wheelNormalReactions.size())
+                {
+                    contact.normalReaction =
+                        vehicle.wheelNormalReactions[index];
+                }
+                if (index < vehicle.wheelNormalImpulses.size())
+                {
+                    contact.normalImpulse =
+                        vehicle.wheelNormalImpulses[index];
+                }
+                if (index < vehicle.wheelTireReleaseActive.size())
+                {
+                    contact.normalForceReleased =
+                        vehicle.wheelTireReleaseActive[index];
+                }
+                if (index <
+                    vehicle.wheelLowSpeedFrictionActive.size())
+                {
+                    contact.lowSpeedFriction =
+                        vehicle.wheelLowSpeedFrictionActive[index];
+                }
+                ++contacts;
+            }
+            // Optional read-only API input trace, tied to the completed SDK step.
+            const char* lengthTraceV116 = std::getenv("RRR3D_WHEEL_LENGTH_TRACE_FILE_V116");
+            if (lengthTraceV116 && *lengthTraceV116) {
+                const auto counterV116 = vehicle.constraint->GetSourceSimulationCounterV59();
+                if (counterV116 > 0) if (FILE* file = std::fopen(lengthTraceV116, "a")) {
+                    const float distanceV116 = contact.hasContact ? joltWheel->GetSuspensionLength() : 0.0F;
+                    const float radiusV116 = tuning_.physxWheelCompat ? vehicle.spawn.vehicle.wheels[index].radius : 0.0F;
+                    const auto wordV116 = [](float v) { std::uint32_t word=0; std::memcpy(&word,&v,4); return word; };
+                    std::fprintf(file,"{\"physical_tick\":%u,\"wheel\":%zu,\"has_contact\":%s,\"distance_word\":%u,\"radius_word\":%u,\"reported_length\":%.17g}\n",
+                        counterV116-1,index,contact.hasContact?"true":"false",wordV116(distanceV116),wordV116(radiusV116),contact.suspensionLength);
+                    std::fclose(file);
+                }
+            }
+            state.wheelContacts.push_back(contact);
+        }
+        state.contactCount = contacts;
+    }
+
+    void updateState(DebrisRuntime& debris) noexcept
+    {
+        if (!debris.state.active || debris.body.IsInvalid())
+            return;
+        JPH::BodyLockRead lock(system_.GetBodyLockInterface(), debris.body);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        debris.state.bodyAwake = body.IsActive();
+        debris.state.body.position = fromJolt(body.GetPosition());
+        debris.state.body.rotation = fromJolt(body.GetRotation());
+        debris.state.linearVelocity = fromJolt(body.GetLinearVelocity());
+    }
+
+    void updateState(std::size_t index) noexcept
+    {
+        if (index >= decorations_.size())
+            return;
+        auto& decoration = decorations_[index];
+        if (!decoration.state.active || decoration.shapeBody.IsInvalid())
+            return;
+        JPH::BodyLockRead lock(system_.GetBodyLockInterface(),
+                               decoration.shapeBody);
+        if (!lock.Succeeded())
+            return;
+        const JPH::Body& body = lock.GetBody();
+        decoration.state.bodyAwake = body.IsActive();
+        decoration.state.body.position = fromJolt(body.GetPosition());
+        decoration.state.body.rotation = fromJolt(body.GetRotation());
+        decoration.state.linearVelocity = fromJolt(body.GetLinearVelocity());
+    }
+
+    CalibrationTuning tuning_;
+    WorldDescription description_;
+    BroadPhaseLayerInterface broadPhaseInterface_;
+    ObjectVsBroadPhaseFilter objectVsBroadPhase_;
+    ObjectLayerPairFilter objectLayerPairs_;
+    JPH::PhysicsSystem system_;
+    OriginalContactListener contactListener_;
+    JPH::TempAllocatorImpl tempAllocator_;
+    JPH::JobSystemThreadPool jobs_;
+    std::vector<JPH::BodyID> trackBodies_;
+    std::vector<VehicleRuntime> vehicles_;
+    std::vector<motorrock::wheelpairv106::Lifetime> sourceWheelPairLifetimesV106_;
+    bool sourceStaticPairOrderV108_=false;
+    std::map<JPH::uint32,unsigned> sourceStaticBodyShapesV108_;
+    motorrock::contactmanagerorderv108::List sourceWheelManagerOrderV108_;
+    motorrock::contactorderv79::Scene sourceContactOrderV79_;
+    std::vector<unsigned> sourceContactBodyShapesV79_;
+    bool sourceStaticGroundOrderV90_=false;
+    std::vector<DecorationRuntime> decorations_;
+    std::vector<DebrisRuntime> debris_;
+    std::vector<ProjectileBodyRuntime> projectileBodies_;
+    DecorationState emptyDecoration_;
+    DebrisState emptyDebris_;
+    ProjectileBodyState emptyProjectileBody_;
+    VehicleFixedStepController fixedStepController_;
+    WorldFixedStepController worldFixedStepController_;
+    std::vector<VehicleInput> fixedStepInputs_;
+    std::vector<VehicleInput> sourceFixedInputs_;
+    std::vector<VehicleState> fixedStepStates_;
+    std::vector<VehicleResetCommand> fixedStepResets_;
+    std::vector<VehicleLinearVelocityCommand>
+        fixedStepLinearVelocities_;
+    std::vector<ProjectileBodyState> fixedStepProjectileStates_;
+    std::vector<ProjectileBodyCommand> fixedStepProjectileCommands_;
+    float sourceFixedStepAccumulator_ = 0.0F;
+    float lastSolverDelta_ = 1.0F / 120.0F;
+};
+
+} // namespace
+
+std::unique_ptr<OriginalVehicleWorld> createOriginalVehicleWorld(
+    const WorldDescription& description, std::string& error)
+{
+    try
+    {
+        // Jolt's allocator callback must be registered before member
+        // construction creates TempAllocatorImpl.
+        static_cast<void>(runtime());
+        auto result = std::make_unique<JoltVehicleWorld>(description);
+        error.clear();
+        return result;
+    }
+    catch (const std::exception& exception)
+    {
+        error = exception.what();
+        return nullptr;
+    }
+}
+
+bool runOriginalVehiclePhysicsSmokeTest(const WorldDescription& description,
+                                        std::string& error)
+{
+    constexpr std::array<SourceCollisionGroup, 8U> sourceGroups{
+        SourceCollisionGroup::Default,
+        SourceCollisionGroup::Shot,
+        SourceCollisionGroup::ShotBorder,
+        SourceCollisionGroup::ShotTransparency,
+        SourceCollisionGroup::Wheel,
+        SourceCollisionGroup::ShotTrack,
+        SourceCollisionGroup::TrackPlane,
+        SourceCollisionGroup::PlaneDeath};
+    std::size_t disabledDirectedPairs = 0U;
+    bool collisionMatrixSymmetric = true;
+    for (const auto first : sourceGroups)
+    {
+        for (const auto second : sourceGroups)
+        {
+            const bool collide = sourceCollisionGroupsShouldCollide(
+                first, second);
+            disabledDirectedPairs += collide ? 0U : 1U;
+            collisionMatrixSymmetric = collisionMatrixSymmetric &&
+                collide == sourceCollisionGroupsShouldCollide(
+                               second, first);
+        }
+    }
+    if (!collisionMatrixSymmetric || disabledDirectedPairs != 23U ||
+        !sourceCollisionGroupsShouldCollide(
+            SourceCollisionGroup::ShotBorder,
+            SourceCollisionGroup::ShotTransparency) ||
+        !sourceCollisionGroupsShouldCollide(
+            SourceCollisionGroup::ShotTrack,
+            SourceCollisionGroup::TrackPlane) ||
+        sourceCollisionGroupsShouldCollide(
+            SourceCollisionGroup::Shot,
+            SourceCollisionGroup::TrackPlane) ||
+        sourceCollisionGroupsShouldCollide(
+            SourceCollisionGroup::Wheel,
+            SourceCollisionGroup::ShotTransparency) ||
+        sourceObjectLayerGroup(sourceObjectLayer(
+            SourceCollisionGroup::ShotTrack, true)) !=
+            SourceCollisionGroup::ShotTrack ||
+        !sourceObjectLayerIsMoving(sourceObjectLayer(
+            SourceCollisionGroup::ShotBorder, true)) ||
+        sourceObjectLayerIsMoving(sourceObjectLayer(
+            SourceCollisionGroup::TrackPlane, false)))
+    {
+        error = "PhysX projectile collision-group matrix failed";
+        return false;
+    }
+    BodyContact firstContact;
+    firstContact.normal = {1.0F, 0.0F, 0.0F};
+    firstContact.normalSpeed = 2.0F;
+    firstContact.force = 60.0F;
+    firstContact.frictionForceVector = {10.0F, 0.0F, 0.0F};
+    firstContact.frictionForce = 10.0F;
+    BodyContact secondContact;
+    secondContact.normal = {0.0F, 1.0F, 0.0F};
+    secondContact.normalSpeed = 5.0F;
+    secondContact.force = 80.0F;
+    secondContact.frictionForceVector = {-2.0F, 4.0F, 0.0F};
+    secondContact.frictionForce = std::sqrt(20.0F);
+    secondContact.point = {3.0F, 4.0F, 5.0F};
+    secondContact.points = {secondContact.point};
+    secondContact.hasPoint = true;
+    accumulateSourceContactForces(
+        firstContact, std::move(secondContact));
+    if (std::abs(sourceContactReportStep - 1.0F / 60.0F) > 0.0001F ||
+        std::abs(sourceContactForceFromImpulse(2.0F) - 120.0F) >
+            0.0001F ||
+        std::abs(firstContact.force - 100.0F) > 0.0001F ||
+        std::abs(firstContact.normal.x - 0.6F) > 0.0001F ||
+        std::abs(firstContact.normal.y - 0.8F) > 0.0001F ||
+        std::abs(firstContact.normalSpeed - 5.0F) > 0.0001F ||
+        std::abs(firstContact.frictionForce - std::sqrt(80.0F)) >
+            0.0001F ||
+        std::abs(firstContact.frictionForceVector.x - 8.0F) > 0.0001F ||
+        std::abs(firstContact.frictionForceVector.y - 4.0F) > 0.0001F ||
+        !firstContact.hasPoint || firstContact.points.size() != 1U)
+    {
+        error = "PhysX actor-pair contact-force aggregation failed";
+        return false;
+    }
+    const JPH::Vec3 defaultSkinBox = sourceBoxHalfExtents(
+        {1.0F, 2.0F, 3.0F}, 0.025F);
+    const JPH::Vec3 crushSkinBox = sourceBoxHalfExtents(
+        {1.0F, 2.0F, 3.0F}, 0.1F);
+    const JPH::Vec3 thinCrushSkinBox = sourceBoxHalfExtents(
+        {0.048F, 1.0F, 1.0F}, 0.1F);
+    if (std::abs(sourcePenetrationSlop - 0.05F) > 0.0001F ||
+        sourceSolverIterations != 4U ||
+        std::abs(sourceMinimumBounceVelocity - 2.0F) > 0.0001F ||
+        std::abs(0.5F * (2.0F * sourcePointVelocitySleepThreshold) *
+                         (2.0F * sourcePointVelocitySleepThreshold) -
+                     sourceSleepEnergyThreshold) > 0.0001F ||
+        std::abs(sourceTimeBeforeSleep - 0.4F) > 0.0001F ||
+        !defaultSkinBox.IsClose({1.0F, 3.0F, 2.0F}, 0.0001F) ||
+        !crushSkinBox.IsClose({0.925F, 2.925F, 1.925F}, 0.0001F) ||
+        !thinCrushSkinBox.IsClose({0.005F, 0.925F, 0.925F}, 0.0001F))
+    {
+        error = "PhysX skin-width/solver scene contract failed";
+        return false;
+    }
+    if (std::abs(sourceCombineCoefficient(
+                     0.5F, SourceCombineMode::Average,
+                     0.1F, SourceCombineMode::Average) - 0.3F) > 0.0001F ||
+        std::abs(sourceCombineCoefficient(
+                     0.08F, SourceCombineMode::Minimum,
+                     0.5F, SourceCombineMode::Average) - 0.08F) > 0.0001F ||
+        std::abs(sourceCombineCoefficient(
+                     0.5F, SourceCombineMode::Average,
+                     4.0F, SourceCombineMode::Maximum) - 4.0F) > 0.0001F ||
+        std::abs(sourceCombineCoefficient(
+                     0.5F, SourceCombineMode::Average,
+                     0.0F, SourceCombineMode::Average) - 0.25F) > 0.0001F)
+    {
+        error = "PhysX material combine-mode contract failed";
+        return false;
+    }
+    const auto flatBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sIdentity(), JPH::Vec3::sAxisY(),
+        CollisionSurface::TrackPlane);
+    const auto borderBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sIdentity(), JPH::Vec3::sAxisZ(),
+        CollisionSurface::TrackBorder);
+    const auto rolledBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.1F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto nearPoleBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.01F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto offPoleBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisX(), 0.0101F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto yawedBodyFriction = sourceTrackBodyFriction(
+        JPH::Quat::sRotation(JPH::Vec3::sAxisY(), 0.4F),
+        JPH::Vec3::sAxisY(), CollisionSurface::TrackPlane);
+    const auto decorationBodyFriction = sourceVehicleBodyFriction(
+        JPH::Quat::sIdentity(), JPH::Vec3::sAxisY(), 0.08F, 0.5F,
+        SourceCombineMode::Average, false);
+    // Independent Nx wheeled-pair probes: side [.08,1], pole [.54,.54].
+    const auto pairSide = sourceCarPairBodyFriction(JPH::Quat::sIdentity(), .08F,
+        JPH::Quat::sIdentity(), .08F, JPH::Vec3::sAxisX());
+    const auto pairPole = sourceCarPairBodyFriction(JPH::Quat::sIdentity(), .08F,
+        JPH::Quat::sIdentity(), .08F, JPH::Vec3::sAxisY());
+    if (std::abs(pairSide.first-.08F)>.0001F || std::abs(pairSide.second-1)>.0001F ||
+        std::abs(pairPole.first-.54F)>.0001F || std::abs(pairPole.second-.54F)>.0001F)
+    {
+        error = "Independent Nx vehicle-pair friction oracle failed";
+        return false;
+    }
+    if (std::abs(flatBodyFriction.first) > 0.0001F ||
+        std::abs(flatBodyFriction.second - 0.09F) > 0.0001F ||
+        std::abs(flatBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisZ())) < 0.999F ||
+        std::abs(borderBodyFriction.first) > 0.0001F ||
+        std::abs(borderBodyFriction.second - 1.0F) > 0.0001F ||
+        std::abs(borderBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisX())) < 0.999F ||
+        std::abs(rolledBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisX())) < 0.999F ||
+        std::abs(nearPoleBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisZ())) < 0.999F ||
+        std::abs(nearPoleBodyFriction.second - 0.09F) > 0.0001F ||
+        std::abs(offPoleBodyFriction.second - 0.1F) > 0.0001F ||
+        std::abs(offPoleBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisX())) < 0.999F ||
+        std::abs(yawedBodyFriction.firstDirection.Dot(
+            JPH::Vec3::sAxisZ())) < 0.999F ||
+        std::abs(decorationBodyFriction.first - 0.29F) > 0.0001F ||
+        std::abs(decorationBodyFriction.second - 0.29F) > 0.0001F)
+    {
+        error = "GameCar::OnContactModify anisotropic friction failed";
+        return false;
+    }
+    const auto cappedNormalForce = sourceWheelNormalForce(
+        3.0F, 1.0F, true, 0.0F);
+    const auto releasedTireSpring = sourceWheelNormalForce(
+        3.0F, 1.0F, true, 2.0F);
+    const auto releasedClutch = sourceWheelNormalForce(
+        1.0F, 1.0F, false, 0.0F);
+    if (std::abs(cappedNormalForce.reaction - 3.0F) > 0.0001F ||
+        std::abs(cappedNormalForce.impulse - 1.5F) > 0.0001F ||
+        releasedTireSpring.impulse != 0.0F ||
+        releasedClutch.impulse != 0.0F)
+    {
+        error = "CarWheel::MyContactModify normal-force contract failed";
+        return false;
+    }
+    const WheelDescription::TireFunction hermiteTire{
+        1.0F, 6.5F, 3.0F, 6.4F, 0.0F};
+    if (std::abs(sourceTireFunction(hermiteTire, 0.5F) - 4.0625F) >
+            0.0001F ||
+        std::abs(sourceTireFunction(hermiteTire, 2.0F) - 6.45F) >
+            0.0001F ||
+        std::abs(sourceTireFunction(hermiteTire, 4.0F) - 6.4F) >
+            0.0001F ||
+        std::abs(sourceTireFunction(hermiteTire, -0.5F) + 4.0625F) >
+            0.0001F ||
+        !sourceLowSpeedWheelContact(
+            {}, {0.0249F, 0.0F, 0.0F}, true) ||
+        sourceLowSpeedWheelContact(
+            {}, {0.0251F, 0.0F, 0.0F}, true) ||
+        sourceLowSpeedWheelContact({}, {}, false) ||
+        std::abs(sourceClampedTireFriction(
+                     hermiteTire, 0.0F, true) - 6.5F) > 0.0001F ||
+        std::abs(sourceClampedTireFriction(
+                     hermiteTire, 0.0F, false)) > 0.0001F ||
+        std::abs(sourceWheelInertia(0.1F) - 10.0F) > 0.0001F)
+    {
+        error = "NxWheelShape tire curve/static friction/inertia contract "
+                "failed";
+        return false;
+    }
+    const auto& selectedVehicle =
+        description.spawns.empty()
+            ? description.vehicle
+            : description.spawns.front().vehicle;
+    WorldDescription drivetrainDescription;
+    drivetrainDescription.vehicle = selectedVehicle;
+    // The drivetrain fixture drops the body two metres onto a flat plane.
+    // Its purpose is transmission/clutch/reverse coverage; the source
+    // tireSpring release branch is covered by sourceWheelNormalForce above.
+    // A 2g landing cutoff would intentionally unload all four wheels and
+    // turn the remainder into a chassis-collision test.
+    drivetrainDescription.vehicle.tireSpring = 0.0F;
+    drivetrainDescription.startPosition = {0.0F, 0.0F, 2.0F};
+    drivetrainDescription.startDirection = {1.0F, 0.0F, 0.0F};
+    drivetrainDescription.gravity = description.gravity;
+    drivetrainDescription.spawns.push_back(
+        {drivetrainDescription.vehicle, drivetrainDescription.startPosition,
+         drivetrainDescription.startDirection});
+    TriangleMesh drivetrainFloor;
+    drivetrainFloor.surface = CollisionSurface::TrackPlane;
+    drivetrainFloor.vertices = {{-400.0F, -400.0F, 0.0F},
+                                {400.0F, -400.0F, 0.0F},
+                                {400.0F, 400.0F, 0.0F},
+                                {-400.0F, 400.0F, 0.0F}};
+    drivetrainFloor.indices = {0U, 1U, 2U, 0U, 2U, 3U};
+    drivetrainDescription.collisionMeshes.push_back(
+        std::move(drivetrainFloor));
+
+    // PhysX's default body flag selects its energy sleep test. Verify the
+    // adapter's mass-normalized 0.05 boundary with isolated debris: v=0.2
+    // gives K/m=0.02 and must sleep after the 0.4 second wake counter, while
+    // v=0.4 gives K/m=0.08 and must remain awake.
+    WorldDescription sleepDescription = drivetrainDescription;
+    sleepDescription.gravity = 0.0F;
+    sleepDescription.startPosition = {0.0F, 0.0F, 20.0F};
+    sleepDescription.spawns.front().position =
+        sleepDescription.startPosition;
+    auto sleepWorld = createOriginalVehicleWorld(sleepDescription, error);
+    if (!sleepWorld)
+        return false;
+    DebrisDescription sleepingDebris;
+    sleepingDebris.transform.position = {0.0F, 0.0F, 10.0F};
+    sleepingDebris.halfExtents = {0.2F, 0.2F, 0.2F};
+    sleepingDebris.mass = 10.0F;
+    sleepingDebris.localImpulse = {2.0F, 0.0F, 0.0F};
+    const auto sleepingDebrisIndex =
+        sleepWorld->addDebris(sleepingDebris);
+    if (sleepingDebrisIndex == std::numeric_limits<std::size_t>::max())
+    {
+        error = "PhysX energy-sleep fixture could not create low-energy body";
+        return false;
+    }
+    for (int step = 0; step < 23; ++step)
+        sleepWorld->step(1.0F / 60.0F, VehicleInput{});
+    if (!sleepWorld->debris(sleepingDebrisIndex).bodyAwake)
+    {
+        error = "PhysX wakeUpCounter expired before 0.4 seconds";
+        return false;
+    }
+    for (int step = 0; step < 13; ++step)
+        sleepWorld->step(1.0F / 60.0F, VehicleInput{});
+    if (sleepWorld->debris(sleepingDebrisIndex).bodyAwake)
+    {
+        error = "PhysX low-energy body did not sleep after wakeUpCounter";
+        return false;
+    }
+    DebrisDescription movingDebris = sleepingDebris;
+    movingDebris.transform.position = {0.0F, 5.0F, 10.0F};
+    movingDebris.localImpulse = {4.0F, 0.0F, 0.0F};
+    const auto movingDebrisIndex = sleepWorld->addDebris(movingDebris);
+    for (int step = 0; step < 60; ++step)
+        sleepWorld->step(1.0F / 60.0F, VehicleInput{});
+    if (movingDebrisIndex == std::numeric_limits<std::size_t>::max() ||
+        !sleepWorld->debris(movingDebrisIndex).bodyAwake)
+    {
+        error = "PhysX above-threshold kinetic body went to sleep";
+        return false;
+    }
+
+    auto world =
+        createOriginalVehicleWorld(drivetrainDescription, error);
+    if (!world)
+        return false;
+    WorldDescription overloadDescription = drivetrainDescription;
+    overloadDescription.vehicle.tireSpring = 0.2F;
+    overloadDescription.spawns.front().vehicle.tireSpring = 0.2F;
+    overloadDescription.startPosition.z = 4.0F;
+    overloadDescription.spawns.front().position =
+        overloadDescription.startPosition;
+    auto overloadWorld =
+        createOriginalVehicleWorld(overloadDescription, error);
+    if (!overloadWorld)
+        return false;
+    std::size_t overloadSamples = 0U;
+    for (int step = 0; step < 180; ++step)
+    {
+        // One public 60 Hz step contains two Jolt solver substeps. Observe
+        // the exported tire-force budget only after both have completed.
+        overloadWorld->step(1.0F / 60.0F, VehicleInput{});
+        for (const auto& contact :
+             overloadWorld->vehicle().wheelContacts)
+        {
+            if (!contact.hasContact ||
+                contact.normalReaction <=
+                    overloadDescription.vehicle.tireSpring)
+                continue;
+            ++overloadSamples;
+            if (contact.normalImpulse > 0.0001F)
+            {
+                error = "CarWheel::MyContactModify restored tire force "
+                        "after a repeated tireSpring overload";
+                return false;
+            }
+        }
+    }
+    if (overloadSamples < 2U)
+    {
+        error = "Jolt tireSpring fixture did not sustain repeated source "
+                "overload contacts";
+        return false;
+    }
+    const auto& overloadSupported = overloadWorld->vehicle();
+    const float chassisRestHeight =
+        overloadDescription.vehicle.halfExtents.z + 0.1F;
+    if (overloadSupported.body.position.z <= chassisRestHeight)
+    {
+        error = "NxUserWheelContactModify tire release incorrectly removed "
+                "vertical suspension support: z=" +
+                std::to_string(overloadSupported.body.position.z);
+        return false;
+    }
+    auto fixedStepWorld =
+        createOriginalVehicleWorld(drivetrainDescription, error);
+    if (!fixedStepWorld)
+        return false;
+    const auto resetCountBeforeWorldCallback =
+        fixedStepWorld->vehicle().resetCount;
+    std::size_t worldFixedStepCalls = 0U;
+    std::size_t vehicleFixedStepCalls = 0U;
+    bool worldFixedStepRosterValid = true;
+    fixedStepWorld->setWorldFixedStepController(
+        [&](float delta,
+            const std::vector<VehicleState>& states,
+            std::vector<VehicleInput>& inputs,
+            std::vector<VehicleResetCommand>& resets,
+            std::vector<VehicleLinearVelocityCommand>& velocities,
+            const std::vector<ProjectileBodyState>& projectiles,
+            std::vector<ProjectileBodyCommand>& projectileCommands) {
+            ++worldFixedStepCalls;
+            worldFixedStepRosterValid =
+                worldFixedStepRosterValid &&
+                std::abs(delta - 1.0F / 60.0F) < 0.000001F &&
+                states.size() == 1U && inputs.size() == 1U &&
+                velocities.empty() && projectiles.empty() &&
+                projectileCommands.empty();
+            inputs.front().throttle = 1.0F;
+            if (worldFixedStepCalls == 1U)
+            {
+                resets.push_back(
+                    {0U,
+                     {drivetrainDescription.startPosition.x,
+                      drivetrainDescription.startPosition.y,
+                      drivetrainDescription.startPosition.z + 1.0F},
+                     drivetrainDescription.startDirection});
+                velocities.push_back({0U, {0.0F, 0.0F, 2.0F}});
+                ProjectileBodyCommand projectile;
+                projectile.kind = ProjectileBodyCommandKind::Create;
+                projectile.body.id = 42U;
+                projectile.body.transform.position = {0.0F, 0.0F, 5.0F};
+                projectile.body.halfExtents = {0.1F, 0.1F, 0.1F};
+                projectile.body.linearVelocity = {10.0F, 0.0F, 0.0F};
+                projectile.body.collisionGroup =
+                    ProjectileCollisionGroup::ShotTrack;
+                projectileCommands.push_back(projectile);
+                ProjectileBodyCommand touchingProjectile;
+                touchingProjectile.kind =
+                    ProjectileBodyCommandKind::Create;
+                touchingProjectile.body.id = 43U;
+                touchingProjectile.body.transform.position = {
+                    drivetrainDescription.startPosition.x,
+                    drivetrainDescription.startPosition.y,
+                    drivetrainDescription.startPosition.z + 1.0F};
+                touchingProjectile.body.halfExtents = {
+                    0.5F, 0.5F, 0.5F};
+                touchingProjectile.body.dynamic = false;
+                projectileCommands.push_back(touchingProjectile);
+                constexpr std::array<ProjectileCollisionGroup, 3U>
+                    floorGroups{
+                        ProjectileCollisionGroup::Shot,
+                        ProjectileCollisionGroup::ShotTrack,
+                        ProjectileCollisionGroup::ShotBorder};
+                for (std::size_t index = 0U;
+                     index < floorGroups.size(); ++index)
+                {
+                    ProjectileBodyCommand floorProjectile;
+                    floorProjectile.kind =
+                        ProjectileBodyCommandKind::Create;
+                    floorProjectile.body.id = 44U + index;
+                    floorProjectile.body.transform.position = {
+                        100.0F + 10.0F * static_cast<float>(index),
+                        0.0F, 0.25F};
+                    floorProjectile.body.halfExtents = {
+                        0.5F, 0.5F, 0.5F};
+                    floorProjectile.body.gravityFactor = 0.0F;
+                    floorProjectile.body.collisionGroup =
+                        floorGroups[index];
+                    projectileCommands.push_back(floorProjectile);
+                }
+            }
+        });
+    fixedStepWorld->setVehicleFixedStepController(
+        [&](std::size_t vehicle, float delta,
+            const VehicleInput&, const VehicleFixedStepState&) {
+            ++vehicleFixedStepCalls;
+            worldFixedStepRosterValid =
+                worldFixedStepRosterValid && vehicle == 0U &&
+                std::abs(delta - 1.0F / 60.0F) < 0.000001F;
+            VehicleDriveCommand command;
+            command.brakeTorque =
+                drivetrainDescription.vehicle.restBrakeTorque;
+            command.engineRpm =
+                drivetrainDescription.vehicle.idlingRpm;
+            command.gear = -1;
+            command.lateralGripScale = 1.0F;
+            command.angularDamping = {
+                drivetrainDescription.vehicle.angularDamping.x,
+                drivetrainDescription.vehicle.angularDamping.y,
+                drivetrainDescription.vehicle.angularDamping.z};
+            return command;
+        });
+    fixedStepWorld->step(1.0F / 120.0F, VehicleInput{});
+    if (worldFixedStepCalls != 0U || vehicleFixedStepCalls != 0U ||
+        fixedStepWorld->vehicle().resetCount !=
+            resetCountBeforeWorldCallback)
+    {
+        error = "source 60 Hz fixed clock advanced on one 120 Hz frame";
+        return false;
+    }
+    fixedStepWorld->step(1.0F / 120.0F, VehicleInput{});
+    if (worldFixedStepCalls != 1U || vehicleFixedStepCalls != 1U ||
+        !worldFixedStepRosterValid ||
+        fixedStepWorld->vehicle().resetCount !=
+            resetCountBeforeWorldCallback + 1U ||
+        fixedStepWorld->vehicle().linearVelocity.z <= 1.0F ||
+        fixedStepWorld->projectileBodyCount() != 5U ||
+        !fixedStepWorld->projectileBody(0U).active ||
+        !fixedStepWorld->projectileBody(0U).bodyAwake ||
+        fixedStepWorld->projectileBody(0U).id != 42U ||
+        fixedStepWorld->projectileBody(0U).body.position.x <= 0.05F ||
+        fixedStepWorld->projectileBody(1U).id != 43U ||
+        fixedStepWorld->projectileBody(1U).bodyAwake ||
+        std::none_of(
+            fixedStepWorld->projectileBody(1U).contacts.begin(),
+            fixedStepWorld->projectileBody(1U).contacts.end(),
+            [](const BodyContact& contact) {
+                return contact.surface == CollisionSurface::Vehicle &&
+                       contact.otherVehicle == 0U && contact.hasPoint;
+            }) ||
+        std::any_of(
+            fixedStepWorld->projectileBody(2U).contacts.begin(),
+            fixedStepWorld->projectileBody(2U).contacts.end(),
+            [](const BodyContact& contact) {
+                return contact.surface == CollisionSurface::TrackPlane;
+            }) ||
+        std::none_of(
+            fixedStepWorld->projectileBody(3U).contacts.begin(),
+            fixedStepWorld->projectileBody(3U).contacts.end(),
+            [](const BodyContact& contact) {
+                return contact.surface == CollisionSurface::TrackPlane;
+            }) ||
+        std::any_of(
+            fixedStepWorld->projectileBody(4U).contacts.begin(),
+            fixedStepWorld->projectileBody(4U).contacts.end(),
+            [](const BodyContact& contact) {
+                return contact.surface == CollisionSurface::TrackPlane;
+            }))
+    {
+        error = "source Race world fixed-step/Jolt command bridge failed: "
+                "worldCalls=" + std::to_string(worldFixedStepCalls) +
+                ", vehicleCalls=" + std::to_string(vehicleFixedStepCalls) +
+                ", roster=" + std::to_string(worldFixedStepRosterValid) +
+                ", resets=" + std::to_string(
+                    fixedStepWorld->vehicle().resetCount) +
+                ", vz=" + std::to_string(
+                    fixedStepWorld->vehicle().linearVelocity.z) +
+                ", projectiles=" +
+                std::to_string(fixedStepWorld->projectileBodyCount()) +
+                ", contacts=";
+        for (std::size_t index = 0U;
+             index < fixedStepWorld->projectileBodyCount(); ++index)
+        {
+            if (index != 0U)
+                error += ",";
+            error += std::to_string(
+                fixedStepWorld->projectileBody(index).contacts.size());
+        }
+        return false;
+    }
+    WorldRayCastQuery trackRay;
+    trackRay.origin = {0.0F, 0.0F, 10.0F};
+    trackRay.direction = {0.0F, 0.0F, -1.0F};
+    trackRay.maximumDistance = 20.0F;
+    trackRay.trackPlaneOnly = true;
+    const auto trackRayHit = fixedStepWorld->raycast(trackRay);
+    WorldRayCastQuery shotTrackRay = trackRay;
+    shotTrackRay.origin.x =
+        fixedStepWorld->projectileBody(0U).body.position.x;
+    shotTrackRay.includeProjectileBodies = true;
+    const auto shotTrackRayHit =
+        fixedStepWorld->raycast(shotTrackRay);
+    WorldRayCastQuery vehicleRay;
+    vehicleRay.origin = {-10.0F, 0.0F, 3.0F};
+    vehicleRay.direction = {1.0F, 0.0F, 0.0F};
+    vehicleRay.maximumDistance = 20.0F;
+    const auto vehicleRayHit = fixedStepWorld->raycast(vehicleRay);
+    vehicleRay.ignoredVehicle = 0U;
+    const auto ignoredVehicleRayHit =
+        fixedStepWorld->raycast(vehicleRay);
+    WorldRayCastQuery deathPlaneRay;
+    deathPlaneRay.origin = {500.0F, 0.0F, 10.0F};
+    deathPlaneRay.direction = {0.0F, 0.0F, -1.0F};
+    deathPlaneRay.maximumDistance = 20.0F;
+    deathPlaneRay.ignoredVehicle = 0U;
+    const auto excludedDeathPlaneRayHit =
+        fixedStepWorld->raycast(deathPlaneRay);
+    deathPlaneRay.includeDeathPlane = true;
+    const auto deathPlaneRayHit =
+        fixedStepWorld->raycast(deathPlaneRay);
+    if (!trackRayHit.hit ||
+        trackRayHit.surface != CollisionSurface::TrackPlane ||
+        std::abs(trackRayHit.distance - 10.0F) > 0.05F ||
+        !shotTrackRayHit.hit ||
+        shotTrackRayHit.projectileBody != 0U ||
+        shotTrackRayHit.distance >= trackRayHit.distance ||
+        !vehicleRayHit.hit ||
+        vehicleRayHit.surface != CollisionSurface::Vehicle ||
+        vehicleRayHit.vehicle != 0U ||
+        vehicleRayHit.distance >= vehicleRay.maximumDistance ||
+        ignoredVehicleRayHit.hit || excludedDeathPlaneRayHit.hit ||
+        !deathPlaneRayHit.hit ||
+        deathPlaneRayHit.surface != CollisionSurface::DeathPlane ||
+        std::abs(deathPlaneRayHit.distance - 10.0F) > 0.05F)
+    {
+        error = "source projectile-group Jolt raycast bridge failed";
+        return false;
+    }
+    bool ignorePairCommandIssued = false;
+    fixedStepWorld->setWorldFixedStepController(
+        [&](float, const std::vector<VehicleState>& states,
+            std::vector<VehicleInput>&,
+            std::vector<VehicleResetCommand>&,
+            std::vector<VehicleLinearVelocityCommand>&,
+            const std::vector<ProjectileBodyState>&,
+            std::vector<ProjectileBodyCommand>& projectileCommands) {
+            if (ignorePairCommandIssued || states.empty())
+                return;
+            ProjectileBodyCommand ignoredOwnerProjectile;
+            ignoredOwnerProjectile.kind =
+                ProjectileBodyCommandKind::Create;
+            ignoredOwnerProjectile.body.id = 47U;
+            ignoredOwnerProjectile.body.transform.position =
+                states.front().body.position;
+            ignoredOwnerProjectile.body.halfExtents = {
+                2.0F, 2.0F, 2.0F};
+            ignoredOwnerProjectile.body.dynamic = false;
+            ignoredOwnerProjectile.body.kinematic = true;
+            ignoredOwnerProjectile.body.ignoredVehicle = 0U;
+            projectileCommands.push_back(ignoredOwnerProjectile);
+            ignorePairCommandIssued = true;
+        });
+    fixedStepWorld->step(1.0F / 60.0F, VehicleInput{});
+    if (!ignorePairCommandIssued ||
+        fixedStepWorld->projectileBodyCount() != 6U ||
+        fixedStepWorld->projectileBody(5U).id != 47U ||
+        std::any_of(
+            fixedStepWorld->projectileBody(5U).contacts.begin(),
+            fixedStepWorld->projectileBody(5U).contacts.end(),
+            [](const BodyContact& contact) {
+                return contact.surface == CollisionSurface::Vehicle &&
+                       contact.otherVehicle == 0U;
+            }))
+    {
+        error = "source projectile NX_IGNORE_PAIR Jolt bridge failed";
+        return false;
+    }
+    auto deathPlaneWorld =
+        createOriginalVehicleWorld(drivetrainDescription, error);
+    if (!deathPlaneWorld)
+        return false;
+    deathPlaneWorld->resetVehicle(
+        0U, {500.0F, 0.0F, -2.0F}, {1.0F, 0.0F, 0.0F});
+    deathPlaneWorld->step(1.0F / 60.0F, VehicleInput{});
+    const bool deathPlaneContact = std::any_of(
+        deathPlaneWorld->vehicle().bodyContacts.begin(),
+        deathPlaneWorld->vehicle().bodyContacts.end(),
+        [](const BodyContact& contact) {
+            return contact.surface == CollisionSurface::DeathPlane &&
+                   contact.hasPoint;
+        });
+    if (!deathPlaneContact)
+    {
+        error = "source cdgPlaneDeath Jolt sensor contact failed";
+        return false;
+    }
+    VehicleInput input;
+    for (int step = 0; step < 240; ++step)
+        world->step(1.0F / 120.0F, input);
+    const auto settled = world->vehicle();
+    const auto& sourceVehicle = selectedVehicle;
+    if (std::abs(settled.engineRpm - sourceVehicle.idlingRpm) > 1.0F)
+    {
+        error = "Jolt engine idle RPM did not preserve CarMotorDesc: " +
+                std::to_string(settled.engineRpm) + " vs " +
+                std::to_string(sourceVehicle.idlingRpm);
+        return false;
+    }
+    const auto settledWheelContacts = static_cast<std::uint32_t>(
+        std::count_if(
+            settled.wheelContacts.begin(), settled.wheelContacts.end(),
+            [](const WheelContactState& contact) {
+                return contact.hasContact;
+            }));
+    const auto settledStaticWheelContacts = static_cast<std::uint32_t>(
+        std::count_if(
+            settled.wheelContacts.begin(), settled.wheelContacts.end(),
+            [](const WheelContactState& contact) {
+                return contact.hasContact && contact.lowSpeedFriction;
+            }));
+    if (settled.contactCount == 0 ||
+        settled.wheelContacts.size() != settled.wheels.size() ||
+        settledWheelContacts != settled.contactCount ||
+        (!CalibrationTuning::load().physxWheelCompat && settledStaticWheelContacts == 0U))
+    {
+        error = "original per-wheel contact state did not match map1 "
+                "collision; "
+                "position=" + std::to_string(settled.body.position.x) + "," +
+                std::to_string(settled.body.position.y) + "," +
+                std::to_string(settled.body.position.z);
+        return false;
+    }
+    const float fixedStep = 1.0F / 120.0F;
+    for (const auto& contact : settled.wheelContacts)
+    {
+        if (!contact.hasContact)
+            continue;
+        const float staticImpulse =
+            sourceVehicle.mass *
+            std::abs(description.gravity * contact.normal.z) *
+            fixedStep /
+            static_cast<float>(settled.wheelContacts.size());
+        if (!std::isfinite(contact.normalReaction) ||
+            !std::isfinite(contact.normalImpulse) ||
+            contact.normalImpulse > staticImpulse * 1.5F + 0.01F)
+        {
+            error = "source wheel normal impulse exceeded the 1.5g cap";
+            return false;
+        }
+    }
+    auto networkWorld =
+        createOriginalVehicleWorld(drivetrainDescription, error);
+    if (!networkWorld)
+        return false;
+    for (int step = 0; step < 240; ++step)
+        networkWorld->step(1.0F / 120.0F, VehicleInput{});
+    const Vec3 networkPosition =
+        networkWorld->vehicle().body.position;
+    constexpr float networkYaw = 0.5F;
+    const Quat networkRotation{
+        0.0F, 0.0F, std::sin(networkYaw * 0.5F),
+        std::cos(networkYaw * 0.5F)};
+    const Vec3 networkLinearMomentum{
+        sourceVehicle.mass * 2.0F, 0.0F, 0.0F};
+    const Vec3 networkAngularMomentum{0.0F, 0.0F, 100.0F};
+    networkWorld->synchronizeNetworkVehicle(
+        0U, networkPosition, networkRotation, networkLinearMomentum,
+        networkAngularMomentum);
+    const auto synchronized = networkWorld->vehicle();
+    const float synchronizedRotationDot = std::abs(
+        synchronized.body.rotation.x * networkRotation.x +
+        synchronized.body.rotation.y * networkRotation.y +
+        synchronized.body.rotation.z * networkRotation.z +
+        synchronized.body.rotation.w * networkRotation.w);
+    if (std::abs(synchronized.body.position.x - networkPosition.x) >
+            0.001F ||
+        std::abs(synchronized.body.position.y - networkPosition.y) >
+            0.001F ||
+        std::abs(synchronized.body.position.z - networkPosition.z) >
+            0.001F ||
+        synchronizedRotationDot < 0.999F ||
+        std::abs(synchronized.linearVelocity.x - 2.0F) > 0.01F ||
+        std::abs(synchronized.angularMomentum.z -
+                 networkAngularMomentum.z) > 0.1F ||
+        !std::isfinite(synchronized.kineticEnergy) ||
+        synchronized.kineticEnergy <=
+            0.5F * sourceVehicle.mass * 4.0F)
+    {
+        error = "active NetPlayer::ResponseStream momentum/rotation "
+                "synchronization diverged from the source path: pos=" +
+                std::to_string(synchronized.body.position.x) + "," +
+                std::to_string(synchronized.body.position.y) + "," +
+                std::to_string(synchronized.body.position.z) +
+                " base=" + std::to_string(networkPosition.x) + "," +
+                std::to_string(networkPosition.y) + "," +
+                std::to_string(networkPosition.z) +
+                " qdot=" + std::to_string(synchronizedRotationDot) +
+                " velocity=" +
+                std::to_string(synchronized.linearVelocity.x) + "," +
+                std::to_string(synchronized.linearVelocity.y) + "," +
+                std::to_string(synchronized.linearVelocity.z) +
+                " angularMomentum=" +
+                std::to_string(synchronized.angularMomentum.x) + "," +
+                std::to_string(synchronized.angularMomentum.y) + "," +
+                std::to_string(synchronized.angularMomentum.z);
+        return false;
+    }
+    const Vec3 installedAngularMomentum{25.0F, -50.0F, 75.0F};
+    networkWorld->setAngularMomentum(0U, installedAngularMomentum);
+    const auto installedMomentum = networkWorld->vehicle();
+    if (std::abs(installedMomentum.angularMomentum.x -
+                 installedAngularMomentum.x) > 0.1F ||
+        std::abs(installedMomentum.angularMomentum.y -
+                 installedAngularMomentum.y) > 0.1F ||
+        std::abs(installedMomentum.angularMomentum.z -
+                 installedAngularMomentum.z) > 0.1F)
+    {
+        error = "GameCar clutch/oil angular momentum replacement failed";
+        return false;
+    }
+    // Player::CarState exposes signed longitudinal GameCar::GetSpeed, not
+    // total rigid-body velocity.  A purely lateral slide must therefore hit
+    // the source one-metre dead zone so AICar can enter blocking recovery.
+    networkWorld->synchronizeNetworkVehicle(
+        0U, synchronized.body.position, {},
+        {0.0F, sourceVehicle.mass * 8.0F, 0.0F}, {});
+    const auto lateralSlide = networkWorld->vehicle();
+    if (lateralSlide.speed != 0.0F ||
+        std::abs(lateralSlide.linearVelocity.y - 8.0F) > 0.01F)
+    {
+        error = "Player::CarState signed longitudinal speed contract was "
+                "not preserved for lateral motion";
+        return false;
+    }
+    const Vec3 nearNetworkPosition{
+        synchronized.body.position.x + 1.0F,
+        synchronized.body.position.y,
+        synchronized.body.position.z};
+    networkWorld->synchronizeNetworkVehicle(
+        0U, nearNetworkPosition, networkRotation,
+        networkLinearMomentum, networkAngularMomentum);
+    const auto nearSynchronized = networkWorld->vehicle();
+    if (std::abs(nearSynchronized.body.position.x -
+                 synchronized.body.position.x) > 0.001F ||
+        std::abs(nearSynchronized.linearVelocity.x - 4.0F) > 0.01F)
+    {
+        error = "NetPlayer near-position momentum correction did not "
+                "match dPos * 2 * mass";
+        return false;
+    }
+    const Vec3 farNetworkPosition{
+        synchronized.body.position.x + 5.0F,
+        synchronized.body.position.y,
+        synchronized.body.position.z};
+    networkWorld->synchronizeNetworkVehicle(
+        0U, farNetworkPosition, networkRotation, {}, {});
+    const auto farSynchronized = networkWorld->vehicle();
+    if (std::abs(farSynchronized.body.position.x -
+                 farNetworkPosition.x) > 0.001F ||
+        std::abs(farSynchronized.linearVelocity.x) > 0.001F)
+    {
+        error = "NetPlayer far-position snap did not match the source "
+                "four-unit threshold";
+        return false;
+    }
+    // NetPlayer compares the received rotation with GameCar's graph actor,
+    // not with the PhysX body.  While a previous graph correction is still
+    // being consumed, that comparison can cross pi/24 even when the next
+    // authoritative body delta is smaller.  The game layer must be able to
+    // carry that source decision through the Jolt boundary unchanged.
+    constexpr float forcedNetworkYaw = networkYaw + 0.1F;
+    const Quat forcedNetworkRotation{
+        0.0F, 0.0F, std::sin(forcedNetworkYaw * 0.5F),
+        std::cos(forcedNetworkYaw * 0.5F)};
+    networkWorld->synchronizeNetworkVehicle(
+        0U, farSynchronized.body.position, forcedNetworkRotation, {}, {},
+        true);
+    const auto forcedRotation = networkWorld->vehicle();
+    const float forcedRotationDot = std::abs(
+        forcedRotation.body.rotation.x * forcedNetworkRotation.x +
+        forcedRotation.body.rotation.y * forcedNetworkRotation.y +
+        forcedRotation.body.rotation.z * forcedNetworkRotation.z +
+        forcedRotation.body.rotation.w * forcedNetworkRotation.w);
+    if (forcedRotationDot < 0.999F)
+    {
+        error = "NetPlayer graph-rotation snap decision was lost at the "
+                "Jolt boundary";
+        return false;
+    }
+    world->setWheelTractionEnabled(0U, false);
+    input.throttle = 1.0F;
+    bool sawWheelSlip = false;
+    for (int step = 0; step < 480; ++step)
+    {
+        world->step(1.0F / 120.0F, input);
+        sawWheelSlip = sawWheelSlip || std::any_of(
+            world->vehicle().wheelContacts.begin(),
+            world->vehicle().wheelContacts.end(),
+            [](const WheelContactState& contact) {
+                return contact.hasContact &&
+                       (std::abs(contact.longitudinalSlip) > 0.4F ||
+                        std::abs(contact.lateralSlip) > 0.6F);
+            });
+    }
+    if (!sawWheelSlip)
+    {
+        error = "Jolt did not expose the source per-wheel slip trigger";
+        return false;
+    }
+    const auto clutchLocked = world->vehicle();
+    const float clutchLockedSpeed = clutchLocked.speed;
+    const bool clutchContactForcePresent = std::any_of(
+        clutchLocked.wheelContacts.begin(),
+        clutchLocked.wheelContacts.end(),
+        [](const WheelContactState& contact) {
+            return contact.hasContact && contact.normalImpulse > 0.0001F;
+        });
+    if (clutchContactForcePresent)
+    {
+        error = "source clutch lock did not release wheel normal force";
+        return false;
+    }
+    WorldDescription immuneDescription = drivetrainDescription;
+    immuneDescription.vehicle.clutchImmunity = true;
+    immuneDescription.spawns.front().vehicle.clutchImmunity = true;
+    auto immuneWorld =
+        createOriginalVehicleWorld(immuneDescription, error);
+    if (!immuneWorld)
+        return false;
+    input = {};
+    for (int step = 0; step < 240; ++step)
+        immuneWorld->step(1.0F / 120.0F, input);
+    immuneWorld->setWheelTractionEnabled(0U, false);
+    input.throttle = 1.0F;
+    for (int step = 0; step < 120; ++step)
+        immuneWorld->step(1.0F / 120.0F, input);
+    if (immuneWorld->vehicle().speed < 0.5F)
+    {
+        const auto& immune = immuneWorld->vehicle();
+        error = "source clutchImmunity did not preserve tire traction: "
+                "speed=" + std::to_string(immune.speed) +
+                ", pos=" + std::to_string(immune.body.position.x) + "," +
+                std::to_string(immune.body.position.y) + "," +
+                std::to_string(immune.body.position.z);
+        for (const auto& contact : immune.wheelContacts)
+        {
+            error += ", wheel=" +
+                     std::to_string(contact.normalReaction) + "/" +
+                     std::to_string(contact.normalImpulse);
+        }
+        return false;
+    }
+    world->reset();
+    input = {};
+    for (int step = 0; step < 240; ++step)
+        world->step(1.0F / 120.0F, input);
+    input.throttle = 1.0F;
+    for (int step = 0; step < 480; ++step)
+        world->step(1.0F / 120.0F, input);
+    const auto accelerated = world->vehicle();
+    if (accelerated.speed < 1.0F || accelerated.engineRpm <= 0.0F)
+    {
+        error = "original marauder engine did not accelerate on map1: "
+                "speed=" + std::to_string(accelerated.speed) +
+                ", rpm=" + std::to_string(accelerated.engineRpm) +
+                ", gear=" + std::to_string(accelerated.gear);
+        for (const float wheelSpeed : accelerated.wheelAngularSpeeds)
+            error += ", wheel=" + std::to_string(wheelSpeed);
+        return false;
+    }
+    if (accelerated.speed <= clutchLockedSpeed + 0.5F)
+    {
+        error = "source clutch lock did not suppress wheel traction";
+        return false;
+    }
+    if (accelerated.wheelAngularSpeeds.size() !=
+            sourceVehicle.wheels.size() ||
+        accelerated.wheelContacts.size() !=
+            sourceVehicle.wheels.size())
+    {
+        error = "Jolt did not expose every original wheel's angular speed";
+        return false;
+    }
+    bool drivenWheelRolling = false;
+    std::size_t freeWheelContacts = 0U;
+    std::size_t freeWheelsRolling = 0U;
+    for (std::size_t index = 0; index < sourceVehicle.wheels.size();
+         ++index)
+    {
+        if (!accelerated.wheelContacts[index].hasContact)
+            continue;
+        const bool rolling =
+            std::abs(accelerated.wheelAngularSpeeds[index]) > 0.5F;
+        if (sourceVehicle.wheels[index].driven)
+            drivenWheelRolling = drivenWheelRolling || rolling;
+        else
+        {
+            ++freeWheelContacts;
+            if (rolling)
+                ++freeWheelsRolling;
+        }
+    }
+    if (!drivenWheelRolling || freeWheelContacts == 0U ||
+        freeWheelsRolling != freeWheelContacts)
+    {
+        error = "non-driven rear wheels remained locked under throttle";
+        return false;
+    }
+    float expectedDrivenWheelSpeed = 0.0F;
+    for (std::size_t index = 0; index < sourceVehicle.wheels.size();
+         ++index)
+    {
+        if (sourceVehicle.wheels[index].driven)
+            continue;
+        expectedDrivenWheelSpeed =
+            accelerated.wheelAngularSpeeds[index] *
+            sourceVehicle.wheels[index].radius;
+        if (std::abs(expectedDrivenWheelSpeed) <= 0.1F)
+            expectedDrivenWheelSpeed = 0.0F;
+        break;
+    }
+    if (!std::isfinite(accelerated.drivenWheelSpeed) ||
+        std::abs(accelerated.drivenWheelSpeed -
+                 expectedDrivenWheelSpeed) > 0.001F)
+    {
+        error = "GameCar::GetDrivenWheelSpeed did not expose the first "
+                "non-lead wheel";
+        return false;
+    }
+    input = {};
+    input.brake = 1.0F;
+    for (int step = 0; step < 240; ++step)
+        world->step(1.0F / 120.0F, input);
+    if (world->vehicle().speed >= accelerated.speed)
+    {
+        error = "original marauder brakeTorque did not reduce speed";
+        return false;
+    }
+    const Quat before = world->vehicle().body.rotation;
+    input = {};
+    input.throttle = 0.7F;
+    input.steering = 0.7F;
+    for (int step = 0; step < 60; ++step)
+        world->step(1.0F / 120.0F, input);
+    const Quat after = world->vehicle().body.rotation;
+    const float rotationDelta = std::abs(before.x - after.x) +
+                                std::abs(before.y - after.y) +
+                                std::abs(before.z - after.z) +
+                                std::abs(before.w - after.w);
+    const float beforeYaw = quaternionToEulerXYZ(before).z;
+    const float afterYaw = quaternionToEulerXYZ(after).z;
+    const float yawDelta = std::atan2(
+        std::sin(afterYaw - beforeYaw),
+        std::cos(afterYaw - beforeYaw));
+    // GameCar::swOnLeft increases the source steering angle and rotates the
+    // +X car-forward vector toward +Y. Preserve that sign through the
+    // Z-up-to-Y-up Jolt conversion so player, AI, and wheel visuals agree.
+    if (rotationDelta < 0.01F || yawDelta <= 0.01F)
+    {
+        error = "positive original steering did not turn the vehicle left";
+        return false;
+    }
+    world->reset();
+    if (world->vehicle().resetCount < 2)
+    {
+        error = "vehicle reset did not restore the original trace start";
+        return false;
+    }
+    if (world->vehicle().gear != -1 ||
+        world->vehicle().drivenWheelSpeed != 0.0F ||
+        std::any_of(
+            world->vehicle().wheelAngularSpeeds.begin(),
+            world->vehicle().wheelAngularSpeeds.end(),
+            [](float speed) { return std::abs(speed) > 0.001F; }))
+    {
+        error = "vehicle reset did not clear source gear/wheel state";
+        return false;
+    }
+    input = {};
+    for (int step = 0; step < 240; ++step)
+        world->step(1.0F / 120.0F, input);
+    const float reverseStart = world->vehicle().body.position.x;
+    input.reverse = 1.0F;
+    for (int step = 0; step < 360; ++step)
+        world->step(1.0F / 120.0F, input);
+    const float reverseEnd = world->vehicle().body.position.x;
+    if (world->vehicle().gear != 0 ||
+        reverseEnd >= reverseStart - 0.25F)
+    {
+        error = "source mcBack/reverse gear did not move the vehicle "
+                "backwards";
+        return false;
+    }
+    input = {};
+    input.throttle = 1.0F;
+    for (int step = 0; step < 480; ++step)
+        world->step(1.0F / 120.0F, input);
+    if (world->vehicle().gear <= 0 ||
+        world->vehicle().body.position.x <= reverseEnd + 0.25F)
+    {
+        error = "mcAccel did not brake reverse motion and re-engage first "
+                "gear";
+        return false;
+    }
+
+    WorldDescription airborneDescription = drivetrainDescription;
+    airborneDescription.startPosition = {0.0F, 0.0F, 20.0F};
+    airborneDescription.spawns.front().position =
+        airborneDescription.startPosition;
+    for (auto& vertex :
+         airborneDescription.collisionMeshes.front().vertices)
+        vertex.z = -100.0F;
+    auto airborneWorld =
+        createOriginalVehicleWorld(airborneDescription, error);
+    if (!airborneWorld)
+        return false;
+    airborneWorld->addLinearVelocity(0U, {5.0F, 0.0F, 0.0F});
+    const Quat airborneBefore = airborneWorld->vehicle().body.rotation;
+    input = {};
+    for (int step = 0; step < 30; ++step)
+        airborneWorld->step(1.0F / 120.0F, input);
+    const auto airborne = airborneWorld->vehicle();
+    const float airborneRotation =
+        std::abs(airborneBefore.x - airborne.body.rotation.x) +
+        std::abs(airborneBefore.y - airborne.body.rotation.y) +
+        std::abs(airborneBefore.z - airborne.body.rotation.z) +
+        std::abs(airborneBefore.w - airborne.body.rotation.w);
+    if (airborne.linearVelocity.z > -8.0F ||
+        (selectedVehicle.airbornePitchAcceleration != 0.0F &&
+         airborneRotation < 0.005F))
+    {
+        error = "source JumpProgress extra gravity/pitch acceleration was "
+                "not preserved";
+        return false;
+    }
+
+    // GameCar::StabilizeForce transforms angular *momentum* into actor-local
+    // space before applying per-axis damping. Use an intentionally offset
+    // body whose local inertia contains a cross term: damping local angular
+    // velocity (the old port behavior) leaves a substantial X momentum,
+    // while the source algorithm removes it.
+    WorldDescription momentumDescription = airborneDescription;
+    momentumDescription.vehicle.shapePosition = {1.0F, 1.0F, 0.0F};
+    momentumDescription.vehicle.centerOfMass = {0.0F, 0.0F, 0.0F};
+    momentumDescription.vehicle.angularDamping = {0.0F, 1.0F, 1.0F};
+    momentumDescription.vehicle.airbornePitchAcceleration = 0.0F;
+    momentumDescription.vehicle.clampRollAngle = 0.0F;
+    momentumDescription.vehicle.clampPitchAngle = 0.0F;
+    momentumDescription.spawns.front().vehicle =
+        momentumDescription.vehicle;
+    auto momentumWorld =
+        createOriginalVehicleWorld(momentumDescription, error);
+    if (!momentumWorld)
+        return false;
+    momentumWorld->addAngularVelocity(0U, {0.0F, 1.0F, 0.0F});
+    momentumWorld->step(1.0F / 120.0F, input);
+    const auto momentumState = momentumWorld->vehicle();
+    const JPH::Vec3 localMomentum =
+        toJolt(momentumState.body.rotation).Conjugated() *
+        toJoltAngular(momentumState.angularMomentum);
+    const float momentumLength = localMomentum.Length();
+    if (momentumLength < 1.0F ||
+        std::abs(localMomentum.GetX()) > momentumLength * 0.02F)
+    {
+        error = "GameCar::StabilizeForce did not damp local angular "
+                "momentum with the source mass-space inertia tensor: " +
+                std::to_string(localMomentum.GetX()) + "," +
+                std::to_string(localMomentum.GetY()) + "," +
+                std::to_string(localMomentum.GetZ());
+        return false;
+    }
+
+    // NxBodyDesc::maxAngularVelocity remains -1 for GameCar, so the Windows
+    // runtime inherits NX_MAX_ANGULAR_VELOCITY=7 from the PhysX SDK. Exercise
+    // the backend through the same public velocity path used by off-centre
+    // weapon and collision impulses. Without the explicit source ceiling,
+    // Jolt accepts roughly 47 rad/s and rotates by almost 0.4 rad in one
+    // solver step, which is the launch/spin regression reported in races.
+    auto angularLimitWorld =
+        createOriginalVehicleWorld(airborneDescription, error);
+    if (!angularLimitWorld)
+        return false;
+    const Quat angularLimitBefore =
+        angularLimitWorld->vehicle().body.rotation;
+    angularLimitWorld->addAngularVelocity(
+        0U, {0.0F, 0.0F, 100.0F});
+    angularLimitWorld->step(1.0F / 120.0F, input);
+    const Quat angularLimitAfter =
+        angularLimitWorld->vehicle().body.rotation;
+    const float angularLimitDot = std::abs(
+        angularLimitBefore.x * angularLimitAfter.x +
+        angularLimitBefore.y * angularLimitAfter.y +
+        angularLimitBefore.z * angularLimitAfter.z +
+        angularLimitBefore.w * angularLimitAfter.w);
+    const float angularLimitRotation = 2.0F * std::acos(
+        std::clamp(angularLimitDot, 0.0F, 1.0F));
+    constexpr float sourceAngularStepLimit =
+        sourceMaximumAngularVelocity / 120.0F + 0.005F;
+    if (angularLimitRotation > sourceAngularStepLimit)
+    {
+        error = "PhysX NX_MAX_ANGULAR_VELOCITY=7 body limit was not "
+                "preserved";
+        return false;
+    }
+
+    auto springLockedWorld =
+        createOriginalVehicleWorld(airborneDescription, error);
+    if (!springLockedWorld)
+        return false;
+    springLockedWorld->addLinearVelocity(
+        0U, {5.0F, 0.0F, 0.0F});
+    const Quat springLockedBefore =
+        springLockedWorld->vehicle().body.rotation;
+    input = {};
+    input.springLocked = true;
+    for (int step = 0; step < 30; ++step)
+        springLockedWorld->step(1.0F / 120.0F, input);
+    const Quat springLockedAfter =
+        springLockedWorld->vehicle().body.rotation;
+    const float springLockedRotation =
+        std::abs(
+            springLockedBefore.x - springLockedAfter.x) +
+        std::abs(
+            springLockedBefore.y - springLockedAfter.y) +
+        std::abs(
+            springLockedBefore.z - springLockedAfter.z) +
+        std::abs(
+            springLockedBefore.w - springLockedAfter.w);
+    if (selectedVehicle.airbornePitchAcceleration != 0.0F &&
+        springLockedRotation >= 0.005F)
+    {
+        error = "source GameCar::LockSpring did not suppress airborne "
+                "pitch acceleration";
+        return false;
+    }
+
+    if (description.spawns.size() > 1U)
+    {
+        WorldDescription matrixDescription = drivetrainDescription;
+        matrixDescription.spawns.clear();
+        for (std::size_t index = 0; index < description.spawns.size();
+             ++index)
+        {
+            auto spawn = description.spawns[index];
+            spawn.vehicle.tireSpring = 0.0F;
+            spawn.position = {0.0F, static_cast<float>(index) * 15.0F,
+                              2.0F};
+            spawn.direction = {1.0F, 0.0F, 0.0F};
+            matrixDescription.spawns.push_back(std::move(spawn));
+        }
+        matrixDescription.vehicle =
+            matrixDescription.spawns.front().vehicle;
+        auto matrixWorld =
+            createOriginalVehicleWorld(matrixDescription, error);
+        if (!matrixWorld)
+            return false;
+        std::vector<VehicleInput> matrixInputs(
+            matrixWorld->vehicleCount());
+        for (int step = 0; step < 240; ++step)
+            matrixWorld->step(1.0F / 120.0F, matrixInputs);
+        for (auto& matrixInput : matrixInputs)
+            matrixInput.throttle = 1.0F;
+        for (int step = 0; step < 120; ++step)
+            matrixWorld->step(1.0F / 120.0F, matrixInputs);
+        for (std::size_t index = 0;
+             index < matrixWorld->vehicleCount(); ++index)
+        {
+            const auto& state = matrixWorld->vehicle(index);
+            if (state.gear <= 0 || state.contactCount == 0U ||
+                state.speed < 0.1F)
+            {
+                error = "original multi-car drivetrain matrix failed at "
+                        "vehicle " + std::to_string(index);
+                return false;
+            }
+        }
+    }
+
+    WorldDescription contactDescription;
+    contactDescription.vehicle =
+        description.spawns.empty() ? description.vehicle
+                                   : description.spawns.front().vehicle;
+    contactDescription.vehicle.tireSpring = 0.0F;
+    contactDescription.startPosition = {0.0F, 0.0F, 2.0F};
+    contactDescription.startDirection = {1.0F, 0.0F, 0.0F};
+    contactDescription.gravity = description.gravity;
+    contactDescription.spawns.push_back(
+        {contactDescription.vehicle, contactDescription.startPosition,
+         contactDescription.startDirection});
+    TriangleMesh floor;
+    floor.surface = CollisionSurface::TrackPlane;
+    floor.vertices = {{-30.0F, -30.0F, 0.0F},
+                      {30.0F, -30.0F, 0.0F},
+                      {30.0F, 30.0F, 0.0F},
+                      {-30.0F, 30.0F, 0.0F}};
+    floor.indices = {0U, 1U, 2U, 0U, 2U, 3U};
+    contactDescription.collisionMeshes.push_back(std::move(floor));
+    TriangleMesh border;
+    border.surface = CollisionSurface::TrackBorder;
+    border.vertices = {{4.0F, -8.0F, 0.0F},
+                       {4.0F, 8.0F, 5.0F},
+                       {4.0F, 8.0F, 0.0F},
+                       {4.0F, -8.0F, 5.0F}};
+    border.indices = {0U, 1U, 2U, 0U, 3U, 1U};
+    contactDescription.collisionMeshes.push_back(std::move(border));
+    DecorationDescription barrel;
+    barrel.transform.position = {0.0F, -10.0F, 4.0F};
+    barrel.shapePosition = {0.0F, 0.0F, 0.5F};
+    barrel.halfExtents = {0.5F, 0.5F, 0.75F};
+    barrel.mass = 200.0F;
+    barrel.hasBodyShape = true;
+    barrel.dynamic = true;
+    contactDescription.decorations.push_back(barrel);
+    DecorationDescription destructible;
+    destructible.transform.position = {2.0F, 0.0F, 0.0F};
+    destructible.collisionResponse = false;
+    DecorationDescription::ChildShape attachedBoard;
+    attachedBoard.position = {0.0F, 0.0F, 1.5F};
+    attachedBoard.halfExtents = {0.1F, 2.0F, 1.5F};
+    destructible.childShapes.push_back(attachedBoard);
+    contactDescription.decorations.push_back(destructible);
+    auto contactWorld =
+        createOriginalVehicleWorld(contactDescription, error);
+    if (!contactWorld)
+        return false;
+    WorldRayCastQuery borderQuery;
+    borderQuery.origin = {3.0F, 5.0F, 2.0F};
+    borderQuery.direction = {1.0F, 0.0F, 0.0F};
+    borderQuery.maximumDistance = 10.0F;
+    const auto borderHit = contactWorld->raycast(borderQuery);
+    borderQuery.includeTrackBorders = false;
+    if (!borderHit.hit || borderHit.surface != CollisionSurface::TrackBorder ||
+        contactWorld->raycast(borderQuery).hit)
+    {
+        error = "Player::ResetCar ray mask must exclude track borders without changing projectile rays";
+        return false;
+    }
+    if (contactWorld->decorationCount() != 2U ||
+        !contactWorld->decoration(0U).active ||
+        !contactWorld->decoration(1U).active)
+    {
+        error = "source ctDecoration bodies were not created independently";
+        return false;
+    }
+    const float barrelStartHeight =
+        contactWorld->decoration(0U).body.position.z;
+    input = {};
+    bool barrelLanded = false;
+    bool barrelPublishedMotion = false;
+    float barrelLowestHeight = barrelStartHeight;
+    float barrelPostContactRise = 0.0F;
+    for (int step = 0; step < 240; ++step)
+    {
+        contactWorld->step(1.0F / 120.0F, input);
+        const float height =
+            contactWorld->decoration(0U).body.position.z;
+        barrelPublishedMotion = barrelPublishedMotion ||
+            (contactWorld->decoration(0U).bodyAwake &&
+             std::abs(
+                 contactWorld->decoration(0U).linearVelocity.z) > 0.01F);
+        if (height <= 0.4F)
+            barrelLanded = true;
+        if (barrelLanded)
+        {
+            barrelLowestHeight = std::min(barrelLowestHeight, height);
+            barrelPostContactRise = std::max(
+                barrelPostContactRise, height - barrelLowestHeight);
+        }
+    }
+    if (!barrelLanded || !barrelPublishedMotion ||
+        contactWorld->decoration(0U).body.position.z >=
+            barrelStartHeight - 0.1F)
+    {
+        error = "source dynamic decoration did not enter Jolt physics";
+        return false;
+    }
+    if (barrelPostContactRise < 0.02F ||
+        barrelPostContactRise > 0.75F)
+    {
+        error = "source material-0 restitution response diverged from "
+                "PhysX";
+        return false;
+    }
+    contactWorld->setDecorationEnabled(0U, false);
+    contactWorld->setDecorationEnabled(1U, false);
+    if (contactWorld->decoration(0U).active ||
+        contactWorld->decoration(1U).active)
+    {
+        error = "destroyed ctDecoration collision remained enabled";
+        return false;
+    }
+    contactWorld->reset();
+    if (!contactWorld->decoration(0U).active ||
+        !contactWorld->decoration(1U).active ||
+        std::abs(contactWorld->decoration(0U).body.position.z -
+                 barrelStartHeight) > 0.001F ||
+        std::abs(contactWorld->decoration(0U).linearVelocity.x) > 0.001F ||
+        std::abs(contactWorld->decoration(0U).linearVelocity.y) > 0.001F ||
+        std::abs(contactWorld->decoration(0U).linearVelocity.z) > 0.001F)
+    {
+        error = "race reset did not restore source ctDecoration bodies";
+        return false;
+    }
+    input = {};
+    input.throttle = 1.0F;
+    bool sawBorderContact = false;
+    bool sawDestructibleSensor = false;
+    for (int step = 0;
+         step < 1200 && (!sawBorderContact || !sawDestructibleSensor);
+         ++step)
+    {
+        contactWorld->step(1.0F / 120.0F, input);
+        for (const auto& contact : contactWorld->vehicle().bodyContacts)
+        {
+            sawDestructibleSensor =
+                sawDestructibleSensor ||
+                (contact.surface == CollisionSurface::Decoration &&
+                 contact.otherDecoration == 1U && contact.hasPoint);
+            sawBorderContact = sawBorderContact ||
+                (contact.surface ==
+                           CollisionSurface::TrackBorder &&
+                       contact.normalSpeed > 0.0F &&
+                       contact.force > 0.0F &&
+                       contact.otherActor !=
+                           std::numeric_limits<std::uint32_t>::max() &&
+                       contact.hasPoint &&
+                       !contact.points.empty() &&
+                       std::isfinite(contact.frictionForce) &&
+                       contact.frictionForce >= 0.0F &&
+                       std::isfinite(contact.frictionForceVector.x) &&
+                       std::isfinite(contact.frictionForceVector.y) &&
+                       std::isfinite(contact.frictionForceVector.z) &&
+                       std::abs(
+                           std::sqrt(
+                               contact.frictionForceVector.x *
+                                   contact.frictionForceVector.x +
+                               contact.frictionForceVector.y *
+                                   contact.frictionForceVector.y +
+                               contact.frictionForceVector.z *
+                                   contact.frictionForceVector.z) -
+                           contact.frictionForce) <=
+                           std::max(1.0F,
+                                    contact.frictionForce * 0.001F));
+        }
+    }
+    if (!sawBorderContact)
+    {
+        error =
+            "Jolt body contact listener did not preserve track-border "
+            "surface metadata";
+        return false;
+    }
+    if (!sawDestructibleSensor)
+    {
+        error =
+            "source NX_AF_DISABLE_RESPONSE destruct-list box did not report "
+            "its owning MapObj contact";
+        return false;
+    }
+    DebrisDescription debrisDescription;
+    debrisDescription.transform.position = {0.0F, -10.0F, 4.0F};
+    debrisDescription.halfExtents = {0.5F, 0.5F, 0.5F};
+    debrisDescription.mass = 200.0F;
+    const std::size_t debrisIndex =
+        contactWorld->addDebris(debrisDescription);
+    if (debrisIndex == std::numeric_limits<std::size_t>::max() ||
+        contactWorld->debrisCount() != 1U ||
+        !contactWorld->debris(debrisIndex).active)
+    {
+        error = "source gotDestrObj dynamic body was not created";
+        return false;
+    }
+    const float debrisStartHeight =
+        contactWorld->debris(debrisIndex).body.position.z;
+    input = {};
+    bool debrisPublishedMotion = false;
+    for (int step = 0; step < 120; ++step)
+    {
+        contactWorld->step(1.0F / 120.0F, input);
+        debrisPublishedMotion = debrisPublishedMotion ||
+            (contactWorld->debris(debrisIndex).bodyAwake &&
+             std::abs(
+                 contactWorld->debris(debrisIndex).linearVelocity.z) >
+                 0.01F);
+    }
+    if (!debrisPublishedMotion ||
+        contactWorld->debris(debrisIndex).body.position.z >=
+        debrisStartHeight - 0.1F)
+    {
+        error = "source gotDestrObj dynamic body did not enter Jolt physics";
+        return false;
+    }
+    DebrisDescription staticPieceDescription;
+    staticPieceDescription.transform.position = {15.0F, -15.0F, 0.0F};
+    staticPieceDescription.dynamic = false;
+    TriangleMesh staticPieceMesh;
+    staticPieceMesh.surface = CollisionSurface::Decoration;
+    staticPieceMesh.vertices = {{-1.0F, -1.0F, 0.0F},
+                                {1.0F, -1.0F, 0.0F},
+                                {1.0F, 1.0F, 0.0F},
+                                {-1.0F, 1.0F, 0.0F}};
+    staticPieceMesh.indices = {0U, 1U, 2U, 0U, 2U, 3U};
+    staticPieceDescription.collisionMeshes.push_back(
+        std::move(staticPieceMesh));
+    const std::size_t staticPieceIndex =
+        contactWorld->addDebris(staticPieceDescription);
+    if (staticPieceIndex == std::numeric_limits<std::size_t>::max() ||
+        !contactWorld->debris(staticPieceIndex).active)
+    {
+        error = "source static destruction-list body was not created";
+        return false;
+    }
+    const auto staticPieceStart =
+        contactWorld->debris(staticPieceIndex).body.position;
+    contactWorld->step(0.1F, input);
+    const auto staticPieceEnd =
+        contactWorld->debris(staticPieceIndex).body.position;
+    if (std::abs(staticPieceStart.x - staticPieceEnd.x) > 0.001F ||
+        std::abs(staticPieceStart.y - staticPieceEnd.y) > 0.001F ||
+        std::abs(staticPieceStart.z - staticPieceEnd.z) > 0.001F)
+    {
+        error = "source static destruction-list body entered dynamics";
+        return false;
+    }
+    DebrisDescription wreckDescription;
+    wreckDescription.transform.position = {0.0F, -15.0F, 4.0F};
+    wreckDescription.halfExtents = {1.46261F, 0.745738F, 0.534895F};
+    wreckDescription.localImpulse = {12000.0F, 0.0F, 0.0F};
+    wreckDescription.mass = 1200.0F;
+    wreckDescription.lifetime = 0.25F;
+    const std::size_t wreckIndex = contactWorld->addDebris(wreckDescription);
+    if (wreckIndex == std::numeric_limits<std::size_t>::max() ||
+        !contactWorld->debris(wreckIndex).active)
+    {
+        error = "source vehicle wreck dynamic body was not created";
+        return false;
+    }
+    const float wreckStartX =
+        contactWorld->debris(wreckIndex).body.position.x;
+    contactWorld->step(0.1F, input);
+    if (!contactWorld->debris(wreckIndex).active ||
+        contactWorld->debris(wreckIndex).body.position.x <=
+            wreckStartX + 0.01F)
+    {
+        error = "source vehicle wreck impulse was not applied";
+        return false;
+    }
+    contactWorld->step(0.1F, input);
+    contactWorld->step(0.1F, input);
+    if (contactWorld->debris(wreckIndex).active)
+    {
+        error = "source vehicle wreck maxTimeLife was not applied";
+        return false;
+    }
+    contactWorld->setVehicleEnabled(0U, false);
+    contactWorld->step(0.1F, input);
+    if (contactWorld->vehicle().speed != 0.0F ||
+        contactWorld->vehicle().contactCount != 0U)
+    {
+        error = "destroyed source vehicle remained in Jolt physics";
+        return false;
+    }
+    const auto resetBeforeRestore = contactWorld->vehicle().resetCount;
+    contactWorld->resetVehicle(
+        0U, contactDescription.spawns.front().position,
+        contactDescription.spawns.front().direction);
+    if (contactWorld->vehicle().resetCount != resetBeforeRestore + 1U)
+    {
+        error = "source vehicle restore did not re-enable Jolt body";
+        return false;
+    }
+    contactWorld->reset();
+    if (contactWorld->debrisCount() != 0U)
+    {
+        error = "source gotDestrObj dynamic bodies survived race reset";
+        return false;
+    }
+    error.clear();
+    return true;
+}
+
+} // namespace r3d::physics

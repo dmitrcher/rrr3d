@@ -1,0 +1,627 @@
+10148004: 85 c0                        	testl	%eax, %eax
+10148006: 75 01                        	jne	0x10148009 <NpCreatePhysicsSDK+0x3ae99>
+10148008: cc                           	int3
+10148009: 8d 48 10                     	leal	0x10(%eax), %ecx
+1014800c: 8b 01                        	movl	(%ecx), %eax
+1014800e: 8b 50 18                     	movl	0x18(%eax), %edx
+10148011: ff d2                        	calll	*%edx
+10148013: 8b 10                        	movl	(%eax), %edx
+10148015: 8b 52 48                     	movl	0x48(%edx), %edx
+10148018: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+1014801d: 68 c8 b0 31 10               	pushl	$0x1031b0c8             # imm = 0x1031B0C8
+10148022: 53                           	pushl	%ebx
+10148023: 56                           	pushl	%esi
+10148024: 8d 4c 24 28                  	leal	0x28(%esp), %ecx
+10148028: 51                           	pushl	%ecx
+10148029: 8b c8                        	movl	%eax, %ecx
+1014802b: ff d2                        	calll	*%edx
+1014802d: 8b 4e 14                     	movl	0x14(%esi), %ecx
+10148030: 8b 01                        	movl	(%ecx), %eax
+10148032: 8b 90 68 01 00 00            	movl	0x168(%eax), %edx
+10148038: ff d2                        	calll	*%edx
+1014803a: 88 44 24 13                  	movb	%al, 0x13(%esp)
+1014803e: a1 e4 07 35 10               	movl	0x103507e4, %eax
+10148043: 85 c0                        	testl	%eax, %eax
+10148045: 75 01                        	jne	0x10148048 <NpCreatePhysicsSDK+0x3aed8>
+10148047: cc                           	int3
+10148048: 8d 48 10                     	leal	0x10(%eax), %ecx
+1014804b: 8b 01                        	movl	(%ecx), %eax
+1014804d: 8b 50 18                     	movl	0x18(%eax), %edx
+10148050: ff d2                        	calll	*%edx
+10148052: 8b 10                        	movl	(%eax), %edx
+10148054: 8b 52 28                     	movl	0x28(%edx), %edx
+10148057: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+1014805c: 68 90 b7 31 10               	pushl	$0x1031b790             # imm = 0x1031B790
+10148061: 53                           	pushl	%ebx
+10148062: 56                           	pushl	%esi
+10148063: 8d 4c 24 23                  	leal	0x23(%esp), %ecx
+10148067: 51                           	pushl	%ecx
+10148068: 8b c8                        	movl	%eax, %ecx
+1014806a: ff d2                        	calll	*%edx
+1014806c: 8b 4e 14                     	movl	0x14(%esi), %ecx
+1014806f: 8b 01                        	movl	(%ecx), %eax
+10148071: 8b 50 34                     	movl	0x34(%eax), %edx
+10148074: ff d2                        	calll	*%edx
+10148076: 8b f8                        	movl	%eax, %edi
+10148078: 85 ff                        	testl	%edi, %edi
+1014807a: 0f 84 b2 00 00 00            	je	0x10148132 <NpCreatePhysicsSDK+0x3afc2>
+10148080: a1 e4 07 35 10               	movl	0x103507e4, %eax
+10148085: 85 c0                        	testl	%eax, %eax
+10148087: 75 01                        	jne	0x1014808a <NpCreatePhysicsSDK+0x3af1a>
+10148089: cc                           	int3
+1014808a: 8d 48 10                     	leal	0x10(%eax), %ecx
+1014808d: 8b 01                        	movl	(%ecx), %eax
+1014808f: 8b 50 18                     	movl	0x18(%eax), %edx
+10148092: ff d2                        	calll	*%edx
+10148094: 8b 10                        	movl	(%eax), %edx
+10148096: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+1014809b: 68 9c b7 31 10               	pushl	$0x1031b79c             # imm = 0x1031B79C
+101480a0: 53                           	pushl	%ebx
+101480a1: 56                           	pushl	%esi
+101480a2: 8b c8                        	movl	%eax, %ecx
+101480a4: 8b 42 44                     	movl	0x44(%edx), %eax
+101480a7: 57                           	pushl	%edi
+101480a8: ff d0                        	calll	*%eax
+101480aa: a1 e4 07 35 10               	movl	0x103507e4, %eax
+101480af: 85 c0                        	testl	%eax, %eax
+101480b1: 75 01                        	jne	0x101480b4 <NpCreatePhysicsSDK+0x3af44>
+101480b3: cc                           	int3
+101480b4: 8b 50 10                     	movl	0x10(%eax), %edx
+101480b7: 8d 48 10                     	leal	0x10(%eax), %ecx
+101480ba: 8b 42 18                     	movl	0x18(%edx), %eax
+101480bd: ff d0                        	calll	*%eax
+101480bf: 8b 10                        	movl	(%eax), %edx
+101480c1: 8b 52 44                     	movl	0x44(%edx), %edx
+101480c4: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+101480c9: 68 b0 b7 31 10               	pushl	$0x1031b7b0             # imm = 0x1031B7B0
+101480ce: 53                           	pushl	%ebx
+101480cf: 56                           	pushl	%esi
+101480d0: 8d 4f 04                     	leal	0x4(%edi), %ecx
+101480d3: 51                           	pushl	%ecx
+101480d4: 8b c8                        	movl	%eax, %ecx
+101480d6: ff d2                        	calll	*%edx
+101480d8: a1 e4 07 35 10               	movl	0x103507e4, %eax
+101480dd: 85 c0                        	testl	%eax, %eax
+101480df: 75 01                        	jne	0x101480e2 <NpCreatePhysicsSDK+0x3af72>
+101480e1: cc                           	int3
+101480e2: 8d 48 10                     	leal	0x10(%eax), %ecx
+101480e5: 8b 01                        	movl	(%ecx), %eax
+101480e7: 8b 50 18                     	movl	0x18(%eax), %edx
+101480ea: ff d2                        	calll	*%edx
+101480ec: 8b 10                        	movl	(%eax), %edx
+101480ee: 8b 52 44                     	movl	0x44(%edx), %edx
+101480f1: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+101480f6: 68 c4 b7 31 10               	pushl	$0x1031b7c4             # imm = 0x1031B7C4
+101480fb: 53                           	pushl	%ebx
+101480fc: 56                           	pushl	%esi
+101480fd: 8d 4f 08                     	leal	0x8(%edi), %ecx
+10148100: 51                           	pushl	%ecx
+10148101: 8b c8                        	movl	%eax, %ecx
+10148103: ff d2                        	calll	*%edx
+10148105: a1 e4 07 35 10               	movl	0x103507e4, %eax
+1014810a: 85 c0                        	testl	%eax, %eax
+1014810c: 75 01                        	jne	0x1014810f <NpCreatePhysicsSDK+0x3af9f>
+1014810e: cc                           	int3
+1014810f: 8d 48 10                     	leal	0x10(%eax), %ecx
+10148112: 8b 01                        	movl	(%ecx), %eax
+10148114: 8b 50 18                     	movl	0x18(%eax), %edx
+10148117: ff d2                        	calll	*%edx
+10148119: 8b 10                        	movl	(%eax), %edx
+1014811b: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+10148120: 68 d8 b7 31 10               	pushl	$0x1031b7d8             # imm = 0x1031B7D8
+10148125: 53                           	pushl	%ebx
+10148126: 56                           	pushl	%esi
+10148127: 83 c7 0c                     	addl	$0xc, %edi
+1014812a: 8b c8                        	movl	%eax, %ecx
+1014812c: 8b 42 44                     	movl	0x44(%edx), %eax
+1014812f: 57                           	pushl	%edi
+10148130: ff d0                        	calll	*%eax
+10148132: 8b 4e 14                     	movl	0x14(%esi), %ecx
+10148135: 8b 11                        	movl	(%ecx), %edx
+10148137: 8b 82 8c 01 00 00            	movl	0x18c(%edx), %eax
+1014813d: ff d0                        	calll	*%eax
+1014813f: c1 e8 0f                     	shrl	$0xf, %eax
+10148142: 24 01                        	andb	$0x1, %al
+10148144: 88 44 24 12                  	movb	%al, 0x12(%esp)
+10148148: a1 e4 07 35 10               	movl	0x103507e4, %eax
+1014814d: 85 c0                        	testl	%eax, %eax
+1014814f: 75 01                        	jne	0x10148152 <NpCreatePhysicsSDK+0x3afe2>
+10148151: cc                           	int3
+10148152: 8b 50 10                     	movl	0x10(%eax), %edx
+10148155: 8d 48 10                     	leal	0x10(%eax), %ecx
+10148158: 8b 42 18                     	movl	0x18(%edx), %eax
+1014815b: ff d0                        	calll	*%eax
+1014815d: 8b 10                        	movl	(%eax), %edx
+1014815f: 8b 52 28                     	movl	0x28(%edx), %edx
+10148162: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+10148167: 68 fc b4 31 10               	pushl	$0x1031b4fc             # imm = 0x1031B4FC
+1014816c: 53                           	pushl	%ebx
+1014816d: 8d 7e 01                     	leal	0x1(%esi), %edi
+10148170: 57                           	pushl	%edi
+10148171: 8d 4c 24 22                  	leal	0x22(%esp), %ecx
+10148175: 51                           	pushl	%ecx
+10148176: 8b c8                        	movl	%eax, %ecx
+10148178: ff d2                        	calll	*%edx
+1014817a: 80 7c 24 12 00               	cmpb	$0x0, 0x12(%esp)
+1014817f: 0f 84 24 01 00 00            	je	0x101482a9 <NpCreatePhysicsSDK+0x3b139>
+10148185: f3 0f 10 05 88 15 33 10      	movss	0x10331588, %xmm0
+1014818d: 8b 76 14                     	movl	0x14(%esi), %esi
+10148190: f3 0f 11 44 24 28            	movss	%xmm0, 0x28(%esp)
+10148196: f3 0f 11 44 24 2c            	movss	%xmm0, 0x2c(%esp)
+1014819c: f3 0f 11 44 24 30            	movss	%xmm0, 0x30(%esp)
+101481a2: f3 0f 10 05 f4 15 33 10      	movss	0x103315f4, %xmm0
+101481aa: f3 0f 11 44 24 34            	movss	%xmm0, 0x34(%esp)
+101481b0: f3 0f 11 44 24 38            	movss	%xmm0, 0x38(%esp)
+101481b6: f3 0f 11 44 24 3c            	movss	%xmm0, 0x3c(%esp)
+101481bc: 8b 06                        	movl	(%esi), %eax
+101481be: 8b 90 84 01 00 00            	movl	0x184(%eax), %edx
+101481c4: 8d 4c 24 28                  	leal	0x28(%esp), %ecx
+101481c8: 51                           	pushl	%ecx
+101481c9: 8b ce                        	movl	%esi, %ecx
+101481cb: ff d2                        	calll	*%edx
+101481cd: f3 0f 10 1d d0 15 33 10      	movss	0x103315d0, %xmm3
+101481d5: f3 0f 10 44 24 34            	movss	0x34(%esp), %xmm0
+101481db: f3 0f 10 4c 24 38            	movss	0x38(%esp), %xmm1
+101481e1: f3 0f 10 54 24 3c            	movss	0x3c(%esp), %xmm2
+101481e7: a1 e4 07 35 10               	movl	0x103507e4, %eax
+101481ec: f3 0f 58 44 24 28            	addss	0x28(%esp), %xmm0
+101481f2: f3 0f 58 4c 24 2c            	addss	0x2c(%esp), %xmm1
+101481f8: f3 0f 58 54 24 30            	addss	0x30(%esp), %xmm2
+101481fe: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+10148202: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+10148206: f3 0f 59 d3                  	mulss	%xmm3, %xmm2
+1014820a: f3 0f 11 44 24 1c            	movss	%xmm0, 0x1c(%esp)
+10148210: f3 0f 11 4c 24 20            	movss	%xmm1, 0x20(%esp)
+10148216: f3 0f 11 54 24 24            	movss	%xmm2, 0x24(%esp)
+1014821c: 85 c0                        	testl	%eax, %eax
+1014821e: 75 01                        	jne	0x10148221 <NpCreatePhysicsSDK+0x3b0b1>
+10148220: cc                           	int3
+10148221: 8d 48 10                     	leal	0x10(%eax), %ecx
+10148224: 8b 01                        	movl	(%ecx), %eax
+10148226: 8b 50 18                     	movl	0x18(%eax), %edx
+10148229: ff d2                        	calll	*%edx
+1014822b: 8b 10                        	movl	(%eax), %edx
+1014822d: 8b 52 40                     	movl	0x40(%edx), %edx
+10148230: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+10148235: 68 b8 b2 31 10               	pushl	$0x1031b2b8             # imm = 0x1031B2B8
+1014823a: 53                           	pushl	%ebx
+1014823b: 57                           	pushl	%edi
+1014823c: 8d 4c 24 2c                  	leal	0x2c(%esp), %ecx
+10148240: 51                           	pushl	%ecx
+10148241: 8b c8                        	movl	%eax, %ecx
+10148243: ff d2                        	calll	*%edx
+10148245: f3 0f 10 1d d0 15 33 10      	movss	0x103315d0, %xmm3
+1014824d: f3 0f 10 44 24 34            	movss	0x34(%esp), %xmm0
+10148253: f3 0f 10 4c 24 38            	movss	0x38(%esp), %xmm1
+10148259: f3 0f 10 54 24 3c            	movss	0x3c(%esp), %xmm2
+1014825f: a1 e4 07 35 10               	movl	0x103507e4, %eax
+10148264: f3 0f 5c 44 24 28            	subss	0x28(%esp), %xmm0
+1014826a: f3 0f 5c 4c 24 2c            	subss	0x2c(%esp), %xmm1
+10148270: f3 0f 5c 54 24 30            	subss	0x30(%esp), %xmm2
+10148276: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+1014827a: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+1014827e: f3 0f 59 d3                  	mulss	%xmm3, %xmm2
+10148282: f3 0f 11 44 24 1c            	movss	%xmm0, 0x1c(%esp)
+10148288: f3 0f 11 4c 24 20            	movss	%xmm1, 0x20(%esp)
+1014828e: f3 0f 11 54 24 24            	movss	%xmm2, 0x24(%esp)
+10148294: 85 c0                        	testl	%eax, %eax
+10148296: 75 01                        	jne	0x10148299 <NpCreatePhysicsSDK+0x3b129>
+10148298: cc                           	int3
+10148299: 8d 48 10                     	leal	0x10(%eax), %ecx
+1014829c: 8b 01                        	movl	(%ecx), %eax
+1014829e: 8b 50 18                     	movl	0x18(%eax), %edx
+101482a1: ff d2                        	calll	*%edx
+101482a3: 8d 4c 24 1c                  	leal	0x1c(%esp), %ecx
+101482a7: eb 70                        	jmp	0x10148319 <NpCreatePhysicsSDK+0x3b1a9>
+101482a9: a1 e4 07 35 10               	movl	0x103507e4, %eax
+101482ae: 85 c0                        	testl	%eax, %eax
+101482b0: 75 01                        	jne	0x101482b3 <NpCreatePhysicsSDK+0x3b143>
+101482b2: cc                           	int3
+101482b3: 8d 48 10                     	leal	0x10(%eax), %ecx
+101482b6: 8b 01                        	movl	(%ecx), %eax
+101482b8: 8b 50 18                     	movl	0x18(%eax), %edx
+101482bb: ff d2                        	calll	*%edx
+101482bd: 0f 57 c0                     	xorps	%xmm0, %xmm0
+101482c0: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+101482c5: 68 b8 b2 31 10               	pushl	$0x1031b2b8             # imm = 0x1031B2B8
+101482ca: 53                           	pushl	%ebx
+101482cb: f3 0f 11 44 24 28            	movss	%xmm0, 0x28(%esp)
+101482d1: f3 0f 11 44 24 2c            	movss	%xmm0, 0x2c(%esp)
+101482d7: f3 0f 11 44 24 30            	movss	%xmm0, 0x30(%esp)
+101482dd: 8b 10                        	movl	(%eax), %edx
+101482df: 8b 52 40                     	movl	0x40(%edx), %edx
+101482e2: 57                           	pushl	%edi
+101482e3: 8d 4c 24 2c                  	leal	0x2c(%esp), %ecx
+101482e7: 51                           	pushl	%ecx
+101482e8: 8b c8                        	movl	%eax, %ecx
+101482ea: ff d2                        	calll	*%edx
+101482ec: a1 e4 07 35 10               	movl	0x103507e4, %eax
+101482f1: 85 c0                        	testl	%eax, %eax
+101482f3: 75 01                        	jne	0x101482f6 <NpCreatePhysicsSDK+0x3b186>
+101482f5: cc                           	int3
+101482f6: 8d 48 10                     	leal	0x10(%eax), %ecx
+101482f9: 8b 01                        	movl	(%ecx), %eax
+101482fb: 8b 50 18                     	movl	0x18(%eax), %edx
+101482fe: ff d2                        	calll	*%edx
+10148300: 0f 57 c0                     	xorps	%xmm0, %xmm0
+10148303: f3 0f 11 44 24 28            	movss	%xmm0, 0x28(%esp)
+10148309: f3 0f 11 44 24 2c            	movss	%xmm0, 0x2c(%esp)
+1014830f: f3 0f 11 44 24 30            	movss	%xmm0, 0x30(%esp)
+10148315: 8d 4c 24 28                  	leal	0x28(%esp), %ecx
+10148319: 8b 10                        	movl	(%eax), %edx
+1014831b: 8b 52 40                     	movl	0x40(%edx), %edx
+1014831e: 68 00 08 00 00               	pushl	$0x800                  # imm = 0x800
+10148323: 68 c0 b2 31 10               	pushl	$0x1031b2c0             # imm = 0x1031B2C0
+10148328: 53                           	pushl	%ebx
+10148329: 57                           	pushl	%edi
+1014832a: 51                           	pushl	%ecx
+1014832b: 8b c8                        	movl	%eax, %ecx
+1014832d: ff d2                        	calll	*%edx
+1014832f: 5f                           	popl	%edi
+10148330: 5e                           	popl	%esi
+10148331: 5b                           	popl	%ebx
+10148332: 8b e5                        	movl	%ebp, %esp
+10148334: 5d                           	popl	%ebp
+10148335: c2 04 00                     	retl	$0x4
+10148338: cc                           	int3
+10148339: cc                           	int3
+1014833a: cc                           	int3
+1014833b: cc                           	int3
+1014833c: cc                           	int3
+1014833d: cc                           	int3
+1014833e: cc                           	int3
+1014833f: cc                           	int3
+10148340: 8b 54 24 04                  	movl	0x4(%esp), %edx
+10148344: 56                           	pushl	%esi
+10148345: 8b f1                        	movl	%ecx, %esi
+10148347: 8b 4e 14                     	movl	0x14(%esi), %ecx
+1014834a: 8b 01                        	movl	(%ecx), %eax
+1014834c: 8b 80 5c 01 00 00            	movl	0x15c(%eax), %eax
+10148352: 52                           	pushl	%edx
+10148353: ff d0                        	calll	*%eax
+10148355: 6a 00                        	pushl	$0x0
+10148357: 8b c6                        	movl	%esi, %eax
+10148359: e8 92 f5 ff ff               	calll	0x101478f0 <NpCreatePhysicsSDK+0x3a780>
+1014835e: 5e                           	popl	%esi
+1014835f: c2 04 00                     	retl	$0x4
+10148362: cc                           	int3
+10148363: cc                           	int3
+10148364: cc                           	int3
+10148365: cc                           	int3
+10148366: cc                           	int3
+10148367: cc                           	int3
+10148368: cc                           	int3
+10148369: cc                           	int3
+1014836a: cc                           	int3
+1014836b: cc                           	int3
+1014836c: cc                           	int3
+1014836d: cc                           	int3
+1014836e: cc                           	int3
+1014836f: cc                           	int3
+10148370: 56                           	pushl	%esi
+10148371: 8b f1                        	movl	%ecx, %esi
+10148373: 8b c6                        	movl	%esi, %eax
+10148375: c7 06 a0 b9 31 10            	movl	$0x1031b9a0, (%esi)     # imm = 0x1031B9A0
+1014837b: c7 46 08 4c bb 31 10         	movl	$0x1031bb4c, 0x8(%esi)  # imm = 0x1031BB4C
+10148382: e8 d9 15 ed ff               	calll	0x10019960 <.text+0x18960>
+10148387: e8 a4 cc ff ff               	calll	0x10145030 <NpCreatePhysicsSDK+0x37ec0>
+1014838c: c7 46 08 68 0f 33 10         	movl	$0x10330f68, 0x8(%esi)  # imm = 0x10330F68
+10148393: c7 06 f0 b7 31 10            	movl	$0x1031b7f0, (%esi)     # imm = 0x1031B7F0
+10148399: 5e                           	popl	%esi
+1014839a: c3                           	retl
+1014839b: cc                           	int3
+1014839c: cc                           	int3
+1014839d: cc                           	int3
+1014839e: cc                           	int3
+1014839f: cc                           	int3
+101483a0: 33 c0                        	xorl	%eax, %eax
+101483a2: 89 46 04                     	movl	%eax, 0x4(%esi)
+101483a5: 89 46 0c                     	movl	%eax, 0xc(%esi)
+101483a8: 89 46 10                     	movl	%eax, 0x10(%esi)
+101483ab: c7 46 08 68 0f 33 10         	movl	$0x10330f68, 0x8(%esi)  # imm = 0x10330F68
+101483b2: 89 46 1c                     	movl	%eax, 0x1c(%esi)
+101483b5: 88 46 24                     	movb	%al, 0x24(%esi)
+101483b8: 6a 01                        	pushl	$0x1
+101483ba: 8b c6                        	movl	%esi, %eax
+101483bc: c7 06 a0 b9 31 10            	movl	$0x1031b9a0, (%esi)     # imm = 0x1031B9A0
+101483c2: c7 46 08 4c bb 31 10         	movl	$0x1031bb4c, 0x8(%esi)  # imm = 0x1031BB4C
+101483c9: 89 4e 14                     	movl	%ecx, 0x14(%esi)
+101483cc: 89 56 18                     	movl	%edx, 0x18(%esi)
+101483cf: e8 1c f5 ff ff               	calll	0x101478f0 <NpCreatePhysicsSDK+0x3a780>
+101483d4: 8b c6                        	movl	%esi, %eax
+101483d6: c3                           	retl
+101483d7: cc                           	int3
+101483d8: cc                           	int3
+101483d9: cc                           	int3
+101483da: cc                           	int3
+101483db: cc                           	int3
+101483dc: cc                           	int3
+101483dd: cc                           	int3
+101483de: cc                           	int3
+101483df: cc                           	int3
+101483e0: 55                           	pushl	%ebp
+101483e1: 8b ec                        	movl	%esp, %ebp
+101483e3: 83 e4 f8                     	andl	$-0x8, %esp
+101483e6: 81 ec 64 01 00 00            	subl	$0x164, %esp            # imm = 0x164
+101483ec: 53                           	pushl	%ebx
+101483ed: 56                           	pushl	%esi
+101483ee: 57                           	pushl	%edi
+101483ef: 8d 74 24 18                  	leal	0x18(%esp), %esi
+101483f3: 8b f9                        	movl	%ecx, %edi
+101483f5: e8 e6 15 ed ff               	calll	0x100199e0 <.text+0x189e0>
+101483fa: 8b 4f 14                     	movl	0x14(%edi), %ecx
+101483fd: 8b 01                        	movl	(%ecx), %eax
+101483ff: 8b 40 38                     	movl	0x38(%eax), %eax
+10148402: 8b d6                        	movl	%esi, %edx
+10148404: 52                           	pushl	%edx
+10148405: ff d0                        	calll	*%eax
+10148407: 84 c0                        	testb	%al, %al
+10148409: 75 09                        	jne	0x10148414 <NpCreatePhysicsSDK+0x3b2a4>
+1014840b: 5f                           	popl	%edi
+1014840c: 5e                           	popl	%esi
+1014840d: 5b                           	popl	%ebx
+1014840e: 8b e5                        	movl	%ebp, %esp
+10148410: 5d                           	popl	%ebp
+10148411: c2 04 00                     	retl	$0x4
+10148414: 8b 75 08                     	movl	0x8(%ebp), %esi
+10148417: 56                           	pushl	%esi
+10148418: 8d 4c 24 1c                  	leal	0x1c(%esp), %ecx
+1014841c: 51                           	pushl	%ecx
+1014841d: e8 ee 16 ed ff               	calll	0x10019b10 <.text+0x18b10>
+10148422: 8b 57 04                     	movl	0x4(%edi), %edx
+10148425: 8b 1d 90 07 35 10            	movl	0x10350790, %ebx
+1014842b: 89 96 30 01 00 00            	movl	%edx, 0x130(%esi)
+10148431: 8b 47 14                     	movl	0x14(%edi), %eax
+10148434: 85 db                        	testl	%ebx, %ebx
+10148436: 74 26                        	je	0x1014845e <NpCreatePhysicsSDK+0x3b2ee>
+10148438: 85 c0                        	testl	%eax, %eax
+1014843a: 74 22                        	je	0x1014845e <NpCreatePhysicsSDK+0x3b2ee>
+1014843c: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10148440: 8d 44 24 10                  	leal	0x10(%esp), %eax
+10148444: 50                           	pushl	%eax
+10148445: c7 44 24 18 00 00 00 00      	movl	$0x0, 0x18(%esp)
+1014844d: e8 ee 6d ed ff               	calll	0x1001f240 <.text+0x1e240>
+10148452: 85 c0                        	testl	%eax, %eax
+10148454: 7c 08                        	jl	0x1014845e <NpCreatePhysicsSDK+0x3b2ee>
+10148456: 8b 0b                        	movl	(%ebx), %ecx
+10148458: 8b 44 c1 04                  	movl	0x4(%ecx,%eax,8), %eax
+1014845c: eb 02                        	jmp	0x10148460 <NpCreatePhysicsSDK+0x3b2f0>
+1014845e: 33 c0                        	xorl	%eax, %eax
+10148460: 89 86 34 01 00 00            	movl	%eax, 0x134(%esi)
+10148466: 8b 57 1c                     	movl	0x1c(%edi), %edx
+10148469: 5f                           	popl	%edi
+1014846a: 89 96 38 01 00 00            	movl	%edx, 0x138(%esi)
+10148470: 5e                           	popl	%esi
+10148471: b0 01                        	movb	$0x1, %al
+10148473: 5b                           	popl	%ebx
+10148474: 8b e5                        	movl	%ebp, %esp
+10148476: 5d                           	popl	%ebp
+10148477: c2 04 00                     	retl	$0x4
+1014847a: cc                           	int3
+1014847b: cc                           	int3
+1014847c: cc                           	int3
+1014847d: cc                           	int3
+1014847e: cc                           	int3
+1014847f: cc                           	int3
+10148480: 32 c0                        	xorb	%al, %al
+10148482: c2 14 00                     	retl	$0x14
+10148485: cc                           	int3
+10148486: cc                           	int3
+10148487: cc                           	int3
+10148488: cc                           	int3
+10148489: cc                           	int3
+1014848a: cc                           	int3
+1014848b: cc                           	int3
+1014848c: cc                           	int3
+1014848d: cc                           	int3
+1014848e: cc                           	int3
+1014848f: cc                           	int3
+10148490: 8b 44 24 04                  	movl	0x4(%esp), %eax
+10148494: 0f 57 c0                     	xorps	%xmm0, %xmm0
+10148497: f3 0f 11 40 08               	movss	%xmm0, 0x8(%eax)
+1014849c: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+101484a1: f3 0f 11 00                  	movss	%xmm0, (%eax)
+101484a5: f3 0f 10 81 a4 02 00 00      	movss	0x2a4(%ecx), %xmm0
+101484ad: f3 0f 58 81 a0 02 00 00      	addss	0x2a0(%ecx), %xmm0
+101484b5: f3 0f 59 05 d0 15 33 10      	mulss	0x103315d0, %xmm0
+101484bd: f3 0f 11 40 0c               	movss	%xmm0, 0xc(%eax)
+101484c2: c2 04 00                     	retl	$0x4
+101484c5: cc                           	int3
+101484c6: cc                           	int3
+101484c7: cc                           	int3
+101484c8: cc                           	int3
+101484c9: cc                           	int3
+101484ca: cc                           	int3
+101484cb: cc                           	int3
+101484cc: cc                           	int3
+101484cd: cc                           	int3
+101484ce: cc                           	int3
+101484cf: cc                           	int3
+101484d0: 8b 86 14 03 00 00            	movl	0x314(%esi), %eax
+101484d6: 85 c0                        	testl	%eax, %eax
+101484d8: 74 27                        	je	0x10148501 <NpCreatePhysicsSDK+0x3b391>
+101484da: 8b c8                        	movl	%eax, %ecx
+101484dc: c1 e9 16                     	shrl	$0x16, %ecx
+101484df: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101484e6: 8b 11                        	movl	(%ecx), %edx
+101484e8: 50                           	pushl	%eax
+101484e9: 8b 42 4c                     	movl	0x4c(%edx), %eax
+101484ec: ff d0                        	calll	*%eax
+101484ee: 8b 10                        	movl	(%eax), %edx
+101484f0: 8b c8                        	movl	%eax, %ecx
+101484f2: 8b 42 04                     	movl	0x4(%edx), %eax
+101484f5: ff d0                        	calll	*%eax
+101484f7: c7 86 14 03 00 00 00 00 00 00	movl	$0x0, 0x314(%esi)
+10148501: 8b 86 18 03 00 00            	movl	0x318(%esi), %eax
+10148507: 85 c0                        	testl	%eax, %eax
+10148509: 74 27                        	je	0x10148532 <NpCreatePhysicsSDK+0x3b3c2>
+1014850b: 8b c8                        	movl	%eax, %ecx
+1014850d: c1 e9 16                     	shrl	$0x16, %ecx
+10148510: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+10148517: 8b 11                        	movl	(%ecx), %edx
+10148519: 50                           	pushl	%eax
+1014851a: 8b 42 4c                     	movl	0x4c(%edx), %eax
+1014851d: ff d0                        	calll	*%eax
+1014851f: 8b 10                        	movl	(%eax), %edx
+10148521: 8b c8                        	movl	%eax, %ecx
+10148523: 8b 42 04                     	movl	0x4(%edx), %eax
+10148526: ff d0                        	calll	*%eax
+10148528: c7 86 18 03 00 00 00 00 00 00	movl	$0x0, 0x318(%esi)
+10148532: c3                           	retl
+10148533: cc                           	int3
+10148534: cc                           	int3
+10148535: cc                           	int3
+10148536: cc                           	int3
+10148537: cc                           	int3
+10148538: cc                           	int3
+10148539: cc                           	int3
+1014853a: cc                           	int3
+1014853b: cc                           	int3
+1014853c: cc                           	int3
+1014853d: cc                           	int3
+1014853e: cc                           	int3
+1014853f: cc                           	int3
+10148540: 56                           	pushl	%esi
+10148541: 8b f0                        	movl	%eax, %esi
+10148543: 57                           	pushl	%edi
+10148544: 81 c6 14 03 00 00            	addl	$0x314, %esi            # imm = 0x314
+1014854a: bf 04 00 00 00               	movl	$0x4, %edi
+1014854f: 90                           	nop
+10148550: 8b 06                        	movl	(%esi), %eax
+10148552: 85 c0                        	testl	%eax, %eax
+10148554: 74 23                        	je	0x10148579 <NpCreatePhysicsSDK+0x3b409>
+10148556: 8b c8                        	movl	%eax, %ecx
+10148558: c1 e9 16                     	shrl	$0x16, %ecx
+1014855b: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+10148562: 8b 11                        	movl	(%ecx), %edx
+10148564: 50                           	pushl	%eax
+10148565: 8b 42 4c                     	movl	0x4c(%edx), %eax
+10148568: ff d0                        	calll	*%eax
+1014856a: 8b 10                        	movl	(%eax), %edx
+1014856c: 8b c8                        	movl	%eax, %ecx
+1014856e: 8b 42 04                     	movl	0x4(%edx), %eax
+10148571: ff d0                        	calll	*%eax
+10148573: c7 06 00 00 00 00            	movl	$0x0, (%esi)
+10148579: 83 c6 04                     	addl	$0x4, %esi
+1014857c: 83 ef 01                     	subl	$0x1, %edi
+1014857f: 75 cf                        	jne	0x10148550 <NpCreatePhysicsSDK+0x3b3e0>
+10148581: 5f                           	popl	%edi
+10148582: 5e                           	popl	%esi
+10148583: c3                           	retl
+10148584: cc                           	int3
+10148585: cc                           	int3
+10148586: cc                           	int3
+10148587: cc                           	int3
+10148588: cc                           	int3
+10148589: cc                           	int3
+1014858a: cc                           	int3
+1014858b: cc                           	int3
+1014858c: cc                           	int3
+1014858d: cc                           	int3
+1014858e: cc                           	int3
+1014858f: cc                           	int3
+10148590: f3 0f 10 81 c0 01 00 00      	movss	0x1c0(%ecx), %xmm0
+10148598: 0f 2e 05 88 15 33 10         	ucomiss	0x10331588, %xmm0
+1014859f: 9f                           	lahf
+101485a0: f6 c4 44                     	testb	$0x44, %ah
+101485a3: 0f 8b b9 00 00 00            	jnp	0x10148662 <NpCreatePhysicsSDK+0x3b4f2>
+101485a9: 8b 44 24 04                  	movl	0x4(%esp), %eax
+101485ad: d9 81 6c 01 00 00            	flds	0x16c(%ecx)
+101485b3: d9 18                        	fstps	(%eax)
+101485b5: d9 81 70 01 00 00            	flds	0x170(%ecx)
+101485bb: d9 58 04                     	fstps	0x4(%eax)
+101485be: d9 81 74 01 00 00            	flds	0x174(%ecx)
+101485c4: d9 58 08                     	fstps	0x8(%eax)
+101485c7: d9 81 78 01 00 00            	flds	0x178(%ecx)
+101485cd: d9 58 0c                     	fstps	0xc(%eax)
+101485d0: d9 81 7c 01 00 00            	flds	0x17c(%ecx)
+101485d6: d9 58 10                     	fstps	0x10(%eax)
+101485d9: d9 81 80 01 00 00            	flds	0x180(%ecx)
+101485df: d9 58 14                     	fstps	0x14(%eax)
+101485e2: d9 81 9c 01 00 00            	flds	0x19c(%ecx)
+101485e8: d9 58 30                     	fstps	0x30(%eax)
+101485eb: 66 8b 91 a4 01 00 00         	movw	0x1a4(%ecx), %dx
+101485f2: 66 89 50 44                  	movw	%dx, 0x44(%eax)
+101485f6: d9 81 a8 01 00 00            	flds	0x1a8(%ecx)
+101485fc: d9 58 34                     	fstps	0x34(%eax)
+101485ff: d9 81 ac 01 00 00            	flds	0x1ac(%ecx)
+10148605: d9 58 38                     	fstps	0x38(%eax)
+10148608: d9 81 b4 01 00 00            	flds	0x1b4(%ecx)
+1014860e: d9 58 3c                     	fstps	0x3c(%eax)
+10148611: d9 81 b0 01 00 00            	flds	0x1b0(%ecx)
+10148617: d9 58 40                     	fstps	0x40(%eax)
+1014861a: d9 81 84 01 00 00            	flds	0x184(%ecx)
+10148620: d9 58 24                     	fstps	0x24(%eax)
+10148623: d9 81 88 01 00 00            	flds	0x188(%ecx)
+10148629: d9 58 28                     	fstps	0x28(%eax)
+1014862c: d9 81 8c 01 00 00            	flds	0x18c(%ecx)
+10148632: d9 58 2c                     	fstps	0x2c(%eax)
+10148635: d9 81 90 01 00 00            	flds	0x190(%ecx)
+1014863b: d9 58 18                     	fstps	0x18(%eax)
+1014863e: d9 81 94 01 00 00            	flds	0x194(%ecx)
+10148644: d9 58 1c                     	fstps	0x1c(%eax)
+10148647: d9 81 98 01 00 00            	flds	0x198(%ecx)
+1014864d: d9 58 20                     	fstps	0x20(%eax)
+10148650: d9 81 c0 01 00 00            	flds	0x1c0(%ecx)
+10148656: d9 58 48                     	fstps	0x48(%eax)
+10148659: 8b 81 a0 01 00 00            	movl	0x1a0(%ecx), %eax
+1014865f: c2 04 00                     	retl	$0x4
+10148662: 33 c0                        	xorl	%eax, %eax
+10148664: c2 04 00                     	retl	$0x4
+10148667: cc                           	int3
+10148668: cc                           	int3
+10148669: cc                           	int3
+1014866a: cc                           	int3
+1014866b: cc                           	int3
+1014866c: cc                           	int3
+1014866d: cc                           	int3
+1014866e: cc                           	int3
+1014866f: cc                           	int3
+10148670: f3 0f 10 81 a4 02 00 00      	movss	0x2a4(%ecx), %xmm0
+10148678: f3 0f 58 81 a0 02 00 00      	addss	0x2a0(%ecx), %xmm0
+10148680: 8b 44 24 04                  	movl	0x4(%esp), %eax
+10148684: 0f 57 05 70 15 33 10         	xorps	0x10331570, %xmm0
+1014868b: 0f 57 c9                     	xorps	%xmm1, %xmm1
+1014868e: f3 0f 11 08                  	movss	%xmm1, (%eax)
+10148692: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+10148697: f3 0f 11 48 08               	movss	%xmm1, 0x8(%eax)
+1014869c: f3 0f 11 48 0c               	movss	%xmm1, 0xc(%eax)
+101486a1: f3 0f 11 48 10               	movss	%xmm1, 0x10(%eax)
+101486a6: f3 0f 11 48 14               	movss	%xmm1, 0x14(%eax)
+101486ab: c2 04 00                     	retl	$0x4
+101486ae: cc                           	int3
+101486af: cc                           	int3
+101486b0: 8b 86 28 01 00 00            	movl	0x128(%esi), %eax
+101486b6: 85 c0                        	testl	%eax, %eax
+101486b8: 74 17                        	je	0x101486d1 <NpCreatePhysicsSDK+0x3b561>
+101486ba: 80 78 54 00                  	cmpb	$0x0, 0x54(%eax)
+101486be: 74 11                        	je	0x101486d1 <NpCreatePhysicsSDK+0x3b561>
+101486c0: 8d 8e d0 01 00 00            	leal	0x1d0(%esi), %ecx
+101486c6: 8d 86 6c 01 00 00            	leal	0x16c(%esi), %eax
+101486cc: e8 4f 0f ed ff               	calll	0x10019620 <.text+0x18620>
+101486d1: d9 86 1c 02 00 00            	flds	0x21c(%esi)
+101486d7: d9 9e b8 01 00 00            	fstps	0x1b8(%esi)
+101486dd: c3                           	retl
+101486de: cc                           	int3
+101486df: cc                           	int3
+101486e0: 51                           	pushl	%ecx
+101486e1: 8b 8e e8 02 00 00            	movl	0x2e8(%esi), %ecx
+101486e7: 0f 57 d2                     	xorps	%xmm2, %xmm2
+101486ea: f3 0f 10 2d 88 15 33 10      	movss	0x10331588, %xmm5
+101486f2: f6 c1 10                     	testb	$0x10, %cl
+101486f5: 0f 85 bd 00 00 00            	jne	0x101487b8 <NpCreatePhysicsSDK+0x3b648>
+101486fb: 8b 86 28 01 00 00            	movl	0x128(%esi), %eax
+10148701: 85 c0                        	testl	%eax, %eax
+10148703: 74 15                        	je	0x1014871a <NpCreatePhysicsSDK+0x3b5aa>
+10148705: 80 78 54 00                  	cmpb	$0x0, 0x54(%eax)
+10148709: 75 0f                        	jne	0x1014871a <NpCreatePhysicsSDK+0x3b5aa>
+1014870b: 0f 28 c2                     	movaps	%xmm2, %xmm0
+1014870e: f3 0f 11 86 1c 02 00 00      	movss	%xmm0, 0x21c(%esi)
+10148716: 59                           	popl	%ecx
+10148717: c2 04 00                     	retl	$0x4
+1014871a: f3 0f 10 86 24 02 00 00      	movss	0x224(%esi), %xmm0
+10148722: 0f 2e c5                     	ucomiss	%xmm5, %xmm0
+10148725: 9f                           	lahf
+10148726: f6 c4 44                     	testb	$0x44, %ah
+10148729: 7b 2e                        	jnp	0x10148759 <NpCreatePhysicsSDK+0x3b5e9>
+1014872b: f3 0f 10 86 c8 02 00 00      	movss	0x2c8(%esi), %xmm0

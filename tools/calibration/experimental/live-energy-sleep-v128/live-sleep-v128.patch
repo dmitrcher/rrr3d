@@ -1,0 +1,352 @@
+--- a/source/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/source/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -31,6 +31,7 @@
+ #include "physics/NativeQuaternionPoseV43.h"
+ #include "physics/NativeWheelRayV52.h"
+ #include "physics/NativePlacedMeshV126.h"
++#include "physics/NativeEnergySleepV127.h"
+ #include "physics/NativeTriangleNormalV101.h"
+ #include "physics/NativeWheelPoseV54.h"
+ #include "physics/NativeTireV55.h"
+@@ -839,6 +840,39 @@
+         std::scoped_lock lock(mutex_);const auto index=data&~sourceMeshMarker;
+         if(index>=sourceMeshes_.size() || !sourceMeshes_[index]->placedV126)return false;
+         world=motorrock::placedmeshv126::direction(sourceMeshes_[index]->poseV126,local);return true;
++    }
++
++    bool sleepShapeBoundsV128(const JPH::Body& body,
++        std::array<motorrock::wheelrayv52::Vector,2>& bounds) const
++    {
++        namespace wr=motorrock::wheelrayv52;
++        motorrock::placedmeshv126::Pose pose;
++        wr::Vector center{},half{};
++        SourceBox box;
++        if(sourceBox(body,box,true)) {
++            const auto& m=box.transform.m;
++            for(unsigned c=0;c<3;++c){const auto& v=c==0?m.column0:c==1?m.column1:m.column2;pose.matrix.a[0][c]=v.x;pose.matrix.a[1][c]=v.y;pose.matrix.a[2][c]=v.z;}
++            pose.position={{box.transform.p.x,box.transform.p.y,box.transform.p.z}};
++            half={{box.half.x,box.half.y,box.half.z}};
++        } else {
++            const auto* shape=body.GetShape();if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
++            const auto data=shape->GetUserData();if((data&sourceMeshMarker)==0)return false;
++            std::shared_ptr<const SourceMesh> mesh;
++            {std::scoped_lock lock(mutex_);const auto i=data&~sourceMeshMarker;if(i>=sourceMeshes_.size())return false;mesh=sourceMeshes_[i];}
++            wr::Vector lo{{FLT_MAX,FLT_MAX,FLT_MAX}},hi{{-FLT_MAX,-FLT_MAX,-FLT_MAX}};
++            for(const auto& triangle:mesh->triangles)for(const auto& p:triangle.points)
++                for(unsigned a=0;a<3;++a){lo[a]=std::min(lo[a],p[a]);hi[a]=std::max(hi[a],p[a]);}
++            if(mesh->triangles.empty())return false;
++            for(unsigned a=0;a<3;++a){center[a]=wr::mul(wr::add(lo[a],hi[a]),.5F);half[a]=wr::mul(wr::sub(hi[a],lo[a]),.5F);}
++            if(mesh->placedV126)pose=mesh->poseV126;
++            else {const auto q=fromJolt(body.GetRotation());pose.matrix=motorrock::physicalposev42::rotation({{q.x,q.y,q.z,q.w}});const auto p=fromJolt(JPH::Vec3(body.GetPosition()));pose.position={{p.x,p.y,p.z}};}
++        }
++        center=motorrock::placedmeshv126::point(pose,center);
++        for(unsigned a=0;a<3;++a) {
++            const float e=wr::add(wr::add(wr::mul(std::abs(pose.matrix.a[a][0]),half[0]),wr::mul(std::abs(pose.matrix.a[a][1]),half[1])),wr::mul(std::abs(pose.matrix.a[a][2]),half[2]));
++            bounds[0][a]=wr::sub(center[a],e);bounds[1][a]=wr::add(center[a],e);
++        }
++        return true;
+     }
+ 
+     // Experimental source-order scalar triangle query for static identity meshes.
+@@ -1235,7 +1269,7 @@
+ 
+ private:
+     struct SourceBox { sourcebox::PxVec3 half; sourcebox::Cm::Matrix34 transform; float skin; motorrock::contactframe::Quaternion physicalPose={{0,0,0,1}};bool hasPhysicalPose=false; };
+-    bool sourceBox(const JPH::Body& body, SourceBox& box) const
++    bool sourceBox(const JPH::Body& body, SourceBox& box, bool boundsOnlyV128=false) const
+     {
+         const JPH::Shape* shape = body.GetShape();
+         JPH::RMat44 transform = body.GetWorldTransform();
+@@ -1249,8 +1283,10 @@
+             motorrock::contactframe::Quaternion pose;
+             { std::scoped_lock lock(mutex_);
+               const auto prepared=nativeMaterialActorPoses_.find(body.GetID().GetIndexAndSequenceNumber());
+-              if(prepared==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing physical geometry pose");
+-              pose=prepared->second; }
++              if(prepared==nativeMaterialActorPoses_.end()) {
++                  if(!boundsOnlyV128)throw std::runtime_error("Missing physical geometry pose");
++                  const auto q=fromJolt(body.GetRotation());pose={{q.x,q.y,q.z,q.w}};
++              } else pose=prepared->second; }
+             physicalPose=bodyPhysicalPose=pose;hasPhysicalPose=true;
+             const char* originFlag=std::getenv("RRR3D_EXPERIMENT_NATIVE_ACTOR_ORIGIN");
+             if(originFlag && std::strcmp(originFlag,"1")==0) {
+@@ -2962,6 +2998,7 @@
+             return;
+         setVehicleEnabled(index, true);
+         auto& vehicle = vehicles_[index];
++        if(energySleepEnabledV128(vehicle)){vehicle.energySleepV128={};vehicle.energyPendingV128=false;}
+         const float length =
+             std::sqrt(direction.x * direction.x + direction.y * direction.y);
+         if (length <= 0.0001F)
+@@ -3071,6 +3108,7 @@
+     {
+         if (index >= vehicles_.size() || !vehicles_[index].enabled)
+             return;
++        wakeEnergyV128(vehicles_[index]);
+         auto& bodies = system_.GetBodyInterface();
+         bodies.AddLinearVelocity(
+             vehicles_[index].body, toJolt(delta));
+@@ -3087,6 +3125,7 @@
+             // NxActor::addForce(..., NX_ACCELERATION, true) refreshes the wake
+             // counter even for a zero vector and an already active actor.
+             // Preserve that API side effect without applying a synthetic force.
++            wakeEnergyV128(vehicle);
+             { JPH::BodyLockWrite lock(system_.GetBodyLockInterface(), vehicle.body);
+               if (lock.Succeeded()) lock.GetBody().ResetSleepTimer(); }
+             system_.GetBodyInterface().ActivateBody(vehicle.body);
+@@ -3452,6 +3491,7 @@
+                     std::fclose(poseFile);
+                 }
+             };
++            prepareEnergySleepV128();
+             traceSleepV83("before-update");
+             system_.Update(delta, 1, &tempAllocator_, &jobs_);
+             traceSleepV83("after-update-before-restore");
+@@ -3529,6 +3569,7 @@
+                         separateForceStoreV115?motorrock::suspensionforcev115::store(wheel->GetSourceSpringLambdaV115(),wheel->GetSourceStopLambdaV115(),delta):
+                         sourceForceStoreV88?motorrock::suspensionforcev88::store(wheel->GetSuspensionLambda(),delta):wheel->GetSuspensionLambda()/delta;
+                 }
++            finishEnergySleepV128(delta);
+             lastSolverDelta_ = delta;
+             if (tuning_.physxWheelCompat)
+                 for (auto& vehicle : vehicles_)
+@@ -3890,6 +3931,10 @@
+         JPH::Ref<JPH::VehicleConstraint> constraint;
+         JPH::WheeledVehicleController* controller = nullptr;
+         VehicleState state;
++        motorrock::energysleepv127::State energySleepV128;
++        motorrock::energysleepv127::Input energyInputV128;
++        bool energyPendingV128=false,energyActiveV128=false;
++        std::vector<float> energyAxleReportV128;
+         Vec3 diagnosticAcceleration{};
+         JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
+         bool sourceFrozenNormalizationPending = true;
+@@ -3945,6 +3990,83 @@
+         JPH::BodyID shapeBody;
+         DecorationState state;
+     };
++
++    bool energySleepEnabledV128(const VehicleRuntime& v) const {
++        return tuning_.physxWheelCompat && v.spawn.vehicle.bodySleepEnergyThreshold>0
++            && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_ENERGY_SLEEP_V128");
++    }
++    void wakeEnergyV128(VehicleRuntime& v) {
++        if(!energySleepEnabledV128(v))return;
++        if(!system_.GetBodyInterface().IsActive(v.body)) {
++            v.constraint->ClearDormantWheelObjectsV128();
++            std::fill(v.previousSuspensionForces.begin(),v.previousSuspensionForces.end(),0);
++            std::fill(v.wheelNormalForcesV84.begin(),v.wheelNormalForcesV84.end(),0);
++            std::fill(v.tireAnchorsV55.begin(),v.tireAnchorsV55.end(),VehicleRuntime::TireAnchorV55{});
++        }
++        v.energySleepV128.wake=std::max(v.energySleepV128.wake,.3999999761581421F);
++        v.energyPendingV128=false;v.energyAxleReportV128.clear();
++    }
++    void prepareEnergySleepV128() {
++        namespace wr=motorrock::wheelrayv52;
++        for(auto& v:vehicles_)if(v.enabled && energySleepEnabledV128(v)) {
++            auto& bi=system_.GetBodyInterface();
++            if(v.energyPendingV128) {
++                const auto linear=bi.GetLinearVelocity(v.body),angular=bi.GetAngularVelocity(v.body);
++                bi.DeactivateBody(v.body);
++                {JPH::BodyLockWrite lock(system_.GetBodyLockInterface(),v.body);if(lock.Succeeded()){lock.GetBody().SetLinearVelocity(linear);lock.GetBody().SetAngularVelocity(angular);}}
++                v.energyPendingV128=false;
++            }
++            std::array<wr::Vector,2> bounds;
++            {JPH::BodyLockRead own(system_.GetBodyLockInterface(),v.body);if(!own.Succeeded())continue;
++            const auto& body=own.GetBody();v.energyActiveV128=body.IsActive();if(!v.energyActiveV128)continue;
++            const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));const auto q=fromJolt(body.GetRotation());
++            v.energyInputV128.previousPosition={{cm.x,cm.y,cm.z}};v.energyInputV128.previousRotation={{q.x,q.y,q.z,q.w}};
++            const auto tensor=body.GetMotionProperties()->GetLocalSpaceInverseInertia();
++            v.energyInputV128.inverseInertia={{tensor(0,0),tensor(2,2),tensor(1,1)}};
++            v.energyInputV128.inverseMass=body.GetMotionProperties()->GetInverseMass();v.energyInputV128.threshold=v.spawn.vehicle.bodySleepEnergyThreshold;
++            if(!contactListener_.sleepShapeBoundsV128(body,bounds))continue;}
++            unsigned count=0;
++            const auto overlap=[&](JPH::BodyID id) {
++                if(id.IsInvalid() || id==v.body)return;
++                JPH::BodyLockRead lock(system_.GetBodyLockInterface(),id);if(!lock.Succeeded() || !lock.GetBody().IsInBroadPhase())return;
++                const auto& other=lock.GetBody();
++                if(collisionSurface(other.GetUserData())==CollisionSurface::DeathPlane && (other.GetUserData()&bodyKindMask)==surfaceBodyKind) {if(bounds[0][2]<=0)++count;return;}
++                std::array<wr::Vector,2> b;if(!contactListener_.sleepShapeBoundsV128(other,b))return;
++                for(unsigned a=0;a<3;++a)if(bounds[0][a]>b[1][a] || bounds[1][a]<b[0][a])return;
++                ++count;
++            };
++            for(auto id:trackBodies_)overlap(id);
++            for(const auto& d:decorations_){overlap(d.shapeBody);for(auto id:d.meshBodies)overlap(id);for(auto id:d.childShapeBodies)overlap(id);}
++            for(const auto& other:vehicles_)if(other.body!=v.body)overlap(other.body);
++            v.energyInputV128.interactionCount=count;
++        }
++    }
++    void finishEnergySleepV128(float dt) {
++        for(auto& v:vehicles_)if(v.enabled && energySleepEnabledV128(v)) {
++            // Core publishes cached axle output, then prepares the next free
++            // output. Inactive owners clear that next output (14870e), except
++            // AXLE_SPEED_OVERRIDE, while the public getter reads the published
++            // buffer (195c0/1486d7). Keep those two stages distinct.
++            if(!system_.GetBodyInterface().IsActive(v.body)) {
++                v.energyAxleReportV128.resize(v.constraint->GetWheels().size());
++                for(unsigned i=0;i<v.energyAxleReportV128.size();++i) {
++                    auto* w=v.constraint->GetWheel(i);v.energyAxleReportV128[i]=w->GetAngularVelocity();
++                    if((v.spawn.vehicle.wheels[i].flags&0x10U)==0){w->SetAngularVelocity(0);v.sourceWheelAxleSpeeds[i]=0;}
++                }
++                continue;
++            }
++            v.energyAxleReportV128.clear();if(!v.energyActiveV128)continue;
++            JPH::BodyLockRead lock(system_.GetBodyLockInterface(),v.body);if(!lock.Succeeded())continue;const auto& body=lock.GetBody();
++            const auto cm=fromJolt(JPH::Vec3(body.GetCenterOfMassPosition()));const auto q=fromJolt(body.GetRotation());
++            v.energyInputV128.position={{cm.x,cm.y,cm.z}};v.energyInputV128.rotation={{q.x,q.y,q.z,q.w}};v.energyInputV128.dt=dt;
++            for(const auto* w:v.constraint->GetWheels())if(w->HasContact())++v.energyInputV128.interactionCount;
++            for(const auto& other:vehicles_)if(other.body!=v.body)for(const auto* w:other.constraint->GetWheels())if(w->HasContact() && w->GetContactBodyID()==v.body)++v.energyInputV128.interactionCount;
++            const auto result=motorrock::energysleepv127::step(v.energySleepV128,v.energyInputV128);v.energyPendingV128=result.sleep;
++            const char* path=std::getenv("RRR3D_ENERGY_SLEEP_TRACE_FILE_V128");if(path && *path)if(FILE* file=std::fopen(path,"a")) {
++                std::fprintf(file,"{\"step\":%u,\"interactions\":%u,\"wake\":%.9g,\"energy\":%.9g,\"threshold\":%.9g,\"pending\":%s}\n",v.constraint->GetSourceSimulationCounterV59()-1,v.energyInputV128.interactionCount,v.energySleepV128.wake,result.energy,result.threshold,result.sleep?"true":"false");std::fclose(file);
++            }
++        }
++    }
+ 
+     static float sourceGearRatio(int gear) noexcept
+     {
+@@ -4443,8 +4565,9 @@
+         }
+ 
+         if (input.throttle != 0.0F || input.reverse != 0.0F ||
+-            input.brake != 0.0F || input.steering != 0.0F)
+-            bodies.ActivateBody(vehicle.body);
++            input.brake != 0.0F || input.steering != 0.0F) {
++            wakeEnergyV128(vehicle);bodies.ActivateBody(vehicle.body);
++        }
+     }
+ 
+     ProjectileBodyRuntime* findProjectileBody(
+@@ -5213,8 +5336,8 @@
+                 JPH::EAllowedDOFs::TranslationY | JPH::EAllowedDOFs::TranslationZ;
+         bodySettings.mMaxAngularVelocity =
+             sourceMaximumAngularVelocity;
+-        bodySettings.mAllowSleeping =
+-            source.bodySleepEnergyThreshold > 0.0F;
++        bodySettings.mAllowSleeping = source.bodySleepEnergyThreshold > 0.0F
++            && !(tuning_.physxWheelCompat && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_ENERGY_SLEEP_V128"));
+         bodySettings.mFriction = source.bodyFriction;
+         bodySettings.mRestitution = 0.0F;
+         bodySettings.mEnhancedInternalEdgeRemoval = true;
+@@ -6003,8 +6126,9 @@
+             state.wheels.push_back(wheel);
+             const auto* joltWheel =
+                 vehicle.constraint->GetWheel(index);
+-            state.wheelAngularSpeeds.push_back(
+-                joltWheel->GetAngularVelocity());
++            const float publishedAxleV128=energySleepEnabledV128(vehicle) && !body.IsActive() && index<vehicle.energyAxleReportV128.size()
++                ? vehicle.energyAxleReportV128[index] : joltWheel->GetAngularVelocity();
++            state.wheelAngularSpeeds.push_back(publishedAxleV128);
+             // GameCar::GetDrivenWheelSpeed searches the first !lead wheel.
+             // Despite the historical method name, lead is the powered
+             // group and the camera deliberately observes a free wheel.
+@@ -6014,7 +6138,7 @@
+             {
+                 freeWheelSpeedRead = true;
+                 const float speed =
+-                    joltWheel->GetAngularVelocity() *
++                    publishedAxleV128 *
+                     vehicle.spawn.vehicle.wheels[index].radius;
+                 state.drivenWheelSpeed =
+                     std::abs(speed) > 0.1F ? speed : 0.0F;
+--- a/source/src/RRR3d/OriginalPhysicsReplay.cpp
++++ b/source/src/RRR3d/OriginalPhysicsReplay.cpp
+@@ -145,7 +145,9 @@
+             const bool sdkOnly=actuatorsV124 && isolate && std::string(isolate)=="1";
+             if(!sdkOnly || impulse.x!=0 || impulse.y!=0 || impulse.z!=0)
+                 world->addLinearVelocity(0, impulse);
+-            world->step(dt, input);
++            // The SDK-only protocol passes raw wheel commands. High-level input
++            // would independently activate the Mac body in prepareVehicleStep.
++            world->step(dt, sdkOnly ? VehicleInput{} : input);
+             const auto& state = world->vehicle();
+             if (state.resetCount != initialResetCount)
+                 throw std::runtime_error("unexpected solo vehicle reset");
+--- /dev/null
++++ b/source/src/Rock3dEngine/header/physics/NativeEnergySleepV127.h
+@@ -0,0 +1,47 @@
++#pragma once
++#include <array>
++#include <cstdint>
++#include "NativeWheelRayV52.h"
++namespace motorrock::energysleepv127 {
++namespace s=wheelrayv52;using Vector=s::Vector;using Quaternion=std::array<float,4>;
++struct Input { Vector position,previousPosition,inverseInertia; Quaternion rotation,previousRotation;float inverseMass,threshold,dt;std::uint32_t interactionCount; };
++struct State { Vector linear{{0,0,0}},angular{{0,0,0}};float wake=.3999999761581421F; };
++struct Result { Vector linearIncrement{},angularIncrement{};float energy=0,threshold=0;bool evaluated=false,reset=false,sleep=false; };
++inline Vector rotateInverse(Quaternion q,Vector v) {
++ const float dot=s::add(s::add(s::mul(v[1],q[1]),s::mul(v[0],q[0])),s::mul(v[2],q[2]));
++ Vector p{{s::mul(dot,q[0]),s::mul(dot,q[1]),s::mul(dot,q[2])}};
++ const Vector cross{{s::sub(s::mul(v[2],q[1]),s::mul(v[1],q[2])),s::sub(s::mul(v[0],q[2]),s::mul(v[2],q[0])),s::sub(s::mul(v[1],q[0]),s::mul(v[0],q[1]))}};
++ const float scale=s::sub(s::mul(q[3],q[3]),.5F);
++ for(unsigned i=0;i<3;++i)p[i]=s::mul(s::add(s::sub(s::mul(v[i],scale),s::mul(cross[i],q[3])),p[i]),2);
++ return p;
++}
++inline Result step(State& state,const Input& in) {
++ Result r;
++ if(state.wake<.19999998807907104F) {
++  r.evaluated=true;const float inv=in.dt>0?s::div(1,in.dt):0;
++  for(unsigned i=0;i<3;++i)r.linearIncrement[i]=s::mul(s::sub(in.position[i],in.previousPosition[i]),inv);
++  const auto q=in.rotation;const auto p=in.previousRotation;const float X=-p[0],Y=-p[1],Z=-p[2],W=p[3];
++  Vector a{{s::sub(s::add(s::add(s::mul(Z,q[1]),s::mul(W,q[0])),s::mul(X,q[3])),s::mul(Y,q[2])),
++            s::sub(s::add(s::add(s::mul(W,q[1]),s::mul(Y,q[3])),s::mul(X,q[2])),s::mul(Z,q[0])),
++            s::sub(s::add(s::add(s::mul(W,q[2]),s::mul(Y,q[0])),s::mul(Z,q[3])),s::mul(X,q[1]))}};
++  // Multiplication orders follow Core1b29fc..1b2ace; quaternion hemisphere only.
++  const float w=s::sub(s::sub(s::sub(s::mul(W,q[3]),s::mul(X,q[0])),s::mul(Y,q[1])),s::mul(Z,q[2]));
++  if(w<0)for(float& v:a)v=-v;
++  for(float& v:a)v=s::mul(s::mul(v,inv),2);
++  r.angularIncrement=rotateInverse(q,a);
++  for(unsigned i=0;i<3;++i){state.linear[i]=s::add(state.linear[i],r.linearIncrement[i]);state.angular[i]=s::add(state.angular[i],r.angularIncrement[i]);}
++  const float contacts=float(double(in.interactionCount)+1);r.threshold=float(double(in.threshold)*contacts);
++  float angular=s::add(s::add(s::mul(s::mul(state.angular[2],state.angular[2]),s::div(1,in.inverseInertia[2])),s::mul(s::mul(state.angular[1],state.angular[1]),s::div(1,in.inverseInertia[1]))),s::mul(s::mul(state.angular[0],state.angular[0]),s::div(1,in.inverseInertia[0])));
++  angular=s::mul(angular,in.inverseMass);
++  const float linear=s::add(s::add(s::mul(state.linear[0],state.linear[0]),s::mul(state.linear[1],state.linear[1])),s::mul(state.linear[2],state.linear[2]));
++  r.energy=s::mul(s::add(angular,linear),.5F);
++  if(r.energy>r.threshold) {
++   const float factor=s::div(r.energy,r.threshold);state.wake=s::add(s::mul(contacts,in.dt),s::mul(factor<2?factor:2,.19999998807907104F));
++   state.linear={{0,0,0}};state.angular={{0,0,0}};r.reset=true;
++  }
++ }
++ if(state.wake!=0)state.wake=s::sub(state.wake,in.dt);
++ if(state.wake<=0){state.wake=0;state.linear={{0,0,0}};state.angular={{0,0,0}};r.sleep=true;}
++ return r;
++}
++}
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.cpp
+@@ -157,6 +157,18 @@
+ void VehicleConstraint::OnStep(const PhysicsStepListenerContext &inContext)
+ {
+ 	JPH_PROFILE_FUNCTION();
++
++    // Original sleeping wheel shapes retain their last query and solve data.
++    // A dynamic support that wakes can still activate this connected vehicle.
++    const char* energySleepV128=std::getenv("RRR3D_EXPERIMENT_NATIVE_ENERGY_SLEEP_V128");
++    if(energySleepV128 && std::strcmp(energySleepV128,"1")==0 && !mBody->IsActive()) {
++        bool supportActive=false;
++        for(const auto* wheel:mWheels) {
++            const auto* support=inContext.mPhysicsSystem->GetBodyLockInterfaceNoLock().TryGetBody(wheel->mContactBodyID);
++            supportActive |= support && support->IsDynamic() && support->IsActive();
++        }
++        if(!supportActive){mIsActive=false;++mCurrentStep;return;}
++    }
+ 
+ 	// Callback to higher-level systems. We do it before PreCollide, in case steering changes.
+ 	if (mPreStepCallback != nullptr)
+--- a/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
++++ b/sdk/Jolt/Physics/Vehicle/VehicleConstraint.h
+@@ -212,6 +212,14 @@
+         if(index<mSourceStopCreationOrderV64.size())mSourceStopCreationOrderV64[index]=0;
+         if(index<mSourceSpringObjectPresentV104.size())mSourceSpringObjectPresentV104[index]=false;
+     }
++    void ClearDormantWheelObjectsV128() {
++        for(uint i=0;i<mWheels.size();++i) {
++            ClearSourceWheelObjectsV106(i);auto* w=mWheels[i];
++            w->mNativeSpringV53={};w->ClearSourceAnchorGeometryV57();
++            w->mSuspensionPart.Deactivate();w->mSuspensionMaxUpPart.Deactivate();
++            w->mLongitudinalPart.Deactivate();w->mLateralPart.Deactivate();
++        }
++    }
+ 	bool UsesSourceSuspensionStop() const;
+ 	bool PrepareSourceFinalVelocityConstraints(Array<Body *> &outBodies);
+ 	virtual bool				SolvePositionConstraint(float inDeltaTime, float inBaumgarte) override;

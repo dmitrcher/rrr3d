@@ -1,0 +1,77 @@
+100193e0: f3 0f 10 44 24 04            	movss	0x4(%esp), %xmm0
+100193e6: f3 0f 11 81 f4 02 00 00      	movss	%xmm0, 0x2f4(%ecx)
+100193ee: c2 04 00                     	retl	$0x4
+100193f1: cc                           	int3
+100193f2: cc                           	int3
+100193f3: cc                           	int3
+100193f4: cc                           	int3
+100193f5: cc                           	int3
+100193f6: cc                           	int3
+100193f7: cc                           	int3
+100193f8: cc                           	int3
+100193f9: cc                           	int3
+100193fa: cc                           	int3
+100193fb: cc                           	int3
+100193fc: cc                           	int3
+100193fd: cc                           	int3
+100193fe: cc                           	int3
+100193ff: cc                           	int3
+10019400: d9 81 f4 02 00 00            	flds	0x2f4(%ecx)
+10019406: c3                           	retl
+10019407: cc                           	int3
+10019408: cc                           	int3
+10019409: cc                           	int3
+1001940a: cc                           	int3
+1001940b: cc                           	int3
+1001940c: cc                           	int3
+1001940d: cc                           	int3
+1001940e: cc                           	int3
+1001940f: cc                           	int3
+10019410: 8b 44 24 04                  	movl	0x4(%esp), %eax
+10019414: 8b 54 24 08                  	movl	0x8(%esp), %edx
+10019418: 89 81 a8 02 00 00            	movl	%eax, 0x2a8(%ecx)
+1001941e: 8b 44 24 0c                  	movl	0xc(%esp), %eax
+10019422: 89 91 ac 02 00 00            	movl	%edx, 0x2ac(%ecx)
+10019428: 89 81 b0 02 00 00            	movl	%eax, 0x2b0(%ecx)
+1001942e: c2 0c 00                     	retl	$0xc
+10019431: cc                           	int3
+10019432: cc                           	int3
+10019433: cc                           	int3
+10019434: cc                           	int3
+10019435: cc                           	int3
+10019436: cc                           	int3
+10019437: cc                           	int3
+10019438: cc                           	int3
+10019439: cc                           	int3
+1001943a: cc                           	int3
+1001943b: cc                           	int3
+1001943c: cc                           	int3
+1001943d: cc                           	int3
+1001943e: cc                           	int3
+1001943f: cc                           	int3
+10019440: 8b 91 a8 02 00 00            	movl	0x2a8(%ecx), %edx
+10019446: 8b 44 24 04                  	movl	0x4(%esp), %eax
+1001944a: 89 10                        	movl	%edx, (%eax)
+1001944c: 8b 91 ac 02 00 00            	movl	0x2ac(%ecx), %edx
+10019452: 8b 89 b0 02 00 00            	movl	0x2b0(%ecx), %ecx
+10019458: 89 50 04                     	movl	%edx, 0x4(%eax)
+1001945b: 89 48 08                     	movl	%ecx, 0x8(%eax)
+1001945e: c2 04 00                     	retl	$0x4
+10019461: cc                           	int3
+10019462: cc                           	int3
+10019463: cc                           	int3
+10019464: cc                           	int3
+10019465: cc                           	int3
+10019466: cc                           	int3
+10019467: cc                           	int3
+10019468: cc                           	int3
+10019469: cc                           	int3
+1001946a: cc                           	int3
+1001946b: cc                           	int3
+1001946c: cc                           	int3
+1001946d: cc                           	int3
+1001946e: cc                           	int3
+1001946f: cc                           	int3
+10019470: f3 0f 10 44 24 08            	movss	0x8(%esp), %xmm0
+10019476: f3 0f 11 81 b8 02 00 00      	movss	%xmm0, 0x2b8(%ecx)
+1001947e: f3 0f 10 44 24 0c            	movss	0xc(%esp), %xmm0

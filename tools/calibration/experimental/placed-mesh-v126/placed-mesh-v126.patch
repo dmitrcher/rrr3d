@@ -1,0 +1,265 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -30,6 +30,7 @@
+ #include "physics/NativeFreeWheelCacheV112.h"
+ #include "physics/NativeQuaternionPoseV43.h"
+ #include "physics/NativeWheelRayV52.h"
++#include "physics/NativePlacedMeshV126.h"
+ #include "physics/NativeTriangleNormalV101.h"
+ #include "physics/NativeWheelPoseV54.h"
+ #include "physics/NativeTireV55.h"
+@@ -750,9 +751,11 @@
+         return true;
+     }
+ 
+-    void registerSourceMesh(JPH::Shape& shape, const JPH::TriangleList& triangles)
++    void registerSourceMesh(JPH::Shape& shape, const JPH::TriangleList& triangles,
++                            const motorrock::placedmeshv126::Pose* placedPose=nullptr)
+     {
+         auto record = std::make_shared<SourceMesh>();
++        if(placedPose){record->placedV126=true;record->poseV126=*placedPose;}
+         for (const auto& triangle : triangles) {
+             SourceMeshTriangle out;
+             for (int j = 0; j < 3; ++j) {
+@@ -762,7 +765,7 @@
+             record->triangles.push_back(out);
+         }
+         const char* queryOrderV122 = std::getenv("RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122");
+-        if(queryOrderV122 && std::strcmp(queryOrderV122,"1")==0) {
++        if(placedPose || (queryOrderV122 && std::strcmp(queryOrderV122,"1")==0)) {
+             JPH::Array<JPH::SubShapeID> ids;
+             static_cast<const JPH::MeshShape&>(shape).GetSourceTriangleIDsV122(ids);
+             if(ids.size()!=record->triangles.size())throw std::runtime_error("Source triangle ID count mismatch");
+@@ -828,6 +831,16 @@
+         return true;
+     }
+ 
++    bool wheelPlacedMeshNormalV126(const JPH::Body& body,
++        motorrock::wheelrayv52::Vector local, motorrock::wheelrayv52::Vector& world) const
++    {
++        const auto* shape=body.GetShape();if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
++        const auto data=shape->GetUserData();if((data&sourceMeshMarker)==0)return false;
++        std::scoped_lock lock(mutex_);const auto index=data&~sourceMeshMarker;
++        if(index>=sourceMeshes_.size() || !sourceMeshes_[index]->placedV126)return false;
++        world=motorrock::placedmeshv126::direction(sourceMeshes_[index]->poseV126,local);return true;
++    }
++
+     // Experimental source-order scalar triangle query for static identity meshes.
+     // Original small-mesh query scans source triangles and replaces its retained
+     // hit only when the new distance is strictly smaller (RVA 1f28ef..1f290d).
+@@ -839,12 +852,14 @@
+     {
+         namespace wr=motorrock::wheelrayv52;
+         hit=false;
+-        if(!body.IsStatic() || body.GetPosition()!=JPH::RVec3::sZero() || body.GetRotation()!=JPH::Quat::sIdentity())return false;
++        if(!body.IsStatic())return false;
+         const auto* shape=body.GetShape();
+         if(shape->GetSubType()!=JPH::EShapeSubType::Mesh)return false;
+         const auto data=shape->GetUserData();if((data&sourceMeshMarker)==0)return false;
+         std::shared_ptr<const SourceMesh> mesh;
+         { std::scoped_lock lock(mutex_);const auto index=data&~sourceMeshMarker;if(index>=sourceMeshes_.size())return false;mesh=sourceMeshes_[index]; }
++        if(!mesh->placedV126 && (body.GetPosition()!=JPH::RVec3::sZero() || body.GetRotation()!=JPH::Quat::sIdentity()))return false;
++        if(mesh->placedV126){start=motorrock::placedmeshv126::inversePoint(mesh->poseV126,start);unit=motorrock::placedmeshv126::inverseDirection(mesh->poseV126,unit);}
+         distance=std::numeric_limits<float>::infinity();
+         for(const auto& triangle:mesh->triangles) {
+             std::array<wr::Vector,3> p;
+@@ -855,6 +870,7 @@
+             distance=intersection.distance;point=wr::interpolate(p[0],p[1],p[2],intersection.u,intersection.v);
+             subShape=triangle.subShapeV122;hit=true;
+         }
++        if(hit && mesh->placedV126)point=motorrock::placedmeshv126::point(mesh->poseV126,point);
+         return true;
+     }
+ 
+@@ -1288,7 +1304,7 @@
+         return true;
+     }
+     struct SourceMeshTriangle { std::array<sourcemesh::PxVec3,3> points; unsigned convexEdges=7; JPH::SubShapeID subShapeV122; };
+-    struct SourceMesh { std::vector<SourceMeshTriangle> triangles; };
++    struct SourceMesh { std::vector<SourceMeshTriangle> triangles; bool placedV126=false; motorrock::placedmeshv126::Pose poseV126; };
+     static constexpr JPH::uint64 sourceMeshMarker = JPH::uint64{1} << 62;
+     std::vector<std::shared_ptr<const SourceMesh>> sourceMeshes_;
+     std::map<std::uint64_t,motorrock::nativecache::Cache> nativeContactCaches_;
+@@ -1349,7 +1365,9 @@
+             std::array<sourcemesh::PxVec3,3> verts;
+             sourcemesh::PxVec3 min(FLT_MAX),max(-FLT_MAX);
+             for(int j=0;j<3;++j) {
+-                const auto& p=t.points[j];const auto v=fromJolt(JPH::Vec3(transform*JPH::RVec3(toJolt(Vec3{p.x,p.y,p.z}))));verts[j]={v.x,v.y,v.z};
++                const auto& p=t.points[j];
++                if(mesh->placedV126){const auto v=motorrock::placedmeshv126::point(mesh->poseV126,{{p.x,p.y,p.z}});verts[j]={v[0],v[1],v[2]};}
++                else {const auto v=fromJolt(JPH::Vec3(transform*JPH::RVec3(toJolt(Vec3{p.x,p.y,p.z}))));verts[j]={v.x,v.y,v.z};}
+                 for(int a=0;a<3;++a){min[a]=std::min(min[a],verts[j][a]);max[a]=std::max(max[a],verts[j][a]);}
+             }
+             const unsigned triangleIndex=index++;
+@@ -2438,7 +2456,10 @@
+                     std::array<wr::Vector,3> localVerticesV101;
+                     if(contacts.wheelSourceLocalTriangle(lock.GetBody(),selectedSubShapeV122,localVerticesV101)) {
+                         const auto localNormalV101=motorrock::trianglenormalv101::compute(localVerticesV101).normal;
+-                        normal=lock.GetBody().GetRotation()*toJolt(Vec3{localNormalV101[0],localNormalV101[1],localNormalV101[2]});
++                        wr::Vector placedNormalV126;
++                        normal=contacts.wheelPlacedMeshNormalV126(lock.GetBody(),localNormalV101,placedNormalV126)
++                            ? toJolt(Vec3{placedNormalV126[0],placedNormalV126[1],placedNormalV126[2]})
++                            : lock.GetBody().GetRotation()*toJolt(Vec3{localNormalV101[0],localNormalV101[1],localNormalV101[2]});
+                     }
+                 }
+                 if (normal.Dot(JPH::Vec3::sAxisY()) < 0.0F)
+@@ -2478,7 +2499,7 @@
+             JPH::SubShapeID subShape;
+             JPH::RVec3 contactPosition;
+             JPH::Vec3 contactNormal;
+-        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"),sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_VEHICLE_QUERY_V70"),vehicle.GetSourceSimulationCounterV59(),wheelIndex,nativePoint&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_MESH_NORMAL_V101"),nativePoint&&flag("RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122"));
++        } collector(system, ray, contacts_, nativePoint, rayStart, unitDirection, queryLength,sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_BOX_QUERY_V59"),sourceCompat_&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_VEHICLE_QUERY_V70"),vehicle.GetSourceSimulationCounterV59(),wheelIndex,nativePoint&&flag("RRR3D_EXPERIMENT_NATIVE_WHEEL_MESH_NORMAL_V101"),nativePoint&&(flag("RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122")||flag("RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126")));
+ 
+         JPH::RayCastSettings settings;
+         settings.mBackFaceModeTriangles =
+@@ -4733,13 +4754,14 @@
+                                   float friction,
+                                   float restitution, JPH::uint64 userData,
+                                   bool sensor,
+-                                  SourceCollisionGroup group) {
++                                  SourceCollisionGroup group,
++                                  const motorrock::placedmeshv126::Pose* placedPose=nullptr) {
+             if (source.empty())
+                 return JPH::BodyID();
+             JPH::TriangleList querySource;
+             const char* wheelPointFlag = std::getenv("RRR3D_EXPERIMENT_NATIVE_WHEEL_TRIANGLE_POINT");
+-            const bool wheelPoint = tuning_.physxWheelCompat && wheelPointFlag &&
+-                std::strcmp(wheelPointFlag, "1") == 0;
++            const bool wheelPoint = placedPose || (tuning_.physxWheelCompat && wheelPointFlag &&
++                std::strcmp(wheelPointFlag, "1") == 0);
+             if (wheelPoint) {
+                 querySource = source;
+                 for (JPH::uint32 index=0; index<querySource.size(); ++index)
+@@ -4751,10 +4773,10 @@
+             if (shapeResult.HasError())
+                 throw std::runtime_error(
+                     ("Jolt track mesh: " + shapeResult.GetError()).c_str());
+-            contactListener_.registerSourceMesh(*shapeResult.Get(),source);
++            contactListener_.registerSourceMesh(*shapeResult.Get(),source,placedPose);
+             JPH::BodyCreationSettings settings(
+-                shapeResult.Get(), JPH::RVec3::sZero(),
+-                JPH::Quat::sIdentity(), JPH::EMotionType::Static,
++                shapeResult.Get(), placedPose ? toJolt(Vec3{placedPose->position[0],placedPose->position[1],placedPose->position[2]}) : JPH::RVec3::sZero(),
++                placedPose ? toJolt(Quat{placedPose->quaternion[0],placedPose->quaternion[1],placedPose->quaternion[2],placedPose->quaternion[3]}) : JPH::Quat::sIdentity(), JPH::EMotionType::Static,
+                 sourceObjectLayer(group, false));
+             settings.mFriction = friction;
+             settings.mRestitution = restitution;
+@@ -4768,6 +4790,29 @@
+                     "Jolt could not create track body");
+             return body;
+         };
++        const char* placedFlagV126=std::getenv("RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126");
++        const bool placedV126=tuning_.physxWheelCompat && placedFlagV126 && std::strcmp(placedFlagV126,"1")==0;
++        if(placedV126) {
++            for(const auto& mesh:description_.collisionMeshes) {
++                const auto surface=surfaceIndex(mesh.surface);
++                const bool owned=mesh.surface==CollisionSurface::Decoration && mesh.decorationInstance<decorations_.size();
++                if((creationPhase==1U && (surface!=0U || owned)) || (creationPhase==2U && surface==0U && !owned))continue;
++                const auto& t=mesh.transform;
++                const auto pose=motorrock::placedmeshv126::pose({{t.rotation.x,t.rotation.y,t.rotation.z,t.rotation.w}},{{t.position.x,t.position.y,t.position.z}});
++                JPH::TriangleList local;
++                for(std::size_t i=0;i+2<mesh.indices.size();i+=3) {
++                    const auto vertex=[&](unsigned offset){const auto& v=mesh.vertices.at(mesh.indices[i+offset]);return toJolt(Vec3{v.x*t.scale.x,v.y*t.scale.y,v.z*t.scale.z});};
++                    local.emplace_back(vertex(0),vertex(2),vertex(1));
++                }
++                const bool sensor=owned && !description_.decorations[mesh.decorationInstance].collisionResponse;
++                const auto body=createMeshBody(local,owned?.5F:frictions[surface],owned?.5F:restitutions[surface],
++                    owned?decorationUserData(mesh.decorationInstance):surfaceUserData(mesh.surface),sensor,groups[surface],&pose);
++                if(!body.IsInvalid()) {
++                    if(owned)decorations_[mesh.decorationInstance].meshBodies.push_back(body);else trackBodies_.push_back(body);
++                }
++            }
++        }
++        if(!placedV126) {
+         for (std::size_t index = 0; index < triangles.size(); ++index)
+         {
+             if (triangles[index].empty() || (creationPhase==1U && index!=0U) || (creationPhase==2U && index==0U))
+@@ -4789,6 +4834,7 @@
+                 decorationTriangles[index], 0.5F, 0.5F,
+                 decorationUserData(index), sensor,
+                 SourceCollisionGroup::Default));
++        }
+         }
+         if(creationPhase==2U)return; // Death plane is created exactly once.
+         // Map.cpp creates a +Z NxPlaneShape at world Z=0 in the dedicated
+--- /dev/null
++++ b/src/Rock3dEngine/header/physics/NativePlacedMeshV126.h
+@@ -0,0 +1,49 @@
++#pragma once
++#include "NativeMaterialFrameV36.h"
++#include "NativePhysicalPoseV42.h"
++#include "NativeWheelRayV52.h"
++
++// Default-off placed-mesh experiment. Geometry comes only from WorldDescription.
++// NxActorDesc public matrix -> Core actor quaternion -> physical shape matrix.
++namespace motorrock::placedmeshv126 {
++namespace wr=wheelrayv52;
++struct Pose { contactframe::Quaternion quaternion; contactframe::Matrix matrix; wr::Vector position; };
++inline Pose pose(contactframe::Quaternion input,wr::Vector position) {
++    const double x=input[0],y=input[1],z=input[2],w=input[3];
++    contactframe::Matrix m;
++    m.a[0][0]=float(1-y*y*2-z*z*2);m.a[0][1]=float(x*y*2-w*z*2);m.a[0][2]=float(x*z*2+w*y*2);
++    m.a[1][0]=float(x*y*2+w*z*2);m.a[1][1]=float(1-x*x*2-z*z*2);m.a[1][2]=float(y*z*2-w*x*2);
++    m.a[2][0]=float(x*z*2-w*y*2);m.a[2][1]=float(y*z*2+w*x*2);m.a[2][2]=float(1-x*x*2-y*y*2);
++    auto q=framev36::encode(m);
++    const float trace=framev36::add(framev36::add(m.a[0][0],m.a[1][1]),m.a[2][2]);
++    if(trace>=0) { for(unsigned i=0;i<3;++i)q[i]=-q[i]; } else q[3]=-q[3];
++    return {q,physicalposev42::rotation(q),position};
++}
++inline float dotXYZ(wr::Vector a,wr::Vector b) {
++    return wr::add(wr::add(wr::mul(a[0],b[0]),wr::mul(a[1],b[1])),wr::mul(a[2],b[2]));
++}
++inline wr::Vector inverseDirection(const Pose& p,wr::Vector v) {
++    wr::Vector r;
++    for(unsigned i=0;i<3;++i)r[i]=dotXYZ({{p.matrix.a[0][i],p.matrix.a[1][i],p.matrix.a[2][i]}},v);
++    return r;
++}
++inline wr::Vector inversePoint(const Pose& p,wr::Vector v) {
++    // Core RVA 1f0afd..1f0c71: inverse translation is stored before origin.
++    wr::Vector r;
++    for(unsigned i=0;i<3;++i) {
++        const wr::Vector column{{p.matrix.a[0][i],p.matrix.a[1][i],p.matrix.a[2][i]}};
++        const float translation=-(i==0?wr::dotZYX(column,p.position):dotXYZ(column,p.position));
++        r[i]=wr::add(dotXYZ(column,v),translation);
++    }
++    return r;
++}
++inline wr::Vector direction(const Pose& p,wr::Vector v) {
++    // Core RVA 14e1b6..14e245: all forward rows sum Z, Y, X.
++    wr::Vector r;
++    for(unsigned i=0;i<3;++i)r[i]=wr::dotZYX({{p.matrix.a[i][0],p.matrix.a[i][1],p.matrix.a[i][2]}},v);
++    return r;
++}
++inline wr::Vector point(const Pose& p,wr::Vector v) {
++    auto r=direction(p,v);for(unsigned i=0;i<3;++i)r[i]=wr::add(r[i],p.position[i]);return r;
++}
++}
+--- a/src/RRR3d/OriginalPhysicsReplay.cpp
++++ b/src/RRR3d/OriginalPhysicsReplay.cpp
+@@ -92,6 +92,12 @@
+                     // Fixed raw actuators isolate the real-map backend from
+                     // the GameCar driver arithmetic under separate audit.
+                     command.engineRpm=1000;command.gear=1;
++                    // Match the existing SDK-only calibration protocol. The
++                    // Windows raw-actuator bridge omits GameCar's neutral
++                    // angular momentum get/set round trip. Ordinary replay
++                    // and the real GameCar keep their stabilization calls.
++                    const char* isolate=std::getenv("RRR3D_CALIBRATION_ISOLATE_NEUTRAL_STABILIZATION");
++                    if(isolate && std::string(isolate)=="1")command.applyAngularStabilization=false;
+                     if(tick>=120 && tick<300)command.motorTorque=1000;
+                     if((tick>=360 && tick<420)||(tick>=600 && tick<660))command.brakeTorque=6000;
+                     if(tick>=420 && tick<480)command.motorTorque=-800;
+@@ -133,7 +139,12 @@
+             Vec3 impulse;
+             if (tick == 720) impulse.y = 2.0F;
+             if (tick == 780) impulse.z = 2.0F;
+-            world->addLinearVelocity(0, impulse);
++            // A zero AddLinearVelocity call activates the Mac body. The SDK-only
++            // Windows bridge invokes its velocity impulse API only at 720/780.
++            const char* isolate=std::getenv("RRR3D_CALIBRATION_ISOLATE_NEUTRAL_STABILIZATION");
++            const bool sdkOnly=actuatorsV124 && isolate && std::string(isolate)=="1";
++            if(!sdkOnly || impulse.x!=0 || impulse.y!=0 || impulse.z!=0)
++                world->addLinearVelocity(0, impulse);
+             world->step(dt, input);
+             const auto& state = world->vehicle();
+             if (state.resetCount != initialResetCount)

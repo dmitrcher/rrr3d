@@ -1,0 +1,28 @@
+{
+  "default_off_flag": "RRR3D_EXPERIMENT_NATIVE_PLACED_MESH_V126",
+  "raw_sdk_isolation_flag": "RRR3D_CALIBRATION_ISOLATE_NEUTRAL_STABILIZATION",
+  "files": {
+    "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp": {
+      "before": "1e2a16cc4d127d115bdba06663e59d3bf53f9b900dca5a61f24500b59df1dbd1",
+      "after": "66a289ef335d40da8c1b13627b58ba9b6597fc6db077b76daaca593fd84a8afb"
+    },
+    "src/Rock3dEngine/header/physics/NativePlacedMeshV126.h": {
+      "before": null,
+      "after": "a27a0b1b4c2f04bdb129944de566532a884b109a0c2419d45115be7e07123d8d"
+    },
+    "src/RRR3d/OriginalPhysicsReplay.cpp": {
+      "before": "bf2907bf71c7970c49f441fbd552075fec87ba5ce0c7b27985be51f5c449fb40",
+      "after": "f03ffdcb3a744263a18f5962441887affdc18b268fceca919fec691832c026cd"
+    }
+  },
+  "accepted": false,
+  "goal_complete": false,
+  "final_defaultoff_all900_samples_and_commands_preserved": true,
+  "full608_two_repeats_exact": true,
+  "samples": 255864,
+  "real_map_first_remaining_difference": {
+    "tick": 79,
+    "cause": "Source sleep transition; Native firstsleep116",
+    "fully_isolated_sdk_protocol": true
+  }
+}

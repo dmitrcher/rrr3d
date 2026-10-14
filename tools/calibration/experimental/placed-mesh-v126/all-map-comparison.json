@@ -1,0 +1,116 @@
+{
+  "scope": "Raw actuator replay, original Windows actor flags restored; original source per-mesh topology and local query candidate. No AI. Wholegame unproved.",
+  "tracks": {
+    "0": {
+      "samples": 900,
+      "exact_states": 29,
+      "first_difference": {
+        "tick": 29,
+        "fields": [
+          {
+            "field": ".wheels[0].angular_speed",
+            "native": -0.000437140727,
+            "mac": -0.000437140669
+          },
+          {
+            "field": ".wheels[0].lateral_slip",
+            "native": 3.71960374e-09,
+            "mac": 3.71980646e-09
+          },
+          {
+            "field": ".wheels[1].angular_speed",
+            "native": -0.000437095587,
+            "mac": -0.000437095528
+          },
+          {
+            "field": ".wheels[1].lateral_slip",
+            "native": 3.71919362e-09,
+            "mac": 3.71939635e-09
+          },
+          {
+            "field": ".wheels[2].angular_speed",
+            "native": -0.000437095587,
+            "mac": -0.000437095528
+          },
+          {
+            "field": ".wheels[2].lateral_slip",
+            "native": 3.74839182e-09,
+            "mac": 3.74793219e-09
+          },
+          {
+            "field": ".wheels[3].angular_speed",
+            "native": -0.000437095587,
+            "mac": -0.000437095528
+          },
+          {
+            "field": ".wheels[3].lateral_slip",
+            "native": 3.74838693e-09,
+            "mac": 3.7479273e-09
+          }
+        ]
+      },
+      "first_body_difference": 30
+    },
+    "16": {
+      "samples": 900,
+      "exact_states": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          {
+            "field": ".rotation[2]",
+            "native": 0.0140830856,
+            "mac": 0.0140830837
+          },
+          {
+            "field": ".rotation[3]",
+            "native": 0.999900937,
+            "mac": 0.999900818
+          }
+        ]
+      },
+      "first_body_difference": 0
+    },
+    "48": {
+      "samples": 900,
+      "exact_states": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          {
+            "field": ".rotation[2]",
+            "native": 0.9999488,
+            "mac": -0.99994868
+          },
+          {
+            "field": ".rotation[3]",
+            "native": -0.0101284022,
+            "mac": 0.0101284003
+          }
+        ]
+      },
+      "first_body_difference": 0
+    },
+    "64": {
+      "samples": 900,
+      "exact_states": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          {
+            "field": ".rotation[2]",
+            "native": -0.708210409,
+            "mac": -0.708210468
+          },
+          {
+            "field": ".rotation[3]",
+            "native": 0.706001461,
+            "mac": 0.706001341
+          }
+        ]
+      },
+      "first_body_difference": 0
+    }
+  },
+  "goal_complete": false
+}

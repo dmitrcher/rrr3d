@@ -1,0 +1,102 @@
+{
+  "spring_inputs": 20,
+  "first_differences": [
+    {
+      "index": 1,
+      "iteration": 1,
+      "wheel": 2,
+      "differences": [
+        [
+          2,
+          -0.20767070353031158,
+          -0.2242325097322464
+        ],
+        [
+          3,
+          0.10453714430332184,
+          -0.06357268244028091
+        ],
+        [
+          4,
+          0.17485959827899933,
+          -0.14629100263118744
+        ],
+        [
+          5,
+          -0.00027462607249617577,
+          0.00022461192565970123
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "iteration": 1,
+      "wheel": 1,
+      "differences": [
+        [
+          2,
+          -0.12193896621465683,
+          -0.14233656227588654
+        ],
+        [
+          3,
+          0.021625682711601257,
+          -0.13597066700458527
+        ],
+        [
+          4,
+          0.024031370878219604,
+          0.0013266801834106445
+        ],
+        [
+          5,
+          -4.0017024730332196e-05,
+          5.118345143273473e-07
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "iteration": 1,
+      "wheel": 0,
+      "differences": [
+        [
+          2,
+          -0.044103577733039856,
+          -0.04389558732509613
+        ],
+        [
+          3,
+          -0.04718267172574997,
+          -0.057177864015102386
+        ],
+        [
+          4,
+          0.1643298715353012,
+          -0.1759171336889267
+        ],
+        [
+          5,
+          -0.00025300579727627337,
+          0.00026987987803295255
+        ]
+      ]
+    }
+  ],
+  "whole_game_verified": false,
+  "important_correction": "Rows initially compared by traversal index. All4 prepared spring Jacobians/masses actually match; Native row order [0,3,2,1] differs from Source [3,2,1,0]. Bind rows semantically by full geometry, never assume slot==wheel.",
+  "native_semantic_spring_order": [
+    0,
+    3,
+    2,
+    1
+  ],
+  "source_semantic_spring_order": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "first_solver_input_before_any_rows_exact": true,
+  "prepared_all_four_spring_rows_geometry_mass_exact": true
+}

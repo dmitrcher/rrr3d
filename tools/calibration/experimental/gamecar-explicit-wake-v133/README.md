@@ -13,3 +13,5 @@ Final paired awake-drive exact prefixes: map0 steps0..209; map16 steps0..241; ma
 Final default-off900 physical samples and900 commands preserved;53 CTest checks pass. Ordinary installed game is unchanged. General production input, original MotorProgress torque/FP context, stabilizer, scene/decorations/compound/island wake and actual rendered race remain open. Next inspect first awake-drive divergence against private original rows; integrate validated events into real controllers only with corresponding game evidence.
 
 Apply the3-file guarded overlay to verified V132 research Source base via install-guarded.py. SDK unchanged. Windows bridge builds/capture scripts require existing original SDK/development installation; no proprietary DLLs are distributed.
+
+At map0 step210, semantic binding by exact prepared Jacobians shows original spring order[0,3,2,1], Source[3,2,1,0]. All4 masses/Jacobians match, and the first pre-row body state matches. Investigate manager/row object lifetime around209→210; do not impose observed per-wheel/frame ordering.

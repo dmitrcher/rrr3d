@@ -1,0 +1,28 @@
+{
+  "scope": "Default-off source-order identity mesh triangle query, full nearest scalar scan. Experimental scan performance and original large-mesh BVH order are not certified.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "84ef5e096121729b02ced819228f33f387d73129c88a25a36e2278874a5791b0",
+      "after_sha256": "1e2a16cc4d127d115bdba06663e59d3bf53f9b900dca5a61f24500b59df1dbd1"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/Shape/MeshShape.h",
+      "before_sha256": "41e74234697e00fdde1c059265eccfa869ee95d09612d93fa8a07ef482bb390c",
+      "after_sha256": "ca7160a34f428cc37a20b02a21620a420fcc543a059416fde71c5abfaec6aea4"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Collision/Shape/MeshShape.cpp",
+      "before_sha256": "6fddbb3f9205c66a1550f7a6e1c08facf1bdc0dd3e5e48d9a9fabf395f975043",
+      "after_sha256": "acfc93f4e9526a47d1705acebf58f782ede1d59c3ea5db5af97d12643446624f"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_MESH_QUERY_ORDER_V122"
+  ],
+  "goal_complete": false,
+  "requires": "Accepted angular-clamp-v121 and its prerequisites; rebuild all consumers"
+}

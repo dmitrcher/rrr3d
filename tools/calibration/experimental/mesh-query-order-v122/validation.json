@@ -1,0 +1,111 @@
+{
+  "scope": "Original scalar mesh query triangle acceptance and strict nearer-distance source-order selection, static identity candidate meshes. Large-mesh originalBVH ties and candidate rejection edge cases remain unproved. No coefficients, state injection or case/frame/wheel rules.",
+  "strict_cases": 607,
+  "total_cases": 608,
+  "remaining_cases": 1,
+  "new_strict_cases": [
+    "dirtdevil/suspension-drop",
+    "marauder/suspension-drop",
+    "xCar/wheel-drive"
+  ],
+  "all_previous_604_strict_preserved": true,
+  "two_repeats_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 605,
+  "changed_trajectories": [
+    "dirtdevil/suspension-drop",
+    "marauder/suspension-drop",
+    "xCar/wheel-drive"
+  ],
+  "no_full_run_maximum_regressions_vs_v121": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "position_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "velocity_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "orientation_max_degrees": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "angular_momentum_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "wheel_normal_force_max": {
+      "improved": [
+        "marauder/suspension-drop",
+        "dirtdevil/suspension-drop",
+        "xCar/wheel-drive"
+      ],
+      "worsened": [],
+      "same": 605
+    }
+  },
+  "actual_existing_production_ray_records_O0_O2": 16,
+  "actual_selected_triangle_ID_vertex_records_exact": 16,
+  "actual_spring_tire_incoming_result_rows_exact": 480,
+  "fresh_live_Native_equivalent_states": 2400,
+  "private_signed_zero_differences_explicit": true,
+  "raw_ABI_equality_claimed": false,
+  "portable_Native_equal_states": 12180,
+  "flag_off_preserves_v121_decimal_states": 1800,
+  "selected_flag_off_v121_preservation_cases": 25,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "be1453e71990a3616ade2f719a3a7935239bdee3ebf88b07f89f175514a16eb9",
+    "rrr3d_physics_spring_probe": "cddccf5264d269c885a18b5836f7178fe6ed1e75f6592e91ddc94588b99da3df"
+  },
+  "goal_complete": false
+}

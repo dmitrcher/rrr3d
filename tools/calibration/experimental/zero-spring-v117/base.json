@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off original zero-parameter spring row activity and existing damping floor. Two SDK files; adapter unchanged. No fitted coefficients, reference states or case/frame/wheel rules.",
+  "requires": "Verified suspension-length-report-v116 and all prerequisites; rebuild consumers.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/VehicleConstraint.cpp",
+      "before_sha256": "2cb955c13c6184a5326cadea96ee852e9e924e219ac9baaecd507a56a9ac5d6e",
+      "after_sha256": "602654cb4464673ca53ffa2680a657a28ccb06695f6e510d301d00495f72897a"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Constraints/ConstraintPart/NativeSpringSplitV53.h",
+      "before_sha256": "80e334c1df67ffa7a65a054fec76a18b1c793ffd064fe7b99746b20d8cda32ab",
+      "after_sha256": "47dace0c14c2fca814de4db3b4715cf9884ef29a1ed8fd9f52e8d3f28f3c0a32"
+    }
+  ],
+  "goal_complete": false
+}

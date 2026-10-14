@@ -1,0 +1,43 @@
+{
+  "scope": "Original object handle slots bind wheel identity directly; prepared Jacobians bind copied solver rows. Actual prepared mass and before/after impulse words match Source; every nonzero Jacobian, inverse-Jacobian, incoming and outgoing body velocity word matches. Private signed-zero differences are explicit. No arbitrary wheel permutation or reference injection.",
+  "captures": [
+    {
+      "repeat": 0,
+      "actual_handle_slot_binding": true,
+      "prepared_rows_nonzero_words_exact": 4,
+      "prepared_mass_words_exact": 4,
+      "preparation_private_signed_zero_differences": [
+        {
+          "wheel": 2,
+          "field": "jacobian",
+          "axis": 2,
+          "native": 2147483648,
+          "source": 0
+        }
+      ],
+      "solve_before_after_input_and_impulse_checks": 40,
+      "all_nonzero_body_words_exact": true,
+      "private_signed_zero_differences": []
+    },
+    {
+      "repeat": 1,
+      "actual_handle_slot_binding": true,
+      "prepared_rows_nonzero_words_exact": 4,
+      "prepared_mass_words_exact": 4,
+      "preparation_private_signed_zero_differences": [
+        {
+          "wheel": 2,
+          "field": "jacobian",
+          "axis": 2,
+          "native": 2147483648,
+          "source": 0
+        }
+      ],
+      "solve_before_after_input_and_impulse_checks": 40,
+      "all_nonzero_body_words_exact": true,
+      "private_signed_zero_differences": []
+    }
+  ],
+  "raw_ABI_equality_claimed": false,
+  "goal_complete": false
+}

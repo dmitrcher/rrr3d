@@ -1,0 +1,48 @@
+{
+  "scope": "Original first physical tick0, zero stiffness and damping with nonzero travel. Windows creates4spring rows with tiny effective mass; Mac disables all4 at its stiffness/damping activity guard. Existing NativeSpringSplitV53 already clamps damping to original1e-5. Effective mass varies by one word between rows; no constant mass or fitted damping should be introduced. No fix yet; same-row/body input proof pending.",
+  "captures": [
+    {
+      "native_requested_stiffness_and_damping_zero": true,
+      "native_spring_rows": 4,
+      "native_spring_effective_mass_words_in_original_row_order": [
+        875754748,
+        875754748,
+        875754749,
+        875754749
+      ],
+      "native_spring_effective_mass_values": [
+        1.6666666624587378e-07,
+        1.6666666624587378e-07,
+        1.666666804567285e-07,
+        1.666666804567285e-07
+      ],
+      "native_softness": 1.0,
+      "mac_spring_rows_active": 0,
+      "original180_history_preserved": true,
+      "source_v116_180_history_preserved": true
+    },
+    {
+      "native_requested_stiffness_and_damping_zero": true,
+      "native_spring_rows": 4,
+      "native_spring_effective_mass_words_in_original_row_order": [
+        875754748,
+        875754748,
+        875754749,
+        875754749
+      ],
+      "native_spring_effective_mass_values": [
+        1.6666666624587378e-07,
+        1.6666666624587378e-07,
+        1.666666804567285e-07,
+        1.666666804567285e-07
+      ],
+      "native_softness": 1.0,
+      "mac_spring_rows_active": 0,
+      "original180_history_preserved": true,
+      "source_v116_180_history_preserved": true
+    }
+  ],
+  "native_floor_damping": 1e-05,
+  "source_guard": "VehicleConstraint.cpp suspension spring conditional requires positive stiffness or damping in StiffnessAndDamping mode",
+  "goal_complete": false
+}

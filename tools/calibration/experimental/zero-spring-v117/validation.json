@@ -1,0 +1,102 @@
+{
+  "scope": "Original zero-parameter spring activity with existing minimum damping. No fitted coefficients, constant mass or reference injection.",
+  "strict_cases": 599,
+  "total_cases": 608,
+  "remaining_cases": 9,
+  "new_strict_cases": [
+    "body-wheel-contact-pitch",
+    "body-wheel-contact-roll",
+    "body-wheel-contact-x"
+  ],
+  "all_previous_596_strict_preserved": true,
+  "two_repeats_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 605,
+  "changed_trajectories": [
+    "body-wheel-contact-pitch",
+    "body-wheel-contact-roll",
+    "body-wheel-contact-x"
+  ],
+  "no_full_run_maximum_regressions_vs_v116": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "position_max": {
+      "improved": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "velocity_max": {
+      "improved": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "orientation_max_degrees": {
+      "improved": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "angular_momentum_max": {
+      "improved": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 605
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_normal_force_max": {
+      "improved": [
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 605
+    }
+  },
+  "actual_original_zero_spring_preparations_exact_O0_O2": 4,
+  "actual_prepared_mass_and_nonzero_jacobian_rows_exact_per_repeat": 4,
+  "actual_before_after_solves_verified_per_repeat": 40,
+  "private_preparation_signed_zero_differences_per_repeat": 1,
+  "raw_ABI_equality_claimed": false,
+  "portable_Native_equal_states": 8340,
+  "flag_off_preserves_v116_decimal_states": 540,
+  "selected_flag_off_v116_preservation_cases": 25,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "3fe7f28bd1007c6ac57ba525d85dab72169361666be42138cdc846c14973ceee",
+    "rrr3d_physics_spring_probe": "15d3a5983ba9f39ebc966e9e8b5cc951c0391f75436c73faf00d703bc1e58c9d"
+  },
+  "goal_complete": false
+}

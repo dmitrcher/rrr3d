@@ -1,0 +1,187 @@
+{
+  "scope": "Verified original parent-free startup path; original SDK-only map replay one car/noAI. GameCar driver/rendered original race spawn still unproved.",
+  "tracks": {
+    "0": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 900,
+          "first_difference": null
+        },
+        {
+          "repeat": 1,
+          "exact_states": 900,
+          "first_difference": null
+        }
+      ]
+    },
+    "16": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 420,
+          "first_difference": {
+            "tick": 420,
+            "fields": [
+              {
+                "field": ".velocity[0]",
+                "native": -2.11943282e-10,
+                "mac": -2.11943268e-10
+              },
+              {
+                "field": ".velocity[1]",
+                "native": 1.57382121e-10,
+                "mac": 1.57382107e-10
+              },
+              {
+                "field": ".velocity[2]",
+                "native": 0.00464353058,
+                "mac": 0.00464354875
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 0.851606548,
+                "mac": 0.851566672
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -20.910347,
+                "mac": -20.9104729
+              },
+              {
+                "field": ".angular_momentum[2]",
+                "native": 2.3064058e-06,
+                "mac": 2.31862941e-06
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.000104592138,
+                "mac": -0.000104592145
+              },
+              {
+                "field": ".rotation[1]",
+                "native": 0.00515124854,
+                "mac": 0.005151249
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 420,
+          "first_difference": {
+            "tick": 420,
+            "fields": [
+              {
+                "field": ".velocity[0]",
+                "native": -2.11943282e-10,
+                "mac": -2.11943268e-10
+              },
+              {
+                "field": ".velocity[1]",
+                "native": 1.57382121e-10,
+                "mac": 1.57382107e-10
+              },
+              {
+                "field": ".velocity[2]",
+                "native": 0.00464353058,
+                "mac": 0.00464354875
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 0.851606548,
+                "mac": 0.851566672
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -20.910347,
+                "mac": -20.9104729
+              },
+              {
+                "field": ".angular_momentum[2]",
+                "native": 2.3064058e-06,
+                "mac": 2.31862941e-06
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.000104592138,
+                "mac": -0.000104592145
+              },
+              {
+                "field": ".rotation[1]",
+                "native": 0.00515124854,
+                "mac": 0.005151249
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "48": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 374,
+          "first_difference": {
+            "tick": 358,
+            "fields": [
+              {
+                "field": ".angular_momentum[2]",
+                "native": -0.218377173,
+                "mac": -0.218376666
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 374,
+          "first_difference": {
+            "tick": 358,
+            "fields": [
+              {
+                "field": ".angular_momentum[2]",
+                "native": -0.218377173,
+                "mac": -0.218376666
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "64": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 239,
+          "first_difference": {
+            "tick": 238,
+            "fields": [
+              {
+                "field": ".wheels[0].lateral_slip",
+                "native": 9.42057959e-05,
+                "mac": 9.42059996e-05
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 239,
+          "first_difference": {
+            "tick": 238,
+            "fields": [
+              {
+                "field": ".wheels[0].lateral_slip",
+                "native": 9.42057959e-05,
+                "mac": 9.42059996e-05
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "identical_fixtures": true,
+  "goal_complete": false
+}

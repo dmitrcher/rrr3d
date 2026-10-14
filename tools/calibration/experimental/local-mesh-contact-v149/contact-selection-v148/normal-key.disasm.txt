@@ -1,0 +1,210 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+1022ba00: 83 ec 3c                     	subl	$0x3c, %esp
+1022ba03: 53                           	pushl	%ebx
+1022ba04: 8b 5c 24 44                  	movl	0x44(%esp), %ebx
+1022ba08: 8b 13                        	movl	(%ebx), %edx
+1022ba0a: 55                           	pushl	%ebp
+1022ba0b: 8b 6c 24 64                  	movl	0x64(%esp), %ebp
+1022ba0f: 56                           	pushl	%esi
+1022ba10: 57                           	pushl	%edi
+1022ba11: 8b f8                        	movl	%eax, %edi
+1022ba13: f3 0f 10 47 24               	movss	0x24(%edi), %xmm0
+1022ba18: 8b 44 24 78                  	movl	0x78(%esp), %eax
+1022ba1c: f3 0f 11 44 24 34            	movss	%xmm0, 0x34(%esp)
+1022ba22: f3 0f 10 47 28               	movss	0x28(%edi), %xmm0
+1022ba27: c7 00 ff ff ff ff            	movl	$0xffffffff, (%eax)     # imm = 0xFFFFFFFF
+1022ba2d: 8b 42 14                     	movl	0x14(%edx), %eax
+1022ba30: f3 0f 11 44 24 38            	movss	%xmm0, 0x38(%esp)
+1022ba36: f3 0f 10 47 2c               	movss	0x2c(%edi), %xmm0
+1022ba3b: 8b cb                        	movl	%ebx, %ecx
+1022ba3d: f3 0f 11 44 24 3c            	movss	%xmm0, 0x3c(%esp)
+1022ba43: ff d0                        	calll	*%eax
+1022ba45: 8b 13                        	movl	(%ebx), %edx
+1022ba47: 8b f0                        	movl	%eax, %esi
+1022ba49: 8b 42 1c                     	movl	0x1c(%edx), %eax
+1022ba4c: 8b cb                        	movl	%ebx, %ecx
+1022ba4e: 89 74 24 14                  	movl	%esi, 0x14(%esp)
+1022ba52: ff d0                        	calll	*%eax
+1022ba54: 33 c9                        	xorl	%ecx, %ecx
+1022ba56: 89 4c 24 10                  	movl	%ecx, 0x10(%esp)
+1022ba5a: 85 f6                        	testl	%esi, %esi
+1022ba5c: 0f 86 e5 01 00 00            	jbe	0x1022bc47 <NxCreateCoreSDK+0x4c9f7>
+1022ba62: 8d 58 14                     	leal	0x14(%eax), %ebx
+1022ba65: eb 09                        	jmp	0x1022ba70 <NxCreateCoreSDK+0x4c820>
+1022ba67: 8d a4 24 00 00 00 00         	leal	(%esp), %esp
+1022ba6e: 8b ff                        	movl	%edi, %edi
+1022ba70: 8b 44 24 58                  	movl	0x58(%esp), %eax
+1022ba74: f3 0f 10 43 fc               	movss	-0x4(%ebx), %xmm0
+1022ba79: f3 0f 59 40 04               	mulss	0x4(%eax), %xmm0
+1022ba7e: f3 0f 10 0b                  	movss	(%ebx), %xmm1
+1022ba82: f3 0f 59 48 08               	mulss	0x8(%eax), %xmm1
+1022ba87: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1022ba8b: f3 0f 10 4b f8               	movss	-0x8(%ebx), %xmm1
+1022ba90: f3 0f 59 08                  	mulss	(%eax), %xmm1
+1022ba94: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1022ba98: f3 0f 58 43 04               	addss	0x4(%ebx), %xmm0
+1022ba9d: 0f 57 c9                     	xorps	%xmm1, %xmm1
+1022baa0: 0f 2f c8                     	comiss	%xmm0, %xmm1
+1022baa3: 0f 87 86 01 00 00            	ja	0x1022bc2f <NxCreateCoreSDK+0x4c9df>
+1022baa9: 8b 44 24 64                  	movl	0x64(%esp), %eax
+1022baad: 89 4d 00                     	movl	%ecx, (%ebp)
+1022bab0: f3 0f 10 03                  	movss	(%ebx), %xmm0
+1022bab4: f3 0f 10 5f 18               	movss	0x18(%edi), %xmm3
+1022bab9: f3 0f 10 67 1c               	movss	0x1c(%edi), %xmm4
+1022babe: f3 0f 10 6f 20               	movss	0x20(%edi), %xmm5
+1022bac3: f3 0f 10 4f 10               	movss	0x10(%edi), %xmm1
+1022bac8: f3 0f 10 77 0c               	movss	0xc(%edi), %xmm6
+1022bacd: f3 0f 10 7b f8               	movss	-0x8(%ebx), %xmm7
+1022bad2: f3 0f 10 57 08               	movss	0x8(%edi), %xmm2
+1022bad7: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+1022badb: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1022badf: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+1022bae3: f3 0f 10 43 fc               	movss	-0x4(%ebx), %xmm0
+1022bae8: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1022baec: f3 0f 11 4c 24 44            	movss	%xmm1, 0x44(%esp)
+1022baf2: f3 0f 10 4f 14               	movss	0x14(%edi), %xmm1
+1022baf7: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+1022bafb: f3 0f 11 4c 24 48            	movss	%xmm1, 0x48(%esp)
+1022bb01: f3 0f 10 4f 04               	movss	0x4(%edi), %xmm1
+1022bb06: f3 0f 59 f0                  	mulss	%xmm0, %xmm6
+1022bb0a: f3 0f 10 07                  	movss	(%edi), %xmm0
+1022bb0e: f3 0f 59 cf                  	mulss	%xmm7, %xmm1
+1022bb12: f3 0f 58 4c 24 44            	addss	0x44(%esp), %xmm1
+1022bb18: f3 0f 59 c7                  	mulss	%xmm7, %xmm0
+1022bb1c: f3 0f 58 c6                  	addss	%xmm6, %xmm0
+1022bb20: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1022bb24: f3 0f 58 cc                  	addss	%xmm4, %xmm1
+1022bb28: 0f 28 d8                     	movaps	%xmm0, %xmm3
+1022bb2b: 0f 28 c1                     	movaps	%xmm1, %xmm0
+1022bb2e: 8d 4c 24 20                  	leal	0x20(%esp), %ecx
+1022bb32: 51                           	pushl	%ecx
+1022bb33: 8b 4c 24 64                  	movl	0x64(%esp), %ecx
+1022bb37: f3 0f 59 d7                  	mulss	%xmm7, %xmm2
+1022bb3b: f3 0f 58 54 24 4c            	addss	0x4c(%esp), %xmm2
+1022bb41: 8d 54 24 1c                  	leal	0x1c(%esp), %edx
+1022bb45: 52                           	pushl	%edx
+1022bb46: 8b 54 24 64                  	movl	0x64(%esp), %edx
+1022bb4a: f3 0f 11 44 24 34            	movss	%xmm0, 0x34(%esp)
+1022bb50: f3 0f 59 44 24 40            	mulss	0x40(%esp), %xmm0
+1022bb56: f3 0f 58 d5                  	addss	%xmm5, %xmm2
+1022bb5a: 50                           	pushl	%eax
+1022bb5b: 8b 44 24 60                  	movl	0x60(%esp), %eax
+1022bb5f: 0f 28 ca                     	movaps	%xmm2, %xmm1
+1022bb62: f3 0f 59 4c 24 48            	mulss	0x48(%esp), %xmm1
+1022bb68: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1022bb6c: f3 0f 10 4b 08               	movss	0x8(%ebx), %xmm1
+1022bb71: f3 0f 11 5c 24 34            	movss	%xmm3, 0x34(%esp)
+1022bb77: f3 0f 59 5c 24 40            	mulss	0x40(%esp), %xmm3
+1022bb7d: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1022bb81: f3 0f 58 c8                  	addss	%xmm0, %xmm1
+1022bb85: 51                           	pushl	%ecx
+1022bb86: f3 0f 11 4c 24 34            	movss	%xmm1, 0x34(%esp)
+1022bb8c: f3 0f 10 4b 0c               	movss	0xc(%ebx), %xmm1
+1022bb91: 52                           	pushl	%edx
+1022bb92: f3 0f 58 c8                  	addss	%xmm0, %xmm1
+1022bb96: 50                           	pushl	%eax
+1022bb97: 8d 74 24 40                  	leal	0x40(%esp), %esi
+1022bb9b: 83 c5 04                     	addl	$0x4, %ebp
+1022bb9e: f3 0f 11 54 24 48            	movss	%xmm2, 0x48(%esp)
+1022bba4: f3 0f 11 4c 24 34            	movss	%xmm1, 0x34(%esp)
+1022bbaa: e8 01 fa ff ff               	calll	0x1022b5b0 <NxCreateCoreSDK+0x4c360>
+1022bbaf: f3 0f 10 4c 24 30            	movss	0x30(%esp), %xmm1
+1022bbb5: f3 0f 10 44 24 34            	movss	0x34(%esp), %xmm0
+1022bbbb: 83 c4 18                     	addl	$0x18, %esp
+1022bbbe: 0f 2f c8                     	comiss	%xmm0, %xmm1
+1022bbc1: 0f 87 e8 00 00 00            	ja	0x1022bcaf <NxCreateCoreSDK+0x4ca5f>
+1022bbc7: f3 0f 10 54 24 20            	movss	0x20(%esp), %xmm2
+1022bbcd: f3 0f 10 5c 24 24            	movss	0x24(%esp), %xmm3
+1022bbd3: 0f 2f da                     	comiss	%xmm2, %xmm3
+1022bbd6: 0f 87 d3 00 00 00            	ja	0x1022bcaf <NxCreateCoreSDK+0x4ca5f>
+1022bbdc: f3 0f 5c c1                  	subss	%xmm1, %xmm0
+1022bbe0: f3 0f 5c d3                  	subss	%xmm3, %xmm2
+1022bbe4: 0f 2f c2                     	comiss	%xmm2, %xmm0
+1022bbe7: 76 03                        	jbe	0x1022bbec <NxCreateCoreSDK+0x4c99c>
+1022bbe9: 0f 28 c2                     	movaps	%xmm2, %xmm0
+1022bbec: 8b 44 24 70                  	movl	0x70(%esp), %eax
+1022bbf0: f3 0f 10 08                  	movss	(%eax), %xmm1
+1022bbf4: 0f 2f c8                     	comiss	%xmm0, %xmm1
+1022bbf7: 8b 74 24 14                  	movl	0x14(%esp), %esi
+1022bbfb: 76 32                        	jbe	0x1022bc2f <NxCreateCoreSDK+0x4c9df>
+1022bbfd: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+1022bc01: 8b 54 24 78                  	movl	0x78(%esp), %edx
+1022bc05: f3 0f 11 00                  	movss	%xmm0, (%eax)
+1022bc09: 8b 44 24 74                  	movl	0x74(%esp), %eax
+1022bc0d: f3 0f 10 44 24 28            	movss	0x28(%esp), %xmm0
+1022bc13: f3 0f 11 00                  	movss	%xmm0, (%eax)
+1022bc17: f3 0f 10 44 24 2c            	movss	0x2c(%esp), %xmm0
+1022bc1d: f3 0f 11 40 04               	movss	%xmm0, 0x4(%eax)
+1022bc22: f3 0f 10 44 24 30            	movss	0x30(%esp), %xmm0
+1022bc28: f3 0f 11 40 08               	movss	%xmm0, 0x8(%eax)
+1022bc2d: 89 0a                        	movl	%ecx, (%edx)
+1022bc2f: 8b 4c 24 10                  	movl	0x10(%esp), %ecx
+1022bc33: 41                           	incl	%ecx
+1022bc34: 83 c3 24                     	addl	$0x24, %ebx
+1022bc37: 89 4c 24 10                  	movl	%ecx, 0x10(%esp)
+1022bc3b: 3b ce                        	cmpl	%esi, %ecx
+1022bc3d: 0f 82 2d fe ff ff            	jb	0x1022ba70 <NxCreateCoreSDK+0x4c820>
+1022bc43: 8b 5c 24 50                  	movl	0x50(%esp), %ebx
+1022bc47: 2b 6c 24 6c                  	subl	0x6c(%esp), %ebp
+1022bc4b: 8b 44 24 68                  	movl	0x68(%esp), %eax
+1022bc4f: c1 fd 02                     	sarl	$0x2, %ebp
+1022bc52: 89 28                        	movl	%ebp, (%eax)
+1022bc54: 8b 44 24 78                  	movl	0x78(%esp), %eax
+1022bc58: 83 38 ff                     	cmpl	$-0x1, (%eax)
+1022bc5b: 75 48                        	jne	0x1022bca5 <NxCreateCoreSDK+0x4ca55>
+1022bc5d: 8b 4c 24 74                  	movl	0x74(%esp), %ecx
+1022bc61: 8b 54 24 70                  	movl	0x70(%esp), %edx
+1022bc65: 50                           	pushl	%eax
+1022bc66: 8b 44 24 68                  	movl	0x68(%esp), %eax
+1022bc6a: 51                           	pushl	%ecx
+1022bc6b: 8b 4c 24 68                  	movl	0x68(%esp), %ecx
+1022bc6f: 52                           	pushl	%edx
+1022bc70: 8b 54 24 68                  	movl	0x68(%esp), %edx
+1022bc74: 50                           	pushl	%eax
+1022bc75: 8b 44 24 64                  	movl	0x64(%esp), %eax
+1022bc79: 51                           	pushl	%ecx
+1022bc7a: 52                           	pushl	%edx
+1022bc7b: 50                           	pushl	%eax
+1022bc7c: 53                           	pushl	%ebx
+1022bc7d: e8 be fb ff ff               	calll	0x1022b840 <NxCreateCoreSDK+0x4c5f0>
+1022bc82: 83 c4 20                     	addl	$0x20, %esp
+1022bc85: 84 c0                        	testb	%al, %al
+1022bc87: 74 26                        	je	0x1022bcaf <NxCreateCoreSDK+0x4ca5f>
+1022bc89: 8b 4c 24 6c                  	movl	0x6c(%esp), %ecx
+1022bc8d: 85 c9                        	testl	%ecx, %ecx
+1022bc8f: 74 14                        	je	0x1022bca5 <NxCreateCoreSDK+0x4ca55>
+1022bc91: 33 c0                        	xorl	%eax, %eax
+1022bc93: 85 f6                        	testl	%esi, %esi
+1022bc95: 76 08                        	jbe	0x1022bc9f <NxCreateCoreSDK+0x4ca4f>
+1022bc97: 89 04 81                     	movl	%eax, (%ecx,%eax,4)
+1022bc9a: 40                           	incl	%eax
+1022bc9b: 3b c6                        	cmpl	%esi, %eax
+1022bc9d: 72 f8                        	jb	0x1022bc97 <NxCreateCoreSDK+0x4ca47>
+1022bc9f: 8b 4c 24 68                  	movl	0x68(%esp), %ecx
+1022bca3: 89 31                        	movl	%esi, (%ecx)
+1022bca5: 5f                           	popl	%edi
+1022bca6: 5e                           	popl	%esi
+1022bca7: 5d                           	popl	%ebp
+1022bca8: b0 01                        	movb	$0x1, %al
+1022bcaa: 5b                           	popl	%ebx
+1022bcab: 83 c4 3c                     	addl	$0x3c, %esp
+1022bcae: c3                           	retl
+1022bcaf: 5f                           	popl	%edi
+1022bcb0: 5e                           	popl	%esi
+1022bcb1: 5d                           	popl	%ebp
+1022bcb2: 32 c0                        	xorb	%al, %al
+1022bcb4: 5b                           	popl	%ebx
+1022bcb5: 83 c4 3c                     	addl	$0x3c, %esp
+1022bcb8: c3                           	retl
+1022bcb9: cc                           	int3
+1022bcba: cc                           	int3
+1022bcbb: cc                           	int3
+1022bcbc: cc                           	int3
+1022bcbd: cc                           	int3
+1022bcbe: cc                           	int3
+1022bcbf: cc                           	int3

@@ -1,0 +1,390 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCooking.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1001e7f0 <NxCookConvexMesh>:
+100244f8: e8 c3 cc fd ff               	calll	0x100011c0 <.text+0x1c0>
+100244fd: d9 e1                        	fabs
+100244ff: d9 05 b4 15 05 10            	flds	0x100515b4
+10024505: 83 c4 08                     	addl	$0x8, %esp
+10024508: d9 c9                        	fxch	%st(1)
+1002450a: df f1                        	fcompi	%st(1), %st
+1002450c: dd d8                        	fstp	%st(0)
+1002450e: 76 0b                        	jbe	0x1002451b <NxCookConvexMesh+0x5d2b>
+10024510: c6 44 24 0e 01               	movb	$0x1, 0xe(%esp)
+10024515: eb 04                        	jmp	0x1002451b <NxCookConvexMesh+0x5d2b>
+10024517: 8b 74 24 34                  	movl	0x34(%esp), %esi
+1002451b: 8b 44 24 30                  	movl	0x30(%esp), %eax
+1002451f: 8d 14 40                     	leal	(%eax,%eax,2), %edx
+10024522: 8b 45 10                     	movl	0x10(%ebp), %eax
+10024525: 8d 04 90                     	leal	(%eax,%edx,4), %eax
+10024528: 8b 10                        	movl	(%eax), %edx
+1002452a: 89 94 24 0c 01 00 00         	movl	%edx, 0x10c(%esp)
+10024531: 8b 50 04                     	movl	0x4(%eax), %edx
+10024534: 8b 40 08                     	movl	0x8(%eax), %eax
+10024537: 89 84 24 14 01 00 00         	movl	%eax, 0x114(%esp)
+1002453e: 8b 44 24 1c                  	movl	0x1c(%esp), %eax
+10024542: 89 94 24 10 01 00 00         	movl	%edx, 0x110(%esp)
+10024549: 8d 14 40                     	leal	(%eax,%eax,2), %edx
+1002454c: 8b 45 10                     	movl	0x10(%ebp), %eax
+1002454f: 8d 04 90                     	leal	(%eax,%edx,4), %eax
+10024552: 8b 10                        	movl	(%eax), %edx
+10024554: 8b 4c 24 38                  	movl	0x38(%esp), %ecx
+10024558: f3 0f 10 94 24 0c 01 00 00   	movss	0x10c(%esp), %xmm2
+10024561: f3 0f 10 ac 24 10 01 00 00   	movss	0x110(%esp), %xmm5
+1002456a: f3 0f 10 9c 24 14 01 00 00   	movss	0x114(%esp), %xmm3
+10024573: 89 94 24 18 01 00 00         	movl	%edx, 0x118(%esp)
+1002457a: 8b 50 04                     	movl	0x4(%eax), %edx
+1002457d: 8b 40 08                     	movl	0x8(%eax), %eax
+10024580: 89 84 24 20 01 00 00         	movl	%eax, 0x120(%esp)
+10024587: 8b 44 24 10                  	movl	0x10(%esp), %eax
+1002458b: 89 94 24 1c 01 00 00         	movl	%edx, 0x11c(%esp)
+10024592: 8d 14 40                     	leal	(%eax,%eax,2), %edx
+10024595: 8b 45 10                     	movl	0x10(%ebp), %eax
+10024598: 8d 04 90                     	leal	(%eax,%edx,4), %eax
+1002459b: 8b 10                        	movl	(%eax), %edx
+1002459d: 89 94 24 24 01 00 00         	movl	%edx, 0x124(%esp)
+100245a4: 8b 50 04                     	movl	0x4(%eax), %edx
+100245a7: 8b 40 08                     	movl	0x8(%eax), %eax
+100245aa: 89 94 24 28 01 00 00         	movl	%edx, 0x128(%esp)
+100245b1: 8b 17                        	movl	(%edi), %edx
+100245b3: 89 84 24 2c 01 00 00         	movl	%eax, 0x12c(%esp)
+100245ba: 8b 47 04                     	movl	0x4(%edi), %eax
+100245bd: 0f 28 e2                     	movaps	%xmm2, %xmm4
+100245c0: f3 0f 5c 94 24 18 01 00 00   	subss	0x118(%esp), %xmm2
+100245c9: f3 0f 5c a4 24 24 01 00 00   	subss	0x124(%esp), %xmm4
+100245d2: 89 94 24 54 01 00 00         	movl	%edx, 0x154(%esp)
+100245d9: 8b 57 08                     	movl	0x8(%edi), %edx
+100245dc: 89 84 24 58 01 00 00         	movl	%eax, 0x158(%esp)
+100245e3: 8b 01                        	movl	(%ecx), %eax
+100245e5: 0f 28 cb                     	movaps	%xmm3, %xmm1
+100245e8: f3 0f 5c 9c 24 20 01 00 00   	subss	0x120(%esp), %xmm3
+100245f1: f3 0f 5c 8c 24 2c 01 00 00   	subss	0x12c(%esp), %xmm1
+100245fa: 0f 28 f2                     	movaps	%xmm2, %xmm6
+100245fd: 0f 28 c5                     	movaps	%xmm5, %xmm0
+10024600: f3 0f 5c 84 24 28 01 00 00   	subss	0x128(%esp), %xmm0
+10024609: f3 0f 5c ac 24 1c 01 00 00   	subss	0x11c(%esp), %xmm5
+10024612: 0f 28 fb                     	movaps	%xmm3, %xmm7
+10024615: f3 0f 59 f8                  	mulss	%xmm0, %xmm7
+10024619: 89 94 24 5c 01 00 00         	movl	%edx, 0x15c(%esp)
+10024620: 8b 51 04                     	movl	0x4(%ecx), %edx
+10024623: 89 84 24 60 01 00 00         	movl	%eax, 0x160(%esp)
+1002462a: 8b 41 08                     	movl	0x8(%ecx), %eax
+1002462d: 8b 0e                        	movl	(%esi), %ecx
+1002462f: 0f 28 d5                     	movaps	%xmm5, %xmm2
+10024632: f3 0f 59 d1                  	mulss	%xmm1, %xmm2
+10024636: f3 0f 59 dc                  	mulss	%xmm4, %xmm3
+1002463a: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+1002463e: f3 0f 59 ec                  	mulss	%xmm4, %xmm5
+10024642: f3 0f 59 ce                  	mulss	%xmm6, %xmm1
+10024646: f3 0f 5c c5                  	subss	%xmm5, %xmm0
+1002464a: f3 0f 5c d7                  	subss	%xmm7, %xmm2
+1002464e: f3 0f 5c d9                  	subss	%xmm1, %xmm3
+10024652: 0f 28 c8                     	movaps	%xmm0, %xmm1
+10024655: 89 94 24 64 01 00 00         	movl	%edx, 0x164(%esp)
+1002465c: 8b 56 04                     	movl	0x4(%esi), %edx
+1002465f: 89 84 24 68 01 00 00         	movl	%eax, 0x168(%esp)
+10024666: 8b 46 08                     	movl	0x8(%esi), %eax
+10024669: 0f 28 c2                     	movaps	%xmm2, %xmm0
+1002466c: 0f 28 e1                     	movaps	%xmm1, %xmm4
+1002466f: 89 8c 24 6c 01 00 00         	movl	%ecx, 0x16c(%esp)
+10024676: 89 94 24 70 01 00 00         	movl	%edx, 0x170(%esp)
+1002467d: 89 84 24 74 01 00 00         	movl	%eax, 0x174(%esp)
+10024684: f3 0f 11 54 24 68            	movss	%xmm2, 0x68(%esp)
+1002468a: f3 0f 11 5c 24 6c            	movss	%xmm3, 0x6c(%esp)
+10024690: f3 0f 11 4c 24 70            	movss	%xmm1, 0x70(%esp)
+10024696: f3 0f 59 c2                  	mulss	%xmm2, %xmm0
+1002469a: f3 0f 59 e1                  	mulss	%xmm1, %xmm4
+1002469e: 0f 28 cb                     	movaps	%xmm3, %xmm1
+100246a1: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+100246a5: f3 0f 59 cb                  	mulss	%xmm3, %xmm1
+100246a9: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+100246ad: 0f 2e 05 b0 15 05 10         	ucomiss	0x100515b0, %xmm0
+100246b4: 9f                           	lahf
+100246b5: f3 0f 11 84 24 90 00 00 00   	movss	%xmm0, 0x90(%esp)
+100246be: f6 c4 44                     	testb	$0x44, %ah
+100246c1: 7b 39                        	jnp	0x100246fc <NxCookConvexMesh+0x5f0c>
+100246c3: d9 84 24 90 00 00 00         	flds	0x90(%esp)
+100246ca: 51                           	pushl	%ecx
+100246cb: d9 1c 24                     	fstps	(%esp)
+100246ce: e8 bd ca fd ff               	calll	0x10001190 <.text+0x190>
+100246d3: d9 e8                        	fld1
+100246d5: 83 c4 04                     	addl	$0x4, %esp
+100246d8: de f1                        	fdivp	%st, %st(1)
+100246da: d9 44 24 68                  	flds	0x68(%esp)
+100246de: d8 c9                        	fmul	%st(1), %st
+100246e0: d9 5c 24 68                  	fstps	0x68(%esp)
+100246e4: f3 0f 10 54 24 68            	movss	0x68(%esp), %xmm2
+100246ea: d9 44 24 6c                  	flds	0x6c(%esp)
+100246ee: d8 c9                        	fmul	%st(1), %st
+100246f0: d9 5c 24 6c                  	fstps	0x6c(%esp)
+100246f4: d8 4c 24 70                  	fmuls	0x70(%esp)
+100246f8: d9 5c 24 70                  	fstps	0x70(%esp)
+100246fc: f3 0f 10 84 24 54 01 00 00   	movss	0x154(%esp), %xmm0
+10024705: f3 0f 10 b4 24 58 01 00 00   	movss	0x158(%esp), %xmm6
+1002470e: f3 0f 10 a4 24 5c 01 00 00   	movss	0x15c(%esp), %xmm4
+10024717: 0f 28 dc                     	movaps	%xmm4, %xmm3
+1002471a: f3 0f 5c a4 24 68 01 00 00   	subss	0x168(%esp), %xmm4
+10024723: f3 0f 5c 9c 24 74 01 00 00   	subss	0x174(%esp), %xmm3
+1002472c: 0f 28 e8                     	movaps	%xmm0, %xmm5
+1002472f: f3 0f 5c 84 24 60 01 00 00   	subss	0x160(%esp), %xmm0
+10024738: f3 0f 5c ac 24 6c 01 00 00   	subss	0x16c(%esp), %xmm5
+10024741: 0f 28 fc                     	movaps	%xmm4, %xmm7
+10024744: 0f 28 ce                     	movaps	%xmm6, %xmm1
+10024747: f3 0f 5c 8c 24 70 01 00 00   	subss	0x170(%esp), %xmm1
+10024750: f3 0f 5c b4 24 64 01 00 00   	subss	0x164(%esp), %xmm6
+10024759: f3 0f 11 84 24 d0 00 00 00   	movss	%xmm0, 0xd0(%esp)
+10024762: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+10024766: f3 0f 59 f9                  	mulss	%xmm1, %xmm7
+1002476a: 0f 28 c6                     	movaps	%xmm6, %xmm0
+1002476d: f3 0f 59 c3                  	mulss	%xmm3, %xmm0
+10024771: f3 0f 5c c7                  	subss	%xmm7, %xmm0
+10024775: f3 0f 10 bc 24 d0 00 00 00   	movss	0xd0(%esp), %xmm7
+1002477e: f3 0f 59 f5                  	mulss	%xmm5, %xmm6
+10024782: f3 0f 59 df                  	mulss	%xmm7, %xmm3
+10024786: f3 0f 5c e3                  	subss	%xmm3, %xmm4
+1002478a: 0f 28 dc                     	movaps	%xmm4, %xmm3
+1002478d: f3 0f 59 cf                  	mulss	%xmm7, %xmm1
+10024791: f3 0f 5c ce                  	subss	%xmm6, %xmm1
+10024795: 0f 28 e0                     	movaps	%xmm0, %xmm4
+10024798: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1002479c: 0f 28 e9                     	movaps	%xmm1, %xmm5
+1002479f: f3 0f 59 e9                  	mulss	%xmm1, %xmm5
+100247a3: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+100247a7: 0f 28 eb                     	movaps	%xmm3, %xmm5
+100247aa: f3 0f 59 eb                  	mulss	%xmm3, %xmm5
+100247ae: f3 0f 58 e5                  	addss	%xmm5, %xmm4
+100247b2: 0f 2e 25 b0 15 05 10         	ucomiss	0x100515b0, %xmm4
+100247b9: 9f                           	lahf
+100247ba: f3 0f 11 44 24 40            	movss	%xmm0, 0x40(%esp)
+100247c0: f3 0f 11 5c 24 44            	movss	%xmm3, 0x44(%esp)
+100247c6: f3 0f 11 4c 24 48            	movss	%xmm1, 0x48(%esp)
+100247cc: f3 0f 11 64 24 3c            	movss	%xmm4, 0x3c(%esp)
+100247d2: f6 c4 44                     	testb	$0x44, %ah
+100247d5: 7b 48                        	jnp	0x1002481f <NxCookConvexMesh+0x602f>
+100247d7: d9 44 24 3c                  	flds	0x3c(%esp)
+100247db: 51                           	pushl	%ecx
+100247dc: d9 1c 24                     	fstps	(%esp)
+100247df: e8 ac c9 fd ff               	calll	0x10001190 <.text+0x190>
+100247e4: d9 e8                        	fld1
+100247e6: f3 0f 10 54 24 6c            	movss	0x6c(%esp), %xmm2
+100247ec: de f1                        	fdivp	%st, %st(1)
+100247ee: 83 c4 04                     	addl	$0x4, %esp
+100247f1: d9 44 24 40                  	flds	0x40(%esp)
+100247f5: d8 c9                        	fmul	%st(1), %st
+100247f7: d9 5c 24 40                  	fstps	0x40(%esp)
+100247fb: f3 0f 10 44 24 40            	movss	0x40(%esp), %xmm0
+10024801: d9 44 24 44                  	flds	0x44(%esp)
+10024805: d8 c9                        	fmul	%st(1), %st
+10024807: d9 5c 24 44                  	fstps	0x44(%esp)
+1002480b: f3 0f 10 5c 24 44            	movss	0x44(%esp), %xmm3
+10024811: d8 4c 24 48                  	fmuls	0x48(%esp)
+10024815: d9 5c 24 48                  	fstps	0x48(%esp)
+10024819: f3 0f 10 4c 24 48            	movss	0x48(%esp), %xmm1
+1002481f: f3 0f 10 7c 24 6c            	movss	0x6c(%esp), %xmm7
+10024825: f3 0f 10 6c 24 70            	movss	0x70(%esp), %xmm5
+1002482b: 0f 28 e1                     	movaps	%xmm1, %xmm4
+1002482e: 0f 28 f3                     	movaps	%xmm3, %xmm6
+10024831: f3 0f 59 f5                  	mulss	%xmm5, %xmm6
+10024835: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+10024839: f3 0f 59 e7                  	mulss	%xmm7, %xmm4
+1002483d: f3 0f 5c e6                  	subss	%xmm6, %xmm4
+10024841: 0f 28 f1                     	movaps	%xmm1, %xmm6
+10024844: f3 0f 59 4c 24 70            	mulss	0x70(%esp), %xmm1
+1002484a: f3 0f 59 f8                  	mulss	%xmm0, %xmm7
+1002484e: f3 0f 59 f2                  	mulss	%xmm2, %xmm6
+10024852: f3 0f 5c ee                  	subss	%xmm6, %xmm5
+10024856: f3 0f 59 c2                  	mulss	%xmm2, %xmm0
+1002485a: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1002485e: 0f 28 f3                     	movaps	%xmm3, %xmm6
+10024861: f3 0f 59 5c 24 6c            	mulss	0x6c(%esp), %xmm3
+10024867: f3 0f 58 c3                  	addss	%xmm3, %xmm0
+1002486b: 83 ec 0c                     	subl	$0xc, %esp
+1002486e: f3 0f 11 44 24 08            	movss	%xmm0, 0x8(%esp)
+10024874: f3 0f 59 f2                  	mulss	%xmm2, %xmm6
+10024878: f3 0f 5c f7                  	subss	%xmm7, %xmm6
+1002487c: 0f 28 c4                     	movaps	%xmm4, %xmm0
+1002487f: f3 0f 59 c4                  	mulss	%xmm4, %xmm0
+10024883: 0f 28 ce                     	movaps	%xmm6, %xmm1
+10024886: f3 0f 59 ce                  	mulss	%xmm6, %xmm1
+1002488a: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+1002488e: 0f 28 cd                     	movaps	%xmm5, %xmm1
+10024891: f3 0f 59 cd                  	mulss	%xmm5, %xmm1
+10024895: f3 0f 58 c1                  	addss	%xmm1, %xmm0
+10024899: f3 0f 11 04 24               	movss	%xmm0, (%esp)
+1002489e: e8 ed c8 fd ff               	calll	0x10001190 <.text+0x190>
+100248a3: d9 5c 24 04                  	fstps	0x4(%esp)
+100248a7: 83 c4 04                     	addl	$0x4, %esp
+100248aa: e8 11 c9 fd ff               	calll	0x100011c0 <.text+0x1c0>
+100248af: d9 e1                        	fabs
+100248b1: d9 05 b4 15 05 10            	flds	0x100515b4
+100248b7: 83 c4 08                     	addl	$0x8, %esp
+100248ba: d9 c9                        	fxch	%st(1)
+100248bc: df f1                        	fcompi	%st(1), %st
+100248be: dd d8                        	fstp	%st(0)
+100248c0: 76 0c                        	jbe	0x100248ce <NxCookConvexMesh+0x60de>
+100248c2: eb 05                        	jmp	0x100248c9 <NxCookConvexMesh+0x60d9>
+100248c4: c6 44 24 0e 01               	movb	$0x1, 0xe(%esp)
+100248c9: c6 44 24 0f 01               	movb	$0x1, 0xf(%esp)
+100248ce: 8b 44 24 2c                  	movl	0x2c(%esp), %eax
+100248d2: 8a 4c 24 0e                  	movb	0xe(%esp), %cl
+100248d6: 8a 54 24 0f                  	movb	0xf(%esp), %dl
+100248da: 88 08                        	movb	%cl, (%eax)
+100248dc: 40                           	incl	%eax
+100248dd: 89 44 24 2c                  	movl	%eax, 0x2c(%esp)
+100248e1: 8b 44 24 24                  	movl	0x24(%esp), %eax
+100248e5: 88 10                        	movb	%dl, (%eax)
+100248e7: 40                           	incl	%eax
+100248e8: 89 44 24 24                  	movl	%eax, 0x24(%esp)
+100248ec: b8 08 00 00 00               	movl	$0x8, %eax
+100248f1: 01 84 24 a4 00 00 00         	addl	%eax, 0xa4(%esp)
+100248f8: 01 44 24 18                  	addl	%eax, 0x18(%esp)
+100248fc: 83 7c 24 58 00               	cmpl	$0x0, 0x58(%esp)
+10024901: 0f 85 e9 f6 ff ff            	jne	0x10023ff0 <NxCookConvexMesh+0x5800>
+10024907: e8 24 7b 00 00               	calll	0x1002c430 <NxCookConvexMesh+0xdc40>
+1002490c: 8b 75 08                     	movl	0x8(%ebp), %esi
+1002490f: 8b 10                        	movl	(%eax), %edx
+10024911: 6a 29                        	pushl	$0x29
+10024913: 8d 3c b5 00 00 00 00         	leal	(,%esi,4), %edi
+1002491a: 8b c8                        	movl	%eax, %ecx
+1002491c: 8b 02                        	movl	(%edx), %eax
+1002491e: 57                           	pushl	%edi
+1002491f: ff d0                        	calll	*%eax
+10024921: 57                           	pushl	%edi
+10024922: 68 ff 00 00 00               	pushl	$0xff
+10024927: 50                           	pushl	%eax
+10024928: 89 43 34                     	movl	%eax, 0x34(%ebx)
+1002492b: e8 80 7c fe ff               	calll	0x1000c5b0 <.text+0xb5b0>
+10024930: 8b 55 0c                     	movl	0xc(%ebp), %edx
+10024933: 8b 45 10                     	movl	0x10(%ebp), %eax
+10024936: 33 ff                        	xorl	%edi, %edi
+10024938: 8d 8c 24 b4 00 00 00         	leal	0xb4(%esp), %ecx
+1002493f: 89 4b 0c                     	movl	%ecx, 0xc(%ebx)
+10024942: 8b 4c 24 34                  	movl	0x34(%esp), %ecx
+10024946: 89 53 04                     	movl	%edx, 0x4(%ebx)
+10024949: 8b 53 34                     	movl	0x34(%ebx), %edx
+1002494c: 83 c4 0c                     	addl	$0xc, %esp
+1002494f: 89 7b 30                     	movl	%edi, 0x30(%ebx)
+10024952: 89 43 08                     	movl	%eax, 0x8(%ebx)
+10024955: 89 4b 18                     	movl	%ecx, 0x18(%ebx)
+10024958: 89 7b 10                     	movl	%edi, 0x10(%ebx)
+1002495b: 89 7b 14                     	movl	%edi, 0x14(%ebx)
+1002495e: 89 53 1c                     	movl	%edx, 0x1c(%ebx)
+10024961: 89 3b                        	movl	%edi, (%ebx)
+10024963: 3b f7                        	cmpl	%edi, %esi
+10024965: 74 2f                        	je	0x10024996 <NxCookConvexMesh+0x61a6>
+10024967: 8b 43 34                     	movl	0x34(%ebx), %eax
+1002496a: 33 c9                        	xorl	%ecx, %ecx
+1002496c: 83 38 ff                     	cmpl	$-0x1, (%eax)
+1002496f: 74 09                        	je	0x1002497a <NxCookConvexMesh+0x618a>
+10024971: 83 c0 04                     	addl	$0x4, %eax
+10024974: 41                           	incl	%ecx
+10024975: 83 38 ff                     	cmpl	$-0x1, (%eax)
+10024978: 75 f7                        	jne	0x10024971 <NxCookConvexMesh+0x6181>
+1002497a: 8b 53 30                     	movl	0x30(%ebx), %edx
+1002497d: 89 53 20                     	movl	%edx, 0x20(%ebx)
+10024980: 3b ce                        	cmpl	%esi, %ecx
+10024982: 73 08                        	jae	0x1002498c <NxCookConvexMesh+0x619c>
+10024984: 51                           	pushl	%ecx
+10024985: 8b c3                        	movl	%ebx, %eax
+10024987: e8 14 f5 ff ff               	calll	0x10023ea0 <NxCookConvexMesh+0x56b0>
+1002498c: 03 7b 24                     	addl	0x24(%ebx), %edi
+1002498f: ff 43 30                     	incl	0x30(%ebx)
+10024992: 3b fe                        	cmpl	%esi, %edi
+10024994: 75 d1                        	jne	0x10024967 <NxCookConvexMesh+0x6177>
+10024996: e8 95 7a 00 00               	calll	0x1002c430 <NxCookConvexMesh+0xdc40>
+1002499b: 8b 4b 30                     	movl	0x30(%ebx), %ecx
+1002499e: 8b 10                        	movl	(%eax), %edx
+100249a0: 8b 12                        	movl	(%edx), %edx
+100249a2: 03 c9                        	addl	%ecx, %ecx
+100249a4: 03 c9                        	addl	%ecx, %ecx
+100249a6: 6a 01                        	pushl	$0x1
+100249a8: 51                           	pushl	%ecx
+100249a9: 8b c8                        	movl	%eax, %ecx
+100249ab: ff d2                        	calll	*%edx
+100249ad: 8b f8                        	movl	%eax, %edi
+100249af: 8b 43 30                     	movl	0x30(%ebx), %eax
+100249b2: 03 c0                        	addl	%eax, %eax
+100249b4: 03 c0                        	addl	%eax, %eax
+100249b6: 50                           	pushl	%eax
+100249b7: 6a 00                        	pushl	$0x0
+100249b9: 57                           	pushl	%edi
+100249ba: 89 7c 24 48                  	movl	%edi, 0x48(%esp)
+100249be: e8 ed 7b fe ff               	calll	0x1000c5b0 <.text+0xb5b0>
+100249c3: 83 c4 0c                     	addl	$0xc, %esp
+100249c6: e8 65 7a 00 00               	calll	0x1002c430 <NxCookConvexMesh+0xdc40>
+100249cb: 8b 10                        	movl	(%eax), %edx
+100249cd: 6a 01                        	pushl	$0x1
+100249cf: 8d 0c b5 00 00 00 00         	leal	(,%esi,4), %ecx
+100249d6: 51                           	pushl	%ecx
+100249d7: 8b c8                        	movl	%eax, %ecx
+100249d9: 8b 02                        	movl	(%edx), %eax
+100249db: ff d0                        	calll	*%eax
+100249dd: 33 c9                        	xorl	%ecx, %ecx
+100249df: 89 44 24 14                  	movl	%eax, 0x14(%esp)
+100249e3: 85 f6                        	testl	%esi, %esi
+100249e5: 0f 86 7c 00 00 00            	jbe	0x10024a67 <NxCookConvexMesh+0x6277>
+100249eb: 33 c0                        	xorl	%eax, %eax
+100249ed: 8d 49 00                     	leal	(%ecx), %ecx
+100249f0: 8b bc 24 b4 00 00 00         	movl	0xb4(%esp), %edi
+100249f7: 8b 3c 07                     	movl	(%edi,%eax), %edi
+100249fa: 8b 54 24 20                  	movl	0x20(%esp), %edx
+100249fe: 81 e7 ff ff ff 0f            	andl	$0xfffffff, %edi        # imm = 0xFFFFFFF
+10024a04: 80 3c 17 00                  	cmpb	$0x0, (%edi,%edx)
+10024a08: c7 44 24 10 00 00 00 00      	movl	$0x0, 0x10(%esp)
+10024a10: 74 08                        	je	0x10024a1a <NxCookConvexMesh+0x622a>
+10024a12: c7 44 24 10 01 00 00 00      	movl	$0x1, 0x10(%esp)
+10024a1a: 8b bc 24 b4 00 00 00         	movl	0xb4(%esp), %edi
+10024a21: 8b 7c 07 04                  	movl	0x4(%edi,%eax), %edi
+10024a25: 81 e7 ff ff ff 0f            	andl	$0xfffffff, %edi        # imm = 0xFFFFFFF
+10024a2b: 80 3c 17 00                  	cmpb	$0x0, (%edi,%edx)
+10024a2f: 74 04                        	je	0x10024a35 <NxCookConvexMesh+0x6245>
+10024a31: ff 44 24 10                  	incl	0x10(%esp)
+10024a35: 8b bc 24 b4 00 00 00         	movl	0xb4(%esp), %edi
+10024a3c: 8b 7c 07 08                  	movl	0x8(%edi,%eax), %edi
+10024a40: 81 e7 ff ff ff 0f            	andl	$0xfffffff, %edi        # imm = 0xFFFFFFF
+10024a46: 80 3c 17 00                  	cmpb	$0x0, (%edi,%edx)
+10024a4a: 74 04                        	je	0x10024a50 <NxCookConvexMesh+0x6260>
+10024a4c: ff 44 24 10                  	incl	0x10(%esp)
+10024a50: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10024a54: 8b 7c 24 10                  	movl	0x10(%esp), %edi
+10024a58: 89 3c 8a                     	movl	%edi, (%edx,%ecx,4)
+10024a5b: 41                           	incl	%ecx
+10024a5c: 83 c0 0c                     	addl	$0xc, %eax
+10024a5f: 3b ce                        	cmpl	%esi, %ecx
+10024a61: 72 8d                        	jb	0x100249f0 <NxCookConvexMesh+0x6200>
+10024a63: 8b 7c 24 3c                  	movl	0x3c(%esp), %edi
+10024a67: 33 c0                        	xorl	%eax, %eax
+10024a69: 85 f6                        	testl	%esi, %esi
+10024a6b: 76 15                        	jbe	0x10024a82 <NxCookConvexMesh+0x6292>
+10024a6d: 8b 4b 34                     	movl	0x34(%ebx), %ecx
+10024a70: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10024a74: 8b 0c 81                     	movl	(%ecx,%eax,4), %ecx
+10024a77: 8b 14 82                     	movl	(%edx,%eax,4), %edx
+10024a7a: 01 14 8f                     	addl	%edx, (%edi,%ecx,4)
+10024a7d: 40                           	incl	%eax
+10024a7e: 3b c6                        	cmpl	%esi, %eax
+10024a80: 72 eb                        	jb	0x10024a6d <NxCookConvexMesh+0x627d>
+10024a82: 33 c0                        	xorl	%eax, %eax
+10024a84: 85 f6                        	testl	%esi, %esi
+10024a86: 76 19                        	jbe	0x10024aa1 <NxCookConvexMesh+0x62b1>
+10024a88: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10024a8c: 8d 64 24 00                  	leal	(%esp), %esp
+10024a90: 8b 53 34                     	movl	0x34(%ebx), %edx
+10024a93: 8b 14 82                     	movl	(%edx,%eax,4), %edx
+10024a96: 8b 14 97                     	movl	(%edi,%edx,4), %edx
+10024a99: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10024a9c: 40                           	incl	%eax
+10024a9d: 3b c6                        	cmpl	%esi, %eax
+10024a9f: 72 ef                        	jb	0x10024a90 <NxCookConvexMesh+0x62a0>
+10024aa1: 85 ff                        	testl	%edi, %edi
+10024aa3: 74 1d                        	je	0x10024ac2 <NxCookConvexMesh+0x62d2>
+10024aa5: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+10024aab: 85 c9                        	testl	%ecx, %ecx
+10024aad: 75 0b                        	jne	0x10024aba <NxCookConvexMesh+0x62ca>
+10024aaf: b9 e4 95 05 10               	movl	$0x100595e4, %ecx       # imm = 0x100595E4
+10024ab4: 89 0d 00 a6 05 10            	movl	%ecx, 0x1005a600
+10024aba: 8b 01                        	movl	(%ecx), %eax
+10024abc: 8b 50 0c                     	movl	0xc(%eax), %edx
+10024abf: 57                           	pushl	%edi

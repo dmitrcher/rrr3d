@@ -1,0 +1,78 @@
+{
+  "scope": "Actual Mac V149 moving replay at first body contact physical342. Geometry-only correction with native input preservation and unchanged public controls.",
+  "live_point_and_separation_checks": [
+    {
+      "point": 0,
+      "point_and_separation_exact": true
+    },
+    {
+      "point": 1,
+      "point_and_separation_exact": true
+    },
+    {
+      "point": 2,
+      "point_and_separation_exact": true
+    },
+    {
+      "point": 3,
+      "point_and_separation_exact": true
+    }
+  ],
+  "prepared_rows": [
+    {
+      "row": 0,
+      "mass_exact": true,
+      "bias_exact": true,
+      "lever_exact": true
+    },
+    {
+      "row": 1,
+      "mass_exact": true,
+      "bias_exact": true,
+      "lever_exact": true
+    },
+    {
+      "row": 2,
+      "mass_exact": false,
+      "bias_exact": false,
+      "lever_exact": true
+    },
+    {
+      "row": 3,
+      "mass_exact": false,
+      "bias_exact": false,
+      "lever_exact": true
+    }
+  ],
+  "independent_per_triangle_material_quaternions_exact": [
+    [
+      1009032614,
+      1015992970,
+      1054530214,
+      3211223152
+    ],
+    [
+      1009032620,
+      1015992970,
+      1054530204,
+      3211223154
+    ]
+  ],
+  "remaining_cause": "Current runtime supplies one material frame for all points; original rows0/1 and rows2/3 use different callback triangle normals. Independent computation with each triangle normal reproduces all 8 original solver-quaternion words.",
+  "first_divergence_still": 342,
+  "errors": {
+    "velocity": {
+      "baseline_l2": 0.0011835832106455078,
+      "candidate_l2": 4.3323914872932605e-05
+    },
+    "angular_momentum": {
+      "baseline_l2": 1.067763153634492,
+      "candidate_l2": 0.0410410692479982
+    },
+    "rotation": {
+      "baseline_l2": 1.2418334639319648e-06,
+      "candidate_l2": 6.422155790799523e-08
+    }
+  },
+  "goal_complete": false
+}

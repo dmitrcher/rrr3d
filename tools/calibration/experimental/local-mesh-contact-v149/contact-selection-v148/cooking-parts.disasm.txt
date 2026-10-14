@@ -1,0 +1,552 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCooking.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10014aa0 <NxCreatePMap>:
+10015c00: 10 f3                        	adcb	%dh, %bl
+10015c02: 0f 11 44 24 54               	movups	%xmm0, 0x54(%esp)
+10015c07: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015c0b: 75 12                        	jne	0x10015c1f <NxCreatePMap+0x117f>
+10015c0d: ba 01 00 00 00               	movl	$0x1, %edx
+10015c12: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015c16: e8 75 65 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015c1b: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015c1f: 8b 4c 24 54                  	movl	0x54(%esp), %ecx
+10015c23: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10015c27: 83 44 24 24 0c               	addl	$0xc, 0x24(%esp)
+10015c2c: 89 0c 82                     	movl	%ecx, (%edx,%eax,4)
+10015c2f: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+10015c32: 8b 09                        	movl	(%ecx), %ecx
+10015c34: 40                           	incl	%eax
+10015c35: 43                           	incl	%ebx
+10015c36: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015c3a: 3b 19                        	cmpl	(%ecx), %ebx
+10015c3c: 0f 82 4e ff ff ff            	jb	0x10015b90 <NxCreatePMap+0x10f0>
+10015c42: 8b 7d 08                     	movl	0x8(%ebp), %edi
+10015c45: 8b 17                        	movl	(%edi), %edx
+10015c47: 8b 0a                        	movl	(%edx), %ecx
+10015c49: 33 f6                        	xorl	%esi, %esi
+10015c4b: 89 4c 24 24                  	movl	%ecx, 0x24(%esp)
+10015c4f: 89 74 24 60                  	movl	%esi, 0x60(%esp)
+10015c53: 39 74 24 2c                  	cmpl	%esi, 0x2c(%esp)
+10015c57: 0f 86 6b 03 00 00            	jbe	0x10015fc8 <NxCreatePMap+0x1528>
+10015c5d: 8b 4c 24 3c                  	movl	0x3c(%esp), %ecx
+10015c61: 8b 54 24 30                  	movl	0x30(%esp), %edx
+10015c65: 8d 79 04                     	leal	0x4(%ecx), %edi
+10015c68: 2b d1                        	subl	%ecx, %edx
+10015c6a: 89 7c 24 58                  	movl	%edi, 0x58(%esp)
+10015c6e: 89 94 24 9c 00 00 00         	movl	%edx, 0x9c(%esp)
+10015c75: 0f b7 4f fe                  	movzwl	-0x2(%edi), %ecx
+10015c79: 83 f9 02                     	cmpl	$0x2, %ecx
+10015c7c: 0f 86 29 03 00 00            	jbe	0x10015fab <NxCreatePMap+0x150b>
+10015c82: 8b 5c 24 30                  	movl	0x30(%esp), %ebx
+10015c86: 8b 34 f3                     	movl	(%ebx,%esi,8), %esi
+10015c89: 8b 9c 24 9c 00 00 00         	movl	0x9c(%esp), %ebx
+10015c90: 8b 1c 3b                     	movl	(%ebx,%edi), %ebx
+10015c93: 8b 17                        	movl	(%edi), %edx
+10015c95: 83 c1 fe                     	addl	$-0x2, %ecx
+10015c98: 89 9c 24 84 00 00 00         	movl	%ebx, 0x84(%esp)
+10015c9f: 33 db                        	xorl	%ebx, %ebx
+10015ca1: 89 b4 24 98 00 00 00         	movl	%esi, 0x98(%esp)
+10015ca8: 89 4c 24 54                  	movl	%ecx, 0x54(%esp)
+10015cac: 89 5c 24 5c                  	movl	%ebx, 0x5c(%esp)
+10015cb0: c7 44 24 28 01 00 00 00      	movl	$0x1, 0x28(%esp)
+10015cb8: 89 5c 24 64                  	movl	%ebx, 0x64(%esp)
+10015cbc: 85 c9                        	testl	%ecx, %ecx
+10015cbe: 0f 86 e7 02 00 00            	jbe	0x10015fab <NxCreatePMap+0x150b>
+10015cc4: 8b 4c 24 40                  	movl	0x40(%esp), %ecx
+10015cc8: 8b bc 24 a8 00 00 00         	movl	0xa8(%esp), %edi
+10015ccf: 8d 14 91                     	leal	(%ecx,%edx,4), %edx
+10015cd2: 89 94 24 80 00 00 00         	movl	%edx, 0x80(%esp)
+10015cd9: 8b 94 24 a0 00 00 00         	movl	0xa0(%esp), %edx
+10015ce0: 8b cb                        	movl	%ebx, %ecx
+10015ce2: eb 10                        	jmp	0x10015cf4 <NxCreatePMap+0x1254>
+10015ce4: eb 0a                        	jmp	0x10015cf0 <NxCreatePMap+0x1250>
+10015ce6: 8d a4 24 00 00 00 00         	leal	(%esp), %esp
+10015ced: 8d 49 00                     	leal	(%ecx), %ecx
+10015cf0: 8b 5c 24 5c                  	movl	0x5c(%esp), %ebx
+10015cf4: f6 c1 01                     	testb	$0x1, %cl
+10015cf7: 0f 85 2e 02 00 00            	jne	0x10015f2b <NxCreatePMap+0x148b>
+10015cfd: 43                           	incl	%ebx
+10015cfe: 89 5c 24 5c                  	movl	%ebx, 0x5c(%esp)
+10015d02: 83 fb 08                     	cmpl	$0x8, %ebx
+10015d05: 75 0d                        	jne	0x10015d14 <NxCreatePMap+0x1274>
+10015d07: ff 44 24 28                  	incl	0x28(%esp)
+10015d0b: bb 01 00 00 00               	movl	$0x1, %ebx
+10015d10: 89 5c 24 5c                  	movl	%ebx, 0x5c(%esp)
+10015d14: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+10015d17: 8b 11                        	movl	(%ecx), %edx
+10015d19: 8b 52 08                     	movl	0x8(%edx), %edx
+10015d1c: 8d 0c 76                     	leal	(%esi,%esi,2), %ecx
+10015d1f: f3 0f 10 04 8a               	movss	(%edx,%ecx,4), %xmm0
+10015d24: 8d 0c 8a                     	leal	(%edx,%ecx,4), %ecx
+10015d27: f3 0f 11 44 24 68            	movss	%xmm0, 0x68(%esp)
+10015d2d: f3 0f 10 41 04               	movss	0x4(%ecx), %xmm0
+10015d32: 8b f3                        	movl	%ebx, %esi
+10015d34: 83 e6 01                     	andl	$0x1, %esi
+10015d37: f3 0f 11 44 24 6c            	movss	%xmm0, 0x6c(%esp)
+10015d3d: f3 0f 10 41 08               	movss	0x8(%ecx), %xmm0
+10015d42: f3 0f 11 44 24 70            	movss	%xmm0, 0x70(%esp)
+10015d48: 74 08                        	je	0x10015d52 <NxCreatePMap+0x12b2>
+10015d4a: 8b 4c 24 28                  	movl	0x28(%esp), %ecx
+10015d4e: 31 4c 24 68                  	xorl	%ecx, 0x68(%esp)
+10015d52: 83 e3 02                     	andl	$0x2, %ebx
+10015d55: 74 08                        	je	0x10015d5f <NxCreatePMap+0x12bf>
+10015d57: 8b 4c 24 28                  	movl	0x28(%esp), %ecx
+10015d5b: 31 4c 24 6c                  	xorl	%ecx, 0x6c(%esp)
+10015d5f: 8b 7c 24 5c                  	movl	0x5c(%esp), %edi
+10015d63: 83 e7 04                     	andl	$0x4, %edi
+10015d66: 74 08                        	je	0x10015d70 <NxCreatePMap+0x12d0>
+10015d68: 8b 4c 24 28                  	movl	0x28(%esp), %ecx
+10015d6c: 31 4c 24 70                  	xorl	%ecx, 0x70(%esp)
+10015d70: 8b 8c 24 84 00 00 00         	movl	0x84(%esp), %ecx
+10015d77: 8d 0c 49                     	leal	(%ecx,%ecx,2), %ecx
+10015d7a: f3 0f 10 04 8a               	movss	(%edx,%ecx,4), %xmm0
+10015d7f: 8d 0c 8a                     	leal	(%edx,%ecx,4), %ecx
+10015d82: f3 0f 11 44 24 74            	movss	%xmm0, 0x74(%esp)
+10015d88: f3 0f 10 41 04               	movss	0x4(%ecx), %xmm0
+10015d8d: f3 0f 11 44 24 78            	movss	%xmm0, 0x78(%esp)
+10015d93: f3 0f 10 41 08               	movss	0x8(%ecx), %xmm0
+10015d98: 8b 4c 24 28                  	movl	0x28(%esp), %ecx
+10015d9c: f3 0f 11 44 24 7c            	movss	%xmm0, 0x7c(%esp)
+10015da2: 85 f6                        	testl	%esi, %esi
+10015da4: 74 04                        	je	0x10015daa <NxCreatePMap+0x130a>
+10015da6: 31 4c 24 74                  	xorl	%ecx, 0x74(%esp)
+10015daa: 85 db                        	testl	%ebx, %ebx
+10015dac: 74 04                        	je	0x10015db2 <NxCreatePMap+0x1312>
+10015dae: 31 4c 24 78                  	xorl	%ecx, 0x78(%esp)
+10015db2: 85 ff                        	testl	%edi, %edi
+10015db4: 74 04                        	je	0x10015dba <NxCreatePMap+0x131a>
+10015db6: 31 4c 24 7c                  	xorl	%ecx, 0x7c(%esp)
+10015dba: f3 0f 10 44 24 68            	movss	0x68(%esp), %xmm0
+10015dc0: f3 0f 11 84 24 8c 00 00 00   	movss	%xmm0, 0x8c(%esp)
+10015dc9: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015dcd: 75 12                        	jne	0x10015de1 <NxCreatePMap+0x1341>
+10015dcf: ba 01 00 00 00               	movl	$0x1, %edx
+10015dd4: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015dd8: e8 b3 63 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015ddd: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015de1: 8b 94 24 8c 00 00 00         	movl	0x8c(%esp), %edx
+10015de8: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015dec: f3 0f 10 44 24 6c            	movss	0x6c(%esp), %xmm0
+10015df2: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015df5: 40                           	incl	%eax
+10015df6: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015dfa: f3 0f 11 84 24 94 00 00 00   	movss	%xmm0, 0x94(%esp)
+10015e03: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015e07: 75 12                        	jne	0x10015e1b <NxCreatePMap+0x137b>
+10015e09: ba 01 00 00 00               	movl	$0x1, %edx
+10015e0e: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015e12: e8 79 63 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015e17: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015e1b: 8b 94 24 94 00 00 00         	movl	0x94(%esp), %edx
+10015e22: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015e26: f3 0f 10 44 24 70            	movss	0x70(%esp), %xmm0
+10015e2c: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015e2f: 40                           	incl	%eax
+10015e30: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015e34: f3 0f 11 84 24 88 00 00 00   	movss	%xmm0, 0x88(%esp)
+10015e3d: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015e41: 75 12                        	jne	0x10015e55 <NxCreatePMap+0x13b5>
+10015e43: ba 01 00 00 00               	movl	$0x1, %edx
+10015e48: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015e4c: e8 3f 63 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015e51: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015e55: 8b 94 24 88 00 00 00         	movl	0x88(%esp), %edx
+10015e5c: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015e60: f3 0f 10 44 24 74            	movss	0x74(%esp), %xmm0
+10015e66: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015e69: 40                           	incl	%eax
+10015e6a: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015e6e: f3 0f 11 84 24 a4 00 00 00   	movss	%xmm0, 0xa4(%esp)
+10015e77: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015e7b: 75 12                        	jne	0x10015e8f <NxCreatePMap+0x13ef>
+10015e7d: ba 01 00 00 00               	movl	$0x1, %edx
+10015e82: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015e86: e8 05 63 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015e8b: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015e8f: 8b 94 24 a4 00 00 00         	movl	0xa4(%esp), %edx
+10015e96: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015e9a: f3 0f 10 44 24 78            	movss	0x78(%esp), %xmm0
+10015ea0: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015ea3: 40                           	incl	%eax
+10015ea4: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015ea8: f3 0f 11 84 24 90 00 00 00   	movss	%xmm0, 0x90(%esp)
+10015eb1: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015eb5: 75 12                        	jne	0x10015ec9 <NxCreatePMap+0x1429>
+10015eb7: ba 01 00 00 00               	movl	$0x1, %edx
+10015ebc: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015ec0: e8 cb 62 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015ec5: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015ec9: 8b 94 24 90 00 00 00         	movl	0x90(%esp), %edx
+10015ed0: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015ed4: f3 0f 10 44 24 7c            	movss	0x7c(%esp), %xmm0
+10015eda: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015edd: 40                           	incl	%eax
+10015ede: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015ee2: f3 0f 11 84 24 ac 00 00 00   	movss	%xmm0, 0xac(%esp)
+10015eeb: 3b 44 24 0c                  	cmpl	0xc(%esp), %eax
+10015eef: 75 12                        	jne	0x10015f03 <NxCreatePMap+0x1463>
+10015ef1: ba 01 00 00 00               	movl	$0x1, %edx
+10015ef6: 8d 74 24 0c                  	leal	0xc(%esp), %esi
+10015efa: e8 91 62 01 00               	calll	0x1002c190 <NxCookConvexMesh+0xd9a0>
+10015eff: 8b 44 24 10                  	movl	0x10(%esp), %eax
+10015f03: 8b 94 24 ac 00 00 00         	movl	0xac(%esp), %edx
+10015f0a: 8b 4c 24 14                  	movl	0x14(%esp), %ecx
+10015f0e: 8b b4 24 98 00 00 00         	movl	0x98(%esp), %esi
+10015f15: 89 14 81                     	movl	%edx, (%ecx,%eax,4)
+10015f18: 8b 4c 24 24                  	movl	0x24(%esp), %ecx
+10015f1c: 8b d1                        	movl	%ecx, %edx
+10015f1e: 41                           	incl	%ecx
+10015f1f: 40                           	incl	%eax
+10015f20: 8b f9                        	movl	%ecx, %edi
+10015f22: 41                           	incl	%ecx
+10015f23: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+10015f27: 89 4c 24 24                  	movl	%ecx, 0x24(%esp)
+10015f2b: 8b 8c 24 80 00 00 00         	movl	0x80(%esp), %ecx
+10015f32: 8b 5d 08                     	movl	0x8(%ebp), %ebx
+10015f35: 8b 09                        	movl	(%ecx), %ecx
+10015f37: 8b 1b                        	movl	(%ebx), %ebx
+10015f39: 8b 5b 0c                     	movl	0xc(%ebx), %ebx
+10015f3c: 8d 0c 49                     	leal	(%ecx,%ecx,2), %ecx
+10015f3f: 39 34 8b                     	cmpl	%esi, (%ebx,%ecx,4)
+10015f42: 8d 0c 8b                     	leal	(%ebx,%ecx,4), %ecx
+10015f45: 75 04                        	jne	0x10015f4b <NxCreatePMap+0x14ab>
+10015f47: 89 11                        	movl	%edx, (%ecx)
+10015f49: eb 12                        	jmp	0x10015f5d <NxCreatePMap+0x14bd>
+10015f4b: 39 71 04                     	cmpl	%esi, 0x4(%ecx)
+10015f4e: 75 05                        	jne	0x10015f55 <NxCreatePMap+0x14b5>
+10015f50: 89 51 04                     	movl	%edx, 0x4(%ecx)
+10015f53: eb 08                        	jmp	0x10015f5d <NxCreatePMap+0x14bd>
+10015f55: 39 71 08                     	cmpl	%esi, 0x8(%ecx)
+10015f58: 75 03                        	jne	0x10015f5d <NxCreatePMap+0x14bd>
+10015f5a: 89 51 08                     	movl	%edx, 0x8(%ecx)
+10015f5d: 8b 9c 24 84 00 00 00         	movl	0x84(%esp), %ebx
+10015f64: 39 19                        	cmpl	%ebx, (%ecx)
+10015f66: 75 04                        	jne	0x10015f6c <NxCreatePMap+0x14cc>
+10015f68: 89 39                        	movl	%edi, (%ecx)
+10015f6a: eb 12                        	jmp	0x10015f7e <NxCreatePMap+0x14de>
+10015f6c: 39 59 04                     	cmpl	%ebx, 0x4(%ecx)
+10015f6f: 75 05                        	jne	0x10015f76 <NxCreatePMap+0x14d6>
+10015f71: 89 79 04                     	movl	%edi, 0x4(%ecx)
+10015f74: eb 08                        	jmp	0x10015f7e <NxCreatePMap+0x14de>
+10015f76: 39 59 08                     	cmpl	%ebx, 0x8(%ecx)
+10015f79: 75 03                        	jne	0x10015f7e <NxCreatePMap+0x14de>
+10015f7b: 89 79 08                     	movl	%edi, 0x8(%ecx)
+10015f7e: 8b 4c 24 64                  	movl	0x64(%esp), %ecx
+10015f82: 83 84 24 80 00 00 00 04      	addl	$0x4, 0x80(%esp)
+10015f8a: 41                           	incl	%ecx
+10015f8b: 89 4c 24 64                  	movl	%ecx, 0x64(%esp)
+10015f8f: 3b 4c 24 54                  	cmpl	0x54(%esp), %ecx
+10015f93: 0f 82 57 fd ff ff            	jb	0x10015cf0 <NxCreatePMap+0x1250>
+10015f99: 89 bc 24 a8 00 00 00         	movl	%edi, 0xa8(%esp)
+10015fa0: 8b 7c 24 58                  	movl	0x58(%esp), %edi
+10015fa4: 89 94 24 a0 00 00 00         	movl	%edx, 0xa0(%esp)
+10015fab: 8b 74 24 60                  	movl	0x60(%esp), %esi
+10015faf: 46                           	incl	%esi
+10015fb0: 83 c7 08                     	addl	$0x8, %edi
+10015fb3: 89 74 24 60                  	movl	%esi, 0x60(%esp)
+10015fb7: 89 7c 24 58                  	movl	%edi, 0x58(%esp)
+10015fbb: 3b 74 24 2c                  	cmpl	0x2c(%esp), %esi
+10015fbf: 0f 82 b0 fc ff ff            	jb	0x10015c75 <NxCreatePMap+0x11d5>
+10015fc5: 8b 7d 08                     	movl	0x8(%ebp), %edi
+10015fc8: 8b 07                        	movl	(%edi), %eax
+10015fca: 8b 54 24 24                  	movl	0x24(%esp), %edx
+10015fce: 39 10                        	cmpl	%edx, (%eax)
+10015fd0: 74 5c                        	je	0x1001602e <NxCreatePMap+0x158e>
+10015fd2: 8b 40 08                     	movl	0x8(%eax), %eax
+10015fd5: 85 c0                        	testl	%eax, %eax
+10015fd7: 74 17                        	je	0x10015ff0 <NxCreatePMap+0x1550>
+10015fd9: 8b 0d f8 a5 05 10            	movl	0x1005a5f8, %ecx
+10015fdf: 8b 11                        	movl	(%ecx), %edx
+10015fe1: 50                           	pushl	%eax
+10015fe2: 8b 42 14                     	movl	0x14(%edx), %eax
+10015fe5: ff d0                        	calll	*%eax
+10015fe7: 8b 0f                        	movl	(%edi), %ecx
+10015fe9: c7 41 08 00 00 00 00         	movl	$0x0, 0x8(%ecx)
+10015ff0: 8b 5c 24 24                  	movl	0x24(%esp), %ebx
+10015ff4: 8b 0d f8 a5 05 10            	movl	0x1005a5f8, %ecx
+10015ffa: 8b 11                        	movl	(%ecx), %edx
+10015ffc: 8b 42 08                     	movl	0x8(%edx), %eax
+10015fff: 8d 34 5b                     	leal	(%ebx,%ebx,2), %esi
+10016002: 03 f6                        	addl	%esi, %esi
+10016004: 68 0c 01 00 00               	pushl	$0x10c                  # imm = 0x10C
+10016009: 03 f6                        	addl	%esi, %esi
+1001600b: 56                           	pushl	%esi
+1001600c: ff d0                        	calll	*%eax
+1001600e: 8b 7d 08                     	movl	0x8(%ebp), %edi
+10016011: 8b 0f                        	movl	(%edi), %ecx
+10016013: 8b 54 24 14                  	movl	0x14(%esp), %edx
+10016017: 89 41 08                     	movl	%eax, 0x8(%ecx)
+1001601a: 8b 07                        	movl	(%edi), %eax
+1001601c: 8b 48 08                     	movl	0x8(%eax), %ecx
+1001601f: 56                           	pushl	%esi
+10016020: 52                           	pushl	%edx
+10016021: 51                           	pushl	%ecx
+10016022: e8 b9 29 ff ff               	calll	0x100089e0 <.text+0x79e0>
+10016027: 8b 17                        	movl	(%edi), %edx
+10016029: 83 c4 0c                     	addl	$0xc, %esp
+1001602c: 89 1a                        	movl	%ebx, (%edx)
+1001602e: f3 0f 10 44 24 18            	movss	0x18(%esp), %xmm0
+10016034: 0f 2f 05 b0 15 05 10         	comiss	0x100515b0, %xmm0
+1001603b: 72 25                        	jb	0x10016062 <NxCreatePMap+0x15c2>
+1001603d: 8b 44 24 14                  	movl	0x14(%esp), %eax
+10016041: 85 c0                        	testl	%eax, %eax
+10016043: 74 1d                        	je	0x10016062 <NxCreatePMap+0x15c2>
+10016045: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+1001604b: 85 c9                        	testl	%ecx, %ecx
+1001604d: 75 0b                        	jne	0x1001605a <NxCreatePMap+0x15ba>
+1001604f: b9 e4 95 05 10               	movl	$0x100595e4, %ecx       # imm = 0x100595E4
+10016054: 89 0d 00 a6 05 10            	movl	%ecx, 0x1005a600
+1001605a: 8b 11                        	movl	(%ecx), %edx
+1001605c: 50                           	pushl	%eax
+1001605d: 8b 42 0c                     	movl	0xc(%edx), %eax
+10016060: ff d0                        	calll	*%eax
+10016062: 8d 74 24 2c                  	leal	0x2c(%esp), %esi
+10016066: e8 95 c1 01 00               	calll	0x10032200 <NxCookConvexMesh+0x13a10>
+1001606b: 8d 84 24 10 01 00 00         	leal	0x110(%esp), %eax
+10016072: e8 c9 60 02 00               	calll	0x1003c140 <NxCookConvexMesh+0x1d950>
+10016077: 5f                           	popl	%edi
+10016078: 5e                           	popl	%esi
+10016079: b0 01                        	movb	$0x1, %al
+1001607b: 5b                           	popl	%ebx
+1001607c: 8b e5                        	movl	%ebp, %esp
+1001607e: 5d                           	popl	%ebp
+1001607f: c2 04 00                     	retl	$0x4
+10016082: cc                           	int3
+10016083: cc                           	int3
+10016084: cc                           	int3
+10016085: cc                           	int3
+10016086: cc                           	int3
+10016087: cc                           	int3
+10016088: cc                           	int3
+10016089: cc                           	int3
+1001608a: cc                           	int3
+1001608b: cc                           	int3
+1001608c: cc                           	int3
+1001608d: cc                           	int3
+1001608e: cc                           	int3
+1001608f: cc                           	int3
+10016090: 55                           	pushl	%ebp
+10016091: 8b ec                        	movl	%esp, %ebp
+10016093: 83 e4 f8                     	andl	$-0x8, %esp
+10016096: 83 ec 3c                     	subl	$0x3c, %esp
+10016099: 53                           	pushl	%ebx
+1001609a: 56                           	pushl	%esi
+1001609b: 8b f0                        	movl	%eax, %esi
+1001609d: 8b 06                        	movl	(%esi), %eax
+1001609f: 8b 48 08                     	movl	0x8(%eax), %ecx
+100160a2: 8b 50 0c                     	movl	0xc(%eax), %edx
+100160a5: 8b 40 04                     	movl	0x4(%eax), %eax
+100160a8: 57                           	pushl	%edi
+100160a9: 51                           	pushl	%ecx
+100160aa: 33 ff                        	xorl	%edi, %edi
+100160ac: 52                           	pushl	%edx
+100160ad: 50                           	pushl	%eax
+100160ae: 8d 5c 24 1c                  	leal	0x1c(%esp), %ebx
+100160b2: 89 7c 24 44                  	movl	%edi, 0x44(%esp)
+100160b6: 89 7c 24 48                  	movl	%edi, 0x48(%esp)
+100160ba: 89 7c 24 4c                  	movl	%edi, 0x4c(%esp)
+100160be: 89 7c 24 50                  	movl	%edi, 0x50(%esp)
+100160c2: e8 f9 dd 00 00               	calll	0x10023ec0 <NxCookConvexMesh+0x56d0>
+100160c7: 8b 0e                        	movl	(%esi), %ecx
+100160c9: 8b 54 24 38                  	movl	0x38(%esp), %edx
+100160cd: 89 51 18                     	movl	%edx, 0x18(%ecx)
+100160d0: 8b 06                        	movl	(%esi), %eax
+100160d2: 8b 4c 24 40                  	movl	0x40(%esp), %ecx
+100160d6: 89 48 1c                     	movl	%ecx, 0x1c(%eax)
+100160d9: 8b 06                        	movl	(%esi), %eax
+100160db: b9 00 00 01 00               	movl	$0x10000, %ecx          # imm = 0x10000
+100160e0: 39 48 18                     	cmpl	%ecx, 0x18(%eax)
+100160e3: 76 2c                        	jbe	0x10016111 <NxCreatePMap+0x1671>
+100160e5: 68 18 14 05 10               	pushl	$0x10051418             # imm = 0x10051418
+100160ea: b9 9b 01 00 00               	movl	$0x19b, %ecx            # imm = 0x19B
+100160ef: 57                           	pushl	%edi
+100160f0: 6a 04                        	pushl	$0x4
+100160f2: ba c0 13 05 10               	movl	$0x100513c0, %edx       # imm = 0x100513C0
+100160f7: e8 74 c5 fe ff               	calll	0x10002670 <.text+0x1670>
+100160fc: 83 c4 0c                     	addl	$0xc, %esp
+100160ff: 8d 74 24 10                  	leal	0x10(%esp), %esi
+10016103: e8 e8 d5 00 00               	calll	0x100236f0 <NxCookConvexMesh+0x4f00>
+10016108: 32 c0                        	xorb	%al, %al
+1001610a: 5f                           	popl	%edi
+1001610b: 5e                           	popl	%esi
+1001610c: 5b                           	popl	%ebx
+1001610d: 8b e5                        	movl	%ebp, %esp
+1001610f: 5d                           	popl	%ebp
+10016110: c3                           	retl
+10016111: 39 48 1c                     	cmpl	%ecx, 0x1c(%eax)
+10016114: 76 0c                        	jbe	0x10016122 <NxCreatePMap+0x1682>
+10016116: 68 70 14 05 10               	pushl	$0x10051470             # imm = 0x10051470
+1001611b: b9 a1 01 00 00               	movl	$0x1a1, %ecx            # imm = 0x1A1
+10016120: eb cd                        	jmp	0x100160ef <NxCreatePMap+0x164f>
+10016122: 8b 40 04                     	movl	0x4(%eax), %eax
+10016125: 8b 0d f8 a5 05 10            	movl	0x1005a5f8, %ecx
+1001612b: 8b 11                        	movl	(%ecx), %edx
+1001612d: 8b 52 08                     	movl	0x8(%edx), %edx
+10016130: 68 13 01 00 00               	pushl	$0x113                  # imm = 0x113
+10016135: 03 c0                        	addl	%eax, %eax
+10016137: 50                           	pushl	%eax
+10016138: ff d2                        	calll	*%edx
+1001613a: 8b 0e                        	movl	(%esi), %ecx
+1001613c: 89 41 20                     	movl	%eax, 0x20(%ecx)
+1001613f: 8b 0e                        	movl	(%esi), %ecx
+10016141: 33 c0                        	xorl	%eax, %eax
+10016143: 39 79 04                     	cmpl	%edi, 0x4(%ecx)
+10016146: 76 1f                        	jbe	0x10016167 <NxCreatePMap+0x16c7>
+10016148: eb 06                        	jmp	0x10016150 <NxCreatePMap+0x16b0>
+1001614a: 8d 9b 00 00 00 00            	leal	(%ebx), %ebx
+10016150: 8b 51 20                     	movl	0x20(%ecx), %edx
+10016153: 8b 4c 24 3c                  	movl	0x3c(%esp), %ecx
+10016157: 66 8b 0c 81                  	movw	(%ecx,%eax,4), %cx
+1001615b: 66 89 0c 42                  	movw	%cx, (%edx,%eax,2)
+1001615f: 8b 0e                        	movl	(%esi), %ecx
+10016161: 40                           	incl	%eax
+10016162: 3b 41 04                     	cmpl	0x4(%ecx), %eax
+10016165: 72 e9                        	jb	0x10016150 <NxCreatePMap+0x16b0>
+10016167: 8b 06                        	movl	(%esi), %eax
+10016169: 8b 0d f8 a5 05 10            	movl	0x1005a5f8, %ecx
+1001616f: 81 78 1c 00 01 00 00         	cmpl	$0x100, 0x1c(%eax)      # imm = 0x100
+10016176: 8b 5c 24 44                  	movl	0x44(%esp), %ebx
+1001617a: 8b 40 04                     	movl	0x4(%eax), %eax
+1001617d: 8b 11                        	movl	(%ecx), %edx
+1001617f: 73 32                        	jae	0x100161b3 <NxCreatePMap+0x1713>
+10016181: 68 12 01 00 00               	pushl	$0x112                  # imm = 0x112
+10016186: 50                           	pushl	%eax
+10016187: 8b 42 08                     	movl	0x8(%edx), %eax
+1001618a: ff d0                        	calll	*%eax
+1001618c: 8b 0e                        	movl	(%esi), %ecx
+1001618e: 89 41 24                     	movl	%eax, 0x24(%ecx)
+10016191: 8b 0e                        	movl	(%esi), %ecx
+10016193: 33 c0                        	xorl	%eax, %eax
+10016195: 39 79 04                     	cmpl	%edi, 0x4(%ecx)
+10016198: 76 49                        	jbe	0x100161e3 <NxCreatePMap+0x1743>
+1001619a: 8d 9b 00 00 00 00            	leal	(%ebx), %ebx
+100161a0: 8b 51 24                     	movl	0x24(%ecx), %edx
+100161a3: 8a 0c 83                     	movb	(%ebx,%eax,4), %cl
+100161a6: 88 0c 10                     	movb	%cl, (%eax,%edx)
+100161a9: 8b 0e                        	movl	(%esi), %ecx
+100161ab: 40                           	incl	%eax
+100161ac: 3b 41 04                     	cmpl	0x4(%ecx), %eax
+100161af: 72 ef                        	jb	0x100161a0 <NxCreatePMap+0x1700>
+100161b1: eb 30                        	jmp	0x100161e3 <NxCreatePMap+0x1743>
+100161b3: 8b 52 08                     	movl	0x8(%edx), %edx
+100161b6: 68 13 01 00 00               	pushl	$0x113                  # imm = 0x113
+100161bb: 03 c0                        	addl	%eax, %eax
+100161bd: 50                           	pushl	%eax
+100161be: ff d2                        	calll	*%edx
+100161c0: 8b 0e                        	movl	(%esi), %ecx
+100161c2: 89 41 24                     	movl	%eax, 0x24(%ecx)
+100161c5: 8b 0e                        	movl	(%esi), %ecx
+100161c7: 33 c0                        	xorl	%eax, %eax
+100161c9: 39 79 04                     	cmpl	%edi, 0x4(%ecx)
+100161cc: 76 15                        	jbe	0x100161e3 <NxCreatePMap+0x1743>
+100161ce: 8b ff                        	movl	%edi, %edi
+100161d0: 8b 51 24                     	movl	0x24(%ecx), %edx
+100161d3: 66 8b 0c 83                  	movw	(%ebx,%eax,4), %cx
+100161d7: 66 89 0c 42                  	movw	%cx, (%edx,%eax,2)
+100161db: 8b 0e                        	movl	(%esi), %ecx
+100161dd: 40                           	incl	%eax
+100161de: 3b 41 04                     	cmpl	0x4(%ecx), %eax
+100161e1: 72 ed                        	jb	0x100161d0 <NxCreatePMap+0x1730>
+100161e3: 3b df                        	cmpl	%edi, %ebx
+100161e5: 74 1d                        	je	0x10016204 <NxCreatePMap+0x1764>
+100161e7: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+100161ed: 3b cf                        	cmpl	%edi, %ecx
+100161ef: 75 0b                        	jne	0x100161fc <NxCreatePMap+0x175c>
+100161f1: b9 e4 95 05 10               	movl	$0x100595e4, %ecx       # imm = 0x100595E4
+100161f6: 89 0d 00 a6 05 10            	movl	%ecx, 0x1005a600
+100161fc: 8b 11                        	movl	(%ecx), %edx
+100161fe: 8b 42 0c                     	movl	0xc(%edx), %eax
+10016201: 53                           	pushl	%ebx
+10016202: ff d0                        	calll	*%eax
+10016204: 8b 44 24 3c                  	movl	0x3c(%esp), %eax
+10016208: 3b c7                        	cmpl	%edi, %eax
+1001620a: 74 1d                        	je	0x10016229 <NxCreatePMap+0x1789>
+1001620c: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+10016212: 3b cf                        	cmpl	%edi, %ecx
+10016214: 75 0b                        	jne	0x10016221 <NxCreatePMap+0x1781>
+10016216: b9 e4 95 05 10               	movl	$0x100595e4, %ecx       # imm = 0x100595E4
+1001621b: 89 0d 00 a6 05 10            	movl	%ecx, 0x1005a600
+10016221: 8b 11                        	movl	(%ecx), %edx
+10016223: 50                           	pushl	%eax
+10016224: 8b 42 0c                     	movl	0xc(%edx), %eax
+10016227: ff d0                        	calll	*%eax
+10016229: 5f                           	popl	%edi
+1001622a: 5e                           	popl	%esi
+1001622b: b0 01                        	movb	$0x1, %al
+1001622d: 5b                           	popl	%ebx
+1001622e: 8b e5                        	movl	%ebp, %esp
+10016230: 5d                           	popl	%ebp
+10016231: c3                           	retl
+10016232: cc                           	int3
+10016233: cc                           	int3
+10016234: cc                           	int3
+10016235: cc                           	int3
+10016236: cc                           	int3
+10016237: cc                           	int3
+10016238: cc                           	int3
+10016239: cc                           	int3
+1001623a: cc                           	int3
+1001623b: cc                           	int3
+1001623c: cc                           	int3
+1001623d: cc                           	int3
+1001623e: cc                           	int3
+1001623f: cc                           	int3
+10016240: 8b 06                        	movl	(%esi), %eax
+10016242: 8b 48 2c                     	movl	0x2c(%eax), %ecx
+10016245: 83 ec 1c                     	subl	$0x1c, %esp
+10016248: 53                           	pushl	%ebx
+10016249: 33 db                        	xorl	%ebx, %ebx
+1001624b: 3b cb                        	cmpl	%ebx, %ecx
+1001624d: 74 0d                        	je	0x1001625c <NxCreatePMap+0x17bc>
+1001624f: 8b 11                        	movl	(%ecx), %edx
+10016251: 8b 02                        	movl	(%edx), %eax
+10016253: 6a 01                        	pushl	$0x1
+10016255: ff d0                        	calll	*%eax
+10016257: 8b 0e                        	movl	(%esi), %ecx
+10016259: 89 59 2c                     	movl	%ebx, 0x2c(%ecx)
+1001625c: 8b 06                        	movl	(%esi), %eax
+1001625e: 8b 10                        	movl	(%eax), %edx
+10016260: 89 50 70                     	movl	%edx, 0x70(%eax)
+10016263: 8b 06                        	movl	(%esi), %eax
+10016265: 8b 48 04                     	movl	0x4(%eax), %ecx
+10016268: 89 48 6c                     	movl	%ecx, 0x6c(%eax)
+1001626b: 8b 06                        	movl	(%esi), %eax
+1001626d: 8b 48 0c                     	movl	0xc(%eax), %ecx
+10016270: 8b 50 08                     	movl	0x8(%eax), %edx
+10016273: 3b cb                        	cmpl	%ebx, %ecx
+10016275: 74 0c                        	je	0x10016283 <NxCreatePMap+0x17e3>
+10016277: 3b d3                        	cmpl	%ebx, %edx
+10016279: 74 08                        	je	0x10016283 <NxCreatePMap+0x17e3>
+1001627b: 89 48 74                     	movl	%ecx, 0x74(%eax)
+1001627e: 89 50 78                     	movl	%edx, 0x78(%eax)
+10016281: eb 1a                        	jmp	0x1001629d <NxCreatePMap+0x17fd>
+10016283: 68 40 0c 05 10               	pushl	$0x10050c40             # imm = 0x10050C40
+10016288: 53                           	pushl	%ebx
+10016289: 6a 02                        	pushl	$0x2
+1001628b: b9 e7 00 00 00               	movl	$0xe7, %ecx
+10016290: ba f8 0b 05 10               	movl	$0x10050bf8, %edx       # imm = 0x10050BF8
+10016295: e8 d6 c3 fe ff               	calll	0x10002670 <.text+0x1670>
+1001629a: 83 c4 0c                     	addl	$0xc, %esp
+1001629d: 8b 06                        	movl	(%esi), %eax
+1001629f: 0f 57 c0                     	xorps	%xmm0, %xmm0
+100162a2: 83 c0 64                     	addl	$0x64, %eax
+100162a5: 38 1d 70 a3 05 10            	cmpb	%bl, 0x1005a370
+100162ab: f3 0f 11 44 24 10            	movss	%xmm0, 0x10(%esp)
+100162b1: 0f 94 c2                     	sete	%dl
+100162b4: c7 44 24 14 ff ff ff ff      	movl	$0xffffffff, 0x14(%esp) # imm = 0xFFFFFFFF
+100162bc: f3 0f 11 44 24 18            	movss	%xmm0, 0x18(%esp)
+100162c2: 89 44 24 04                  	movl	%eax, 0x4(%esp)
+100162c6: c6 44 24 1c 01               	movb	$0x1, 0x1c(%esp)
+100162cb: 88 54 24 1d                  	movb	%dl, 0x1d(%esp)
+100162cf: c7 44 24 08 01 00 00 00      	movl	$0x1, 0x8(%esp)
+100162d7: c7 44 24 0c 22 00 00 00      	movl	$0x22, 0xc(%esp)
+100162df: 81 ff ff 00 00 00            	cmpl	$0xff, %edi
+100162e5: 74 10                        	je	0x100162f7 <NxCreatePMap+0x1857>
+100162e7: f3 0f 10 44 24 24            	movss	0x24(%esp), %xmm0
+100162ed: 89 7c 24 14                  	movl	%edi, 0x14(%esp)
+100162f1: f3 0f 11 44 24 10            	movss	%xmm0, 0x10(%esp)
+100162f7: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+100162fd: 88 5c 24 1e                  	movb	%bl, 0x1e(%esp)

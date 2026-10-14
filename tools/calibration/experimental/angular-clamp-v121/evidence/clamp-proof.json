@@ -1,0 +1,173 @@
+{
+  "scope": "Actual immutable Native angular force-preparation clamp entry/rounded sqrt ratio/exit, paired with actual Source identical incoming velocity and limit. SSE XYZ norm and rounded ratio, x87 sqrt/component products wide until each finalfloatstore. No runtime coefficient fitting or recorded input injection.",
+  "fixtures": [
+    {
+      "tick": 61,
+      "repeat": 0,
+      "input": [
+        0,
+        0,
+        0,
+        1111752704
+      ],
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "actual_f32_sqrt_argument": null
+    },
+    {
+      "tick": 61,
+      "repeat": 1,
+      "input": [
+        0,
+        0,
+        0,
+        1111752704
+      ],
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "actual_f32_sqrt_argument": null
+    },
+    {
+      "tick": 62,
+      "repeat": 0,
+      "input": [
+        1045583299,
+        1091453085,
+        907010376,
+        1111752704
+      ],
+      "expected": [
+        1042648892,
+        1088417972,
+        904036516
+      ],
+      "actual_f32_sqrt_argument": 1058970534
+    },
+    {
+      "tick": 62,
+      "repeat": 1,
+      "input": [
+        1045583299,
+        1091453085,
+        907010376,
+        1111752704
+      ],
+      "expected": [
+        1042648892,
+        1088417972,
+        904036516
+      ],
+      "actual_f32_sqrt_argument": 1058970534
+    }
+  ],
+  "live_Source_control": [
+    {
+      "tick": 61,
+      "repeat": 0,
+      "actual_clamp_input_vector_nonzero_words_exact": true,
+      "input_signed_zero_differences": [
+        [
+          0,
+          2147483648,
+          0
+        ],
+        [
+          1,
+          2147483648,
+          0
+        ],
+        [
+          2,
+          2147483648,
+          0
+        ]
+      ],
+      "Source_old_output": [
+        2147483648,
+        2147483648,
+        2147483648
+      ],
+      "Native_actual_output": [
+        0,
+        0,
+        0
+      ],
+      "old_output_nonzero_exact": true
+    },
+    {
+      "tick": 61,
+      "repeat": 1,
+      "actual_clamp_input_vector_nonzero_words_exact": true,
+      "input_signed_zero_differences": [
+        [
+          0,
+          2147483648,
+          0
+        ],
+        [
+          1,
+          2147483648,
+          0
+        ],
+        [
+          2,
+          2147483648,
+          0
+        ]
+      ],
+      "Source_old_output": [
+        2147483648,
+        2147483648,
+        2147483648
+      ],
+      "Native_actual_output": [
+        0,
+        0,
+        0
+      ],
+      "old_output_nonzero_exact": true
+    },
+    {
+      "tick": 62,
+      "repeat": 0,
+      "actual_clamp_input_vector_nonzero_words_exact": true,
+      "input_signed_zero_differences": [],
+      "Source_old_output": [
+        1042648891,
+        1088417971,
+        904036516
+      ],
+      "Native_actual_output": [
+        1042648892,
+        1088417972,
+        904036516
+      ],
+      "old_output_nonzero_exact": false
+    },
+    {
+      "tick": 62,
+      "repeat": 1,
+      "actual_clamp_input_vector_nonzero_words_exact": true,
+      "input_signed_zero_differences": [],
+      "Source_old_output": [
+        1042648891,
+        1088417971,
+        904036516
+      ],
+      "Native_actual_output": [
+        1042648892,
+        1088417972,
+        904036516
+      ],
+      "old_output_nonzero_exact": false
+    }
+  ],
+  "goal_complete": false,
+  "actual_f32_sqrt_arguments_independently_verified": true
+}

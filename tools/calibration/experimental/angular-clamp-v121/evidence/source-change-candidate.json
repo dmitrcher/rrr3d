@@ -1,0 +1,21 @@
+{
+  "scope": "Default-off original angular force-preparation clamp arithmetic; no angular limit/damping changes, linear clamp unchanged.",
+  "files": [
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Body/MotionProperties.inl",
+      "before_sha256": "48195e2d0c95d296a1299e54536f0c5c435fa2bbaea193f71fc0261090e96df2",
+      "after_sha256": "81fc40006865680de6e8dcf04b03a01f547d253a0cff5cffbfd18b9f21d3207a"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Body/NativeVelocityClampV121.h",
+      "before_sha256": null,
+      "after_sha256": "f53e0602d800184dfcfd8a1e1cb7106cc833a546f2fc120a1a64a2d8140cedf2"
+    }
+  ],
+  "flags": [
+    "RRR3D_EXPERIMENT_NATIVE_ANGULAR_CLAMP_V121"
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,7 @@
+The experimental Mac adapter now solves mixed-normal mesh contacts as one ordered body pair, with each point retaining its own private normal, callback material frame and cached frame. Triangle separation is checked before choosing flat-part planes. Geometry-derived numeric part labels match the original32-triangle mesh atO0/O2; no map IDs, recorded part tables or Windows physical states are runtime inputs.
+
+Map0 now matches all original float32 physical fields through sample464, versus358 previously. At359 all five original contact positions, separations, quaternions, masses, biases and levers match in the original order. Repeated moving maps0/16/48/64 first differ at465/249/358/238. Full moving/game parity remains open.
+
+Both full608-scenario runs match255864 original Windows physical states. All53 CTest checks pass; default-off900 states retain V151. The archive includes the verified arm64 calibration probe, unchanged WindowsWorldProbeV133, fixtures, profile and guarded Source overlay with pinned prerequisites. Rebuild all dependent targets after applying. Ordinary installed game is unchanged and proprietary SDK/game dependencies are excluded.
+
+Next465 is isolated to the world box translation before clipping; map16/249 is a separate solver angular response discrepancy on matching prepared inputs. General cooking/welding/global convex validation and cooked traversal remain unproved. See NEXT.md and the scoped evidence.

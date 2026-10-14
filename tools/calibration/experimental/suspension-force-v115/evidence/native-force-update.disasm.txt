@@ -1,0 +1,39 @@
+1014884c: 8b 86 14 03 00 00            	movl	0x314(%esi), %eax
+10148852: f3 0f 11 ae 24 02 00 00      	movss	%xmm5, 0x224(%esi)
+1014885a: f3 0f 11 96 00 02 00 00      	movss	%xmm2, 0x200(%esi)
+10148862: 85 c0                        	testl	%eax, %eax
+10148864: 74 30                        	je	0x10148896 <NpCreatePhysicsSDK+0x3b726>
+10148866: 8b c8                        	movl	%eax, %ecx
+10148868: c1 e9 16                     	shrl	$0x16, %ecx
+1014886b: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+10148872: 8b 11                        	movl	(%ecx), %edx
+10148874: 50                           	pushl	%eax
+10148875: 8b 42 4c                     	movl	0x4c(%edx), %eax
+10148878: ff d0                        	calll	*%eax
+1014887a: 8b 10                        	movl	(%eax), %edx
+1014887c: 8b c8                        	movl	%eax, %ecx
+1014887e: 8b 42 50                     	movl	0x50(%edx), %eax
+10148881: ff d0                        	calll	*%eax
+10148883: d8 4c 24 08                  	fmuls	0x8(%esp)
+10148887: 0f 57 d2                     	xorps	%xmm2, %xmm2
+1014888a: d8 86 00 02 00 00            	fadds	0x200(%esi)
+10148890: d9 9e 00 02 00 00            	fstps	0x200(%esi)
+10148896: 8b 86 18 03 00 00            	movl	0x318(%esi), %eax
+1014889c: 85 c0                        	testl	%eax, %eax
+1014889e: 74 30                        	je	0x101488d0 <NpCreatePhysicsSDK+0x3b760>
+101488a0: 8b c8                        	movl	%eax, %ecx
+101488a2: c1 e9 16                     	shrl	$0x16, %ecx
+101488a5: 8b 0c 8d f8 07 35 10         	movl	0x103507f8(,%ecx,4), %ecx
+101488ac: 8b 11                        	movl	(%ecx), %edx
+101488ae: 50                           	pushl	%eax
+101488af: 8b 42 4c                     	movl	0x4c(%edx), %eax
+101488b2: ff d0                        	calll	*%eax
+101488b4: 8b 10                        	movl	(%eax), %edx
+101488b6: 8b c8                        	movl	%eax, %ecx
+101488b8: 8b 42 50                     	movl	0x50(%edx), %eax
+101488bb: ff d0                        	calll	*%eax
+101488bd: d8 4c 24 08                  	fmuls	0x8(%esp)
+101488c1: 0f 57 d2                     	xorps	%xmm2, %xmm2
+101488c4: d8 86 00 02 00 00            	fadds	0x200(%esi)
+101488ca: d9 9e 00 02 00 00            	fstps	0x200(%esi)
+101488d0: f6 86 e8 02 00 00 20         	testb	$0x20, 0x2e8(%esi)

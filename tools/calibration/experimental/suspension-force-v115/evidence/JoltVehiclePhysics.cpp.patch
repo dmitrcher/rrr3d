@@ -1,0 +1,23 @@
+--- work/spring-force-v115/before/JoltVehiclePhysics.cpp	2026-10-14 09:33:17
++++ /Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp	2026-10-14 12:14:29
+@@ -25,6 +25,7 @@
+ #include "physics/NativeLongitudinalSlipV81.h"
+ #include "physics/NativeNormalForceV84.h"
+ #include "physics/NativeSuspensionForceV88.h"
++#include "physics/NativeSuspensionForceV115.h"
+ #include "physics/NativeWheelMotorV92.h"
+ #include "physics/NativeFreeWheelCacheV112.h"
+ #include "physics/NativeQuaternionPoseV43.h"
+@@ -3441,8 +3442,10 @@
+                 for (JPH::uint i = 0; i < vehicle.constraint->GetWheels().size(); ++i) {
+                     const auto* wheel = vehicle.constraint->GetWheel(i);
+                     const bool sourceForceStoreV88=tuning_.physxWheelCompat && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_FORCE_STORE_V88");
+-                    vehicle.previousSuspensionForces[i] = wheel->HasContact()?
+-                        (sourceForceStoreV88?motorrock::suspensionforcev88::store(wheel->GetSuspensionLambda(),delta):wheel->GetSuspensionLambda()/delta):0.0F;
++                    const bool separateForceStoreV115=sourceForceStoreV88 && motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_SUSPENSION_FORCE_STORE_V115");
++                    vehicle.previousSuspensionForces[i] = !wheel->HasContact()?0.0F:
++                        separateForceStoreV115?motorrock::suspensionforcev115::store(wheel->GetSourceSpringLambdaV115(),wheel->GetSourceStopLambdaV115(),delta):
++                        sourceForceStoreV88?motorrock::suspensionforcev88::store(wheel->GetSuspensionLambda(),delta):wheel->GetSuspensionLambda()/delta;
+                 }
+             lastSolverDelta_ = delta;
+             if (tuning_.physxWheelCompat)

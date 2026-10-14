@@ -1,0 +1,25 @@
+{
+  "scope": "Default-off separate spring and hard-stop force conversion, original order and float stores. No coefficient/state/case/frame rules. Two read-only SDK wheel getters, adapter and production helper.",
+  "requires": "Verified local-angular-v114 and all prerequisites; rebuild consumers.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "07e5a0bb567ea6d16fa9a30dd936a16eea30d86c701ede5058e566a62d8431be",
+      "after_sha256": "2b46dd2920d9ffaf23f3f37a2ffbab2e56cf5a00bd4d4dd01c43928a9d36fc78"
+    },
+    {
+      "location": "sdk",
+      "path": "Jolt/Physics/Vehicle/Wheel.h",
+      "before_sha256": "c685f378f2bd6595fe6ee425d872c0310dbf8222f560ff6281401fd1434f72d1",
+      "after_sha256": "c58ec7fea0cf1b632751938d03f334e02a1fee889b60eaeb7d2790529259caa5"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/NativeSuspensionForceV115.h",
+      "before_sha256": null,
+      "after_sha256": "8ed0bd56dd4e71bc7af1322380b577a51481a2c5936159fa5d2dffdbaf800889"
+    }
+  ],
+  "goal_complete": false
+}

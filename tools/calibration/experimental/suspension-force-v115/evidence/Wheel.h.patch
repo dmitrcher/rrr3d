@@ -1,0 +1,13 @@
+--- work/spring-force-v115/before/Wheel.h	2026-10-13 21:51:16
++++ /Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/build/macos-arm64-m10/_deps/rrr3d_jolt-src/Jolt/Physics/Vehicle/Wheel.h	2026-10-14 12:14:29
+@@ -109,6 +109,10 @@
+ 	/// Get the total impulse (N s) that was applied by the suspension
+ 	float					GetSuspensionLambda() const					{ return mSuspensionPart.GetTotalLambda() + mSuspensionMaxUpPart.GetTotalLambda(); }
+ 
++    // Original wheel force reporting converts these rows separately.
++    float GetSourceSpringLambdaV115() const { return mSuspensionPart.GetTotalLambda(); }
++    float GetSourceStopLambdaV115() const { return mSuspensionMaxUpPart.GetTotalLambda(); }
++
+ 	/// Get total impulse (N s) applied along the forward direction of the wheel
+ 	float					GetLongitudinalLambda() const				{ return mLongitudinalPart.GetTotalLambda(); }
+ 

@@ -1,0 +1,38 @@
+{
+  "scope": "Actual original API entry omega, transformed acceleration and integrator incoming omega; same fixture dt and actor angular damping. Existing add-delta then drag ordering confirmed on eight original captures; no new damping values.",
+  "checks": [
+    {
+      "capture": "case0-tick0-rep0-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case0-tick0-rep1-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case1-tick3-rep0-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case1-tick3-rep1-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case2-tick4-rep0-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case2-tick4-rep1-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case3-tick5-rep0-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    },
+    {
+      "capture": "case3-tick5-rep1-private.jsonl.gz",
+      "actual_integrator_incoming_angular_velocity_words_exact": true
+    }
+  ],
+  "goal_complete": false
+}

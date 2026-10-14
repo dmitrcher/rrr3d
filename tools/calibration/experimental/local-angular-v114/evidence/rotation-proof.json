@@ -1,0 +1,17 @@
+{
+  "scope": "Actual original quaternion/local-acceleration input and transformed vector; scalar norm-sensitive function, no normalization or fitting.",
+  "checks": [
+    {
+      "optimization": "O0",
+      "actual_original_world_vectors_exact": 8,
+      "Native_repeats": 2
+    },
+    {
+      "optimization": "O2",
+      "actual_original_world_vectors_exact": 8,
+      "Native_repeats": 2
+    }
+  ],
+  "original120_step_histories_preserved": 960,
+  "goal_complete": false
+}

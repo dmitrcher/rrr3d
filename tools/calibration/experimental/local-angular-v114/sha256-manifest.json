@@ -1,0 +1,465 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1592,
+      "sha256": "123cb108bc5627666f1877bd476f519fadd44b314f4ec1d231d2a3f0a0c82871"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/NativeLocalAngularAccelerationV114.h",
+      "bytes": 986,
+      "sha256": "fa69f2ff9954acde05a2db26408d5b1a8f1512118d3711057a25b1e52de59d84"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 401081,
+      "sha256": "07e5a0bb567ea6d16fa9a30dd936a16eea30d86c701ede5058e566a62d8431be"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 899,
+      "sha256": "d220e8c36928f6c01b2add4cc9ec1e90fe4a7767a3362e3c2d3f511d15728ec0"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 399232,
+      "sha256": "3b074dce8b4a8cb7cdb3c541924000e0cd1ad7c0ec4cef77e3e1c8b6430721ad"
+    },
+    {
+      "path": "captures/live-final/manifest.json",
+      "bytes": 3587,
+      "sha256": "98e12551f1b4e7a18a9b259b999f610b546d7481835cf445812deabab1cc085d"
+    },
+    {
+      "path": "captures/live-final/tick0-rep0-physical.jsonl.gz",
+      "bytes": 8350,
+      "sha256": "63b3209e6dc12badb03602f880549297aae625970b24135fd47d2f2e07e71bc1"
+    },
+    {
+      "path": "captures/live-final/tick0-rep0-private.jsonl.gz",
+      "bytes": 129,
+      "sha256": "2e0535a1e1c29ff861eab4b1c773fb6b27d49f391df6bd4a59647e74526fb817"
+    },
+    {
+      "path": "captures/live-final/tick0-rep1-physical.jsonl.gz",
+      "bytes": 8349,
+      "sha256": "bfe06598d0d23b88363c954030d3c6e94ac5b0d056cac7ae09bb5ed6679cadfe"
+    },
+    {
+      "path": "captures/live-final/tick0-rep1-private.jsonl.gz",
+      "bytes": 129,
+      "sha256": "41cee9d3726b512fa2bb3e7bd8e25bd584b6b5a0a447df41236eb90e91885266"
+    },
+    {
+      "path": "captures/live-final/tick3-rep0-physical.jsonl.gz",
+      "bytes": 8348,
+      "sha256": "581e6261ac836bcd0e83207420ba66a6b26787b28ec1bdbfadb0c41dbfebc3a2"
+    },
+    {
+      "path": "captures/live-final/tick3-rep0-private.jsonl.gz",
+      "bytes": 145,
+      "sha256": "45144f9592588302e8e76304a0e3049254ce9a1087489a69ec655d5c1172c19c"
+    },
+    {
+      "path": "captures/live-final/tick3-rep1-physical.jsonl.gz",
+      "bytes": 8362,
+      "sha256": "2b4e90351700689c8a981f9834e1976a8c93f4e2cf3455eacf5fda533451c129"
+    },
+    {
+      "path": "captures/live-final/tick3-rep1-private.jsonl.gz",
+      "bytes": 145,
+      "sha256": "1bdabc150bb98e664963af9d5af63133f7d1827a5b041ce21df01928b1099402"
+    },
+    {
+      "path": "captures/live-final/tick4-rep0-physical.jsonl.gz",
+      "bytes": 8350,
+      "sha256": "3140ee595e912eb7910da421dde05b45f81ccf9cf5bab184f0aec23b2c12e031"
+    },
+    {
+      "path": "captures/live-final/tick4-rep0-private.jsonl.gz",
+      "bytes": 144,
+      "sha256": "7e16cc134feee93f1504565b3a6a7a4f7166b3fab289897b9a963165efbad2b7"
+    },
+    {
+      "path": "captures/live-final/tick4-rep1-physical.jsonl.gz",
+      "bytes": 8345,
+      "sha256": "960dfd60d8fe3e2905f73193ffba3764ac808a99a9e8e222a33f78afa066fb53"
+    },
+    {
+      "path": "captures/live-final/tick4-rep1-private.jsonl.gz",
+      "bytes": 144,
+      "sha256": "bc35e2c5d9770fa92cba5bf93ac28bfd4f6e888593d5219ebaa63e3236d5da97"
+    },
+    {
+      "path": "captures/live-final/tick5-rep0-physical.jsonl.gz",
+      "bytes": 8354,
+      "sha256": "dd0abdfb723eb603c39e99c51d8553a4a64b83cc36435b4bc45cd3be1d59018c"
+    },
+    {
+      "path": "captures/live-final/tick5-rep0-private.jsonl.gz",
+      "bytes": 139,
+      "sha256": "1a1af97697f19fe0ceed91fbbb3ceb25c59b716ded71dd31084e8c6ab3cf08b1"
+    },
+    {
+      "path": "captures/live-final/tick5-rep1-physical.jsonl.gz",
+      "bytes": 8349,
+      "sha256": "7d9ecba2b3f88c95a1a4ac4e5ddb2c0e5cdbab1ac835134081556f757e438162"
+    },
+    {
+      "path": "captures/live-final/tick5-rep1-private.jsonl.gz",
+      "bytes": 139,
+      "sha256": "6c6a71a431d22bdf853b3cb9259ca4d261d06abdb956eede28ab132527087e2e"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep0-physical.jsonl.gz",
+      "bytes": 21719,
+      "sha256": "a4c3399dc8e2bfaf9a05efe33c2bff935c900f1ce8e24154f25fb16b2ebe1ca9"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep0-private.jsonl.gz",
+      "bytes": 1587,
+      "sha256": "a97728d387628fc095a7061219c298bad76f7b6707b58a975b6038cd4c91f354"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep1-physical.jsonl.gz",
+      "bytes": 21710,
+      "sha256": "49a56d466b0cef7036be3803837e44aaa0858a3830021d3ce49880c93fa300b1"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep1-private.jsonl.gz",
+      "bytes": 1582,
+      "sha256": "1437167140b6235c09ef5829077539a3b3c48af546e2c1690f749b98e67fc6b9"
+    },
+    {
+      "path": "captures/native/case0-tick0-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep0-physical.jsonl.gz",
+      "bytes": 21717,
+      "sha256": "8db345a67131152b60c930ddfe313b58a4245a5bd596cedac3e368ea3b7fc922"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep0-private.jsonl.gz",
+      "bytes": 1668,
+      "sha256": "1ed49425ac509adb0947cefb9019c14d6c19d4618394a9726728f9cbe1075a40"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep1-physical.jsonl.gz",
+      "bytes": 21716,
+      "sha256": "4fae6745c411490506473d3b9a882ce1ca3711a6b34881b79150431144c3f48b"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep1-private.jsonl.gz",
+      "bytes": 1664,
+      "sha256": "5da5f6b05ca8fb97e69070492a979f85d17e923a671b5027d91540ec9ec1d3e8"
+    },
+    {
+      "path": "captures/native/case1-tick3-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep0-physical.jsonl.gz",
+      "bytes": 21714,
+      "sha256": "09817f54e5a48a0468fecd152527ac06aa8c391541dc8e30fbb92e30c547bb43"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep0-private.jsonl.gz",
+      "bytes": 1666,
+      "sha256": "7824df9a907cd0f4c405058d069660e359c6b862d4ea28c0be0acd7681adac15"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep1-physical.jsonl.gz",
+      "bytes": 21723,
+      "sha256": "26ce8eb1c221c6b0a10be5ac4ded079d4f609f46599d27fc70fa12408ed9ed4f"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep1-private.jsonl.gz",
+      "bytes": 1665,
+      "sha256": "38c6acc3f4e74e7e4921ddc90c2ef2ad419a1fa6a4fdcacd6f7c4cd485135e08"
+    },
+    {
+      "path": "captures/native/case2-tick4-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep0-physical.jsonl.gz",
+      "bytes": 21727,
+      "sha256": "cd14feb70f20ddc9045d5105df9b6e3805e698fb1b56b0025177fb32d268fa57"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep0-private.jsonl.gz",
+      "bytes": 1661,
+      "sha256": "a5bc0405e3bd604013c4222a47414a6007fa4396a42f41a00021bff0103eead1"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep1-physical.jsonl.gz",
+      "bytes": 21723,
+      "sha256": "48c99fbfa02a5e2e09be986831abd6386f3cfc91ba1423a0767af0b7da58974f"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep1-private.jsonl.gz",
+      "bytes": 1662,
+      "sha256": "97f5e41dfe917d2b3d6aec298412706eef0df4ae67900b2091b81bf7f0a18c1f"
+    },
+    {
+      "path": "captures/native/case3-tick5-rep1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native/manifest.json",
+      "bytes": 3219,
+      "sha256": "26bb358c59fc5461d2ce3f2423faebe0adeb69a1d1712c0199fc4dde7af8eb02"
+    },
+    {
+      "path": "checks/broad-final/capture-manifest.json",
+      "bytes": 8815,
+      "sha256": "dac62d3a78828a6060bbd4853df80205c88ff60c99e95842bd19ab664c35476a"
+    },
+    {
+      "path": "checks/build-all-final.log",
+      "bytes": 5658,
+      "sha256": "c61535f5b53281124bb92e9b605ef4dd50a8ffe46ee0b961a93644f51203fed4"
+    },
+    {
+      "path": "checks/canonical-final.log",
+      "bytes": 453,
+      "sha256": "e639f9258d1b5920e631ed1c4601a825cc932a2fee9e43cc35ed226492c5e685"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "b9f61937062db954637a8b2da5d4a84dd8fa33ff2c67a6df314ecab762fb5122"
+    },
+    {
+      "path": "checks/ctest-final.log",
+      "bytes": 7093,
+      "sha256": "97aef20bdfbcde26bb7906d24019db5734f01fd41bef212e938ecf4ce1cd1af1"
+    },
+    {
+      "path": "checks/game-final-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "6bc8da9cdaa46adcf6c27e4111bb20eed0371c5976b3ce02a0fee07577658099"
+    },
+    {
+      "path": "checks/game-final-render-race/launch.json",
+      "bytes": 8905,
+      "sha256": "061d4f36b99d191d221dbced685883d68592ae4bf7190e261013eaabb66666f0"
+    },
+    {
+      "path": "checks/game-final-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "09dac10850e18ca4fc63d3ffeca996f81e9647d0c3062c71f181ae434486ffd7"
+    },
+    {
+      "path": "checks/game-final-smoke/launch.json",
+      "bytes": 8879,
+      "sha256": "6b3e94cf3df679a2e4a62262980b176ebf0196dd6fbc86117f09426a8d2f63c3"
+    },
+    {
+      "path": "checks/gates-final/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "7273db310b9a32dbd6ec9566ccf08dd50b9e690b02bd8c18e7534bc925684a8e"
+    },
+    {
+      "path": "checks/regression-final.log",
+      "bytes": 230,
+      "sha256": "8c7b1bcc6ddc953ab9effcbd26c25fd4697377785303b3ea9dbd818c73630cf3"
+    },
+    {
+      "path": "evidence/add-local-torque.disasm.txt",
+      "bytes": 23072,
+      "sha256": "2a3c2f8e5624ae5e13f212b4e42071a3869a7bdedd61735d0846cd703105e33f"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 8246,
+      "sha256": "f27536db32abd78093586fd1033bee8e7d7038f9892e3009e81fcf24b679d8c8"
+    },
+    {
+      "path": "evidence/local-to-world.disasm.txt",
+      "bytes": 4173,
+      "sha256": "150cb9d5a2cebfe9289e8b65590bcca29a75382d7302efa8cfcb656ef6cf4feb"
+    },
+    {
+      "path": "evidence/native-source-verification.json",
+      "bytes": 166,
+      "sha256": "acf1bbd81a726ad4ca6619df4c4e483e7b88c45010e49bacca1019ed9143a2c7"
+    },
+    {
+      "path": "evidence/physics-v114-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/physics-v114-validated-broad-audit.json",
+      "bytes": 263564,
+      "sha256": "32f262f4796946c669ab933a98c89cb97e34199be6d9db5fd1d0386cd8110be6"
+    },
+    {
+      "path": "evidence/physics-v114-validated-canonical-error-audit.json",
+      "bytes": 614236,
+      "sha256": "87bda6eac1bcfd0af00e6ec0763696def0eddfb51d274ef450079bfa52abe3a2"
+    },
+    {
+      "path": "evidence/physics-v114-validated-practical-error-audit.json",
+      "bytes": 1075285,
+      "sha256": "c39f148ed65d1040766528168c38a3b1f8a62ea346175d3139ab210cefaca78c"
+    },
+    {
+      "path": "evidence/physics-v114-validated-regression-audit.json",
+      "bytes": 24604,
+      "sha256": "692fe4dab6fd6e1b186afa4e55dc340d6da1b5a27e606f4353f191b4dba1bc0f"
+    },
+    {
+      "path": "evidence/portable-final.json",
+      "bytes": 897,
+      "sha256": "904d8e1c34c241ef74d0ce4d17b36be6dc44c0ab99dcd5d8896985ad287356b3"
+    },
+    {
+      "path": "evidence/rotation-proof.json",
+      "bytes": 475,
+      "sha256": "a1acb781a79b46ebc92127fc29f8398af19046f840c32233c6c814bdc2863c3f"
+    },
+    {
+      "path": "evidence/step-order-proof.json",
+      "bytes": 1388,
+      "sha256": "460df1f3b1be1ff3d8728554e2e772d9aa8090566c2f881aa81a979df4c608e6"
+    },
+    {
+      "path": "evidence/v113-air-pitch.jsonl.gz",
+      "bytes": 8368,
+      "sha256": "56c0fd316d4ef36d13a4bbd056391b8ac50e7f311abce14d2a86bd1227cfa9f9"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2152450,
+      "sha256": "e8303f8d299f45cc52c75c4b2b995225a3e61a711124f2d4266e5f1049b089fe"
+    },
+    {
+      "path": "native-observer/build.cmd",
+      "bytes": 289,
+      "sha256": "13a9f60506313a267828ac3cdf854730385d932033739d31ed5785962ca446ea"
+    },
+    {
+      "path": "native-observer/trace-angular.cpp",
+      "bytes": 11233,
+      "sha256": "4c6045f040b6e69d4f9c6ce438212356b221dcb96e65c67060a47b165b177d5d"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7873,
+      "sha256": "58aead5ebcaa9dddcb2cc338177377d1adc516b53af623c2807bcfe2f5279c96"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit-final.py",
+      "bytes": 4377,
+      "sha256": "061088a2a31bc45ddd0c79145fa99ea6b2127047f5eede3de322384e73f1d9f6"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-live-final.py",
+      "bytes": 3445,
+      "sha256": "4629bf2495c18e148cd164facc1817b5273c745fd8919d492d0279e653a0f631"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-control.py",
+      "bytes": 1649,
+      "sha256": "2d831d4d72e44689996e7fcce092980cc524d1cf33b91c2085d653412f83777f"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native.py",
+      "bytes": 2927,
+      "sha256": "55192690f0977035b8fc5246e3aa9f7cf27c9a82d96153a1714dc91cc4e8f7e9"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad-final.py",
+      "bytes": 3659,
+      "sha256": "ed8a5a9e4fff292dfc5c8e56429b322f57d5b1d53d53a4258cc238eecdad0fed"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression-final.py",
+      "bytes": 2207,
+      "sha256": "8afc89078a0f9de5e0cdc13a2bf594fe2c17c240efee538e8317b119113c3da3"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit-final.py",
+      "bytes": 4288,
+      "sha256": "d1df26955002b609d5ea622a17f5b2ba8608f215d971f4055189deaf7c208dd0"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad-final.py",
+      "bytes": 2433,
+      "sha256": "c819b9a5ee6ba5ee54cea55d5546ab955ba1acef1b36ee7c441f3b017e3135c0"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused-final.py",
+      "bytes": 2535,
+      "sha256": "973abd51e11a9c09947c9039f6cd108e2a464b67cd0a654b31578afe271df7cc"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates-final.py",
+      "bytes": 7353,
+      "sha256": "53c60ff4853682f5310ace374846ac88c6a57cf21edffc455839baf606ef0877"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1667,
+      "sha256": "955627c851fbcd6d0f210092411e4183998acb9d8cfa57914b1d2a512929bb8d"
+    },
+    {
+      "path": "rotation-fixtures.json",
+      "bytes": 1831,
+      "sha256": "5c677277604d09fbd988aa42b2ed2dd9f8048718a1d32ea81db418ba41a286be"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2461,
+      "sha256": "47532703ca0bd999a3f4b8d0c2faca2ecb2982ac10ef5cf64b6ab79ae57ee98c"
+    },
+    {
+      "path": "verify-rotation.cpp",
+      "bytes": 471,
+      "sha256": "ac77673b76c4a2722f457e4acd36d86f285f36ef3aea64f706aaf16556b6a05b"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3197,
+      "sha256": "1bef4bd80d5b12df61dfe745ff56ce168589d11ffa61a010afcb5f08c6c9580d"
+    }
+  ],
+  "goal_complete": false
+}

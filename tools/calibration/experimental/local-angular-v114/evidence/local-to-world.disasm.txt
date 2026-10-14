@@ -1,0 +1,70 @@
+101398d0: 83 ec 1c                     	subl	$0x1c, %esp
+101398d3: 8b 48 0c                     	movl	0xc(%eax), %ecx
+101398d6: 8b 11                        	movl	(%ecx), %edx
+101398d8: 8b 52 08                     	movl	0x8(%edx), %edx
+101398db: 8d 44 24 0c                  	leal	0xc(%esp), %eax
+101398df: 50                           	pushl	%eax
+101398e0: ff d2                        	calll	*%edx
+101398e2: f3 0f 10 38                  	movss	(%eax), %xmm7
+101398e6: f3 0f 10 68 04               	movss	0x4(%eax), %xmm5
+101398eb: f3 0f 10 57 04               	movss	0x4(%edi), %xmm2
+101398f0: f3 0f 10 1f                  	movss	(%edi), %xmm3
+101398f4: f3 0f 10 70 08               	movss	0x8(%eax), %xmm6
+101398f9: f3 0f 10 4f 08               	movss	0x8(%edi), %xmm1
+101398fe: 0f 28 c3                     	movaps	%xmm3, %xmm0
+10139901: f3 0f 59 c7                  	mulss	%xmm7, %xmm0
+10139905: 0f 28 e2                     	movaps	%xmm2, %xmm4
+10139908: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+1013990c: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+10139910: 0f 28 e1                     	movaps	%xmm1, %xmm4
+10139913: f3 0f 59 e6                  	mulss	%xmm6, %xmm4
+10139917: f3 0f 58 c4                  	addss	%xmm4, %xmm0
+1013991b: 0f 28 e0                     	movaps	%xmm0, %xmm4
+1013991e: f3 0f 59 e7                  	mulss	%xmm7, %xmm4
+10139922: f3 0f 11 24 24               	movss	%xmm4, (%esp)
+10139927: 0f 28 e0                     	movaps	%xmm0, %xmm4
+1013992a: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+1013992e: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+10139932: f3 0f 11 44 24 08            	movss	%xmm0, 0x8(%esp)
+10139938: f3 0f 11 64 24 04            	movss	%xmm4, 0x4(%esp)
+1013993e: 0f 28 e1                     	movaps	%xmm1, %xmm4
+10139941: f3 0f 59 e5                  	mulss	%xmm5, %xmm4
+10139945: 0f 28 c2                     	movaps	%xmm2, %xmm0
+10139948: f3 0f 59 c6                  	mulss	%xmm6, %xmm0
+1013994c: f3 0f 5c e0                  	subss	%xmm0, %xmm4
+10139950: 0f 28 eb                     	movaps	%xmm3, %xmm5
+10139953: f3 0f 59 ee                  	mulss	%xmm6, %xmm5
+10139957: 0f 28 c1                     	movaps	%xmm1, %xmm0
+1013995a: f3 0f 59 c7                  	mulss	%xmm7, %xmm0
+1013995e: f3 0f 5c e8                  	subss	%xmm0, %xmm5
+10139962: f3 0f 10 40 04               	movss	0x4(%eax), %xmm0
+10139967: 0f 28 f2                     	movaps	%xmm2, %xmm6
+1013996a: f3 0f 59 f7                  	mulss	%xmm7, %xmm6
+1013996e: 0f 28 fb                     	movaps	%xmm3, %xmm7
+10139971: f3 0f 59 f8                  	mulss	%xmm0, %xmm7
+10139975: f3 0f 10 40 0c               	movss	0xc(%eax), %xmm0
+1013997a: f3 0f 59 e0                  	mulss	%xmm0, %xmm4
+1013997e: f3 0f 59 e8                  	mulss	%xmm0, %xmm5
+10139982: f3 0f 5c f7                  	subss	%xmm7, %xmm6
+10139986: f3 0f 59 f0                  	mulss	%xmm0, %xmm6
+1013998a: f3 0f 59 c0                  	mulss	%xmm0, %xmm0
+1013998e: f3 0f 5c 05 d0 15 33 10      	subss	0x103315d0, %xmm0
+10139996: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+1013999a: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+1013999e: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101399a2: f3 0f 10 05 d8 15 33 10      	movss	0x103315d8, %xmm0
+101399aa: f3 0f 58 dc                  	addss	%xmm4, %xmm3
+101399ae: f3 0f 58 1c 24               	addss	(%esp), %xmm3
+101399b3: f3 0f 58 d5                  	addss	%xmm5, %xmm2
+101399b7: f3 0f 58 54 24 04            	addss	0x4(%esp), %xmm2
+101399bd: f3 0f 58 ce                  	addss	%xmm6, %xmm1
+101399c1: f3 0f 58 4c 24 08            	addss	0x8(%esp), %xmm1
+101399c7: f3 0f 59 d8                  	mulss	%xmm0, %xmm3
+101399cb: f3 0f 59 d0                  	mulss	%xmm0, %xmm2
+101399cf: f3 0f 59 c8                  	mulss	%xmm0, %xmm1
+101399d3: f3 0f 11 1e                  	movss	%xmm3, (%esi)
+101399d7: f3 0f 11 56 04               	movss	%xmm2, 0x4(%esi)
+101399dc: f3 0f 11 4e 08               	movss	%xmm1, 0x8(%esi)
+101399e1: 8b c6                        	movl	%esi, %eax
+101399e3: 83 c4 1c                     	addl	$0x1c, %esp
+101399e6: c3                           	retl

@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off original norm-sensitive local angular vector transform, before step multiplication. Source pose/acceleration only; no coefficient/state/case rules. Two adapter files, SDK unchanged.",
+  "files": [
+    {
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "3b074dce8b4a8cb7cdb3c541924000e0cd1ad7c0ec4cef77e3e1c8b6430721ad",
+      "after_sha256": "07e5a0bb567ea6d16fa9a30dd936a16eea30d86c701ede5058e566a62d8431be",
+      "location": "adapter"
+    },
+    {
+      "path": "src/Rock3dEngine/header/physics/NativeLocalAngularAccelerationV114.h",
+      "before_sha256": null,
+      "after_sha256": "fa69f2ff9954acde05a2db26408d5b1a8f1512118d3711057a25b1e52de59d84",
+      "location": "adapter"
+    }
+  ],
+  "goal_complete": false,
+  "requires": "Verified game-angular-v113 and all prerequisites; two-file adapter delta, SDK unchanged"
+}

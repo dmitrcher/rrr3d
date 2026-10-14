@@ -1,0 +1,50 @@
+{
+  "scope": "Same source realmap geometry/body/wheel input fixture and900raw actuator commands/dt/delta velocities, onecar, noAI. Bothnative/source2runsrepeat. Nativebridge scene construction still needs comparison to actual originalgame loader; no wholegameparity claim.",
+  "fixture_sha256": "84def079e86575581ee15bdeb6793b0a6360c6f0545886803a6bf0e2e628e9f5",
+  "native_initial": {
+    "event": "world.begin",
+    "meshes": 110,
+    "decorations": 234,
+    "vehicles": 1,
+    "opponents": 0,
+    "dt": 0.0166666675,
+    "mass": 1999.99988,
+    "inertia": [
+      846.237915,
+      1936.30444,
+      2256.43945
+    ],
+    "position": [
+      -66.1936646,
+      0.383438796,
+      9.58786011
+    ]
+  },
+  "states": 900,
+  "first_difference": {
+    "tick": 28,
+    "body_fields": [
+      "position",
+      "angular_momentum",
+      "rotation"
+    ],
+    "wheel_differences": [
+      {
+        "wheel": 0,
+        "field": "suspension",
+        "Native": 0.21861136,
+        "Source": 0.218611836
+      },
+      {
+        "wheel": 3,
+        "field": "suspension",
+        "Native": 0.218611836,
+        "Source": 0.218610883
+      }
+    ]
+  },
+  "difference_states": 872,
+  "all_body_and_wheels_exact_through_tick": 27,
+  "all900_raw_commands_exact": true,
+  "goal_complete": false
+}

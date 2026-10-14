@@ -80,13 +80,23 @@ bool replaySoloPhysics(const r3d::game::originalrace::Race& race,
         // Deliberately do not call update()/raceFixedStep(): these own AI,
         // bonuses, damage and route-based respawns. Commands go directly to
         // the same source GameCar callback used by the interactive game.
+        const char* actuatorsFlagV124=std::getenv("RRR3D_REAL_WORLD_ACTUATORS_V124");
+        const bool actuatorsV124=actuatorsFlagV124 && std::string(actuatorsFlagV124)=="1";
         int tick = 0;
         unsigned substep = 0;
         world->setVehicleFixedStepController(
             [&](std::size_t racer, float seconds, const VehicleInput& input,
                 const VehicleFixedStepState& state) {
-                const auto command = session.racerFixedStepDrive(
-                    racer, seconds, input, state);
+                VehicleDriveCommand command;
+                if(actuatorsV124) {
+                    // Fixed raw actuators isolate the real-map backend from
+                    // the GameCar driver arithmetic under separate audit.
+                    command.engineRpm=1000;command.gear=1;
+                    if(tick>=120 && tick<300)command.motorTorque=1000;
+                    if((tick>=360 && tick<420)||(tick>=600 && tick<660))command.brakeTorque=6000;
+                    if(tick>=420 && tick<480)command.motorTorque=-800;
+                    if(tick>=480 && tick<600){command.motorTorque=500;command.steeringAngle=tick<540?-.2F:.2F;}
+                } else command=session.racerFixedStepDrive(racer,seconds,input,state);
                 std::ostringstream row;
                 row.imbue(std::locale::classic());
                 row << std::setprecision(9) << "{\"tick\":" << tick
@@ -113,6 +123,7 @@ bool replaySoloPhysics(const r3d::game::originalrace::Race& race,
               << ",\"car\":" << motorrock::parity::quote(race.vehicle.record)
               << ",\"collision_meshes\":" << description.collisionMeshes.size()
               << ",\"decorations\":" << description.decorations.size() << '}';
+        if(actuatorsV124)motorrock::parity::event("solo.actuator-mode",race.levelPath,"{\"protocol\":\"raw-actuator-v124\",\"gamecar_driver_used\":false}");
         motorrock::parity::event("solo.begin", race.levelPath, begin.str());
 
         for (; tick < frameCount; ++tick)

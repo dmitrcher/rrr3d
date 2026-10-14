@@ -1,0 +1,44 @@
+{
+  "scope": "Actual original map16/420 prepared springs uniquely bound by Jacobian; original60solve rows and900-state read-only history. Source154 diagnostic replay matches entire Source157 map16 history. No order fix or prescribed permutation implemented.",
+  "prepared": [
+    {
+      "native_slot": 0,
+      "source_wheel": 0,
+      "mass_exact": true,
+      "inverse_jacobian_exact": true
+    },
+    {
+      "native_slot": 1,
+      "source_wheel": 2,
+      "mass_exact": true,
+      "inverse_jacobian_exact": true
+    },
+    {
+      "native_slot": 2,
+      "source_wheel": 3,
+      "mass_exact": true,
+      "inverse_jacobian_exact": true
+    },
+    {
+      "native_slot": 3,
+      "source_wheel": 1,
+      "mass_exact": true,
+      "inverse_jacobian_exact": true
+    }
+  ],
+  "source_order": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "native_order": [
+    0,
+    2,
+    3,
+    1
+  ],
+  "initial_body_state_exact": true,
+  "remaining": "Trace active manager visitation, wheel queue and constraint allocation/recycling across sleep/wake; do not fit a map/frame permutation.",
+  "goal_complete": false
+}

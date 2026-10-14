@@ -1,0 +1,19 @@
+{
+  "sha256": "7611ddcaf43a44e4e19e10f5359729f87a0bee995151b4eb1c9c48d51a32ed75",
+  "base": "V156",
+  "overlay": [
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "0b11ad81a30a8a0a4ab4a82980a4dad7106abe9deaf93cfd7a63615577edfb7e",
+      "after_sha256": "47c377242a3860603f60de5c3140174afa77c0f203b42e112c4296e9fbf6ec11"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/header/physics/NativeRayNormalV157.h",
+      "before_sha256": null,
+      "after_sha256": "781dafd4684296f01290555948df42d113d907111eea297526e3636aa7eee2df"
+    }
+  ],
+  "goal_complete": false
+}

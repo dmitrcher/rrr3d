@@ -1,0 +1,43 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+10001590:      	subl	$0x10, %esp
+10001593:      	movss	(%esi), %xmm2
+10001597:      	movss	0x4(%esi), %xmm1
+1000159c:      	movss	0x8(%esi), %xmm0
+100015a1:      	movaps	%xmm2, %xmm3
+100015a4:      	mulss	%xmm2, %xmm3
+100015a8:      	movss	%xmm2, 0x4(%esp)
+100015ae:      	movaps	%xmm1, %xmm2
+100015b1:      	mulss	%xmm1, %xmm2
+100015b5:      	movss	%xmm1, 0x8(%esp)
+100015bb:      	movaps	%xmm0, %xmm1
+100015be:      	addss	%xmm2, %xmm3
+100015c2:      	mulss	%xmm0, %xmm1
+100015c6:      	pushl	%ecx
+100015c7:      	addss	%xmm1, %xmm3
+100015cb:      	movss	%xmm0, 0x10(%esp)
+100015d1:      	movss	%xmm3, (%esp)
+100015d6:      	calll	0x10001540 <.text+0x540>
+100015db:      	fsts	0x4(%esp)
+100015df:      	fldz
+100015e1:      	movss	0x4(%esp), %xmm0
+100015e7:      	fxch	%st(1)
+100015e9:      	addl	$0x4, %esp
+100015ec:      	fucompi	%st(1), %st
+100015ee:      	fstp	%st(0)
+100015f0:      	lahf
+100015f1:      	testb	$0x44, %ah
+100015f4:      	jnp	0x1000162e <.text+0x62e>
+100015f6:      	movss	0x10331584, %xmm1
+100015fe:      	movss	0x4(%esp), %xmm2
+10001604:      	divss	%xmm0, %xmm1
+10001608:      	mulss	%xmm1, %xmm2
+1000160c:      	movss	%xmm2, (%esi)
+10001610:      	movss	0x8(%esp), %xmm2
+10001616:      	mulss	%xmm1, %xmm2
+1000161a:      	movss	%xmm2, 0x4(%esi)
+1000161f:      	movss	0xc(%esp), %xmm2

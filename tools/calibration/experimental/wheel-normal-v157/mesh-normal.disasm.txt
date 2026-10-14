@@ -1,0 +1,204 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1014df90:      	adcb	%al, 0x10(%edi)
+1014df93:      	movss	%xmm0, 0x64(%esp)
+1014df99:      	movss	0x14(%edi), %xmm0
+1014df9e:      	movss	%xmm0, 0x74(%esp)
+1014dfa4:      	movss	0x18(%edi), %xmm0
+1014dfa9:      	movss	%xmm0, 0x58(%esp)
+1014dfaf:      	movss	0x1c(%edi), %xmm0
+1014dfb4:      	movss	%xmm0, 0x68(%esp)
+1014dfba:      	movss	0x20(%edi), %xmm0
+1014dfbf:      	movss	%xmm0, 0x78(%esp)
+1014dfc5:      	movss	0x24(%edi), %xmm0
+1014dfca:      	movss	%xmm0, 0x80(%esp)
+1014dfd3:      	movss	0x28(%edi), %xmm0
+1014dfd8:      	movss	%xmm0, 0x84(%esp)
+1014dfe1:      	movss	0x2c(%edi), %xmm0
+1014dfe6:      	leal	0x10(%esp), %ecx
+1014dfea:      	movss	%xmm0, 0x88(%esp)
+1014dff3:      	xorps	%xmm0, %xmm0
+1014dff6:      	leal	0x50(%esp), %edx
+1014dffa:      	movl	%ecx, 0xec(%esp)
+1014e001:      	pushl	%edx
+1014e002:      	movl	0x8(%ebp), %edx
+1014e005:      	movss	%xmm0, 0x80(%esp)
+1014e00e:      	movss	%xmm0, 0x70(%esp)
+1014e014:      	movss	%xmm0, 0x60(%esp)
+1014e01a:      	movss	0x10331584, %xmm0
+1014e022:      	leal	0x94(%esp), %ecx
+1014e029:      	movss	%xmm0, 0x90(%esp)
+1014e032:      	pushl	%ecx
+1014e033:      	calll	0x101f2490 <NxCreateCoreSDK+0x13240>
+1014e038:      	testb	%al, %al
+1014e03a:      	jne	0x1014e07b <NpCreatePhysicsSDK+0x40f0b>
+1014e03c:      	movss	0x1c(%esp), %xmm0
+1014e042:      	comiss	0x1033158c, %xmm0
+1014e049:      	jb	0x1014e070 <NpCreatePhysicsSDK+0x40f00>
+1014e04b:      	movl	0x18(%esp), %eax
+1014e04f:      	cmpl	%ebx, %eax
+1014e051:      	je	0x1014e070 <NpCreatePhysicsSDK+0x40f00>
+1014e053:      	movl	0x103507a4, %ecx
+1014e059:      	cmpl	%ebx, %ecx
+1014e05b:      	jne	0x1014e068 <NpCreatePhysicsSDK+0x40ef8>
+1014e05d:      	movl	$0x1033f138, %ecx       # imm = 0x1033F138
+1014e062:      	movl	%ecx, 0x103507a4
+1014e068:      	movl	(%ecx), %edx
+1014e06a:      	pushl	%eax
+1014e06b:      	movl	0xc(%edx), %eax
+1014e06e:      	calll	*%eax
+1014e070:      	xorb	%al, %al
+1014e072:      	popl	%edi
+1014e073:      	popl	%esi
+1014e074:      	popl	%ebx
+1014e075:      	movl	%ebp, %esp
+1014e077:      	popl	%ebp
+1014e078:      	retl	$0x14
+1014e07b:      	testl	$0xfffffffc, 0x14(%esp) # imm = 0xFFFFFFFC
+1014e083:      	jne	0x1014e099 <NpCreatePhysicsSDK+0x40f29>
+1014e085:      	leal	0x10(%esp), %esi
+1014e089:      	calll	0x1000fe30 <.text+0xee30>
+1014e08e:      	xorb	%al, %al
+1014e090:      	popl	%edi
+1014e091:      	popl	%esi
+1014e092:      	popl	%ebx
+1014e093:      	movl	%ebp, %esp
+1014e095:      	popl	%ebp
+1014e096:      	retl	$0x14
+1014e099:      	movl	0x18(%esp), %eax
+1014e09d:      	movss	0x4(%eax), %xmm0
+1014e0a2:      	comiss	0xc(%ebp), %xmm0
+1014e0a6:      	movl	0x14(%ebp), %ebx
+1014e0a9:      	movl	%eax, 0xc(%esp)
+1014e0ad:      	movss	%xmm0, 0x24(%ebx)
+1014e0b2:      	ja	0x1014e085 <NpCreatePhysicsSDK+0x40f15>
+1014e0b4:      	movl	(%eax), %eax
+1014e0b6:      	movl	0x16c(%esi), %ecx
+1014e0bc:      	movss	0x10331584, %xmm2
+1014e0c4:      	leal	(%eax,%eax,2), %edx
+1014e0c7:      	movl	0x10(%ecx), %eax
+1014e0ca:      	leal	(%eax,%edx,4), %eax
+1014e0cd:      	movl	(%eax), %edx
+1014e0cf:      	movl	%ecx, 0x28(%esp)
+1014e0d3:      	movl	0xc(%ecx), %ecx
+1014e0d6:      	leal	(%edx,%edx,2), %edx
+1014e0d9:      	leal	(%ecx,%edx,4), %edx
+1014e0dc:      	movl	%edx, 0x2c(%esp)
+1014e0e0:      	movl	0x4(%eax), %edx
+1014e0e3:      	movl	%eax, 0x3c(%esp)
+1014e0e7:      	movl	0x8(%eax), %eax
+1014e0ea:      	leal	(%edx,%edx,2), %edx
+1014e0ed:      	leal	(%ecx,%edx,4), %edx
+1014e0f0:      	leal	(%eax,%eax,2), %eax
+1014e0f3:      	movss	(%ecx,%eax,4), %xmm4
+1014e0f8:      	leal	(%ecx,%eax,4), %eax
+1014e0fb:      	movl	0x18(%esp), %ecx
+1014e0ff:      	movss	0x8(%ecx), %xmm0
+1014e104:      	movss	0xc(%ecx), %xmm1
+1014e109:      	movl	0x2c(%esp), %ecx
+1014e10d:      	subss	%xmm0, %xmm2
+1014e111:      	subss	%xmm1, %xmm2
+1014e115:      	movaps	%xmm2, %xmm3
+1014e118:      	movss	%xmm2, 0x40(%esp)
+1014e11e:      	movss	(%ecx), %xmm2
+1014e122:      	mulss	%xmm3, %xmm2
+1014e126:      	mulss	%xmm1, %xmm4
+1014e12a:      	addss	%xmm4, %xmm2
+1014e12e:      	movss	(%edx), %xmm4
+1014e132:      	mulss	%xmm0, %xmm4
+1014e136:      	addss	%xmm4, %xmm2
+1014e13a:      	movss	%xmm2, 0x44(%esp)
+1014e140:      	movss	0x4(%edx), %xmm2
+1014e145:      	mulss	%xmm0, %xmm2
+1014e149:      	movaps	%xmm3, %xmm4
+1014e14c:      	mulss	0x4(%ecx), %xmm4
+1014e151:      	addss	%xmm4, %xmm2
+1014e155:      	movaps	%xmm1, %xmm4
+1014e158:      	mulss	0x4(%eax), %xmm4
+1014e15d:      	addss	%xmm4, %xmm2
+1014e161:      	movss	%xmm2, 0x48(%esp)
+1014e167:      	movss	0x8(%ecx), %xmm2
+1014e16c:      	mulss	%xmm3, %xmm2
+1014e170:      	movss	0x8(%edx), %xmm3
+1014e175:      	mulss	%xmm0, %xmm3
+1014e179:      	movss	%xmm0, 0x20(%esp)
+1014e17f:      	movss	0x8(%eax), %xmm0
+1014e184:      	addss	%xmm3, %xmm2
+1014e188:      	mulss	%xmm1, %xmm0
+1014e18c:      	addss	%xmm0, %xmm2
+1014e190:      	pushl	%esi
+1014e191:      	movl	%edx, 0x38(%esp)
+1014e195:      	movl	%eax, 0x3c(%esp)
+1014e199:      	movss	%xmm1, 0x34(%esp)
+1014e19f:      	movss	%xmm2, 0x50(%esp)
+1014e1a5:      	calll	0x10003860 <.text+0x2860>
+1014e1aa:      	movss	0x4c(%esp), %xmm5
+1014e1b0:      	movss	0x48(%esp), %xmm4
+1014e1b6:      	movss	0x8(%eax), %xmm0
+1014e1bb:      	movss	0x4(%eax), %xmm1
+1014e1c0:      	movss	0x44(%esp), %xmm3
+1014e1c6:      	movss	0x10(%eax), %xmm2
+1014e1cb:      	mulss	%xmm4, %xmm1
+1014e1cf:      	mulss	%xmm5, %xmm0
+1014e1d3:      	addss	%xmm1, %xmm0
+1014e1d7:      	movss	(%eax), %xmm1
+1014e1db:      	mulss	%xmm3, %xmm1
+1014e1df:      	addss	%xmm1, %xmm0
+1014e1e3:      	movss	0x14(%eax), %xmm1
+1014e1e8:      	mulss	%xmm4, %xmm2
+1014e1ec:      	mulss	%xmm5, %xmm1
+1014e1f0:      	addss	%xmm2, %xmm1
+1014e1f4:      	movss	0xc(%eax), %xmm2
+1014e1f9:      	mulss	%xmm3, %xmm2
+1014e1fd:      	addss	%xmm2, %xmm1
+1014e201:      	movss	0x20(%eax), %xmm2
+1014e206:      	mulss	%xmm5, %xmm2
+1014e20a:      	movss	0x1c(%eax), %xmm5
+1014e20f:      	addss	0x24(%eax), %xmm0
+1014e214:      	mulss	%xmm4, %xmm5
+1014e218:      	movss	0x18(%eax), %xmm4
+1014e21d:      	mulss	%xmm3, %xmm4
+1014e221:      	movss	0x28(%eax), %xmm3
+1014e226:      	addss	%xmm1, %xmm3
+1014e22a:      	movss	0x2c(%eax), %xmm1
+1014e22f:      	addss	%xmm5, %xmm2
+1014e233:      	addss	%xmm4, %xmm2
+1014e237:      	movss	%xmm0, 0x4(%ebx)
+1014e23c:      	movss	%xmm3, 0x8(%ebx)
+1014e241:      	addss	%xmm2, %xmm1
+1014e245:      	movss	%xmm1, 0xc(%ebx)
+1014e24a:      	movl	0x16c(%esi), %ecx
+1014e250:      	movl	0x54(%ecx), %eax
+1014e253:      	movl	0xb4(%esi), %edx
+1014e259:      	movl	%edx, (%ebx)
+1014e25b:      	testl	%eax, %eax
+1014e25d:      	je	0x1014e26a <NpCreatePhysicsSDK+0x410fa>
+1014e25f:      	movl	0xc(%esp), %ecx
+1014e263:      	movl	(%ecx), %edx
+1014e265:      	movl	(%eax,%edx,4), %eax
+1014e268:      	jmp	0x1014e270 <NpCreatePhysicsSDK+0x41100>
+1014e26a:      	movl	0xc(%esp), %eax
+1014e26e:      	movl	(%eax), %eax
+1014e270:      	movl	0xc(%esp), %ecx
+1014e274:      	movss	0x20(%esp), %xmm0
+1014e27a:      	movl	%eax, 0x1c(%ebx)
+1014e27d:      	movl	(%ecx), %edx
+1014e27f:      	movb	0x10(%ebp), %al
+1014e282:      	movss	%xmm0, 0x28(%ebx)
+1014e287:      	movss	0x30(%esp), %xmm0
+1014e28d:      	movl	%edx, 0x20(%ebx)
+1014e290:      	movss	%xmm0, 0x2c(%ebx)
+1014e295:      	movl	$0x3b, 0x34(%ebx)
+1014e29c:      	testb	$0x40, %al
+1014e29e:      	je	0x1014e39c <NpCreatePhysicsSDK+0x4122c>
+1014e2a4:      	movl	0x2c(%esp), %eax
+1014e2a8:      	movss	(%eax), %xmm1
+1014e2ac:      	movss	0x4(%eax), %xmm4
+1014e2b1:      	movss	0x8(%eax), %xmm7
+1014e2b6:      	movl	0x38(%esp), %ecx
+1014e2ba:      	movl	0x34(%esp), %eax
+1014e2be:      	movss	(%ecx), %xmm5

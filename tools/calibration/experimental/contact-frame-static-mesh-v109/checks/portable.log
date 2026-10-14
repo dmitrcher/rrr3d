@@ -1,0 +1,29 @@
+{
+  "arithmetic": [
+    {
+      "optimization": "O0",
+      "actual_Native_repeats": 2,
+      "raw_solver_quaternions_and_both_error_rotations_exact": true,
+      "reference_outputs_never_used_in_kernel_or_runtime": true
+    },
+    {
+      "optimization": "O2",
+      "actual_Native_repeats": 2,
+      "raw_solver_quaternions_and_both_error_rotations_exact": true,
+      "reference_outputs_never_used_in_kernel_or_runtime": true
+    }
+  ],
+  "goal_complete": false,
+  "fresh_original_Native_equal_states": {
+    "settle": 600,
+    "slope-longitudinal": 600,
+    "slope-lateral": 600,
+    "bump-crossing": 600,
+    "curb-side": 600,
+    "border-grounded": 600
+  },
+  "full_Native_equal_states": 3600,
+  "retained_roll_contact_states": 180,
+  "retained_roll_matches_windows_claimed": false,
+  "probe_sha256": "adef7ef821fff9d9516eaef99daba426bf9cea842a6d16f820795d54e9734274"
+}

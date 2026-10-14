@@ -1,0 +1,5 @@
+#include "NativeMaterialFrameV36.h"
+#include <iostream>
+#include <cstring>
+float f(unsigned w){float v;std::memcpy(&v,&w,4);return v;}unsigned bits(float v){unsigned w;std::memcpy(&w,&v,4);return w;}
+int main(){namespace c=motorrock::contactframe;namespace n=motorrock::framev36;namespace d=motorrock::derivederror;unsigned a[17];while(std::cin>>a[0]){for(unsigned i=1;i<17;++i)std::cin>>a[i];c::Matrix mat;for(unsigned col=0;col<3;++col)for(unsigned row=0;row<3;++row)mat.a[row][col]=f(a[col*3+row]);c::Quaternion q;for(unsigned i=0;i<4;++i)q[i]=f(a[9+i]);c::Vector normal;for(unsigned i=0;i<3;++i)normal[i]=f(a[13+i]);for(int sign:{1,-1}){auto p=normal;for(unsigned i=0;i<3;++i)p[i]*=sign;auto out=n::compute(mat,q,p,{{1,0,0}},true);auto world=d::rotate(out.errors.raw,{{f(a[16]),0,0}},false);auto local=d::rotate(out.errors.material,world,true);std::cout<<sign;for(auto quat:{out.errors.raw,out.errors.material,out.solverQuaternion})for(unsigned i=0;i<4;++i)std::cout<<' '<<bits(quat[i]);for(auto v:{world,local})for(unsigned i=0;i<3;++i)std::cout<<' '<<bits(v[i]);std::cout<<'\n';}}}

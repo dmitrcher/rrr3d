@@ -1,0 +1,13 @@
+# Contact frame and static mesh scene V109
+
+One default-off adapter file delta over verified static-pair-order-v108 and all prerequisites. Apply with apply-experiment.py and rebuild. SDK layout is unchanged.
+
+Hull-reference collision normals retain their feature orientation independently of canonical body slots. At original border61, the same geometry and actor inputs now reconstruct the original raw and solver quaternions and both error rotations exactly under O0/O2 in two Native captures. Live Mac first-contact incoming bodies, tensor, lever, mass and bias match all ten prepared rows in both repeats. No observed outputs are passed to the runtime or arithmetic helper.
+
+The existing dense wheel-manager processor now receives the complete geometry for one vehicle, one TrackPlane mesh and one separate TrackBorder mesh without decorations. Original creation order is respected. Same-surface merged meshes and other unsupported worlds retain their prior behavior. At border79 the independently computed live ranks match both Native captures; all five iterations have spring order1,2,3,15 exact spring checks, and30 tire checks equal as float32 values. Raw signed-zero differences in tire axes/zero bounds remain separately reported; this is not a claim of raw ABI bit equality.
+
+Both flags remain off by default: RRR3D_EXPERIMENT_NATIVE_MATERIAL_ERROR_ROLES_V109 and RRR3D_EXPERIMENT_NATIVE_STATIC_MESH_DISPATCH_V109. There are no engine-power adjustments, frame/case/wheel permutations or reference-state resets.
+
+Run verify.py --probe /absolute/path/to/rrr3d_physics_calibration. It checks identical-input material arithmetic O0/O2,3600 fresh full original-Windows-equivalent states including all600 border-grounded states, and180 retained roll-contact regression states. Retention does not imply Windows equality for that open roll case. Full matrix/gates and functional-game reports accompany final validation; game smoke checks do not prove complete game or render equality. Ordinary game installation is unchanged and the overall goal remains incomplete.
+
+Two fresh complete matrices:469strict139open, all468 prior strict retained, exactly repeatable255864-state runs. Only border-grounded changes;607 complete trajectories remain unchanged. All measured maxima improve or stay unchanged. The former largest position residual0.00012305893 source units becomes zero over the complete600-step border run. Next largest is target-half at0.0000292579253 source units.291 independent control/candidate gates,53CTest checks, solo600 and rendered240 functional checks passed. Next target79 retained-tire-axis lead is documented without a new candidate or parity claim.

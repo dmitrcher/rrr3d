@@ -1,0 +1,675 @@
+{
+  "files": [
+    {
+      "path": "NEXT.md",
+      "bytes": 1477,
+      "sha256": "16b8f9b78f6e846a7100ef50996fb5b8f164ba554cf4ac56204b4a91fa876834"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2675,
+      "sha256": "283aab0372d7c9742356d480defd3aabf71a3a5406b4815567c441b47e74971b"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 385869,
+      "sha256": "dfc9fb074bcf8e63941c85d9d1eae1df95aa8cfb838bb3d8550b9f367085d4e9"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 745,
+      "sha256": "954ec760e655cf0816de25f9dc6ac523a91f5687d128c1182d3e9a5906ebb354"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 384021,
+      "sha256": "121ad5c665e9ac32bd87ba4381e810909c673b455660a0f1ed18ea3e70121df6"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0-combined.jsonl.gz",
+      "bytes": 359,
+      "sha256": "b65898234cd8275f6ac75b0a4ea59acbbfb533697c8069c7608d9a644b1c74dc"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0-physical.jsonl.gz",
+      "bytes": 130382,
+      "sha256": "840528388acb3a31ac7d5676e34b21e5c16fd82d5e5c56cb308743a2695e5736"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0-prep.jsonl.gz",
+      "bytes": 726,
+      "sha256": "a19a2853a1f666078f470078370fac3c58effa3376bda6d606109f6d0bf2f011"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0-solver.jsonl.gz",
+      "bytes": 1156,
+      "sha256": "576f7234208e1213c1a8e8a58407060592ea025febbe4f047b7ef1b8afdc5c4d"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0-tire.jsonl.gz",
+      "bytes": 2182,
+      "sha256": "86476c4e7a1206fec59196f71a77013f2b434da1d10602508b7629dd2b8e0e94"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1-combined.jsonl.gz",
+      "bytes": 359,
+      "sha256": "84ce7938024c6778bb417953f3d466bfc72fcf2c9204df14e3b69bbb703eac1c"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1-physical.jsonl.gz",
+      "bytes": 130364,
+      "sha256": "30130aa258085d44ad221e46a206a35252a1b9b94cce7ee01b7b24b810b73c72"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1-prep.jsonl.gz",
+      "bytes": 726,
+      "sha256": "929f1d758cee949a5dc7867db0b35f2a4716c166a38567473d2468df08c4d897"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1-solver.jsonl.gz",
+      "bytes": 1156,
+      "sha256": "928b414bda1e23ba5665a856f801bc50c37b09f8b89a84b5ba8cd424412f9b5a"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1-tire.jsonl.gz",
+      "bytes": 2182,
+      "sha256": "4247c91535b5f456df0b951c5f367026d200050938bc814db9cdc259d65ce12f"
+    },
+    {
+      "path": "captures/mac-border61/border-grounded-61-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-border61/manifest.json",
+      "bytes": 8340,
+      "sha256": "965d3fc5406fe8af9751796bc116a49e49ee9a4a902b23ca6b69c678371abfd9"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0-combined.jsonl.gz",
+      "bytes": 340,
+      "sha256": "c2c59542567157fbeacdbad3ea3ceebb047963b7fd4b6b121350ebb420bbd377"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0-physical.jsonl.gz",
+      "bytes": 129454,
+      "sha256": "7eeb70dea758dbbf482c3c18d3f780ed06747e3503b3f683406a2da4ebb11bea"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0-prep.jsonl.gz",
+      "bytes": 690,
+      "sha256": "37c2b5a3a10df93223be7326f72afdc72cdbf831031e56bc3bd563e1fcfbab15"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0-solver.jsonl.gz",
+      "bytes": 890,
+      "sha256": "1955c466a8efb23b0527a375c148ec5ce11e3ba3193514f56e3e6c97f96f5ab1"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0-tire.jsonl.gz",
+      "bytes": 1771,
+      "sha256": "0d4c0188a268b807af77ad717c1aee3fa4fe12d80fa6c7f02f4a9aad32a2ea51"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1-combined.jsonl.gz",
+      "bytes": 340,
+      "sha256": "63b7a6dfa0bdf237b739361f7f69d822e29dce6debd468cefd31cd29485c8363"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1-physical.jsonl.gz",
+      "bytes": 129444,
+      "sha256": "e5c30a378362df91a42bf8aaa1f3016cf59493994eb102ef66d63c19a6d465f2"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1-prep.jsonl.gz",
+      "bytes": 690,
+      "sha256": "927d7d9ec96e0612d20d2a4de9e4cb2e95c8a322d42a67974be7e16a469cfa24"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1-solver.jsonl.gz",
+      "bytes": 890,
+      "sha256": "955bfd5f95025cd6710bbf52348bc2c60d6150f8e16a719c61655331ad225e53"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1-tire.jsonl.gz",
+      "bytes": 1771,
+      "sha256": "21c2477659ac327271c5f4a78680f4e67d6dd6c23b959141d5bbd77098fe9753"
+    },
+    {
+      "path": "captures/mac-final79/border-grounded-79-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-final79/manifest.json",
+      "bytes": 8406,
+      "sha256": "325eb617b86b8147d2e2c6683a819b89c385d46ac292a9e77f72b2b812eb6b7f"
+    },
+    {
+      "path": "captures/mac-next-target-lost79/lost.jsonl.gz",
+      "bytes": 1443,
+      "sha256": "49d76478a82c2dfb681a4d16f09d670f40b3c933685e0eb0cd903674c60b9058"
+    },
+    {
+      "path": "captures/mac-next-target-lost79/physical.jsonl.gz",
+      "bytes": 90496,
+      "sha256": "af78155a8b47824dd32b43afe897806ae2e35ffc6a4c1e144fcde0c010cf020b"
+    },
+    {
+      "path": "captures/mac-next-target79/manifest.json",
+      "bytes": 8850,
+      "sha256": "442aac3b704f3e732219c4c2917697fd1d6bdc02e832f26ca37037a881cef59b"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0-combined.jsonl.gz",
+      "bytes": 373,
+      "sha256": "fb5eab36a8cf07f2ea24ebe1241f9f93969c885782af21c4a4d5c37a5a1c3912"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0-physical.jsonl.gz",
+      "bytes": 90538,
+      "sha256": "78769114c966d0fb83b78614d689a9b8bfee1d4fd9a405c2f5a7073f7b2c0880"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0-prep.jsonl.gz",
+      "bytes": 724,
+      "sha256": "6ba2fde5fb1d2aa61133e5ca914634b3e71f3aeccb25854052d87ea7e93aee8c"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0-solver.jsonl.gz",
+      "bytes": 1268,
+      "sha256": "4664a8ef88a82f051f222a4db998d60e974a660f1f59f7f591902ed5abf00ffc"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0-tire.jsonl.gz",
+      "bytes": 2620,
+      "sha256": "4e12051d5e2b9248eeed5bf15ceabbbbb8dcdf7e26f4784175a82a39a395824d"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1-combined.jsonl.gz",
+      "bytes": 373,
+      "sha256": "72bb2c8f4f2491a9af8081a5d2ee96f66af7ec815ddaf9edf391bb14ee3da574"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1-physical.jsonl.gz",
+      "bytes": 90532,
+      "sha256": "1bb774f71439eab4013938e3a91a5ba7ee2b4b63b35817daf02f6cf84b50b877"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1-prep.jsonl.gz",
+      "bytes": 724,
+      "sha256": "ef78d0cc028827976276d20f5ed2d3f70ddddf8b77a22a9992feb8eb9b407da6"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1-solver.jsonl.gz",
+      "bytes": 1268,
+      "sha256": "97ea210220530b6bfbe3d4f56d09b1b48edd4e610611ba86aaa581be717acd0d"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1-tire.jsonl.gz",
+      "bytes": 2620,
+      "sha256": "251fa4e35c064f83365147943122b030135a45adf69dd1a1c6eb42a86c1dcfc0"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-78-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-0-physical.jsonl.gz",
+      "bytes": 90554,
+      "sha256": "365e3947d36be1361674652e429474b2ac8f4bda7b35bc5a95996bd33220e36f"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-0-prep.jsonl.gz",
+      "bytes": 724,
+      "sha256": "8f4b6dd27d515f9593f10822a8bc87a4f86bb282ed6b46e051912d9f08ed7c9b"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-0-solver.jsonl.gz",
+      "bytes": 1441,
+      "sha256": "be47f5a48a960514e5f1491e438ebed93e119474a895e53d0c658f644796fefe"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-1-physical.jsonl.gz",
+      "bytes": 90550,
+      "sha256": "54037b5bd48a969e530ccc73aa78858f061b028f7f7fda668ec36a3172e1f195"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-1-prep.jsonl.gz",
+      "bytes": 724,
+      "sha256": "9db096d96fe677097237828b2db27fc11c9b38f6f0b53cd14ee6bf0b6393f69e"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-1-solver.jsonl.gz",
+      "bytes": 1441,
+      "sha256": "4fbd009684d4e1ac8c8b6255f9c5b8358a14247eac1c587358118838d786871c"
+    },
+    {
+      "path": "captures/mac-next-target79/target-half-79-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-0-physical.jsonl.gz",
+      "bytes": 313299,
+      "sha256": "d9c05df164bcacc81a3da5932ca8daf20d03a3d3ad684a71ac011fb453684372"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-0-private.jsonl.gz",
+      "bytes": 19074,
+      "sha256": "4e024ee46cc01e7d4513cef5923ac79e079a644dc608e518898b6fa71b516a2c"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-1-physical.jsonl.gz",
+      "bytes": 313174,
+      "sha256": "ecb56567476f9c8b437f2d62fa664a503ca8d77ca82539de7a49550972bab4b1"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-1-private.jsonl.gz",
+      "bytes": 19111,
+      "sha256": "232553e32df5c4470b0a9bad1028c6b9554610035a5de6b5fb049cb38490ce8a"
+    },
+    {
+      "path": "captures/native-manager79/creation-border-grounded-79-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-manager79/manifest.json",
+      "bytes": 1740,
+      "sha256": "540c20fb88b67b70b2ad2cf5a340ce7a4793cd0c0d5e779727b6b9f0ea43a1e8"
+    },
+    {
+      "path": "captures/native-next-border61/manifest.json",
+      "bytes": 1396,
+      "sha256": "a5ccdd039b504df27d3cc86a4d0fa1ce3b9bf3e15cadc2ed6a9e5917c768708b"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-0-physical.jsonl.gz",
+      "bytes": 314303,
+      "sha256": "8d98c88ec4530bb4859da479cca43996cbbe784de3028e2d88d6fe1773da41a1"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-0-private.jsonl.gz",
+      "bytes": 37920,
+      "sha256": "d9278d7b3167d122fe381a69e83ee2c461a54011396f1d818f5abb0e1f35c2a8"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-1-physical.jsonl.gz",
+      "bytes": 314285,
+      "sha256": "250ea20e2bfae791ce1259b23fca735d641d498b8c8e28a92323a9b1ddf8539e"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-1-private.jsonl.gz",
+      "bytes": 37783,
+      "sha256": "a1c6ec57bbadef008e4ae4058092365d3dd08f3a5fb156b4cec776249d7a78f5"
+    },
+    {
+      "path": "captures/native-next-border61/v108-next-border61-border-grounded-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-target79/manifest.json",
+      "bytes": 1746,
+      "sha256": "2600746679dec626d30eac1a4907495e152fba7fb548cd14814ec8924260bf73"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-0-physical.jsonl.gz",
+      "bytes": 206593,
+      "sha256": "555751dc7b5df3537268a89795aba73e73728d2da71e9dcb1665c415b171d9bc"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-0-private.jsonl.gz",
+      "bytes": 618315,
+      "sha256": "9c0c062598b7899114b8214418ed9890e8c319c62d29c1872c67f6e142218a21"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-1-physical.jsonl.gz",
+      "bytes": 206647,
+      "sha256": "a6aad4f4199381d8842f5e386ec018e817d5bc3f4519d5f827d78d881b3b24d9"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-1-private.jsonl.gz",
+      "bytes": 617968,
+      "sha256": "a942786e10f95d700edef455fbf46bea07529be4664a1cce5fd18d42a5ff7e80"
+    },
+    {
+      "path": "captures/native-next-target79/target-half-79-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-0-physical.jsonl.gz",
+      "bytes": 314568,
+      "sha256": "3f10e3ac8693c65b30df7a96b072ae15871d11f3748649fb8097b2463c54f2f0"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-0-private.jsonl.gz",
+      "bytes": 982231,
+      "sha256": "24ea28db400f1bd404d8f2f478fcfd63b6f7ab7b32e22e0061ea08b0db1bfd75"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-1-physical.jsonl.gz",
+      "bytes": 314616,
+      "sha256": "607c98ff1d8982a8ac230c1a6bde5d0aa2df378b045df6c96173a47c1f802d39"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-1-private.jsonl.gz",
+      "bytes": 983856,
+      "sha256": "5ad60618cb6981bd547488a7fb274c5386c91f86214fa6c7d8f3f4d14080b1df"
+    },
+    {
+      "path": "captures/native-wheel79/border-grounded-79-1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "captures/native-wheel79/manifest.json",
+      "bytes": 1754,
+      "sha256": "a9b860e1edbb5ce83e4a29294850c9c389a2be928ca2fa65a23164efb6a9c9d0"
+    },
+    {
+      "path": "check-frame-sign.cpp",
+      "bytes": 1088,
+      "sha256": "f9017dd725b0878c0b60f19f56480c9298b8e5f36672548dda8423a0e0afdbc7"
+    },
+    {
+      "path": "checks/build-multimesh.log",
+      "bytes": 3662,
+      "sha256": "1ba70787dee94c5db25594e2e13d8882569c96daf3d7a52e7f40aad3ba698ca6"
+    },
+    {
+      "path": "checks/ctest.log",
+      "bytes": 7093,
+      "sha256": "f4cadc2750f36119d41ae662b2cf7a5d53803000e1e96a470ac6274a9a4c2c50"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 87,
+      "sha256": "5eaf01e5424df81af5f910d64f493a9fd0602c9b8427a8fce8185d402a0948fb"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 8381,
+      "sha256": "6a510381d3fa1fbbd528cf197c7c2a17c7183cad77b43580542117382efa5c84"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 88,
+      "sha256": "a9797c71f88cca0f1310e4a4baf26c81096be6bc024b6eb0f659eefbfbae4345"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 8355,
+      "sha256": "2276b78409832d6fa6f2c80b339c342d1bc8314d60c85bd196b59788c3c46d38"
+    },
+    {
+      "path": "checks/gates-final/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "1b1cfb39e85f24a8ec9678a1f921f6e8eaa041be18246919c0f8eb223d3c9cac"
+    },
+    {
+      "path": "checks/portable.log",
+      "bytes": 876,
+      "sha256": "5c883ac9ec04301dd7959156bf3bdec70b4d66781449bcbf392ead4cd089f692"
+    },
+    {
+      "path": "checks/regression.log",
+      "bytes": 230,
+      "sha256": "8c7b1bcc6ddc953ab9effcbd26c25fd4697377785303b3ea9dbd818c73630cf3"
+    },
+    {
+      "path": "evidence/focused-report.json",
+      "bytes": 17457,
+      "sha256": "f814626d9bc77fb9d9dd46c32d3d0804e2bb56452c8fe71ecd618a63245bbb17"
+    },
+    {
+      "path": "evidence/frame-proof.json",
+      "bytes": 5639,
+      "sha256": "6a47876852bd507eca36d4b4358a2a12f78a13e1a6c0e4154731e9aa1a0c6ef1"
+    },
+    {
+      "path": "evidence/live-border61-proof.json",
+      "bytes": 17289,
+      "sha256": "424106971be3eff24eeca06caea16f1b52a7c6e4fcea7e5e77c2a3a92f9852c1"
+    },
+    {
+      "path": "evidence/live-border79-proof.json",
+      "bytes": 5609,
+      "sha256": "e33f22312ee070be1db9da27c2ef6f4894aa589b090ddc0c27ea86a3f5e34954"
+    },
+    {
+      "path": "evidence/manager79-proof.json",
+      "bytes": 807,
+      "sha256": "ffdc552d840313bdb68a2fbd42db9ac8fe6a9696d76ddd8c092ef9201cd2d03d"
+    },
+    {
+      "path": "evidence/material-forward-rotation.disasm.txt",
+      "bytes": 12444,
+      "sha256": "44f7214d01624681734859aa58dbece459c913ad35507dcff569834ac7105d15"
+    },
+    {
+      "path": "evidence/material-inverse-rotation.disasm.txt",
+      "bytes": 14842,
+      "sha256": "6649feedd079fb1972d74b2081f7e290b1cb3b95e9a0dce4197f0a5e9e254fff"
+    },
+    {
+      "path": "evidence/next-target79-inspection.json",
+      "bytes": 9199,
+      "sha256": "9255a61d0fadc4c1931ae9799ede2f437476d147e1d6fd22a82dd3f65e4e38be"
+    },
+    {
+      "path": "evidence/physics-v109-final-broad-audit.json",
+      "bytes": 1019783,
+      "sha256": "0b8a888d1626bb02f57411c577ad254846b8b5193ff434afe2f13edff324687a"
+    },
+    {
+      "path": "evidence/physics-v109-final-practical-error-audit.json",
+      "bytes": 1109880,
+      "sha256": "a968dfc520fe1fb805cc1d864e5bb041a0fe37bcdac81d129717fd1b5d43abc5"
+    },
+    {
+      "path": "evidence/physics-v109-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "3d5e3865dc82a50fb040b1d9cb697df6ca084d98eb4495ab2d1cf8b9381f39be"
+    },
+    {
+      "path": "evidence/physics-v109-regression-audit.json",
+      "bytes": 24738,
+      "sha256": "664420cadad2afd8d53c5f8cd9e3e48149fb02fe7eff116b80674f2b27140b1d"
+    },
+    {
+      "path": "evidence/retained-roll-contact-v108.jsonl.gz",
+      "bytes": 33301,
+      "sha256": "6045f8ce0140a26f4fda89a7306a9ad26293828be0a2ec3215dbc18c488617da"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 700727,
+      "sha256": "2105b8ca516259ddd68bc562d6537ed70df5e7fdcac438f79bd1e163732b2bec"
+    },
+    {
+      "path": "frame-proof-fixtures.json",
+      "bytes": 4799,
+      "sha256": "24d91bde0af4d685af749a15d2d2786211a82b661a228a2b60401fc23f9bc239"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7371,
+      "sha256": "ad8eff4edce3283e322ecb70e4bda47f1ace29c0f4c29bc5e1dad0bb56efe4a6"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-border61.py",
+      "bytes": 3812,
+      "sha256": "e854731f12b9608ee9e73889ced61c608dddd2b8e5dc985e43156b7a646769d3"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-final79.py",
+      "bytes": 3801,
+      "sha256": "8f0117b6d16802e4b10018a137e467573a6e62a2031123fee8d2bbea9ef35aa3"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac-next-target79.py",
+      "bytes": 3798,
+      "sha256": "05c4e905571379c890e57cfa733e7eed7b561902f32487465f330edd827e734a"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-manager79.py",
+      "bytes": 3147,
+      "sha256": "10227b56de2e1434a739952b4194e43ca81304e69b52cb9d7251924e34aa3679"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-next-target79.py",
+      "bytes": 2903,
+      "sha256": "bf3baeeb1fe0f46f259faf37255626015bbc5f9c2394a1511a9aa37d1e781f2d"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native-wheel79.py",
+      "bytes": 2901,
+      "sha256": "134b6d4e5a2f1d56030d2b387018cad4936ea87ad6d9288d75c42f6a3deb71a4"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad-final.py",
+      "bytes": 3657,
+      "sha256": "fd09907cb246712322359b0910ea1e2774fd9cf6cfd37066c78fadef2b1ea66a"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2193,
+      "sha256": "68f9cebf27161deafb8fb05eadca6504449fdf47bb902179b6b68d2937b4482e"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-final.py",
+      "bytes": 4282,
+      "sha256": "33e4e40145d5e6e9a935aafc6cb46df2a79a9773b66293677878c640c21d576e"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-live-border61.py",
+      "bytes": 2115,
+      "sha256": "976a9642ac572c10c0408c8b3ea1588c595fd23b0555d52b382b0a942af26765"
+    },
+    {
+      "path": "reproduction-host-scripts/prove-live-border79.py",
+      "bytes": 4171,
+      "sha256": "b44088373cadb1f8df06a8eca3d59a7fad87ea464e0d0778d8e1b48be267cc8e"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad-final.py",
+      "bytes": 2423,
+      "sha256": "f286c2b493185e3cf7e2146ddde98b5069359a2a989543ea73f85ecd90d4c77e"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused-final.py",
+      "bytes": 3835,
+      "sha256": "a7e0d9a1063de2e21ffe39a7730b301d7c62e64a764e14b767b8cfa08e38527e"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2085,
+      "sha256": "236b8b3c9fc723dc8f1ef1f347e0ee751ff92cb3c155760fe8091349fc317b3a"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2059,
+      "sha256": "3e1a85af7d9bd577216c03c3993bf2ed5f2fe9a8898b8f32f332fd0f4f9bf770"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates-final.py",
+      "bytes": 6898,
+      "sha256": "e743e0cc90def9e666fd1ccc9b88434c42703cd09da8fc9fc9f5831fee85232a"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1679,
+      "sha256": "55fa239801f19667e5cbc39c1e0191003c6349302ea698bc3d851770666df9ef"
+    },
+    {
+      "path": "shadow/ContactFrameScalar.h",
+      "bytes": 4208,
+      "sha256": "f24ffd8fe4fae7206e35e303f77440dcee4f38651d39b01a0f343f4a5857ac4b"
+    },
+    {
+      "path": "shadow/DerivedContactErrorFrame.h",
+      "bytes": 2270,
+      "sha256": "c3a2ea46e464b210222f43f83824d098edc2d6a8a66356eaa72d12505bbaa9b5"
+    },
+    {
+      "path": "shadow/NativeContactNormalV38.h",
+      "bytes": 753,
+      "sha256": "30f6b7cde2b65c79749ab0756a41570c778caf79183259f973b7dccbd93791f8"
+    },
+    {
+      "path": "shadow/NativeMaterialFrameV36.h",
+      "bytes": 8435,
+      "sha256": "1962eccb4639fc968d120b36b90a8a87d2a77c00745646d83c4d28d38a312e51"
+    },
+    {
+      "path": "shadow/SourceMaterialFrameCandidate.h",
+      "bytes": 4067,
+      "sha256": "658d073b3660eeb47f59a88ef26ce6918fcd7b9f4074e26ab5573dddbcc33862"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 1617,
+      "sha256": "28412db3c60acf0f0fcd639713f26a0ba26e41c414a89c0e898ef4d2effce169"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3674,
+      "sha256": "f4ffb1156000ee3fd181b86603e3bfae2170c7c9f220140763f33a9f0e6fd503"
+    }
+  ],
+  "goal_complete": false
+}

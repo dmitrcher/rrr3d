@@ -10,7 +10,7 @@ Final V131 map results, full F32 body/wheel state plus awake status, two repeats
 
 This is SDK-only replay: torque commands do not automatically wake the original resting actor. Motor phases120..659 are asleep in these fixtures; this is not a GameCar acceleration/control verdict. Actual game driver/motor FP context, stabilizer/wake API integration, compound/sensor/death-plane/dynamic decoration/island cases and actual installation remain open.
 
-Build succeeded. Final default-off53 CTest checks pass and900 old physical samples/900 drive commands are preserved. The first completed full608 frozen capture with V131 enabled matches all255864 original F32 states; second capture is still running at this checkpoint, so repeatability is pending. Do not promote on the map result alone.
+Build succeeded. Final default-off53 CTest checks pass and900 old physical samples/900 drive commands are preserved. Full608 frozen regression with V131 enabled matches all255864 original F32 states in two identical captures. Do not promote on the map result alone.
 
 Failed/superseded first observer cleanup and pre-lock-fix map/matrix runs are excluded. Final Windows bridge process completes releaseScene/closeCooking/releaseSDK/return. The final source lock scope ends before wake API calls.
 

@@ -1,0 +1,15 @@
+# V143: original hybrid-mesh ray arithmetic
+
+Goal incomplete. Default-off two-file research overlay on V137; SDK unchanged. Ordinary installed game unchanged.
+
+V140 read-only original observation proves the actual finite quantized hybrid dispatcher uses RVA1f29d3 ->1f1dd0 ->1eeb60 and the sequential triangle branch1ef15e, with backface culling enabled. The initially suspected1ef690 leaf branch is not called at314; its speculative reconstruction is not used. Original/source local ray and triangle vertices match; the hybrid branch sums determinant Y,Z,X and u/v/distance Z,Y,X. Source V52 direct scan sums determinant/u/distance X,Z,Y. The independently ported hybrid helper matches128 original determinants and8 accepted intersections across two preserved900-state Native runs, at compilerO0 andO2 exactly.
+
+Actual PhysXCooking.dll RVA29164 stores the leaf limit8; RVA291a4 marks SINGLE_NODE when resulting leaf count is1. SDK-only cooking of1..32 triangles in two layouts, twice, preserves loaded geometry and yields single-node for<=8, hybrid for>8. Both actually loaded SDK DLL paths and hashes match the original development installation. Public Opcode1.3 has a different default limit16 and is background only: https://sources.debian.org/src/ode/2:0.16-3/OPCODE/OPC_HybridModel.cpp . No SDK source constant is fitted to race results.
+
+V143 selects the hybrid ratio helper for placed meshes above8 source triangles. General cooking cleanup and unsplittable/degenerate geometry still need classification audit; triangle count alone is not a certification of every possible cooking result. Backface/acceptance behavior and full tree traversal/tie ordering remain separate open contracts. No per-map/frame/wheel branch, measured state or vehicle coefficient is injected.
+
+Four actual-wake map histories repeat exactly twice with identical fixture words. First differences on maps0/16/48/64 are342/244/358/238, compared with V137314/244/347/238. Exact observable states are342/244/374/239. Full608 matrix255864 float32 states matches the immutable original Windows reference twice.53 CTest checks pass; default-off900 physical states and900 commands are preserved. At corrected physical314, all60 intermediate solver body inputs and4 spring masses/Jacobians/inverse-Jacobians match the original Native rows exactly.
+
+Next first342 map0 is a body–border collision. Native and Source incoming box world matrices match12words; all900 public histories remain unchanged by observers. Contact points, normals and penetration already differ before solve. Offline Source-only clipping in static-mesh coordinates with subtract-then-inverse-rotate relative translation reproduces all12 world point words,8/12 normal words and1/4 separations. This body change is NOT in active Source. Bind the original relative box transform, contact patch normal choice and separation arithmetic before integrating it; do not fit friction or stiffness.
+
+Remaining production wake transport, original MotorProgress/FP context, general scene dynamics, actual rendered game and complete moving-race parity remain unverified.

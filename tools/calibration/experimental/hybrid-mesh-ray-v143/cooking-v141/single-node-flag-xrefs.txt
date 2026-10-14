@@ -1,0 +1,47 @@
+1002884a: 8b 01                        	movl	(%ecx), %eax
+1002884c: 8b 10                        	movl	(%eax), %edx
+1002884e: 6a 01                        	pushl	$0x1
+10028850: ff d2                        	calll	*%edx
+10028852: 89 5f 10                     	movl	%ebx, 0x10(%edi)
+10028855: 8b 45 00                     	movl	(%ebp), %eax
+10028858: 89 47 04                     	movl	%eax, 0x4(%edi)
+1002885b: 8b 4d 00                     	movl	(%ebp), %ecx
+1002885e: 56                           	pushl	%esi
+1002885f: 8b 71 08                     	movl	0x8(%ecx), %esi
+10028862: 83 fe 01                     	cmpl	$0x1, %esi
+10028865: 75 10                        	jne	0x10028877 <NxCookConvexMesh+0xa087>
+10028867: 83 4f 08 04                  	orl	$0x4, 0x8(%edi)
+1002886b: 5e                           	popl	%esi
+1002886c: 5f                           	popl	%edi
+1002886d: 5d                           	popl	%ebp
+1002886e: b0 01                        	movb	$0x1, %al
+10028870: 5b                           	popl	%ebx
+10028871: 83 c4 4c                     	addl	$0x4c, %esp
+10028874: c2 04 00                     	retl	$0x4
+10028877: 8b 0d 00 a6 05 10            	movl	0x1005a600, %ecx
+1002887d: 3b cb                        	cmpl	%ebx, %ecx
+1002887f: 75 0b                        	jne	0x1002888c <NxCookConvexMesh+0xa09c>
+--
+1002917b: 0f 84 3b 03 00 00            	je	0x100294bc <NxCookConvexMesh+0xaccc>
+10029181: 8b 4b 0c                     	movl	0xc(%ebx), %ecx
+10029184: 8d 44 24 10                  	leal	0x10(%esp), %eax
+10029188: 50                           	pushl	%eax
+10029189: 51                           	pushl	%ecx
+1002918a: b9 f0 8b 02 10               	movl	$0x10028bf0, %ecx       # imm = 0x10028BF0
+1002918f: 89 7c 24 18                  	movl	%edi, 0x18(%esp)
+10029193: e8 88 0a 00 00               	calll	0x10029c20 <NxCookConvexMesh+0xb430>
+10029198: 8b 54 24 10                  	movl	0x10(%esp), %edx
+1002919c: 89 53 14                     	movl	%edx, 0x14(%ebx)
+1002919f: 83 fa 01                     	cmpl	$0x1, %edx
+100291a2: 75 0d                        	jne	0x100291b1 <NxCookConvexMesh+0xa9c1>
+100291a4: 83 4b 08 04                  	orl	$0x4, 0x8(%ebx)
+100291a8: 88 54 24 0f                  	movb	%dl, 0xf(%esp)
+100291ac: e9 0b 03 00 00               	jmp	0x100294bc <NxCookConvexMesh+0xaccc>
+100291b1: e8 7a 32 00 00               	calll	0x1002c430 <NxCookConvexMesh+0xdc40>
+100291b6: 8b 30                        	movl	(%eax), %esi
+100291b8: 8d 14 52                     	leal	(%edx,%edx,2), %edx
+100291bb: 03 d2                        	addl	%edx, %edx
+100291bd: 03 d2                        	addl	%edx, %edx
+100291bf: 6a 01                        	pushl	$0x1
+100291c1: 03 d2                        	addl	%edx, %edx
+100291c3: 8b c8                        	movl	%eax, %ecx

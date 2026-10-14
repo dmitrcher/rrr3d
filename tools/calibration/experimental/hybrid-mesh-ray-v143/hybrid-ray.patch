@@ -1,0 +1,74 @@
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -31,6 +31,7 @@
+ #include "physics/NativeFreeWheelCacheV112.h"
+ #include "physics/NativeQuaternionPoseV43.h"
+ #include "physics/NativeWheelRayV52.h"
++#include "physics/NativeHybridRayV142.h"
+ #include "physics/NativePlacedMeshV126.h"
+ #include "physics/NativeEnergySleepV127.h"
+ #include "physics/NativeStartupOrientationV129.h"
+@@ -884,7 +885,7 @@
+     bool wheelSourceMeshQueryV122(const JPH::Body& body,
+         motorrock::wheelrayv52::Vector start, motorrock::wheelrayv52::Vector unit,
+         float length, bool& hit, JPH::SubShapeID& subShape,
+-        motorrock::wheelrayv52::Vector& point, float& distance) const
++        motorrock::wheelrayv52::Vector& point, float& distance, unsigned traceTickV138=~0U, unsigned traceWheelV138=~0U) const
+     {
+         namespace wr=motorrock::wheelrayv52;
+         hit=false;
+@@ -900,11 +901,25 @@
+         for(const auto& triangle:mesh->triangles) {
+             std::array<wr::Vector,3> p;
+             for(unsigned i=0;i<3;++i)p[i]={{triangle.points[i].x,triangle.points[i].y,triangle.points[i].z}};
+-            const auto intersection=wr::intersect(start,unit,p[0],p[1],p[2]);
++            // Original cooking RVA29164 uses an eight-primitive leaf limit.
++            // Multi-leaf meshes use the hybrid primitive's Float32 sum orders.
++            const bool hybridV143=motorrock::tirev55::enabled("RRR3D_EXPERIMENT_NATIVE_HYBRID_RAY_V143")
++                && mesh->placedV126 && mesh->triangles.size()>8;
++            const auto intersection=hybridV143
++                ? motorrock::hybridrayv142::compute(start,unit,p[0],p[1],p[2]).intersection
++                : wr::intersect(start,unit,p[0],p[1],p[2]);
+             if(!std::isfinite(intersection.distance) || intersection.distance<0 || intersection.distance>length || intersection.u<0 || intersection.v<0 || wr::add(intersection.u,intersection.v)>1)continue;
+             if(intersection.distance>=distance)continue;
+             distance=intersection.distance;point=wr::interpolate(p[0],p[1],p[2],intersection.u,intersection.v);
+             subShape=triangle.subShapeV122;hit=true;
++            if(const char* path=std::getenv("RRR3D_MESH_QUERY_TRACE_FILE_V138"))if(*path) {
++                const char* step=std::getenv("RRR3D_MESH_QUERY_TRACE_STEP_V138");
++                if(!step || traceTickV138==std::strtoul(step,nullptr,10))if(FILE* file=std::fopen(path,"a")) {
++                    std::fprintf(file,"{\"sdk_counter\":%u,\"wheel\":%u,\"body_id\":%u,\"triangle\":%u,\"start\":[%.9g,%.9g,%.9g],\"unit\":[%.9g,%.9g,%.9g],\"length\":%.9g,\"distance\":%.9g,\"u\":%.9g,\"v\":%.9g,\"local_point\":[%.9g,%.9g,%.9g],\"vertices\":[",traceTickV138,traceWheelV138,body.GetID().GetIndexAndSequenceNumber(),static_cast<const JPH::MeshShape*>(shape)->GetTriangleUserData(subShape),start[0],start[1],start[2],unit[0],unit[1],unit[2],length,distance,intersection.u,intersection.v,point[0],point[1],point[2]);
++                    for(unsigned i=0;i<3;++i)std::fprintf(file,"%s[%.9g,%.9g,%.9g]",i?",":"",p[i][0],p[i][1],p[i][2]);
++                    std::fprintf(file,"]}\n");std::fclose(file);
++                }
++            }
+         }
+         if(hit && mesh->placedV126)point=motorrock::placedmeshv126::point(mesh->poseV126,point);
+         return true;
+@@ -2467,7 +2482,7 @@
+                 auto selectedSubShapeV122=hit.mSubShapeID2;
+                 float selectedFractionV122=hit.mFraction;
+                 wr::Vector sourcePointV122{};float sourceDistanceV122=0;bool sourceHitV122=false;
+-                const bool sourceMeshV122=nativeTriangleOrderV122 && contacts.wheelSourceMeshQueryV122(lock.GetBody(),rayStart,unitDirection,queryLength,sourceHitV122,selectedSubShapeV122,sourcePointV122,sourceDistanceV122);
++                const bool sourceMeshV122=nativeTriangleOrderV122 && contacts.wheelSourceMeshQueryV122(lock.GetBody(),rayStart,unitDirection,queryLength,sourceHitV122,selectedSubShapeV122,sourcePointV122,sourceDistanceV122,physicalTickV101,wheelIdV101);
+                 if(sourceMeshV122) {
+                     if(!sourceHitV122 || queryLength<=0)return;
+                     selectedFractionV122=wr::div(sourceDistanceV122,queryLength);
+--- a/src/Rock3dEngine/header/physics/NativeHybridRayV142.h
++++ b/src/Rock3dEngine/header/physics/NativeHybridRayV142.h
+@@ -0,0 +1,16 @@
++#pragma once
++#include "NativeWheelRayV52.h"
++namespace motorrock::hybridrayv142 {
++namespace f32=motorrock::wheelrayv52;
++using Vector=f32::Vector;
++inline float dotYZX(Vector a,Vector b){return f32::add(f32::add(f32::mul(a[1],b[1]),f32::mul(a[2],b[2])),f32::mul(a[0],b[0]));}
++struct Result{float determinant;f32::Intersection intersection;};
++// Original Core hybrid sequential primitive: determinant Y,Z,X;
++// barycentric u, v and distance Z,Y,X. Each SSE store remains Float32.
++inline Result compute(Vector origin,Vector direction,Vector a,Vector b,Vector c){
++ const auto e1=f32::subtract(b,a),e2=f32::subtract(c,a);
++ const auto p=f32::cross(direction,e2),t=f32::subtract(origin,a),q=f32::cross(t,e1);
++ const float determinant=dotYZX(p,e1),reciprocal=f32::div(1.0F,determinant);
++ return {determinant,{f32::mul(f32::dotZYX(q,e2),reciprocal),f32::mul(f32::dotZYX(t,p),reciprocal),f32::mul(f32::dotZYX(direction,q),reciprocal)}};
++}
++}

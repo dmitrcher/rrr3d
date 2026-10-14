@@ -1,0 +1,345 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2063,
+      "sha256": "df208c41f737e2b684b64992087fc03afa9afc9218e1ee6f9e4f563dff567af7"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21816,
+      "sha256": "0222055c50d73d0473aa2b2b56cdaf3d80ba87890a089f3a8244a2e9a5b24884"
+    },
+    {
+      "path": "after/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 403328,
+      "sha256": "11601ad18c9eba48125af1b189d741bb2c3841a7348a2f17ac25b0e0a24b2321"
+    },
+    {
+      "path": "apply-experiment.py",
+      "bytes": 1447,
+      "sha256": "e8681e8268b71c11e2a485168b13c84203a69d0ed9d25df259886cec0ea043fc"
+    },
+    {
+      "path": "base.json",
+      "bytes": 944,
+      "sha256": "b2d20bc2108e4f5ca309d9a2bba037d733d73d5d87e6c6efcef994c264e5f1c1"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "bytes": 21675,
+      "sha256": "1798853a64e440aafc79fbd6df49b24f9518e4ec458847c4561918cab0328bb4"
+    },
+    {
+      "path": "before/adapter/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "bytes": 401449,
+      "sha256": "2b46dd2920d9ffaf23f3f37a2ffbab2e56cf5a00bd4d4dd01c43928a9d36fc78"
+    },
+    {
+      "path": "captures/mac/manifest.json",
+      "bytes": 3400,
+      "sha256": "a6516ea8fd11d57d16341552aef4d4451dc423b82b9b6ae0dc2dcc74b4eeb9dd"
+    },
+    {
+      "path": "captures/mac/radius-small-candidate-0-inputs.jsonl.gz",
+      "bytes": 16272,
+      "sha256": "35e5c36cda51b4864c7720aa0e80dc5ddaef1d6c380c10e77682cfa385e122d4"
+    },
+    {
+      "path": "captures/mac/radius-small-candidate-1-inputs.jsonl.gz",
+      "bytes": 16272,
+      "sha256": "5f40753e7ed78692c6f80f586e0b3a8e5e8d566a3322e202bc8f1be27d1cfcd1"
+    },
+    {
+      "path": "captures/mac/radius-small-control-0-inputs.jsonl.gz",
+      "bytes": 16271,
+      "sha256": "3d8f6200cdc47431c6bc54874af2e64ff2a2c3bfc13cd5fcda5ca685ba763d2f"
+    },
+    {
+      "path": "captures/mac/radius-small-control-1-inputs.jsonl.gz",
+      "bytes": 16271,
+      "sha256": "0aa750308a9ec9ddf286e9934880fdf4698cc1723d68c0da0ac29dc2ba7712f0"
+    },
+    {
+      "path": "captures/mac/travel-long-candidate-0-inputs.jsonl.gz",
+      "bytes": 14931,
+      "sha256": "7123ed8b4b73dacf3fd8cde992a4504347ac8ca4bd4d216fe6dfa8b3ecb69557"
+    },
+    {
+      "path": "captures/mac/travel-long-candidate-1-inputs.jsonl.gz",
+      "bytes": 14931,
+      "sha256": "4a682ec6527a76659ce23cd9159b37ae29b17f97bab1df7192a89ef2616c14ec"
+    },
+    {
+      "path": "captures/mac/travel-long-control-0-inputs.jsonl.gz",
+      "bytes": 15004,
+      "sha256": "e31713a881f031d602e3c6af630b1dfa88e1f399a45407f074b52781e3f20918"
+    },
+    {
+      "path": "captures/mac/travel-long-control-1-inputs.jsonl.gz",
+      "bytes": 15004,
+      "sha256": "fd07a97d193a47db1660d142553685bb88276099fb723c734b37d049b23403e1"
+    },
+    {
+      "path": "captures/native/manifest.json",
+      "bytes": 1924,
+      "sha256": "bcb31f40d4ea4a8ccf3844a662cfc9a3d8a14b1aa316bd8e5178ce5dfba4b360"
+    },
+    {
+      "path": "captures/native/radius-small-0-private.jsonl.gz",
+      "bytes": 1283437,
+      "sha256": "92ad0ae378fed23237ce52790011ef3ab544671b61040cfa7d0e8da1c1effef3"
+    },
+    {
+      "path": "captures/native/radius-small-1-private.jsonl.gz",
+      "bytes": 1284442,
+      "sha256": "c2c96698fe61b3e4e28ae09865e04781e5cfc7d0ce15132405fafe0c9b62f5a7"
+    },
+    {
+      "path": "captures/native/travel-long-0-private.jsonl.gz",
+      "bytes": 1319693,
+      "sha256": "387ac12c123d86847630dd78a2ec1e7b4569ba2adbb8641daa361aceb08caa75"
+    },
+    {
+      "path": "captures/native/travel-long-1-private.jsonl.gz",
+      "bytes": 1325680,
+      "sha256": "3ce8ac2700113d9eb557864caed76f4463bd040b3f7afe9cd9f67badfc19ed33"
+    },
+    {
+      "path": "checks/broad/capture-manifest.json",
+      "bytes": 8946,
+      "sha256": "dadec234c6f6e3e941188e24e09fa7a3dd7f843ea3b5a2d5a9888d9e704d1947"
+    },
+    {
+      "path": "checks/build-all.log",
+      "bytes": 10274,
+      "sha256": "9422b6a82b2b0e6209fdcf34e0bce14f744eb611af11dbcd29d01e9ee1f506b3"
+    },
+    {
+      "path": "checks/canonical-audit.log",
+      "bytes": 453,
+      "sha256": "6fac1d2940593536c41b1d9b177837462280c6c24e7eca1e6005b00c06b1434b"
+    },
+    {
+      "path": "checks/ctest-candidate.log",
+      "bytes": 7093,
+      "sha256": "3c04a17e844621ba4f62d5b0912c27ecde095e2d12b6edbe0fa4ab4c90d7af77"
+    },
+    {
+      "path": "checks/ctest-default.log",
+      "bytes": 7093,
+      "sha256": "6cc5b07ff9c9b7658c55ce614731ba23092a069df0244266d46464faa1cacf48"
+    },
+    {
+      "path": "checks/game-render-race/exit.json",
+      "bytes": 88,
+      "sha256": "cc6e03654804752b2a225a8825ba324887b0b98eea5630c200d449f8eccacf18"
+    },
+    {
+      "path": "checks/game-render-race/launch.json",
+      "bytes": 9031,
+      "sha256": "c228ff72bbdfea8b6e8f2f0637f53ce5bc2325db273f98664cdd2c6e7f134822"
+    },
+    {
+      "path": "checks/game-smoke/exit.json",
+      "bytes": 86,
+      "sha256": "3008b034b21c59d5dbedd858d57807b7890a5566693f6f5ac5d673a7980d534a"
+    },
+    {
+      "path": "checks/game-smoke/launch.json",
+      "bytes": 9005,
+      "sha256": "be06a397aea17495022bcf1145b255676dee30c76940f30389fc377a80140019"
+    },
+    {
+      "path": "checks/gates/capture-manifest.json",
+      "bytes": 124301,
+      "sha256": "e73ea100a7ed9b755e6616ba56eda82b92d5e3bec184b7450571fbe6092db022"
+    },
+    {
+      "path": "checks/regression-audit.log",
+      "bytes": 230,
+      "sha256": "ef62e128c572446a1690b3aa2e27b76844b4189c1fab416a340585bd82d89d1a"
+    },
+    {
+      "path": "evidence/diagnostic-only-proof.json",
+      "bytes": 596,
+      "sha256": "794dece89dcb07db297dac22df15738acd6b424aa3e61c95ebbaca0d4b20870a"
+    },
+    {
+      "path": "evidence/native-api-fixtures.jsonl.gz",
+      "bytes": 59866,
+      "sha256": "2fffa6d34ad5afa9aa5b82bb66dd4347030ba65a09bfb48b043f6e3f8ca39ddf"
+    },
+    {
+      "path": "evidence/native-report-proof.json",
+      "bytes": 1525,
+      "sha256": "b0395cf79708d349c59768054c955dfdf211a67a869c1cfa74682f91df7f2ee4"
+    },
+    {
+      "path": "evidence/original-report-subtraction.disasm.txt",
+      "bytes": 945,
+      "sha256": "c545f79b57eb530119eb676ed320df457b429986109e87a38381e8f099310bf4"
+    },
+    {
+      "path": "evidence/physics-v116-candidate-broad-audit.json",
+      "bytes": 213354,
+      "sha256": "19baa5ae96b90758e5aef71ac454c0725e5fd454a1c83ce9e48644d956001982"
+    },
+    {
+      "path": "evidence/physics-v116-candidate-canonical-error-audit.json",
+      "bytes": 613457,
+      "sha256": "3cf34642c5ee77b6407722353100c00e6a9a78a7fe2db752ef0fee15a68c416b"
+    },
+    {
+      "path": "evidence/physics-v116-candidate-practical-error-audit.json",
+      "bytes": 1074275,
+      "sha256": "a415ae35f706af32214fa43e27dc2f78468b1489343d6a20a47eb6a3f0a4d6ee"
+    },
+    {
+      "path": "evidence/physics-v116-candidate-regression-audit.json",
+      "bytes": 24696,
+      "sha256": "7f9c0ae4594cf562b0ab41efc51c9d0ef6c4e95edcff2fb9ad425902fa36362e"
+    },
+    {
+      "path": "evidence/physics-v116-guarded-installer-test.json",
+      "bytes": 141,
+      "sha256": "f84aa0c1c55012f6b1b9f276ab99683772cf10f163da83db8ab952f69e2455f9"
+    },
+    {
+      "path": "evidence/portable.json",
+      "bytes": 628,
+      "sha256": "f47dc1f37cc0de0fa86482a4474527b1feeb92f212e2c992b8d096f5d05b39b3"
+    },
+    {
+      "path": "evidence/report.json",
+      "bytes": 7282,
+      "sha256": "9952058dfda14a72a5de01108644d37f4dd78c7cb40a7ed30f81df50b65a6af6"
+    },
+    {
+      "path": "evidence/source-change.json",
+      "bytes": 798,
+      "sha256": "3ce7e169d50815e77ee53850ec513a209fc2c4ca03b9a463574e4aedfe6b2d4e"
+    },
+    {
+      "path": "evidence/v115-length-control.jsonl.gz",
+      "bytes": 211394,
+      "sha256": "1de47f1eecee8c7f18114cb487262bedaf9391a62959e9a35d963be35ca3d0d9"
+    },
+    {
+      "path": "evidence/windows-checkpoint.jsonl.gz",
+      "bytes": 2107613,
+      "sha256": "fc8f21e27e72680f368e35c14af8a40bccb50bb33471838018b14d49db9b520e"
+    },
+    {
+      "path": "native-observer/build-observer.py",
+      "bytes": 2057,
+      "sha256": "34a8a5dce1ce7ec2d6b4b3532491c5a443a934c14115c196fafa96c135378b87"
+    },
+    {
+      "path": "native-observer/build.cmd",
+      "bytes": 284,
+      "sha256": "d88fabc514d4ff833d2b984453ca5093cea50cfcd3549c04456d77e364d6aff7"
+    },
+    {
+      "path": "native-observer/observer-build.json",
+      "bytes": 215,
+      "sha256": "02c8fa29987a6078c30b9e6ea31a374cfbfc15c6da388bc1ecefd9457a541e56"
+    },
+    {
+      "path": "native-observer/trace-length.cpp",
+      "bytes": 10036,
+      "sha256": "486c48f321930c77cbf18209afba01a15c987160863be63f7c7a869911ead7db"
+    },
+    {
+      "path": "probe-environment.json",
+      "bytes": 7809,
+      "sha256": "9931e153cf8e089a17583396c68593f723c2e9478fcc0ca2801e580e9c91cee4"
+    },
+    {
+      "path": "profile.cfg",
+      "bytes": 527,
+      "sha256": "7120347ebe7f5e6ab13f1240b70098572f8f3418c6a37fc366c3fd189c533b21"
+    },
+    {
+      "path": "reproduction-host-scripts/canonical-error-audit.py",
+      "bytes": 4367,
+      "sha256": "da296a94a0bf03cd2ca6c7bdb2ca121ee6e05e32c450152e3eefc91e1f04bb5f"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-mac.py",
+      "bytes": 4106,
+      "sha256": "27f45b7e64515e82a502f48c9ca8a3044b219f9704df3ed7a229ece823dc6a64"
+    },
+    {
+      "path": "reproduction-host-scripts/capture-native.py",
+      "bytes": 2746,
+      "sha256": "0ee2bd06d9fbe81018b2c40854a003dcf6181feb2d45a7793149e0dd27fa8b4a"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-broad.py",
+      "bytes": 3655,
+      "sha256": "c12e3a0c4cef8cc3c4ce41eb15a0a68bb6b104a1a8e24d99af0453c1fe07ed41"
+    },
+    {
+      "path": "reproduction-host-scripts/compare-regression.py",
+      "bytes": 2197,
+      "sha256": "4beeba2d755781ffd5403f30cdff9c8761647f3a4bb109d79f0d7fc6e0fefc79"
+    },
+    {
+      "path": "reproduction-host-scripts/practical-error-audit.py",
+      "bytes": 4284,
+      "sha256": "b8f8695f170555de2c6bd03dd2969c766269119c71a94f73d415cc05204422b3"
+    },
+    {
+      "path": "reproduction-host-scripts/run-broad.py",
+      "bytes": 2437,
+      "sha256": "3e478ef4619a7dcebba57e040e21cadb9784ebc7a66be3072230b49f033891ff"
+    },
+    {
+      "path": "reproduction-host-scripts/run-focused.py",
+      "bytes": 2544,
+      "sha256": "cf8773db9c617876c6b132b959629f01ef9555e5f9e37a680015b960301b8851"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-render-race.py",
+      "bytes": 2095,
+      "sha256": "e25af599bf735747c8b83692159e5bbff1c39400d4bb965ced24d792d2df2059"
+    },
+    {
+      "path": "reproduction-host-scripts/run-game-smoke.py",
+      "bytes": 2069,
+      "sha256": "064185acc0facac62be2c93e598e35246394f991f31e404be47053d4609b7fb2"
+    },
+    {
+      "path": "reproduction-host-scripts/run-gates.py",
+      "bytes": 7539,
+      "sha256": "31f7f34afe6962e497419c89e184e883b2bd41fa73a76cc167c1339584c51e3c"
+    },
+    {
+      "path": "reproduction-host-scripts/test-exported-installer.py",
+      "bytes": 1678,
+      "sha256": "4533849936e4db8108e5b4046199792c9bd4b43870829df5ebd735111d4d1822"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-diagnostic-only.py",
+      "bytes": 2079,
+      "sha256": "7b747cdc7e9cf6dd26adb5f9521b913d6a1f09d336f317dc6356a8703b1b231e"
+    },
+    {
+      "path": "reproduction-host-scripts/verify-native.py",
+      "bytes": 5229,
+      "sha256": "06a89e047b6d13c5a05b1387128fc2764cd8242909e88b74d734f0f0c84e0ed9"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 2627,
+      "sha256": "182e6d31b6ef77446cf946109950f5e3c724753a77d75d04e8e3d706b68ec514"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3434,
+      "sha256": "19ca5dace4a5b015b0b7a352f7d292074a1411eb228fa5ad9cea62cef122fda0"
+    }
+  ],
+  "goal_complete": false
+}

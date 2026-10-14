@@ -1,0 +1,90 @@
+{
+  "scope": "Original double precision for derived wheel-length diagnostics. No solver or reference changes; every other physical observable is decimal-exact preserved.",
+  "strict_cases": 596,
+  "total_cases": 608,
+  "remaining_cases": 12,
+  "new_strict_cases": [
+    "radius-small",
+    "travel-long"
+  ],
+  "all_previous_594_strict_preserved": true,
+  "two_repeats_exact": true,
+  "states_per_repeat": 255864,
+  "unchanged_complete_trajectories": 603,
+  "diagnostic_only_changed_trajectories": [
+    "travel-long",
+    "radius-small",
+    "body-wheel-contact-x",
+    "body-wheel-contact-pitch",
+    "body-wheel-contact-roll"
+  ],
+  "all608_other_observables_decimal_exact": true,
+  "no_full_run_maximum_regressions_vs_v115": true,
+  "canonical_F32_maxima": {
+    "wheel_angular_speed_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "position_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "velocity_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "orientation_max_degrees": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "angular_momentum_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_contact_mismatches": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    },
+    "wheel_suspension_max": {
+      "improved": [
+        "travel-long",
+        "radius-small",
+        "body-wheel-contact-x",
+        "body-wheel-contact-pitch",
+        "body-wheel-contact-roll"
+      ],
+      "worsened": [],
+      "same": 603
+    },
+    "wheel_normal_force_max": {
+      "improved": [],
+      "worsened": [],
+      "same": 608
+    }
+  },
+  "original_getter_full600_histories_preserved": 4,
+  "actual_native_derived_lengths_per_repeat": 4800,
+  "live_Source_control_candidate_600_histories": 8,
+  "live_Source_API_input_tuples_checked": 19200,
+  "portable_Native_equal_states": 8400,
+  "portable_actual_Native_API_input_and_result_tuples": 4800,
+  "flag_off_preserves_v115_decimal_states": 1200,
+  "selected_flag_off_v115_preservation_cases": 27,
+  "independent_physics_gates": 291,
+  "ctest_checks_default_and_candidate_each": 53,
+  "headless_solo_steps": 600,
+  "rendered_functional_smoke_frames": 240,
+  "complete_game_render_equality_claimed": false,
+  "ordinary_game_installer_replaced": false,
+  "frozen_probes": {
+    "rrr3d_physics_calibration": "60318e7b3de41b6dbba9ac8a0b33d14b478b7d970fc1962bd0ebbcc098568508",
+    "rrr3d_physics_spring_probe": "f2810dd5e026ad717db8d371f60ae20bbed1de7d5d9fc14c34045dc7300e74c3"
+  },
+  "goal_complete": false
+}

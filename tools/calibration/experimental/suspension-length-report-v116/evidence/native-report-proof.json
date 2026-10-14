@@ -1,0 +1,29 @@
+{
+  "scope": "All actual Native public sample getter results from two600-step cases, two repeats. contactPosition word18 (NxWheelContactData+48), radius getter RVA192f0/192f6. Sample getter caller RVAf79f and radius caller RVAf890, bound to the immutable EXE PE image base. Original sample subtracts in x87 and stores double at RVAf89c, not float. Nine-significant-digit text loses midpoint rounding information; Source stores float before reporting. Every correctly rounded actual Native derived length already matches Mac V115. No reference or solver modification.",
+  "cases": {
+    "travel-long": {
+      "states_per_repeat": 600,
+      "wheel_lengths_per_repeat": 2400,
+      "repeats_exact": true,
+      "native_api_radius_result_word_exact": true,
+      "native_double_report_reproduced": true,
+      "correctly_rounded_native_lengths_match_mac": true,
+      "reparsed_decimal_false_differences": 1074
+    },
+    "radius-small": {
+      "states_per_repeat": 600,
+      "wheel_lengths_per_repeat": 2400,
+      "repeats_exact": true,
+      "native_api_radius_result_word_exact": true,
+      "native_double_report_reproduced": true,
+      "correctly_rounded_native_lengths_match_mac": true,
+      "reparsed_decimal_false_differences": 8
+    }
+  },
+  "actual_native_lengths_checked_per_repeat": 4800,
+  "all_native_public_histories_preserved": true,
+  "source_raw_distance_and_radius_words_observed": false,
+  "source_same_input_causal_proof_complete": false,
+  "source_physics_changed": false,
+  "goal_complete": false
+}

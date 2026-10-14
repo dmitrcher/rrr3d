@@ -1,0 +1,121 @@
+{
+  "scope": "Actual Source API distance/radius words match Native in all600 states; candidate changes only derived diagnostic precision. Full control history preserves V115, full candidate history matches immutable Windows.",
+  "probe_sha256": "60318e7b3de41b6dbba9ac8a0b33d14b478b7d970fc1962bd0ebbcc098568508",
+  "captures": [
+    {
+      "case": "travel-long",
+      "mode": "control",
+      "repeat": 0,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": false,
+      "V115_history_preserved": true
+    },
+    {
+      "case": "travel-long",
+      "mode": "control",
+      "repeat": 1,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": false,
+      "V115_history_preserved": true
+    },
+    {
+      "case": "travel-long",
+      "mode": "candidate",
+      "repeat": 0,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": true,
+      "V115_history_preserved": false
+    },
+    {
+      "case": "travel-long",
+      "mode": "candidate",
+      "repeat": 1,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": true,
+      "V115_history_preserved": false
+    },
+    {
+      "case": "radius-small",
+      "mode": "control",
+      "repeat": 0,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": false,
+      "V115_history_preserved": true
+    },
+    {
+      "case": "radius-small",
+      "mode": "control",
+      "repeat": 1,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": false,
+      "V115_history_preserved": true
+    },
+    {
+      "case": "radius-small",
+      "mode": "candidate",
+      "repeat": 0,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": true,
+      "V115_history_preserved": false
+    },
+    {
+      "case": "radius-small",
+      "mode": "candidate",
+      "repeat": 1,
+      "states": 600,
+      "input_rows": 2400,
+      "unique_actual_input_tuples": 2400,
+      "native_distance_and_radius_words_exact": true,
+      "full_Native_history_exact": true,
+      "V115_history_preserved": false
+    }
+  ],
+  "cases": {
+    "travel-long": {
+      "control": {
+        "two_repeats_exact": true,
+        "actual_input_tuples": 2400,
+        "states": 600
+      },
+      "candidate": {
+        "two_repeats_exact": true,
+        "actual_input_tuples": 2400,
+        "states": 600
+      }
+    },
+    "radius-small": {
+      "control": {
+        "two_repeats_exact": true,
+        "actual_input_tuples": 2400,
+        "states": 600
+      },
+      "candidate": {
+        "two_repeats_exact": true,
+        "actual_input_tuples": 2400,
+        "states": 600
+      }
+    }
+  },
+  "goal_complete": false
+}

@@ -1,0 +1,16 @@
+  40f872: 80 7c 24 1f 00               	cmpb	$0x0, 0x1f(%esp)
+  40f877: 74 1d                        	je	0x40f896 <.text+0xe896>
+  40f879: 8b 07                        	movl	(%edi), %eax
+  40f87b: d9 84 24 94 02 00 00         	flds	0x294(%esp)
+  40f882: 8b 90 a8 00 00 00            	movl	0xa8(%eax), %edx
+  40f888: dd 5c 24 2c                  	fstpl	0x2c(%esp)
+  40f88c: 8b cf                        	movl	%edi, %ecx
+  40f88e: ff d2                        	calll	*%edx
+  40f890: dc 6c 24 2c                  	fsubrl	0x2c(%esp)
+  40f894: eb 02                        	jmp	0x40f898 <.text+0xe898>
+  40f896: d9 ee                        	fldz
+  40f898: 8d 44 24 2c                  	leal	0x2c(%esp), %eax
+  40f89c: dd 5c 24 2c                  	fstpl	0x2c(%esp)
+  40f8a0: 50                           	pushl	%eax
+  40f8a1: 8d 8c 24 20 0c 00 00         	leal	0xc20(%esp), %ecx
+  40f8a8: e8 83 bb ff ff               	calll	0x40b430 <.text+0xa430>

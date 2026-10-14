@@ -1,0 +1,19 @@
+{
+  "scope": "Default-off original double precision for derived suspension-length diagnostics. Solver coordinates and all other observables unchanged. Public diagnostic field widened; rebuild consumers. Two adapter files, SDK unchanged.",
+  "requires": "Verified suspension-force-v115 and all prerequisites.",
+  "files": [
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "2b46dd2920d9ffaf23f3f37a2ffbab2e56cf5a00bd4d4dd01c43928a9d36fc78",
+      "after_sha256": "11601ad18c9eba48125af1b189d741bb2c3841a7348a2f17ac25b0e0a24b2321"
+    },
+    {
+      "location": "adapter",
+      "path": "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "before_sha256": "1798853a64e440aafc79fbd6df49b24f9518e4ec458847c4561918cab0328bb4",
+      "after_sha256": "0222055c50d73d0473aa2b2b56cdaf3d80ba87890a089f3a8244a2e9a5b24884"
+    }
+  ],
+  "goal_complete": false
+}

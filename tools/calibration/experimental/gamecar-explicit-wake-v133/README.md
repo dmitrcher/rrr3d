@@ -1,0 +1,15 @@
+# V133: original GameCar wake events and awake drive fixture
+
+Goal incomplete. This investigation closes a major test-coverage gap: the earlier raw SDK torque phases did not wake the resting original actor. The Windows bridge now constructs the actual unchanged original GameCar through its PDB-resolved constructor (including virtual bases), obtains its owned px::Actor, temporarily attaches the real SDK actor, and invokes original SetMoveCar each step. It detaches borrowed NxActor before the original destructor/free. Raw wheel torques remain explicitly specified; original MotorProgress/full player pipeline is still unverified.
+
+Original constructor RVA4810528 and SetMoveCar RVA4834208. Source and disassembly confirm wakeUp occurs only when movement state changes into acceleration/reverse/brake, not on repeated same-state calls or neutral/steering alone. Both platforms use the same protocol: raw torque/brake determine movement state, transitions request wake, geometry/time/seed and all controls otherwise match. One car/noAI,900 steps, four maps, twice, original game/PDB/SDK/fixture hashes preserved. The original car really accelerates from step120.
+
+Mac adds a default-false VehicleDriveCommand::wakeBody event and a replay-only flag `RRR3D_REAL_WORLD_GAMECAR_WAKE_V133`; existing normal controllers do not emit it yet. An explicit wake of a dormant body retains old motion for wheel-query/API calculations, then zeros linear/angular motion after the post-collision callback and before force/solver initialization. This differs from automatic force/velocity-change wake and must not be merged into every wake path.
+
+Causal evidence: initial Source has matching wheel observables but wrong solver body motion at120. Original first solver has zero awake motion before gravity; original public getters immediately before/after SetMoveCar still show dormant velocity (queued SDK processing). Early Source zero fixes body but breaks wheel observables. Staging the reset after wheel calculations matches all60 first-step solver body inputs and full state at120. No coefficients or measured states are injected.
+
+Final paired awake-drive exact prefixes: map0 steps0..209; map16 steps0..241; map48 steps0..212; map64 steps0..237, two reproducible captures. First differences remain at210/242/213/238. In contrast, V132 resting raw fixtures match all900 on these maps. Awake-drive mismatch coverage must be retained until resolved.
+
+Final default-off900 physical samples and900 commands preserved;53 CTest checks pass. Ordinary installed game is unchanged. General production input, original MotorProgress torque/FP context, stabilizer, scene/decorations/compound/island wake and actual rendered race remain open. Next inspect first awake-drive divergence against private original rows; integrate validated events into real controllers only with corresponding game evidence.
+
+Apply the3-file guarded overlay to verified V132 research Source base via install-guarded.py. SDK unchanged. Windows bridge builds/capture scripts require existing original SDK/development installation; no proprietary DLLs are distributed.

@@ -1,0 +1,121 @@
+
+work/package/MotorRock-Windows-Debug/Rock3dGame.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1049c3a0 <.text+0x783a0>:
+1049c3a0:	55                   	push   %ebp
+1049c3a1:	8b ec                	mov    %esp,%ebp
+1049c3a3:	81 ec d0 00 00 00    	sub    $0xd0,%esp
+1049c3a9:	53                   	push   %ebx
+1049c3aa:	56                   	push   %esi
+1049c3ab:	57                   	push   %edi
+1049c3ac:	51                   	push   %ecx
+1049c3ad:	8d bd 30 ff ff ff    	lea    -0xd0(%ebp),%edi
+1049c3b3:	b9 34 00 00 00       	mov    $0x34,%ecx
+1049c3b8:	b8 cc cc cc cc       	mov    $0xcccccccc,%eax
+1049c3bd:	f3 ab                	rep stos %eax,%es:(%edi)
+1049c3bf:	59                   	pop    %ecx
+1049c3c0:	89 4d f8             	mov    %ecx,-0x8(%ebp)
+1049c3c3:	8b 45 f8             	mov    -0x8(%ebp),%eax
+1049c3c6:	8b 88 18 02 00 00    	mov    0x218(%eax),%ecx
+1049c3cc:	3b 4d 08             	cmp    0x8(%ebp),%ecx
+1049c3cf:	74 69                	je     0x1049c43a
+1049c3d1:	8b 45 f8             	mov    -0x8(%ebp),%eax
+1049c3d4:	8b 4d 08             	mov    0x8(%ebp),%ecx
+1049c3d7:	89 88 18 02 00 00    	mov    %ecx,0x218(%eax)
+1049c3dd:	8b 45 f8             	mov    -0x8(%ebp),%eax
+1049c3e0:	83 b8 18 02 00 00 00 	cmpl   $0x0,0x218(%eax)
+1049c3e7:	74 51                	je     0x1049c43a
+1049c3e9:	8b 4d f8             	mov    -0x8(%ebp),%ecx
+1049c3ec:	e8 0f 2b f9 ff       	call   0x1042ef00
+1049c3f1:	8b c8                	mov    %eax,%ecx
+1049c3f3:	e8 b6 ae f9 ff       	call   0x104372ae
+1049c3f8:	85 c0                	test   %eax,%eax
+1049c3fa:	74 3e                	je     0x1049c43a
+1049c3fc:	8b 4d f8             	mov    -0x8(%ebp),%ecx
+1049c3ff:	e8 fc 2a f9 ff       	call   0x1042ef00
+1049c404:	8b c8                	mov    %eax,%ecx
+1049c406:	e8 a3 ae f9 ff       	call   0x104372ae
+1049c40b:	89 85 30 ff ff ff    	mov    %eax,-0xd0(%ebp)
+1049c411:	8b f4                	mov    %esp,%esi
+1049c413:	51                   	push   %ecx
+1049c414:	d9 05 bc 1b cc 10    	flds   0x10cc1bbc
+1049c41a:	d9 1c 24             	fstps  (%esp)
+1049c41d:	8b 85 30 ff ff ff    	mov    -0xd0(%ebp),%eax
+1049c423:	8b 10                	mov    (%eax),%edx
+1049c425:	8b 8d 30 ff ff ff    	mov    -0xd0(%ebp),%ecx
+1049c42b:	8b 82 5c 01 00 00    	mov    0x15c(%edx),%eax
+1049c431:	ff d0                	call   *%eax
+1049c433:	3b f4                	cmp    %esp,%esi
+1049c435:	e8 05 6d fa ff       	call   0x1044313f
+1049c43a:	5f                   	pop    %edi
+1049c43b:	5e                   	pop    %esi
+1049c43c:	5b                   	pop    %ebx
+1049c43d:	81 c4 d0 00 00 00    	add    $0xd0,%esp
+1049c443:	3b ec                	cmp    %esp,%ebp
+1049c445:	e8 f5 6c fa ff       	call   0x1044313f
+1049c44a:	8b e5                	mov    %ebp,%esp
+1049c44c:	5d                   	pop    %ebp
+1049c44d:	c2 04 00             	ret    $0x4
+1049c450:	cc                   	int3
+1049c451:	cc                   	int3
+1049c452:	cc                   	int3
+1049c453:	cc                   	int3
+1049c454:	cc                   	int3
+1049c455:	cc                   	int3
+1049c456:	cc                   	int3
+1049c457:	cc                   	int3
+1049c458:	cc                   	int3
+1049c459:	cc                   	int3
+1049c45a:	cc                   	int3
+1049c45b:	cc                   	int3
+1049c45c:	cc                   	int3
+1049c45d:	cc                   	int3
+1049c45e:	cc                   	int3
+1049c45f:	cc                   	int3
+1049c460:	cc                   	int3
+1049c461:	cc                   	int3
+1049c462:	cc                   	int3
+1049c463:	cc                   	int3
+1049c464:	cc                   	int3
+1049c465:	cc                   	int3
+1049c466:	cc                   	int3
+1049c467:	cc                   	int3
+1049c468:	cc                   	int3
+1049c469:	cc                   	int3
+1049c46a:	cc                   	int3
+1049c46b:	cc                   	int3
+1049c46c:	cc                   	int3
+1049c46d:	cc                   	int3
+1049c46e:	cc                   	int3
+1049c46f:	cc                   	int3
+1049c470:	cc                   	int3
+1049c471:	cc                   	int3
+1049c472:	cc                   	int3
+1049c473:	cc                   	int3
+1049c474:	cc                   	int3
+1049c475:	cc                   	int3
+1049c476:	cc                   	int3
+1049c477:	cc                   	int3
+1049c478:	cc                   	int3
+1049c479:	cc                   	int3
+1049c47a:	cc                   	int3
+1049c47b:	cc                   	int3
+1049c47c:	cc                   	int3
+1049c47d:	cc                   	int3
+1049c47e:	cc                   	int3
+1049c47f:	cc                   	int3
+1049c480:	55                   	push   %ebp
+1049c481:	8b ec                	mov    %esp,%ebp
+1049c483:	81 ec cc 00 00 00    	sub    $0xcc,%esp
+1049c489:	53                   	push   %ebx
+1049c48a:	56                   	push   %esi
+1049c48b:	57                   	push   %edi
+1049c48c:	51                   	push   %ecx
+1049c48d:	8d bd 34 ff ff ff    	lea    -0xcc(%ebp),%edi
+1049c493:	b9 33 00 00 00       	mov    $0x33,%ecx
+1049c498:	b8 cc cc cc cc       	mov    $0xcccccccc,%eax
+1049c49d:	f3 ab                	rep stos %eax,%es:(%edi)
+1049c49f:	59                   	pop    %ecx

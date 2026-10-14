@@ -1,0 +1,235 @@
+{
+  "scope": "Original GameCar ctor and SetMoveCar, explicit raw SDK motor/steering/brake commands. Same original parent-free startup and geometry, one car/noAI. Original MotorProgress/full rendered player pipeline unverified.",
+  "tracks": {
+    "0": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 210,
+          "first_difference": {
+            "tick": 210,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": 0.0495306812,
+                "mac": 0.0495306477
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 67.6693573,
+                "mac": 67.669487
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -1.56128621,
+                "mac": -1.56145811
+              },
+              {
+                "field": ".angular_momentum[2]",
+                "native": 85.3422546,
+                "mac": 85.3422394
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.000655132288,
+                "mac": -0.000655132346
+              },
+              {
+                "field": ".rotation[1]",
+                "native": 0.000669012719,
+                "mac": 0.000669012778
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 210,
+          "first_difference": {
+            "tick": 210,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": 0.0495306812,
+                "mac": 0.0495306477
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 67.6693573,
+                "mac": 67.669487
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -1.56128621,
+                "mac": -1.56145811
+              },
+              {
+                "field": ".angular_momentum[2]",
+                "native": 85.3422546,
+                "mac": 85.3422394
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.000655132288,
+                "mac": -0.000655132346
+              },
+              {
+                "field": ".rotation[1]",
+                "native": 0.000669012719,
+                "mac": 0.000669012778
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "16": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 242,
+          "first_difference": {
+            "tick": 242,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": -8.11705685,
+                "mac": -8.1170578
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": -69.1637115,
+                "mac": -69.1637268
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 242,
+          "first_difference": {
+            "tick": 242,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": -8.11705685,
+                "mac": -8.1170578
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": -69.1637115,
+                "mac": -69.1637268
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "48": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 213,
+          "first_difference": {
+            "tick": 213,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": 0.00119309314,
+                "mac": 0.00119308406
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 0.404255867,
+                "mac": 0.404165566
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -11.8110428,
+                "mac": -11.8110619
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.00154280849,
+                "mac": -0.0015428086
+              },
+              {
+                "field": ".rotation[1]",
+                "native": -7.25584396e-05,
+                "mac": -7.25580976e-05
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 213,
+          "first_difference": {
+            "tick": 213,
+            "fields": [
+              {
+                "field": ".velocity[2]",
+                "native": 0.00119309314,
+                "mac": 0.00119308406
+              },
+              {
+                "field": ".angular_momentum[0]",
+                "native": 0.404255867,
+                "mac": 0.404165566
+              },
+              {
+                "field": ".angular_momentum[1]",
+                "native": -11.8110428,
+                "mac": -11.8110619
+              },
+              {
+                "field": ".rotation[0]",
+                "native": -0.00154280849,
+                "mac": -0.0015428086
+              },
+              {
+                "field": ".rotation[1]",
+                "native": -7.25584396e-05,
+                "mac": -7.25580976e-05
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "64": {
+      "runs": [
+        {
+          "repeat": 0,
+          "exact_states": 239,
+          "first_difference": {
+            "tick": 238,
+            "fields": [
+              {
+                "field": ".wheels[0].lateral_slip",
+                "native": 9.42057959e-05,
+                "mac": 9.42059996e-05
+              }
+            ]
+          }
+        },
+        {
+          "repeat": 1,
+          "exact_states": 239,
+          "first_difference": {
+            "tick": 238,
+            "fields": [
+              {
+                "field": ".wheels[0].lateral_slip",
+                "native": 9.42057959e-05,
+                "mac": 9.42059996e-05
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "identical_fixtures": true,
+  "goal_complete": false
+}

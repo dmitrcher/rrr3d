@@ -1,0 +1,92 @@
+--- a/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h
++++ b/src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h
+@@ -247,6 +247,8 @@
+     // Diagnostic controllers can isolate the SDK from GameCar stabilization.
+     // Real GameCar controllers retain the original momentum round trip.
+     bool applyAngularStabilization = true;
++    // Explicit GameCar movement transition event; neutral for existing controllers.
++    bool wakeBody = false;
+ };
+ 
+ using VehicleFixedStepController = std::function<VehicleDriveCommand(
+--- a/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
++++ b/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp
+@@ -3025,6 +3025,7 @@
+             originalStartupV130 ? startupRotationV130 : JPH::Quat::sRotation(JPH::Vec3::sAxisY(), -angle),
+             JPH::EActivation::Activate);
+         vehicle.sourceFrozenNormalizationPending = true;
++        vehicle.explicitWakeResetPendingV133 = false;
+         bodies.SetLinearAndAngularVelocity(
+             vehicle.body, JPH::Vec3::sZero(), JPH::Vec3::sZero());
+         vehicle.controller->SetDriverInput(0.0F, 0.0F, 0.0F, 0.0F);
+@@ -3948,6 +3949,7 @@
+         Vec3 diagnosticAcceleration{};
+         JPH::Quat sourceFrozenRotation = JPH::Quat::sIdentity();
+         bool sourceFrozenNormalizationPending = true;
++        bool explicitWakeResetPendingV133 = false;
+         std::set<std::uint32_t> energyPairsV131;
+         bool energyLostPairV131 = false;
+         std::vector<float> sourceWheelAxleSpeeds;
+@@ -4418,6 +4420,12 @@
+                      firstDrivenContact});
+             }
+             gameCarCommand = vehicle.sourceDriveCommand;
++            if(dispatchSourceFixedStep && gameCarCommand.wakeBody) {
++                // Explicit NxActor::wakeUp resets dormant motion. Automatic
++                // force/velocity-change wake follows its separate API path.
++                vehicle.explicitWakeResetPendingV133 = !bodies.IsActive(vehicle.body);
++                wakeEnergyV128(vehicle);bodies.ActivateBody(vehicle.body);
++            }
+             motorTorque = gameCarCommand.motorTorque;
+             brakeTorque = gameCarCommand.brakeTorque;
+             rpm = gameCarCommand.engineRpm;
+@@ -5745,6 +5753,14 @@
+                             std::fclose(file);
+                         }
+                     }
++                }
++                if(vehicle.explicitWakeResetPendingV133) {
++                    // Wheel query/API data is published from retained dormant
++                    // motion before PhysX initializes the awake solver body.
++                    auto* body=constraint.GetVehicleBody();
++                    body->SetLinearVelocity(JPH::Vec3::sZero());
++                    body->SetAngularVelocity(JPH::Vec3::sZero());
++                    vehicle.explicitWakeResetPendingV133=false;
+                 }
+             });
+         vehicles_.back().constraint->SetCombineFriction(
+--- a/src/RRR3d/OriginalPhysicsReplay.cpp
++++ b/src/RRR3d/OriginalPhysicsReplay.cpp
+@@ -84,6 +84,9 @@
+         const bool actuatorsV124=actuatorsFlagV124 && std::string(actuatorsFlagV124)=="1";
+         int tick = 0;
+         unsigned substep = 0;
++        int moveStateV133 = 0;
++        const char* wakeFlagV133=std::getenv("RRR3D_REAL_WORLD_GAMECAR_WAKE_V133");
++        const bool gamecarWakeV133=wakeFlagV133 && std::string(wakeFlagV133)=="1";
+         world->setVehicleFixedStepController(
+             [&](std::size_t racer, float seconds, const VehicleInput& input,
+                 const VehicleFixedStepState& state) {
+@@ -102,6 +105,11 @@
+                     if((tick>=360 && tick<420)||(tick>=600 && tick<660))command.brakeTorque=6000;
+                     if(tick>=420 && tick<480)command.motorTorque=-800;
+                     if(tick>=480 && tick<600){command.motorTorque=500;command.steeringAngle=tick<540?-.2F:.2F;}
++                    if(gamecarWakeV133) {
++                        const int move=command.brakeTorque!=0?1:command.motorTorque<0?2:command.motorTorque>0?3:0;
++                        command.wakeBody=move!=moveStateV133 && move!=0;
++                        moveStateV133=move;
++                    }
+                 } else command=session.racerFixedStepDrive(racer,seconds,input,state);
+                 std::ostringstream row;
+                 row.imbue(std::locale::classic());
+@@ -112,7 +120,9 @@
+                     << ",\"brake_torque\":" << command.brakeTorque
+                     << ",\"steering_angle\":" << command.steeringAngle
+                     << ",\"gear\":" << command.gear
+-                    << ",\"rpm\":" << command.engineRpm << '}';
++                    << ",\"rpm\":" << command.engineRpm;
++                if(gamecarWakeV133)row << ",\"wake_event\":" << (command.wakeBody?"true":"false") << ",\"move_state\":" << moveStateV133;
++                row << '}';
+                 motorrock::parity::event("solo.drive", race.levelPath, row.str());
+                 return command;
+             });

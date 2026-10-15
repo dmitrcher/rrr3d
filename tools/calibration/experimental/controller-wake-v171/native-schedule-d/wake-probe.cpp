@@ -1,0 +1,21 @@
+#include <NxPhysics.h>
+#include <windows.h>
+#include <vector>
+#include <string>
+#include <stdexcept>
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include "NativeGameStartupV130.h"
+#include "MemoryCookingStream.h"
+static void advance(NxScene*scene){scene->simulate(1.0f/60.0f);scene->flushStream();scene->fetchResults(NX_RIGID_BODY_FINISHED,true);}
+static unsigned word(float f){unsigned u;memcpy(&u,&f,4);return u;}
+int main(int argc,char**argv){NxPhysicsSDK*sdk=0;try{
+ if(argc!=2)return 2;std::ofstream out(argv[1]);NxSDKCreateError err;sdk=NxCreatePhysicsSDK(NX_PHYSICS_SDK_VERSION,0,0,NxPhysicsSDKDesc(),&err);if(!sdk)throw std::runtime_error("SDK failed");NxSceneDesc sd;sd.gravity=NxVec3(0,0,0);sd.timeStepMethod=NX_TIMESTEP_VARIABLE;NxScene*scene=sdk->createScene(sd);if(!scene)throw std::runtime_error("Scene failed");NxCookingInterface*cooking=NxGetCookingLib(NX_PHYSICS_SDK_VERSION);if(!cooking||!cooking->NxInitCooking())throw std::runtime_error("Cooking failed");NxVec3 points[]={NxVec3(-500,-500,-1000),NxVec3(500,-500,-1000),NxVec3(500,500,-1000),NxVec3(-500,500,-1000)};NxU32 indices[]={0,1,2,0,2,3};NxTriangleMeshDesc md;md.numVertices=4;md.points=points;md.pointStrideBytes=sizeof(NxVec3);md.numTriangles=2;md.triangles=indices;md.triangleStrideBytes=3*sizeof(NxU32);CalibrationStream stream;if(!cooking->NxCookTriangleMesh(md,stream))throw std::runtime_error("Cook failed");NxTriangleMesh*mesh=sdk->createTriangleMesh(stream);NxTriangleMeshShapeDesc fs;fs.meshData=mesh;fs.group=6;NxActorDesc fa;fa.shapes.pushBack(&fs);scene->createActor(fa);NxBoxShapeDesc box;box.dimensions=NxVec3(1,1,1);NxBodyDesc body;body.mass=1000;body.angularDamping=0;body.linearDamping=0;body.sleepEnergyThreshold=.005F;NxActorDesc ad;ad.body=&body;ad.shapes.pushBack(&box);ad.flags|=NX_AF_LOCK_COM;NxWheelShapeDesc wheels[4];for(int i=0;i<4;++i){wheels[i].localPose.t=NxVec3(i<2?1.0f:-1.0f,i%2?1.0f:-1.0f,-.5f);NxQuat q;q.setXYZW(.5f,.5f,.5f,.5f);wheels[i].localPose.M.fromQuat(q);wheels[i].radius=.5f;wheels[i].suspensionTravel=.4f;wheels[i].suspension.spring=0;wheels[i].suspension.damper=0;wheels[i].suspension.targetValue=0;wheels[i].inverseWheelMass=1;wheels[i].wheelFlags=64;wheels[i].shapeFlags|=NX_SF_DISABLE_COLLISION;ad.shapes.pushBack(&wheels[i]);}NxActor*actor=scene->createActor(ad);if(!actor)throw std::runtime_error("Actor failed");
+ for(int attached=0;attached<2;++attached)for(int previous=0;previous<4;++previous)for(int next=0;next<4;++next){nativegamev130::Control car(*actor);NxActor**slot=(NxActor**)((unsigned char*)car.actor+car.nxOffset);*slot=0;car.set(previous);if(attached)*slot=actor;actor->putToSleep();advance(scene);if(!actor->isSleeping())throw std::runtime_error("Sleep setup not committed");car.set(next);advance(scene);out<<"{\"event\":\"wake.sample\",\"attached\":"<<(attached?"true":"false")<<",\"previous\":"<<previous<<",\"next\":"<<next<<",\"awake\":"<<(actor->isSleeping()?"false":"true")<<"}\n";}
+ {nativegamev130::Control car(*actor);NxActor**slot=(NxActor**)((unsigned char*)car.actor+car.nxOffset);const int attached[]={0,1,1,1,1,0,1,1};const int move[]={3,3,0,1,1,2,2,3};for(unsigned i=0;i<8;++i){*slot=attached[i]?actor:0;actor->putToSleep();advance(scene);if(!actor->isSleeping())throw std::runtime_error("Sleep setup not committed");car.set(move[i]);advance(scene);out<<"{\"event\":\"wake.sequence\",\"tick\":"<<i<<",\"attached\":"<<(attached[i]?"true":"false")<<",\"next\":"<<move[i]<<",\"awake\":"<<(actor->isSleeping()?"false":"true")<<"}\n";}}
+ {nativegamev130::Control car(*actor);actor->setLinearVelocity(NxVec3(0,0,0));actor->setAngularVelocity(NxVec3(0,0,0));actor->wakeUp();for(unsigned tick=0;tick<360;++tick){int move=tick<30?0:tick<90?3:tick<150?1:tick<210?2:tick<270?3:0;car.set(move);scene->simulate(1.0f/60.0f);scene->flushStream();scene->fetchResults(NX_RIGID_BODY_FINISHED,true);out<<"{\"event\":\"wake.schedule\",\"tick\":"<<tick<<",\"next\":"<<move<<",\"awake\":"<<(actor->isSleeping()?"false":"true")<<"}\n";}}
+ out<<"{\"event\":\"wake.metadata\",\"original_game_ctor_rva\":"<<nativegamev130::gamector<<",\"setmove_rva\":"<<nativegamev130::setmove<<"}\n";scene->releaseActor(*actor);sdk->releaseScene(*scene);sdk->release();return 0;
+ }catch(const std::exception&e){std::cerr<<e.what()<<'\n';return 3;}}

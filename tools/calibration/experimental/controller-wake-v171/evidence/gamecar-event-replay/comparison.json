@@ -1,0 +1,43 @@
+{
+  "scope": "Actual Source OriginalRaceSession/GameCar/Jolt bridge event transport, not Windows full-controller trajectory parity.",
+  "runs": [
+    {
+      "mode": "off",
+      "samples": 900,
+      "drive_commands": 900,
+      "wake_ticks": [],
+      "semantic_sha256": "6b7330fbdb01f5dac8f35de5b56804f5ad42bfba3f245587e2d46c1b05e5fb31"
+    },
+    {
+      "mode": "on0",
+      "samples": 900,
+      "drive_commands": 900,
+      "wake_ticks": [
+        120,
+        360,
+        420,
+        480,
+        600
+      ],
+      "semantic_sha256": "1f6ae1f897e9acb801ccf0d2cedd81d593fb3b8a494bff15774ea6d26ae5a0e2"
+    },
+    {
+      "mode": "on1",
+      "samples": 900,
+      "drive_commands": 900,
+      "wake_ticks": [
+        120,
+        360,
+        420,
+        480,
+        600
+      ],
+      "semantic_sha256": "1f6ae1f897e9acb801ccf0d2cedd81d593fb3b8a494bff15774ea6d26ae5a0e2"
+    }
+  ],
+  "repeat_identical": true,
+  "fixture_identical": true,
+  "inputs_and_impulses_identical": true,
+  "negative_control_runner_correction": "invalid-off-flag-overridden/receipt.json",
+  "goal_complete": false
+}

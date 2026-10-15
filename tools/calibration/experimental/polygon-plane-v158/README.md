@@ -1,0 +1,11 @@
+# Polygon projection plane height V158
+
+Original Core polygon wrappers form plane height from the rounded rotation basis third axis and the first polygon vertex, with float32 Z,Y,X accumulation (Core RVAs 225d09..225d37 and 22644d..226473). The previous adapter used the original normal and explicit plane offset. Near a parallel axis these differ after rounding the Householder basis. V158 reproduces the wrapper operation, without changing engine power, other coefficients, commands, timestep, seed or original Windows code/data.
+
+RRR3D_EXPERIMENT_NATIVE_POLYGON_PLANE_V158=1 enables the correction with the complete V157 research profile. The flag defaults off. Both original expressions remain intact for the disabled path. This step changes SourceMeshManifold.h only; the distributed cumulative five-file overlay includes V153..V158 changes over exact V152 Source and V150 SDK prerequisites. install-guarded.py verifies all prerequisites before mutation, applies five files, reapplies idempotently, and rejects unknown prerequisites without any source/SDK change. Rebuild all dependent targets.
+
+Two read-only 41-hook original captures preserve all 900 immutable Windows states. Actual map64/240 basis, all twelve relative-box words, plane height, both projected depths and emitted separations match the production helper at O0 and O2. Corrected Source geometry, mass, bias, lever arms, quaternion, linear and angular states match all ten original solver rows. Source diagnostic output equals plain replay for all 900 states.
+
+Both repeats of moving maps0 and48 match all900 original float32 physical states. Map64 exact prefix increases240 to367; map16 remains420. Later map64 maximum position error is0.171577745 (previous0.171107360), so this is an early causal correction, not whole-history endpoint parity. Remaining map64/367 evidence points to cooked triangle ordering and the shared representative plane; it is not implemented as a measured permutation or map-specific selection.
+
+All53 CTest checks pass. Disabled V158 flag reproduces all900 V157 map0 states. Both frozen full608-scenario repetitions match each other and all255864 original float32 physical states. The regular installed game is unchanged; controller, ordinary race integration and complete moving parity remain open. The goal is incomplete.

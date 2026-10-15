@@ -1,0 +1,36 @@
+{
+  "sha256": "6abbf5a64e41cd8e085f0ef0cc6720a6fdb375b42a7b4e76c91a70c8c1f4145f",
+  "overlay": [
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "b7494bc80fe1be25f41da45f76eca4cfe95fc941da117aebf7cdd0a6f08a0e77",
+      "after_sha256": "47c377242a3860603f60de5c3140174afa77c0f203b42e112c4296e9fbf6ec11"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/header/physics/NativeShapeCenterV153.h",
+      "before_sha256": null,
+      "after_sha256": "ce47e09363411e55de6413347d3ab8711d8fdaf7a35a5ed885386f7b02d8c99f"
+    },
+    {
+      "group": "sdk",
+      "path": "Jolt/Physics/Constraints/ContactConstraintManager.cpp",
+      "before_sha256": "d6d1ba32bfba1e74e5edc21a173498b4c76dfe46db01c5f052478b44343dbd84",
+      "after_sha256": "46136c7aa2e4eeac18d306bb923ef6564b9ff9c00da205b7184cb79c70b07bf9"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/header/physics/SourceMeshManifold.h",
+      "before_sha256": "5c9e14bf6f6a8ed0b879ed78ce18c25df6762fc1784d0d8896100ebb2a67b065",
+      "after_sha256": "d5112eef7ebd611217f2b7478341f7cac47bc65f00acfb354b3d7502de659402"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/header/physics/NativeRayNormalV157.h",
+      "before_sha256": null,
+      "after_sha256": "781dafd4684296f01290555948df42d113d907111eea297526e3636aa7eee2df"
+    }
+  ],
+  "goal_complete": false
+}

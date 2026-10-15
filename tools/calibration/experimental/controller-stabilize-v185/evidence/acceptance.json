@@ -1,0 +1,19 @@
+{
+  "stage": 185,
+  "accepted_scope": "Original GameCar stabilization without clutch, explicitly marked PC24 command boundary",
+  "world_cases": 180,
+  "world_repeats": 2,
+  "helper_cases": 720,
+  "helper_optimizations": [
+    "O0",
+    "O2"
+  ],
+  "helper_repeats": 2,
+  "baseline_cases": 608,
+  "baseline_states_per_repeat": 255864,
+  "baseline_repeats": 2,
+  "raw_map_states": 7200,
+  "ctest_passed": 53,
+  "full_goal_complete": false,
+  "next": "Integrate measured local-Z clutch request inside stabilization; then physical contact gates, jump and full original GameCar update/race acceptance."
+}

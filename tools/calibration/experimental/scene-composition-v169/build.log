@@ -1,0 +1,143 @@
+[0/2] Re-checking globbed directories...
+[1/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalCameraManager.cpp.o
+[2/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalWorld.cpp.o
+[3/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalAchievmentModel.cpp.o
+[4/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalDataBase.cpp.o
+[5/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalGameObject.cpp.o
+[6/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalHudMenu.cpp.o
+[7/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalGameCar.cpp.o
+[8/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalLogic.cpp.o
+[9/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalMap.cpp.o
+[10/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalMapObj.cpp.o
+[11/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalAICar.cpp.o
+[12/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalHumanPlayer.cpp.o
+[13/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalRockCar.cpp.o
+[14/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalPlayer.cpp.o
+[15/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalTrace.cpp.o
+[16/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalRaceLifecycle.cpp.o
+[17/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalTraceGfx.cpp.o
+[18/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalSlot.cpp.o
+[19/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalEnvironment.cpp.o
+[20/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalWeapon.cpp.o
+[21/113] Building CXX object src/Rock3dEngine/CMakeFiles/Rock3dEngine.dir/source/physics/JoltVehiclePhysics.cpp.o
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:2191:56: warning: 'configureMaterial' has a non-throwing exception specification but can still throw [-Wexceptions]
+ 2191 |                 if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box frame physical pose");pose=it->second;}
+      |                                                        ^
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1990:10: note: function declared non-throwing here
+ 1990 |     void configureMaterial(
+      |          ^
+ 1991 |         const JPH::Body& first, const JPH::Body& second,
+ 1992 |         const JPH::ContactManifold& manifold,
+ 1993 |         JPH::ContactSettings& settings) noexcept
+      |                                         ~~~~~~~~
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:2177:60: warning: 'configureMaterial' has a non-throwing exception specification but can still throw [-Wexceptions]
+ 2177 |                     if(it==nativeMaterialActorPoses_.end())throw std::runtime_error("Missing static box inertia physical pose");pose=it->second;}
+      |                                                            ^
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:1990:10: note: function declared non-throwing here
+ 1990 |     void configureMaterial(
+      |          ^
+ 1991 |         const JPH::Body& first, const JPH::Body& second,
+ 1992 |         const JPH::ContactManifold& manifold,
+ 1993 |         JPH::ContactSettings& settings) noexcept
+      |                                         ~~~~~~~~
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp:6601:39: warning: format specifies type 'size_t' (aka 'unsigned long') but the argument has type 'JPH::uint' (aka 'unsigned int') [-Wformat]
+ 6600 |                     std::fprintf(file,"{\"physical_tick\":%u,\"wheel\":%zu,\"has_contact\":%s,\"distance_word\":%u,\"radius_word\":%u,\"reported_length\":%.17g}\n",
+      |                                                                        ~~~
+      |                                                                        %u
+ 6601 |                         counterV116-1,index,contact.hasContact?"true":"false",wordV116(distanceV116),wordV116(radiusV116),contact.suspensionLength);
+      |                                       ^~~~~
+3 warnings generated.
+[22/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalGarage.cpp.o
+[23/113] Linking CXX static library src/Rock3dEngine/libRock3dEngine.a
+[24/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_physics_calibration.dir/__/__/tools/calibration/mac.cpp.o
+[25/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_calibration_tuning_test.dir/__/__/tools/calibration/test_tuning.cpp.o
+[26/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_contact_impulse_test.dir/__/__/tools/calibration/test_contact_impulse.cpp.o
+[27/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_source_inertia_test.dir/__/__/tools/calibration/test_inertia.cpp.o
+[28/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_suspension_stop_test.dir/__/__/tools/calibration/test_suspension_stop.cpp.o
+[29/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_wall_timing_test.dir/__/__/tools/calibration/test_wall_timing.cpp.o
+[30/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_contact_skin_targets_test.dir/__/__/tools/calibration/test_contact_skin_targets.cpp.o
+[31/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalRace.cpp.o
+[32/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_frozen_pose_test.dir/__/__/tools/calibration/test_frozen_pose.cpp.o
+[33/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_body_friction_test.dir/__/__/tools/calibration/test_body_friction.cpp.o
+[34/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_achievment_smoke.dir/tests/OriginalAchievmentSmoke.cpp.o
+[35/113] Building CXX object src/Rock3dEngine/CMakeFiles/rrr3d_physics_spring_probe.dir/__/__/tools/calibration/mac.cpp.o
+[36/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_trace_smoke.dir/tests/OriginalTraceSmoke.cpp.o
+[37/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_hud_menu_smoke.dir/tests/OriginalHudMenuSmoke.cpp.o
+[38/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_trace_gfx_smoke.dir/tests/OriginalTraceGfxSmoke.cpp.o
+[39/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_race_lifecycle_smoke.dir/tests/OriginalRaceLifecycleSmoke.cpp.o
+[40/113] Building CXX object src/Rock3dGame/CMakeFiles/Rock3dGame.dir/source/stub/OriginalRaceSession.cpp.o
+[41/113] Linking CXX static library src/Rock3dGame/libRock3dGame.a
+[42/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_map_obj_smoke.dir/tests/OriginalMapObjSmoke.cpp.o
+[43/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_game_object_smoke.dir/tests/OriginalGameObjectSmoke.cpp.o
+[44/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_player_smoke.dir/tests/OriginalPlayerSmoke.cpp.o
+[45/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_game_car_smoke.dir/tests/OriginalGameCarSmoke.cpp.o
+[46/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_map_smoke.dir/tests/OriginalMapSmoke.cpp.o
+[47/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalMenuSounds.cpp.o
+[48/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/__/__/tools/calibration/mac.cpp.o
+[49/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalResourceManager.cpp.o
+[50/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalGameDebug.cpp.o
+[51/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalRaceCommentator.cpp.o
+[52/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalPhysicsReplay.cpp.o
+[53/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalJungleAudit.cpp.o
+[54/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalWorkshopRenderer.cpp.o
+[55/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_camera_manager_smoke.dir/tests/OriginalCameraManagerSmoke.cpp.o
+[56/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalRaceHud.cpp.o
+[57/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_ai_car_smoke.dir/tests/OriginalAICarSmoke.cpp.o
+[58/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_slot_smoke.dir/tests/OriginalSlotSmoke.cpp.o
+[59/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_human_player_smoke.dir/tests/OriginalHumanPlayerSmoke.cpp.o
+[60/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_environment_smoke.dir/tests/OriginalEnvironmentSmoke.cpp.o
+[61/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/OriginalRaceRenderer.cpp.o
+[62/113] Building CXX object src/Rock3dGame/CMakeFiles/rrr3d_original_weapon_smoke.dir/tests/OriginalWeaponSmoke.cpp.o
+[63/113] Linking CXX executable Debug/rrr3d_calibration_tuning_test
+[64/113] Linking CXX executable Debug/rrr3d_physics_calibration
+[65/113] Building CXX object src/RRR3d/CMakeFiles/rrr3d_original_trail_geometry_smoke.dir/OriginalTrailGeometrySmoke.cpp.o
+[66/113] Linking CXX executable Debug/rrr3d_source_inertia_test
+[67/113] Linking CXX executable Debug/rrr3d_contact_impulse_test
+[68/113] Linking CXX executable Debug/rrr3d_suspension_stop_test
+[69/113] Building CXX object src/RRR3d/CMakeFiles/rrr3d_original_resource_manager_smoke.dir/OriginalResourceManagerSmoke.cpp.o
+[70/113] Linking CXX executable Debug/rrr3d_wall_timing_test
+[71/113] Linking CXX executable Debug/rrr3d_contact_skin_targets_test
+[72/113] Linking CXX executable Debug/rrr3d_frozen_pose_test
+[73/113] Linking CXX executable Debug/rrr3d_physics_spring_probe
+[74/113] Linking CXX executable Debug/rrr3d_body_friction_test
+[75/113] Linking CXX executable Debug/rrr3d_fixture_selection_test
+[76/113] Building CXX object src/RRR3d/CMakeFiles/rrr3d_original_resource_manager_smoke.dir/OriginalResourceManager.cpp.o
+[77/113] Linking CXX executable Debug/rrr3d_original_control_manager_smoke
+[78/113] Building CXX object src/RRR3d/CMakeFiles/RRR3d.dir/main_bgfx_original_menu.cpp.o
+[79/113] Linking CXX executable Debug/rrr3d_original_view_smoke
+[80/113] Linking CXX executable Debug/rrr3d_original_achievment_smoke
+[81/113] Linking CXX executable Debug/rrr3d_original_hud_menu_smoke
+[82/113] Linking CXX executable Debug/rrr3d_original_world_game_mode_smoke
+[83/113] Linking CXX executable Debug/rrr3d_original_race_lifecycle_smoke
+[84/113] Linking CXX executable Debug/rrr3d_original_user_chat_smoke
+[85/113] Linking CXX executable Debug/RRR3d.app/Contents/MacOS/RRR3d
+[86/113] Linking CXX executable Debug/rrr3d_portable_capabilities_smoke
+[87/113] Linking CXX executable Debug/rrr3d_original_tournament_smoke
+[88/113] Linking CXX executable Debug/rrr3d_original_trace_smoke
+[89/113] Linking CXX executable Debug/rrr3d_original_trace_gfx_smoke
+[90/113] Linking CXX executable Debug/rrr3d_original_player_smoke
+[91/113] Linking CXX executable Debug/rrr3d_original_game_object_smoke
+[92/113] Linking CXX executable Debug/rrr3d_original_map_obj_smoke
+[93/113] Linking CXX executable Debug/rrr3d_original_map_smoke
+[94/113] Linking CXX executable Debug/rrr3d_original_game_car_smoke
+[95/113] Linking CXX executable Debug/rrr3d_original_ai_car_smoke
+[96/113] Linking CXX executable Debug/rrr3d_original_camera_manager_smoke
+[97/113] Linking CXX executable Debug/rrr3d_original_weapon_smoke
+[98/113] Linking CXX executable Debug/rrr3d_original_slot_smoke
+[99/113] Linking CXX executable Debug/rrr3d_original_human_player_smoke
+[100/113] Linking CXX executable Debug/rrr3d_original_menu_system_smoke
+[101/113] Linking CXX executable Debug/rrr3d_original_dialog_menu_smoke
+[102/113] Linking CXX executable Debug/rrr3d_original_options_menu_smoke
+[103/113] Linking CXX executable Debug/rrr3d_original_main_menu_frames_smoke
+[104/113] Linking CXX executable Debug/rrr3d_original_race_menu_smoke
+[105/113] Linking CXX executable Debug/rrr3d_original_resource_catalog_smoke
+[106/113] Linking CXX executable Debug/rrr3d_original_environment_smoke
+[107/113] Linking CXX executable Debug/rrr3d_original_network_session_smoke
+[108/113] Linking CXX executable Debug/rrr3d_original_trail_geometry_smoke
+[109/113] Linking CXX executable Debug/rrr3d_core_text_rasterizer_smoke
+[110/113] Linking CXX executable Debug/rrr3d_original_network_models_smoke
+[111/113] Linking CXX executable Debug/rrr3d_original_resource_manager_smoke
+[112/113] Packaging game-data and signing the autonomous RRR3d.app
+-- Copied 1200 cataloged game-data files
+/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d/build/macos-arm64-m10/Debug/RRR3d.app: replacing existing signature
+RRR3d.app verified: version 1.3.1, arm64, minos 13.0, 1200 assets, 14 movies, signed, autonomous dependencies

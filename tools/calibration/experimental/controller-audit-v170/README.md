@@ -1,0 +1,9 @@
+# V170 read-only production-controller audit
+
+Actual unchanged original GameCar constructor is invoked, and its owned CarMotorDesc is located using original PDB fields. Its original CalcTorque method is called for4 parameter sets x6 actual constructor-created gears x2 FPU precision modes,48 outputs, twice identically. Original Game DLL/PDB and WorldProbeV133 hashes stay unchanged. No fake layout or replacement torque formula is used for Native observations.
+
+The existing Mac loader pre-multiplies SEM*1.15 into torqueEfficiency, then the controller multiplies torque*gear*differential*torqueEfficiency. Original CalcTorque multiplies torque*gear*differential*SEM*1.15 in that order. Native versus current folded formula differs9/24 values at each tested precision mode. Sequential F32 matches all24 Native24-bit results; differs4/24 at Native53-bit. Actual production floating-point context must be observed before choosing a repair. RPM is ignored by the actual original CalcTorque too; that alone is not a bug.
+
+A second source audit identifies missing original wake propagation: original GameCar::SetMoveCar wakes its SDK actor on changes to non-none input, while Mac GameCar::SetMoveCar only assigns the enum, and OriginalRaceSession::racerFixedStepDrive does not forward VehicleDriveCommand::wakeBody. Raw V133 map probes explicitly emit that event; ordinary production controller still does not. No V170 runtime fix is installed yet.
+
+Next: observe actual Windows production FP context; compare original MotorProgress/RPM/gear/brake/wake outputs on identical actor state; preserve raw physics169 acceptance, then integrate those events into the real game controller with equivalent end-to-end evidence. Do not tune engine power to hide arithmetic/event differences. Goal remains incomplete.

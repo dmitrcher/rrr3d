@@ -1,0 +1,33 @@
+{
+  "cases_per_repeat": 13512,
+  "repeats": 2,
+  "exact_corrected": 27024,
+  "negative_control_differences_per_repeat": 1704,
+  "negative_control_only_field": "motor_word",
+  "gear_up_per_repeat": 784,
+  "gear_down_per_repeat": 580,
+  "contact_cases_per_repeat": {
+    "0": 6756,
+    "1": 6756
+  },
+  "move_cases_per_repeat": {
+    "0": 3432,
+    "1": 2352,
+    "2": 3864,
+    "3": 3864
+  },
+  "independent_scenes_verified": [
+    {
+      "repeat": 0,
+      "states": 13512,
+      "exact_original_reference_and_inputs": true,
+      "one_dynamic_body_per_scene": true
+    },
+    {
+      "repeat": 1,
+      "states": 13512,
+      "exact_original_reference_and_inputs": true,
+      "one_dynamic_body_per_scene": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+#include "OriginalGameCar.h"
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <cmath>
+namespace source=r3d::game::originalrace::source;
+static float value(unsigned u){float f;std::memcpy(&f,&u,4);return f;}static unsigned word(float f){unsigned u;std::memcpy(&u,&f,4);return u;}
+int main(int argc,char**argv){if(argc!=3)return 2;std::ifstream input(argv[1]);std::string magic;unsigned count;input>>magic>>count;if(magic!="MOTORROCK_MOTOR_STATE_V175")return 2;std::ofstream out(argv[2]);for(unsigned i=0;i<count;++i){unsigned id,t,speed,axle,k;int contact,automatic,gear,move;input>>id>>contact>>t>>automatic>>gear>>move>>speed>>axle>>k;if(!input)return 3;source::GameCar car;source::GameCar::MotorDescription motor;motor.maximumTorque=value(t);motor.originalMotorSem=.7F;motor.hasOriginalTorqueFactors=true;motor.torqueEfficiency=motor.originalMotorSem*1.15F;motor.automaticGears=automatic!=0;car.ConfigureMotor(motor);car.SetCurGear(gear);car.SetMotorTorqueK(value(k));source::GameCar::FixedStepInput in;in.manualSteering=true;if(move==1)in.brake=1;else if(move==2)in.reverse=1;else if(move==3)in.throttle=1;source::GameCar::FixedStepState state;state.signedSpeed=value(speed);state.absoluteSpeed=std::abs(value(speed));state.horizontalSpeed=state.absoluteSpeed;state.drivenWheelAngularSpeed=value(axle);state.firstDrivenWheelContact=state.drivenWheelContact=state.anyWheelContact=state.allWheelContact=contact!=0;auto result=car.OnFixedStepDrive(1.0F/60,in,state);out<<"{\"event\":\"motor.sample\",\"case\":"<<id<<",\"speed_word\":"<<word(car.GetSpeed())<<",\"motor_word\":"<<word(result.motorTorque)<<",\"brake_word\":"<<word(result.brakeTorque)<<",\"rpm_word\":"<<word(result.rpm)<<",\"gear\":"<<result.gear<<"}\n";}return out.good()?0:4;}

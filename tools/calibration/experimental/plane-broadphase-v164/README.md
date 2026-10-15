@@ -1,0 +1,1 @@
+Original map death plane missing from Source initial SAP sort; Source-derived plane bounds all original words exact O0/O2. Initial track16 marker order fixed; physical first difference remains420. All switches defaultOFF.

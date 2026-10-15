@@ -1,0 +1,1 @@
+Negative intermediate checkpoint: preserving lost retirement identity fixes array245 but still differs259 due premature neighbor-slot reuse. Track16 physical first420. Superseded by V166 deferred retirement. All switches defaultOFF.

@@ -1,0 +1,399 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10173c90: 04 00                        	add	al, 0x0
+10173c92: 85 c0                        	test	eax, eax
+10173c94: 74 0d                        	je	0x10173ca3 <NpCreatePhysicsSDK+0x66b33>
+10173c96: 8b 48 04                     	mov	ecx, dword ptr [eax + 0x4]
+10173c99: 3b cf                        	cmp	ecx, edi
+10173c9b: 74 33                        	je	0x10173cd0 <NpCreatePhysicsSDK+0x66b60>
+10173c9d: 8b c1                        	mov	eax, ecx
+10173c9f: 85 c0                        	test	eax, eax
+10173ca1: 75 f3                        	jne	0x10173c96 <NpCreatePhysicsSDK+0x66b26>
+10173ca3: 83 3d e4 07 35 10 00         	cmp	dword ptr [0x103507e4], 0x0
+10173caa: 75 01                        	jne	0x10173cad <NpCreatePhysicsSDK+0x66b3d>
+10173cac: cc                           	int3
+10173cad: 68 50 8d 31 10               	push	0x10318d50
+10173cb2: 68 10 8d 31 10               	push	0x10318d10
+10173cb7: 68 ce 00 00 00               	push	0xce
+10173cbc: 33 c9                        	xor	ecx, ecx
+10173cbe: ba 06 06 00 00               	mov	edx, 0x606
+10173cc3: e8 b8 d3 e8 ff               	call	0x10001080 <.text+0x80>
+10173cc8: 83 c4 0c                     	add	esp, 0xc
+10173ccb: 5f                           	pop	edi
+10173ccc: 5e                           	pop	esi
+10173ccd: c2 04 00                     	ret	0x4
+10173cd0: 8b 4f 04                     	mov	ecx, dword ptr [edi + 0x4]
+10173cd3: 89 48 04                     	mov	dword ptr [eax + 0x4], ecx
+10173cd6: 8b b6 10 03 00 00            	mov	esi, dword ptr [esi + 0x310]
+10173cdc: ff 8e d0 0e 00 00            	dec	dword ptr [esi + 0xed0]
+10173ce2: 5f                           	pop	edi
+10173ce3: 5e                           	pop	esi
+10173ce4: c2 04 00                     	ret	0x4
+10173ce7: ff 8e 90 01 00 00            	dec	dword ptr [esi + 0x190]
+10173ced: 8b 17                        	mov	edx, dword ptr [edi]
+10173cef: 8b 42 70                     	mov	eax, dword ptr [edx + 0x70]
+10173cf2: 8b cf                        	mov	ecx, edi
+10173cf4: ff d0                        	call	eax
+10173cf6: e8 05 25 ea ff               	call	0x10016200 <.text+0x15200>
+10173cfb: 8b 8e 10 03 00 00            	mov	ecx, dword ptr [esi + 0x310]
+10173d01: c1 e0 04                     	shl	eax, 0x4
+10173d04: ff 0c 08                     	dec	dword ptr [eax + ecx]
+10173d07: 03 c1                        	add	eax, ecx
+10173d09: 8b 86 10 03 00 00            	mov	eax, dword ptr [esi + 0x310]
+10173d0f: ff 88 c0 0e 00 00            	dec	dword ptr [eax + 0xec0]
+10173d15: 8b 87 28 01 00 00            	mov	eax, dword ptr [edi + 0x128]
+10173d1b: 85 c0                        	test	eax, eax
+10173d1d: 75 0a                        	jne	0x10173d29 <NpCreatePhysicsSDK+0x66bb9>
+10173d1f: 8b 87 2c 01 00 00            	mov	eax, dword ptr [edi + 0x12c]
+10173d25: 85 c0                        	test	eax, eax
+10173d27: 74 0d                        	je	0x10173d36 <NpCreatePhysicsSDK+0x66bc6>
+10173d29: 8d 96 98 00 00 00            	lea	edx, [esi + 0x98]
+10173d2f: 52                           	push	edx
+10173d30: 57                           	push	edi
+10173d31: e8 ba f4 03 00               	call	0x101b31f0 <NpCreatePhysicsSDK+0xa6080>
+10173d36: 8b 8e 9c 00 00 00            	mov	ecx, dword ptr [esi + 0x9c]
+10173d3c: 2b 8e 98 00 00 00            	sub	ecx, dword ptr [esi + 0x98]
+10173d42: 33 c0                        	xor	eax, eax
+10173d44: c1 f9 02                     	sar	ecx, 0x2
+10173d47: 85 c9                        	test	ecx, ecx
+10173d49: 76 4d                        	jbe	0x10173d98 <NpCreatePhysicsSDK+0x66c28>
+10173d4b: 8d 50 fc                     	lea	edx, [eax - 0x4]
+10173d4e: 55                           	push	ebp
+10173d4f: 90                           	nop
+10173d50: 8b 8e 98 00 00 00            	mov	ecx, dword ptr [esi + 0x98]
+10173d56: 39 3c 81                     	cmp	dword ptr [ecx + 4*eax], edi
+10173d59: 75 28                        	jne	0x10173d83 <NpCreatePhysicsSDK+0x66c13>
+10173d5b: 8b ae 9c 00 00 00            	mov	ebp, dword ptr [esi + 0x9c]
+10173d61: 2b e9                        	sub	ebp, ecx
+10173d63: c1 fd 02                     	sar	ebp, 0x2
+10173d66: 4d                           	dec	ebp
+10173d67: 3b c5                        	cmp	eax, ebp
+10173d69: 74 12                        	je	0x10173d7d <NpCreatePhysicsSDK+0x66c0d>
+10173d6b: 8b ae 9c 00 00 00            	mov	ebp, dword ptr [esi + 0x9c]
+10173d71: 2b e9                        	sub	ebp, ecx
+10173d73: c1 fd 02                     	sar	ebp, 0x2
+10173d76: 8b 6c a9 fc                  	mov	ebp, dword ptr [ecx + 4*ebp - 0x4]
+10173d7a: 89 2c 81                     	mov	dword ptr [ecx + 4*eax], ebp
+10173d7d: 01 96 9c 00 00 00            	add	dword ptr [esi + 0x9c], edx
+10173d83: 8b 8e 9c 00 00 00            	mov	ecx, dword ptr [esi + 0x9c]
+10173d89: 2b 8e 98 00 00 00            	sub	ecx, dword ptr [esi + 0x98]
+10173d8f: 40                           	inc	eax
+10173d90: c1 f9 02                     	sar	ecx, 0x2
+10173d93: 3b c1                        	cmp	eax, ecx
+10173d95: 72 b9                        	jb	0x10173d50 <NpCreatePhysicsSDK+0x66be0>
+10173d97: 5d                           	pop	ebp
+10173d98: 8b 86 a4 00 00 00            	mov	eax, dword ptr [esi + 0xa4]
+10173d9e: 3b f8                        	cmp	edi, eax
+10173da0: 75 3b                        	jne	0x10173ddd <NpCreatePhysicsSDK+0x66c6d>
+10173da2: 8b 57 04                     	mov	edx, dword ptr [edi + 0x4]
+10173da5: 89 96 a4 00 00 00            	mov	dword ptr [esi + 0xa4], edx
+10173dab: 8b 8f 24 01 00 00            	mov	ecx, dword ptr [edi + 0x124]
+10173db1: c7 47 04 00 00 00 00         	mov	dword ptr [edi + 0x4], 0x0
+10173db8: 85 c9                        	test	ecx, ecx
+10173dba: 74 11                        	je	0x10173dcd <NpCreatePhysicsSDK+0x66c5d>
+10173dbc: 8b 11                        	mov	edx, dword ptr [ecx]
+10173dbe: 8b 42 04                     	mov	eax, dword ptr [edx + 0x4]
+10173dc1: ff d0                        	call	eax
+10173dc3: c7 87 24 01 00 00 00 00 00 00	mov	dword ptr [edi + 0x124], 0x0
+10173dcd: c7 47 24 00 00 00 00         	mov	dword ptr [edi + 0x24], 0x0
+10173dd4: 83 67 20 fe                  	and	dword ptr [edi + 0x20], -0x2
+10173dd8: 5f                           	pop	edi
+10173dd9: 5e                           	pop	esi
+10173dda: c2 04 00                     	ret	0x4
+10173ddd: 85 c0                        	test	eax, eax
+10173ddf: 74 0d                        	je	0x10173dee <NpCreatePhysicsSDK+0x66c7e>
+10173de1: 8b 48 04                     	mov	ecx, dword ptr [eax + 0x4]
+10173de4: 3b cf                        	cmp	ecx, edi
+10173de6: 74 30                        	je	0x10173e18 <NpCreatePhysicsSDK+0x66ca8>
+10173de8: 8b c1                        	mov	eax, ecx
+10173dea: 85 c0                        	test	eax, eax
+10173dec: 75 f3                        	jne	0x10173de1 <NpCreatePhysicsSDK+0x66c71>
+10173dee: 83 3d e4 07 35 10 00         	cmp	dword ptr [0x103507e4], 0x0
+10173df5: 75 01                        	jne	0x10173df8 <NpCreatePhysicsSDK+0x66c88>
+10173df7: cc                           	int3
+10173df8: 68 50 8d 31 10               	push	0x10318d50
+10173dfd: 68 10 8d 31 10               	push	0x10318d10
+10173e02: 6a 02                        	push	0x2
+10173e04: 33 c9                        	xor	ecx, ecx
+10173e06: ba 43 06 00 00               	mov	edx, 0x643
+10173e0b: e8 70 d2 e8 ff               	call	0x10001080 <.text+0x80>
+10173e10: 83 c4 0c                     	add	esp, 0xc
+10173e13: 5f                           	pop	edi
+10173e14: 5e                           	pop	esi
+10173e15: c2 04 00                     	ret	0x4
+10173e18: 8b 4f 04                     	mov	ecx, dword ptr [edi + 0x4]
+10173e1b: 89 48 04                     	mov	dword ptr [eax + 0x4], ecx
+10173e1e: eb 8b                        	jmp	0x10173dab <NpCreatePhysicsSDK+0x66c3b>
+10173e20: 53                           	push	ebx
+10173e21: 55                           	push	ebp
+10173e22: 8b 6c 24 0c                  	mov	ebp, dword ptr [esp + 0xc]
+10173e26: 56                           	push	esi
+10173e27: 8b f1                        	mov	esi, ecx
+10173e29: 8b 86 50 01 00 00            	mov	eax, dword ptr [esi + 0x150]
+10173e2f: 85 c0                        	test	eax, eax
+10173e31: 74 07                        	je	0x10173e3a <NpCreatePhysicsSDK+0x66cca>
+10173e33: 55                           	push	ebp
+10173e34: 50                           	push	eax
+10173e35: e8 d6 d3 04 00               	call	0x101c1210 <NpCreatePhysicsSDK+0xb40a0>
+10173e3a: 8b 86 00 01 00 00            	mov	eax, dword ptr [esi + 0x100]
+10173e40: 2b 86 fc 00 00 00            	sub	eax, dword ptr [esi + 0xfc]
+10173e46: 33 db                        	xor	ebx, ebx
+10173e48: c1 f8 02                     	sar	eax, 0x2
+10173e4b: 85 c0                        	test	eax, eax
+10173e4d: 76 25                        	jbe	0x10173e74 <NpCreatePhysicsSDK+0x66d04>
+10173e4f: 57                           	push	edi
+10173e50: 8b 8e fc 00 00 00            	mov	ecx, dword ptr [esi + 0xfc]
+10173e56: 8b 3c 99                     	mov	edi, dword ptr [ecx + 4*ebx]
+10173e59: 55                           	push	ebp
+10173e5a: e8 71 4b 04 00               	call	0x101b89d0 <NpCreatePhysicsSDK+0xab860>
+10173e5f: 8b 96 00 01 00 00            	mov	edx, dword ptr [esi + 0x100]
+10173e65: 2b 96 fc 00 00 00            	sub	edx, dword ptr [esi + 0xfc]
+10173e6b: 43                           	inc	ebx
+10173e6c: c1 fa 02                     	sar	edx, 0x2
+10173e6f: 3b da                        	cmp	ebx, edx
+10173e71: 72 dd                        	jb	0x10173e50 <NpCreatePhysicsSDK+0x66ce0>
+10173e73: 5f                           	pop	edi
+10173e74: 5e                           	pop	esi
+10173e75: 5d                           	pop	ebp
+10173e76: 5b                           	pop	ebx
+10173e77: c2 04 00                     	ret	0x4
+10173e7a: cc                           	int3
+10173e7b: cc                           	int3
+10173e7c: cc                           	int3
+10173e7d: cc                           	int3
+10173e7e: cc                           	int3
+10173e7f: cc                           	int3
+10173e80: 55                           	push	ebp
+10173e81: 8b ec                        	mov	ebp, esp
+10173e83: 83 e4 f8                     	and	esp, -0x8
+10173e86: 51                           	push	ecx
+10173e87: 53                           	push	ebx
+10173e88: 8b 5d 08                     	mov	ebx, dword ptr [ebp + 0x8]
+10173e8b: 8b 83 c0 00 00 00            	mov	eax, dword ptr [ebx + 0xc0]
+10173e91: 56                           	push	esi
+10173e92: 57                           	push	edi
+10173e93: 33 ff                        	xor	edi, edi
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+10173e90: 00 56 57                     	add	byte ptr [esi + 0x57], dl
+10173e93: 33 ff                        	xor	edi, edi
+10173e95: 8b b3 bc 00 00 00            	mov	esi, dword ptr [ebx + 0xbc]
+10173e9b: 3b f0                        	cmp	esi, eax
+10173e9d: 74 17                        	je	0x10173eb6 <NpCreatePhysicsSDK+0x66d46>
+10173e9f: 90                           	nop
+10173ea0: 8b 06                        	mov	eax, dword ptr [esi]
+10173ea2: 57                           	push	edi
+10173ea3: 50                           	push	eax
+10173ea4: e8 67 57 fd ff               	call	0x10149610 <NpCreatePhysicsSDK+0x3c4a0>
+10173ea9: 8b 83 c0 00 00 00            	mov	eax, dword ptr [ebx + 0xc0]
+10173eaf: 83 c6 04                     	add	esi, 0x4
+10173eb2: 3b f0                        	cmp	esi, eax
+10173eb4: 75 ea                        	jne	0x10173ea0 <NpCreatePhysicsSDK+0x66d30>
+10173eb6: 47                           	inc	edi
+10173eb7: 83 ff 02                     	cmp	edi, 0x2
+10173eba: 72 d9                        	jb	0x10173e95 <NpCreatePhysicsSDK+0x66d25>
+10173ebc: 8b 8b bc 00 00 00            	mov	ecx, dword ptr [ebx + 0xbc]
+10173ec2: 5f                           	pop	edi
+10173ec3: 5e                           	pop	esi
+10173ec4: 89 8b c0 00 00 00            	mov	dword ptr [ebx + 0xc0], ecx
+10173eca: 5b                           	pop	ebx
+10173ecb: 8b e5                        	mov	esp, ebp
+10173ecd: 5d                           	pop	ebp
+10173ece: c2 04 00                     	ret	0x4
+10173ed1: cc                           	int3
+10173ed2: cc                           	int3
+10173ed3: cc                           	int3
+10173ed4: cc                           	int3
+10173ed5: cc                           	int3
+10173ed6: cc                           	int3
+10173ed7: cc                           	int3
+10173ed8: cc                           	int3
+10173ed9: cc                           	int3
+10173eda: cc                           	int3
+10173edb: cc                           	int3
+10173edc: cc                           	int3
+10173edd: cc                           	int3
+10173ede: cc                           	int3
+10173edf: cc                           	int3
+10173ee0: 57                           	push	edi
+10173ee1: 8b f9                        	mov	edi, ecx
+10173ee3: 8b 0d e0 07 35 10            	mov	ecx, dword ptr [0x103507e0]
+10173ee9: 8b 01                        	mov	eax, dword ptr [ecx]
+10173eeb: 8b 50 08                     	mov	edx, dword ptr [eax + 0x8]
+10173eee: 6a 5e                        	push	0x5e
+10173ef0: 68 84 02 00 00               	push	0x284
+10173ef5: ff d2                        	call	edx
+10173ef7: 85 c0                        	test	eax, eax
+10173ef9: 74 23                        	je	0x10173f1e <NpCreatePhysicsSDK+0x66dae>
+10173efb: 8b 4c 24 0c                  	mov	ecx, dword ptr [esp + 0xc]
+10173eff: 56                           	push	esi
+10173f00: 51                           	push	ecx
+10173f01: 50                           	push	eax
+10173f02: 8b 44 24 14                  	mov	eax, dword ptr [esp + 0x14]
+10173f06: e8 65 a2 02 00               	call	0x1019e170 <NpCreatePhysicsSDK+0x91000>
+10173f0b: 8b f0                        	mov	esi, eax
+10173f0d: 85 f6                        	test	esi, esi
+10173f0f: 74 08                        	je	0x10173f19 <NpCreatePhysicsSDK+0x66da9>
+10173f11: 56                           	push	esi
+10173f12: e8 09 ee ff ff               	call	0x10172d20 <NpCreatePhysicsSDK+0x65bb0>
+10173f17: 8b c6                        	mov	eax, esi
+10173f19: 5e                           	pop	esi
+10173f1a: 5f                           	pop	edi
+10173f1b: c2 08 00                     	ret	0x8
+10173f1e: 33 c0                        	xor	eax, eax
+10173f20: 5f                           	pop	edi
+10173f21: c2 08 00                     	ret	0x8
+10173f24: cc                           	int3
+10173f25: cc                           	int3
+10173f26: cc                           	int3
+10173f27: cc                           	int3
+10173f28: cc                           	int3
+10173f29: cc                           	int3
+10173f2a: cc                           	int3
+10173f2b: cc                           	int3
+10173f2c: cc                           	int3
+10173f2d: cc                           	int3
+10173f2e: cc                           	int3
+10173f2f: cc                           	int3
+10173f30: 53                           	push	ebx
+10173f31: 8b d9                        	mov	ebx, ecx
+10173f33: 8b 0d e0 07 35 10            	mov	ecx, dword ptr [0x103507e0]
+10173f39: 8b 01                        	mov	eax, dword ptr [ecx]
+10173f3b: 8b 50 08                     	mov	edx, dword ptr [eax + 0x8]
+10173f3e: 6a 5b                        	push	0x5b
+10173f40: 68 4c 01 00 00               	push	0x14c
+10173f45: ff d2                        	call	edx
+10173f47: 85 c0                        	test	eax, eax
+10173f49: 74 26                        	je	0x10173f71 <NpCreatePhysicsSDK+0x66e01>
+10173f4b: 8b 4c 24 0c                  	mov	ecx, dword ptr [esp + 0xc]
+10173f4f: 56                           	push	esi
+10173f50: 57                           	push	edi
+10173f51: 8b 7c 24 10                  	mov	edi, dword ptr [esp + 0x10]
+10173f55: 51                           	push	ecx
+10173f56: e8 95 87 02 00               	call	0x1019c6f0 <NpCreatePhysicsSDK+0x8f580>
+10173f5b: 8b f0                        	mov	esi, eax
+10173f5d: 85 f6                        	test	esi, esi
+10173f5f: 74 0a                        	je	0x10173f6b <NpCreatePhysicsSDK+0x66dfb>
+10173f61: 56                           	push	esi
+10173f62: 8b fb                        	mov	edi, ebx
+10173f64: e8 b7 ed ff ff               	call	0x10172d20 <NpCreatePhysicsSDK+0x65bb0>
+10173f69: 8b c6                        	mov	eax, esi
+10173f6b: 5f                           	pop	edi
+10173f6c: 5e                           	pop	esi
+10173f6d: 5b                           	pop	ebx
+10173f6e: c2 08 00                     	ret	0x8
+10173f71: 33 c0                        	xor	eax, eax
+10173f73: 5b                           	pop	ebx
+10173f74: c2 08 00                     	ret	0x8
+10173f77: cc                           	int3
+10173f78: cc                           	int3
+10173f79: cc                           	int3
+10173f7a: cc                           	int3
+10173f7b: cc                           	int3
+10173f7c: cc                           	int3
+10173f7d: cc                           	int3
+10173f7e: cc                           	int3
+10173f7f: cc                           	int3
+10173f80: 53                           	push	ebx
+10173f81: 8b d9                        	mov	ebx, ecx
+10173f83: 8b 0d e0 07 35 10            	mov	ecx, dword ptr [0x103507e0]
+10173f89: 8b 01                        	mov	eax, dword ptr [ecx]
+10173f8b: 8b 50 08                     	mov	edx, dword ptr [eax + 0x8]
+10173f8e: 6a 58                        	push	0x58
+10173f90: 68 ac 01 00 00               	push	0x1ac
+10173f95: ff d2                        	call	edx
+10173f97: 85 c0                        	test	eax, eax
+10173f99: 74 26                        	je	0x10173fc1 <NpCreatePhysicsSDK+0x66e51>
+10173f9b: 8b 4c 24 0c                  	mov	ecx, dword ptr [esp + 0xc]
+10173f9f: 56                           	push	esi
+10173fa0: 57                           	push	edi
+10173fa1: 8b 7c 24 10                  	mov	edi, dword ptr [esp + 0x10]
+10173fa5: 51                           	push	ecx
+10173fa6: e8 85 67 ff ff               	call	0x1016a730 <NpCreatePhysicsSDK+0x5d5c0>
+10173fab: 8b f0                        	mov	esi, eax
+10173fad: 85 f6                        	test	esi, esi
+10173faf: 74 0a                        	je	0x10173fbb <NpCreatePhysicsSDK+0x66e4b>
+10173fb1: 56                           	push	esi
+10173fb2: 8b fb                        	mov	edi, ebx
+10173fb4: e8 67 ed ff ff               	call	0x10172d20 <NpCreatePhysicsSDK+0x65bb0>
+10173fb9: 8b c6                        	mov	eax, esi
+10173fbb: 5f                           	pop	edi
+10173fbc: 5e                           	pop	esi
+10173fbd: 5b                           	pop	ebx
+10173fbe: c2 08 00                     	ret	0x8
+10173fc1: 33 c0                        	xor	eax, eax
+10173fc3: 5b                           	pop	ebx
+10173fc4: c2 08 00                     	ret	0x8
+10173fc7: cc                           	int3
+10173fc8: cc                           	int3
+10173fc9: cc                           	int3
+10173fca: cc                           	int3
+10173fcb: cc                           	int3
+10173fcc: cc                           	int3
+10173fcd: cc                           	int3
+10173fce: cc                           	int3
+10173fcf: cc                           	int3
+10173fd0: 53                           	push	ebx
+10173fd1: 8b d9                        	mov	ebx, ecx
+10173fd3: 8b 0d e0 07 35 10            	mov	ecx, dword ptr [0x103507e0]
+10173fd9: 8b 01                        	mov	eax, dword ptr [ecx]
+10173fdb: 8b 50 08                     	mov	edx, dword ptr [eax + 0x8]
+10173fde: 6a 5d                        	push	0x5d
+10173fe0: 68 6c 01 00 00               	push	0x16c
+10173fe5: ff d2                        	call	edx
+10173fe7: 85 c0                        	test	eax, eax
+10173fe9: 74 21                        	je	0x1017400c <NpCreatePhysicsSDK+0x66e9c>
+10173feb: 56                           	push	esi
+10173fec: 57                           	push	edi
+10173fed: 8b 7c 24 10                  	mov	edi, dword ptr [esp + 0x10]
+10173ff1: e8 aa 50 02 00               	call	0x101990a0 <NpCreatePhysicsSDK+0x8bf30>
+10173ff6: 8b f0                        	mov	esi, eax
+10173ff8: 85 f6                        	test	esi, esi
+10173ffa: 74 0a                        	je	0x10174006 <NpCreatePhysicsSDK+0x66e96>
+10173ffc: 56                           	push	esi
+10173ffd: 8b fb                        	mov	edi, ebx
+10173fff: e8 1c ed ff ff               	call	0x10172d20 <NpCreatePhysicsSDK+0x65bb0>
+10174004: 8b c6                        	mov	eax, esi
+10174006: 5f                           	pop	edi
+10174007: 5e                           	pop	esi
+10174008: 5b                           	pop	ebx
+10174009: c2 08 00                     	ret	0x8
+1017400c: 33 c0                        	xor	eax, eax
+1017400e: 5b                           	pop	ebx
+1017400f: c2 08 00                     	ret	0x8
+10174012: cc                           	int3
+10174013: cc                           	int3
+10174014: cc                           	int3
+10174015: cc                           	int3
+10174016: cc                           	int3
+10174017: cc                           	int3
+10174018: cc                           	int3
+10174019: cc                           	int3
+1017401a: cc                           	int3
+1017401b: cc                           	int3
+1017401c: cc                           	int3
+1017401d: cc                           	int3
+1017401e: cc                           	int3
+1017401f: cc                           	int3
+10174020: 53                           	push	ebx
+10174021: 56                           	push	esi
+10174022: 8b d9                        	mov	ebx, ecx
+10174024: 8b 0d e0 07 35 10            	mov	ecx, dword ptr [0x103507e0]
+1017402a: 8b 01                        	mov	eax, dword ptr [ecx]
+1017402c: 8b 50 08                     	mov	edx, dword ptr [eax + 0x8]
+1017402f: 6a 57                        	push	0x57
+10174031: 68 40 01 00 00               	push	0x140
+10174036: ff d2                        	call	edx
+10174038: 8b f0                        	mov	esi, eax
+1017403a: 85 f6                        	test	esi, esi
+1017403c: 74 54                        	je	0x10174092 <NpCreatePhysicsSDK+0x66f22>
+1017403e: 57                           	push	edi
+1017403f: 8b 7c 24 10                  	mov	edi, dword ptr [esp + 0x10]

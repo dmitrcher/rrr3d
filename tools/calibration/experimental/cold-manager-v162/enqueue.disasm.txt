@@ -1,0 +1,70 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+1010d170 <NpCreatePhysicsSDK>:
+1014c340: f3 0f 11 44 24 10            	movss	dword ptr [esp + 0x10], xmm0
+1014c346: f3 0f 10 43 08               	movss	xmm0, dword ptr [ebx + 0x8]
+1014c34b: f3 0f 5c 40 08               	subss	xmm0, dword ptr [eax + 0x8]
+1014c350: 57                           	push	edi
+1014c351: f3 0f 11 44 24 18            	movss	dword ptr [esp + 0x18], xmm0
+1014c357: e8 04 75 eb ff               	call	0x10003860 <.text+0x2860>
+1014c35c: f3 0f 10 50 10               	movss	xmm2, dword ptr [eax + 0x10]
+1014c361: f3 0f 10 40 1c               	movss	xmm0, dword ptr [eax + 0x1c]
+1014c366: f3 0f 59 44 24 14            	mulss	xmm0, dword ptr [esp + 0x14]
+1014c36c: f3 0f 10 48 04               	movss	xmm1, dword ptr [eax + 0x4]
+1014c371: f3 0f 59 54 24 10            	mulss	xmm2, dword ptr [esp + 0x10]
+1014c377: f3 0f 59 4c 24 0c            	mulss	xmm1, dword ptr [esp + 0xc]
+1014c37d: f3 0f 58 c2                  	addss	xmm0, xmm2
+1014c381: f3 0f 58 c1                  	addss	xmm0, xmm1
+1014c385: 0f 57 05 70 15 33 10         	xorps	xmm0, xmmword ptr [0x10331570]
+1014c38c: 0f 28 c8                     	movaps	xmm1, xmm0
+1014c38f: f3 0f 10 87 24 02 00 00      	movss	xmm0, dword ptr [edi + 0x224]
+1014c397: 0f 2f c1                     	comiss	xmm0, xmm1
+1014c39a: f3 0f 11 4c 24 24            	movss	dword ptr [esp + 0x24], xmm1
+1014c3a0: 0f 86 7b 01 00 00            	jbe	0x1014c521 <NpCreatePhysicsSDK+0x3f3b1>
+1014c3a6: 0f 2e 05 88 15 33 10         	ucomiss	xmm0, dword ptr [0x10331588]
+1014c3ad: 9f                           	lahf
+1014c3ae: f6 c4 44                     	test	ah, 0x44
+1014c3b1: 7a 2e                        	jp	0x1014c3e1 <NpCreatePhysicsSDK+0x3f271>
+1014c3b3: 8b b7 2c 01 00 00            	mov	esi, dword ptr [edi + 0x12c]
+1014c3b9: 8b 86 c0 00 00 00            	mov	eax, dword ptr [esi + 0xc0]
+1014c3bf: 81 c6 bc 00 00 00            	add	esi, 0xbc
+1014c3c5: 39 46 08                     	cmp	dword ptr [esi + 0x8], eax
+1014c3c8: 77 0e                        	ja	0x1014c3d8 <NpCreatePhysicsSDK+0x3f268>
+1014c3ca: 2b 06                        	sub	eax, dword ptr [esi]
+1014c3cc: c1 f8 02                     	sar	eax, 0x2
+1014c3cf: 8d 54 00 02                  	lea	edx, [eax + eax + 0x2]
+1014c3d3: e8 f8 df eb ff               	call	0x1000a3d0 <.text+0x93d0>
+1014c3d8: 8b 46 04                     	mov	eax, dword ptr [esi + 0x4]
+1014c3db: 89 38                        	mov	dword ptr [eax], edi
+1014c3dd: 83 46 04 04                  	add	dword ptr [esi + 0x4], 0x4
+1014c3e1: 8b 74 24 28                  	mov	esi, dword ptr [esp + 0x28]
+1014c3e5: 3b b7 04 02 00 00            	cmp	esi, dword ptr [edi + 0x204]
+1014c3eb: 74 34                        	je	0x1014c421 <NpCreatePhysicsSDK+0x3f2b1>
+1014c3ed: 8b 86 28 01 00 00            	mov	eax, dword ptr [esi + 0x128]
+1014c3f3: 85 c0                        	test	eax, eax
+1014c3f5: 74 10                        	je	0x1014c407 <NpCreatePhysicsSDK+0x3f297>
+1014c3f7: 8d 8f 28 02 00 00            	lea	ecx, [edi + 0x228]
+1014c3fd: 50                           	push	eax
+1014c3fe: 8b d3                        	mov	edx, ebx
+1014c400: e8 0b 3c ec ff               	call	0x10010010 <.text+0xf010>
+1014c405: eb 1a                        	jmp	0x1014c421 <NpCreatePhysicsSDK+0x3f2b1>
+1014c407: d9 03                        	fld	dword ptr [ebx]
+1014c409: d9 9f 28 02 00 00            	fstp	dword ptr [edi + 0x228]
+1014c40f: d9 43 04                     	fld	dword ptr [ebx + 0x4]
+1014c412: d9 9f 2c 02 00 00            	fstp	dword ptr [edi + 0x22c]
+1014c418: d9 43 08                     	fld	dword ptr [ebx + 0x8]
+1014c41b: d9 9f 30 02 00 00            	fstp	dword ptr [edi + 0x230]
+1014c421: f3 0f 10 44 24 24            	movss	xmm0, dword ptr [esp + 0x24]
+1014c427: f3 0f 11 87 24 02 00 00      	movss	dword ptr [edi + 0x224], xmm0
+1014c42f: d9 03                        	fld	dword ptr [ebx]
+1014c431: d9 9f d0 01 00 00            	fstp	dword ptr [edi + 0x1d0]
+1014c437: 57                           	push	edi
+1014c438: d9 43 04                     	fld	dword ptr [ebx + 0x4]
+1014c43b: d9 9f d4 01 00 00            	fstp	dword ptr [edi + 0x1d4]
+1014c441: d9 43 08                     	fld	dword ptr [ebx + 0x8]
+1014c444: d9 9f d8 01 00 00            	fstp	dword ptr [edi + 0x1d8]
+1014c44a: e8 11 74 eb ff               	call	0x10003860 <.text+0x2860>
+1014c44f: f3 0f 10 40 04               	movss	xmm0, dword ptr [eax + 0x4]

@@ -9,6 +9,6 @@ Previous goal turn is progress: actual Windows PC24 context observed twice; orig
 
 Current active Source is V169+V171+V173, default-off candidate flags; unchanged V154 SDK. Installed ordinary Mac app is older and not promoted. Exact file hashes and guarded installers are in the checkpoints. Frozen V169 reference remains untouched.
 
-No observation/capture/test jobs remain running once this checkpoint is finalized. The owned Windows MR process6840 was started by V172 and left at the pause menu after captures; revalidate PID/path before interacting or attaching. Caffeinate68828 remains on; preserve user preference.
+No observation/capture/test jobs remain running once this checkpoint is finalized. The owned Windows MR process6840 was started by V172 and left with the quit-race confirmation dialog open after captures; simulation pause is not verified; revalidate PID/path before interacting or attaching. Caffeinate68828 remains on; preserve user preference.
 
 Do not rerun the unchanged608-case gate just to generate activity. Run it when related physics code changes or before a new accepted physics checkpoint. Only raw map/controller regressions were repeated for V171/V173.

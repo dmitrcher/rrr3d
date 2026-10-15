@@ -1,0 +1,813 @@
+
+work/package/MotorRock-Windows-Debug/Rock3dGame.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+104316c9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z>:
+104aa6d0: 55                           	pushl	%ebp
+104aa6d1: 8b ec                        	movl	%esp, %ebp
+104aa6d3: 81 ec 44 01 00 00            	subl	$0x144, %esp            # imm = 0x144
+104aa6d9: 53                           	pushl	%ebx
+104aa6da: 56                           	pushl	%esi
+104aa6db: 57                           	pushl	%edi
+104aa6dc: 51                           	pushl	%ecx
+104aa6dd: 8d bd bc fe ff ff            	leal	-0x144(%ebp), %edi
+104aa6e3: b9 51 00 00 00               	movl	$0x51, %ecx
+104aa6e8: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa6ed: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa6ef: 59                           	popl	%ecx
+104aa6f0: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aa6f3: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa6f6: d9 40 10                     	flds	0x10(%eax)
+104aa6f9: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa6fc: d8 49 20                     	fmuls	0x20(%ecx)
+104aa6ff: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa702: d9 42 14                     	flds	0x14(%edx)
+104aa705: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa708: d8 48 1c                     	fmuls	0x1c(%eax)
+104aa70b: de e9                        	fsubrp	%st, %st(1)
+104aa70d: d9 5d ec                     	fstps	-0x14(%ebp)
+104aa710: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa713: d9 40 08                     	flds	0x8(%eax)
+104aa716: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa719: d8 49 1c                     	fmuls	0x1c(%ecx)
+104aa71c: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa71f: d9 42 04                     	flds	0x4(%edx)
+104aa722: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa725: d8 48 20                     	fmuls	0x20(%eax)
+104aa728: de e9                        	fsubrp	%st, %st(1)
+104aa72a: d9 5d e0                     	fstps	-0x20(%ebp)
+104aa72d: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa730: d9 40 04                     	flds	0x4(%eax)
+104aa733: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa736: d8 49 14                     	fmuls	0x14(%ecx)
+104aa739: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa73c: d9 42 08                     	flds	0x8(%edx)
+104aa73f: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa742: d8 48 10                     	fmuls	0x10(%eax)
+104aa745: de e9                        	fsubrp	%st, %st(1)
+104aa747: d9 5d d4                     	fstps	-0x2c(%ebp)
+104aa74a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa74d: d9 40 14                     	flds	0x14(%eax)
+104aa750: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa753: d8 49 18                     	fmuls	0x18(%ecx)
+104aa756: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa759: d9 42 0c                     	flds	0xc(%edx)
+104aa75c: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa75f: d8 48 20                     	fmuls	0x20(%eax)
+104aa762: de e9                        	fsubrp	%st, %st(1)
+104aa764: d9 5d c8                     	fstps	-0x38(%ebp)
+104aa767: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa76a: d9 00                        	flds	(%eax)
+104aa76c: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa76f: d8 49 20                     	fmuls	0x20(%ecx)
+104aa772: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa775: d9 42 08                     	flds	0x8(%edx)
+104aa778: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa77b: d8 48 18                     	fmuls	0x18(%eax)
+104aa77e: de e9                        	fsubrp	%st, %st(1)
+104aa780: d9 5d bc                     	fstps	-0x44(%ebp)
+104aa783: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa786: d9 40 08                     	flds	0x8(%eax)
+104aa789: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa78c: d8 49 0c                     	fmuls	0xc(%ecx)
+104aa78f: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa792: d9 02                        	flds	(%edx)
+104aa794: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa797: d8 48 14                     	fmuls	0x14(%eax)
+104aa79a: de e9                        	fsubrp	%st, %st(1)
+104aa79c: d9 5d b0                     	fstps	-0x50(%ebp)
+104aa79f: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7a2: d9 40 0c                     	flds	0xc(%eax)
+104aa7a5: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa7a8: d8 49 1c                     	fmuls	0x1c(%ecx)
+104aa7ab: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa7ae: d9 42 10                     	flds	0x10(%edx)
+104aa7b1: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7b4: d8 48 18                     	fmuls	0x18(%eax)
+104aa7b7: de e9                        	fsubrp	%st, %st(1)
+104aa7b9: d9 5d a4                     	fstps	-0x5c(%ebp)
+104aa7bc: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7bf: d9 40 04                     	flds	0x4(%eax)
+104aa7c2: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa7c5: d8 49 18                     	fmuls	0x18(%ecx)
+104aa7c8: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa7cb: d9 02                        	flds	(%edx)
+104aa7cd: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7d0: d8 48 1c                     	fmuls	0x1c(%eax)
+104aa7d3: de e9                        	fsubrp	%st, %st(1)
+104aa7d5: d9 5d 98                     	fstps	-0x68(%ebp)
+104aa7d8: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7db: d9 00                        	flds	(%eax)
+104aa7dd: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa7e0: d8 49 10                     	fmuls	0x10(%ecx)
+104aa7e3: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa7e6: d9 42 04                     	flds	0x4(%edx)
+104aa7e9: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7ec: d8 48 0c                     	fmuls	0xc(%eax)
+104aa7ef: de e9                        	fsubrp	%st, %st(1)
+104aa7f1: d9 5d 8c                     	fstps	-0x74(%ebp)
+104aa7f4: d9 45 ec                     	flds	-0x14(%ebp)
+104aa7f7: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7fa: d8 08                        	fmuls	(%eax)
+104aa7fc: d9 45 e0                     	flds	-0x20(%ebp)
+104aa7ff: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa802: d8 49 0c                     	fmuls	0xc(%ecx)
+104aa805: de c1                        	faddp	%st, %st(1)
+104aa807: d9 45 d4                     	flds	-0x2c(%ebp)
+104aa80a: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa80d: d8 4a 18                     	fmuls	0x18(%edx)
+104aa810: de c1                        	faddp	%st, %st(1)
+104aa812: d9 5d 80                     	fstps	-0x80(%ebp)
+104aa815: d9 45 80                     	flds	-0x80(%ebp)
+104aa818: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+104aa81e: df e0                        	fnstsw	%ax
+104aa820: f6 c4 44                     	testb	$0x44, %ah
+104aa823: 7a 0c                        	jp	0x104aa831 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x79168>
+104aa825: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+104aa828: e8 dc 37 f9 ff               	calll	0x1043e009 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc940>
+104aa82d: 32 c0                        	xorb	%al, %al
+104aa82f: eb 77                        	jmp	0x104aa8a8 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x791df>
+104aa831: d9 45 80                     	flds	-0x80(%ebp)
+104aa834: d9 e8                        	fld1
+104aa836: de f1                        	fdivp	%st, %st(1)
+104aa838: d9 5d 80                     	fstps	-0x80(%ebp)
+104aa83b: d9 45 ec                     	flds	-0x14(%ebp)
+104aa83e: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa841: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa844: d9 18                        	fstps	(%eax)
+104aa846: d9 45 e0                     	flds	-0x20(%ebp)
+104aa849: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa84c: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa84f: d9 58 04                     	fstps	0x4(%eax)
+104aa852: d9 45 d4                     	flds	-0x2c(%ebp)
+104aa855: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa858: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa85b: d9 58 08                     	fstps	0x8(%eax)
+104aa85e: d9 45 c8                     	flds	-0x38(%ebp)
+104aa861: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa864: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa867: d9 58 0c                     	fstps	0xc(%eax)
+104aa86a: d9 45 bc                     	flds	-0x44(%ebp)
+104aa86d: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa870: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa873: d9 58 10                     	fstps	0x10(%eax)
+104aa876: d9 45 b0                     	flds	-0x50(%ebp)
+104aa879: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa87c: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa87f: d9 58 14                     	fstps	0x14(%eax)
+104aa882: d9 45 a4                     	flds	-0x5c(%ebp)
+104aa885: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa888: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa88b: d9 58 18                     	fstps	0x18(%eax)
+104aa88e: d9 45 98                     	flds	-0x68(%ebp)
+104aa891: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa894: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa897: d9 58 1c                     	fstps	0x1c(%eax)
+104aa89a: d9 45 8c                     	flds	-0x74(%ebp)
+104aa89d: d8 4d 80                     	fmuls	-0x80(%ebp)
+104aa8a0: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa8a3: d9 58 20                     	fstps	0x20(%eax)
+104aa8a6: b0 01                        	movb	$0x1, %al
+104aa8a8: 5f                           	popl	%edi
+104aa8a9: 5e                           	popl	%esi
+104aa8aa: 5b                           	popl	%ebx
+104aa8ab: 81 c4 44 01 00 00            	addl	$0x144, %esp            # imm = 0x144
+104aa8b1: 3b ec                        	cmpl	%esp, %ebp
+104aa8b3: e8 87 88 f9 ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104aa8b8: 8b e5                        	movl	%ebp, %esp
+104aa8ba: 5d                           	popl	%ebp
+104aa8bb: c2 04 00                     	retl	$0x4
+104aa8be: cc                           	int3
+104aa8bf: cc                           	int3
+104aa8c0: cc                           	int3
+104aa8c1: cc                           	int3
+104aa8c2: cc                           	int3
+104aa8c3: cc                           	int3
+104aa8c4: cc                           	int3
+104aa8c5: cc                           	int3
+104aa8c6: cc                           	int3
+104aa8c7: cc                           	int3
+104aa8c8: cc                           	int3
+104aa8c9: cc                           	int3
+104aa8ca: cc                           	int3
+104aa8cb: cc                           	int3
+104aa8cc: cc                           	int3
+104aa8cd: cc                           	int3
+104aa8ce: cc                           	int3
+104aa8cf: cc                           	int3
+104aa8d0: cc                           	int3
+104aa8d1: cc                           	int3
+104aa8d2: cc                           	int3
+104aa8d3: cc                           	int3
+104aa8d4: cc                           	int3
+104aa8d5: cc                           	int3
+104aa8d6: cc                           	int3
+104aa8d7: cc                           	int3
+104aa8d8: cc                           	int3
+104aa8d9: cc                           	int3
+104aa8da: cc                           	int3
+104aa8db: cc                           	int3
+104aa8dc: cc                           	int3
+104aa8dd: cc                           	int3
+104aa8de: cc                           	int3
+104aa8df: cc                           	int3
+104aa8e0: cc                           	int3
+104aa8e1: cc                           	int3
+104aa8e2: cc                           	int3
+104aa8e3: cc                           	int3
+104aa8e4: cc                           	int3
+104aa8e5: cc                           	int3
+104aa8e6: cc                           	int3
+104aa8e7: cc                           	int3
+104aa8e8: cc                           	int3
+104aa8e9: cc                           	int3
+104aa8ea: cc                           	int3
+104aa8eb: cc                           	int3
+104aa8ec: cc                           	int3
+104aa8ed: cc                           	int3
+104aa8ee: cc                           	int3
+104aa8ef: cc                           	int3
+104aa8f0: cc                           	int3
+104aa8f1: cc                           	int3
+104aa8f2: cc                           	int3
+104aa8f3: cc                           	int3
+104aa8f4: cc                           	int3
+104aa8f5: cc                           	int3
+104aa8f6: cc                           	int3
+104aa8f7: cc                           	int3
+104aa8f8: cc                           	int3
+104aa8f9: cc                           	int3
+104aa8fa: cc                           	int3
+104aa8fb: cc                           	int3
+104aa8fc: cc                           	int3
+104aa8fd: cc                           	int3
+104aa8fe: cc                           	int3
+104aa8ff: cc                           	int3
+104aa900: cc                           	int3
+104aa901: cc                           	int3
+104aa902: cc                           	int3
+104aa903: cc                           	int3
+104aa904: cc                           	int3
+104aa905: cc                           	int3
+104aa906: cc                           	int3
+104aa907: cc                           	int3
+104aa908: cc                           	int3
+104aa909: cc                           	int3
+104aa90a: cc                           	int3
+104aa90b: cc                           	int3
+104aa90c: cc                           	int3
+104aa90d: cc                           	int3
+104aa90e: cc                           	int3
+104aa90f: cc                           	int3
+104aa910: cc                           	int3
+104aa911: cc                           	int3
+104aa912: cc                           	int3
+104aa913: cc                           	int3
+104aa914: cc                           	int3
+104aa915: cc                           	int3
+104aa916: cc                           	int3
+104aa917: cc                           	int3
+104aa918: cc                           	int3
+104aa919: cc                           	int3
+104aa91a: cc                           	int3
+104aa91b: cc                           	int3
+104aa91c: cc                           	int3
+104aa91d: cc                           	int3
+104aa91e: cc                           	int3
+104aa91f: cc                           	int3
+104aa920: cc                           	int3
+104aa921: cc                           	int3
+104aa922: cc                           	int3
+104aa923: cc                           	int3
+104aa924: cc                           	int3
+104aa925: cc                           	int3
+104aa926: cc                           	int3
+104aa927: cc                           	int3
+104aa928: cc                           	int3
+104aa929: cc                           	int3
+104aa92a: cc                           	int3
+104aa92b: cc                           	int3
+104aa92c: cc                           	int3
+104aa92d: cc                           	int3
+104aa92e: cc                           	int3
+104aa92f: cc                           	int3
+104aa930: cc                           	int3
+104aa931: cc                           	int3
+104aa932: cc                           	int3
+104aa933: cc                           	int3
+104aa934: cc                           	int3
+104aa935: cc                           	int3
+104aa936: cc                           	int3
+104aa937: cc                           	int3
+104aa938: cc                           	int3
+104aa939: cc                           	int3
+104aa93a: cc                           	int3
+104aa93b: cc                           	int3
+104aa93c: cc                           	int3
+104aa93d: cc                           	int3
+104aa93e: cc                           	int3
+104aa93f: cc                           	int3
+104aa940: 55                           	pushl	%ebp
+104aa941: 8b ec                        	movl	%esp, %ebp
+104aa943: 81 ec cc 00 00 00            	subl	$0xcc, %esp
+104aa949: 53                           	pushl	%ebx
+104aa94a: 56                           	pushl	%esi
+104aa94b: 57                           	pushl	%edi
+104aa94c: 51                           	pushl	%ecx
+104aa94d: 8d bd 34 ff ff ff            	leal	-0xcc(%ebp), %edi
+104aa953: b9 33 00 00 00               	movl	$0x33, %ecx
+104aa958: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa95d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa95f: 59                           	popl	%ecx
+104aa960: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aa963: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa966: d9 e8                        	fld1
+104aa968: d9 18                        	fstps	(%eax)
+104aa96a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa96d: d9 ee                        	fldz
+104aa96f: d9 58 04                     	fstps	0x4(%eax)
+104aa972: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa975: d9 ee                        	fldz
+104aa977: d9 58 08                     	fstps	0x8(%eax)
+104aa97a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa97d: d9 ee                        	fldz
+104aa97f: d9 58 0c                     	fstps	0xc(%eax)
+104aa982: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa985: d9 e8                        	fld1
+104aa987: d9 58 10                     	fstps	0x10(%eax)
+104aa98a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa98d: d9 ee                        	fldz
+104aa98f: d9 58 14                     	fstps	0x14(%eax)
+104aa992: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa995: d9 ee                        	fldz
+104aa997: d9 58 18                     	fstps	0x18(%eax)
+104aa99a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa99d: d9 ee                        	fldz
+104aa99f: d9 58 1c                     	fstps	0x1c(%eax)
+104aa9a2: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa9a5: d9 e8                        	fld1
+104aa9a7: d9 58 20                     	fstps	0x20(%eax)
+104aa9aa: 5f                           	popl	%edi
+104aa9ab: 5e                           	popl	%esi
+104aa9ac: 5b                           	popl	%ebx
+104aa9ad: 8b e5                        	movl	%ebp, %esp
+104aa9af: 5d                           	popl	%ebp
+104aa9b0: c3                           	retl
+104aa9b1: cc                           	int3
+104aa9b2: cc                           	int3
+104aa9b3: cc                           	int3
+104aa9b4: cc                           	int3
+104aa9b5: cc                           	int3
+104aa9b6: cc                           	int3
+104aa9b7: cc                           	int3
+104aa9b8: cc                           	int3
+104aa9b9: cc                           	int3
+104aa9ba: cc                           	int3
+104aa9bb: cc                           	int3
+104aa9bc: cc                           	int3
+104aa9bd: cc                           	int3
+104aa9be: cc                           	int3
+104aa9bf: cc                           	int3
+104aa9c0: cc                           	int3
+104aa9c1: cc                           	int3
+104aa9c2: cc                           	int3
+104aa9c3: cc                           	int3
+104aa9c4: cc                           	int3
+104aa9c5: cc                           	int3
+104aa9c6: cc                           	int3
+104aa9c7: cc                           	int3
+104aa9c8: cc                           	int3
+104aa9c9: cc                           	int3
+104aa9ca: cc                           	int3
+104aa9cb: cc                           	int3
+104aa9cc: cc                           	int3
+104aa9cd: cc                           	int3
+104aa9ce: cc                           	int3
+104aa9cf: cc                           	int3
+104aa9d0: 55                           	pushl	%ebp
+104aa9d1: 8b ec                        	movl	%esp, %ebp
+104aa9d3: 81 ec c0 00 00 00            	subl	$0xc0, %esp
+104aa9d9: 53                           	pushl	%ebx
+104aa9da: 56                           	pushl	%esi
+104aa9db: 57                           	pushl	%edi
+104aa9dc: 8d bd 40 ff ff ff            	leal	-0xc0(%ebp), %edi
+104aa9e2: b9 30 00 00 00               	movl	$0x30, %ecx
+104aa9e7: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa9ec: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa9ee: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa9f1: 83 c0 04                     	addl	$0x4, %eax
+104aa9f4: 5f                           	popl	%edi
+104aa9f5: 5e                           	popl	%esi
+104aa9f6: 5b                           	popl	%ebx
+104aa9f7: 8b e5                        	movl	%ebp, %esp
+104aa9f9: 5d                           	popl	%ebp
+104aa9fa: c3                           	retl
+104aa9fb: cc                           	int3
+104aa9fc: cc                           	int3
+104aa9fd: cc                           	int3
+104aa9fe: cc                           	int3
+104aa9ff: cc                           	int3
+104aaa00: cc                           	int3
+104aaa01: cc                           	int3
+104aaa02: cc                           	int3
+104aaa03: cc                           	int3
+104aaa04: cc                           	int3
+104aaa05: cc                           	int3
+104aaa06: cc                           	int3
+104aaa07: cc                           	int3
+104aaa08: cc                           	int3
+104aaa09: cc                           	int3
+104aaa0a: cc                           	int3
+104aaa0b: cc                           	int3
+104aaa0c: cc                           	int3
+104aaa0d: cc                           	int3
+104aaa0e: cc                           	int3
+104aaa0f: cc                           	int3
+104aaa10: 55                           	pushl	%ebp
+104aaa11: 8b ec                        	movl	%esp, %ebp
+104aaa13: 81 ec e4 00 00 00            	subl	$0xe4, %esp
+104aaa19: 53                           	pushl	%ebx
+104aaa1a: 56                           	pushl	%esi
+104aaa1b: 57                           	pushl	%edi
+104aaa1c: 51                           	pushl	%ecx
+104aaa1d: 8d bd 1c ff ff ff            	leal	-0xe4(%ebp), %edi
+104aaa23: b9 39 00 00 00               	movl	$0x39, %ecx
+104aaa28: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aaa2d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aaa2f: 59                           	popl	%ecx
+104aaa30: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aaa33: 6a 00                        	pushl	$0x0
+104aaa35: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa38: 50                           	pushl	%eax
+104aaa39: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aaa3c: e8 af b2 f9 ff               	calll	0x10445cf0 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x14627>
+104aaa41: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa44: 8b 48 10                     	movl	0x10(%eax), %ecx
+104aaa47: 51                           	pushl	%ecx
+104aaa48: e8 64 05 fa ff               	calll	0x1044afb1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x198e8>
+104aaa4d: 83 c4 04                     	addl	$0x4, %esp
+104aaa50: 8b 10                        	movl	(%eax), %edx
+104aaa52: 89 55 e0                     	movl	%edx, -0x20(%ebp)
+104aaa55: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa58: 8b 48 10                     	movl	0x10(%eax), %ecx
+104aaa5b: 51                           	pushl	%ecx
+104aaa5c: e8 50 05 fa ff               	calll	0x1044afb1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x198e8>
+104aaa61: 83 c4 04                     	addl	$0x4, %esp
+104aaa64: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aaa67: 8b 4a 10                     	movl	0x10(%edx), %ecx
+104aaa6a: 89 08                        	movl	%ecx, (%eax)
+104aaa6c: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa6f: 8b 48 10                     	movl	0x10(%eax), %ecx
+104aaa72: 51                           	pushl	%ecx
+104aaa73: e8 cf 7a f8 ff               	calll	0x10432547 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe7e>
+104aaa78: 83 c4 04                     	addl	$0x4, %esp
+104aaa7b: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aaa7e: 8b 4a 10                     	movl	0x10(%edx), %ecx
+104aaa81: 89 08                        	movl	%ecx, (%eax)
+104aaa83: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa86: c7 40 14 00 00 00 00         	movl	$0x0, 0x14(%eax)
+104aaa8d: eb 06                        	jmp	0x104aaa95 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x793cc>
+104aaa8f: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104aaa92: 89 45 e0                     	movl	%eax, -0x20(%ebp)
+104aaa95: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aaa98: 8b 4d e0                     	movl	-0x20(%ebp), %ecx
+104aaa9b: 3b 48 10                     	cmpl	0x10(%eax), %ecx
+104aaa9e: 74 33                        	je	0x104aaad3 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x7940a>
+104aaaa0: 8b 45 e0                     	movl	-0x20(%ebp), %eax
+104aaaa3: 50                           	pushl	%eax
+104aaaa4: e8 08 05 fa ff               	calll	0x1044afb1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x198e8>
+104aaaa9: 83 c4 04                     	addl	$0x4, %esp
+104aaaac: 8b 08                        	movl	(%eax), %ecx
+104aaaae: 89 4d ec                     	movl	%ecx, -0x14(%ebp)
+104aaab1: 8b 45 e0                     	movl	-0x20(%ebp), %eax
+104aaab4: 50                           	pushl	%eax
+104aaab5: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aaab8: 83 c1 04                     	addl	$0x4, %ecx
+104aaabb: e8 76 30 f9 ff               	calll	0x1043db36 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc46d>
+104aaac0: 6a 01                        	pushl	$0x1
+104aaac2: 8b 45 e0                     	movl	-0x20(%ebp), %eax
+104aaac5: 50                           	pushl	%eax
+104aaac6: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aaac9: 83 c1 04                     	addl	$0x4, %ecx
+104aaacc: e8 5f b9 f8 ff               	calll	0x10436430 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x4d67>
+104aaad1: eb bc                        	jmp	0x104aaa8f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x793c6>
+104aaad3: 5f                           	popl	%edi
+104aaad4: 5e                           	popl	%esi
+104aaad5: 5b                           	popl	%ebx
+104aaad6: 81 c4 e4 00 00 00            	addl	$0xe4, %esp
+104aaadc: 3b ec                        	cmpl	%esp, %ebp
+104aaade: e8 5c 86 f9 ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104aaae3: 8b e5                        	movl	%ebp, %esp
+104aaae5: 5d                           	popl	%ebp
+104aaae6: c3                           	retl
+104aaae7: cc                           	int3
+104aaae8: cc                           	int3
+104aaae9: cc                           	int3
+104aaaea: cc                           	int3
+104aaaeb: cc                           	int3
+104aaaec: cc                           	int3
+104aaaed: cc                           	int3
+104aaaee: cc                           	int3
+104aaaef: cc                           	int3
+104aaaf0: cc                           	int3
+104aaaf1: cc                           	int3
+104aaaf2: cc                           	int3
+104aaaf3: cc                           	int3
+104aaaf4: cc                           	int3
+104aaaf5: cc                           	int3
+104aaaf6: cc                           	int3
+104aaaf7: cc                           	int3
+104aaaf8: cc                           	int3
+104aaaf9: cc                           	int3
+104aaafa: cc                           	int3
+104aaafb: cc                           	int3
+104aaafc: cc                           	int3
+104aaafd: cc                           	int3
+104aaafe: cc                           	int3
+104aaaff: cc                           	int3
+104aab00: cc                           	int3
+104aab01: cc                           	int3
+104aab02: cc                           	int3
+104aab03: cc                           	int3
+104aab04: cc                           	int3
+104aab05: cc                           	int3
+104aab06: cc                           	int3
+104aab07: cc                           	int3
+104aab08: cc                           	int3
+104aab09: cc                           	int3
+104aab0a: cc                           	int3
+104aab0b: cc                           	int3
+104aab0c: cc                           	int3
+104aab0d: cc                           	int3
+104aab0e: cc                           	int3
+104aab0f: cc                           	int3
+104aab10: cc                           	int3
+104aab11: cc                           	int3
+104aab12: cc                           	int3
+104aab13: cc                           	int3
+104aab14: cc                           	int3
+104aab15: cc                           	int3
+104aab16: cc                           	int3
+104aab17: cc                           	int3
+104aab18: cc                           	int3
+104aab19: cc                           	int3
+104aab1a: cc                           	int3
+104aab1b: cc                           	int3
+104aab1c: cc                           	int3
+104aab1d: cc                           	int3
+104aab1e: cc                           	int3
+104aab1f: cc                           	int3
+104aab20: 55                           	pushl	%ebp
+104aab21: 8b ec                        	movl	%esp, %ebp
+104aab23: 6a ff                        	pushl	$-0x1
+104aab25: 68 00 14 bc 10               	pushl	$0x10bc1400             # imm = 0x10BC1400
+104aab2a: 64 a1 00 00 00 00            	movl	%fs:0x0, %eax
+104aab30: 50                           	pushl	%eax
+104aab31: 51                           	pushl	%ecx
+104aab32: 81 ec e8 00 00 00            	subl	$0xe8, %esp
+104aab38: 53                           	pushl	%ebx
+104aab39: 56                           	pushl	%esi
+104aab3a: 57                           	pushl	%edi
+104aab3b: 51                           	pushl	%ecx
+104aab3c: 8d bd 08 ff ff ff            	leal	-0xf8(%ebp), %edi
+104aab42: b9 3a 00 00 00               	movl	$0x3a, %ecx
+104aab47: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aab4c: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aab4e: 59                           	popl	%ecx
+104aab4f: a1 4c c6 e3 10               	movl	0x10e3c64c, %eax
+104aab54: 33 c5                        	xorl	%ebp, %eax
+104aab56: 50                           	pushl	%eax
+104aab57: 8d 45 f4                     	leal	-0xc(%ebp), %eax
+104aab5a: 64 a3 00 00 00 00            	movl	%eax, %fs:0x0
+104aab60: 89 65 f0                     	movl	%esp, -0x10(%ebp)
+104aab63: 89 4d e8                     	movl	%ecx, -0x18(%ebp)
+104aab66: 6a 01                        	pushl	$0x1
+104aab68: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aab6b: 83 c1 04                     	addl	$0x4, %ecx
+104aab6e: e8 c6 af f8 ff               	calll	0x10435b39 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x4470>
+104aab73: 89 45 dc                     	movl	%eax, -0x24(%ebp)
+104aab76: c7 45 d0 00 00 00 00         	movl	$0x0, -0x30(%ebp)
+104aab7d: c7 45 fc 00 00 00 00         	movl	$0x0, -0x4(%ebp)
+104aab84: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aab87: 50                           	pushl	%eax
+104aab88: e8 24 04 fa ff               	calll	0x1044afb1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x198e8>
+104aab8d: 83 c4 04                     	addl	$0x4, %esp
+104aab90: 89 85 08 ff ff ff            	movl	%eax, -0xf8(%ebp)
+104aab96: 8d 4d 08                     	leal	0x8(%ebp), %ecx
+104aab99: 51                           	pushl	%ecx
+104aab9a: 8b 95 08 ff ff ff            	movl	-0xf8(%ebp), %edx
+104aaba0: 52                           	pushl	%edx
+104aaba1: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aaba4: 83 c1 08                     	addl	$0x8, %ecx
+104aaba7: e8 b5 7c f9 ff               	calll	0x10442861 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11198>
+104aabac: 8b 45 d0                     	movl	-0x30(%ebp), %eax
+104aabaf: 83 c0 01                     	addl	$0x1, %eax
+104aabb2: 89 45 d0                     	movl	%eax, -0x30(%ebp)
+104aabb5: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aabb8: 50                           	pushl	%eax
+104aabb9: e8 89 79 f8 ff               	calll	0x10432547 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe7e>
+104aabbe: 83 c4 04                     	addl	$0x4, %esp
+104aabc1: 89 85 08 ff ff ff            	movl	%eax, -0xf8(%ebp)
+104aabc7: 8d 4d 0c                     	leal	0xc(%ebp), %ecx
+104aabca: 51                           	pushl	%ecx
+104aabcb: 8b 95 08 ff ff ff            	movl	-0xf8(%ebp), %edx
+104aabd1: 52                           	pushl	%edx
+104aabd2: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aabd5: 83 c1 08                     	addl	$0x8, %ecx
+104aabd8: e8 84 7c f9 ff               	calll	0x10442861 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11198>
+104aabdd: 8b 45 d0                     	movl	-0x30(%ebp), %eax
+104aabe0: 83 c0 01                     	addl	$0x1, %eax
+104aabe3: 89 45 d0                     	movl	%eax, -0x30(%ebp)
+104aabe6: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aabe9: 50                           	pushl	%eax
+104aabea: e8 b4 c6 f9 ff               	calll	0x104472a3 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x15bda>
+104aabef: 83 c4 04                     	addl	$0x4, %esp
+104aabf2: 89 85 08 ff ff ff            	movl	%eax, -0xf8(%ebp)
+104aabf8: 8b 4d 10                     	movl	0x10(%ebp), %ecx
+104aabfb: 51                           	pushl	%ecx
+104aabfc: 8b 95 08 ff ff ff            	movl	-0xf8(%ebp), %edx
+104aac02: 52                           	pushl	%edx
+104aac03: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aac06: 83 c1 0c                     	addl	$0xc, %ecx
+104aac09: e8 c6 4f f9 ff               	calll	0x1043fbd4 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe50b>
+104aac0e: eb 63                        	jmp	0x104aac73 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x795aa>
+104aac10: 83 7d d0 01                  	cmpl	$0x1, -0x30(%ebp)
+104aac14: 7e 18                        	jle	0x104aac2e <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x79565>
+104aac16: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aac19: 50                           	pushl	%eax
+104aac1a: e8 28 79 f8 ff               	calll	0x10432547 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe7e>
+104aac1f: 83 c4 04                     	addl	$0x4, %esp
+104aac22: 50                           	pushl	%eax
+104aac23: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aac26: 83 c1 08                     	addl	$0x8, %ecx
+104aac29: e8 31 f7 f8 ff               	calll	0x1043a35f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x8c96>
+104aac2e: 83 7d d0 00                  	cmpl	$0x0, -0x30(%ebp)
+104aac32: 7e 18                        	jle	0x104aac4c <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x79583>
+104aac34: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aac37: 50                           	pushl	%eax
+104aac38: e8 74 03 fa ff               	calll	0x1044afb1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x198e8>
+104aac3d: 83 c4 04                     	addl	$0x4, %esp
+104aac40: 50                           	pushl	%eax
+104aac41: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aac44: 83 c1 08                     	addl	$0x8, %ecx
+104aac47: e8 13 f7 f8 ff               	calll	0x1043a35f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x8c96>
+104aac4c: 6a 01                        	pushl	$0x1
+104aac4e: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aac51: 50                           	pushl	%eax
+104aac52: 8b 4d e8                     	movl	-0x18(%ebp), %ecx
+104aac55: 83 c1 04                     	addl	$0x4, %ecx
+104aac58: e8 d3 b7 f8 ff               	calll	0x10436430 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x4d67>
+104aac5d: 6a 00                        	pushl	$0x0
+104aac5f: 6a 00                        	pushl	$0x0
+104aac61: e8 88 7c f8 ff               	calll	0x104328ee <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x1225>
+104aac66: c7 45 fc ff ff ff ff         	movl	$0xffffffff, -0x4(%ebp) # imm = 0xFFFFFFFF
+104aac6d: b8 7a ac 4a 10               	movl	$0x104aac7a, %eax       # imm = 0x104AAC7A
+104aac72: c3                           	retl
+104aac73: c7 45 fc ff ff ff ff         	movl	$0xffffffff, -0x4(%ebp) # imm = 0xFFFFFFFF
+104aac7a: 8b 45 dc                     	movl	-0x24(%ebp), %eax
+104aac7d: 8b 4d f4                     	movl	-0xc(%ebp), %ecx
+104aac80: 64 89 0d 00 00 00 00         	movl	%ecx, %fs:0x0
+104aac87: 59                           	popl	%ecx
+104aac88: 5f                           	popl	%edi
+104aac89: 5e                           	popl	%esi
+104aac8a: 5b                           	popl	%ebx
+104aac8b: 81 c4 f8 00 00 00            	addl	$0xf8, %esp
+104aac91: 3b ec                        	cmpl	%esp, %ebp
+104aac93: e8 a7 84 f9 ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104aac98: 8b e5                        	movl	%ebp, %esp
+104aac9a: 5d                           	popl	%ebp
+104aac9b: c2 0c 00                     	retl	$0xc
+104aac9e: cc                           	int3
+104aac9f: cc                           	int3
+104aaca0: cc                           	int3
+104aaca1: cc                           	int3
+104aaca2: cc                           	int3
+104aaca3: cc                           	int3
+104aaca4: cc                           	int3
+104aaca5: cc                           	int3
+104aaca6: cc                           	int3
+104aaca7: cc                           	int3
+104aaca8: cc                           	int3
+104aaca9: cc                           	int3
+104aacaa: cc                           	int3
+104aacab: cc                           	int3
+104aacac: cc                           	int3
+104aacad: cc                           	int3
+104aacae: cc                           	int3
+104aacaf: cc                           	int3
+104aacb0: cc                           	int3
+104aacb1: cc                           	int3
+104aacb2: cc                           	int3
+104aacb3: cc                           	int3
+104aacb4: cc                           	int3
+104aacb5: cc                           	int3
+104aacb6: cc                           	int3
+104aacb7: cc                           	int3
+104aacb8: cc                           	int3
+104aacb9: cc                           	int3
+104aacba: cc                           	int3
+104aacbb: cc                           	int3
+104aacbc: cc                           	int3
+104aacbd: cc                           	int3
+104aacbe: cc                           	int3
+104aacbf: cc                           	int3
+104aacc0: cc                           	int3
+104aacc1: cc                           	int3
+104aacc2: cc                           	int3
+104aacc3: cc                           	int3
+104aacc4: cc                           	int3
+104aacc5: cc                           	int3
+104aacc6: cc                           	int3
+104aacc7: cc                           	int3
+104aacc8: cc                           	int3
+104aacc9: cc                           	int3
+104aacca: cc                           	int3
+104aaccb: cc                           	int3
+104aaccc: cc                           	int3
+104aaccd: cc                           	int3
+104aacce: cc                           	int3
+104aaccf: cc                           	int3
+104aacd0: cc                           	int3
+104aacd1: cc                           	int3
+104aacd2: cc                           	int3
+104aacd3: cc                           	int3
+104aacd4: cc                           	int3
+104aacd5: cc                           	int3
+104aacd6: cc                           	int3
+104aacd7: cc                           	int3
+104aacd8: cc                           	int3
+104aacd9: cc                           	int3
+104aacda: cc                           	int3
+104aacdb: cc                           	int3
+104aacdc: cc                           	int3
+104aacdd: cc                           	int3
+104aacde: cc                           	int3
+104aacdf: cc                           	int3
+104aace0: cc                           	int3
+104aace1: cc                           	int3
+104aace2: cc                           	int3
+104aace3: cc                           	int3
+104aace4: cc                           	int3
+104aace5: cc                           	int3
+104aace6: cc                           	int3
+104aace7: cc                           	int3
+104aace8: cc                           	int3
+104aace9: cc                           	int3
+104aacea: cc                           	int3
+104aaceb: cc                           	int3
+104aacec: cc                           	int3
+104aaced: cc                           	int3
+104aacee: cc                           	int3
+104aacef: cc                           	int3
+104aacf0: cc                           	int3
+104aacf1: cc                           	int3
+104aacf2: cc                           	int3
+104aacf3: cc                           	int3
+104aacf4: cc                           	int3
+104aacf5: cc                           	int3
+104aacf6: cc                           	int3
+104aacf7: cc                           	int3
+104aacf8: cc                           	int3
+104aacf9: cc                           	int3
+104aacfa: cc                           	int3
+104aacfb: cc                           	int3
+104aacfc: cc                           	int3
+104aacfd: cc                           	int3
+104aacfe: cc                           	int3
+104aacff: cc                           	int3
+104aad00: 55                           	pushl	%ebp
+104aad01: 8b ec                        	movl	%esp, %ebp
+104aad03: 6a ff                        	pushl	$-0x1
+104aad05: 68 45 14 bc 10               	pushl	$0x10bc1445             # imm = 0x10BC1445
+104aad0a: 64 a1 00 00 00 00            	movl	%fs:0x0, %eax
+104aad10: 50                           	pushl	%eax
+104aad11: 81 ec 28 01 00 00            	subl	$0x128, %esp            # imm = 0x128
+104aad17: 53                           	pushl	%ebx
+104aad18: 56                           	pushl	%esi
+104aad19: 57                           	pushl	%edi
+104aad1a: 51                           	pushl	%ecx
+104aad1b: 8d bd cc fe ff ff            	leal	-0x134(%ebp), %edi
+104aad21: b9 4a 00 00 00               	movl	$0x4a, %ecx
+104aad26: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aad2b: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aad2d: 59                           	popl	%ecx
+104aad2e: a1 4c c6 e3 10               	movl	0x10e3c64c, %eax
+104aad33: 33 c5                        	xorl	%ebp, %eax
+104aad35: 50                           	pushl	%eax
+104aad36: 8d 45 f4                     	leal	-0xc(%ebp), %eax
+104aad39: 64 a3 00 00 00 00            	movl	%eax, %fs:0x0
+104aad3f: 89 4d ec                     	movl	%ecx, -0x14(%ebp)
+104aad42: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104aad45: e8 c7 30 f8 ff               	calll	0x1042de11 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x407e>
+104aad4a: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104aad4d: 2b 41 14                     	subl	0x14(%ecx), %eax
+104aad50: 3b 45 08                     	cmpl	0x8(%ebp), %eax
+104aad53: 73 60                        	jae	0x104aadb5 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x796ec>
+104aad55: 8b f4                        	movl	%esp, %esi
+104aad57: 68 44 b6 cb 10               	pushl	$0x10cbb644             # imm = 0x10CBB644
+104aad5c: 8d 8d 04 ff ff ff            	leal	-0xfc(%ebp), %ecx
+104aad62: ff 15 50 cd e5 10            	calll	*0x10e5cd50
+104aad68: 3b f4                        	cmpl	%esp, %esi
+104aad6a: e8 d0 83 f9 ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104aad6f: c7 45 fc 00 00 00 00         	movl	$0x0, -0x4(%ebp)

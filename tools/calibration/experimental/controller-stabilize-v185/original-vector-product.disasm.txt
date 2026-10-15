@@ -1,0 +1,326 @@
+
+work/package/MotorRock-Windows-Debug/Rock3dGame.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+104316c9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z>:
+104aa520: 55                           	pushl	%ebp
+104aa521: 8b ec                        	movl	%esp, %ebp
+104aa523: 81 ec e0 00 00 00            	subl	$0xe0, %esp
+104aa529: 53                           	pushl	%ebx
+104aa52a: 56                           	pushl	%esi
+104aa52b: 57                           	pushl	%edi
+104aa52c: 51                           	pushl	%ecx
+104aa52d: 8d bd 20 ff ff ff            	leal	-0xe0(%ebp), %edi
+104aa533: b9 38 00 00 00               	movl	$0x38, %ecx
+104aa538: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa53d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa53f: 59                           	popl	%ecx
+104aa540: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aa543: 8d 4d e4                     	leal	-0x1c(%ebp), %ecx
+104aa546: e8 98 9e f7 ff               	calll	0x104243e3 <.text+0x3e3>
+104aa54b: 8d 45 e4                     	leal	-0x1c(%ebp), %eax
+104aa54e: 50                           	pushl	%eax
+104aa54f: 8b 4d 0c                     	movl	0xc(%ebp), %ecx
+104aa552: 51                           	pushl	%ecx
+104aa553: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa556: e8 88 34 f8 ff               	calll	0x1042d9e3 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x3c50>
+104aa55b: 8d 45 e4                     	leal	-0x1c(%ebp), %eax
+104aa55e: 50                           	pushl	%eax
+104aa55f: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+104aa562: e8 15 64 f8 ff               	calll	0x1043097c <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x6be9>
+104aa567: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa56a: 52                           	pushl	%edx
+104aa56b: 8b cd                        	movl	%ebp, %ecx
+104aa56d: 50                           	pushl	%eax
+104aa56e: 8d 15 94 a5 4a 10            	leal	0x104aa594, %edx
+104aa574: e8 00 a3 f8 ff               	calll	0x10434879 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x31b0>
+104aa579: 58                           	popl	%eax
+104aa57a: 5a                           	popl	%edx
+104aa57b: 5f                           	popl	%edi
+104aa57c: 5e                           	popl	%esi
+104aa57d: 5b                           	popl	%ebx
+104aa57e: 81 c4 e0 00 00 00            	addl	$0xe0, %esp
+104aa584: 3b ec                        	cmpl	%esp, %ebp
+104aa586: e8 b4 8b f9 ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104aa58b: 8b e5                        	movl	%ebp, %esp
+104aa58d: 5d                           	popl	%ebp
+104aa58e: c2 08 00                     	retl	$0x8
+104aa591: 8d 49 00                     	leal	(%ecx), %ecx
+104aa594: 01 00                        	addl	%eax, (%eax)
+104aa596: 00 00                        	addb	%al, (%eax)
+104aa598: 9c                           	pushfl
+104aa599: a5                           	movsl	(%esi), %es:(%edi)
+104aa59a: 4a                           	decl	%edx
+104aa59b: 10 e4                        	adcb	%ah, %ah
+104aa59d: ff ff                        	<unknown>
+104aa59f: ff 0c 00                     	decl	(%eax,%eax)
+104aa5a2: 00 00                        	addb	%al, (%eax)
+104aa5a4: a8 a5                        	testb	$-0x5b, %al
+104aa5a6: 4a                           	decl	%edx
+104aa5a7: 10 64 65 73                  	adcb	%ah, 0x73(%ebp,%eiz,2)
+104aa5ab: 74 00                        	je	0x104aa5ad <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x78ee4>
+104aa5ad: cc                           	int3
+104aa5ae: cc                           	int3
+104aa5af: cc                           	int3
+104aa5b0: cc                           	int3
+104aa5b1: cc                           	int3
+104aa5b2: cc                           	int3
+104aa5b3: cc                           	int3
+104aa5b4: cc                           	int3
+104aa5b5: cc                           	int3
+104aa5b6: cc                           	int3
+104aa5b7: cc                           	int3
+104aa5b8: cc                           	int3
+104aa5b9: cc                           	int3
+104aa5ba: cc                           	int3
+104aa5bb: cc                           	int3
+104aa5bc: cc                           	int3
+104aa5bd: cc                           	int3
+104aa5be: cc                           	int3
+104aa5bf: cc                           	int3
+104aa5c0: cc                           	int3
+104aa5c1: cc                           	int3
+104aa5c2: cc                           	int3
+104aa5c3: cc                           	int3
+104aa5c4: cc                           	int3
+104aa5c5: cc                           	int3
+104aa5c6: cc                           	int3
+104aa5c7: cc                           	int3
+104aa5c8: cc                           	int3
+104aa5c9: cc                           	int3
+104aa5ca: cc                           	int3
+104aa5cb: cc                           	int3
+104aa5cc: cc                           	int3
+104aa5cd: cc                           	int3
+104aa5ce: cc                           	int3
+104aa5cf: cc                           	int3
+104aa5d0: 55                           	pushl	%ebp
+104aa5d1: 8b ec                        	movl	%esp, %ebp
+104aa5d3: 81 ec f0 00 00 00            	subl	$0xf0, %esp
+104aa5d9: 53                           	pushl	%ebx
+104aa5da: 56                           	pushl	%esi
+104aa5db: 57                           	pushl	%edi
+104aa5dc: 51                           	pushl	%ecx
+104aa5dd: 8d bd 10 ff ff ff            	leal	-0xf0(%ebp), %edi
+104aa5e3: b9 3c 00 00 00               	movl	$0x3c, %ecx
+104aa5e8: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa5ed: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa5ef: 59                           	popl	%ecx
+104aa5f0: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aa5f3: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa5f6: d9 00                        	flds	(%eax)
+104aa5f8: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+104aa5fb: d8 09                        	fmuls	(%ecx)
+104aa5fd: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa600: d9 42 04                     	flds	0x4(%edx)
+104aa603: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa606: d8 48 04                     	fmuls	0x4(%eax)
+104aa609: de c1                        	faddp	%st, %st(1)
+104aa60b: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa60e: d9 41 08                     	flds	0x8(%ecx)
+104aa611: 8b 55 08                     	movl	0x8(%ebp), %edx
+104aa614: d8 4a 08                     	fmuls	0x8(%edx)
+104aa617: de c1                        	faddp	%st, %st(1)
+104aa619: d9 5d ec                     	fstps	-0x14(%ebp)
+104aa61c: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa61f: d9 40 0c                     	flds	0xc(%eax)
+104aa622: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+104aa625: d8 09                        	fmuls	(%ecx)
+104aa627: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa62a: d9 42 10                     	flds	0x10(%edx)
+104aa62d: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa630: d8 48 04                     	fmuls	0x4(%eax)
+104aa633: de c1                        	faddp	%st, %st(1)
+104aa635: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa638: d9 41 14                     	flds	0x14(%ecx)
+104aa63b: 8b 55 08                     	movl	0x8(%ebp), %edx
+104aa63e: d8 4a 08                     	fmuls	0x8(%edx)
+104aa641: de c1                        	faddp	%st, %st(1)
+104aa643: d9 5d e0                     	fstps	-0x20(%ebp)
+104aa646: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa649: d9 40 18                     	flds	0x18(%eax)
+104aa64c: 8b 4d 08                     	movl	0x8(%ebp), %ecx
+104aa64f: d8 09                        	fmuls	(%ecx)
+104aa651: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa654: d9 42 1c                     	flds	0x1c(%edx)
+104aa657: 8b 45 08                     	movl	0x8(%ebp), %eax
+104aa65a: d8 48 04                     	fmuls	0x4(%eax)
+104aa65d: de c1                        	faddp	%st, %st(1)
+104aa65f: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa662: d9 41 20                     	flds	0x20(%ecx)
+104aa665: 8b 55 08                     	movl	0x8(%ebp), %edx
+104aa668: d8 4a 08                     	fmuls	0x8(%edx)
+104aa66b: de c1                        	faddp	%st, %st(1)
+104aa66d: d9 5d d4                     	fstps	-0x2c(%ebp)
+104aa670: 8b 45 0c                     	movl	0xc(%ebp), %eax
+104aa673: d9 45 ec                     	flds	-0x14(%ebp)
+104aa676: d9 18                        	fstps	(%eax)
+104aa678: 8b 45 0c                     	movl	0xc(%ebp), %eax
+104aa67b: d9 45 e0                     	flds	-0x20(%ebp)
+104aa67e: d9 58 04                     	fstps	0x4(%eax)
+104aa681: 8b 45 0c                     	movl	0xc(%ebp), %eax
+104aa684: d9 45 d4                     	flds	-0x2c(%ebp)
+104aa687: d9 58 08                     	fstps	0x8(%eax)
+104aa68a: 5f                           	popl	%edi
+104aa68b: 5e                           	popl	%esi
+104aa68c: 5b                           	popl	%ebx
+104aa68d: 8b e5                        	movl	%ebp, %esp
+104aa68f: 5d                           	popl	%ebp
+104aa690: c2 08 00                     	retl	$0x8
+104aa693: cc                           	int3
+104aa694: cc                           	int3
+104aa695: cc                           	int3
+104aa696: cc                           	int3
+104aa697: cc                           	int3
+104aa698: cc                           	int3
+104aa699: cc                           	int3
+104aa69a: cc                           	int3
+104aa69b: cc                           	int3
+104aa69c: cc                           	int3
+104aa69d: cc                           	int3
+104aa69e: cc                           	int3
+104aa69f: cc                           	int3
+104aa6a0: cc                           	int3
+104aa6a1: cc                           	int3
+104aa6a2: cc                           	int3
+104aa6a3: cc                           	int3
+104aa6a4: cc                           	int3
+104aa6a5: cc                           	int3
+104aa6a6: cc                           	int3
+104aa6a7: cc                           	int3
+104aa6a8: cc                           	int3
+104aa6a9: cc                           	int3
+104aa6aa: cc                           	int3
+104aa6ab: cc                           	int3
+104aa6ac: cc                           	int3
+104aa6ad: cc                           	int3
+104aa6ae: cc                           	int3
+104aa6af: cc                           	int3
+104aa6b0: cc                           	int3
+104aa6b1: cc                           	int3
+104aa6b2: cc                           	int3
+104aa6b3: cc                           	int3
+104aa6b4: cc                           	int3
+104aa6b5: cc                           	int3
+104aa6b6: cc                           	int3
+104aa6b7: cc                           	int3
+104aa6b8: cc                           	int3
+104aa6b9: cc                           	int3
+104aa6ba: cc                           	int3
+104aa6bb: cc                           	int3
+104aa6bc: cc                           	int3
+104aa6bd: cc                           	int3
+104aa6be: cc                           	int3
+104aa6bf: cc                           	int3
+104aa6c0: cc                           	int3
+104aa6c1: cc                           	int3
+104aa6c2: cc                           	int3
+104aa6c3: cc                           	int3
+104aa6c4: cc                           	int3
+104aa6c5: cc                           	int3
+104aa6c6: cc                           	int3
+104aa6c7: cc                           	int3
+104aa6c8: cc                           	int3
+104aa6c9: cc                           	int3
+104aa6ca: cc                           	int3
+104aa6cb: cc                           	int3
+104aa6cc: cc                           	int3
+104aa6cd: cc                           	int3
+104aa6ce: cc                           	int3
+104aa6cf: cc                           	int3
+104aa6d0: 55                           	pushl	%ebp
+104aa6d1: 8b ec                        	movl	%esp, %ebp
+104aa6d3: 81 ec 44 01 00 00            	subl	$0x144, %esp            # imm = 0x144
+104aa6d9: 53                           	pushl	%ebx
+104aa6da: 56                           	pushl	%esi
+104aa6db: 57                           	pushl	%edi
+104aa6dc: 51                           	pushl	%ecx
+104aa6dd: 8d bd bc fe ff ff            	leal	-0x144(%ebp), %edi
+104aa6e3: b9 51 00 00 00               	movl	$0x51, %ecx
+104aa6e8: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+104aa6ed: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+104aa6ef: 59                           	popl	%ecx
+104aa6f0: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+104aa6f3: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa6f6: d9 40 10                     	flds	0x10(%eax)
+104aa6f9: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa6fc: d8 49 20                     	fmuls	0x20(%ecx)
+104aa6ff: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa702: d9 42 14                     	flds	0x14(%edx)
+104aa705: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa708: d8 48 1c                     	fmuls	0x1c(%eax)
+104aa70b: de e9                        	fsubrp	%st, %st(1)
+104aa70d: d9 5d ec                     	fstps	-0x14(%ebp)
+104aa710: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa713: d9 40 08                     	flds	0x8(%eax)
+104aa716: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa719: d8 49 1c                     	fmuls	0x1c(%ecx)
+104aa71c: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa71f: d9 42 04                     	flds	0x4(%edx)
+104aa722: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa725: d8 48 20                     	fmuls	0x20(%eax)
+104aa728: de e9                        	fsubrp	%st, %st(1)
+104aa72a: d9 5d e0                     	fstps	-0x20(%ebp)
+104aa72d: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa730: d9 40 04                     	flds	0x4(%eax)
+104aa733: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa736: d8 49 14                     	fmuls	0x14(%ecx)
+104aa739: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa73c: d9 42 08                     	flds	0x8(%edx)
+104aa73f: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa742: d8 48 10                     	fmuls	0x10(%eax)
+104aa745: de e9                        	fsubrp	%st, %st(1)
+104aa747: d9 5d d4                     	fstps	-0x2c(%ebp)
+104aa74a: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa74d: d9 40 14                     	flds	0x14(%eax)
+104aa750: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa753: d8 49 18                     	fmuls	0x18(%ecx)
+104aa756: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa759: d9 42 0c                     	flds	0xc(%edx)
+104aa75c: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa75f: d8 48 20                     	fmuls	0x20(%eax)
+104aa762: de e9                        	fsubrp	%st, %st(1)
+104aa764: d9 5d c8                     	fstps	-0x38(%ebp)
+104aa767: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa76a: d9 00                        	flds	(%eax)
+104aa76c: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa76f: d8 49 20                     	fmuls	0x20(%ecx)
+104aa772: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa775: d9 42 08                     	flds	0x8(%edx)
+104aa778: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa77b: d8 48 18                     	fmuls	0x18(%eax)
+104aa77e: de e9                        	fsubrp	%st, %st(1)
+104aa780: d9 5d bc                     	fstps	-0x44(%ebp)
+104aa783: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa786: d9 40 08                     	flds	0x8(%eax)
+104aa789: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa78c: d8 49 0c                     	fmuls	0xc(%ecx)
+104aa78f: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa792: d9 02                        	flds	(%edx)
+104aa794: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa797: d8 48 14                     	fmuls	0x14(%eax)
+104aa79a: de e9                        	fsubrp	%st, %st(1)
+104aa79c: d9 5d b0                     	fstps	-0x50(%ebp)
+104aa79f: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7a2: d9 40 0c                     	flds	0xc(%eax)
+104aa7a5: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa7a8: d8 49 1c                     	fmuls	0x1c(%ecx)
+104aa7ab: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa7ae: d9 42 10                     	flds	0x10(%edx)
+104aa7b1: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7b4: d8 48 18                     	fmuls	0x18(%eax)
+104aa7b7: de e9                        	fsubrp	%st, %st(1)
+104aa7b9: d9 5d a4                     	fstps	-0x5c(%ebp)
+104aa7bc: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7bf: d9 40 04                     	flds	0x4(%eax)
+104aa7c2: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+104aa7c5: d8 49 18                     	fmuls	0x18(%ecx)
+104aa7c8: 8b 55 f8                     	movl	-0x8(%ebp), %edx
+104aa7cb: d9 02                        	flds	(%edx)
+104aa7cd: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7d0: d8 48 1c                     	fmuls	0x1c(%eax)
+104aa7d3: de e9                        	fsubrp	%st, %st(1)
+104aa7d5: d9 5d 98                     	fstps	-0x68(%ebp)
+104aa7d8: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+104aa7db: d9 00                        	flds	(%eax)

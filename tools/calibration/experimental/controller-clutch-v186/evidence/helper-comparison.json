@@ -1,0 +1,70 @@
+{
+  "runs": [
+    {
+      "recipe": "box-only",
+      "optimization": "O0",
+      "repeat": 0,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "box-only",
+      "optimization": "O0",
+      "repeat": 1,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "box-only",
+      "optimization": "O2",
+      "repeat": 0,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "box-only",
+      "optimization": "O2",
+      "repeat": 1,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "four-wheels",
+      "optimization": "O0",
+      "repeat": 0,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "four-wheels",
+      "optimization": "O0",
+      "repeat": 1,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "four-wheels",
+      "optimization": "O2",
+      "repeat": 0,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    },
+    {
+      "recipe": "four-wheels",
+      "optimization": "O2",
+      "repeat": 1,
+      "cases": 1440,
+      "exact": 1440,
+      "differences": []
+    }
+  ],
+  "scope": "Candidate arithmetic only, actual original GameCar StabilizeForce. No Source controller/session integration yet. Four clutch modes including zero strength, positive, negative, and unlocked. Two inertia fixtures.",
+  "goal_complete": false
+}

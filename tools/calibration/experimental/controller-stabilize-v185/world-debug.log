@@ -1,0 +1,17 @@
+(lldb) target create "work/controller-stabilize-v185/SourceStabilizeWorldProbe"
+Current executable set to '/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-stabilize-v185/SourceStabilizeWorldProbe' (arm64).
+(lldb) settings set -- target.run-args  "outputs/controller-stabilize-v185/world-input.words" "outputs/controller-stabilize-v185/world-debug.jsonl"
+(lldb) run
+Process 7526 launched: '/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-stabilize-v185/SourceStabilizeWorldProbe' (arm64)
+Process 7526 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BREAKPOINT (code=1, subcode=0x100607978)
+       frame #0: 0x0000000100607978 SourceStabilizeWorldProbe`JPH::WheeledVehicleController::WheeledVehicleController(this=0x00000001010d4d50, inSettings=0x00000001010d4990, inConstraint=0x00000001010d4a50) at WheeledVehicleController.cpp:207:3
+   204      {
+   205          const VehicleDifferentialSettings &d = inSettings.mDifferentials[i];
+   206          mDifferentials[i] = d;
+-> 207          JPH_ASSERT(d.mDifferentialRatio > 0.0f);
+                ^
+   208          JPH_ASSERT(d.mLeftRightSplit >= 0.0f && d.mLeftRightSplit <= 1.0f);
+   209          JPH_ASSERT(d.mEngineTorqueRatio >= 0.0f);
+   210          JPH_ASSERT(d.mLimitedSlipRatio > 1.0f);
+Target 0: (SourceStabilizeWorldProbe) stopped.

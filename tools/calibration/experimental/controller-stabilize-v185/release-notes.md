@@ -1,0 +1,7 @@
+The actual Windows GameCar runs with PC24 floating-point control. The previous V113 stabilization checks used a standalone PC53 SDK fixture and did not prove that game boundary. V185 preserves the observed product/store boundaries, matrix inverse and Shoemake conversion, including the sentinel damping path.
+
+Actual world acceptance: 180 no-contact stabilization scenarios, each repeated twice, now match original GameCar stabilization and the following Windows SDK integration. The flag-off control matches 69/180. Both inertia fixtures also pass all 720 distinct helper inputs at O0/O2, twice each, including the original pre-setter momentum, final orientation and angular velocity.
+
+The attached Mac arm64 research diagnostic runs the 180 world cases twice with the compiled Source/Jolt probe. Expand it and run `python3 verify.py --output verification` from its folder. It does not replace the installed game. Full physical parity remains open: clutch integration, physical contact gates, jump, complete game updates and normal races are not accepted by this diagnostic.
+
+Regression after explicit command-boundary tagging: all 608 baseline scenarios and 255864 states per repeat exact in two identical repeats; all 7200 raw map states exact; 53 CTest checks passed. A real Source Session event replay confirms the boundary for 900 steps twice, without claiming an original Windows full-race comparison.

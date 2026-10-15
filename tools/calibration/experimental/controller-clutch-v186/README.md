@@ -1,0 +1,7 @@
+# Clutch investigation V186 (in progress)
+
+The original `StabilizeForce` keeps local Z momentum when clutch is locked and strength is zero, or replaces it with `strength * NxActor::getMass()` once for a nonzero strength; it then clears the strength. This belongs inside stabilization after local conversion. The existing Source session applies an immediate oil-contact momentum request and consumes the strength before the controller step.
+
+The candidate helper and matrix cover four clutch modes, six orientations, five angular velocities, six damping/clamp recipes, and two contact booleans. This is an investigation, not accepted production integration. The first candidate incorrectly used the serialized nominal mass 1000. Its 702 four-wheel cases with nonzero clutch strength expose a one-ULP discrepancy at the identity orientation already. The actual public actor mass must be measured; no coefficient fitting is allowed.
+
+The measured actor mass is 999.9999389648438 (float word 1148846079), rather than serialized 1000. Passing that actual public mass closes all 1440 helper cases in each of the two inertia fixtures, at O0/O2, repeated twice. The six-file production overlay is prepared outside the active source tree, but is NOT applied or accepted yet. It moves the request through GameCar -> Session -> stabilizer and removes the old immediate oil-contact request only under the new default-off flag. The active binaries remain V185 while its full regression runs.

@@ -1,0 +1,56 @@
+{
+  "runs": [
+    {
+      "repeat": 0,
+      "cases": 1440,
+      "sha256": "f74263a020bc3bb05571dd492acc2fa2c56c7c55536a2f29b41e816d41fd9ff8"
+    },
+    {
+      "repeat": 1,
+      "cases": 1440,
+      "sha256": "f74263a020bc3bb05571dd492acc2fa2c56c7c55536a2f29b41e816d41fd9ff8"
+    }
+  ],
+  "modules": [
+    {
+      "event": "runtime.module",
+      "name": "Rock3dGame.dll",
+      "path": "C:\\MotorRock\\game-debug\\Rock3dGame.dll"
+    },
+    {
+      "event": "runtime.module",
+      "name": "PhysXCore.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\controller-stabilize-v185\\PhysXCore.dll"
+    },
+    {
+      "event": "runtime.module",
+      "name": "PhysXLoader.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\controller-stabilize-v185\\PhysXLoader.dll"
+    }
+  ],
+  "hashes": [
+    {
+      "Path": "C:\\MotorRock\\game-debug\\Rock3dGame.dll",
+      "Hash": "4483E8F402EDB5C4639609DCF3FD805386E80F1D25B1C4829A8236B40A6B8A15"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-stabilize-v185\\PhysXCore.dll",
+      "Hash": "C03F0E20E99A6CA8D72C8627CF3B0108036A734123F75C652C2B78D3043DBDBB"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-stabilize-v185\\PhysXLoader.dll",
+      "Hash": "29B2183CBD9B4B43F247D7E47E7A636ED3898D8E79AFB109B5EF0E02C5493768"
+    },
+    {
+      "Path": "C:\\MotorRock\\game-debug\\Rock3dGame.pdb",
+      "Hash": "818BA6D6386EF6C4C925D16B9EDF2403F05F78385E36565DF493C7173432770C"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-stabilize-v185\\StabilizeProbeV185.exe",
+      "Hash": "81E3E86B0C65CA41D847A73AE880DC8C66D31B5FFB182E4743E9E25D93BCE0DD"
+    }
+  ],
+  "repeats_identical": true,
+  "scope": "Actual original GameCar constructor and StabilizeForce, real SDK actor; PC24, one dynamic body/no AI. PDB-resolved property field writes supply isolated damping/clamp/contact/clutch inputs; no solver step or wheel contact inference. Inverse inertia is derived by PC24 reciprocal of actual public local inertia. Original source/binary unchanged.",
+  "goal_complete": false
+}

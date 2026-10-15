@@ -1,0 +1,1345 @@
+
+work/package/MotorRock-Windows-Debug/Rock3dGame.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+104316c9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z>:
+10498320: 55                           	pushl	%ebp
+10498321: 8b ec                        	movl	%esp, %ebp
+10498323: 6a ff                        	pushl	$-0x1
+10498325: 68 60 02 bc 10               	pushl	$0x10bc0260             # imm = 0x10BC0260
+1049832a: 64 a1 00 00 00 00            	movl	%fs:0x0, %eax
+10498330: 50                           	pushl	%eax
+10498331: 81 ec a4 02 00 00            	subl	$0x2a4, %esp            # imm = 0x2A4
+10498337: 53                           	pushl	%ebx
+10498338: 56                           	pushl	%esi
+10498339: 57                           	pushl	%edi
+1049833a: 51                           	pushl	%ecx
+1049833b: 8d bd 50 fd ff ff            	leal	-0x2b0(%ebp), %edi
+10498341: b9 a9 00 00 00               	movl	$0xa9, %ecx
+10498346: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+1049834b: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+1049834d: 59                           	popl	%ecx
+1049834e: a1 4c c6 e3 10               	movl	0x10e3c64c, %eax
+10498353: 33 c5                        	xorl	%ebp, %eax
+10498355: 50                           	pushl	%eax
+10498356: 8d 45 f4                     	leal	-0xc(%ebp), %eax
+10498359: 64 a3 00 00 00 00            	movl	%eax, %fs:0x0
+1049835f: 89 4d ec                     	movl	%ecx, -0x14(%ebp)
+10498362: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498365: e8 96 6b f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+1049836a: 8b c8                        	movl	%eax, %ecx
+1049836c: e8 3d ef f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+10498371: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+10498377: 8b f4                        	movl	%esp, %esi
+10498379: 8d 45 d8                     	leal	-0x28(%ebp), %eax
+1049837c: 50                           	pushl	%eax
+1049837d: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+10498383: 8b 11                        	movl	(%ecx), %edx
+10498385: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+1049838b: 8b 82 0c 01 00 00            	movl	0x10c(%edx), %eax
+10498391: ff d0                        	calll	*%eax
+10498393: 3b f4                        	cmpl	%esp, %esi
+10498395: e8 a5 ad fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+1049839a: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+1049839d: e8 5e 6b f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+104983a2: 8b c8                        	movl	%eax, %ecx
+104983a4: e8 05 ef f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+104983a9: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104983af: 8b f4                        	movl	%esp, %esi
+104983b1: 8d 45 ac                     	leal	-0x54(%ebp), %eax
+104983b4: 50                           	pushl	%eax
+104983b5: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104983bb: 8b 11                        	movl	(%ecx), %edx
+104983bd: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104983c3: 8b 42 2c                     	movl	0x2c(%edx), %eax
+104983c6: ff d0                        	calll	*%eax
+104983c8: 3b f4                        	cmpl	%esp, %esi
+104983ca: e8 70 ad fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104983cf: c7 45 fc 00 00 00 00         	movl	$0x0, -0x4(%ebp)
+104983d6: 8d 4d 80                     	leal	-0x80(%ebp), %ecx
+104983d9: e8 a0 79 f9 ff               	calll	0x1042fd7e <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x5feb>
+104983de: c6 45 fc 01                  	movb	$0x1, -0x4(%ebp)
+104983e2: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104983e5: d9 80 40 02 00 00            	flds	0x240(%eax)
+104983eb: dc 1d f0 19 cc 10            	fcompl	0x10cc19f0
+104983f1: df e0                        	fnstsw	%ax
+104983f3: f6 c4 44                     	testb	$0x44, %ah
+104983f6: 7a 6b                        	jp	0x10498463 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66d9a>
+104983f8: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104983fb: d9 80 44 02 00 00            	flds	0x244(%eax)
+10498401: dc 1d f0 19 cc 10            	fcompl	0x10cc19f0
+10498407: df e0                        	fnstsw	%ax
+10498409: f6 c4 44                     	testb	$0x44, %ah
+1049840c: 7a 55                        	jp	0x10498463 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66d9a>
+1049840e: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498411: d9 80 48 02 00 00            	flds	0x248(%eax)
+10498417: dc 1d f0 19 cc 10            	fcompl	0x10cc19f0
+1049841d: df e0                        	fnstsw	%ax
+1049841f: f6 c4 44                     	testb	$0x44, %ah
+10498422: 7a 3f                        	jp	0x10498463 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66d9a>
+10498424: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498427: d9 80 34 02 00 00            	flds	0x234(%eax)
+1049842d: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498433: df e0                        	fnstsw	%ax
+10498435: f6 c4 41                     	testb	$0x41, %ah
+10498438: 74 29                        	je	0x10498463 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66d9a>
+1049843a: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049843d: d9 80 30 02 00 00            	flds	0x230(%eax)
+10498443: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498449: df e0                        	fnstsw	%ax
+1049844b: f6 c4 41                     	testb	$0x41, %ah
+1049844e: 74 13                        	je	0x10498463 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66d9a>
+10498450: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498453: e8 20 38 fa ff               	calll	0x1043bc78 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xa5af>
+10498458: 0f b6 c0                     	movzbl	%al, %eax
+1049845b: 85 c0                        	testl	%eax, %eax
+1049845d: 0f 84 31 05 00 00            	je	0x10498994 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x672cb>
+10498463: 8d 45 80                     	leal	-0x80(%ebp), %eax
+10498466: 50                           	pushl	%eax
+10498467: 8d 4d ac                     	leal	-0x54(%ebp), %ecx
+1049846a: e8 ff 33 f9 ff               	calll	0x1042b86e <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x1adb>
+1049846f: 0f b6 c8                     	movzbl	%al, %ecx
+10498472: 85 c9                        	testl	%ecx, %ecx
+10498474: 0f 84 1a 05 00 00            	je	0x10498994 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x672cb>
+1049847a: 8d 45 d8                     	leal	-0x28(%ebp), %eax
+1049847d: 50                           	pushl	%eax
+1049847e: 8d 8d 60 fd ff ff            	leal	-0x2a0(%ebp), %ecx
+10498484: 51                           	pushl	%ecx
+10498485: 8d 4d 80                     	leal	-0x80(%ebp), %ecx
+10498488: e8 2b 08 f9 ff               	calll	0x10428cb8 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x40bf>
+1049848d: 50                           	pushl	%eax
+1049848e: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498491: e8 0b 47 f9 ff               	calll	0x1042cba1 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x2e0e>
+10498496: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498499: 0f b6 88 60 02 00 00         	movzbl	0x260(%eax), %ecx
+104984a0: 85 c9                        	testl	%ecx, %ecx
+104984a2: 0f 85 dd 00 00 00            	jne	0x10498585 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ebc>
+104984a8: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104984ab: d9 80 34 02 00 00            	flds	0x234(%eax)
+104984b1: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+104984b7: df e0                        	fnstsw	%ax
+104984b9: f6 c4 41                     	testb	$0x41, %ah
+104984bc: 0f 85 c3 00 00 00            	jne	0x10498585 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ebc>
+104984c2: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104984c5: e8 36 6a f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+104984ca: 8b c8                        	movl	%eax, %ecx
+104984cc: e8 dd ed f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+104984d1: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104984d7: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104984da: d9 80 34 02 00 00            	flds	0x234(%eax)
+104984e0: 8b f4                        	movl	%esp, %esi
+104984e2: 8d 8d 80 fd ff ff            	leal	-0x280(%ebp), %ecx
+104984e8: 51                           	pushl	%ecx
+104984e9: 8b 95 58 fd ff ff            	movl	-0x2a8(%ebp), %edx
+104984ef: 8b 02                        	movl	(%edx), %eax
+104984f1: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104984f7: 8b 90 c0 00 00 00            	movl	0xc0(%eax), %edx
+104984fd: dd 9d 50 fd ff ff            	fstpl	-0x2b0(%ebp)
+10498503: ff d2                        	calll	*%edx
+10498505: 3b f4                        	cmpl	%esp, %esi
+10498507: e8 33 ac fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+1049850c: d9 40 04                     	flds	0x4(%eax)
+1049850f: dc 8d 50 fd ff ff            	fmull	-0x2b0(%ebp)
+10498515: dc c0                        	fadd	%st, %st(0)
+10498517: d9 9d 74 fd ff ff            	fstps	-0x28c(%ebp)
+1049851d: 51                           	pushl	%ecx
+1049851e: d9 45 dc                     	flds	-0x24(%ebp)
+10498521: d9 1c 24                     	fstps	(%esp)
+10498524: e8 17 d3 fa ff               	calll	0x10445840 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x14177>
+10498529: 83 c4 04                     	addl	$0x4, %esp
+1049852c: d9 9d 94 fd ff ff            	fstps	-0x26c(%ebp)
+10498532: 8d 85 74 fd ff ff            	leal	-0x28c(%ebp), %eax
+10498538: 50                           	pushl	%eax
+10498539: 8d 8d 94 fd ff ff            	leal	-0x26c(%ebp), %ecx
+1049853f: 51                           	pushl	%ecx
+10498540: e8 cc d1 f8 ff               	calll	0x10425711 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0xb18>
+10498545: 83 c4 08                     	addl	$0x8, %esp
+10498548: d9 00                        	flds	(%eax)
+1049854a: d9 9d 74 ff ff ff            	fstps	-0x8c(%ebp)
+10498550: d9 45 dc                     	flds	-0x24(%ebp)
+10498553: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498559: df e0                        	fnstsw	%ax
+1049855b: f6 c4 01                     	testb	$0x1, %ah
+1049855e: 75 0e                        	jne	0x1049856e <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ea5>
+10498560: d9 85 74 ff ff ff            	flds	-0x8c(%ebp)
+10498566: d9 9d 58 fd ff ff            	fstps	-0x2a8(%ebp)
+1049856c: eb 0e                        	jmp	0x1049857c <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66eb3>
+1049856e: d9 85 74 ff ff ff            	flds	-0x8c(%ebp)
+10498574: d9 e0                        	fchs
+10498576: d9 9d 58 fd ff ff            	fstps	-0x2a8(%ebp)
+1049857c: d9 85 58 fd ff ff            	flds	-0x2a8(%ebp)
+10498582: d9 5d dc                     	fstps	-0x24(%ebp)
+10498585: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498588: 0f b6 88 60 02 00 00         	movzbl	0x260(%eax), %ecx
+1049858f: 85 c9                        	testl	%ecx, %ecx
+10498591: 0f 85 dc 00 00 00            	jne	0x10498673 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66faa>
+10498597: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049859a: d9 80 30 02 00 00            	flds	0x230(%eax)
+104985a0: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+104985a6: df e0                        	fnstsw	%ax
+104985a8: f6 c4 41                     	testb	$0x41, %ah
+104985ab: 0f 85 c2 00 00 00            	jne	0x10498673 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66faa>
+104985b1: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104985b4: e8 47 69 f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+104985b9: 8b c8                        	movl	%eax, %ecx
+104985bb: e8 ee ec f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+104985c0: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104985c6: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104985c9: d9 80 30 02 00 00            	flds	0x230(%eax)
+104985cf: 8b f4                        	movl	%esp, %esi
+104985d1: 8d 8d ac fd ff ff            	leal	-0x254(%ebp), %ecx
+104985d7: 51                           	pushl	%ecx
+104985d8: 8b 95 58 fd ff ff            	movl	-0x2a8(%ebp), %edx
+104985de: 8b 02                        	movl	(%edx), %eax
+104985e0: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104985e6: 8b 90 c0 00 00 00            	movl	0xc0(%eax), %edx
+104985ec: dd 9d 50 fd ff ff            	fstpl	-0x2b0(%ebp)
+104985f2: ff d2                        	calll	*%edx
+104985f4: 3b f4                        	cmpl	%esp, %esi
+104985f6: e8 44 ab fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104985fb: d9 00                        	flds	(%eax)
+104985fd: dc 8d 50 fd ff ff            	fmull	-0x2b0(%ebp)
+10498603: dc c0                        	fadd	%st, %st(0)
+10498605: d9 9d a0 fd ff ff            	fstps	-0x260(%ebp)
+1049860b: 51                           	pushl	%ecx
+1049860c: d9 45 d8                     	flds	-0x28(%ebp)
+1049860f: d9 1c 24                     	fstps	(%esp)
+10498612: e8 29 d2 fa ff               	calll	0x10445840 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x14177>
+10498617: 83 c4 04                     	addl	$0x4, %esp
+1049861a: d9 9d c0 fd ff ff            	fstps	-0x240(%ebp)
+10498620: 8d 85 a0 fd ff ff            	leal	-0x260(%ebp), %eax
+10498626: 50                           	pushl	%eax
+10498627: 8d 8d c0 fd ff ff            	leal	-0x240(%ebp), %ecx
+1049862d: 51                           	pushl	%ecx
+1049862e: e8 de d0 f8 ff               	calll	0x10425711 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0xb18>
+10498633: 83 c4 08                     	addl	$0x8, %esp
+10498636: d9 00                        	flds	(%eax)
+10498638: d9 9d 68 ff ff ff            	fstps	-0x98(%ebp)
+1049863e: d9 45 d8                     	flds	-0x28(%ebp)
+10498641: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498647: df e0                        	fnstsw	%ax
+10498649: f6 c4 01                     	testb	$0x1, %ah
+1049864c: 75 0e                        	jne	0x1049865c <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66f93>
+1049864e: d9 85 68 ff ff ff            	flds	-0x98(%ebp)
+10498654: d9 9d 58 fd ff ff            	fstps	-0x2a8(%ebp)
+1049865a: eb 0e                        	jmp	0x1049866a <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66fa1>
+1049865c: d9 85 68 ff ff ff            	flds	-0x98(%ebp)
+10498662: d9 e0                        	fchs
+10498664: d9 9d 58 fd ff ff            	fstps	-0x2a8(%ebp)
+1049866a: d9 85 58 fd ff ff            	flds	-0x2a8(%ebp)
+10498670: d9 5d d8                     	fstps	-0x28(%ebp)
+10498673: d9 45 e0                     	flds	-0x20(%ebp)
+10498676: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498679: d8 88 48 02 00 00            	fmuls	0x248(%eax)
+1049867f: d9 9d 5c ff ff ff            	fstps	-0xa4(%ebp)
+10498685: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498688: e8 eb 35 fa ff               	calll	0x1043bc78 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xa5af>
+1049868d: 0f b6 c0                     	movzbl	%al, %eax
+10498690: 85 c0                        	testl	%eax, %eax
+10498692: 74 68                        	je	0x104986fc <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x67033>
+10498694: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498697: d9 80 d0 01 00 00            	flds	0x1d0(%eax)
+1049869d: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+104986a3: df e0                        	fnstsw	%ax
+104986a5: f6 c4 44                     	testb	$0x44, %ah
+104986a8: 7b 3e                        	jnp	0x104986e8 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x6701f>
+104986aa: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104986ad: e8 69 f8 f8 ff               	calll	0x10427f1b <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x3322>
+104986b2: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104986b8: 8b f4                        	movl	%esp, %esi
+104986ba: 8b 85 58 fd ff ff            	movl	-0x2a8(%ebp), %eax
+104986c0: 8b 10                        	movl	(%eax), %edx
+104986c2: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104986c8: 8b 82 b8 00 00 00            	movl	0xb8(%edx), %eax
+104986ce: ff d0                        	calll	*%eax
+104986d0: 3b f4                        	cmpl	%esp, %esi
+104986d2: e8 68 aa fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104986d7: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104986da: d8 89 d0 01 00 00            	fmuls	0x1d0(%ecx)
+104986e0: d9 9d 5c ff ff ff            	fstps	-0xa4(%ebp)
+104986e6: eb 09                        	jmp	0x104986f1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x67028>
+104986e8: d9 45 e0                     	flds	-0x20(%ebp)
+104986eb: d9 9d 5c ff ff ff            	fstps	-0xa4(%ebp)
+104986f1: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104986f4: d9 ee                        	fldz
+104986f6: d9 98 d0 01 00 00            	fstps	0x1d0(%eax)
+104986fc: 51                           	pushl	%ecx
+104986fd: d9 85 5c ff ff ff            	flds	-0xa4(%ebp)
+10498703: d9 1c 24                     	fstps	(%esp)
+10498706: d9 45 dc                     	flds	-0x24(%ebp)
+10498709: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049870c: d8 88 44 02 00 00            	fmuls	0x244(%eax)
+10498712: d9 9d 58 fd ff ff            	fstps	-0x2a8(%ebp)
+10498718: d9 85 58 fd ff ff            	flds	-0x2a8(%ebp)
+1049871e: 51                           	pushl	%ecx
+1049871f: d9 1c 24                     	fstps	(%esp)
+10498722: d9 45 d8                     	flds	-0x28(%ebp)
+10498725: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498728: d8 89 40 02 00 00            	fmuls	0x240(%ecx)
+1049872e: d9 9d 54 fd ff ff            	fstps	-0x2ac(%ebp)
+10498734: d9 85 54 fd ff ff            	flds	-0x2ac(%ebp)
+1049873a: 51                           	pushl	%ecx
+1049873b: d9 1c 24                     	fstps	(%esp)
+1049873e: 8d 8d cc fd ff ff            	leal	-0x234(%ebp), %ecx
+10498744: e8 ba 7d f9 ff               	calll	0x10430503 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x6770>
+10498749: 50                           	pushl	%eax
+1049874a: 8d 95 e0 fd ff ff            	leal	-0x220(%ebp), %edx
+10498750: 52                           	pushl	%edx
+10498751: 8d 4d ac                     	leal	-0x54(%ebp), %ecx
+10498754: e8 5f 05 f9 ff               	calll	0x10428cb8 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x40bf>
+10498759: 50                           	pushl	%eax
+1049875a: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+1049875d: e8 3f 44 f9 ff               	calll	0x1042cba1 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x2e0e>
+10498762: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498765: d9 80 34 02 00 00            	flds	0x234(%eax)
+1049876b: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498771: df e0                        	fnstsw	%ax
+10498773: f6 c4 41                     	testb	$0x41, %ah
+10498776: 74 1a                        	je	0x10498792 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x670c9>
+10498778: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049877b: d9 80 30 02 00 00            	flds	0x230(%eax)
+10498781: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498787: df e0                        	fnstsw	%ax
+10498789: f6 c4 41                     	testb	$0x41, %ah
+1049878c: 0f 85 02 02 00 00            	jne	0x10498994 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x672cb>
+10498792: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498795: e8 66 67 f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+1049879a: 8b c8                        	movl	%eax, %ecx
+1049879c: e8 0d eb f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+104987a1: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104987a7: 8b f4                        	movl	%esp, %esi
+104987a9: 8d 85 44 ff ff ff            	leal	-0xbc(%ebp), %eax
+104987af: 50                           	pushl	%eax
+104987b0: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104987b6: 8b 11                        	movl	(%ecx), %edx
+104987b8: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104987be: 8b 42 30                     	movl	0x30(%edx), %eax
+104987c1: ff d0                        	calll	*%eax
+104987c3: 3b f4                        	cmpl	%esp, %esi
+104987c5: e8 75 a9 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104987ca: 6a 00                        	pushl	$0x0
+104987cc: 83 ec 10                     	subl	$0x10, %esp
+104987cf: 8b c4                        	movl	%esp, %eax
+104987d1: 8b 8d 44 ff ff ff            	movl	-0xbc(%ebp), %ecx
+104987d7: 89 08                        	movl	%ecx, (%eax)
+104987d9: 8b 95 48 ff ff ff            	movl	-0xb8(%ebp), %edx
+104987df: 89 50 04                     	movl	%edx, 0x4(%eax)
+104987e2: 8b 8d 4c ff ff ff            	movl	-0xb4(%ebp), %ecx
+104987e8: 89 48 08                     	movl	%ecx, 0x8(%eax)
+104987eb: 8b 95 50 ff ff ff            	movl	-0xb0(%ebp), %edx
+104987f1: 89 50 0c                     	movl	%edx, 0xc(%eax)
+104987f4: 8d 85 0c fe ff ff            	leal	-0x1f4(%ebp), %eax
+104987fa: 50                           	pushl	%eax
+104987fb: e8 e0 fa f8 ff               	calll	0x104282e0 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x36e7>
+10498800: 83 c4 18                     	addl	$0x18, %esp
+10498803: 8b 08                        	movl	(%eax), %ecx
+10498805: 89 8d f4 fd ff ff            	movl	%ecx, -0x20c(%ebp)
+1049880b: 8b 50 04                     	movl	0x4(%eax), %edx
+1049880e: 89 95 f8 fd ff ff            	movl	%edx, -0x208(%ebp)
+10498814: 8b 48 08                     	movl	0x8(%eax), %ecx
+10498817: 89 8d fc fd ff ff            	movl	%ecx, -0x204(%ebp)
+1049881d: 8b 50 0c                     	movl	0xc(%eax), %edx
+10498820: 89 95 00 fe ff ff            	movl	%edx, -0x200(%ebp)
+10498826: 8b 85 f4 fd ff ff            	movl	-0x20c(%ebp), %eax
+1049882c: 89 85 2c ff ff ff            	movl	%eax, -0xd4(%ebp)
+10498832: 8b 8d f8 fd ff ff            	movl	-0x208(%ebp), %ecx
+10498838: 89 8d 30 ff ff ff            	movl	%ecx, -0xd0(%ebp)
+1049883e: 8b 95 fc fd ff ff            	movl	-0x204(%ebp), %edx
+10498844: 89 95 34 ff ff ff            	movl	%edx, -0xcc(%ebp)
+1049884a: 8b 85 00 fe ff ff            	movl	-0x200(%ebp), %eax
+10498850: 89 85 38 ff ff ff            	movl	%eax, -0xc8(%ebp)
+10498856: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498859: d9 80 30 02 00 00            	flds	0x230(%eax)
+1049885f: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498865: df e0                        	fnstsw	%ax
+10498867: f6 c4 41                     	testb	$0x41, %ah
+1049886a: 75 37                        	jne	0x104988a3 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x671da>
+1049886c: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049886f: d9 80 30 02 00 00            	flds	0x230(%eax)
+10498875: d9 e0                        	fchs
+10498877: d9 9d 24 fe ff ff            	fstps	-0x1dc(%ebp)
+1049887d: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498880: 81 c1 30 02 00 00            	addl	$0x230, %ecx            # imm = 0x230
+10498886: 51                           	pushl	%ecx
+10498887: 8d 95 24 fe ff ff            	leal	-0x1dc(%ebp), %edx
+1049888d: 52                           	pushl	%edx
+1049888e: 8d 85 2c ff ff ff            	leal	-0xd4(%ebp), %eax
+10498894: 50                           	pushl	%eax
+10498895: e8 df 8d f9 ff               	calll	0x10431679 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x78e6>
+1049889a: 83 c4 0c                     	addl	$0xc, %esp
+1049889d: d9 9d 2c ff ff ff            	fstps	-0xd4(%ebp)
+104988a3: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104988a6: d9 80 34 02 00 00            	flds	0x234(%eax)
+104988ac: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+104988b2: df e0                        	fnstsw	%ax
+104988b4: f6 c4 41                     	testb	$0x41, %ah
+104988b7: 75 37                        	jne	0x104988f0 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x67227>
+104988b9: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+104988bc: d9 80 34 02 00 00            	flds	0x234(%eax)
+104988c2: d9 e0                        	fchs
+104988c4: d9 9d 30 fe ff ff            	fstps	-0x1d0(%ebp)
+104988ca: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104988cd: 81 c1 34 02 00 00            	addl	$0x234, %ecx            # imm = 0x234
+104988d3: 51                           	pushl	%ecx
+104988d4: 8d 95 30 fe ff ff            	leal	-0x1d0(%ebp), %edx
+104988da: 52                           	pushl	%edx
+104988db: 8d 85 30 ff ff ff            	leal	-0xd0(%ebp), %eax
+104988e1: 50                           	pushl	%eax
+104988e2: e8 92 8d f9 ff               	calll	0x10431679 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x78e6>
+104988e7: 83 c4 0c                     	addl	$0xc, %esp
+104988ea: d9 9d 30 ff ff ff            	fstps	-0xd0(%ebp)
+104988f0: 83 ec 10                     	subl	$0x10, %esp
+104988f3: 8b c4                        	movl	%esp, %eax
+104988f5: 8b 8d 2c ff ff ff            	movl	-0xd4(%ebp), %ecx
+104988fb: 89 08                        	movl	%ecx, (%eax)
+104988fd: 8b 95 30 ff ff ff            	movl	-0xd0(%ebp), %edx
+10498903: 89 50 04                     	movl	%edx, 0x4(%eax)
+10498906: 8b 8d 34 ff ff ff            	movl	-0xcc(%ebp), %ecx
+1049890c: 89 48 08                     	movl	%ecx, 0x8(%eax)
+1049890f: 8b 95 38 ff ff ff            	movl	-0xc8(%ebp), %edx
+10498915: 89 50 0c                     	movl	%edx, 0xc(%eax)
+10498918: 8d 85 54 fe ff ff            	leal	-0x1ac(%ebp), %eax
+1049891e: 50                           	pushl	%eax
+1049891f: e8 fb 35 fb ff               	calll	0x1044bf1f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x1a856>
+10498924: 83 c4 14                     	addl	$0x14, %esp
+10498927: 8b 08                        	movl	(%eax), %ecx
+10498929: 89 8d 3c fe ff ff            	movl	%ecx, -0x1c4(%ebp)
+1049892f: 8b 50 04                     	movl	0x4(%eax), %edx
+10498932: 89 95 40 fe ff ff            	movl	%edx, -0x1c0(%ebp)
+10498938: 8b 48 08                     	movl	0x8(%eax), %ecx
+1049893b: 89 8d 44 fe ff ff            	movl	%ecx, -0x1bc(%ebp)
+10498941: 8b 50 0c                     	movl	0xc(%eax), %edx
+10498944: 89 95 48 fe ff ff            	movl	%edx, -0x1b8(%ebp)
+1049894a: 8d 85 3c fe ff ff            	leal	-0x1c4(%ebp), %eax
+10498950: 50                           	pushl	%eax
+10498951: 8d 8d 44 ff ff ff            	leal	-0xbc(%ebp), %ecx
+10498957: e8 12 e7 fa ff               	calll	0x1044706e <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x159a5>
+1049895c: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+1049895f: e8 9c 65 f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+10498964: 8b c8                        	movl	%eax, %ecx
+10498966: e8 43 e9 f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+1049896b: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+10498971: 8b f4                        	movl	%esp, %esi
+10498973: 8d 85 44 ff ff ff            	leal	-0xbc(%ebp), %eax
+10498979: 50                           	pushl	%eax
+1049897a: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+10498980: 8b 11                        	movl	(%ecx), %edx
+10498982: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+10498988: 8b 42 20                     	movl	0x20(%edx), %eax
+1049898b: ff d0                        	calll	*%eax
+1049898d: 3b f4                        	cmpl	%esp, %esi
+1049898f: e8 ab a7 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498994: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498997: e8 64 65 f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+1049899c: 8b c8                        	movl	%eax, %ecx
+1049899e: e8 0b e9 f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+104989a3: 89 85 58 fd ff ff            	movl	%eax, -0x2a8(%ebp)
+104989a9: 8b f4                        	movl	%esp, %esi
+104989ab: 8d 45 d8                     	leal	-0x28(%ebp), %eax
+104989ae: 50                           	pushl	%eax
+104989af: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104989b5: 8b 11                        	movl	(%ecx), %edx
+104989b7: 8b 8d 58 fd ff ff            	movl	-0x2a8(%ebp), %ecx
+104989bd: 8b 82 04 01 00 00            	movl	0x104(%edx), %eax
+104989c3: ff d0                        	calll	*%eax
+104989c5: 3b f4                        	cmpl	%esp, %esi
+104989c7: e8 73 a7 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104989cc: c6 45 fc 00                  	movb	$0x0, -0x4(%ebp)
+104989d0: 8d 4d 80                     	leal	-0x80(%ebp), %ecx
+104989d3: e8 35 e0 f8 ff               	calll	0x10426a0d <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x1e14>
+104989d8: c7 45 fc ff ff ff ff         	movl	$0xffffffff, -0x4(%ebp) # imm = 0xFFFFFFFF
+104989df: 8d 4d ac                     	leal	-0x54(%ebp), %ecx
+104989e2: e8 26 e0 f8 ff               	calll	0x10426a0d <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x1e14>
+104989e7: 52                           	pushl	%edx
+104989e8: 8b cd                        	movl	%ebp, %ecx
+104989ea: 50                           	pushl	%eax
+104989eb: 8d 15 1c 8a 49 10            	leal	0x10498a1c, %edx
+104989f1: e8 83 be f9 ff               	calll	0x10434879 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x31b0>
+104989f6: 58                           	popl	%eax
+104989f7: 5a                           	popl	%edx
+104989f8: 8b 4d f4                     	movl	-0xc(%ebp), %ecx
+104989fb: 64 89 0d 00 00 00 00         	movl	%ecx, %fs:0x0
+10498a02: 59                           	popl	%ecx
+10498a03: 5f                           	popl	%edi
+10498a04: 5e                           	popl	%esi
+10498a05: 5b                           	popl	%ebx
+10498a06: 81 c4 b0 02 00 00            	addl	$0x2b0, %esp            # imm = 0x2B0
+10498a0c: 3b ec                        	cmpl	%esp, %ebp
+10498a0e: e8 2c a7 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498a13: 8b e5                        	movl	%ebp, %esp
+10498a15: 5d                           	popl	%ebp
+10498a16: c2 04 00                     	retl	$0x4
+10498a19: 8d 49 00                     	leal	(%ecx), %ecx
+10498a1c: 05 00 00 00 24               	addl	$0x24000000, %eax       # imm = 0x24000000
+10498a21: 8a 49 10                     	movb	0x10(%ecx), %cl
+10498a24: d8 ff                        	fdivr	%st(7), %st
+10498a26: ff ff                        	<unknown>
+10498a28: 0c 00                        	orb	$0x0, %al
+10498a2a: 00 00                        	addb	%al, (%eax)
+10498a2c: 76 8a                        	jbe	0x104989b8 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x672ef>
+10498a2e: 49                           	decl	%ecx
+10498a2f: 10 ac ff ff ff 24 00         	adcb	%ch, 0x24ffff(%edi,%edi,8)
+10498a36: 00 00                        	addb	%al, (%eax)
+10498a38: 72 8a                        	jb	0x104989c4 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x672fb>
+10498a3a: 49                           	decl	%ecx
+10498a3b: 10 80 ff ff ff 24            	adcb	%al, 0x24ffffff(%eax)
+10498a41: 00 00                        	addb	%al, (%eax)
+10498a43: 00 6b 8a                     	addb	%ch, -0x76(%ebx)
+10498a46: 49                           	decl	%ecx
+10498a47: 10 44 ff ff                  	adcb	%al, -0x1(%edi,%edi,8)
+10498a4b: ff 10                        	calll	*(%eax)
+10498a4d: 00 00                        	addb	%al, (%eax)
+10498a4f: 00 67 8a                     	addb	%ah, -0x76(%edi)
+10498a52: 49                           	decl	%ecx
+10498a53: 10 2c ff                     	adcb	%ch, (%edi,%edi,8)
+10498a56: ff ff                        	<unknown>
+10498a58: 10 00                        	adcb	%al, (%eax)
+10498a5a: 00 00                        	addb	%al, (%eax)
+10498a5c: 60                           	pushal
+10498a5d: 8a 49 10                     	movb	0x10(%ecx), %cl
+10498a60: 61                           	popal
+10498a61: 6e                           	outsb	(%esi), %dx
+10498a62: 67 6c                        	insb	%dx, %es:(%di)
+10498a64: 65 73 00                     	jae	0x10498a67 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x6739e>
+10498a67: 72 6f                        	jb	0x10498ad8 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x6740f>
+10498a69: 74 00                        	je	0x10498a6b <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x673a2>
+10498a6b: 69 6e 76 4d 61 74 00         	imull	$0x74614d, 0x76(%esi), %ebp # imm = 0x74614D
+10498a72: 6d                           	insl	%dx, %es:(%edi)
+10498a73: 61                           	popal
+10498a74: 74 00                        	je	0x10498a76 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x673ad>
+10498a76: 61                           	popal
+10498a77: 6e                           	outsb	(%esi), %dx
+10498a78: 67 4d                        	addr16		decl	%ebp
+10498a7a: 6f                           	outsl	(%esi), %dx
+10498a7b: 6d                           	insl	%dx, %es:(%edi)
+10498a7c: 65 6e                        	outsb	%gs:(%esi), %dx
+10498a7e: 74 75                        	je	0x10498af5 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x6742c>
+10498a80: 6d                           	insl	%dx, %es:(%edi)
+10498a81: 00 cc                        	addb	%cl, %ah
+10498a83: cc                           	int3
+10498a84: cc                           	int3
+10498a85: cc                           	int3
+10498a86: cc                           	int3
+10498a87: cc                           	int3
+10498a88: cc                           	int3
+10498a89: cc                           	int3
+10498a8a: cc                           	int3
+10498a8b: cc                           	int3
+10498a8c: cc                           	int3
+10498a8d: cc                           	int3
+10498a8e: cc                           	int3
+10498a8f: cc                           	int3
+10498a90: cc                           	int3
+10498a91: cc                           	int3
+10498a92: cc                           	int3
+10498a93: cc                           	int3
+10498a94: cc                           	int3
+10498a95: cc                           	int3
+10498a96: cc                           	int3
+10498a97: cc                           	int3
+10498a98: cc                           	int3
+10498a99: cc                           	int3
+10498a9a: cc                           	int3
+10498a9b: cc                           	int3
+10498a9c: cc                           	int3
+10498a9d: cc                           	int3
+10498a9e: cc                           	int3
+10498a9f: cc                           	int3
+10498aa0: cc                           	int3
+10498aa1: cc                           	int3
+10498aa2: cc                           	int3
+10498aa3: cc                           	int3
+10498aa4: cc                           	int3
+10498aa5: cc                           	int3
+10498aa6: cc                           	int3
+10498aa7: cc                           	int3
+10498aa8: cc                           	int3
+10498aa9: cc                           	int3
+10498aaa: cc                           	int3
+10498aab: cc                           	int3
+10498aac: cc                           	int3
+10498aad: cc                           	int3
+10498aae: cc                           	int3
+10498aaf: cc                           	int3
+10498ab0: cc                           	int3
+10498ab1: cc                           	int3
+10498ab2: cc                           	int3
+10498ab3: cc                           	int3
+10498ab4: cc                           	int3
+10498ab5: cc                           	int3
+10498ab6: cc                           	int3
+10498ab7: cc                           	int3
+10498ab8: cc                           	int3
+10498ab9: cc                           	int3
+10498aba: cc                           	int3
+10498abb: cc                           	int3
+10498abc: cc                           	int3
+10498abd: cc                           	int3
+10498abe: cc                           	int3
+10498abf: cc                           	int3
+10498ac0: cc                           	int3
+10498ac1: cc                           	int3
+10498ac2: cc                           	int3
+10498ac3: cc                           	int3
+10498ac4: cc                           	int3
+10498ac5: cc                           	int3
+10498ac6: cc                           	int3
+10498ac7: cc                           	int3
+10498ac8: cc                           	int3
+10498ac9: cc                           	int3
+10498aca: cc                           	int3
+10498acb: cc                           	int3
+10498acc: cc                           	int3
+10498acd: cc                           	int3
+10498ace: cc                           	int3
+10498acf: cc                           	int3
+10498ad0: cc                           	int3
+10498ad1: cc                           	int3
+10498ad2: cc                           	int3
+10498ad3: cc                           	int3
+10498ad4: cc                           	int3
+10498ad5: cc                           	int3
+10498ad6: cc                           	int3
+10498ad7: cc                           	int3
+10498ad8: cc                           	int3
+10498ad9: cc                           	int3
+10498ada: cc                           	int3
+10498adb: cc                           	int3
+10498adc: cc                           	int3
+10498add: cc                           	int3
+10498ade: cc                           	int3
+10498adf: cc                           	int3
+10498ae0: cc                           	int3
+10498ae1: cc                           	int3
+10498ae2: cc                           	int3
+10498ae3: cc                           	int3
+10498ae4: cc                           	int3
+10498ae5: cc                           	int3
+10498ae6: cc                           	int3
+10498ae7: cc                           	int3
+10498ae8: cc                           	int3
+10498ae9: cc                           	int3
+10498aea: cc                           	int3
+10498aeb: cc                           	int3
+10498aec: cc                           	int3
+10498aed: cc                           	int3
+10498aee: cc                           	int3
+10498aef: cc                           	int3
+10498af0: cc                           	int3
+10498af1: cc                           	int3
+10498af2: cc                           	int3
+10498af3: cc                           	int3
+10498af4: cc                           	int3
+10498af5: cc                           	int3
+10498af6: cc                           	int3
+10498af7: cc                           	int3
+10498af8: cc                           	int3
+10498af9: cc                           	int3
+10498afa: cc                           	int3
+10498afb: cc                           	int3
+10498afc: cc                           	int3
+10498afd: cc                           	int3
+10498afe: cc                           	int3
+10498aff: cc                           	int3
+10498b00: cc                           	int3
+10498b01: cc                           	int3
+10498b02: cc                           	int3
+10498b03: cc                           	int3
+10498b04: cc                           	int3
+10498b05: cc                           	int3
+10498b06: cc                           	int3
+10498b07: cc                           	int3
+10498b08: cc                           	int3
+10498b09: cc                           	int3
+10498b0a: cc                           	int3
+10498b0b: cc                           	int3
+10498b0c: cc                           	int3
+10498b0d: cc                           	int3
+10498b0e: cc                           	int3
+10498b0f: cc                           	int3
+10498b10: cc                           	int3
+10498b11: cc                           	int3
+10498b12: cc                           	int3
+10498b13: cc                           	int3
+10498b14: cc                           	int3
+10498b15: cc                           	int3
+10498b16: cc                           	int3
+10498b17: cc                           	int3
+10498b18: cc                           	int3
+10498b19: cc                           	int3
+10498b1a: cc                           	int3
+10498b1b: cc                           	int3
+10498b1c: cc                           	int3
+10498b1d: cc                           	int3
+10498b1e: cc                           	int3
+10498b1f: cc                           	int3
+10498b20: cc                           	int3
+10498b21: cc                           	int3
+10498b22: cc                           	int3
+10498b23: cc                           	int3
+10498b24: cc                           	int3
+10498b25: cc                           	int3
+10498b26: cc                           	int3
+10498b27: cc                           	int3
+10498b28: cc                           	int3
+10498b29: cc                           	int3
+10498b2a: cc                           	int3
+10498b2b: cc                           	int3
+10498b2c: cc                           	int3
+10498b2d: cc                           	int3
+10498b2e: cc                           	int3
+10498b2f: cc                           	int3
+10498b30: cc                           	int3
+10498b31: cc                           	int3
+10498b32: cc                           	int3
+10498b33: cc                           	int3
+10498b34: cc                           	int3
+10498b35: cc                           	int3
+10498b36: cc                           	int3
+10498b37: cc                           	int3
+10498b38: cc                           	int3
+10498b39: cc                           	int3
+10498b3a: cc                           	int3
+10498b3b: cc                           	int3
+10498b3c: cc                           	int3
+10498b3d: cc                           	int3
+10498b3e: cc                           	int3
+10498b3f: cc                           	int3
+10498b40: cc                           	int3
+10498b41: cc                           	int3
+10498b42: cc                           	int3
+10498b43: cc                           	int3
+10498b44: cc                           	int3
+10498b45: cc                           	int3
+10498b46: cc                           	int3
+10498b47: cc                           	int3
+10498b48: cc                           	int3
+10498b49: cc                           	int3
+10498b4a: cc                           	int3
+10498b4b: cc                           	int3
+10498b4c: cc                           	int3
+10498b4d: cc                           	int3
+10498b4e: cc                           	int3
+10498b4f: cc                           	int3
+10498b50: cc                           	int3
+10498b51: cc                           	int3
+10498b52: cc                           	int3
+10498b53: cc                           	int3
+10498b54: cc                           	int3
+10498b55: cc                           	int3
+10498b56: cc                           	int3
+10498b57: cc                           	int3
+10498b58: cc                           	int3
+10498b59: cc                           	int3
+10498b5a: cc                           	int3
+10498b5b: cc                           	int3
+10498b5c: cc                           	int3
+10498b5d: cc                           	int3
+10498b5e: cc                           	int3
+10498b5f: cc                           	int3
+10498b60: cc                           	int3
+10498b61: cc                           	int3
+10498b62: cc                           	int3
+10498b63: cc                           	int3
+10498b64: cc                           	int3
+10498b65: cc                           	int3
+10498b66: cc                           	int3
+10498b67: cc                           	int3
+10498b68: cc                           	int3
+10498b69: cc                           	int3
+10498b6a: cc                           	int3
+10498b6b: cc                           	int3
+10498b6c: cc                           	int3
+10498b6d: cc                           	int3
+10498b6e: cc                           	int3
+10498b6f: cc                           	int3
+10498b70: cc                           	int3
+10498b71: cc                           	int3
+10498b72: cc                           	int3
+10498b73: cc                           	int3
+10498b74: cc                           	int3
+10498b75: cc                           	int3
+10498b76: cc                           	int3
+10498b77: cc                           	int3
+10498b78: cc                           	int3
+10498b79: cc                           	int3
+10498b7a: cc                           	int3
+10498b7b: cc                           	int3
+10498b7c: cc                           	int3
+10498b7d: cc                           	int3
+10498b7e: cc                           	int3
+10498b7f: cc                           	int3
+10498b80: cc                           	int3
+10498b81: cc                           	int3
+10498b82: cc                           	int3
+10498b83: cc                           	int3
+10498b84: cc                           	int3
+10498b85: cc                           	int3
+10498b86: cc                           	int3
+10498b87: cc                           	int3
+10498b88: cc                           	int3
+10498b89: cc                           	int3
+10498b8a: cc                           	int3
+10498b8b: cc                           	int3
+10498b8c: cc                           	int3
+10498b8d: cc                           	int3
+10498b8e: cc                           	int3
+10498b8f: cc                           	int3
+10498b90: cc                           	int3
+10498b91: cc                           	int3
+10498b92: cc                           	int3
+10498b93: cc                           	int3
+10498b94: cc                           	int3
+10498b95: cc                           	int3
+10498b96: cc                           	int3
+10498b97: cc                           	int3
+10498b98: cc                           	int3
+10498b99: cc                           	int3
+10498b9a: cc                           	int3
+10498b9b: cc                           	int3
+10498b9c: cc                           	int3
+10498b9d: cc                           	int3
+10498b9e: cc                           	int3
+10498b9f: cc                           	int3
+10498ba0: cc                           	int3
+10498ba1: cc                           	int3
+10498ba2: cc                           	int3
+10498ba3: cc                           	int3
+10498ba4: cc                           	int3
+10498ba5: cc                           	int3
+10498ba6: cc                           	int3
+10498ba7: cc                           	int3
+10498ba8: cc                           	int3
+10498ba9: cc                           	int3
+10498baa: cc                           	int3
+10498bab: cc                           	int3
+10498bac: cc                           	int3
+10498bad: cc                           	int3
+10498bae: cc                           	int3
+10498baf: cc                           	int3
+10498bb0: cc                           	int3
+10498bb1: cc                           	int3
+10498bb2: cc                           	int3
+10498bb3: cc                           	int3
+10498bb4: cc                           	int3
+10498bb5: cc                           	int3
+10498bb6: cc                           	int3
+10498bb7: cc                           	int3
+10498bb8: cc                           	int3
+10498bb9: cc                           	int3
+10498bba: cc                           	int3
+10498bbb: cc                           	int3
+10498bbc: cc                           	int3
+10498bbd: cc                           	int3
+10498bbe: cc                           	int3
+10498bbf: cc                           	int3
+10498bc0: cc                           	int3
+10498bc1: cc                           	int3
+10498bc2: cc                           	int3
+10498bc3: cc                           	int3
+10498bc4: cc                           	int3
+10498bc5: cc                           	int3
+10498bc6: cc                           	int3
+10498bc7: cc                           	int3
+10498bc8: cc                           	int3
+10498bc9: cc                           	int3
+10498bca: cc                           	int3
+10498bcb: cc                           	int3
+10498bcc: cc                           	int3
+10498bcd: cc                           	int3
+10498bce: cc                           	int3
+10498bcf: cc                           	int3
+10498bd0: cc                           	int3
+10498bd1: cc                           	int3
+10498bd2: cc                           	int3
+10498bd3: cc                           	int3
+10498bd4: cc                           	int3
+10498bd5: cc                           	int3
+10498bd6: cc                           	int3
+10498bd7: cc                           	int3
+10498bd8: cc                           	int3
+10498bd9: cc                           	int3
+10498bda: cc                           	int3
+10498bdb: cc                           	int3
+10498bdc: cc                           	int3
+10498bdd: cc                           	int3
+10498bde: cc                           	int3
+10498bdf: cc                           	int3
+10498be0: cc                           	int3
+10498be1: cc                           	int3
+10498be2: cc                           	int3
+10498be3: cc                           	int3
+10498be4: cc                           	int3
+10498be5: cc                           	int3
+10498be6: cc                           	int3
+10498be7: cc                           	int3
+10498be8: cc                           	int3
+10498be9: cc                           	int3
+10498bea: cc                           	int3
+10498beb: cc                           	int3
+10498bec: cc                           	int3
+10498bed: cc                           	int3
+10498bee: cc                           	int3
+10498bef: cc                           	int3
+10498bf0: cc                           	int3
+10498bf1: cc                           	int3
+10498bf2: cc                           	int3
+10498bf3: cc                           	int3
+10498bf4: cc                           	int3
+10498bf5: cc                           	int3
+10498bf6: cc                           	int3
+10498bf7: cc                           	int3
+10498bf8: cc                           	int3
+10498bf9: cc                           	int3
+10498bfa: cc                           	int3
+10498bfb: cc                           	int3
+10498bfc: cc                           	int3
+10498bfd: cc                           	int3
+10498bfe: cc                           	int3
+10498bff: cc                           	int3
+10498c00: cc                           	int3
+10498c01: cc                           	int3
+10498c02: cc                           	int3
+10498c03: cc                           	int3
+10498c04: cc                           	int3
+10498c05: cc                           	int3
+10498c06: cc                           	int3
+10498c07: cc                           	int3
+10498c08: cc                           	int3
+10498c09: cc                           	int3
+10498c0a: cc                           	int3
+10498c0b: cc                           	int3
+10498c0c: cc                           	int3
+10498c0d: cc                           	int3
+10498c0e: cc                           	int3
+10498c0f: cc                           	int3
+10498c10: cc                           	int3
+10498c11: cc                           	int3
+10498c12: cc                           	int3
+10498c13: cc                           	int3
+10498c14: cc                           	int3
+10498c15: cc                           	int3
+10498c16: cc                           	int3
+10498c17: cc                           	int3
+10498c18: cc                           	int3
+10498c19: cc                           	int3
+10498c1a: cc                           	int3
+10498c1b: cc                           	int3
+10498c1c: cc                           	int3
+10498c1d: cc                           	int3
+10498c1e: cc                           	int3
+10498c1f: cc                           	int3
+10498c20: cc                           	int3
+10498c21: cc                           	int3
+10498c22: cc                           	int3
+10498c23: cc                           	int3
+10498c24: cc                           	int3
+10498c25: cc                           	int3
+10498c26: cc                           	int3
+10498c27: cc                           	int3
+10498c28: cc                           	int3
+10498c29: cc                           	int3
+10498c2a: cc                           	int3
+10498c2b: cc                           	int3
+10498c2c: cc                           	int3
+10498c2d: cc                           	int3
+10498c2e: cc                           	int3
+10498c2f: cc                           	int3
+10498c30: cc                           	int3
+10498c31: cc                           	int3
+10498c32: cc                           	int3
+10498c33: cc                           	int3
+10498c34: cc                           	int3
+10498c35: cc                           	int3
+10498c36: cc                           	int3
+10498c37: cc                           	int3
+10498c38: cc                           	int3
+10498c39: cc                           	int3
+10498c3a: cc                           	int3
+10498c3b: cc                           	int3
+10498c3c: cc                           	int3
+10498c3d: cc                           	int3
+10498c3e: cc                           	int3
+10498c3f: cc                           	int3
+10498c40: cc                           	int3
+10498c41: cc                           	int3
+10498c42: cc                           	int3
+10498c43: cc                           	int3
+10498c44: cc                           	int3
+10498c45: cc                           	int3
+10498c46: cc                           	int3
+10498c47: cc                           	int3
+10498c48: cc                           	int3
+10498c49: cc                           	int3
+10498c4a: cc                           	int3
+10498c4b: cc                           	int3
+10498c4c: cc                           	int3
+10498c4d: cc                           	int3
+10498c4e: cc                           	int3
+10498c4f: cc                           	int3
+10498c50: cc                           	int3
+10498c51: cc                           	int3
+10498c52: cc                           	int3
+10498c53: cc                           	int3
+10498c54: cc                           	int3
+10498c55: cc                           	int3
+10498c56: cc                           	int3
+10498c57: cc                           	int3
+10498c58: cc                           	int3
+10498c59: cc                           	int3
+10498c5a: cc                           	int3
+10498c5b: cc                           	int3
+10498c5c: cc                           	int3
+10498c5d: cc                           	int3
+10498c5e: cc                           	int3
+10498c5f: cc                           	int3
+10498c60: 55                           	pushl	%ebp
+10498c61: 8b ec                        	movl	%esp, %ebp
+10498c63: 81 ec d8 00 00 00            	subl	$0xd8, %esp
+10498c69: 53                           	pushl	%ebx
+10498c6a: 56                           	pushl	%esi
+10498c6b: 57                           	pushl	%edi
+10498c6c: 51                           	pushl	%ecx
+10498c6d: 8d bd 28 ff ff ff            	leal	-0xd8(%ebp), %edi
+10498c73: b9 36 00 00 00               	movl	$0x36, %ecx
+10498c78: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+10498c7d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+10498c7f: 59                           	popl	%ecx
+10498c80: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+10498c83: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498c86: 8b 88 c4 01 00 00            	movl	0x1c4(%eax), %ecx
+10498c8c: e8 73 27 f9 ff               	calll	0x1042b404 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x1671>
+10498c91: 8b c8                        	movl	%eax, %ecx
+10498c93: e8 1c 2b fa ff               	calll	0x1043b7b4 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xa0eb>
+10498c98: 0f b6 c8                     	movzbl	%al, %ecx
+10498c9b: 85 c9                        	testl	%ecx, %ecx
+10498c9d: 74 1c                        	je	0x10498cbb <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x675f2>
+10498c9f: 8b 15 20 07 e3 10            	movl	0x10e30720, %edx
+10498ca5: 83 c2 01                     	addl	$0x1, %edx
+10498ca8: 52                           	pushl	%edx
+10498ca9: 68 78 14 cc 10               	pushl	$0x10cc1478             # imm = 0x10CC1478
+10498cae: 68 fc 19 cc 10               	pushl	$0x10cc19fc             # imm = 0x10CC19FC
+10498cb3: e8 a3 e4 f8 ff               	calll	0x1042715b <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x2562>
+10498cb8: 83 c4 0c                     	addl	$0xc, %esp
+10498cbb: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498cbe: 8b 88 c4 01 00 00            	movl	0x1c4(%eax), %ecx
+10498cc4: e8 3b 27 f9 ff               	calll	0x1042b404 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x1671>
+10498cc9: 8b c8                        	movl	%eax, %ecx
+10498ccb: e8 9d d1 f9 ff               	calll	0x10435e6d <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x47a4>
+10498cd0: 8b 08                        	movl	(%eax), %ecx
+10498cd2: e8 5b 15 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498cd7: 8b c8                        	movl	%eax, %ecx
+10498cd9: e8 e9 6c fa ff               	calll	0x1043f9c7 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe2fe>
+10498cde: 89 45 ec                     	movl	%eax, -0x14(%ebp)
+10498ce1: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498ce4: 8b 88 e0 01 00 00            	movl	0x1e0(%eax), %ecx
+10498cea: 51                           	pushl	%ecx
+10498ceb: 8b 55 ec                     	movl	-0x14(%ebp), %edx
+10498cee: 8b 02                        	movl	(%edx), %eax
+10498cf0: 8b f4                        	movl	%esp, %esi
+10498cf2: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498cf5: 8b 90 f4 00 00 00            	movl	0xf4(%eax), %edx
+10498cfb: ff d2                        	calll	*%edx
+10498cfd: 3b f4                        	cmpl	%esp, %esi
+10498cff: e8 3b a4 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498d04: 51                           	pushl	%ecx
+10498d05: d9 1c 24                     	fstps	(%esp)
+10498d08: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+10498d0b: 81 c1 e4 01 00 00            	addl	$0x1e4, %ecx            # imm = 0x1E4
+10498d11: e8 ff fc f8 ff               	calll	0x10428a15 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x3e1c>
+10498d16: 5f                           	popl	%edi
+10498d17: 5e                           	popl	%esi
+10498d18: 5b                           	popl	%ebx
+10498d19: 81 c4 d8 00 00 00            	addl	$0xd8, %esp
+10498d1f: 3b ec                        	cmpl	%esp, %ebp
+10498d21: e8 19 a4 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498d26: 8b e5                        	movl	%ebp, %esp
+10498d28: 5d                           	popl	%ebp
+10498d29: c3                           	retl
+10498d2a: cc                           	int3
+10498d2b: cc                           	int3
+10498d2c: cc                           	int3
+10498d2d: cc                           	int3
+10498d2e: cc                           	int3
+10498d2f: cc                           	int3
+10498d30: cc                           	int3
+10498d31: cc                           	int3
+10498d32: cc                           	int3
+10498d33: cc                           	int3
+10498d34: cc                           	int3
+10498d35: cc                           	int3
+10498d36: cc                           	int3
+10498d37: cc                           	int3
+10498d38: cc                           	int3
+10498d39: cc                           	int3
+10498d3a: cc                           	int3
+10498d3b: cc                           	int3
+10498d3c: cc                           	int3
+10498d3d: cc                           	int3
+10498d3e: cc                           	int3
+10498d3f: cc                           	int3
+10498d40: cc                           	int3
+10498d41: cc                           	int3
+10498d42: cc                           	int3
+10498d43: cc                           	int3
+10498d44: cc                           	int3
+10498d45: cc                           	int3
+10498d46: cc                           	int3
+10498d47: cc                           	int3
+10498d48: cc                           	int3
+10498d49: cc                           	int3
+10498d4a: cc                           	int3
+10498d4b: cc                           	int3
+10498d4c: cc                           	int3
+10498d4d: cc                           	int3
+10498d4e: cc                           	int3
+10498d4f: cc                           	int3
+10498d50: cc                           	int3
+10498d51: cc                           	int3
+10498d52: cc                           	int3
+10498d53: cc                           	int3
+10498d54: cc                           	int3
+10498d55: cc                           	int3
+10498d56: cc                           	int3
+10498d57: cc                           	int3
+10498d58: cc                           	int3
+10498d59: cc                           	int3
+10498d5a: cc                           	int3
+10498d5b: cc                           	int3
+10498d5c: cc                           	int3
+10498d5d: cc                           	int3
+10498d5e: cc                           	int3
+10498d5f: cc                           	int3
+10498d60: 55                           	pushl	%ebp
+10498d61: 8b ec                        	movl	%esp, %ebp
+10498d63: 81 ec d8 00 00 00            	subl	$0xd8, %esp
+10498d69: 53                           	pushl	%ebx
+10498d6a: 56                           	pushl	%esi
+10498d6b: 57                           	pushl	%edi
+10498d6c: 51                           	pushl	%ecx
+10498d6d: 8d bd 28 ff ff ff            	leal	-0xd8(%ebp), %edi
+10498d73: b9 36 00 00 00               	movl	$0x36, %ecx
+10498d78: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+10498d7d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+10498d7f: 59                           	popl	%ecx
+10498d80: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+10498d83: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498d86: 8b 88 c4 01 00 00            	movl	0x1c4(%eax), %ecx
+10498d8c: e8 73 26 f9 ff               	calll	0x1042b404 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x1671>
+10498d91: 8b c8                        	movl	%eax, %ecx
+10498d93: e8 1c 2a fa ff               	calll	0x1043b7b4 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xa0eb>
+10498d98: 0f b6 c8                     	movzbl	%al, %ecx
+10498d9b: 85 c9                        	testl	%ecx, %ecx
+10498d9d: 74 1c                        	je	0x10498dbb <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x676f2>
+10498d9f: 8b 15 24 07 e3 10            	movl	0x10e30724, %edx
+10498da5: 83 c2 01                     	addl	$0x1, %edx
+10498da8: 52                           	pushl	%edx
+10498da9: 68 78 14 cc 10               	pushl	$0x10cc1478             # imm = 0x10CC1478
+10498dae: 68 fc 19 cc 10               	pushl	$0x10cc19fc             # imm = 0x10CC19FC
+10498db3: e8 a3 e3 f8 ff               	calll	0x1042715b <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x2562>
+10498db8: 83 c4 0c                     	addl	$0xc, %esp
+10498dbb: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498dbe: 8b 88 c4 01 00 00            	movl	0x1c4(%eax), %ecx
+10498dc4: e8 3b 26 f9 ff               	calll	0x1042b404 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x1671>
+10498dc9: 8b c8                        	movl	%eax, %ecx
+10498dcb: e8 9d d0 f9 ff               	calll	0x10435e6d <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x47a4>
+10498dd0: 8b 08                        	movl	(%eax), %ecx
+10498dd2: e8 5b 14 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498dd7: 8b c8                        	movl	%eax, %ecx
+10498dd9: e8 e9 6b fa ff               	calll	0x1043f9c7 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe2fe>
+10498dde: 89 45 ec                     	movl	%eax, -0x14(%ebp)
+10498de1: 8b f4                        	movl	%esp, %esi
+10498de3: 8b 45 08                     	movl	0x8(%ebp), %eax
+10498de6: 50                           	pushl	%eax
+10498de7: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498dea: 8b 11                        	movl	(%ecx), %edx
+10498dec: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498def: 8b 82 f8 00 00 00            	movl	0xf8(%edx), %eax
+10498df5: ff d0                        	calll	*%eax
+10498df7: 3b f4                        	cmpl	%esp, %esi
+10498df9: e8 41 a3 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498dfe: 5f                           	popl	%edi
+10498dff: 5e                           	popl	%esi
+10498e00: 5b                           	popl	%ebx
+10498e01: 81 c4 d8 00 00 00            	addl	$0xd8, %esp
+10498e07: 3b ec                        	cmpl	%esp, %ebp
+10498e09: e8 31 a3 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498e0e: 8b e5                        	movl	%ebp, %esp
+10498e10: 5d                           	popl	%ebp
+10498e11: c2 04 00                     	retl	$0x4
+10498e14: cc                           	int3
+10498e15: cc                           	int3
+10498e16: cc                           	int3
+10498e17: cc                           	int3
+10498e18: cc                           	int3
+10498e19: cc                           	int3
+10498e1a: cc                           	int3
+10498e1b: cc                           	int3
+10498e1c: cc                           	int3
+10498e1d: cc                           	int3
+10498e1e: cc                           	int3
+10498e1f: cc                           	int3
+10498e20: cc                           	int3
+10498e21: cc                           	int3
+10498e22: cc                           	int3
+10498e23: cc                           	int3
+10498e24: cc                           	int3
+10498e25: cc                           	int3
+10498e26: cc                           	int3
+10498e27: cc                           	int3
+10498e28: cc                           	int3
+10498e29: cc                           	int3
+10498e2a: cc                           	int3
+10498e2b: cc                           	int3
+10498e2c: cc                           	int3
+10498e2d: cc                           	int3
+10498e2e: cc                           	int3
+10498e2f: cc                           	int3
+10498e30: cc                           	int3
+10498e31: cc                           	int3
+10498e32: cc                           	int3
+10498e33: cc                           	int3
+10498e34: cc                           	int3
+10498e35: cc                           	int3
+10498e36: cc                           	int3
+10498e37: cc                           	int3
+10498e38: cc                           	int3
+10498e39: cc                           	int3
+10498e3a: cc                           	int3
+10498e3b: cc                           	int3
+10498e3c: cc                           	int3
+10498e3d: cc                           	int3
+10498e3e: cc                           	int3
+10498e3f: cc                           	int3
+10498e40: cc                           	int3
+10498e41: cc                           	int3
+10498e42: cc                           	int3
+10498e43: cc                           	int3
+10498e44: cc                           	int3
+10498e45: cc                           	int3
+10498e46: cc                           	int3
+10498e47: cc                           	int3
+10498e48: cc                           	int3
+10498e49: cc                           	int3
+10498e4a: cc                           	int3
+10498e4b: cc                           	int3
+10498e4c: cc                           	int3
+10498e4d: cc                           	int3
+10498e4e: cc                           	int3
+10498e4f: cc                           	int3
+10498e50: 55                           	pushl	%ebp
+10498e51: 8b ec                        	movl	%esp, %ebp
+10498e53: 6a ff                        	pushl	$-0x1
+10498e55: 68 b6 02 bc 10               	pushl	$0x10bc02b6             # imm = 0x10BC02B6
+10498e5a: 64 a1 00 00 00 00            	movl	%fs:0x0, %eax
+10498e60: 50                           	pushl	%eax
+10498e61: 81 ec 48 01 00 00            	subl	$0x148, %esp            # imm = 0x148
+10498e67: 53                           	pushl	%ebx
+10498e68: 56                           	pushl	%esi
+10498e69: 57                           	pushl	%edi
+10498e6a: 51                           	pushl	%ecx
+10498e6b: 8d bd ac fe ff ff            	leal	-0x154(%ebp), %edi
+10498e71: b9 52 00 00 00               	movl	$0x52, %ecx
+10498e76: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+10498e7b: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+10498e7d: 59                           	popl	%ecx
+10498e7e: a1 4c c6 e3 10               	movl	0x10e3c64c, %eax
+10498e83: 33 c5                        	xorl	%ebp, %eax
+10498e85: 50                           	pushl	%eax
+10498e86: 8d 45 f4                     	leal	-0xc(%ebp), %eax
+10498e89: 64 a3 00 00 00 00            	movl	%eax, %fs:0x0
+10498e8f: 89 4d ec                     	movl	%ecx, -0x14(%ebp)
+10498e92: 8d 85 b8 fe ff ff            	leal	-0x148(%ebp), %eax
+10498e98: 50                           	pushl	%eax
+10498e99: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498e9c: e8 e6 13 fb ff               	calll	0x1044a287 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18bbe>
+10498ea1: 8b c8                        	movl	%eax, %ecx
+10498ea3: e8 78 b2 fa ff               	calll	0x10444120 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x12a57>
+10498ea8: 89 85 b0 fe ff ff            	movl	%eax, -0x150(%ebp)
+10498eae: 8b 8d b0 fe ff ff            	movl	-0x150(%ebp), %ecx
+10498eb4: 89 8d ac fe ff ff            	movl	%ecx, -0x154(%ebp)
+10498eba: c7 45 fc 00 00 00 00         	movl	$0x0, -0x4(%ebp)
+10498ec1: 8b 95 ac fe ff ff            	movl	-0x154(%ebp), %edx
+10498ec7: 52                           	pushl	%edx
+10498ec8: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498ecb: e8 4e 55 fa ff               	calll	0x1043e41e <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xcd55>
+10498ed0: c6 45 fc 02                  	movb	$0x2, -0x4(%ebp)
+10498ed4: 8d 8d b8 fe ff ff            	leal	-0x148(%ebp), %ecx
+10498eda: e8 14 21 fa ff               	calll	0x1043aff3 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x992a>
+10498edf: eb 08                        	jmp	0x10498ee9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x67820>
+10498ee1: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498ee4: e8 ee 64 fa ff               	calll	0x1043f3d7 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xdd0e>
+10498ee9: 8d 85 d8 fe ff ff            	leal	-0x128(%ebp), %eax
+10498eef: 50                           	pushl	%eax
+10498ef0: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498ef3: e8 8f 13 fb ff               	calll	0x1044a287 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18bbe>
+10498ef8: 8b c8                        	movl	%eax, %ecx
+10498efa: e8 82 de f9 ff               	calll	0x10436d81 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x56b8>
+10498eff: 89 85 b0 fe ff ff            	movl	%eax, -0x150(%ebp)
+10498f05: 8b 8d b0 fe ff ff            	movl	-0x150(%ebp), %ecx
+10498f0b: 89 8d ac fe ff ff            	movl	%ecx, -0x154(%ebp)
+10498f11: c6 45 fc 03                  	movb	$0x3, -0x4(%ebp)
+10498f15: 8b 95 ac fe ff ff            	movl	-0x154(%ebp), %edx
+10498f1b: 52                           	pushl	%edx
+10498f1c: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498f1f: e8 8c 26 fb ff               	calll	0x1044b5b0 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x19ee7>
+10498f24: 88 85 cf fe ff ff            	movb	%al, -0x131(%ebp)
+10498f2a: c6 45 fc 02                  	movb	$0x2, -0x4(%ebp)
+10498f2e: 8d 8d d8 fe ff ff            	leal	-0x128(%ebp), %ecx
+10498f34: e8 ba 20 fa ff               	calll	0x1043aff3 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x992a>
+10498f39: 0f b6 85 cf fe ff ff         	movzbl	-0x131(%ebp), %eax
+10498f40: 85 c0                        	testl	%eax, %eax
+10498f42: 0f 84 ec 00 00 00            	je	0x10499034 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x6796b>
+10498f48: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498f4b: e8 f8 48 fa ff               	calll	0x1043d848 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc17f>
+10498f50: 8b c8                        	movl	%eax, %ecx
+10498f52: e8 ef 86 fa ff               	calll	0x10441646 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xff7d>
+10498f57: 8b c8                        	movl	%eax, %ecx
+10498f59: e8 d4 12 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498f5e: 85 c0                        	testl	%eax, %eax
+10498f60: 74 21                        	je	0x10498f83 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x678ba>
+10498f62: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498f65: e8 de 48 fa ff               	calll	0x1043d848 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc17f>
+10498f6a: 8b c8                        	movl	%eax, %ecx
+10498f6c: e8 d5 86 fa ff               	calll	0x10441646 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xff7d>
+10498f71: 8b c8                        	movl	%eax, %ecx
+10498f73: e8 ba 12 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498f78: 8b c8                        	movl	%eax, %ecx
+10498f7a: e8 48 6a fa ff               	calll	0x1043f9c7 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe2fe>
+10498f7f: 85 c0                        	testl	%eax, %eax
+10498f81: 75 05                        	jne	0x10498f88 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x678bf>
+10498f83: e9 59 ff ff ff               	jmp	0x10498ee1 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x67818>
+10498f88: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498f8b: e8 b8 48 fa ff               	calll	0x1043d848 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc17f>
+10498f90: 8b c8                        	movl	%eax, %ecx
+10498f92: e8 af 86 fa ff               	calll	0x10441646 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xff7d>
+10498f97: 8b c8                        	movl	%eax, %ecx
+10498f99: e8 94 12 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498f9e: 8b c8                        	movl	%eax, %ecx
+10498fa0: e8 de 22 f9 ff               	calll	0x1042b283 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x14f0>
+10498fa5: 50                           	pushl	%eax
+10498fa6: 8d 4d b8                     	leal	-0x48(%ebp), %ecx
+10498fa9: e8 69 5b fa ff               	calll	0x1043eb17 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xd44e>
+10498fae: c6 45 fc 04                  	movb	$0x4, -0x4(%ebp)
+10498fb2: d9 45 c8                     	flds	-0x38(%ebp)
+10498fb5: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498fb8: d8 88 3c 02 00 00            	fmuls	0x23c(%eax)
+10498fbe: d9 5d c8                     	fstps	-0x38(%ebp)
+10498fc1: d9 45 c0                     	flds	-0x40(%ebp)
+10498fc4: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+10498fc7: d8 88 3c 02 00 00            	fmuls	0x23c(%eax)
+10498fcd: d9 5d c0                     	fstps	-0x40(%ebp)
+10498fd0: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+10498fd3: e8 70 48 fa ff               	calll	0x1043d848 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xc17f>
+10498fd8: 8b c8                        	movl	%eax, %ecx
+10498fda: e8 67 86 fa ff               	calll	0x10441646 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xff7d>
+10498fdf: 8b c8                        	movl	%eax, %ecx
+10498fe1: e8 4c 12 fb ff               	calll	0x1044a232 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x18b69>
+10498fe6: 8b c8                        	movl	%eax, %ecx
+10498fe8: e8 da 69 fa ff               	calll	0x1043f9c7 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0xe2fe>
+10498fed: 89 85 b0 fe ff ff            	movl	%eax, -0x150(%ebp)
+10498ff3: 83 ec 18                     	subl	$0x18, %esp
+10498ff6: 8b cc                        	movl	%esp, %ecx
+10498ff8: 89 a5 ec fe ff ff            	movl	%esp, -0x114(%ebp)
+10498ffe: 8d 45 b8                     	leal	-0x48(%ebp), %eax

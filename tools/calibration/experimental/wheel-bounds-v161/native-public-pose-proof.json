@@ -1,0 +1,61 @@
+{
+  "scope": "Hypothesis only: original public shape matrix/position, Source fixture radii/travel -> bounds. No Source runtime changes.",
+  "checks": [
+    {
+      "track": 16,
+      "mode": "endpoints",
+      "native_bounds": 3600,
+      "differences": 3096,
+      "first_difference": {
+        "tick": 0,
+        "wheel": 0,
+        "fields": [
+          2
+        ]
+      }
+    },
+    {
+      "track": 16,
+      "mode": "center-extents",
+      "native_bounds": 3600,
+      "differences": 420,
+      "first_difference": {
+        "tick": 110,
+        "wheel": 0,
+        "fields": [
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "track": 64,
+      "mode": "endpoints",
+      "native_bounds": 3600,
+      "differences": 3199,
+      "first_difference": {
+        "tick": 0,
+        "wheel": 0,
+        "fields": [
+          2
+        ]
+      }
+    },
+    {
+      "track": 64,
+      "mode": "center-extents",
+      "native_bounds": 3600,
+      "differences": 260,
+      "first_difference": {
+        "tick": 118,
+        "wheel": 0,
+        "fields": [
+          2,
+          3,
+          4
+        ]
+      }
+    }
+  ],
+  "goal_complete": false
+}

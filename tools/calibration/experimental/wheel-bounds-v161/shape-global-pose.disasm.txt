@@ -1,0 +1,161 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+10200820: 55                           	push	ebp
+10200821: 8b ec                        	mov	ebp, esp
+10200823: 83 e4 f8                     	and	esp, -0x8
+10200826: 81 ec 94 00 00 00            	sub	esp, 0x94
+1020082c: 53                           	push	ebx
+1020082d: 8b 5d 08                     	mov	ebx, dword ptr [ebp + 0x8]
+10200830: 56                           	push	esi
+10200831: 8b f0                        	mov	esi, eax
+10200833: 8b 46 10                     	mov	eax, dword ptr [esi + 0x10]
+10200836: 83 78 20 00                  	cmp	dword ptr [eax + 0x20], 0x0
+1020083a: 8b 4e 0c                     	mov	ecx, dword ptr [esi + 0xc]
+1020083d: 8b 11                        	mov	edx, dword ptr [ecx]
+1020083f: 57                           	push	edi
+10200840: 0f 84 2c 02 00 00            	je	0x10200a72 <NxCreateCoreSDK+0x21822>
+10200846: 8b 52 34                     	mov	edx, dword ptr [edx + 0x34]
+10200849: 8d 84 24 80 00 00 00         	lea	eax, [esp + 0x80]
+10200850: 50                           	push	eax
+10200851: ff d2                        	call	edx
+10200853: f3 0f 10 00                  	movss	xmm0, dword ptr [eax]
+10200857: 8b 4e 0c                     	mov	ecx, dword ptr [esi + 0xc]
+1020085a: f3 0f 11 44 24 44            	movss	dword ptr [esp + 0x44], xmm0
+10200860: f3 0f 10 40 04               	movss	xmm0, dword ptr [eax + 0x4]
+10200865: f3 0f 11 44 24 48            	movss	dword ptr [esp + 0x48], xmm0
+1020086b: f3 0f 10 40 08               	movss	xmm0, dword ptr [eax + 0x8]
+10200870: 8b 01                        	mov	eax, dword ptr [ecx]
+10200872: 8b 40 38                     	mov	eax, dword ptr [eax + 0x38]
+10200875: 8d 94 24 80 00 00 00         	lea	edx, [esp + 0x80]
+1020087c: 52                           	push	edx
+1020087d: f3 0f 11 44 24 50            	movss	dword ptr [esp + 0x50], xmm0
+10200883: ff d0                        	call	eax
+10200885: f3 0f 10 15 d8 15 33 10      	movss	xmm2, dword ptr [0x103315d8]
+1020088d: f3 0f 10 68 04               	movss	xmm5, dword ptr [eax + 0x4]
+10200892: f3 0f 10 48 08               	movss	xmm1, dword ptr [eax + 0x8]
+10200897: f3 0f 10 00                  	movss	xmm0, dword ptr [eax]
+1020089b: f3 0f 10 78 0c               	movss	xmm7, dword ptr [eax + 0xc]
+102008a0: f3 0f 10 35 84 15 33 10      	movss	xmm6, dword ptr [0x10331584]
+102008a8: 8b 76 10                     	mov	esi, dword ptr [esi + 0x10]
+102008ab: 0f 28 e1                     	movaps	xmm4, xmm1
+102008ae: f3 0f 59 e1                  	mulss	xmm4, xmm1
+102008b2: f3 0f 59 e2                  	mulss	xmm4, xmm2
+102008b6: f3 0f 11 64 24 1c            	movss	dword ptr [esp + 0x1c], xmm4
+102008bc: 0f 28 dd                     	movaps	xmm3, xmm5
+102008bf: f3 0f 59 dd                  	mulss	xmm3, xmm5
+102008c3: f3 0f 59 da                  	mulss	xmm3, xmm2
+102008c7: f3 0f 5c f3                  	subss	xmm6, xmm3
+102008cb: f3 0f 5c f4                  	subss	xmm6, xmm4
+102008cf: f3 0f 11 5c 24 10            	movss	dword ptr [esp + 0x10], xmm3
+102008d5: 0f 28 d9                     	movaps	xmm3, xmm1
+102008d8: f3 0f 59 df                  	mulss	xmm3, xmm7
+102008dc: f3 0f 59 da                  	mulss	xmm3, xmm2
+102008e0: f3 0f 11 7c 24 18            	movss	dword ptr [esp + 0x18], xmm7
+102008e6: 0f 28 e5                     	movaps	xmm4, xmm5
+102008e9: f3 0f 59 e0                  	mulss	xmm4, xmm0
+102008ed: f3 0f 59 e2                  	mulss	xmm4, xmm2
+102008f1: f3 0f 11 64 24 14            	movss	dword ptr [esp + 0x14], xmm4
+102008f7: f3 0f 5c e3                  	subss	xmm4, xmm3
+102008fb: f3 0f 58 5c 24 14            	addss	xmm3, dword ptr [esp + 0x14]
+10200901: f3 0f 11 74 24 20            	movss	dword ptr [esp + 0x20], xmm6
+10200907: f3 0f 11 64 24 24            	movss	dword ptr [esp + 0x24], xmm4
+1020090d: 0f 28 e1                     	movaps	xmm4, xmm1
+10200910: f3 0f 59 e0                  	mulss	xmm4, xmm0
+10200914: f3 0f 59 e2                  	mulss	xmm4, xmm2
+10200918: 0f 28 f5                     	movaps	xmm6, xmm5
+1020091b: f3 0f 59 f7                  	mulss	xmm6, xmm7
+1020091f: f3 0f 59 f2                  	mulss	xmm6, xmm2
+10200923: 0f 28 fe                     	movaps	xmm7, xmm6
+10200926: f3 0f 58 fc                  	addss	xmm7, xmm4
+1020092a: f3 0f 11 7c 24 28            	movss	dword ptr [esp + 0x28], xmm7
+10200930: 0f 28 f8                     	movaps	xmm7, xmm0
+10200933: f3 0f 59 f8                  	mulss	xmm7, xmm0
+10200937: f3 0f 59 44 24 18            	mulss	xmm0, dword ptr [esp + 0x18]
+1020093d: f3 0f 59 fa                  	mulss	xmm7, xmm2
+10200941: f3 0f 11 5c 24 2c            	movss	dword ptr [esp + 0x2c], xmm3
+10200947: f3 0f 10 1d 84 15 33 10      	movss	xmm3, dword ptr [0x10331584]
+1020094f: f3 0f 59 c2                  	mulss	xmm0, xmm2
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+101df250 <NxCreateCoreSDK>:
+10200950: 0f 59 c2                     	mulps	xmm0, xmm2
+10200953: f3 0f 5c df                  	subss	xmm3, xmm7
+10200957: f3 0f 59 cd                  	mulss	xmm1, xmm5
+1020095b: f3 0f 59 ca                  	mulss	xmm1, xmm2
+1020095f: 0f 28 fb                     	movaps	xmm7, xmm3
+10200962: f3 0f 5c 7c 24 1c            	subss	xmm7, dword ptr [esp + 0x1c]
+10200968: f3 0f 5c 5c 24 10            	subss	xmm3, dword ptr [esp + 0x10]
+1020096e: 0f 28 d1                     	movaps	xmm2, xmm1
+10200971: f3 0f 5c d0                  	subss	xmm2, xmm0
+10200975: 8d 4c 24 50                  	lea	ecx, [esp + 0x50]
+10200979: f3 0f 5c e6                  	subss	xmm4, xmm6
+1020097d: f3 0f 58 c1                  	addss	xmm0, xmm1
+10200981: 51                           	push	ecx
+10200982: 8d 46 14                     	lea	eax, [esi + 0x14]
+10200985: f3 0f 11 7c 24 34            	movss	dword ptr [esp + 0x34], xmm7
+1020098b: f3 0f 11 54 24 38            	movss	dword ptr [esp + 0x38], xmm2
+10200991: f3 0f 11 64 24 3c            	movss	dword ptr [esp + 0x3c], xmm4
+10200997: f3 0f 11 44 24 40            	movss	dword ptr [esp + 0x40], xmm0
+1020099d: f3 0f 11 5c 24 44            	movss	dword ptr [esp + 0x44], xmm3
+102009a3: e8 78 85 f3 ff               	call	0x10138f20 <NpCreatePhysicsSDK+0x2bdb0>
+102009a8: f3 0f 10 44 24 58            	movss	xmm0, dword ptr [esp + 0x58]
+102009ae: f3 0f 10 6c 24 4c            	movss	xmm5, dword ptr [esp + 0x4c]
+102009b4: f3 0f 10 64 24 48            	movss	xmm4, dword ptr [esp + 0x48]
+102009ba: f3 0f 10 4c 24 54            	movss	xmm1, dword ptr [esp + 0x54]
+102009c0: f3 0f 10 5c 24 44            	movss	xmm3, dword ptr [esp + 0x44]
+102009c6: f3 0f 10 54 24 60            	movss	xmm2, dword ptr [esp + 0x60]
+102009cc: f3 0f 59 cc                  	mulss	xmm1, xmm4
+102009d0: f3 0f 59 c5                  	mulss	xmm0, xmm5
+102009d4: f3 0f 58 c1                  	addss	xmm0, xmm1
+102009d8: f3 0f 10 4c 24 50            	movss	xmm1, dword ptr [esp + 0x50]
+102009de: f3 0f 59 cb                  	mulss	xmm1, xmm3
+102009e2: f3 0f 58 c1                  	addss	xmm0, xmm1
+102009e6: f3 0f 10 4c 24 64            	movss	xmm1, dword ptr [esp + 0x64]
+102009ec: f3 0f 59 d4                  	mulss	xmm2, xmm4
+102009f0: f3 0f 59 cd                  	mulss	xmm1, xmm5
+102009f4: f3 0f 58 ca                  	addss	xmm1, xmm2
+102009f8: f3 0f 10 54 24 5c            	movss	xmm2, dword ptr [esp + 0x5c]
+102009fe: f3 0f 59 d3                  	mulss	xmm2, xmm3
+10200a02: f3 0f 58 ca                  	addss	xmm1, xmm2
+10200a06: f3 0f 10 54 24 70            	movss	xmm2, dword ptr [esp + 0x70]
+10200a0c: f3 0f 59 d5                  	mulss	xmm2, xmm5
+10200a10: f3 0f 10 6c 24 6c            	movss	xmm5, dword ptr [esp + 0x6c]
+10200a16: f3 0f 59 ec                  	mulss	xmm5, xmm4
+10200a1a: f3 0f 10 64 24 68            	movss	xmm4, dword ptr [esp + 0x68]
+10200a20: f3 0f 59 e3                  	mulss	xmm4, xmm3
+10200a24: f3 0f 10 5c 24 74            	movss	xmm3, dword ptr [esp + 0x74]
+10200a2a: f3 0f 58 d8                  	addss	xmm3, xmm0
+10200a2e: f3 0f 10 44 24 78            	movss	xmm0, dword ptr [esp + 0x78]
+10200a34: f3 0f 58 c1                  	addss	xmm0, xmm1
+10200a38: f3 0f 10 4c 24 7c            	movss	xmm1, dword ptr [esp + 0x7c]
+10200a3e: f3 0f 58 d5                  	addss	xmm2, xmm5
+10200a42: f3 0f 58 d4                  	addss	xmm2, xmm4
+10200a46: f3 0f 58 ca                  	addss	xmm1, xmm2
+10200a4a: 53                           	push	ebx
+10200a4b: 8d 44 24 24                  	lea	eax, [esp + 0x24]
+10200a4f: 8d 4c 24 54                  	lea	ecx, [esp + 0x54]
+10200a53: f3 0f 11 5b 24               	movss	dword ptr [ebx + 0x24], xmm3
+10200a58: f3 0f 11 43 28               	movss	dword ptr [ebx + 0x28], xmm0
+10200a5d: f3 0f 11 4b 2c               	movss	dword ptr [ebx + 0x2c], xmm1
+10200a62: e8 39 12 e0 ff               	call	0x10001ca0 <.text+0xca0>
+10200a67: 8b c3                        	mov	eax, ebx
+10200a69: 5f                           	pop	edi
+10200a6a: 5e                           	pop	esi
+10200a6b: 5b                           	pop	ebx
+10200a6c: 8b e5                        	mov	esp, ebp
+10200a6e: 5d                           	pop	ebp
+10200a6f: c2 04 00                     	ret	0x4
+10200a72: 8b 52 38                     	mov	edx, dword ptr [edx + 0x38]
+10200a75: 8d 84 24 90 00 00 00         	lea	eax, [esp + 0x90]
+10200a7c: 50                           	push	eax
+10200a7d: ff d2                        	call	edx
+10200a7f: f3 0f 10 0d d8 15 33 10      	movss	xmm1, dword ptr [0x103315d8]
+10200a87: f3 0f 10 70 04               	movss	xmm6, dword ptr [eax + 0x4]
+10200a8c: f3 0f 10 40 08               	movss	xmm0, dword ptr [eax + 0x8]

@@ -1,0 +1,105 @@
+
+work/calibration-package/MotorRock-Calibration-Tools/Windows/PhysXCore.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+10001000 <.text>:
+100039c0: 81 ec cc 00 00 00            	sub	esp, 0xcc
+100039c6: 53                           	push	ebx
+100039c7: 8b 9c 24 d4 00 00 00         	mov	ebx, dword ptr [esp + 0xd4]
+100039ce: 55                           	push	ebp
+100039cf: b8 ff ff 00 00               	mov	eax, 0xffff
+100039d4: 56                           	push	esi
+100039d5: 57                           	push	edi
+100039d6: 66 39 83 24 01 00 00         	cmp	word ptr [ebx + 0x124], ax
+100039dd: 0f 84 a1 00 00 00            	je	0x10003a84 <.text+0x2a84>
+100039e3: f6 83 4c 01 00 00 01         	test	byte ptr [ebx + 0x14c], 0x1
+100039ea: 0f 85 94 00 00 00            	jne	0x10003a84 <.text+0x2a84>
+100039f0: 0f b7 8b 24 01 00 00         	movzx	ecx, word ptr [ebx + 0x124]
+100039f7: 8b b3 1c 01 00 00            	mov	esi, dword ptr [ebx + 0x11c]
+100039fd: 8b d0                        	mov	edx, eax
+100039ff: 66 3b ca                     	cmp	cx, dx
+10003a02: 75 04                        	jne	0x10003a08 <.text+0x2a08>
+10003a04: 33 c9                        	xor	ecx, ecx
+10003a06: eb 46                        	jmp	0x10003a4e <.text+0x2a4e>
+10003a08: 8b 83 0c 01 00 00            	mov	eax, dword ptr [ebx + 0x10c]
+10003a0e: a8 02                        	test	al, 0x2
+10003a10: 75 2c                        	jne	0x10003a3e <.text+0x2a3e>
+10003a12: 8b 15 b0 07 35 10            	mov	edx, dword ptr [0x103507b0]
+10003a18: 83 c8 02                     	or	eax, 0x2
+10003a1b: 89 83 0c 01 00 00            	mov	dword ptr [ebx + 0x10c], eax
+10003a21: 85 d2                        	test	edx, edx
+10003a23: 74 19                        	je	0x10003a3e <.text+0x2a3e>
+10003a25: 0f b7 c1                     	movzx	eax, cx
+10003a28: 8b 4e 10                     	mov	ecx, dword ptr [esi + 0x10]
+10003a2b: 8d 04 40                     	lea	eax, [eax + 2*eax]
+10003a2e: 8d 04 c1                     	lea	eax, [ecx + 8*eax]
+10003a31: 8b 8b 08 01 00 00            	mov	ecx, dword ptr [ebx + 0x108]
+10003a37: 50                           	push	eax
+10003a38: 51                           	push	ecx
+10003a39: ff d2                        	call	edx
+10003a3b: 83 c4 08                     	add	esp, 0x8
+10003a3e: 0f b7 83 24 01 00 00         	movzx	eax, word ptr [ebx + 0x124]
+10003a45: 8d 14 40                     	lea	edx, [eax + 2*eax]
+10003a48: 8b 46 10                     	mov	eax, dword ptr [esi + 0x10]
+10003a4b: 8d 0c d0                     	lea	ecx, [eax + 8*edx]
+10003a4e: d9 01                        	fld	dword ptr [ecx]
+10003a50: 8b 84 24 e4 00 00 00         	mov	eax, dword ptr [esp + 0xe4]
+10003a57: d9 18                        	fstp	dword ptr [eax]
+10003a59: d9 41 04                     	fld	dword ptr [ecx + 0x4]
+10003a5c: d9 58 04                     	fstp	dword ptr [eax + 0x4]
+10003a5f: d9 41 08                     	fld	dword ptr [ecx + 0x8]
+10003a62: d9 58 08                     	fstp	dword ptr [eax + 0x8]
+10003a65: d9 41 0c                     	fld	dword ptr [ecx + 0xc]
+10003a68: d9 58 0c                     	fstp	dword ptr [eax + 0xc]
+10003a6b: d9 41 10                     	fld	dword ptr [ecx + 0x10]
+10003a6e: d9 58 10                     	fstp	dword ptr [eax + 0x10]
+10003a71: d9 41 14                     	fld	dword ptr [ecx + 0x14]
+10003a74: d9 58 14                     	fstp	dword ptr [eax + 0x14]
+10003a77: 5f                           	pop	edi
+10003a78: 5e                           	pop	esi
+10003a79: 5d                           	pop	ebp
+10003a7a: 5b                           	pop	ebx
+10003a7b: 81 c4 cc 00 00 00            	add	esp, 0xcc
+10003a81: c2 08 00                     	ret	0x8
+10003a84: 83 bb 28 01 00 00 00         	cmp	dword ptr [ebx + 0x128], 0x0
+10003a8b: 8b 13                        	mov	edx, dword ptr [ebx]
+10003a8d: 8b cb                        	mov	ecx, ebx
+10003a8f: 0f 84 07 02 00 00            	je	0x10003c9c <.text+0x2c9c>
+10003a95: 0f 57 c0                     	xorps	xmm0, xmm0
+10003a98: f3 0f 10 0d 84 15 33 10      	movss	xmm1, dword ptr [0x10331584]
+10003aa0: 8b 52 34                     	mov	edx, dword ptr [edx + 0x34]
+10003aa3: 8d 44 24 68                  	lea	eax, [esp + 0x68]
+10003aa7: 50                           	push	eax
+10003aa8: f3 0f 11 4c 24 2c            	movss	dword ptr [esp + 0x2c], xmm1
+10003aae: f3 0f 11 44 24 30            	movss	dword ptr [esp + 0x30], xmm0
+10003ab4: f3 0f 11 44 24 34            	movss	dword ptr [esp + 0x34], xmm0
+10003aba: f3 0f 11 44 24 38            	movss	dword ptr [esp + 0x38], xmm0
+10003ac0: f3 0f 11 4c 24 3c            	movss	dword ptr [esp + 0x3c], xmm1
+10003ac6: f3 0f 11 44 24 40            	movss	dword ptr [esp + 0x40], xmm0
+10003acc: f3 0f 11 44 24 44            	movss	dword ptr [esp + 0x44], xmm0
+10003ad2: f3 0f 11 44 24 48            	movss	dword ptr [esp + 0x48], xmm0
+10003ad8: f3 0f 11 4c 24 4c            	movss	dword ptr [esp + 0x4c], xmm1
+10003ade: ff d2                        	call	edx
+10003ae0: f3 0f 10 00                  	movss	xmm0, dword ptr [eax]
+10003ae4: f3 0f 11 44 24 4c            	movss	dword ptr [esp + 0x4c], xmm0
+10003aea: f3 0f 10 40 04               	movss	xmm0, dword ptr [eax + 0x4]
+10003aef: f3 0f 11 44 24 50            	movss	dword ptr [esp + 0x50], xmm0
+10003af5: f3 0f 10 40 08               	movss	xmm0, dword ptr [eax + 0x8]
+10003afa: 8b 03                        	mov	eax, dword ptr [ebx]
+10003afc: 8b 50 38                     	mov	edx, dword ptr [eax + 0x38]
+10003aff: 8d 4c 24 68                  	lea	ecx, [esp + 0x68]
+10003b03: 51                           	push	ecx
+10003b04: 8b cb                        	mov	ecx, ebx
+10003b06: f3 0f 11 44 24 58            	movss	dword ptr [esp + 0x58], xmm0
+10003b0c: ff d2                        	call	edx
+10003b0e: 8b c8                        	mov	ecx, eax
+10003b10: 8d 44 24 28                  	lea	eax, [esp + 0x28]
+10003b14: e8 07 e0 ff ff               	call	0x10001b20 <.text+0xb20>
+10003b19: 8b 8b 28 01 00 00            	mov	ecx, dword ptr [ebx + 0x128]
+10003b1f: 8b 01                        	mov	eax, dword ptr [ecx]
+10003b21: 8b 40 04                     	mov	eax, dword ptr [eax + 0x4]
+10003b24: 8d 54 24 68                  	lea	edx, [esp + 0x68]
+10003b28: 52                           	push	edx
+10003b29: ff d0                        	call	eax
+10003b2b: 8b 8b 28 01 00 00            	mov	ecx, dword ptr [ebx + 0x128]

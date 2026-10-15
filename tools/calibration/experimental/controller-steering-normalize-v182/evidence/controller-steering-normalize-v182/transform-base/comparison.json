@@ -1,0 +1,39 @@
+{
+  "scope": "Pure transform boundary: measured original before-state and angular INPUT versus actual original WheelsProgress public pose setter result. Does not claim Source backend velocity-to-angle calculation or whole tilted-world physics integration.",
+  "runs": [
+    {
+      "repeat": 0,
+      "variant": "observed matrix as method INPUT",
+      "cases": 45,
+      "exact": 45,
+      "differences": [],
+      "matrix_decode_differences": []
+    },
+    {
+      "repeat": 0,
+      "variant": "decoded SDK matrix",
+      "cases": 45,
+      "exact": 45,
+      "differences": [],
+      "matrix_decode_differences": []
+    },
+    {
+      "repeat": 1,
+      "variant": "observed matrix as method INPUT",
+      "cases": 45,
+      "exact": 45,
+      "differences": [],
+      "matrix_decode_differences": []
+    },
+    {
+      "repeat": 1,
+      "variant": "decoded SDK matrix",
+      "cases": 45,
+      "exact": 45,
+      "differences": [],
+      "matrix_decode_differences": []
+    }
+  ],
+  "source_probe_sha256": "4747061c4ff4f2e2f55d2c9f41b096046c21a496df3e99a2f2769773bdd1d3db",
+  "goal_complete": false
+}

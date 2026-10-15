@@ -1,0 +1,6 @@
+#include "physics/NativeGameSteeringV181.h"
+#include <fstream>
+#include <cstring>
+namespace steer=motorrock::gamesteeringv181;
+float value(unsigned u){float f;std::memcpy(&f,&u,4);return f;}unsigned word(float f){unsigned u;std::memcpy(&u,&f,4);return u;}
+int main(int argc,char**argv){if(argc!=3)return 2;std::ifstream in(argv[1]);std::ofstream out(argv[2]);unsigned id,execute,u;while(in>>id>>execute){steer::Vector p;steer::Quaternion q;steer::Matrix m;for(int i=0;i<3;++i){in>>u;p[i]=value(u);}for(int i=0;i<4;++i){in>>u;q[i]=value(u);}for(int i=0;i<3;++i)for(int j=0;j<3;++j){in>>u;m[i][j]=value(u);}in>>u;float yaw=value(u);if(!in)return 3;auto physical=motorrock::physicalposev42::rotation(q);steer::Matrix decoded;for(int i=0;i<3;++i)for(int j=0;j<3;++j)decoded[i][j]=physical.a[i][j];for(int mode=0;mode<2;++mode){auto pose=execute?steer::apply(mode?decoded:m,p,yaw,-1):steer::Pose{p,q};out<<"{\"case\":"<<id<<",\"mode\":"<<mode<<",\"matrix\":[";for(int i=0;i<3;++i)for(int j=0;j<3;++j){if(i||j)out<<',';out<<word(decoded[i][j]);}out<<"],\"position\":[";for(int i=0;i<3;++i){if(i)out<<',';out<<word(pose.position[i]);}out<<"],\"rotation\":[";for(int i=0;i<4;++i){if(i)out<<',';out<<word(pose.rotation[i]);}out<<"]}\n";}}return in.eof()&&out.good()?0:4;}

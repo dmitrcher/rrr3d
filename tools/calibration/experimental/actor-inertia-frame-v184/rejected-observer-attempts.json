@@ -1,0 +1,11 @@
+{
+  "reason": "The misspelled SDK field longitudinalTireForceFunction caused C2039; dependent shell commands had continued into the old executable. Correct spelling is longitudalTireForceFunction.",
+  "stale_executable_sha256": "02fc7f7747d7393e43a542d4c751b35b427e294bc7d3d9e63b30a9b260d2e962",
+  "excluded_from_final_gates": true,
+  "repair": "Fail-fast dependency execution, invalidated receipt on build start, delete old owned exe before compile, embedded source/build stamp and capture preflight.",
+  "accepted_reference_locations": [
+    "outputs/controller-steering-transform-v180/accepted-native0.jsonl.gz",
+    "outputs/controller-steering-transform-v180-offset/accepted-native0.jsonl.gz",
+    "outputs/controller-steering-transform-v180-tilt/accepted-native0.jsonl.gz"
+  ]
+}

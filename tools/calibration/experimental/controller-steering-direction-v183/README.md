@@ -1,0 +1,7 @@
+# V183: original physical direction, public matrix and equal-pose handling
+
+Six Source files over V182, unchanged V181 SDK. `RRR3D_EXPERIMENT_GAMECAR_STEER_DIRECTION_V183=1` supplies a separate original physical forward speed to GameCar; default OFF. The new telemetry defaults absent (quiet NaN) for existing adapters. Motor speed stays on its existing channel. OriginalRaceSession forwards the added field.
+
+Original NxQuat::rot(X) does not assume exact quaternion norm1. Jolt's algebraic shortcut differs at the few-ULP level for original slightly non-unit quaternions. Reproduce the original rotation and dot stores for steering speed, with the existing deadband; do not change motor power or steering rates. Public getGlobalPose matrix reconstruction uses its PC24 operation order, distinct from the solver's physical matrix. When all matrix/position components remain equal, preserve the original stored quaternion as the original setter does.
+
+The actual original WFP API boundary now matches all studied tilted pose transforms. Intermediate post-solver tiny translations exposed an inertia discrepancy, repaired by V184. The old failed initial-state/33-of45 captures remain negative setup/intermediate evidence; final whole-world acceptance is in V184. The unchanged motor/gear/brake/RPM matrix is13512/13512 twice and all7200 existing raw map states remain exact.53 CTests pass. Do not claim full game parity here.

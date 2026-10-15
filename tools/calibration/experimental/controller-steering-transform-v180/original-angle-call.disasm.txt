@@ -1,0 +1,83 @@
+
+work/package/MotorRock-Windows-Debug/Rock3dGame.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+104316c9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z>:
+104978d5: ff d9                        	<unknown>
+104978d7: 05 dc 9d cb 10               	addl	$0x10cb9ddc, %eax       # imm = 0x10CB9DDC
+104978dc: d9 9d 70 fc ff ff            	fstps	-0x390(%ebp)
+104978e2: d9 45 d4                     	flds	-0x2c(%ebp)
+104978e5: dc 35 c8 19 cc 10            	fdivl	0x10cc19c8
+104978eb: d9 9d 7c fc ff ff            	fstps	-0x384(%ebp)
+104978f1: 8d 85 64 fc ff ff            	leal	-0x39c(%ebp), %eax
+104978f7: 50                           	pushl	%eax
+104978f8: 8d 8d 70 fc ff ff            	leal	-0x390(%ebp), %ecx
+104978fe: 51                           	pushl	%ecx
+104978ff: 8d 95 7c fc ff ff            	leal	-0x384(%ebp), %edx
+10497905: 52                           	pushl	%edx
+10497906: e8 6e 9d f9 ff               	calll	0x10431679 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x78e6>
+1049790b: 83 c4 0c                     	addl	$0xc, %esp
+1049790e: d9 9d 24 ff ff ff            	fstps	-0xdc(%ebp)
+10497914: 8b f4                        	movl	%esp, %esi
+10497916: 8d 85 ec fe ff ff            	leal	-0x114(%ebp), %eax
+1049791c: 50                           	pushl	%eax
+1049791d: 8b 4d e0                     	movl	-0x20(%ebp), %ecx
+10497920: 8b 11                        	movl	(%ecx), %edx
+10497922: 8b 4d e0                     	movl	-0x20(%ebp), %ecx
+10497925: 8b 42 24                     	movl	0x24(%edx), %eax
+10497928: ff d0                        	calll	*%eax
+1049792a: 3b f4                        	cmpl	%esp, %esi
+1049792c: e8 0e b8 fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10497931: c7 45 fc 02 00 00 00         	movl	$0x2, -0x4(%ebp)
+10497938: 8d 8d d4 fe ff ff            	leal	-0x12c(%ebp), %ecx
+1049793e: e8 c2 2a f9 ff               	calll	0x1042a405 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x672>
+10497943: 51                           	pushl	%ecx
+10497944: d9 e8                        	fld1
+10497946: d9 1c 24                     	fstps	(%esp)
+10497949: 51                           	pushl	%ecx
+1049794a: d9 ee                        	fldz
+1049794c: d9 1c 24                     	fstps	(%esp)
+1049794f: 51                           	pushl	%ecx
+10497950: d9 ee                        	fldz
+10497952: d9 1c 24                     	fstps	(%esp)
+10497955: 8d 8d 88 fc ff ff            	leal	-0x378(%ebp), %ecx
+1049795b: e8 a3 8b f9 ff               	calll	0x10430503 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x6770>
+10497960: 50                           	pushl	%eax
+10497961: d9 85 24 ff ff ff            	flds	-0xdc(%ebp)
+10497967: 8b 45 ec                     	movl	-0x14(%ebp), %eax
+1049796a: d8 88 5c 02 00 00            	fmuls	0x25c(%eax)
+10497970: d8 35 28 14 cc 10            	fdivs	0x10cc1428
+10497976: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10497979: d8 89 28 02 00 00            	fmuls	0x228(%ecx)
+1049797f: d8 4d 08                     	fmuls	0x8(%ebp)
+10497982: d9 9d 98 fb ff ff            	fstps	-0x468(%ebp)
+10497988: d9 85 98 fb ff ff            	flds	-0x468(%ebp)
+1049798e: 51                           	pushl	%ecx
+1049798f: d9 1c 24                     	fstps	(%esp)
+10497992: 8d 8d d4 fe ff ff            	leal	-0x12c(%ebp), %ecx
+10497998: e8 b0 00 f9 ff               	calll	0x10427a4d <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x2e54>
+1049799d: 6a 01                        	pushl	$0x1
+1049799f: 8d 8d 9c fe ff ff            	leal	-0x164(%ebp), %ecx
+104979a5: e8 02 09 fb ff               	calll	0x104482ac <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x16be3>
+104979aa: c6 45 fc 03                  	movb	$0x3, -0x4(%ebp)
+104979ae: 8d 85 d4 fe ff ff            	leal	-0x12c(%ebp), %eax
+104979b4: 50                           	pushl	%eax
+104979b5: 8d 8d 9c fe ff ff            	leal	-0x164(%ebp), %ecx
+104979bb: e8 57 fa f8 ff               	calll	0x10427417 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x281e>
+104979c0: 6a 01                        	pushl	$0x1
+104979c2: 8d 8d 64 fe ff ff            	leal	-0x19c(%ebp), %ecx
+104979c8: e8 df 08 fb ff               	calll	0x104482ac <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x16be3>
+104979cd: c6 45 fc 04                  	movb	$0x4, -0x4(%ebp)
+104979d1: 51                           	pushl	%ecx
+104979d2: d9 ee                        	fldz
+104979d4: d9 1c 24                     	fstps	(%esp)
+104979d7: 51                           	pushl	%ecx
+104979d8: d9 ee                        	fldz
+104979da: d9 1c 24                     	fstps	(%esp)
+104979dd: 8b 4d b0                     	movl	-0x50(%ebp), %ecx
+104979e0: e8 16 14 fb ff               	calll	0x10448dfb <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x17732>
+104979e5: 51                           	pushl	%ecx
+104979e6: d9 00                        	flds	(%eax)
+104979e8: d9 1c 24                     	fstps	(%esp)
+104979eb: 8d 8d 9c fc ff ff            	leal	-0x364(%ebp), %ecx

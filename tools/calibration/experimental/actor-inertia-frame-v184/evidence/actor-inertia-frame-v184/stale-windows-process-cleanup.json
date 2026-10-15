@@ -1,0 +1,90 @@
+{
+  "before": [
+    {
+      "ProcessId": 5172,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CreationDate": "/Date(1792003034160)/",
+      "KernelModeTime": 4375000,
+      "UserModeTime": 15937500
+    },
+    {
+      "ProcessId": 8396,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CreationDate": "/Date(1792003202755)/",
+      "KernelModeTime": 4687500,
+      "UserModeTime": 14843750
+    }
+  ],
+  "after": [
+    {
+      "ProcessId": 5172,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CreationDate": "/Date(1792003034160)/",
+      "KernelModeTime": 4375000,
+      "UserModeTime": 15937500
+    },
+    {
+      "ProcessId": 8396,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CreationDate": "/Date(1792003202755)/",
+      "KernelModeTime": 4687500,
+      "UserModeTime": 14843750
+    }
+  ],
+  "file": {
+    "FullName": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\track0-rep0.jsonl",
+    "Length": 1039239,
+    "LastWriteTimeUtc": "/Date(1792003274431)/"
+  },
+  "stopped": [
+    5172,
+    8396
+  ],
+  "remaining": [
+    {
+      "ProcessId": 5172,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe"
+    },
+    {
+      "ProcessId": 8396,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe"
+    }
+  ],
+  "verified_remaining": [
+    {
+      "ProcessId": 5172,
+      "ParentProcessId": 3396,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CommandLine": "WorldProbeV130.exe  C:\\MotorRock\\calibration-probes\\startup-import-v130\\track0.words C:\\MotorRock\\calibration-probes\\startup-import-v130\\track0-rep0.jsonl"
+    },
+    {
+      "ProcessId": 8396,
+      "ParentProcessId": 4800,
+      "Name": "WorldProbeV130.exe",
+      "ExecutablePath": "C:\\MotorRock\\calibration-probes\\startup-import-v130\\WorldProbeV130.exe",
+      "CommandLine": "WorldProbeV130.exe  C:\\MotorRock\\calibration-probes\\startup-import-v130\\track0.words C:\\MotorRock\\calibration-probes\\startup-import-v130\\track0-rep0.jsonl"
+    }
+  ],
+  "final_process_check": [
+    {
+      "Id": 5172,
+      "ProcessName": "WorldProbeV130",
+      "HasExited": true,
+      "SessionId": 0
+    },
+    {
+      "Id": 8396,
+      "ProcessName": "WorldProbeV130",
+      "HasExited": true,
+      "SessionId": 0
+    }
+  ],
+  "note": "Stop-Process succeeded; immediate CIM can retain terminated process records. Get-Process subsequently reported HasExited=true. Closed only verified owned V130 cmd parents."
+}

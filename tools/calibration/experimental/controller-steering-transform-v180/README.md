@@ -1,0 +1,15 @@
+# V180: original WheelsProgress transform observation
+
+Immutable original GameCar/WheelsProgress executes with four owned original CarWheels bound to real SDK wheels. Each case has a fresh SDK scene, one dynamic body, no AI, dt1/60, zero motor/brake/gravity/damping. The accepted recipe explicitly sets NX_AF_LOCK_COM during creation, then applies the requested COM offset; ordinary game actor creation also locks COM. Inertia is computed about the original actor frame before the optional offset is moved. Tire curves match the Source fixture (slips1/2, values0.02/0.01, stiffness0); wheel flags0 disable the clamped-friction model that ignores stiffness. Tilt fixtures use floor3.75 and travel0.6 to avoid suspension stops while retaining all four contacts. Other fixtures use floor4/travel0.4.
+
+Nine signed world-X speeds x five manual inputs,45 cases per fixture. Six fixtures cover upright, COM offset, tilted axis(1,2,3)/angle0.2, and headings90/126/180 degrees. All references repeat identically. Record actual before/call/after SDK pose, actual contacts, local COM/inertia, loaded DLL paths/hashes and original visual/physical wheel angles.
+
+A temporary breakpoint at original NxQuat::fromAngleAxisFast records the actual WFP angle, caller frame alpha/steerRot/dt/visual angle and raw x87 control127. The original byte is restored before continuing; no original file changes. A separate explicit instruction replay matches all observed angle inputs. In this Windows ARM Parallels execution, FMUL narrows its mantissa while FDIV retains a double quotient until the following FMUL. This is measured VM behavior, not a generic claim about every x86 CPU. Targeted original DLL disassembly pins caller-frame offsets. Actual original/SDK module hashes remain unchanged.
+
+## Build provenance repair
+
+Several attempted fixture edits initially failed compilation because the SDK field is spelled `longitudalTireForceFunction`. A multiline shell continued into the old executable. Those captures were NEVER accepted as evidence for the attempted settings. Old folders named before-zero-tire-stiffness/clamped-friction-not-isolated/missing-lock-com contain the old02fc... executable recipe; their names describe attempted work, not proven applied settings. They remain setup history only. Final gates use only accepted-native0/1 at each fixture root after the successful stamped build.
+
+Build scripts now fail immediately, remove the old owned executable before compilation, preserve error output, and invalidate the receipt until success. The executable embeds its actual source SHA and build ID. Capture preflight checks current Source vs receipt and then checks the embedded stamp; stale binaries are refused. Final re-capture reproduces earlier valid input/output histories where the recipe is unchanged. No proprietary SDK headers/DLLs/PDBs or Windows executables enter Git/releases.
+
+A PC24/PC53 actor-creation control did not change the observed inertia; this is a rejected explanation, not the accepted cause. V184 traces the actual remaining tensor discrepancy to Jolt's second eigensort/permutation, and repairs original-axis storage.

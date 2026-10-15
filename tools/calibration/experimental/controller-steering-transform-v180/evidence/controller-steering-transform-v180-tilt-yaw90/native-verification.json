@@ -1,0 +1,65 @@
+{
+  "runs": [
+    {
+      "repeat": 0,
+      "cases": 45,
+      "all_four_wheels_contact": true
+    },
+    {
+      "repeat": 1,
+      "cases": 45,
+      "all_four_wheels_contact": true
+    }
+  ],
+  "actual_loaded_modules": [
+    {
+      "event": "runtime.module",
+      "name": "Rock3dGame.dll",
+      "path": "C:\\MotorRock\\game-debug\\Rock3dGame.dll"
+    },
+    {
+      "event": "runtime.module",
+      "name": "PhysXCore.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXCore.dll"
+    },
+    {
+      "event": "runtime.module",
+      "name": "PhysXCooking.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXCooking.dll"
+    },
+    {
+      "event": "runtime.module",
+      "name": "PhysXLoader.dll",
+      "path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXLoader.dll"
+    }
+  ],
+  "hashes": [
+    {
+      "Path": "C:\\MotorRock\\game-debug\\Rock3dGame.dll",
+      "Hash": "4483E8F402EDB5C4639609DCF3FD805386E80F1D25B1C4829A8236B40A6B8A15"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXCore.dll",
+      "Hash": "C03F0E20E99A6CA8D72C8627CF3B0108036A734123F75C652C2B78D3043DBDBB"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXCooking.dll",
+      "Hash": "2E5657AE13DE0A0C79C56453B8C73BA3978069D55440134873C6534BBADA522B"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\PhysXLoader.dll",
+      "Hash": "29B2183CBD9B4B43F247D7E47E7A636ED3898D8E79AFB109B5EF0E02C5493768"
+    },
+    {
+      "Path": "C:\\MotorRock\\game-debug\\Rock3dGame.pdb",
+      "Hash": "818BA6D6386EF6C4C925D16B9EDF2403F05F78385E36565DF493C7173432770C"
+    },
+    {
+      "Path": "C:\\MotorRock\\calibration-probes\\controller-steering-transform-v180\\SteeringTransformProbeV180.exe",
+      "Hash": "C83F266A09CB3A695AC9480B0D456AC54C5F1D8DD52B966EE3A4DB807CC67D5B"
+    }
+  ],
+  "repeats_identical": true,
+  "scope": "Real original WheelsProgress and fresh actual SDK scene per case, one dynamic body, four owned original wheels; direct manual steering, zero motor/brake, gravity/damping zero, matching physical contact. Every case starts from fresh scene timing; prior reused-scene pose comparisons are retained as rejected setup evidence.",
+  "goal_complete": false
+}

@@ -20,4 +20,3 @@ diag=[x['sample'] for x in s if x['event']=='solo.sample'];assert plain==diag an
 report['diagnostic_preserves_all_physical_states']=900
 (p/'live367-proof.json').write_text(json.dumps(report,indent=2)+'\n')
 print('All20 actual367 rows exact; diagnostic900 unchanged')
-

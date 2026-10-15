@@ -1,0 +1,76 @@
+{
+  "release_url": "https://github.com/dmitrcher/rrr3d/releases/tag/physics-steering-inertia-v184-investigation-2026-10-15",
+  "code_commit": "0bd8a74bbb6525155da0bf003ba099ab47966dc4",
+  "downloaded_archive_sha256": "75a22046d083c9e14d82bdbb3dff543b274e4a747d30beeeab453967694c4a2e",
+  "downloaded_archive_bytes": 4543262,
+  "packaged_verifier": {
+    "scope": "Original WheelsProgress plus SDK step versus actual Source GameCar/Jolt. Six45-case fixtures, two repeats. Research component acceptance; full game remains open.",
+    "runs": [
+      {
+        "mode": "base",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "base",
+        "repeat": 1,
+        "exact_poses": 45
+      },
+      {
+        "mode": "offset",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "offset",
+        "repeat": 1,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt",
+        "repeat": 1,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw90",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw90",
+        "repeat": 1,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw126",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw126",
+        "repeat": 1,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw180",
+        "repeat": 0,
+        "exact_poses": 45
+      },
+      {
+        "mode": "tilt-yaw180",
+        "repeat": 1,
+        "exact_poses": 45
+      }
+    ],
+    "total_exact_poses": 540,
+    "repeats_identical": true,
+    "installed_game_replaced": false,
+    "full_goal_complete": false
+  },
+  "verified_at": "2026-10-15T18:43:29.518390+00:00"
+}

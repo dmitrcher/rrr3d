@@ -1,0 +1,212 @@
+{
+  "scope": "Actual compiled Source GameCar OnFixedStepDrive torque against original unchanged DLL CalcTorque: six motor torques, all six gears, two repeats. Reverse sign normalized; same SEM/differential. Windows production PC24 directly observed in V172. No full MotorProgress/RPM/gear trajectory parity claim.",
+  "checks": [
+    {
+      "mode": "off",
+      "repeat": 0,
+      "exact_cases": 21,
+      "differences": [
+        {
+          "case": 1,
+          "gear": 1,
+          "native_word": 1181014520,
+          "source_word": 1181014519
+        },
+        {
+          "case": 5,
+          "gear": 5,
+          "native_word": 1165928809,
+          "source_word": 1165928808
+        },
+        {
+          "case": 7,
+          "gear": 1,
+          "native_word": 1123902050,
+          "source_word": 1123902049
+        },
+        {
+          "case": 9,
+          "gear": 3,
+          "native_word": 1115138874,
+          "source_word": 1115138873
+        },
+        {
+          "case": 14,
+          "gear": 2,
+          "native_word": 1161282809,
+          "source_word": 1161282808
+        },
+        {
+          "case": 16,
+          "gear": 4,
+          "native_word": 1154382725,
+          "source_word": 1154382724
+        },
+        {
+          "case": 17,
+          "gear": 5,
+          "native_word": 1150864394,
+          "source_word": 1150864395
+        },
+        {
+          "case": 19,
+          "gear": 1,
+          "native_word": 1187528377,
+          "source_word": 1187528376
+        },
+        {
+          "case": 23,
+          "gear": 5,
+          "native_word": 1172231227,
+          "source_word": 1172231226
+        },
+        {
+          "case": 25,
+          "gear": 1,
+          "native_word": 1172625912,
+          "source_word": 1172625911
+        },
+        {
+          "case": 29,
+          "gear": 5,
+          "native_word": 1157540201,
+          "source_word": 1157540200
+        },
+        {
+          "case": 30,
+          "gear": 0,
+          "native_word": 1172005692,
+          "source_word": 1172005693
+        },
+        {
+          "case": 33,
+          "gear": 3,
+          "native_word": 1170088655,
+          "source_word": 1170088654
+        },
+        {
+          "case": 34,
+          "gear": 4,
+          "native_word": 1167213097,
+          "source_word": 1167213096
+        },
+        {
+          "case": 35,
+          "gear": 5,
+          "native_word": 1163425381,
+          "source_word": 1163425380
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "repeat": 1,
+      "exact_cases": 21,
+      "differences": [
+        {
+          "case": 1,
+          "gear": 1,
+          "native_word": 1181014520,
+          "source_word": 1181014519
+        },
+        {
+          "case": 5,
+          "gear": 5,
+          "native_word": 1165928809,
+          "source_word": 1165928808
+        },
+        {
+          "case": 7,
+          "gear": 1,
+          "native_word": 1123902050,
+          "source_word": 1123902049
+        },
+        {
+          "case": 9,
+          "gear": 3,
+          "native_word": 1115138874,
+          "source_word": 1115138873
+        },
+        {
+          "case": 14,
+          "gear": 2,
+          "native_word": 1161282809,
+          "source_word": 1161282808
+        },
+        {
+          "case": 16,
+          "gear": 4,
+          "native_word": 1154382725,
+          "source_word": 1154382724
+        },
+        {
+          "case": 17,
+          "gear": 5,
+          "native_word": 1150864394,
+          "source_word": 1150864395
+        },
+        {
+          "case": 19,
+          "gear": 1,
+          "native_word": 1187528377,
+          "source_word": 1187528376
+        },
+        {
+          "case": 23,
+          "gear": 5,
+          "native_word": 1172231227,
+          "source_word": 1172231226
+        },
+        {
+          "case": 25,
+          "gear": 1,
+          "native_word": 1172625912,
+          "source_word": 1172625911
+        },
+        {
+          "case": 29,
+          "gear": 5,
+          "native_word": 1157540201,
+          "source_word": 1157540200
+        },
+        {
+          "case": 30,
+          "gear": 0,
+          "native_word": 1172005692,
+          "source_word": 1172005693
+        },
+        {
+          "case": 33,
+          "gear": 3,
+          "native_word": 1170088655,
+          "source_word": 1170088654
+        },
+        {
+          "case": 34,
+          "gear": 4,
+          "native_word": 1167213097,
+          "source_word": 1167213096
+        },
+        {
+          "case": 35,
+          "gear": 5,
+          "native_word": 1163425381,
+          "source_word": 1163425380
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "repeat": 0,
+      "exact_cases": 36,
+      "differences": []
+    },
+    {
+      "mode": "on",
+      "repeat": 1,
+      "exact_cases": 36,
+      "differences": []
+    }
+  ],
+  "goal_complete": false
+}

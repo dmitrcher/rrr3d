@@ -1,0 +1,127 @@
+{
+  "scope": "Actual unchanged Windows MR.exe, main-thread original GameCar entry and return observations. x87 precision-control bits 8..9 are zero (24-bit); rounding bits 10..11 zero (nearest). Two independent debugger attachments in an ordinary race. This race contains AI and is used solely to observe floating-point context, not to compare trajectories.",
+  "runs": [
+    {
+      "run": 0,
+      "observations": [],
+      "accepted_for_fp": false
+    },
+    {
+      "run": 1,
+      "observations": [
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::GameCar::GameCar",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917675296,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069
+        },
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::GameCar::OnFixedStep",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917696624,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069
+        },
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::GameCar::MotorProgress",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917677776,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069,
+          "dt_word": 1015580809
+        },
+        {
+          "event": "fp.observed",
+          "name": "MotorProgress.return",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917696955,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069,
+          "motor_word": 0,
+          "brake_word": 1137180672,
+          "rpm_word": 1148846080
+        },
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::CarMotorDesc::CalcTorque",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917658800,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069
+        }
+      ],
+      "accepted_for_fp": true
+    },
+    {
+      "run": 2,
+      "observations": [
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::GameCar::OnFixedStep",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917696624,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069
+        },
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::GameCar::MotorProgress",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917677776,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069,
+          "dt_word": 1015580809
+        },
+        {
+          "event": "fp.observed",
+          "name": "MotorProgress.return",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917696955,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069,
+          "motor_word": 0,
+          "brake_word": 1137180672,
+          "rpm_word": 1148846080
+        },
+        {
+          "event": "fp.observed",
+          "name": "r3d::game::CarMotorDesc::CalcTorque",
+          "pid": 6840,
+          "thread": 6820,
+          "address": 1917658800,
+          "x87_control": 127,
+          "fxsave_control": 127,
+          "mxcsr": 8069
+        }
+      ],
+      "accepted_for_fp": true
+    }
+  ],
+  "original_file_hashes": {
+    "MR.exe": "f939a66f6d4fc1ad83d101d241b4f6b6e219e359551cda487b277d7079d0c9be",
+    "Rock3dGame.dll": "4483e8f402edb5c4639609dcf3fd805386e80f1d25b1c4829a8236b40a6b8a15",
+    "Rock3dGame.pdb": "818ba6d6386ef6c4c925d16b9edf2403f05f78385e36565df493c7173432770c"
+  },
+  "launch_attempt0": "Ended with zero observations while missing skirmish profile triggered original assert; not accepted. Observer detached and restored breakpoints. Existing process then observed via attach in runs1/2.",
+  "goal_complete": false
+}

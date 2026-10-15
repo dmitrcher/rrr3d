@@ -1,0 +1,7 @@
+# V179: original steering speed deadband
+
+One owned Source-file research overlay over V177, unchanged SDK. `RRR3D_EXPERIMENT_GAMECAR_STEER_DEADBAND_V179=1`, default OFF. Original WheelsProgress computes speed with GameCar::GetSpeed, which returns0 below absolute speed1. Mac applied that deadband to the motor but used the raw SDK speed for steering yaw. Reuse the existing source-owned quantized speed for steering as well; do not tune steering rates or physical parameters.
+
+Actual original V178 and actual Source GameCar/Jolt with four owned logical/physical wheels verify eight nonzero-speed/nonzero-steer deadband cases twice: with flag OFF0/8 body rotations match; ON8/8. Initial poses match for these cases. Translation still differs by several float32 units, so complete pose parity is not claimed. Cases outside this deadband are unchanged. The broader45-case pose matrix explicitly retains all other differences and the +15 initial-state mismatch for investigation.
+
+Guarded installer1then0; unsupported prerequisites rejected before mutation. Actual Source/SDK verifier reports0 changes. Rebuilt ordinary debug app links this candidate; all53 CTests pass again. The installed user app is still not replaced. V177's raw physical gates cover the unchanged engine adapter; the new patch affects only the source GameCar controller. Full goal, complete body-pose parity and ordinary installed app promotion remain open.

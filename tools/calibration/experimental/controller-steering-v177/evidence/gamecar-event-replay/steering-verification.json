@@ -1,0 +1,25 @@
+{
+  "scope": "Actual OriginalRaceSession -> SourceGameCar -> Jolt bridge: physical angles remain zero while GameCar visual steering varies. Full trajectory Windows reference not yet measured.",
+  "runs": [
+    {
+      "mode": "off",
+      "observations": 900,
+      "visual_nonzero": 120,
+      "physical_nonzero": 120
+    },
+    {
+      "mode": "on0",
+      "observations": 900,
+      "visual_nonzero": 120,
+      "physical_nonzero": 0
+    },
+    {
+      "mode": "on1",
+      "observations": 900,
+      "visual_nonzero": 120,
+      "physical_nonzero": 0
+    }
+  ],
+  "repeats_identical": true,
+  "goal_complete": false
+}

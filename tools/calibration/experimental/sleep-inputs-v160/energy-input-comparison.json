@@ -1,0 +1,1330 @@
+{
+  "scope": "Read-only original energy values and actual Source private before/after poses; only correctly aligned same900histories through655. Actual Source656 sleeping is independent failure.",
+  "checks": [
+    {
+      "repeat": 0,
+      "frames": 654,
+      "first_input_difference": {
+        "step": 656,
+        "native_count": 5,
+        "native_count_slots": [
+          4,
+          1,
+          0,
+          0
+        ],
+        "source_count": null,
+        "input_differences": [
+          0,
+          1,
+          2,
+          6,
+          7,
+          8,
+          9
+        ],
+        "native": {
+          "wake": 0.0018933825194835663,
+          "energy": 0.16725577414035797,
+          "threshold": 0.30000001192092896
+        },
+        "source": null,
+        "state_difference_fields": []
+      },
+      "first_count_difference": {
+        "step": 217,
+        "native_count": 8,
+        "native_count_slots": [
+          6,
+          2,
+          0,
+          0
+        ],
+        "source_count": 4,
+        "input_differences": [],
+        "native": {
+          "wake": 0.2666664719581604,
+          "energy": 0.0,
+          "threshold": 0.0
+        },
+        "source": {
+          "step": 217,
+          "interactions": 4,
+          "wake": 0.266666472,
+          "energy": 0,
+          "threshold": 0,
+          "pending": false
+        },
+        "state_difference_fields": []
+      },
+      "first_state_difference": {
+        "step": 218,
+        "native_count": 6,
+        "native_count_slots": [
+          4,
+          2,
+          0,
+          0
+        ],
+        "source_count": 4,
+        "input_differences": [],
+        "native": {
+          "wake": 0.383333295583725,
+          "energy": 0.0,
+          "threshold": 0.0
+        },
+        "source": {
+          "step": 218,
+          "interactions": 4,
+          "wake": 0.249999806,
+          "energy": 0,
+          "threshold": 0,
+          "pending": false
+        },
+        "state_difference_fields": [
+          "wake"
+        ]
+      },
+      "last20": [
+        {
+          "step": 637,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.31856009364128113,
+            "energy": 0.35284021496772766,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 637,
+            "interactions": 5,
+            "wake": 0.291079074,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 638,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.301893413066864,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 638,
+            "interactions": 5,
+            "wake": 0.274412394,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 639,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2852267324924469,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 639,
+            "interactions": 5,
+            "wake": 0.257745713,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 640,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2685600519180298,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 640,
+            "interactions": 5,
+            "wake": 0.241079047,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 641,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.25189337134361267,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 641,
+            "interactions": 5,
+            "wake": 0.224412382,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 642,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.23522670567035675,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 642,
+            "interactions": 5,
+            "wake": 0.207745716,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 643,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.21856003999710083,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 643,
+            "interactions": 5,
+            "wake": 0.19107905,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 644,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2018933743238449,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 644,
+            "interactions": 5,
+            "wake": 0.174412385,
+            "energy": 0.00145012897,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 645,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.185226708650589,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 645,
+            "interactions": 5,
+            "wake": 0.157745719,
+            "energy": 0.00689488603,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 646,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.16856004297733307,
+            "energy": 0.0024772528558969498,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 646,
+            "interactions": 5,
+            "wake": 0.141079053,
+            "energy": 0.0176270511,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 647,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.15189337730407715,
+            "energy": 0.010429700836539268,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 647,
+            "interactions": 5,
+            "wake": 0.124412388,
+            "energy": 0.034250427,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 648,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.13522671163082123,
+            "energy": 0.024010464549064636,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 648,
+            "interactions": 5,
+            "wake": 0.107745722,
+            "energy": 0.0565668121,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 649,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.11856004595756531,
+            "energy": 0.042533159255981445,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 649,
+            "interactions": 5,
+            "wake": 0.0910790563,
+            "energy": 0.0835541338,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 650,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.10189338028430939,
+            "energy": 0.06460722535848618,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 650,
+            "interactions": 5,
+            "wake": 0.0744123906,
+            "energy": 0.113525346,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 651,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.08522671461105347,
+            "energy": 0.08838637918233871,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 651,
+            "interactions": 5,
+            "wake": 0.0577457249,
+            "energy": 0.144389823,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 652,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.06856004893779755,
+            "energy": 0.11181485652923584,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 652,
+            "interactions": 5,
+            "wake": 0.0410790592,
+            "energy": 0.173894033,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 653,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.051893383264541626,
+            "energy": 0.13287138938903809,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 653,
+            "interactions": 5,
+            "wake": 0.0244123917,
+            "energy": 0.199866459,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 654,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.035226717591285706,
+            "energy": 0.1498485803604126,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 654,
+            "interactions": 5,
+            "wake": 0.00774572417,
+            "energy": 0.220505893,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 655,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.018560050055384636,
+            "energy": 0.16151486337184906,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 655,
+            "interactions": 5,
+            "wake": 0,
+            "energy": 0.234543234,
+            "threshold": 0.300000012,
+            "pending": true
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 656,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": null,
+          "input_differences": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8,
+            9
+          ],
+          "native": {
+            "wake": 0.0018933825194835663,
+            "energy": 0.16725577414035797,
+            "threshold": 0.30000001192092896
+          },
+          "source": null,
+          "state_difference_fields": []
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "frames": 654,
+      "first_input_difference": {
+        "step": 656,
+        "native_count": 5,
+        "native_count_slots": [
+          4,
+          1,
+          0,
+          0
+        ],
+        "source_count": null,
+        "input_differences": [
+          0,
+          1,
+          2,
+          6,
+          7,
+          8,
+          9
+        ],
+        "native": {
+          "wake": 0.0018933825194835663,
+          "energy": 0.16725577414035797,
+          "threshold": 0.30000001192092896
+        },
+        "source": null,
+        "state_difference_fields": []
+      },
+      "first_count_difference": {
+        "step": 217,
+        "native_count": 8,
+        "native_count_slots": [
+          6,
+          2,
+          0,
+          0
+        ],
+        "source_count": 4,
+        "input_differences": [],
+        "native": {
+          "wake": 0.2666664719581604,
+          "energy": 0.0,
+          "threshold": 0.0
+        },
+        "source": {
+          "step": 217,
+          "interactions": 4,
+          "wake": 0.266666472,
+          "energy": 0,
+          "threshold": 0,
+          "pending": false
+        },
+        "state_difference_fields": []
+      },
+      "first_state_difference": {
+        "step": 218,
+        "native_count": 6,
+        "native_count_slots": [
+          4,
+          2,
+          0,
+          0
+        ],
+        "source_count": 4,
+        "input_differences": [],
+        "native": {
+          "wake": 0.383333295583725,
+          "energy": 0.0,
+          "threshold": 0.0
+        },
+        "source": {
+          "step": 218,
+          "interactions": 4,
+          "wake": 0.249999806,
+          "energy": 0,
+          "threshold": 0,
+          "pending": false
+        },
+        "state_difference_fields": [
+          "wake"
+        ]
+      },
+      "last20": [
+        {
+          "step": 637,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.31856009364128113,
+            "energy": 0.35284021496772766,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 637,
+            "interactions": 5,
+            "wake": 0.291079074,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 638,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.301893413066864,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 638,
+            "interactions": 5,
+            "wake": 0.274412394,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 639,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2852267324924469,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 639,
+            "interactions": 5,
+            "wake": 0.257745713,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 640,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2685600519180298,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 640,
+            "interactions": 5,
+            "wake": 0.241079047,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 641,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.25189337134361267,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 641,
+            "interactions": 5,
+            "wake": 0.224412382,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 642,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.23522670567035675,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 642,
+            "interactions": 5,
+            "wake": 0.207745716,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 643,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.21856003999710083,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 643,
+            "interactions": 5,
+            "wake": 0.19107905,
+            "energy": 0,
+            "threshold": 0,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake"
+          ]
+        },
+        {
+          "step": 644,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.2018933743238449,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 644,
+            "interactions": 5,
+            "wake": 0.174412385,
+            "energy": 0.00145012897,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 645,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.185226708650589,
+            "energy": 0.0,
+            "threshold": 0.0
+          },
+          "source": {
+            "step": 645,
+            "interactions": 5,
+            "wake": 0.157745719,
+            "energy": 0.00689488603,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy",
+            "threshold"
+          ]
+        },
+        {
+          "step": 646,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.16856004297733307,
+            "energy": 0.0024772528558969498,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 646,
+            "interactions": 5,
+            "wake": 0.141079053,
+            "energy": 0.0176270511,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 647,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.15189337730407715,
+            "energy": 0.010429700836539268,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 647,
+            "interactions": 5,
+            "wake": 0.124412388,
+            "energy": 0.034250427,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 648,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.13522671163082123,
+            "energy": 0.024010464549064636,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 648,
+            "interactions": 5,
+            "wake": 0.107745722,
+            "energy": 0.0565668121,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 649,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.11856004595756531,
+            "energy": 0.042533159255981445,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 649,
+            "interactions": 5,
+            "wake": 0.0910790563,
+            "energy": 0.0835541338,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 650,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.10189338028430939,
+            "energy": 0.06460722535848618,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 650,
+            "interactions": 5,
+            "wake": 0.0744123906,
+            "energy": 0.113525346,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 651,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.08522671461105347,
+            "energy": 0.08838637918233871,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 651,
+            "interactions": 5,
+            "wake": 0.0577457249,
+            "energy": 0.144389823,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 652,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.06856004893779755,
+            "energy": 0.11181485652923584,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 652,
+            "interactions": 5,
+            "wake": 0.0410790592,
+            "energy": 0.173894033,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 653,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.051893383264541626,
+            "energy": 0.13287138938903809,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 653,
+            "interactions": 5,
+            "wake": 0.0244123917,
+            "energy": 0.199866459,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 654,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.035226717591285706,
+            "energy": 0.1498485803604126,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 654,
+            "interactions": 5,
+            "wake": 0.00774572417,
+            "energy": 0.220505893,
+            "threshold": 0.300000012,
+            "pending": false
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 655,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": 5,
+          "input_differences": [],
+          "native": {
+            "wake": 0.018560050055384636,
+            "energy": 0.16151486337184906,
+            "threshold": 0.30000001192092896
+          },
+          "source": {
+            "step": 655,
+            "interactions": 5,
+            "wake": 0,
+            "energy": 0.234543234,
+            "threshold": 0.300000012,
+            "pending": true
+          },
+          "state_difference_fields": [
+            "wake",
+            "energy"
+          ]
+        },
+        {
+          "step": 656,
+          "native_count": 5,
+          "native_count_slots": [
+            4,
+            1,
+            0,
+            0
+          ],
+          "source_count": null,
+          "input_differences": [
+            0,
+            1,
+            2,
+            6,
+            7,
+            8,
+            9
+          ],
+          "native": {
+            "wake": 0.0018933825194835663,
+            "energy": 0.16725577414035797,
+            "threshold": 0.30000001192092896
+          },
+          "source": null,
+          "state_difference_fields": []
+        }
+      ]
+    }
+  ],
+  "goal_complete": false
+}

@@ -1,0 +1,15 @@
+# Actual interaction lifecycle and explicit wake V160
+
+Default-off RRR3D_EXPERIMENT_NATIVE_SLEEP_LIFECYCLE_V160 with completeV159 profile. No coefficient, threshold, seed, timestep, command, geometry or Windows changes. One-file overlay over exactV159 Source; SDK unchanged. Research scope remains the existing one-car manager scene path; general dynamic/compound/multiple-vehicle scene certification remains open.
+
+The previous energy wrapper counted visible wheel contacts. Original counters include retained potential wheel managers. Existing geometry-derived manager entries match all654 original incoming counts through656; visible contacts first differ at217. The previous potential-body-pair-loss wake approximation also misses lost wheel contacts and wakes on pairs which never touched. The new path tracks actual body manifolds and each wheel's actual support, and requests internal default wake after a real touch is lost, following the energy evaluation. Geometry-derived potential manager counts remain separate from actual touching status.
+
+Explicit original GameCar wakeUp replaces the counter with default0.399999976, whereas the internal Core1b1270 wake helper only raises it. At actual360 original reduces0.449999958 to0.399999976; the previous Source max kept the larger value. The candidate distinguishes explicit commands from internal wake. No recorded cache, measured state reset, case/frame IDs or per-wheel values enter runtime.
+
+Independent continuous helper, driven only by Source private poses/mass, Source geometry/query lifecycle and recorded Source command events, matches all653 original accumulator/energy/threshold/wake/sleep transitions through655, two original repeats atO0/O2. Baseline and intermediate unsuccessful models are retained; unrestricted pair-removal wake is rejected. Counting correction alone does not change the observed state because the count differences here occur outside energy evaluation. Do not claim it alone fixed sleep.
+
+Actual candidate runtime matches all654 original counts/energy/threshold/wake/pending values through656, twice. Both moving map64 runs increase exact prefix656 to720; all states including correct sleep timing match through719. Maps0 and48 remain900/900 exact; map16 remains420. Map64 now first differs at velocity-change wake720. Source720 diagnostics and original spring/wheel capture are being collected. Investigate the actual cold-wake object/queue order, not measured permutation fitting.
+
+All53 CTest checks pass. Flag-off900 map0 states equalV159. Full frozen608x2 regression is running; do not claim it passed until final comparison. Ordinary installed game/controller integration remains unproved; goal incomplete.
+
+Read-only telemetry first keeps all900 Source states unchanged. Original six-hook energy and seven-hook wake captures both preserve every900 immutable Windows state and original hashes. The oldV127 observer rejects target>=600 before process creation; that failed initial656 request has no physics evidence. New observer builds use distinct folders and only raise validation bound900. See observer-limit.txt.

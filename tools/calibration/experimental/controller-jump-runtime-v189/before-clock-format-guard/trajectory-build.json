@@ -1,0 +1,38 @@
+{
+  "source_sha256": "54614667bd150d22027fd4c5214ae63be0c6ee0cb68165efd5e8578313a643ec",
+  "header_sha256": "2408284e708adf9aeb04f6e84a12ae65b52e8850c80f041937081c6ef1fb6ac3",
+  "build_id": "53a1359d5256c1b762ae40199173710ffd4173e81b2983ab56b885fea69ea8b9",
+  "observer_sha256": "ad7f01b9766a18bf6c5464f01151c3cb9055f3c3cd1480f9600612594551843b",
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--dll",
+    "msvcr90,msvcp90,msvcm90=n",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\jump-trajectory-v189",
+    "--cx-app",
+    "C:\\windows\\system32\\cmd.exe",
+    "/d",
+    "/c",
+    "C:\\MotorRock\\jump-trajectory-v189\\build.cmd"
+  ],
+  "batch_sha256": "95da05770bd06810eae382ff232f8600b8eb4bec9210f694dde25caeee37e8f2",
+  "compiler_sha256": "2954bed141f2f283e3109b2187406704a2d5cb6378cb3074f1b09bc5045d65c1",
+  "import_library_sha256": "834e744e9462a928a6b2aae46ca06526690ca765b9cc096a367015bf19e7ccee",
+  "sdk_header_sha256": "7574ada1dd2fec9230edc0affb8958e6a8c2b7cdd8736101149ae08882ae98d6",
+  "module_sha256": {
+    "PhysXCore.dll": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+    "PhysXLoader.dll": "29b2183cbd9b4b43f247d7e47e7a636ed3898d8e79afb109b5ef0e02c5493768",
+    "PhysXCooking.dll": "2e5657ae13de0a0c79c56453b8c73ba3978069d55440134873c6534bbada522b",
+    "PhysXDevice.dll": "6b9f40f2da693b935163935c7ab56847bf11f7160f5b268c4e4881d2973d9cb7",
+    "cudart32_30_9.dll": "08c137f66758b6c342c0dd32fa45e8fc8c9f0c287997e46e515610c2aa84d0ed"
+  },
+  "returncode": 0,
+  "elapsed_seconds": 13.194695957994554,
+  "vm_started": false
+}

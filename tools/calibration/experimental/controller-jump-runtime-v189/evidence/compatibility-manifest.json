@@ -1,0 +1,96 @@
+{
+  "scope": "Fresh original GameCar JumpProgress execution on actual SDK actor in CrossOver, provisional compatibility evidence, not new native Windows gold. No active-code hooks.",
+  "build": {
+    "source_sha256": "20c246144899ced044112ec491ca0f5e7fb9ef8fd38b07503c7bfb27d32fc226",
+    "header_sha256": "2408284e708adf9aeb04f6e84a12ae65b52e8850c80f041937081c6ef1fb6ac3",
+    "build_id": "2747deb1c2371dde10617e366b539c5f71b5b2cdbe6932f5eebbe136ad0dfaaf",
+    "observer_sha256": "1048b64c2abcd11f4124fa4eb6db7c847eca8bd7ceb7047f6ef9b8ea9bcd78b5",
+    "command": [
+      "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+      "--bottle",
+      "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+      "--no-gui",
+      "--dll",
+      "msvcr90,msvcp90,msvcm90=n",
+      "--debugmsg",
+      "-all,+loaddll",
+      "--no-update",
+      "--workdir",
+      "C:\\MotorRock\\jump-runtime-v189",
+      "--cx-app",
+      "C:\\windows\\system32\\cmd.exe",
+      "/d",
+      "/c",
+      "C:\\MotorRock\\jump-runtime-v189\\build.cmd"
+    ],
+    "batch_sha256": "73824ac80d0c1de041773d7cc25cd463c8a605f9a4a19bb3d395717752ad0dda",
+    "compiler_sha256": "2954bed141f2f283e3109b2187406704a2d5cb6378cb3074f1b09bc5045d65c1",
+    "import_library_sha256": "834e744e9462a928a6b2aae46ca06526690ca765b9cc096a367015bf19e7ccee",
+    "sdk_header_sha256": "7574ada1dd2fec9230edc0affb8958e6a8c2b7cdd8736101149ae08882ae98d6",
+    "module_sha256": {
+      "PhysXCore.dll": "c03f0e20e99a6ca8d72c8627cf3b0108036a734123f75c652c2b78d3043dbdbb",
+      "PhysXLoader.dll": "29b2183cbd9b4b43f247d7e47e7a636ed3898d8e79afb109b5ef0e02c5493768",
+      "PhysXCooking.dll": "2e5657ae13de0a0c79c56453b8c73ba3978069d55440134873c6534bbada522b",
+      "PhysXDevice.dll": "6b9f40f2da693b935163935c7ab56847bf11f7160f5b268c4e4881d2973d9cb7",
+      "cudart32_30_9.dll": "08c137f66758b6c342c0dd32fa45e8fc8c9f0c287997e46e515610c2aa84d0ed"
+    },
+    "returncode": 0,
+    "elapsed_seconds": 5.863484832982067,
+    "vm_started": false
+  },
+  "input_sha256": "803c5332b3bd2b46d077bf79bad6e0156da4f2bcf3b0fafeec60fee371bc0572",
+  "runs": [
+    {
+      "repeat": 0,
+      "returncode": 0,
+      "elapsed_seconds": 13.132566042011604,
+      "command": [
+        "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+        "--bottle",
+        "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+        "--no-gui",
+        "--dll",
+        "msvcr90,msvcp90,msvcm90=n;d3dx9_43=n",
+        "--debugmsg",
+        "-all,+loaddll",
+        "--no-update",
+        "--workdir",
+        "C:\\MotorRock\\jump-runtime-v189",
+        "--cx-app",
+        "C:\\MotorRock\\jump-runtime-v189\\JumpProbeV189.exe",
+        "C:\\MotorRock\\jump-runtime-v189\\input.words",
+        "C:\\MotorRock\\jump-runtime-v189\\run0.jsonl"
+      ],
+      "raw_sha256": "76e45119e84888f2de3f8e0675e53e259dc81ebfa264ecf12d7d5d383f66073d",
+      "archive_sha256": "175698ad5f0487af827965b3e341cfe38f7fedd2168d0eae2a7e2751d06b9de7",
+      "states": 530
+    },
+    {
+      "repeat": 1,
+      "returncode": 0,
+      "elapsed_seconds": 9.190413541975431,
+      "command": [
+        "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+        "--bottle",
+        "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+        "--no-gui",
+        "--dll",
+        "msvcr90,msvcp90,msvcm90=n;d3dx9_43=n",
+        "--debugmsg",
+        "-all,+loaddll",
+        "--no-update",
+        "--workdir",
+        "C:\\MotorRock\\jump-runtime-v189",
+        "--cx-app",
+        "C:\\MotorRock\\jump-runtime-v189\\JumpProbeV189.exe",
+        "C:\\MotorRock\\jump-runtime-v189\\input.words",
+        "C:\\MotorRock\\jump-runtime-v189\\run1.jsonl"
+      ],
+      "raw_sha256": "76e45119e84888f2de3f8e0675e53e259dc81ebfa264ecf12d7d5d383f66073d",
+      "archive_sha256": "175698ad5f0487af827965b3e341cfe38f7fedd2168d0eae2a7e2751d06b9de7",
+      "states": 530
+    }
+  ],
+  "vm_started": false,
+  "goal_complete": false
+}

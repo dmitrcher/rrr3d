@@ -1,0 +1,8 @@
+from pathlib import Path
+import gzip,hashlib,json,os,subprocess,time
+R=Path.cwd();W=R/'work/controller-jump-runtime-v189';O=R/'outputs/controller-jump-runtime-v189/trajectories';EXE=R/'work/controller-jump-v187/SourceJumpGravityProbe';B=json.loads((R/'work/controller-jump-v187/source-build.json').read_text());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert sha(EXE)==B['executable_sha256'];A=Path('/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d');assert all(sha(A/p)==h for p,h in B['libraries'].items());base=json.loads((R/'outputs/controller-clutch-v186/final-broad/manifest.json').read_text())['environment'];runs=[]
+for rep in range(2):
+ env={k:v for k,v in os.environ.items() if not k.startswith(('RRR3D_','NX_','MOTORROCK_'))};env.update(base);env.update(RRR3D_EXPERIMENT_GAMECAR_JUMP_V187='1',MOTORROCK_JUMP_SCENE_GRAVITY='-20');dst=O/f'mac{rep}.jsonl';t=time.monotonic()
+ with (W/f'trajectory-mac{rep}.log').open('w') as log:subprocess.run([str(EXE),str(dst),'list:game-air-gravity,game-air-pitch'],env=env,stdout=log,stderr=log,check=True,timeout=90)
+ raw=dst.read_bytes();rows=[json.loads(s) for s in raw.splitlines()];assert sum(x['event']=='calibration.sample' for x in rows)==240;(O/f'mac{rep}.jsonl.gz').write_bytes(gzip.compress(raw,mtime=0));runs.append(dict(repeat=rep,states=240,raw_sha256=hashlib.sha256(raw).hexdigest(),elapsed_seconds=time.monotonic()-t));print('Mac trajectory',rep,'240states',flush=True)
+(O/'mac-manifest.json').write_text(json.dumps(dict(build=B,runs=runs,environment={k:v for k,v in env.items() if k.startswith(('RRR3D_','NX_','MOTORROCK_'))},vm_started=False,full_goal_complete=False),indent=2)+'\n')

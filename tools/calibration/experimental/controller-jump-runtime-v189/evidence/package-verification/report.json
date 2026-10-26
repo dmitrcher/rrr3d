@@ -1,0 +1,36 @@
+{
+  "scope": "Bounded experimental jump-method public-observable checks,530 compatibility cases and240 saved native-Windows SDK states per repetition. Not full game/native Windows GameCar acceptance.",
+  "checks": [
+    {
+      "check": "method-and-step",
+      "repeat": 0,
+      "exact": 530,
+      "cases": 530
+    },
+    {
+      "check": "method-and-step",
+      "repeat": 1,
+      "exact": 530,
+      "cases": 530
+    },
+    {
+      "check": "disabled-negative-control",
+      "different": 336,
+      "cases": 530
+    },
+    {
+      "check": "saved-windows-sdk-trajectories",
+      "repeat": 0,
+      "exact": 240,
+      "states": 240
+    },
+    {
+      "check": "saved-windows-sdk-trajectories",
+      "repeat": 1,
+      "exact": 240,
+      "states": 240
+    }
+  ],
+  "vm_started": false,
+  "full_goal_complete": false
+}

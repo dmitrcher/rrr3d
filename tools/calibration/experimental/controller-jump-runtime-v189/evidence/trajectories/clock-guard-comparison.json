@@ -1,0 +1,39 @@
+{
+  "scope": "Only the owned harness logger precision guard changed. All physical/control/tick/wheel float32 fields compared, excluding the derived sample time label which is audited separately.",
+  "runs": [
+    {
+      "mode": "sdk",
+      "repeat": 0,
+      "states": 360,
+      "physical_exact": 360,
+      "clock_label_changes": 0,
+      "first_physical_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 1,
+      "states": 360,
+      "physical_exact": 360,
+      "clock_label_changes": 0,
+      "first_physical_differences": []
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 0,
+      "states": 240,
+      "physical_exact": 240,
+      "clock_label_changes": 206,
+      "first_physical_differences": []
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 1,
+      "states": 240,
+      "physical_exact": 240,
+      "clock_label_changes": 206,
+      "first_physical_differences": []
+    }
+  ],
+  "vm_started": false,
+  "full_goal_complete": false
+}

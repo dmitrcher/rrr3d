@@ -1,0 +1,222 @@
+{
+  "scope": "Unchanged saved Windows SDK airborne trajectories vs fresh SDK harness, actual original JumpProgress on same SDK fixtures under CrossOver, and actual Source GameCar/Jolt. Original GameDLL not executed under native Windows in this checkpoint. No ground/contact transition, full OnFixedStep, AI or general-game equivalence.",
+  "reference": "work/v187-release-download/expanded/MotorRock-Mac-Jump-v187/native-sdk.jsonl.gz",
+  "reference_sha256": "cbfc9c58321cc78ac4f6c8423f9d11d129655b41761ff97dc3dfbde253eb6e16",
+  "runs": [
+    {
+      "mode": "sdk",
+      "repeat": 0,
+      "case": "gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 0,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 0,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 1,
+      "case": "gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 1,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "sdk",
+      "repeat": 1,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 0,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 17,
+      "first_differences": [
+        {
+          "tick": 0,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 1,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 2,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 3,
+          "fields": [
+            "time"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 0,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 17,
+      "first_differences": [
+        {
+          "tick": 0,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 1,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 2,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 3,
+          "fields": [
+            "time"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 1,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 17,
+      "first_differences": [
+        {
+          "tick": 0,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 1,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 2,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 3,
+          "fields": [
+            "time"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "actual-method",
+      "repeat": 1,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 17,
+      "first_differences": [
+        {
+          "tick": 0,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 1,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 2,
+          "fields": [
+            "time"
+          ]
+        },
+        {
+          "tick": 3,
+          "fields": [
+            "time"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "mac",
+      "repeat": 0,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "mac",
+      "repeat": 0,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "mac",
+      "repeat": 1,
+      "case": "game-air-gravity",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    },
+    {
+      "mode": "mac",
+      "repeat": 1,
+      "case": "game-air-pitch",
+      "states": 120,
+      "exact": 120,
+      "first_differences": []
+    }
+  ],
+  "repeats_identical": true,
+  "vm_started": false,
+  "full_goal_complete": false
+}

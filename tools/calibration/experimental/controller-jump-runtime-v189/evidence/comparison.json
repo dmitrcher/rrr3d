@@ -1,0 +1,70 @@
+{
+  "scope": "Actual original JumpProgress+SDK under CrossOver versus actual Source GameCar+Jolt. Runtime qualification for arbitrary GameCar arithmetic is NOT established; differences are investigation leads, not automatic Windows parity failures. Synthetic scalar contact flags, identity initial orientation, four free wheels, no AI. One method delta then fixed integration1/60.",
+  "comparison": "Exact uint32 words; existing physics contract treats signed zeros equal and reports them separately. No float conversion of integer words.",
+  "runs": [
+    {
+      "repeat": 0,
+      "cases": 530,
+      "exact": 530,
+      "initial_differences": [],
+      "first_differences": [],
+      "all_different_case_ids": [],
+      "field_counts": {},
+      "signed_zero_only_fields": {
+        "momentum_after_step": 463
+      },
+      "groups": {
+        "scalar-gates": {
+          "cases": 360,
+          "exact": 360
+        },
+        "mass-gravity": {
+          "cases": 42,
+          "exact": 42
+        },
+        "multi-axis-speed-boundary": {
+          "cases": 120,
+          "exact": 120
+        },
+        "velocity-directions": {
+          "cases": 8,
+          "exact": 8
+        }
+      }
+    },
+    {
+      "repeat": 1,
+      "cases": 530,
+      "exact": 530,
+      "initial_differences": [],
+      "first_differences": [],
+      "all_different_case_ids": [],
+      "field_counts": {},
+      "signed_zero_only_fields": {
+        "momentum_after_step": 463
+      },
+      "groups": {
+        "scalar-gates": {
+          "cases": 360,
+          "exact": 360
+        },
+        "mass-gravity": {
+          "cases": 42,
+          "exact": 42
+        },
+        "multi-axis-speed-boundary": {
+          "cases": 120,
+          "exact": 120
+        },
+        "velocity-directions": {
+          "cases": 8,
+          "exact": 8
+        }
+      }
+    }
+  ],
+  "repeats_identical": true,
+  "vm_started": false,
+  "native_windows_gold": false,
+  "full_goal_complete": false
+}

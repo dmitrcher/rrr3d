@@ -181,8 +181,8 @@ public:
         // Original WheelsProgress changes visual steering, retaining SDK wheel angles.
         bool preservePhysicalWheelSteering = false;
         bool applyOriginalSteeringTransform = false;
-    bool clutchLocked = false;
-    float clutchStrength = 0.0F;
+        bool clutchLocked = false;
+        float clutchStrength = 0.0F;
     };
 
     // Backend-neutral arguments and commands for the original

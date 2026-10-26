@@ -1,7 +1,33 @@
-# Clutch investigation V186 (in progress)
+# Clutch integration V186
 
-The original `StabilizeForce` keeps local Z momentum when clutch is locked and strength is zero, or replaces it with `strength * NxActor::getMass()` once for a nonzero strength; it then clears the strength. This belongs inside stabilization after local conversion. The existing Source session applies an immediate oil-contact momentum request and consumes the strength before the controller step.
+Original Windows StabilizeForce preserves local Z momentum while the clutch is locked with zero strength. A nonzero request replaces local Z with strength * NxActor::getMass() once, then clears the strength. This happens after conversion to local momentum and before conversion back to world momentum.
 
-The candidate helper and matrix cover four clutch modes, six orientations, five angular velocities, six damping/clamp recipes, and two contact booleans. This is an investigation, not accepted production integration. The first candidate incorrectly used the serialized nominal mass 1000. Its 702 four-wheel cases with nonzero clutch strength expose a one-ULP discrepancy at the identity orientation already. The actual public actor mass must be measured; no coefficient fitting is allowed.
+The Mac Session previously consumed oil-contact strength immediately and multiplied by nominal mass. V186 carries the one-shot request through the real GameCar command and Session adapter to the stabilizer. Public actor mass comes from the actual stored inverse mass, matching measured Windows float word 1148846079 (999.9999389648438 for nominal 1000). There is no fitted coefficient.
 
-The measured actor mass is 999.9999389648438 (float word 1148846079), rather than serialized 1000. Passing that actual public mass closes all 1440 helper cases in each of the two inertia fixtures, at O0/O2, repeated twice. The six-file production overlay is prepared outside the active source tree, but is NOT applied or accepted yet. It moves the request through GameCar -> Session -> stabilizer and removes the old immediate oil-contact request only under the new default-off flag. The active binaries remain V185 while its full regression runs.
+RRR3D_EXPERIMENT_GAMECAR_CLUTCH_V186=1 enables the change; it defaults off. The backend also requires explicit real-game command provenance. An added negative test initially found that injected fields could bypass both boundaries; the corrected implementation passes both controls.
+
+## Verified scope
+
+| Check | Evidence | Interpretation |
+| --- | --- | --- |
+| Real GameCar -> Jolt world | 720 no-contact inputs, two identical repeats | Exact recorded Windows q/omega and post-integration pose/momentum/position; baseline matched only 360 |
+| Production arithmetic header | 2 inertia fixtures x 1440 cases, O0/O2, two repeats | Matches original StabilizeForce; contact booleans are scalar fixtures |
+| Persistent GameCar | 26 steps x 720 fixtures, two identical repeats | Body reseeded to recorded inputs every tick; verifies one-shot consumption, not an uninterrupted Windows trajectory |
+| Flag and provenance boundaries | 720 inputs per boundary | Injected fields have no effect when flag is off or provenance is absent |
+| Actual Session oil path | Application --physics-smoke-test, V186 on | No immediate momentum queue; first callback receives strength, second receives zero; Source expiry tested |
+| General physics baseline | 608 scenarios, 255864 states per repeat, two repeats | All float32 physical observables match immutable Windows capture |
+| Recorded map regression | 4 tracks x 900 states x 2 repeats | 7200 states match Windows; one car, SDK replay scope |
+| CTest | 53 tests, default and V186 environments | Source regression tests |
+| Source game event replay | 900 steps, two identical enabled repeats | Functional Session bridge; does not establish full Windows race parity |
+
+All Windows observations in this continuation were already recorded. The VM was not started. The original golden capture is unchanged. No historical versions were deleted.
+
+## Reproduction
+
+Apply install-guarded.py to the documented V185 Source/Jolt base. Every prerequisite is checked before mutation. The installer test verifies six changes, zero on reapplication, and rejection of an unknown prerequisite without mutation. Build the existing CMake project, then run the build/run-world, command-boundary, build/run-lifetime and production-helper scripts. Reference identities are recorded in evidence; large bodies retained locally are indexed separately.
+
+The world probe isolates stabilization: motor, braking, gravity and wheel contact forces are zero, no AI or other cars are present, dt=1/60 and float32 inputs are explicit. The lifetime probe resets the body between steps while retaining the controller. These tests have different scopes.
+
+## Still open
+
+The full physics parity goal remains active. These results do not prove native clutch timer duration, uninterrupted original GameCar::OnFixedStep, real wheel-contact gates, jump behavior, shifted-center/edge cases, ordinary race behavior, AI or visual parity. New Windows runtime observations will not be collected while the user's no-VM constraint applies. Missing observations remain explicit gaps; a Mac-generated reference cannot establish Windows parity.

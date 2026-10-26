@@ -1,0 +1,9 @@
+off 0 exact 360 initial 0 field counts {'rotation_after_step': 360, 'momentum_after_step': 360, 'omega_after': 360}
+off 1 exact 360 initial 0 field counts {'rotation_after_step': 360, 'momentum_after_step': 360, 'omega_after': 360}
+on 0 exact 360 initial 0 field counts {'rotation_after_step': 360, 'momentum_after_step': 360, 'omega_after': 360}
+on 1 exact 360 initial 0 field counts {'rotation_after_step': 360, 'momentum_after_step': 360, 'omega_after': 360}
+Traceback (most recent call last):
+  File "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-clutch-v186/run-world.py", line 25, in <module>
+    assert all(not r['differences'] for r in reports if r['mode']=='on'),'World parity remains open'
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: World parity remains open

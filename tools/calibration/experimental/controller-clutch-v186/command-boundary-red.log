@@ -1,0 +1,6 @@
+[('flag-off', 360), ('unmarked', 264)]
+Traceback (most recent call last):
+  File "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-clutch-v186/test-command-boundary.py", line 38, in <module>
+    assert all(not r['differences'] for r in reports), 'Experimental or provenance boundary leaked'
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Experimental or provenance boundary leaked

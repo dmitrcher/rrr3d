@@ -1,3 +1,4 @@
+raise SystemExit("Historical preparation script: use the reviewed after/ snapshots and install-guarded.py. Do not regenerate from an active V186 tree.")
 from pathlib import Path
 import json,hashlib
 root=Path.cwd();p=root/'work/controller-clutch-v186';a=Path('/Users/dmitrijcerednicenko/Documents/Codex/2026-07-22/files-mentioned-by-the-user-rrr3d/outputs/rrr3d');changes={};flags='RRR3D_EXPERIMENT_GAMECAR_CLUTCH_V186'

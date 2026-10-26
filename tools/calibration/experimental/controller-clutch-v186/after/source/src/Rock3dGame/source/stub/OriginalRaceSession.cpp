@@ -16957,6 +16957,11 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
 
         {
             OriginalRaceSession oilSession(race);
+            const char* clutchFlag = std::getenv("RRR3D_EXPERIMENT_GAMECAR_CLUTCH_V186");
+            const bool deferredClutch = clutchFlag && std::strcmp(clutchFlag, "1") == 0;
+            // Keep the real Session event separate from the physics callback,
+            // as the live application does, so the pending request is observable.
+            oilSession.setExternalVehicleFixedStep(deferredClutch);
             oilSession.applyPlayerProfile(
                 mineProfileFor(*oilMine));
             auto sourceVehicles = isolatedMineVehicles();
@@ -16979,6 +16984,11 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
                 oilSession.update(
                     1.0F / 60.0F, sourceVehicles,
                     sourceInput);
+                // Advance the real mine immunity clock through physics
+                // callbacks, stopping before the first queued oil request
+                // is consumed so the boundary can be inspected below.
+                if (deferredClutch && !oilSession.racers()[0].gameCar.IsClutchLocked())
+                    oilSession.racerFixedStepDrive(0U, 1.0F / 60.0F, {}, {});
             }
             const auto armedMomentum =
                 oilSession.takeAngularMomentumRequests();
@@ -17001,6 +17011,27 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
                                std::abs(request.momentum.z) -
                                expectedOilYawMomentum) < 0.01F;
                 });
+            bool deferredClutchVerified = false;
+            if (deferredClutch)
+            {
+                physics::VehicleFixedStepState fixedState;
+                fixedState.signedSpeed = fixedState.absoluteSpeed =
+                    fixedState.horizontalSpeed = 10.0F;
+                const auto first = oilSession.racerFixedStepDrive(
+                    0U, 1.0F / 60.0F, {}, fixedState);
+                const auto second = oilSession.racerFixedStepDrive(
+                    0U, 1.0F / 60.0F, {}, fixedState);
+                const auto expired = oilSession.racerFixedStepDrive(
+                    0U, 0.38F, {}, fixedState);
+                deferredClutchVerified = armedMomentum.empty() &&
+                    first.originalGameCarStabilization &&
+                    first.clutchLocked && second.clutchLocked &&
+                    first.angularDamping[2U] == 1.0F &&
+                    std::abs(std::abs(first.clutchStrength) -
+                        std::abs(oilMine->projectiles.front().damage)) < 0.00001F &&
+                    second.clutchStrength == 0.0F &&
+                    !expired.clutchLocked && expired.clutchStrength == 0.0F;
+            }
             const auto* oilSource =
                 oilSession.mines().empty()
                     ? nullptr
@@ -17010,13 +17041,13 @@ bool runOriginalRaceSessionSmokeTest(const Race& race, std::string& error)
                 : nullptr;
             if (!earlyMomentum.empty() ||
                 oilSession.mines().size() != 1U ||
-                !oilLockedClutch ||
+                !(deferredClutch ? deferredClutchVerified : oilLockedClutch) ||
                 oilSourceModel == nullptr ||
                 oilSourceModel->GetGameObj().GetScale() !=
                     source::GameObject::Vector3{
                         1.0F, 1.0F, 1.0F} ||
-                !oilSession.racers()[0]
-                     .gameCar.IsClutchLocked())
+                (!deferredClutch && !oilSession.racers()[0]
+                     .gameCar.IsClutchLocked()))
             {
                 throw std::runtime_error(
                     "source Maslo arming/mine-lock/clutch lifecycle "

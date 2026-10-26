@@ -4825,7 +4825,9 @@ private:
                         gameCarCommand.originalGameCarStabilization &&
                         (motorrock::tirev55::enabled("RRR3D_EXPERIMENT_GAMECAR_STABILIZE_V185") ||
                          motorrock::tirev55::enabled("RRR3D_EXPERIMENT_GAMECAR_CLUTCH_V186")),
-                        gameCarCommand.clutchLocked,gameCarCommand.clutchStrength);
+                        gameCarCommand.originalGameCarStabilization &&
+                        motorrock::tirev55::enabled("RRR3D_EXPERIMENT_GAMECAR_CLUTCH_V186") &&
+                        gameCarCommand.clutchLocked, gameCarCommand.clutchStrength);
                 applyGameCarSteering(vehicle, gameCarCommand);
             }
         }

@@ -1,0 +1,36 @@
+{
+  "scope": "Persistent controller; reseed physical body to independently recorded inputs each tick.\n\nThis proves command consumption, not an uninterrupted Windows race or native timer duration.",
+  "runs": [
+    {
+      "repeat": 0,
+      "states": 18720,
+      "exact": 18720,
+      "differences": [],
+      "source_unlocked_ticks": {
+        "22": 540,
+        "23": 540,
+        "24": 540,
+        "25": 540
+      },
+      "sha256": "942b74ccb7458dc714033fcb7fc479a284c74abb0cc75ea254c04c88ade849d8"
+    },
+    {
+      "repeat": 1,
+      "states": 18720,
+      "exact": 18720,
+      "differences": [],
+      "source_unlocked_ticks": {
+        "22": 540,
+        "23": 540,
+        "24": 540,
+        "25": 540
+      },
+      "sha256": "942b74ccb7458dc714033fcb7fc479a284c74abb0cc75ea254c04c88ade849d8"
+    }
+  ],
+  "repeats_identical": true,
+  "native_timer_duration_proven": false,
+  "uninterrupted_native_sequence_proven": false,
+  "executable_sha256": "0bd683c2a0f7c0760b2bb23c5a5665c48d858b99f1d09ba35d6e5cf2cd82b678",
+  "goal_complete": false
+}

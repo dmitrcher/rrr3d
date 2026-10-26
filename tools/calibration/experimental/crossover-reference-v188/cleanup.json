@@ -1,0 +1,19 @@
+{
+  "scope": "Stop task-owned prefix server only; unrelated user bottles/processes untouched",
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-update",
+    "--ux-app",
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wineserver",
+    "-k"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "",
+  "owned_ro_installer_mount_detached": true,
+  "vm_started": false,
+  "remaining_server_processes": [],
+  "stop_result_interpretation": "Stop returned1; subsequent process inventory contains no wineserver or mspdbsrv process. No unrelated process was terminated."
+}

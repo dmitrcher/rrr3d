@@ -1,0 +1,73 @@
+Usage: wine [--bottle BOTTLE] [command]
+            [options] [application arguments]
+
+Runs Windows, Winelib or Native applications in the Wine environment. With the
+--start command, documents can also be opened using the Windows associations.
+
+Where command is one of:
+  --cx-app FILE   Run the specified Windows executable
+  --wl-app FILE   Run the specified Winelib executable
+  --wl32-app FILE Run the specified 32-bit Winelib executable
+  --ux-app FILE   Run the specified Native executable
+                  Native paths are not converted to Windows paths
+  --cx-hooks ACTION Runs the specified action through the CrossOVer hooks.
+  --start FILE    Open or run the specified document
+  --update-only   Only update the bottle
+  --help, -h      Shows this help message
+  --version       Outputs the version information and exits
+If no command is specified, the first non option argument is used as the name
+of the Windows application to run.
+
+Options:
+  --bottle BOTTLE Use the specified bottle. If this option is not used,
+                  fallback to $CX_BOTTLE and then to 'default'
+  --scope SCOPE   If set to managed, the bottle will be looked up in the
+                  system-wide bottle locations, otherwise it will refer to a
+                  private bottle
+  --start-only EXTLIST Only allow document filenames ending with one of the
+                  extensions in this colon-separated list
+  --start-default MIME Assume the document is of the specified MIME type
+                  if it has no extension
+  --start-mime MIME Use the specified MIME type to open the document
+                  instead of selecting it based on the file extension
+  --start-class NAME Use the specified Windows association to open the document
+                  instead of selecting it based on the file extension
+  --start-verb VERB Perform the specified Windows action on the document
+  --workdir DIRECTORY Change the current directory as specified before
+                  starting the application, but after converting native paths
+                  to Windows paths
+
+Advanced options:
+  --desktop NAME  The Wine desktop to run the command in
+  --dll OVERRIDES Specifies dll overrides
+                  See the Wine documentation for more details
+  --winver VERSION Overrides the default Windows version
+                  See the Wine documentation for more details
+  --no-convert    Don't convert native paths to Windows paths
+  --no-quotes     Don't quote arguments, even if they contain spaces or
+                  special characters
+  --no-update     Don't update or upgrade the bottle
+  --no-lock       Don't lock, update or upgrade the bottle. Must be used with
+                  extreme care
+  --untrusted     The executable or document may come from an untrusted source
+  --no-wait       Exit immediately after the process is started
+  --wait          Wait for the process to exit. This is the default
+  --wait-children Wait for the process and all its children to exit
+  --wait-all      Wait for all Wine processes to exit
+  --display DISPLAY Sets the X display as specified
+  --no-gui        Don't create a dialog if an error occurs
+  --new-console   Create a window for console applications
+  --verbose       Output more information about what is going on
+  --cx-log LOGFILE Sends debugging output to the specified file
+                  This overrides $CX_LOG. If the file name ends with '.z',
+                  '.gz' or '.bz2', the file will be compressed on the fly
+                  with compress, gzip or bzip2 respectively
+  --debugmsg CHANNELS Specifies a list of debugging channels to enable or
+                  disable. This overrides $CX_DEBUGMSG
+                  See the Wine documentation for more details
+  --env ENV       Specifies a list of environment variables to set,
+                  for instance to control VKD3D debug log messages
+
+Any remaining argument is handed off to the Windows application.
+Arguments matching an existing native file are converted to a Windows path
+unless --no-convert is used.

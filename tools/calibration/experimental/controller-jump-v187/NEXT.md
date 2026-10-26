@@ -7,3 +7,5 @@
 5. Ordinary installed application/profile stays unpromoted until full gameplay, contacts/AI and visual comparisons are verified. Goal remains active.
 
 Read-only host inventory also found CrossOver.app and Whisky.app already installed. Investigate whether an isolated, headless compatibility prefix can run the owned original Windows SDK probes without a VM. This route must first reproduce recorded golden controls; do not assume compatibility execution is reference-equivalent or modify existing user bottles.
+
+Confirmed host inventory: CrossOver CLI reports 26.3.0 (build26.3.0.39832) and work/controller-stabilize-v185/native/StabilizeProbeV185.exe exists. The observer hardcodes C:\MotorRock\game-debug and requires original DLL/PDB/SDK dependencies. Create/use only a task-owned compatibility prefix and stage hash-verified files there; existing user bottles remain untouched. No Windows executable has been run through CrossOver in this checkpoint.

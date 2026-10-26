@@ -1,0 +1,49 @@
+{
+  "release_url": "https://github.com/dmitrcher/rrr3d/releases/tag/physics-gamecar-jump-runtime-v189-investigation-2026-10-26",
+  "tag": "physics-gamecar-jump-runtime-v189-investigation-2026-10-26",
+  "source_commit": "aad0dfb3de357b85d455078fc02efaa922e728d8",
+  "archive_bytes": 7559339,
+  "archive_sha256": "1967597dff62d395967247545fc73f47dec4f476799888711ef8ecd6c5e0b691",
+  "download_hash_matches": true,
+  "signatures_verified": true,
+  "report": {
+    "scope": "Bounded experimental jump-method public-observable checks,530 compatibility cases and240 saved native-Windows SDK states per repetition. Not full game/native Windows GameCar acceptance.",
+    "checks": [
+      {
+        "check": "method-and-step",
+        "repeat": 0,
+        "exact": 530,
+        "cases": 530
+      },
+      {
+        "check": "method-and-step",
+        "repeat": 1,
+        "exact": 530,
+        "cases": 530
+      },
+      {
+        "check": "disabled-negative-control",
+        "different": 336,
+        "cases": 530
+      },
+      {
+        "check": "saved-windows-sdk-trajectories",
+        "repeat": 0,
+        "exact": 240,
+        "states": 240
+      },
+      {
+        "check": "saved-windows-sdk-trajectories",
+        "repeat": 1,
+        "exact": 240,
+        "states": 240
+      }
+    ],
+    "vm_started": false,
+    "full_goal_complete": false
+  },
+  "vm_started": false,
+  "full_goal_complete": false,
+  "release_is_prerelease": true,
+  "latest_stable_tag": "physics-wheel-skins-v94-investigation-2026-10-13"
+}

@@ -1,0 +1,73 @@
+{
+  "scope": "Original GameCar stabilization control under CrossOver vs previously recorded Windows. This environment is NOT qualified as a GameCar numerical reference.",
+  "cases": 1440,
+  "exact_physical_cases": 885,
+  "physical_field_counts": {
+    "rotation_after": 160,
+    "rotation_after_step": 246,
+    "omega_after": 537,
+    "momentum_after": 521,
+    "omega_after_step": 537,
+    "momentum_after_step": 531
+  },
+  "initial_mismatches": [],
+  "raw_x87_control_words_identical": true,
+  "first_difference": {
+    "case": 264,
+    "fields": [
+      "rotation_after",
+      "rotation_after_step"
+    ],
+    "first": {
+      "rotation_after": {
+        "windows": [
+          1020957536,
+          1029346145,
+          1034153608,
+          1065269400
+        ],
+        "crossover": [
+          1020957537,
+          1029346146,
+          1034153608,
+          1065269400
+        ]
+      },
+      "rotation_after_step": {
+        "windows": [
+          1020957536,
+          1029346145,
+          1034153608,
+          1065269400
+        ],
+        "crossover": [
+          1020957537,
+          1029346146,
+          1034153608,
+          1065269400
+        ]
+      }
+    }
+  },
+  "all_field_counts": {
+    "checkpoint0": 460,
+    "checkpoint3": 690,
+    "checkpoint4": 240,
+    "checkpoint5": 160,
+    "checkpoint6": 400,
+    "checkpoint7": 160,
+    "checkpoint8": 160,
+    "rotation_after": 160,
+    "rotation_after_step": 246,
+    "omega_after": 537,
+    "momentum_after": 521,
+    "omega_after_step": 537,
+    "momentum_after_step": 531,
+    "checkpoint1": 506,
+    "checkpoint2": 514
+  },
+  "gamecar_reference_qualified": false,
+  "do_not_fit_mac_to_crossover": true,
+  "vm_started": false,
+  "full_goal_complete": false
+}

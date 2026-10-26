@@ -1,0 +1,30 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 2.9241220409749076,
+  "prefix": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+  "output_exists": true,
+  "bytes": 437916,
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\sdk-reference",
+    "--cx-app",
+    "C:\\MotorRock\\sdk-reference\\MotorRock-PhysicsCalibration-v14.exe",
+    "C:\\MotorRock\\sdk-reference\\controls0.jsonl",
+    "list:gravity,game-air-gravity,game-air-pitch"
+  ],
+  "environment": {
+    "WINEPREFIX": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "CX_BOTTLE": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "CX_BOTTLE_PATH": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188",
+    "WINEDEBUG": "-all",
+    "WINEDLLOVERRIDES": "winemenubuilder.exe=d;winedbg.exe=d"
+  },
+  "vm_started": false
+}

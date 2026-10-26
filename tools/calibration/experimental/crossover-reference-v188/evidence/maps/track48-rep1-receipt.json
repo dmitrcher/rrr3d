@@ -1,0 +1,137 @@
+{
+  "track": 48,
+  "repeat": 1,
+  "states": 900,
+  "exact": 0,
+  "first_differences": [
+    {
+      "tick": 0,
+      "fields": [
+        "rotation"
+      ]
+    },
+    {
+      "tick": 1,
+      "fields": [
+        "rotation"
+      ]
+    },
+    {
+      "tick": 2,
+      "fields": [
+        "rotation"
+      ]
+    },
+    {
+      "tick": 3,
+      "fields": [
+        "rotation"
+      ]
+    },
+    {
+      "tick": 4,
+      "fields": [
+        "rotation"
+      ]
+    }
+  ],
+  "field_counts": {
+    "rotation": 900,
+    "velocity": 873,
+    "angular_momentum": 873,
+    "wheels": 872,
+    "position": 768
+  },
+  "metadata_differences": [
+    {
+      "event": "world.original-startup",
+      "actual": {
+        "event": "world.original-startup",
+        "node_ctor_rva": 10214624,
+        "actor_ctor_rva": 9828288,
+        "setrot_rva": 9843952,
+        "setpos_rva": 9843232,
+        "input_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284524
+        ],
+        "public_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284524
+        ],
+        "center": [
+          58.4758415,
+          194.808945,
+          11.7054005
+        ],
+        "center_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284534
+        ]
+      },
+      "windows": {
+        "event": "world.original-startup",
+        "node_ctor_rva": 10214624,
+        "actor_ctor_rva": 9828288,
+        "setrot_rva": 9843952,
+        "setpos_rva": 9843232,
+        "input_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284552
+        ],
+        "public_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284552
+        ],
+        "center": [
+          58.4758415,
+          194.808945,
+          11.7054005
+        ],
+        "center_q": [
+          0,
+          0,
+          0.99994868,
+          -0.0101284562
+        ]
+      }
+    }
+  ],
+  "repeats_identical": true,
+  "returncode": 0,
+  "elapsed_seconds": 5.155345708015375,
+  "reference": "outputs/game-control-wake-v133/native/track48-rep1.jsonl.gz",
+  "reference_sha256": "8de59b83d443d374f365329d5b3bffb1fa55cc72893ebf03ad71171776fd03cf",
+  "capture": "outputs/crossover-reference-v188/maps/track48-rep1.jsonl.gz",
+  "raw_sha256": "b4200490097a16e7e150d9af7e56cb6d8319e2d9344dadaea7242267ae33d90b",
+  "compressed_sha256": "28ece0da93c8c37eeaac5ff4f68311799878141fff1c1ffe0e59fd12e1a0a2c3",
+  "fixture_sha256": "1d22e05654720b008a4f789fdc550be6c0a24f718c59599bfc925235e50149a8",
+  "native_d3dx_loaded": true,
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--dll",
+    "d3dx9_43=n",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\sdk-reference",
+    "--cx-app",
+    "C:\\MotorRock\\sdk-reference\\WorldProbeV133.exe",
+    "C:\\MotorRock\\sdk-reference\\track48.words",
+    "C:\\MotorRock\\sdk-reference\\track48-rep1-v188.jsonl"
+  ]
+}

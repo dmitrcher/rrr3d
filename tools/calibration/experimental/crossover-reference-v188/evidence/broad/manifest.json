@@ -1,0 +1,28 @@
+{
+  "observer_sha256": "e6eb63497a6a0425275cb71e0cc6e12f03e21bd8aa04ecf60baf40c0776502d2",
+  "runs": [
+    {
+      "repeat": 0,
+      "elapsed_seconds": 284.172352374997,
+      "returncode": 0,
+      "uncompressed_bytes": 779691889,
+      "uncompressed_sha256": "c0852177530e8580e7e52566f8189116338e644c78846e716bda3511251243ec",
+      "file": "run0.jsonl.gz"
+    },
+    {
+      "repeat": 1,
+      "elapsed_seconds": 255.20722462498816,
+      "returncode": 0,
+      "uncompressed_bytes": 779691889,
+      "uncompressed_sha256": "bb3bacc2e7557560211a74323c1b8801e5b036159a235b8d0433acd7d31f3796",
+      "file": "run1.jsonl.gz"
+    }
+  ],
+  "environment": {
+    "WINEPREFIX": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "CX_BOTTLE": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "WINEDEBUG": "-all,+loaddll",
+    "WINEDLLOVERRIDES": "winemenubuilder.exe=d;winedbg.exe=d"
+  },
+  "vm_started": false
+}

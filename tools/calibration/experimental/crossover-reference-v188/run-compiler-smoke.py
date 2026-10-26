@@ -1,0 +1,8 @@
+from pathlib import Path
+import hashlib,json,os,shutil,signal,subprocess,time
+R=Path.cwd();W=R/'work/crossover-reference-v188';P=(W/'prefix').resolve();D=P/'drive_c/MotorRock/compiler';exe=D/'compiler-smoke.exe';build=json.loads((W/'compiler-smoke-build.json').read_text());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert build['returncode']==0 and sha(exe)==build['exe_sha256'];shutil.copyfile(W/'owned-observer-native-crt.manifest',D/'compiler-smoke.exe.manifest')
+cmd=['/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine','--bottle',str(P),'--no-gui','--dll','msvcr90,msvcp90,msvcm90=n','--debugmsg','-all,+loaddll','--no-update','--workdir',r'C:\MotorRock\compiler','--cx-app',r'C:\MotorRock\compiler\compiler-smoke.exe'];env=dict(os.environ);env.update(WINEPREFIX=str(P),CX_BOTTLE=str(P));t=time.monotonic()
+p=subprocess.Popen(cmd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True,text=True)
+try:out,err=p.communicate(timeout=30)
+except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGTERM);p.communicate(timeout=10);raise
+(W/'compiler-smoke-execution.log').write_text(out+err);native_release=any('msvcr90.dll' in s.lower() and 'native' in s for s in err.splitlines());r=dict(returncode=p.returncode,stdout=out,native_release_crt_loaded=native_release,exe_sha256=sha(exe),elapsed_seconds=time.monotonic()-t,command=cmd,vm_started=False,scope='Fresh x86 compiler/STL/CRT smoke only, no physics qualification');(W/'compiler-smoke-execution.json').write_text(json.dumps(r,indent=2)+'\n');print(r);assert p.returncode==0 and out.strip()=='MSC_VER=1500 MSC_FULL_VER=150030729 PTR_BYTES=4 VECTOR_SUM=12' and native_release

@@ -1,0 +1,54 @@
+{
+  "checkpoint": "V188",
+  "vm_started": false,
+  "source_physics_changed": false,
+  "full_goal_complete": false,
+  "profiles": [
+    {
+      "name": "known-v14-sdk-matrix",
+      "qualified": true,
+      "cases": 608,
+      "states_per_repeat": 255864,
+      "repeats": 2,
+      "scope": "Only the recorded608 cases, no extrapolation",
+      "report_sha256": "6d7ce66496e6881426625e95d1284ef15a8fe99f6e8f4cc94713e6def90db4ef"
+    },
+    {
+      "name": "v133-map-startup-and-raw-actuators",
+      "qualified": false,
+      "qualified_tracks": [
+        0
+      ],
+      "rejected_tracks": [
+        16,
+        48,
+        64
+      ],
+      "states_per_map_per_repeat": 900,
+      "repeats": 2,
+      "scope": "Original startup/control setter plus SDK replay, not complete GameCar update or rendered race",
+      "report_sha256": "ae4bbde85a02a44ca71e71f9b833edc8f8612083d4609ed6f3b1fb430a1f7ef1"
+    },
+    {
+      "name": "v185-original-stabilize",
+      "qualified": false,
+      "exact_cases": 885,
+      "cases": 1440,
+      "same_incoming_states": true,
+      "scope": "Original method and SDK step. No Mac tuning to the rejected compatibility result.",
+      "report_sha256": "36d4a95c4964f4592409229cfb0a7f61864ccc4263cbdf53802a1b2932e24000"
+    }
+  ],
+  "determinant_replay": {
+    "cases": 1380,
+    "same_cofactors": 1380,
+    "windows_retained_sums_exact": 1380,
+    "cross_rounded_sums_exact": 1380,
+    "report_sha256": "a4f83d28693262ca93bb90a949303bba841ccad719d98f9258db8d5b17da47f8"
+  },
+  "invalidated_intermediate_result": {
+    "incorrect_exact": 1308,
+    "correct_exact": 885,
+    "reason": "Word integers must be compared directly; converting their numeric values to float32 loses low bits. Golden recordings and Source code unchanged."
+  }
+}

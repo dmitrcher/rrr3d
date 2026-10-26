@@ -1,0 +1,24 @@
+{
+  "returncode": 0,
+  "stdout": "MSC_VER=1500 MSC_FULL_VER=150030729 PTR_BYTES=4 VECTOR_SUM=12\n",
+  "native_release_crt_loaded": true,
+  "exe_sha256": "fe9df5212530f415003cd6ee783992140ca780e9758aed3e67bab1c32598c0ed",
+  "elapsed_seconds": 8.69195020798361,
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--dll",
+    "msvcr90,msvcp90,msvcm90=n",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\compiler",
+    "--cx-app",
+    "C:\\MotorRock\\compiler\\compiler-smoke.exe"
+  ],
+  "vm_started": false,
+  "scope": "Fresh x86 compiler/STL/CRT smoke only, no physics qualification"
+}

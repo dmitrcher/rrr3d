@@ -1,0 +1,42 @@
+{
+  "returncode": 0,
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--dll",
+    "msvcr90,msvcp90,msvcm90=n",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\compiler",
+    "--cx-app",
+    "C:\\windows\\system32\\cmd.exe",
+    "/d",
+    "/c",
+    "C:\\MotorRock\\compiler\\build-smoke.cmd"
+  ],
+  "elapsed_seconds": 4.400287292024586,
+  "tool_files": {
+    "cl.exe": "2954bed141f2f283e3109b2187406704a2d5cb6378cb3074f1b09bc5045d65c1",
+    "c1.dll": "1fde3787717585136bac53ff429fa3bddd3172dd3531ab680cc18cee57751743",
+    "c1xx.dll": "93380e0bc9505d70896ec06d973cf6e06e4a4f27ee61f5365df1c83353151a45",
+    "c2.dll": "e3dd31ec4cb066fdf27cea24efc37944bb9d6a2720e6310213217e571f288404",
+    "link.exe": "db188969504987decffb77e15f64f1b7eb94215cea12aa6cd7901510bb21e804",
+    "mspdb80.dll": "7d670ee637290dc122b25e4ccbc86efc601563f23731f3b6d8304e68ea2b0d6a",
+    "mspdbcore.dll": "dcf0632b0fb4cc7219abbb5032a0c7f2e5f807b5e6a5156d499bb9b1273a85b0",
+    "mspdbsrv.exe": "4836c30aea8545d9a35fba49436fb2e5d7ffed00b75d87c1fbd6f0f89b928375",
+    "1033/atlprovui.dll": "efd3aa9b1eafa43820bb27333c6b66fbb8d96602589c8c1f21c9844d99832275",
+    "1033/bscmakeui.dll": "ed0c198219e3f0a9fd30854ccc01d0ab4547bf8bcc6796ccf0925a2ceef04cac",
+    "1033/clui.dll": "6d6663810c965b1bd26629f56e7728d1c727ea4cf1248942f713498f0ca63874",
+    "1033/cvtresui.dll": "40c378c28549929eb617dfd0f269f68cc72c186e70e3cfcb80d0575b9930f753",
+    "1033/linkui.dll": "67b07f9a8f73c289c63db58bd7fa3f4505260a85ed0772ef53a39b3b2803bf38",
+    "1033/nmakeui.dll": "7333df65e58de308cdd06a2839c1a0ab6f02a4baaee9ae9671553c825e673a7c"
+  },
+  "source_sha256": "0402d8fb8ca384a41ef248e1a116d53887966689e12c26259ed27142a726461e",
+  "batch_sha256": "2c8b77b9446cc58376c375db9f1e7ffd1244e91b7cbb5a1f2ee656a02ae3f062",
+  "exe_sha256": "fe9df5212530f415003cd6ee783992140ca780e9758aed3e67bab1c32598c0ed",
+  "vm_started": false
+}

@@ -1,0 +1,45 @@
+{
+  "environment": "CrossOver26.3.0 on Mac arm64, task-owned prefix; original Windows PE observer and PhysXCore DLL",
+  "scope": "Three original SDK trajectory controls; does not establish other scenarios or original GameCar equivalence",
+  "runs": [
+    {
+      "case": "gravity",
+      "repeat": 0,
+      "exact": 120,
+      "first_difference": null
+    },
+    {
+      "case": "game-air-gravity",
+      "repeat": 0,
+      "exact": 120,
+      "first_difference": null
+    },
+    {
+      "case": "game-air-pitch",
+      "repeat": 0,
+      "exact": 120,
+      "first_difference": null
+    },
+    {
+      "case": "gravity",
+      "repeat": 1,
+      "exact": 120,
+      "first_difference": null
+    },
+    {
+      "case": "game-air-gravity",
+      "repeat": 1,
+      "exact": 120,
+      "first_difference": null
+    },
+    {
+      "case": "game-air-pitch",
+      "repeat": 1,
+      "exact": 120,
+      "first_difference": null
+    }
+  ],
+  "repeats_identical": true,
+  "vm_started": false,
+  "full_goal_complete": false
+}

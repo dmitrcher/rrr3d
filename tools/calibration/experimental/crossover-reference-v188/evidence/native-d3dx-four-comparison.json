@@ -1,0 +1,95 @@
+{
+  "cases": 1440,
+  "exact": 885,
+  "initial_differences": [],
+  "first_differences": [
+    {
+      "case": 264,
+      "fields": [
+        "rotation_after",
+        "rotation_after_step"
+      ]
+    },
+    {
+      "case": 265,
+      "fields": [
+        "rotation_after",
+        "rotation_after_step"
+      ]
+    },
+    {
+      "case": 266,
+      "fields": [
+        "rotation_after",
+        "omega_after",
+        "momentum_after",
+        "rotation_after_step",
+        "omega_after_step",
+        "momentum_after_step"
+      ]
+    },
+    {
+      "case": 267,
+      "fields": [
+        "rotation_after",
+        "omega_after",
+        "momentum_after",
+        "rotation_after_step",
+        "omega_after_step",
+        "momentum_after_step"
+      ]
+    },
+    {
+      "case": 268,
+      "fields": [
+        "rotation_after",
+        "rotation_after_step"
+      ]
+    },
+    {
+      "case": 269,
+      "fields": [
+        "rotation_after",
+        "rotation_after_step"
+      ]
+    },
+    {
+      "case": 270,
+      "fields": [
+        "rotation_after",
+        "omega_after",
+        "momentum_after",
+        "rotation_after_step",
+        "omega_after_step",
+        "momentum_after_step"
+      ]
+    },
+    {
+      "case": 271,
+      "fields": [
+        "rotation_after",
+        "omega_after",
+        "momentum_after",
+        "rotation_after_step",
+        "omega_after_step",
+        "momentum_after_step"
+      ]
+    }
+  ],
+  "field_counts": {
+    "rotation_after": 160,
+    "rotation_after_step": 246,
+    "omega_after": 537,
+    "momentum_after": 521,
+    "omega_after_step": 537,
+    "momentum_after_step": 531
+  },
+  "comparison": "Exact integer/uint32 physical words, including signed zero. Checkpoint locals are diagnostic and excluded from physical acceptance.",
+  "capture": "work/crossover-reference-v188/prefix/drive_c/MotorRock/game-debug/native-d3dx-four0.jsonl",
+  "reference": "outputs/controller-stabilize-v185/accepted-native0.jsonl.gz",
+  "source_hashes": {
+    "work/crossover-reference-v188/prefix/drive_c/MotorRock/game-debug/native-d3dx-four0.jsonl": "0db439633260e4b120dd854b28ca09cc5663b9d4add397d591b9f8c9fb8951fc",
+    "outputs/controller-stabilize-v185/accepted-native0.jsonl.gz": "63721cf0c868c902606fdf8c175402962323557b385ccb3e04f54d9d2909215a"
+  },
+  "full_goal_complete": false
+}

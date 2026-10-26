@@ -1,0 +1,100 @@
+{
+  "source_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/vs2008-ro/VCExpress/Ixpvc.exe",
+  "source_sha256": "b9ee9acfbfea0043153788d2c31e172de4ac2465cdbae896e948d1294bbcca16",
+  "embedded_cab_offset": 38400,
+  "embedded_cab_bytes": 61574122,
+  "cab_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Ixpvc-offset38400.cab",
+  "cab_sha256": "5327e5959a47e71fb654fde667f700893bcea223055f5e0233fcbd4c89e2bc33",
+  "inner_cab": {
+    "member": "vs_setup.cab",
+    "bytes": 56565972,
+    "sha256": "fd4b327b2d9008eb97790fcfe88e35bceef821b80530b9010ad3fbfcb7f6f060",
+    "declared_cabinet_bytes": 56556772,
+    "trailing_signature_bytes": 9200
+  },
+  "decompressor": {
+    "path": "/opt/homebrew/bin/cabextract",
+    "version": "1.11",
+    "source": "Homebrew official formula bottle",
+    "bsdtar_failed": "Invalid CAB header with Apple and Homebrew libarchive; cabextract supports original signed LZX cabinet"
+  },
+  "members": [
+    {
+      "member": "manifest.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/manifest.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "bytes": 1865,
+      "sha256": "072d62744c6f48777a619c34a095d1cac4cc8d2f515798962aa94f72cc33607c",
+      "manifest_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<assembly xmlns=\"urn:schemas-microsoft-com:asm.v1\" manifestVersion=\"1.0\">\r\n    <noInheritable></noInheritable>\r\n    <assemblyIdentity type=\"win32\" name=\"Microsoft.VC90.DebugCRT\" version=\"9.0.30729.1\" processorArchitecture=\"x86\" publicKeyToken=\"1fc8b3b9a1e18e3b\"></assemblyIdentity>\r\n    <file name=\"msvcr90d.dll\" hashalg=\"SHA1\" hash=\"77c2dcb12982a6855302844f8803e68ce360fcc9\"><asmv2:hash xmlns:asmv2=\"urn:schemas-microsoft-com:asm.v2\" xmlns:dsig=\"http://www.w3.org/2000/09/xmldsig#\"><dsig:Transforms><dsig:Transform Algorithm=\"urn:schemas-microsoft-com:HashTransforms.Identity\"></dsig:Transform></dsig:Transforms><dsig:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"></dsig:DigestMethod><dsig:DigestValue>WA59/AbhIDaZgmB1cN9MFlDi2g4=</dsig:DigestValue></asmv2:hash></file> <file name=\"msvcp90d.dll\" hashalg=\"SHA1\" hash=\"b2fa2a05ee7e6a2595c16547246753a62e9bf398\"><asmv2:hash xmlns:asmv2=\"urn:schemas-microsoft-com:asm.v2\" xmlns:dsig=\"http://www.w3.org/2000/09/xmldsig#\"><dsig:Transforms><dsig:Transform Algorithm=\"urn:schemas-microsoft-com:HashTransforms.Identity\"></dsig:Transform></dsig:Transforms><dsig:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"></dsig:DigestMethod><dsig:DigestValue>Rxofhw9S95owIW2MDmCg2zStQgs=</dsig:DigestValue></asmv2:hash></file> <file name=\"msvcm90d.dll\" hashalg=\"SHA1\" hash=\"6cfc0c6330724d86db3e2ef295d4e1d75a43514a\"><asmv2:hash xmlns:asmv2=\"urn:schemas-microsoft-com:asm.v2\" xmlns:dsig=\"http://www.w3.org/2000/09/xmldsig#\"><dsig:Transforms><dsig:Transform Algorithm=\"urn:schemas-microsoft-com:HashTransforms.Identity\"></dsig:Transform></dsig:Transforms><dsig:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"></dsig:DigestMethod><dsig:DigestValue>iOxEMZK3fufMDQFuKGZ4VdAYzWY=</dsig:DigestValue></asmv2:hash></file>\r\n</assembly>",
+      "cab_folder_index": 0,
+      "uncompressed_folder_offset": 77898026,
+      "member_bytes": 1865,
+      "private_assembly_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Microsoft.VC90.DebugCRT/Microsoft.VC90.DebugCRT.manifest",
+      "sha1": "4a1c80d513c4a1ab456e85e83f139cbcf6ee31e2"
+    },
+    {
+      "member": "msvcr90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/msvcr90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "bytes": 1180672,
+      "sha256": "7924869bace7a48cb53ed977b1d0c7c9a7a6e90a45051a06382ddb6313ed9b66",
+      "pe_machine": "0x14c",
+      "architecture": "x86",
+      "cab_folder_index": 0,
+      "uncompressed_folder_offset": 140848176,
+      "member_bytes": 1180672,
+      "private_assembly_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Microsoft.VC90.DebugCRT/msvcr90d.dll",
+      "sha1": "580e7dfc06e120369982607570df4c1650e2da0e",
+      "version_strings": [
+        "9.00.30729.1"
+      ]
+    },
+    {
+      "member": "msvcm90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/msvcm90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "bytes": 312832,
+      "sha256": "7f5ee37d8f4098c4113a56d0246701136732a09900db92291f71acf0252a6991",
+      "pe_machine": "0x14c",
+      "architecture": "x86",
+      "cab_folder_index": 0,
+      "uncompressed_folder_offset": 132224224,
+      "member_bytes": 312832,
+      "private_assembly_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Microsoft.VC90.DebugCRT/msvcm90d.dll",
+      "sha1": "88ec443192b77ee7cc0d016e28667855d018cd66",
+      "version_strings": [
+        "9.00.30729.1"
+      ]
+    },
+    {
+      "member": "msvcp90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/msvcp90d.dll.30729.01.Microsoft_VC90_DebugCRT_x86.SP",
+      "bytes": 875520,
+      "sha256": "f88ee6ef6b5d3ea3ff8191eecda19d3b83f53234a4acb9d46bd7378d2cc74d12",
+      "pe_machine": "0x14c",
+      "architecture": "x86",
+      "cab_folder_index": 0,
+      "uncompressed_folder_offset": 135918038,
+      "member_bytes": 875520,
+      "private_assembly_path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Microsoft.VC90.DebugCRT/msvcp90d.dll",
+      "sha1": "471a1f870f52f79a30216d8c0e60a0db34ad420b",
+      "version_strings": [
+        "9.00.30729.1"
+      ]
+    }
+  ],
+  "scope": "Extracted from already-owned mounted VS2008 Express SP1 installer; no Windows code executed; no bottles/prefix modified; no private CRT substitution.",
+  "private_assembly": {
+    "path": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/installer-crt/Microsoft.VC90.DebugCRT",
+    "name": "Microsoft.VC90.DebugCRT",
+    "version": "9.0.30729.1",
+    "architecture": "x86",
+    "public_key_token": "1fc8b3b9a1e18e3b",
+    "scope": "Unmodified owned DLL bytes copied under authentic manifest filenames; private assembly not installed into a prefix."
+  },
+  "owned_mounts_created": [],
+  "discarded_failed_derivative": {
+    "filename": "vs_setup-unsigned.cab",
+    "operation": "truncated to declared cbCabinet to investigate bsdtar failure",
+    "bytes": 56556772,
+    "sha256": "1a256dc1da2b53070eb27e23d62fc4e96ea9e9c3db4d83c9609a08086f0b5db0",
+    "result": "bsdtar still rejected header; deleted this generated redundant derivative to save disk"
+  }
+}

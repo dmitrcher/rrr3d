@@ -1,0 +1,56 @@
+{
+  "scope": "Disable live-code observation by redirecting owned observer points to PE padding.\nOriginal game/SDK files and original observer stay unchanged. Embedded source stamp\nis historical; this derived executable is identified by the patch receipt instead.",
+  "original_observer_sha256": "81e3e86b0c65ca41d847a73ae880dc8c66d31b5ffb182e4743e9e25d93bce0dd",
+  "derived_observer_sha256": "5e170906486434c05f8e23e7003d8e31c4af3929bc5203dfb74399627bf70efd",
+  "game_sha256": "4483e8f402edb5c4639609dcf3fd805386e80f1d25b1c4829a8236b40a6b8a15",
+  "observer_instruction_immediate_offsets": [
+    5559,
+    5567,
+    5575,
+    5583,
+    5591,
+    5599,
+    5607,
+    5615,
+    5623
+  ],
+  "validated_instruction": "mov dword ptr [esp+disp8], imm32",
+  "old_rvas": [
+    4818042,
+    4818070,
+    4819348,
+    4892693,
+    4819030,
+    4819292,
+    9755914,
+    9751621,
+    9751687
+  ],
+  "padding_rvas": [
+    13331364,
+    13331365,
+    13331366,
+    13331367,
+    13331368,
+    13331369,
+    13331370,
+    13331371,
+    13331372
+  ],
+  "padding_file_bytes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "outside_original_text_virtual_size": true,
+  "original_game_disk_unchanged": true,
+  "original_observer_unchanged": true,
+  "no_live_code_breakpoints": true,
+  "embedded_build_identity_is_historical": true
+}

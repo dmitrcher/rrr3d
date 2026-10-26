@@ -1,0 +1,30 @@
+{
+  "returncode": 0,
+  "elapsed_seconds": 16.609007374965586,
+  "command": [
+    "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wine",
+    "--bottle",
+    "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "--no-gui",
+    "--dll",
+    "msvcr90,msvcp90,msvcm90=n",
+    "--debugmsg",
+    "-all,+loaddll",
+    "--no-update",
+    "--workdir",
+    "C:\\MotorRock\\game-debug",
+    "--cx-app",
+    "C:\\MotorRock\\game-debug\\StabilizeProbeV185Pc53Control.exe",
+    "C:\\MotorRock\\game-debug\\pc53-box0.jsonl",
+    "box-only"
+  ],
+  "environment": {
+    "WINEPREFIX": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "CX_BOTTLE": "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/crossover-reference-v188/prefix",
+    "WINEDEBUG": "-all,+loaddll",
+    "WINEDLLOVERRIDES": "winemenubuilder.exe=d;winedbg.exe=d;msvcr90d,msvcp90d,msvcm90d,msvcr90,msvcp90,msvcm90=n"
+  },
+  "output_exists": true,
+  "bytes": 2480016,
+  "vm_started": false
+}

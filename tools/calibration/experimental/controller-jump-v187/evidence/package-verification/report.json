@@ -1,0 +1,40 @@
+{
+  "scope": "V187 experimental Mac arm64 diagnostic: three recorded SDK total-acceleration trajectories, Source-derived command gates and Jolt acceleration lifetime. No native GameCar JumpProgress runtime observation, no full-game parity claim.",
+  "sdk_trajectory_runs": [
+    {
+      "case": "gravity",
+      "repeat": 0,
+      "exact_states": 120
+    },
+    {
+      "case": "gravity",
+      "repeat": 1,
+      "exact_states": 120
+    },
+    {
+      "case": "game-air-gravity",
+      "repeat": 0,
+      "exact_states": 120
+    },
+    {
+      "case": "game-air-gravity",
+      "repeat": 1,
+      "exact_states": 120
+    },
+    {
+      "case": "game-air-pitch",
+      "repeat": 0,
+      "exact_states": 120
+    },
+    {
+      "case": "game-air-pitch",
+      "repeat": 1,
+      "exact_states": 120
+    }
+  ],
+  "source_gate_cases": 360,
+  "acceleration_lifetime_masses": 7,
+  "repeats_identical": true,
+  "native_gamecar_runtime_observed": false,
+  "full_goal_complete": false
+}

@@ -1,0 +1,9 @@
+off 0 0 /120
+off 1 0 /120
+on 0 0 /120
+on 1 0 /120
+Traceback (most recent call last):
+  File "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-jump-v187/run-gravity.py", line 50, in <module>
+    assert all(r['exact'] == 120 for r in reports if r['mode'] == 'on'), 'Fixed JumpProgress acceleration not reproduced'
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Fixed JumpProgress acceleration not reproduced

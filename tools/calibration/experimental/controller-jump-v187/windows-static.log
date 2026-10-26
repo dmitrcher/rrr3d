@@ -1,0 +1,31 @@
+{
+  "evidence_type": "ordinary local PE/PDB parsing and LLVM disassembly; not REA Evidence or runtime observation",
+  "dll_sha256": "4483e8f402edb5c4639609dcf3fd805386e80f1d25b1c4829a8236b40a6b8a15",
+  "pdb_sha256": "818ba6d6386ef6c4c925d16b9edf2403f05f78385e36565df493c7173432770c",
+  "codeview_guid": "1b5384e937b13646a04c47045db396a4",
+  "pdb_age": 6,
+  "identity_matches": true,
+  "symbol": "?JumpProgress@GameCar@game@r3d@@AAEXM@Z",
+  "public_symbol": {
+    "stream": 8,
+    "kind": 4366,
+    "flags": 2,
+    "offset": 475408,
+    "segment": 2
+  },
+  "address": "0x10498110",
+  "rva": "0x498110",
+  "file_offset": 476432,
+  "method_bytes_sha256": "985aca6d6dc224bdc9a8c9edc206481b001935213b3e889f31f8f7d169839996",
+  "source_semantics": [
+    "spring timer decremented before contact gate",
+    "fixed Scene::cDefGravity with NX_ACCELERATION mode5 and wakeup=true",
+    "pitch needs speed>1, nonzero flyYTorque and post-decrement spring time==0"
+  ],
+  "limitations": [
+    "source semantics corroborated by bounded decoded instructions, not a live Windows call",
+    "global cDefGravity initialization/value is established from original Physx.cpp source, not a captured runtime memory read",
+    "Ghidra default analysis timed out after 300s; no function Evidence was returned; session closed"
+  ],
+  "vm_started": false
+}

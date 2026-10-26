@@ -1,0 +1,6 @@
+failures [{'wake_tick': 24, 'pending_before': True, 'inactive_before': False, 'awake_after': False, 'vz_word': 0, 'exact': False}] pending boundaries [24] inactive cases [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+Traceback (most recent call last):
+  File "/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/controller-jump-v187/run-wake.py", line 33, in <module>
+    assert not report['failures'],'Jump acceleration lost at sleep/wake boundary'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Jump acceleration lost at sleep/wake boundary

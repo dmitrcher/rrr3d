@@ -1,0 +1,41 @@
+{
+  "overlay": [
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/header/physics/OriginalVehiclePhysics.h",
+      "before_sha256": "70b77b0c429fe504b7b762fc17e6e38d03df7132dd256f47dc5a9d5df7c263bc",
+      "after_sha256": "082e8c6b2d06c9baac84faf9c740a596589df5847462e6d2093af7f367bd43ca"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dGame/source/stub/OriginalRaceSession.cpp",
+      "before_sha256": "0d9da7519aaabc6d9ec45ebdb9ceff3dffe17165e78ce78d887e98ed570a95ee",
+      "after_sha256": "0ca9ed019b060a4dc7b485eb20348b1af78570352c4c2e4a4897194ef5d6f6b4"
+    },
+    {
+      "group": "source",
+      "path": "src/Rock3dEngine/source/physics/JoltVehiclePhysics.cpp",
+      "before_sha256": "5b4af4c1b2d47aed112442efa7707897a23b6e4579c090ea6a21a969605c3682",
+      "after_sha256": "953ed197670db640b8d5727a66084d71269c215309031dadb713f6502d48c8c3"
+    },
+    {
+      "group": "sdk",
+      "path": "Jolt/Physics/Body/MotionProperties.h",
+      "before_sha256": "cd0969279954baca101c1420f64a5afd743cacfe34587dd9fa4d88c8be215fd3",
+      "after_sha256": "8e5e5952d66e97c10b45d504d57423a9778dc0e370819b37d6231d7c80e4da4e"
+    },
+    {
+      "group": "sdk",
+      "path": "Jolt/Physics/Body/MotionProperties.inl",
+      "before_sha256": "81fc40006865680de6e8dcf04b03a01f547d253a0cff5cffbfd18b9f21d3207a",
+      "after_sha256": "bddbe7aa0be2535b0d9e60e9bec326c16905e535cbda7e0539606a323f9a87b3"
+    },
+    {
+      "group": "sdk",
+      "path": "Jolt/Physics/Body/MotionProperties.cpp",
+      "before_sha256": "9f16b5c16d74adcbb732b7d9829a37336ead0cda1399c2226890f01d80e0adb8",
+      "after_sha256": "043b23788347a794a8a6aaaf0f8cdb931e3f712a132e60fd6f64aab33fb7a35a"
+    }
+  ],
+  "app_sha256": "4be4a86977ba9d9be26ebbddbab5c917b14a3846e082493aae55523c24b949d6"
+}

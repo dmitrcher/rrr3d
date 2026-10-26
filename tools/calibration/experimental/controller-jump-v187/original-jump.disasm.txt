@@ -1,0 +1,132 @@
+
+/Users/dmitrijcerednicenko/Documents/Codex/2026-10-10/motorock-mac-github-windows-mac-mac/work/package/MotorRock-Windows-Debug/Rock3dGame.dll:	file format coff-i386
+
+Disassembly of section .text:
+
+104316c9 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z>:
+10498110: 55                           	pushl	%ebp
+10498111: 8b ec                        	movl	%esp, %ebp
+10498113: 81 ec 2c 01 00 00            	subl	$0x12c, %esp            # imm = 0x12C
+10498119: 53                           	pushl	%ebx
+1049811a: 56                           	pushl	%esi
+1049811b: 57                           	pushl	%edi
+1049811c: 51                           	pushl	%ecx
+1049811d: 8d bd d4 fe ff ff            	leal	-0x12c(%ebp), %edi
+10498123: b9 4b 00 00 00               	movl	$0x4b, %ecx
+10498128: b8 cc cc cc cc               	movl	$0xcccccccc, %eax       # imm = 0xCCCCCCCC
+1049812d: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+1049812f: 59                           	popl	%ecx
+10498130: 89 4d f8                     	movl	%ecx, -0x8(%ebp)
+10498133: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+10498136: e8 c5 6d f9 ff               	calll	0x1042ef00 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x516d>
+1049813b: 8b c8                        	movl	%eax, %ecx
+1049813d: e8 6c f1 f9 ff               	calll	0x104372ae <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x5be5>
+10498142: 89 45 ec                     	movl	%eax, -0x14(%ebp)
+10498145: d9 ee                        	fldz
+10498147: d9 9d d8 fe ff ff            	fstps	-0x128(%ebp)
+1049814d: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498150: d9 80 d8 01 00 00            	flds	0x1d8(%eax)
+10498156: d8 65 08                     	fsubs	0x8(%ebp)
+10498159: d9 9d e4 fe ff ff            	fstps	-0x11c(%ebp)
+1049815f: 8d 8d d8 fe ff ff            	leal	-0x128(%ebp), %ecx
+10498165: 51                           	pushl	%ecx
+10498166: 8d 95 e4 fe ff ff            	leal	-0x11c(%ebp), %edx
+1049816c: 52                           	pushl	%edx
+1049816d: e8 c0 c3 f8 ff               	calll	0x10424532 <.text+0x532>
+10498172: 83 c4 08                     	addl	$0x8, %esp
+10498175: 8b 4d f8                     	movl	-0x8(%ebp), %ecx
+10498178: d9 00                        	flds	(%eax)
+1049817a: d9 99 d8 01 00 00            	fstps	0x1d8(%ecx)
+10498180: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498183: 0f b6 88 60 02 00 00         	movzbl	0x260(%eax), %ecx
+1049818a: 85 c9                        	testl	%ecx, %ecx
+1049818c: 0f 85 dd 00 00 00            	jne	0x1049826f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ba6>
+10498192: 8b f4                        	movl	%esp, %esi
+10498194: 6a 01                        	pushl	$0x1
+10498196: 6a 05                        	pushl	$0x5
+10498198: 68 c0 9c e5 10               	pushl	$0x10e59cc0             # imm = 0x10E59CC0
+1049819d: 51                           	pushl	%ecx
+1049819e: d9 e8                        	fld1
+104981a0: d9 1c 24                     	fstps	(%esp)
+104981a3: 8d 85 f0 fe ff ff            	leal	-0x110(%ebp), %eax
+104981a9: 50                           	pushl	%eax
+104981aa: e8 3a e4 f8 ff               	calll	0x104265e9 <?ReleaseWorld@r3d@@YAXPAVIWorld@game@1@@Z+0x19f0>
+104981af: 83 c4 0c                     	addl	$0xc, %esp
+104981b2: 50                           	pushl	%eax
+104981b3: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104981b6: 8b 11                        	movl	(%ecx), %edx
+104981b8: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104981bb: 8b 82 20 01 00 00            	movl	0x120(%edx), %eax
+104981c1: ff d0                        	calll	*%eax
+104981c3: 3b f4                        	cmpl	%esp, %esi
+104981c5: e8 75 af fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104981ca: 8b f4                        	movl	%esp, %esi
+104981cc: 8d 45 d8                     	leal	-0x28(%ebp), %eax
+104981cf: 50                           	pushl	%eax
+104981d0: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104981d3: 8b 11                        	movl	(%ecx), %edx
+104981d5: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+104981d8: 8b 82 e8 00 00 00            	movl	0xe8(%edx), %eax
+104981de: ff d0                        	calll	*%eax
+104981e0: 3b f4                        	cmpl	%esp, %esi
+104981e2: e8 58 af fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+104981e7: d9 ee                        	fldz
+104981e9: d9 5d e0                     	fstps	-0x20(%ebp)
+104981ec: 8d 4d d8                     	leal	-0x28(%ebp), %ecx
+104981ef: e8 24 9f fa ff               	calll	0x10442118 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x10a4f>
+104981f4: dc 1d 98 9e cb 10            	fcompl	0x10cb9e98
+104981fa: df e0                        	fnstsw	%ax
+104981fc: f6 c4 41                     	testb	$0x41, %ah
+104981ff: 75 6e                        	jne	0x1049826f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ba6>
+10498201: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+10498204: d9 80 2c 02 00 00            	flds	0x22c(%eax)
+1049820a: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498210: df e0                        	fnstsw	%ax
+10498212: f6 c4 44                     	testb	$0x44, %ah
+10498215: 7b 58                        	jnp	0x1049826f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ba6>
+10498217: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+1049821a: d9 80 d8 01 00 00            	flds	0x1d8(%eax)
+10498220: dc 1d d8 9a cb 10            	fcompl	0x10cb9ad8
+10498226: df e0                        	fnstsw	%ax
+10498228: f6 c4 44                     	testb	$0x44, %ah
+1049822b: 7a 42                        	jp	0x1049826f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x66ba6>
+1049822d: 8b f4                        	movl	%esp, %esi
+1049822f: 6a 01                        	pushl	$0x1
+10498231: 6a 05                        	pushl	$0x5
+10498233: 51                           	pushl	%ecx
+10498234: d9 ee                        	fldz
+10498236: d9 1c 24                     	fstps	(%esp)
+10498239: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+1049823c: 51                           	pushl	%ecx
+1049823d: d9 80 2c 02 00 00            	flds	0x22c(%eax)
+10498243: d9 1c 24                     	fstps	(%esp)
+10498246: 51                           	pushl	%ecx
+10498247: d9 ee                        	fldz
+10498249: d9 1c 24                     	fstps	(%esp)
+1049824c: 8d 8d 04 ff ff ff            	leal	-0xfc(%ebp), %ecx
+10498252: e8 ac 82 f9 ff               	calll	0x10430503 <??4_Init_locks@std@@QAEAAV01@ABV01@@Z+0x6770>
+10498257: 50                           	pushl	%eax
+10498258: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+1049825b: 8b 11                        	movl	(%ecx), %edx
+1049825d: 8b 4d ec                     	movl	-0x14(%ebp), %ecx
+10498260: 8b 82 2c 01 00 00            	movl	0x12c(%edx), %eax
+10498266: ff d0                        	calll	*%eax
+10498268: 3b f4                        	cmpl	%esp, %esi
+1049826a: e8 d0 ae fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+1049826f: 52                           	pushl	%edx
+10498270: 8b cd                        	movl	%ebp, %ecx
+10498272: 50                           	pushl	%eax
+10498273: 8d 15 98 82 49 10            	leal	0x10498298, %edx
+10498279: e8 fb c5 f9 ff               	calll	0x10434879 <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x31b0>
+1049827e: 58                           	popl	%eax
+1049827f: 5a                           	popl	%edx
+10498280: 5f                           	popl	%edi
+10498281: 5e                           	popl	%esi
+10498282: 5b                           	popl	%ebx
+10498283: 81 c4 2c 01 00 00            	addl	$0x12c, %esp            # imm = 0x12C
+10498289: 3b ec                        	cmpl	%esp, %ebp
+1049828b: e8 af ae fa ff               	calll	0x1044313f <?CreateWorld@r3d@@YAPAVIWorld@game@1@ABUDesc@IView@31@_N@Z+0x11a76>
+10498290: 8b e5                        	movl	%ebp, %esp
+10498292: 5d                           	popl	%ebp
+10498293: c2 04 00                     	retl	$0x4
+10498296: 8b ff                        	movl	%edi, %edi

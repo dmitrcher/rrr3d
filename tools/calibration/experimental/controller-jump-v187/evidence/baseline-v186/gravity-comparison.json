@@ -1,0 +1,745 @@
+{
+  "scope": "Bounded total-acceleration equivalence, not native GameCar runtime observation.\n\nRecorded SDK scene gravity=-20 is compared to Source GameCar JumpProgress's\nfixed extra acceleration=-20 in a zero-gravity Mac scene. All body, wheel and\ntime inputs match. Source semantics establish the intended command; recorded\nSDK states independently establish the target total-acceleration trajectory.",
+  "native_gamecar_jump_runtime_observed": false,
+  "raw_api_route_equivalence_proven": false,
+  "runs": [
+    {
+      "mode": "off",
+      "repeat": 0,
+      "exact": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          "position",
+          "velocity"
+        ],
+        "windows": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            99.9944458
+          ],
+          "velocity": [
+            0,
+            0,
+            -0.333333343
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        },
+        "mac": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            100
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mode": "off",
+      "repeat": 1,
+      "exact": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          "position",
+          "velocity"
+        ],
+        "windows": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            99.9944458
+          ],
+          "velocity": [
+            0,
+            0,
+            -0.333333343
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        },
+        "mac": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            100
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mode": "on",
+      "repeat": 0,
+      "exact": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          "position",
+          "velocity"
+        ],
+        "windows": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            99.9944458
+          ],
+          "velocity": [
+            0,
+            0,
+            -0.333333343
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        },
+        "mac": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            100
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mode": "on",
+      "repeat": 1,
+      "exact": 0,
+      "first_difference": {
+        "tick": 0,
+        "fields": [
+          "position",
+          "velocity"
+        ],
+        "windows": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            99.9944458
+          ],
+          "velocity": [
+            0,
+            0,
+            -0.333333343
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        },
+        "mac": {
+          "tick": 0,
+          "time": 0.0166666667,
+          "command": {
+            "acceleration": [
+              0,
+              0,
+              0
+            ],
+            "delta_velocity": [
+              0,
+              0,
+              0
+            ],
+            "wheel_torque": 0,
+            "brake_torque": 0,
+            "steer_radians": 0
+          },
+          "position": [
+            0,
+            0,
+            100
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "angular_momentum": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "wheels": [
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            },
+            {
+              "angular_speed": 0,
+              "height": 0,
+              "contact": false,
+              "engine_longitudinal_slip": 0,
+              "engine_lateral_slip": 0,
+              "suspension_length": 0,
+              "engine_normal_force": 0,
+              "longitudinal_impulse": 0,
+              "lateral_impulse": 0
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "probe_sha256": "604c5507b3175cbafc957ea7a51fed42ad9a568a03c80b64c349ef3cdc2a7d35",
+  "goal_complete": false
+}
